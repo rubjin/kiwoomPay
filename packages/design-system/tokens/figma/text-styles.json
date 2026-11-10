@@ -1,0 +1,630 @@
+{
+  "metadata": {
+    "source": "Figma local Text Styles",
+    "fileKey": "g5pdId8AUJIFtdOo2ecXoa",
+    "fileName": "KWP 2.0_Design System_내부관리자",
+    "exportedOn": "2026-11-10",
+    "styleCount": 29,
+    "units": {
+      "fontSize": "px",
+      "paragraphSpacing": "px",
+      "paragraphIndent": "px"
+    },
+    "notes": [
+      "Values extracted from registered Figma local Text Styles; excludes text nodes without a registered style.",
+      "Figma fractional float noise in percent line heights was normalized to 140, 145, and 150.",
+      "fontWeight numeric values are mapped from the registered Pretendard font style name for developer convenience."
+    ]
+  },
+  "textStyles": [
+    {
+      "name": "Typo / 24 / Bold",
+      "figmaStyleId": "S:403585da7e65903879a26bcb43e61d0b17963399,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 24,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "페이지 최상위 제목"
+    },
+    {
+      "name": "Typo / 20 / Bold",
+      "figmaStyleId": "S:d2408e37617b966bc266f496a00d0aa34ba48733,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 20,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "팝업 제목, 주요 수치"
+    },
+    {
+      "name": "Typo / 18 / SemiBold",
+      "figmaStyleId": "S:bc98c3add35d477a0026abd1c61e37485988d118,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "섹션 제목, 주요 카드 제목"
+    },
+    {
+      "name": "Typo / 16 / SemiBold",
+      "figmaStyleId": "S:26e127e9e48b4733fae6e410e9b23c95a126825b,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "하위 영역 제목, 강조 텍스트"
+    },
+    {
+      "name": "Typo / 14 / Regular",
+      "figmaStyleId": "S:f8893d285e59ed7d1463291875e1a3f46e11906d,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "본문, 테이블 데이터, 입력값"
+    },
+    {
+      "name": "Typo / 13 / Medium",
+      "figmaStyleId": "S:95a905c8e6e71111e5c8b6ebff3a4d0ba7453480,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "버튼, 탭, 메뉴"
+    },
+    {
+      "name": "Typo / 12 / Regular",
+      "figmaStyleId": "S:14396bc68663712a94d11024726ad8291ee58b2e,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "도움말, 캡션, 메타 정보"
+    },
+    {
+      "name": "Typo / 12 / Medium",
+      "figmaStyleId": "S:a8f665774abd41ea7c103ee5fd669503c0cd5a3e,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "소형 UI 텍스트"
+    },
+    {
+      "name": "Typo / 12 / SemiBold",
+      "figmaStyleId": "S:5a12adf639d9d256d91ca210a053837b992c769f,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "소형 강조 텍스트"
+    },
+    {
+      "name": "Typo / 13 / Regular",
+      "figmaStyleId": "S:c735c53c80f52f714bd0e157b1b1e324f9bdd2ee,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 13 / SemiBold",
+      "figmaStyleId": "S:2ace51bfca86f96e2b58a8cb257a888e8196f986,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "선택 상태, 강조 텍스트"
+    },
+    {
+      "name": "Typo / 14 / Medium",
+      "figmaStyleId": "S:bebf5db95dbe44c184afa3acdd32175dd533c798,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 14 / SemiBold",
+      "figmaStyleId": "S:88f34920ff42a73d8cb039e01eb7a1fce18ab281,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 14 / Bold",
+      "figmaStyleId": "S:93c3bd7bf5a2eb5a202db75a7056837cf624aa04,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 16 / Regular",
+      "figmaStyleId": "S:ae3feb02d9759d47843f951bb2c8f678173b70f3,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 16 / Medium",
+      "figmaStyleId": "S:d45a1219697b3d11021be45548a40d2efb2d68f0,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 16 / Bold",
+      "figmaStyleId": "S:5075ad319441a56b78191d2c0f9f9391af4ab01b,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 18 / Regular",
+      "figmaStyleId": "S:27b3b9881e7fe2b20be54eacb39c7ca82ff4cbef,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 18 / Medium",
+      "figmaStyleId": "S:32c73270866bd032c2609b0ccfaf587eeee06bc3,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 18 / Bold",
+      "figmaStyleId": "S:fcd3031a4fea21caae9e6f3402df9ac0f5c99e23,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 145
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 20 / Medium",
+      "figmaStyleId": "S:a8e4c6e4d97a188ab61e96f1564014d029fcbf65,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 20,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 20 / SemiBold",
+      "figmaStyleId": "S:30e5ac00153ccff5e4151cc4ce9610ecbc8bd608,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 20,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 24 / SemiBold",
+      "figmaStyleId": "S:e7d238b7f1efc8333e572eb1c6a76b2d74b1d675,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "SemiBold",
+      "fontWeight": 600,
+      "fontSize": 24,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 140
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": ""
+    },
+    {
+      "name": "Typo / 13 / Bold",
+      "figmaStyleId": "S:429ad11105676bb318c49487baea93643c188fb4,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "Field Label"
+    },
+    {
+      "name": "Typo / 12 / Bold",
+      "figmaStyleId": "S:3c556caa0a3f6ea1b07a9eabc0756ab577306e47,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "Required 표시, 소형 강조"
+    },
+    {
+      "name": "Typo / 11 / Medium",
+      "figmaStyleId": "S:4b9f143840d15879c92310a9920f738d7aba4fac,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "LNB 3Depth 기본"
+    },
+    {
+      "name": "Typo / 11 / Bold",
+      "figmaStyleId": "S:8b3c63e2c07761ec2d92f69749471e31eb863c26,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "LNB 3Depth 선택"
+    },
+    {
+      "name": "Typo / 10 / Medium",
+      "figmaStyleId": "S:8bbf7ecfa74d43eaa00d3de4149063b8ef8ae6b1,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Medium",
+      "fontWeight": 500,
+      "fontSize": 10,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "LNB 즐겨찾기 강조 정보"
+    },
+    {
+      "name": "Typo / 10 / Regular",
+      "figmaStyleId": "S:ea1ee1d1da1e997fd489fdc136dde55de2c1965e,",
+      "fontFamily": "Pretendard",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 10,
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 150
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "paragraphSpacing": 0,
+      "paragraphIndent": 0,
+      "description": "LNB 즐겨찾기 보조 정보"
+    }
+  ]
+}
