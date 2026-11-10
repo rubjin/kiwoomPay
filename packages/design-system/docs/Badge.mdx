@@ -1,0 +1,272 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from '../src/components/Badge/Badge.stories';
+
+<Meta title="Components/Badge/Guide" />
+
+# Badge
+
+상태 · 속성 · 분류를 짧게 표시하는 Text Badge와, 건수를 보여주는 Number Badge, 신규 표시용 Dot Badge가 있습니다.
+
+```tsx
+import { Badge, NumberBadge, DotBadge } from '@kiwoompay/design-system';
+
+<Badge tone="success" dot>정상</Badge>          {/* 상태 */}
+<Badge tone="primary" appearance="line">주요</Badge> {/* 속성·분류 */}
+<NumberBadge count={unread} />                  {/* 건수 (99+) */}
+<DotBadge aria-label="새 기능" />                {/* 신규 기능·메뉴 */}
+```
+
+<Canvas of={BadgeStories.Playground} />
+<Controls of={BadgeStories.Playground} />
+
+## 1. Type
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>컴포넌트</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text</td>
+      <td>
+        <code>Badge</code>
+      </td>
+      <td>상태 · 속성 · 분류</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>
+        <code>NumberBadge</code>
+      </td>
+      <td>알림 · 미처리 건수</td>
+    </tr>
+    <tr>
+      <td>Dot</td>
+      <td>
+        <code>DotBadge</code>
+      </td>
+      <td>신규 기능 · 메뉴 업데이트 (New Indicator)</td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={BadgeStories.Types} />
+
+## 2. Text Badge
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>appearance</code>
+      </td>
+      <td>
+        <code>soft</code>(기본): 기본 상태 표현 · <code>line</code>: 속성 · 분류 보조
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>md</code> H24 · 13px Medium · 좌우 10 · 점 간격 6 / <code>sm</code> H20 · 12px Medium
+        · 좌우 8 · 점 간격 4
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>dot</code>
+      </td>
+      <td>Status Dot (6 × 6). 기본 숨김. Status: Show / Hide · Category: Hide</td>
+    </tr>
+  </tbody>
+</table>
+
+- Status Dot은 기본 숨김입니다. 상태 비교가 중요한 목록 · 모니터링 영역에서만 켜고, 분류 · 속성(Category / Attribute)은 숨김을 유지합니다.
+- 긴 글자는 말줄임 처리됩니다.
+
+<Canvas of={BadgeStories.TextBadge} />
+
+## 3. Tone
+
+KWP Color Guide의 Status 의미 체계를 그대로 씁니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>tone</th>
+      <th>의미</th>
+      <th>Soft (배경 / 글자 / 점)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>neutral</code>
+      </td>
+      <td>일반 · 분류</td>
+      <td>Neutral 100 / Neutral 700 / —</td>
+    </tr>
+    <tr>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>주요 · 속성</td>
+      <td>Primary 50 / Primary 500 / Primary 500</td>
+    </tr>
+    <tr>
+      <td>
+        <code>info</code>
+      </td>
+      <td>처리중</td>
+      <td>Status Info: Background / Text / Border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>success</code>
+      </td>
+      <td>정상</td>
+      <td>Status Success: Background / Text / Border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>warning</code>
+      </td>
+      <td>확인필요</td>
+      <td>Status Warning: Background / Text / Border</td>
+    </tr>
+    <tr>
+      <td>
+        <code>error</code>
+      </td>
+      <td>고위험</td>
+      <td>Status Error: Background / Text / Border</td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={BadgeStories.Tones} />
+
+## 4. Number & Dot
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>tone</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Number</td>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>일반 알림 건수</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>
+        <code>error</code>
+      </td>
+      <td>긴급 · 위험 건수</td>
+    </tr>
+    <tr>
+      <td>Dot</td>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>신규 기능 · 메뉴</td>
+    </tr>
+  </tbody>
+</table>
+
+- Number는 높이 20 · 원형(한 자리) / 알약형(두 자리 이상)이고, `max`(기본 99)를 넘으면 `99+`로 표시합니다. 0이면 숨깁니다(`showZero`로 표시).
+- 독립 Dot Badge는 신규 기능 · 메뉴 업데이트 표시용이며, 상태 Badge 안의 Status Dot과 구분합니다.
+
+<Canvas of={BadgeStories.NumberAndDot} />
+
+## 5. Usage
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Status</td>
+      <td>Status tone (info · success · warning · error) · Dot 선택</td>
+    </tr>
+    <tr>
+      <td>Category</td>
+      <td>neutral / primary · Dot Hide</td>
+    </tr>
+    <tr>
+      <td>New</td>
+      <td>
+        독립 <code>DotBadge</code> 사용
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+**StatusDot 선택 기준 · 기본 Hide / 필요 시 Show**
+
+- 기본 상태 · Hide: 계정 · 로그인 상태 등 단독 상태 표시
+- 상태 비교 · Show: 여러 상태를 비교하는 목록 · 모니터링
+- 분류 · 속성 · Hide: 카테고리 및 속성값은 Dot 없이 표시
+
+<Canvas of={BadgeStories.StatusDotUsage} />
+
+동일 화면 · 정보 그룹에서는 Dot 노출 기준을 일관되게 적용합니다. 상태의 의미와 중요도는 Dot이 아니라 **레이블과 Tone**으로 구분합니다.
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>상태는 Status tone, 분류는 neutral · primary로 표시한다</td>
+      <td>분류값에 success · error 색을 써서 상태처럼 보이게 한다</td>
+    </tr>
+    <tr>
+      <td>한 목록 안에서는 Dot 노출 여부를 통일한다</td>
+      <td>같은 열에서 어떤 행은 Dot, 어떤 행은 Dot 없이 둔다</td>
+    </tr>
+    <tr>
+      <td>
+        신규 표시는 <code>DotBadge</code>를 쓴다
+      </td>
+      <td>신규 표시를 위해 빈 Text Badge에 dot만 켠다</td>
+    </tr>
+    <tr>
+      <td>긴급 건수만 Number error를 쓴다</td>
+      <td>모든 건수를 빨간색으로 표시한다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- `badge/*` (`tokens/custom/badge.json`): 높이 · 여백 · 점 · 색(모두 Figma 색 alias)
+- 글자: 역할 이름 `badge-md`(13 Medium) · `badge-sm`(12 Medium) · `badge-number`
+- 시안에 없어 **임시 값(TODO)** 인 것: Neutral 상태 점 색, Primary 외 tone의 Line 테두리 색, Number 두 자리 이상 좌우 여백 · 글자

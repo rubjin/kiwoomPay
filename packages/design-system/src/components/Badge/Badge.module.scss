@@ -1,0 +1,103 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// tone별 색 토큰: --kp-color-badge-{tone}-{bg|text|dot|border}  (tokens/custom/badge.json)
+$tones: neutral, primary, info, success, warning, error;
+
+// ── Text Badge ───────────────────────────────────────
+.badge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  max-width: 100%;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: t.$control-border-width solid transparent;
+}
+
+.dot {
+  flex: none;
+  width: t.$badge-dot-size;
+  height: t.$badge-dot-size;
+  border-radius: 50%;
+}
+
+.label {
+  @include m.ellipsis;
+
+  min-width: 0;
+}
+
+// 높이의 절반을 반경으로 써서 알약 모양을 만든다
+.md {
+  @include m.typography(badge-md);
+
+  gap: t.$badge-dot-gap-md;
+  height: t.$badge-height-md;
+  padding-inline: t.$badge-padding-x-md;
+  border-radius: calc(#{t.$badge-height-md} / 2);
+}
+
+.sm {
+  @include m.typography(badge-sm);
+
+  gap: t.$badge-dot-gap-sm;
+  height: t.$badge-height-sm;
+  padding-inline: t.$badge-padding-x-sm;
+  border-radius: calc(#{t.$badge-height-sm} / 2);
+}
+
+@each $tone in $tones {
+  .#{$tone} {
+    color: var(--kp-color-badge-#{$tone}-text);
+
+    .dot {
+      background-color: var(--kp-color-badge-#{$tone}-dot);
+    }
+  }
+
+  .#{$tone}.soft {
+    background-color: var(--kp-color-badge-#{$tone}-bg);
+  }
+
+  .#{$tone}.line {
+    background-color: t.$color-bg-surface;
+    border-color: var(--kp-color-badge-#{$tone}-border);
+  }
+}
+
+// ── Number Badge ─────────────────────────────────────
+.number {
+  @include m.typography(badge-number);
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: t.$badge-number-size;
+  height: t.$badge-number-size;
+  padding-inline: t.$badge-number-padding-x;
+  color: t.$color-badge-number-text;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: calc(#{t.$badge-number-size} / 2);
+}
+
+// ── Dot Badge (New Indicator) ────────────────────────
+.dotBadge {
+  display: inline-block;
+  flex: none;
+  width: t.$badge-dot-size;
+  height: t.$badge-dot-size;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+// Number · Dot 공통 tone
+.countPrimary {
+  background-color: t.$color-badge-number-primary;
+}
+
+.countError {
+  background-color: t.$color-badge-number-error;
+}
