@@ -105,7 +105,7 @@ export const SearchArea = forwardRef<HTMLFormElement, SearchAreaProps>(
           </div>
         </div>
         {hasDetail && open && (
-          <div id={detailId} className={styles.row}>
+          <div id={detailId} className={clsx(styles.row, styles.detail)}>
             {detail}
             {detailActions && <div className={styles.actions}>{detailActions}</div>}
           </div>

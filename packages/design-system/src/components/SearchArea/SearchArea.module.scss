@@ -3,7 +3,7 @@
 .searchArea {
   display: flex;
   flex-direction: column;
-  gap: t.$search-area-row-gap;
+  gap: t.$search-area-detail-gap;
 }
 
 .row {
@@ -11,6 +11,12 @@
   flex-wrap: wrap;
   gap: t.$search-area-item-gap;
   align-items: flex-start;
+}
+
+// 상세 조건: 기본 조건과 구분선으로 나눈다.
+.detail {
+  padding-top: t.$search-area-detail-padding;
+  border-top: t.$control-border-width solid t.$color-search-area-divider;
 }
 
 // 버튼은 필드 줄에 맞춘다: 라벨(위 배치) 한 줄 높이 + 라벨 ↔ 필드 간격만큼 내린다.

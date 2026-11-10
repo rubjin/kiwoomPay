@@ -69,7 +69,7 @@
 - [Q32] LNB 임시값(TODO, `tokens/custom/lnb.json`): 3Depth Hover 표현(파란 글자 + ↗로 해석 — ↗가 "이동" 표시인지 외부 링크 표시인지 확인 필요, 외부 링크는 link-external 아이콘으로 구분), Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
 - [Q33] 가맹점관리자 모바일 LNB(Compact Navigation) 시안 없음 → 반응형 미적용. 즐겨찾기 편집 Modal 내용(메뉴 트리 + 체크박스)은 시안이 없어 Storybook 예시로만 제공
 - [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab 변형 시안 없음(미구현). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
-- [Q35] Search 가이드 이미지가 원본 파일로 저장되지 않아 픽셀 측정 못 함 → 임시값(TODO, `tokens/custom/search.json`·`field.json`): 줄 간격 20 · 필드 간격 12 · 버튼 간격 8 · 라벨(위) ↔ 필드 8. 검색 영역 배경·테두리(박스 여부) 확인 필요. Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리)
+- [Q35] Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리). Search 가이드의 회색 박스는 다른 섹션과 같은 설명용 카드로 보고 SearchArea에 넣지 않음 — 검색 영역에 박스가 필요한지 확인 필요
 
 ## 단계별 요약
 <!-- 각 Phase 종료 시 아래 형식으로 추가
@@ -229,3 +229,8 @@
 - 만든 것: `SearchArea`(form role=search) — 기본 조건(children) + 상세 조건(`detail`·`detailActions`), [초기화](`onReset`) · [조회](`onSearch`, Enter도 조회, `loading`) · [상세조건]/[상세조건 닫기](`expanded`·`defaultExpanded`·`onExpandedChange`), 문구 변경 `labels`. `Field`에 `labelPosition="top"` 추가(Q19 세로 배치 해소). 토큰 `tokens/custom/search.json`, `field/label-gap-top`. stories, 가이드 `docs/Search.mdx`(Search Type Map · Header Global Search 개념 · LNB Menu Search · Body Search Area · Common Rule & Scope)
 - 검증: 브라우저 테스트 14개 통과(라벨 위 배치·간격, 필드·버튼 32·아래선 맞춤, 펼침/접힘·aria-expanded, detail 없으면 버튼 없음, Enter·조회·초기화·로딩, Validation). 기존 테스트(공통 24 · Modal 21 · LNB 23 · Badge 18/21 기존 Q30) 재통과
 - 한 가정: 버튼은 라벨 한 줄 높이 + 간격만큼 내려 필드 줄에 맞춤(오류 문구가 생겨도 위치 유지). 필드 폭은 화면에서 지정
+
+### Search 가이드 시안 실측 반영 — 2026-11-10
+- `temp/가이드/Search_Guide.png`(1x)로 Body Search Area 픽셀 측정 → 임시값 확정: 필드 간격 12 → 16(필드 ↔ 버튼 묶음도 16), 버튼 간격 8 유지, 라벨(위) ↔ 필드 8 → 4
+- 추가: 상세 조건을 펼치면 기본 조건 아래 16에 구분선(`Line/Subtle` 1px, 내용 폭 전체), 구분선 아래 24에 상세 조건 줄. `search-area/row-gap` 삭제 → `detail-gap`·`detail-padding`·`color/search-area/divider`
+- 검증: typecheck · lint · build · Storybook 빌드 통과. DetailExpanded 렌더링을 같은 방식으로 측정해 간격·구분선 일치 확인(라벨 ↔ 필드, 구분선 ↔ 다음 줄은 1px 차이 — 라벨 줄 높이 19.5px 반올림)
