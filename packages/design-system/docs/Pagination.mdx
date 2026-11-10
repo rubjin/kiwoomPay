@@ -1,0 +1,177 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from '../src/components/Pagination/Pagination.stories';
+
+<Meta title="Components/Pagination/Guide" />
+
+# Pagination
+
+데이터 목록의 페이지 이동을 위한 기본 페이지네이션입니다.
+**이전 → 번호 → 생략(…) → 다음** 순으로 구성하며, 현재 페이지는 Active 상태로 표시합니다.
+
+```tsx
+import { Pagination } from '@kiwoompay/design-system';
+
+const [page, setPage] = useState(1);
+const totalPages = Math.ceil(totalCount / pageSize); // 페이지 단위·총 건수는 화면에서 계산
+
+<Pagination
+  totalPages={totalPages}
+  page={page}
+  onChange={(next) => {
+    setPage(next);
+    fetchList(next);
+  }}
+/>;
+```
+
+<Canvas of={PaginationStories.Playground} />
+<Controls of={PaginationStories.Playground} />
+
+## 1. Spec
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>높이</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>Item</td>
+      <td>Number 40 × 40 · Previous / Next 62 × 40</td>
+    </tr>
+    <tr>
+      <td>간격 · 반경</td>
+      <td>Gap 4 · Radius 8</td>
+    </tr>
+    <tr>
+      <td>글자 · 아이콘</td>
+      <td>14px Medium · Icon 20</td>
+    </tr>
+  </tbody>
+</table>
+
+- 세 자리 이상 번호(100 이상)는 Item 폭이 글자에 맞춰 늘어납니다.
+
+## 2. Structure
+
+<Canvas of={PaginationStories.Structure} />
+
+- 처음·끝 번호와 현재 번호 양옆 1개를 항상 보여주고, 사이가 비면 생략(…)합니다. 보이는 칸 수가 일정해서 이동해도 폭이 크게 흔들리지 않습니다.
+- 노출 범위는 `siblingCount`(현재 양옆, 기본 1) · `boundaryCount`(처음·끝, 기본 1)로 조정합니다.
+
+<Canvas of={PaginationStories.Ellipsis} />
+<Canvas of={PaginationStories.FewPages} />
+
+## 3. Item State
+
+<table>
+  <thead>
+    <tr>
+      <th>상태</th>
+      <th>표현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>배경 없음, 본문색</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>회색 배경 (Neutral / 100)</td>
+    </tr>
+    <tr>
+      <td>Pressed</td>
+      <td>연한 Primary 배경 (Primary / 50) · Primary 글자</td>
+    </tr>
+    <tr>
+      <td>Active</td>
+      <td>
+        Primary 배경 · 흰 글자. 현재 페이지 1개만, <code>aria-current="page"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>
+        비활성 글자색. 첫 페이지의 이전 · 마지막 페이지의 다음, 또는 <code>disabled</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={PaginationStories.Disabled} />
+
+## 4. Usage
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Current</td>
+      <td>번호를 누르면 해당 페이지로 이동. 현재 페이지 1개만 Active</td>
+    </tr>
+    <tr>
+      <td>Previous / Next</td>
+      <td>1페이지씩 이동. 첫 · 마지막 페이지에서는 이동할 수 없는 방향을 Disabled</td>
+    </tr>
+    <tr>
+      <td>Ellipsis</td>
+      <td>중간 페이지가 생략될 때 사용 (누를 수 없음)</td>
+    </tr>
+    <tr>
+      <td>Policy</td>
+      <td>
+        페이지 단위 · 총 건수 · 노출 범위는 화면 / 개발 정책에서 정의. 컴포넌트는{' '}
+        <code>totalPages</code>만 받는다
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>목록 아래 가운데에 하나만 둔다</td>
+      <td>한 목록에 페이지네이션을 위 · 아래 두 개 둔다</td>
+    </tr>
+    <tr>
+      <td>
+        페이지를 바꾸면 목록을 다시 조회하고, 조회 중에는 <code>disabled</code>로 막는다
+      </td>
+      <td>조회 중에도 연속으로 눌러 요청이 겹치게 둔다</td>
+    </tr>
+    <tr>
+      <td>결과가 1페이지 이하면 그대로 두거나 숨기는 기준을 화면 정책으로 정한다</td>
+      <td>화면마다 숨김 기준을 다르게 처리한다</td>
+    </tr>
+    <tr>
+      <td>필터·검색 조건이 바뀌면 1페이지로 돌아간다</td>
+      <td>조건이 바뀌었는데 이전 페이지 번호를 유지해 빈 목록을 보여준다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- `pagination/*` (`tokens/custom/pagination.json`): 크기 · 간격 · 반경 · 색(모두 Figma 색 alias)
+- 글자: 역할 이름 `pagination-item` (14px Medium)
+- 반응형(가맹점관리자 모바일)은 시안이 없어 아직 적용하지 않았습니다.

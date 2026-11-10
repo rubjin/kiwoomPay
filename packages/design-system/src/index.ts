@@ -3,5 +3,6 @@ import './styles/index.scss';
 
 export * from './components/Button';
 export * from './components/Icon';
+export * from './components/Pagination';
 export * from './components/field';
 export * from './components/selection';

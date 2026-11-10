@@ -1,0 +1,78 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.root {
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  gap: t.$pagination-gap;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+// 번호 · 이전 · 다음 공통
+.item {
+  @include m.typography(pagination-item);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: t.$pagination-item-size;
+  height: t.$pagination-item-size;
+  padding: 0 t.$space-4;
+  color: t.$color-pagination-text;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: t.$pagination-radius;
+
+  &:disabled {
+    color: t.$color-pagination-disabled-text;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled, .active) {
+    background-color: t.$color-pagination-hover-bg;
+  }
+
+  &:active:not(:disabled, .active) {
+    color: t.$color-pagination-pressed-text;
+    background-color: t.$color-pagination-pressed-bg;
+  }
+}
+
+// 현재 페이지: 1개만 표시. 눌러도 이동하지 않는다.
+.active {
+  color: t.$color-pagination-active-text;
+  cursor: default;
+  background-color: t.$color-pagination-active-bg;
+}
+
+.nav {
+  gap: t.$pagination-nav-gap;
+  min-width: t.$pagination-nav-min-width;
+  padding-inline: t.$pagination-nav-padding-x;
+}
+
+.icon {
+  width: t.$pagination-icon-size;
+  height: t.$pagination-icon-size;
+}
+
+.ellipsis {
+  @include m.typography(pagination-item);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: t.$pagination-item-size;
+  height: t.$pagination-item-size;
+  color: t.$color-pagination-text;
+  user-select: none;
+}
