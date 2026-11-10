@@ -1,0 +1,230 @@
+{
+  "Field": {
+    "Radius": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$description": "Field Components Size Spec"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "6px"
+      }
+    },
+    "PaddingX": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "{space.12}"
+      }
+    },
+    "Gap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "아이콘·접미사와 텍스트 사이"
+    },
+    "LabelGap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "가로 배치 Label ↔ 필드"
+    },
+    "HelperGap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "필드 ↔ Helper Text"
+    },
+    "FeedbackBorderWidth": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Positive / Negative 테두리"
+    },
+    "StrongBorderWidth": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)"
+    },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Neutral.500}",
+      "$description": "Chevron · Calendar"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "BgDisabled": {
+      "$type": "color",
+      "$value": "{Neutral.100}"
+    },
+    "BgReadonly": {
+      "$type": "color",
+      "$value": "{Neutral.50}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "BorderFocus": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "BorderPositive": {
+      "$type": "color",
+      "$value": "{Status.Success.Border}"
+    },
+    "BorderNegative": {
+      "$type": "color",
+      "$value": "{Status.Error.Border}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "TextPlaceholder": {
+      "$type": "color",
+      "$value": "{Text.Placeholder}"
+    },
+    "TextDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    },
+    "IconMuted": {
+      "$type": "color",
+      "$value": "{Neutral.400}",
+      "$description": "Search · Clear"
+    },
+    "IconDisabled": {
+      "$type": "color",
+      "$value": "{Neutral.400}"
+    },
+    "Label": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "Required": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    },
+    "Helper": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "HelperPositive": {
+      "$type": "color",
+      "$value": "{Status.Success.Border}",
+      "$description": "시안: 글자색이 Border 색(Text 색 아님)"
+    },
+    "HelperNegative": {
+      "$type": "color",
+      "$value": "{Status.Error.Border}",
+      "$description": "시안: 글자색이 Border 색(Text 색 아님)"
+    },
+    "Counter": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "IconSize": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Leading Icon (md)"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Leading Icon (sm)"
+      },
+      "Trailing": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Chevron · Calendar · Clear (전 size 공통)"
+      }
+    }
+  },
+  "Shadow": {
+    "Focus": {
+      "$type": "shadow",
+      "$value": "0 0 4px 0 rgba(36, 132, 198, 0.30)",
+      "$description": "포커스 번짐 (Figma 확정값)"
+    }
+  },
+  "Select": {
+    "PanelOffset": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "필드 ↔ 드롭다운 패널"
+    },
+    "PanelPadding": {
+      "$type": "dimension",
+      "$value": "{space.8}"
+    },
+    "ItemPaddingY": {
+      "$type": "dimension",
+      "$value": "{space.8}"
+    },
+    "ItemPaddingX": {
+      "$type": "dimension",
+      "$value": "{space.8}"
+    },
+    "ItemGap": {
+      "$type": "dimension",
+      "$value": "{space.8}"
+    },
+    "PanelMaxHeight": {
+      "$type": "dimension",
+      "$value": "190px",
+      "$description": "TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤"
+    },
+    "StatusMinHeight": {
+      "$type": "dimension",
+      "$value": "172px",
+      "$description": "TODO(시안) Loading/Empty 패널 높이 근사"
+    },
+    "ItemHover": {
+      "$type": "color",
+      "$value": "{Neutral.50}"
+    },
+    "ItemSelected": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "ItemSelectedText": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    },
+    "ItemText": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "ItemTextDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    },
+    "StatusText": {
+      "$type": "color",
+      "$value": "{Text.Placeholder}"
+    },
+    "SpinnerTrack": {
+      "$type": "color",
+      "$value": "{Neutral.200}"
+    },
+    "SpinnerArc": {
+      "$type": "color",
+      "$value": "{Neutral.500}"
+    },
+    "ScrollThumb": {
+      "$type": "color",
+      "$value": "{Neutral.300}"
+    }
+  },
+  "Z-Index": {
+    "Dropdown": {
+      "$type": "number",
+      "$value": 100,
+      "$description": "TODO(시안) z-index 체계 확정 필요"
+    }
+  }
+}

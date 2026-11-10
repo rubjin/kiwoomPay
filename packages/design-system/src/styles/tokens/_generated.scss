@@ -339,6 +339,57 @@ $control-border-width: var(--kp-control-border-width); // Line 버튼 테두리
 $focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
 $focus-ring-offset: var(--kp-focus-ring-offset); // TODO 시안 확인
 
+// ── custom · field ──────────────────────────────────────────────
+$field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
+$field-radius-sm: var(--kp-field-radius-sm);
+$field-padding-x-md: var(--kp-field-padding-x-md);
+$field-padding-x-sm: var(--kp-field-padding-x-sm);
+$field-gap: var(--kp-field-gap); // 아이콘·접미사와 텍스트 사이
+$field-label-gap: var(--kp-field-label-gap); // 가로 배치 Label ↔ 필드
+$field-helper-gap: var(--kp-field-helper-gap); // 필드 ↔ Helper Text
+$field-feedback-border-width: var(--kp-field-feedback-border-width); // Positive / Negative 테두리
+$field-strong-border-width: var(--kp-field-strong-border-width); // Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)
+$color-field-icon: var(--kp-color-field-icon); // Chevron · Calendar
+$color-field-bg: var(--kp-color-field-bg);
+$color-field-bg-disabled: var(--kp-color-field-bg-disabled);
+$color-field-bg-readonly: var(--kp-color-field-bg-readonly);
+$color-field-border: var(--kp-color-field-border);
+$color-field-border-focus: var(--kp-color-field-border-focus);
+$color-field-border-positive: var(--kp-color-field-border-positive);
+$color-field-border-negative: var(--kp-color-field-border-negative);
+$color-field-text: var(--kp-color-field-text);
+$color-field-text-placeholder: var(--kp-color-field-text-placeholder);
+$color-field-text-disabled: var(--kp-color-field-text-disabled);
+$color-field-icon-muted: var(--kp-color-field-icon-muted); // Search · Clear
+$color-field-icon-disabled: var(--kp-color-field-icon-disabled);
+$color-field-label: var(--kp-color-field-label);
+$color-field-required: var(--kp-color-field-required);
+$color-field-helper: var(--kp-color-field-helper);
+$color-field-helper-positive: var(--kp-color-field-helper-positive); // 시안: 글자색이 Border 색(Text 색 아님)
+$color-field-helper-negative: var(--kp-color-field-helper-negative); // 시안: 글자색이 Border 색(Text 색 아님)
+$color-field-counter: var(--kp-color-field-counter);
+$field-icon-size-md: var(--kp-field-icon-size-md); // Leading Icon (md)
+$field-icon-size-sm: var(--kp-field-icon-size-sm); // Leading Icon (sm)
+$field-icon-size-trailing: var(--kp-field-icon-size-trailing); // Chevron · Calendar · Clear (전 size 공통)
+$shadow-focus: var(--kp-shadow-focus); // 포커스 번짐 (Figma 확정값)
+$select-panel-offset: var(--kp-select-panel-offset); // 필드 ↔ 드롭다운 패널
+$select-panel-padding: var(--kp-select-panel-padding);
+$select-item-padding-y: var(--kp-select-item-padding-y);
+$select-item-padding-x: var(--kp-select-item-padding-x);
+$select-item-gap: var(--kp-select-item-gap);
+$select-panel-max-height: var(--kp-select-panel-max-height); // TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤
+$select-status-min-height: var(--kp-select-status-min-height); // TODO(시안) Loading/Empty 패널 높이 근사
+$color-select-item-hover: var(--kp-color-select-item-hover);
+$color-select-item-selected: var(--kp-color-select-item-selected);
+$color-select-item-selected-text: var(--kp-color-select-item-selected-text);
+$color-select-item-text: var(--kp-color-select-item-text);
+$color-select-item-text-disabled: var(--kp-color-select-item-text-disabled);
+$color-select-status-text: var(--kp-color-select-status-text);
+$color-select-spinner-track: var(--kp-color-select-spinner-track);
+$color-select-spinner-arc: var(--kp-color-select-spinner-arc);
+$color-select-scroll-thumb: var(--kp-color-select-scroll-thumb);
+$z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 확정 필요
+
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
 
@@ -627,6 +678,55 @@ $css-variables: (
   "--kp-control-border-width": "1px",
   "--kp-focus-ring-width": "2px",
   "--kp-focus-ring-offset": "2px",
+  "--kp-field-radius-md": "8px",
+  "--kp-field-radius-sm": "6px",
+  "--kp-field-padding-x-md": "14px",
+  "--kp-field-padding-x-sm": "var(--kp-space-12)",
+  "--kp-field-gap": "var(--kp-space-8)",
+  "--kp-field-label-gap": "var(--kp-space-8)",
+  "--kp-field-helper-gap": "var(--kp-space-8)",
+  "--kp-field-feedback-border-width": "2px",
+  "--kp-field-strong-border-width": "2px",
+  "--kp-color-field-icon": "var(--kp-color-neutral-500)",
+  "--kp-color-field-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-field-bg-disabled": "var(--kp-color-neutral-100)",
+  "--kp-color-field-bg-readonly": "var(--kp-color-neutral-50)",
+  "--kp-color-field-border": "var(--kp-color-line-default)",
+  "--kp-color-field-border-focus": "var(--kp-color-primary-500)",
+  "--kp-color-field-border-positive": "var(--kp-color-status-success-border)",
+  "--kp-color-field-border-negative": "var(--kp-color-status-error-border)",
+  "--kp-color-field-text": "var(--kp-color-text-body)",
+  "--kp-color-field-text-placeholder": "var(--kp-color-text-placeholder)",
+  "--kp-color-field-text-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-field-icon-muted": "var(--kp-color-neutral-400)",
+  "--kp-color-field-icon-disabled": "var(--kp-color-neutral-400)",
+  "--kp-color-field-label": "var(--kp-color-text-label)",
+  "--kp-color-field-required": "var(--kp-color-text-accent)",
+  "--kp-color-field-helper": "var(--kp-color-text-secondary)",
+  "--kp-color-field-helper-positive": "var(--kp-color-status-success-border)",
+  "--kp-color-field-helper-negative": "var(--kp-color-status-error-border)",
+  "--kp-color-field-counter": "var(--kp-color-text-secondary)",
+  "--kp-field-icon-size-md": "20px",
+  "--kp-field-icon-size-sm": "16px",
+  "--kp-field-icon-size-trailing": "20px",
+  "--kp-shadow-focus": "0 0 4px 0 rgba(36, 132, 198, 0.30)",
+  "--kp-select-panel-offset": "var(--kp-space-8)",
+  "--kp-select-panel-padding": "var(--kp-space-8)",
+  "--kp-select-item-padding-y": "var(--kp-space-8)",
+  "--kp-select-item-padding-x": "var(--kp-space-8)",
+  "--kp-select-item-gap": "var(--kp-space-8)",
+  "--kp-select-panel-max-height": "190px",
+  "--kp-select-status-min-height": "172px",
+  "--kp-color-select-item-hover": "var(--kp-color-neutral-50)",
+  "--kp-color-select-item-selected": "var(--kp-color-primary-50)",
+  "--kp-color-select-item-selected-text": "var(--kp-color-text-accent)",
+  "--kp-color-select-item-text": "var(--kp-color-text-body)",
+  "--kp-color-select-item-text-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-select-status-text": "var(--kp-color-text-placeholder)",
+  "--kp-color-select-spinner-track": "var(--kp-color-neutral-200)",
+  "--kp-color-select-spinner-arc": "var(--kp-color-neutral-500)",
+  "--kp-color-select-scroll-thumb": "var(--kp-color-neutral-300)",
+  "--kp-z-index-dropdown": "100",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
   "--kp-color-bg-surface": "var(--kp-color-base-white)",
   "--kp-color-bg-page": "var(--kp-color-neutral-50)",
