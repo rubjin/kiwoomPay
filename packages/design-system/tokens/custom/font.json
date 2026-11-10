@@ -1,0 +1,11 @@
+{
+  "Font": {
+    "Family": {
+      "Base": {
+        "$type": "fontFamily",
+        "$value": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
+        "$description": "웹폰트(Pretendard Variable) 로딩 후 fallback 순서"
+      }
+    }
+  }
+}

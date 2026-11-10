@@ -1,0 +1,14 @@
+{
+  "Breakpoint": {
+    "Tablet": {
+      "$type": "dimension",
+      "$value": "1024px",
+      "$description": "TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)"
+    },
+    "Mobile": {
+      "$type": "dimension",
+      "$value": "768px",
+      "$description": "TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)"
+    }
+  }
+}

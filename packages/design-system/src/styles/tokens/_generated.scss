@@ -1,0 +1,517 @@
+// 자동 생성 파일 — 직접 수정 금지. `pnpm tokens`로 갱신한다.
+// 원본: tokens/figma/*.json (Figma 내보내기), tokens/custom/*.json (코드 토큰)
+// 사용: @use "tokens" as t;  →  t.$color-primary-500
+
+// ── color ───────────────────────────────────────────────────────
+$color-primary-50: var(--kp-color-primary-50);
+$color-primary-100: var(--kp-color-primary-100);
+$color-primary-200: var(--kp-color-primary-200);
+$color-primary-300: var(--kp-color-primary-300);
+$color-primary-400: var(--kp-color-primary-400);
+$color-primary-500: var(--kp-color-primary-500);
+$color-primary-600: var(--kp-color-primary-600);
+$color-primary-700: var(--kp-color-primary-700);
+$color-primary-800: var(--kp-color-primary-800);
+$color-primary-900: var(--kp-color-primary-900);
+$color-neutral-50: var(--kp-color-neutral-50);
+$color-neutral-100: var(--kp-color-neutral-100);
+$color-neutral-200: var(--kp-color-neutral-200);
+$color-neutral-300: var(--kp-color-neutral-300);
+$color-neutral-400: var(--kp-color-neutral-400);
+$color-neutral-500: var(--kp-color-neutral-500);
+$color-neutral-600: var(--kp-color-neutral-600);
+$color-neutral-700: var(--kp-color-neutral-700);
+$color-neutral-800: var(--kp-color-neutral-800);
+$color-neutral-900: var(--kp-color-neutral-900);
+$color-base-white: var(--kp-color-base-white);
+$color-base-black: var(--kp-color-base-black);
+$color-status-success-background: var(--kp-color-status-success-background);
+$color-status-success-border: var(--kp-color-status-success-border);
+$color-status-success-text: var(--kp-color-status-success-text);
+$color-status-warning-background: var(--kp-color-status-warning-background);
+$color-status-warning-border: var(--kp-color-status-warning-border);
+$color-status-warning-text: var(--kp-color-status-warning-text);
+$color-status-error-background: var(--kp-color-status-error-background);
+$color-status-error-border: var(--kp-color-status-error-border);
+$color-status-error-text: var(--kp-color-status-error-text);
+$color-status-info-background: var(--kp-color-status-info-background);
+$color-status-info-border: var(--kp-color-status-info-border);
+$color-status-info-text: var(--kp-color-status-info-text);
+$color-chart-current: var(--kp-color-chart-current);
+$color-chart-previous: var(--kp-color-chart-previous);
+$color-chart-positive: var(--kp-color-chart-positive);
+$color-chart-negative: var(--kp-color-chart-negative);
+$color-chart-line: var(--kp-color-chart-line);
+$color-chart-text: var(--kp-color-chart-text);
+$color-chart-inactive: var(--kp-color-chart-inactive);
+$color-chart-category-01: var(--kp-color-chart-category-01);
+$color-chart-category-02: var(--kp-color-chart-category-02);
+$color-chart-category-03: var(--kp-color-chart-category-03);
+$color-chart-category-04: var(--kp-color-chart-category-04);
+$color-chart-category-05: var(--kp-color-chart-category-05);
+$color-chart-category-06: var(--kp-color-chart-category-06);
+$color-chart-tooltip-background: var(--kp-color-chart-tooltip-background);
+$color-chart-tooltip-text: var(--kp-color-chart-tooltip-text);
+$color-text-heading: var(--kp-color-text-heading);
+$color-text-body: var(--kp-color-text-body);
+$color-text-label: var(--kp-color-text-label);
+$color-text-secondary: var(--kp-color-text-secondary);
+$color-text-placeholder: var(--kp-color-text-placeholder);
+$color-text-disabled: var(--kp-color-text-disabled);
+$color-text-inverse: var(--kp-color-text-inverse);
+$color-text-accent: var(--kp-color-text-accent);
+$color-line-subtle: var(--kp-color-line-subtle);
+$color-line-default: var(--kp-color-line-default);
+$color-line-strong: var(--kp-color-line-strong);
+
+// ── space ───────────────────────────────────────────────────────
+$space-0: var(--kp-space-0);
+$space-4: var(--kp-space-4);
+$space-8: var(--kp-space-8);
+$space-12: var(--kp-space-12);
+$space-16: var(--kp-space-16);
+$space-20: var(--kp-space-20);
+$space-24: var(--kp-space-24);
+$space-32: var(--kp-space-32);
+$space-40: var(--kp-space-40);
+$space-48: var(--kp-space-48);
+$space-64: var(--kp-space-64);
+$space-80: var(--kp-space-80);
+
+// ── typography ──────────────────────────────────────────────────
+$typography-typo-24-bold-font-size: var(--kp-typography-typo-24-bold-font-size); // 페이지 최상위 제목
+$typography-typo-24-bold-font-weight: var(--kp-typography-typo-24-bold-font-weight);
+$typography-typo-24-bold-line-height: var(--kp-typography-typo-24-bold-line-height);
+$typography-typo-24-bold-letter-spacing: var(--kp-typography-typo-24-bold-letter-spacing);
+$typography-typo-20-bold-font-size: var(--kp-typography-typo-20-bold-font-size); // 팝업 제목, 주요 수치
+$typography-typo-20-bold-font-weight: var(--kp-typography-typo-20-bold-font-weight);
+$typography-typo-20-bold-line-height: var(--kp-typography-typo-20-bold-line-height);
+$typography-typo-20-bold-letter-spacing: var(--kp-typography-typo-20-bold-letter-spacing);
+$typography-typo-18-semi-bold-font-size: var(--kp-typography-typo-18-semi-bold-font-size); // 섹션 제목, 주요 카드 제목
+$typography-typo-18-semi-bold-font-weight: var(--kp-typography-typo-18-semi-bold-font-weight);
+$typography-typo-18-semi-bold-line-height: var(--kp-typography-typo-18-semi-bold-line-height);
+$typography-typo-18-semi-bold-letter-spacing: var(--kp-typography-typo-18-semi-bold-letter-spacing);
+$typography-typo-16-semi-bold-font-size: var(--kp-typography-typo-16-semi-bold-font-size); // 하위 영역 제목, 강조 텍스트
+$typography-typo-16-semi-bold-font-weight: var(--kp-typography-typo-16-semi-bold-font-weight);
+$typography-typo-16-semi-bold-line-height: var(--kp-typography-typo-16-semi-bold-line-height);
+$typography-typo-16-semi-bold-letter-spacing: var(--kp-typography-typo-16-semi-bold-letter-spacing);
+$typography-typo-14-regular-font-size: var(--kp-typography-typo-14-regular-font-size); // 본문, 테이블 데이터, 입력값
+$typography-typo-14-regular-font-weight: var(--kp-typography-typo-14-regular-font-weight);
+$typography-typo-14-regular-line-height: var(--kp-typography-typo-14-regular-line-height);
+$typography-typo-14-regular-letter-spacing: var(--kp-typography-typo-14-regular-letter-spacing);
+$typography-typo-13-medium-font-size: var(--kp-typography-typo-13-medium-font-size); // 버튼, 탭, 메뉴
+$typography-typo-13-medium-font-weight: var(--kp-typography-typo-13-medium-font-weight);
+$typography-typo-13-medium-line-height: var(--kp-typography-typo-13-medium-line-height);
+$typography-typo-13-medium-letter-spacing: var(--kp-typography-typo-13-medium-letter-spacing);
+$typography-typo-12-regular-font-size: var(--kp-typography-typo-12-regular-font-size); // 도움말, 캡션, 메타 정보
+$typography-typo-12-regular-font-weight: var(--kp-typography-typo-12-regular-font-weight);
+$typography-typo-12-regular-line-height: var(--kp-typography-typo-12-regular-line-height);
+$typography-typo-12-regular-letter-spacing: var(--kp-typography-typo-12-regular-letter-spacing);
+$typography-typo-12-medium-font-size: var(--kp-typography-typo-12-medium-font-size); // 소형 UI 텍스트
+$typography-typo-12-medium-font-weight: var(--kp-typography-typo-12-medium-font-weight);
+$typography-typo-12-medium-line-height: var(--kp-typography-typo-12-medium-line-height);
+$typography-typo-12-medium-letter-spacing: var(--kp-typography-typo-12-medium-letter-spacing);
+$typography-typo-12-semi-bold-font-size: var(--kp-typography-typo-12-semi-bold-font-size); // 소형 강조 텍스트
+$typography-typo-12-semi-bold-font-weight: var(--kp-typography-typo-12-semi-bold-font-weight);
+$typography-typo-12-semi-bold-line-height: var(--kp-typography-typo-12-semi-bold-line-height);
+$typography-typo-12-semi-bold-letter-spacing: var(--kp-typography-typo-12-semi-bold-letter-spacing);
+$typography-typo-13-regular-font-size: var(--kp-typography-typo-13-regular-font-size);
+$typography-typo-13-regular-font-weight: var(--kp-typography-typo-13-regular-font-weight);
+$typography-typo-13-regular-line-height: var(--kp-typography-typo-13-regular-line-height);
+$typography-typo-13-regular-letter-spacing: var(--kp-typography-typo-13-regular-letter-spacing);
+$typography-typo-13-semi-bold-font-size: var(--kp-typography-typo-13-semi-bold-font-size); // 선택 상태, 강조 텍스트
+$typography-typo-13-semi-bold-font-weight: var(--kp-typography-typo-13-semi-bold-font-weight);
+$typography-typo-13-semi-bold-line-height: var(--kp-typography-typo-13-semi-bold-line-height);
+$typography-typo-13-semi-bold-letter-spacing: var(--kp-typography-typo-13-semi-bold-letter-spacing);
+$typography-typo-14-medium-font-size: var(--kp-typography-typo-14-medium-font-size);
+$typography-typo-14-medium-font-weight: var(--kp-typography-typo-14-medium-font-weight);
+$typography-typo-14-medium-line-height: var(--kp-typography-typo-14-medium-line-height);
+$typography-typo-14-medium-letter-spacing: var(--kp-typography-typo-14-medium-letter-spacing);
+$typography-typo-14-semi-bold-font-size: var(--kp-typography-typo-14-semi-bold-font-size);
+$typography-typo-14-semi-bold-font-weight: var(--kp-typography-typo-14-semi-bold-font-weight);
+$typography-typo-14-semi-bold-line-height: var(--kp-typography-typo-14-semi-bold-line-height);
+$typography-typo-14-semi-bold-letter-spacing: var(--kp-typography-typo-14-semi-bold-letter-spacing);
+$typography-typo-14-bold-font-size: var(--kp-typography-typo-14-bold-font-size);
+$typography-typo-14-bold-font-weight: var(--kp-typography-typo-14-bold-font-weight);
+$typography-typo-14-bold-line-height: var(--kp-typography-typo-14-bold-line-height);
+$typography-typo-14-bold-letter-spacing: var(--kp-typography-typo-14-bold-letter-spacing);
+$typography-typo-16-regular-font-size: var(--kp-typography-typo-16-regular-font-size);
+$typography-typo-16-regular-font-weight: var(--kp-typography-typo-16-regular-font-weight);
+$typography-typo-16-regular-line-height: var(--kp-typography-typo-16-regular-line-height);
+$typography-typo-16-regular-letter-spacing: var(--kp-typography-typo-16-regular-letter-spacing);
+$typography-typo-16-medium-font-size: var(--kp-typography-typo-16-medium-font-size);
+$typography-typo-16-medium-font-weight: var(--kp-typography-typo-16-medium-font-weight);
+$typography-typo-16-medium-line-height: var(--kp-typography-typo-16-medium-line-height);
+$typography-typo-16-medium-letter-spacing: var(--kp-typography-typo-16-medium-letter-spacing);
+$typography-typo-16-bold-font-size: var(--kp-typography-typo-16-bold-font-size);
+$typography-typo-16-bold-font-weight: var(--kp-typography-typo-16-bold-font-weight);
+$typography-typo-16-bold-line-height: var(--kp-typography-typo-16-bold-line-height);
+$typography-typo-16-bold-letter-spacing: var(--kp-typography-typo-16-bold-letter-spacing);
+$typography-typo-18-regular-font-size: var(--kp-typography-typo-18-regular-font-size);
+$typography-typo-18-regular-font-weight: var(--kp-typography-typo-18-regular-font-weight);
+$typography-typo-18-regular-line-height: var(--kp-typography-typo-18-regular-line-height);
+$typography-typo-18-regular-letter-spacing: var(--kp-typography-typo-18-regular-letter-spacing);
+$typography-typo-18-medium-font-size: var(--kp-typography-typo-18-medium-font-size);
+$typography-typo-18-medium-font-weight: var(--kp-typography-typo-18-medium-font-weight);
+$typography-typo-18-medium-line-height: var(--kp-typography-typo-18-medium-line-height);
+$typography-typo-18-medium-letter-spacing: var(--kp-typography-typo-18-medium-letter-spacing);
+$typography-typo-18-bold-font-size: var(--kp-typography-typo-18-bold-font-size);
+$typography-typo-18-bold-font-weight: var(--kp-typography-typo-18-bold-font-weight);
+$typography-typo-18-bold-line-height: var(--kp-typography-typo-18-bold-line-height);
+$typography-typo-18-bold-letter-spacing: var(--kp-typography-typo-18-bold-letter-spacing);
+$typography-typo-20-medium-font-size: var(--kp-typography-typo-20-medium-font-size);
+$typography-typo-20-medium-font-weight: var(--kp-typography-typo-20-medium-font-weight);
+$typography-typo-20-medium-line-height: var(--kp-typography-typo-20-medium-line-height);
+$typography-typo-20-medium-letter-spacing: var(--kp-typography-typo-20-medium-letter-spacing);
+$typography-typo-20-semi-bold-font-size: var(--kp-typography-typo-20-semi-bold-font-size);
+$typography-typo-20-semi-bold-font-weight: var(--kp-typography-typo-20-semi-bold-font-weight);
+$typography-typo-20-semi-bold-line-height: var(--kp-typography-typo-20-semi-bold-line-height);
+$typography-typo-20-semi-bold-letter-spacing: var(--kp-typography-typo-20-semi-bold-letter-spacing);
+$typography-typo-24-semi-bold-font-size: var(--kp-typography-typo-24-semi-bold-font-size);
+$typography-typo-24-semi-bold-font-weight: var(--kp-typography-typo-24-semi-bold-font-weight);
+$typography-typo-24-semi-bold-line-height: var(--kp-typography-typo-24-semi-bold-line-height);
+$typography-typo-24-semi-bold-letter-spacing: var(--kp-typography-typo-24-semi-bold-letter-spacing);
+$typography-typo-13-bold-font-size: var(--kp-typography-typo-13-bold-font-size); // Field Label
+$typography-typo-13-bold-font-weight: var(--kp-typography-typo-13-bold-font-weight);
+$typography-typo-13-bold-line-height: var(--kp-typography-typo-13-bold-line-height);
+$typography-typo-13-bold-letter-spacing: var(--kp-typography-typo-13-bold-letter-spacing);
+$typography-typo-12-bold-font-size: var(--kp-typography-typo-12-bold-font-size); // Required 표시, 소형 강조
+$typography-typo-12-bold-font-weight: var(--kp-typography-typo-12-bold-font-weight);
+$typography-typo-12-bold-line-height: var(--kp-typography-typo-12-bold-line-height);
+$typography-typo-12-bold-letter-spacing: var(--kp-typography-typo-12-bold-letter-spacing);
+$typography-typo-11-medium-font-size: var(--kp-typography-typo-11-medium-font-size); // LNB 3Depth 기본
+$typography-typo-11-medium-font-weight: var(--kp-typography-typo-11-medium-font-weight);
+$typography-typo-11-medium-line-height: var(--kp-typography-typo-11-medium-line-height);
+$typography-typo-11-medium-letter-spacing: var(--kp-typography-typo-11-medium-letter-spacing);
+$typography-typo-11-bold-font-size: var(--kp-typography-typo-11-bold-font-size); // LNB 3Depth 선택
+$typography-typo-11-bold-font-weight: var(--kp-typography-typo-11-bold-font-weight);
+$typography-typo-11-bold-line-height: var(--kp-typography-typo-11-bold-line-height);
+$typography-typo-11-bold-letter-spacing: var(--kp-typography-typo-11-bold-letter-spacing);
+$typography-typo-10-medium-font-size: var(--kp-typography-typo-10-medium-font-size); // LNB 즐겨찾기 강조 정보
+$typography-typo-10-medium-font-weight: var(--kp-typography-typo-10-medium-font-weight);
+$typography-typo-10-medium-line-height: var(--kp-typography-typo-10-medium-line-height);
+$typography-typo-10-medium-letter-spacing: var(--kp-typography-typo-10-medium-letter-spacing);
+$typography-typo-10-regular-font-size: var(--kp-typography-typo-10-regular-font-size); // LNB 즐겨찾기 보조 정보
+$typography-typo-10-regular-font-weight: var(--kp-typography-typo-10-regular-font-weight);
+$typography-typo-10-regular-line-height: var(--kp-typography-typo-10-regular-line-height);
+$typography-typo-10-regular-letter-spacing: var(--kp-typography-typo-10-regular-letter-spacing);
+$typography-heading-xl-font-size: var(--kp-typography-heading-xl-font-size); // 페이지 최상위 제목
+$typography-heading-xl-font-weight: var(--kp-typography-heading-xl-font-weight);
+$typography-heading-xl-line-height: var(--kp-typography-heading-xl-line-height);
+$typography-heading-xl-letter-spacing: var(--kp-typography-heading-xl-letter-spacing);
+$typography-heading-lg-font-size: var(--kp-typography-heading-lg-font-size); // 팝업 제목, 주요 수치
+$typography-heading-lg-font-weight: var(--kp-typography-heading-lg-font-weight);
+$typography-heading-lg-line-height: var(--kp-typography-heading-lg-line-height);
+$typography-heading-lg-letter-spacing: var(--kp-typography-heading-lg-letter-spacing);
+$typography-heading-md-font-size: var(--kp-typography-heading-md-font-size); // 섹션 제목, 카드 제목
+$typography-heading-md-font-weight: var(--kp-typography-heading-md-font-weight);
+$typography-heading-md-line-height: var(--kp-typography-heading-md-line-height);
+$typography-heading-md-letter-spacing: var(--kp-typography-heading-md-letter-spacing);
+$typography-heading-sm-font-size: var(--kp-typography-heading-sm-font-size); // 하위 영역 제목
+$typography-heading-sm-font-weight: var(--kp-typography-heading-sm-font-weight);
+$typography-heading-sm-line-height: var(--kp-typography-heading-sm-line-height);
+$typography-heading-sm-letter-spacing: var(--kp-typography-heading-sm-letter-spacing);
+$typography-body-md-font-size: var(--kp-typography-body-md-font-size); // 본문, 테이블, 입력값
+$typography-body-md-font-weight: var(--kp-typography-body-md-font-weight);
+$typography-body-md-line-height: var(--kp-typography-body-md-line-height);
+$typography-body-md-letter-spacing: var(--kp-typography-body-md-letter-spacing);
+$typography-body-sm-font-size: var(--kp-typography-body-sm-font-size); // 보조 본문
+$typography-body-sm-font-weight: var(--kp-typography-body-sm-font-weight);
+$typography-body-sm-line-height: var(--kp-typography-body-sm-line-height);
+$typography-body-sm-letter-spacing: var(--kp-typography-body-sm-letter-spacing);
+$typography-label-md-font-size: var(--kp-typography-label-md-font-size); // 버튼, 탭, 메뉴
+$typography-label-md-font-weight: var(--kp-typography-label-md-font-weight);
+$typography-label-md-line-height: var(--kp-typography-label-md-line-height);
+$typography-label-md-letter-spacing: var(--kp-typography-label-md-letter-spacing);
+$typography-label-strong-font-size: var(--kp-typography-label-strong-font-size); // 선택 상태
+$typography-label-strong-font-weight: var(--kp-typography-label-strong-font-weight);
+$typography-label-strong-line-height: var(--kp-typography-label-strong-line-height);
+$typography-label-strong-letter-spacing: var(--kp-typography-label-strong-letter-spacing);
+$typography-label-field-font-size: var(--kp-typography-label-field-font-size); // 필드 레이블
+$typography-label-field-font-weight: var(--kp-typography-label-field-font-weight);
+$typography-label-field-line-height: var(--kp-typography-label-field-line-height);
+$typography-label-field-letter-spacing: var(--kp-typography-label-field-letter-spacing);
+$typography-caption-md-font-size: var(--kp-typography-caption-md-font-size); // 도움말, 캡션
+$typography-caption-md-font-weight: var(--kp-typography-caption-md-font-weight);
+$typography-caption-md-line-height: var(--kp-typography-caption-md-line-height);
+$typography-caption-md-letter-spacing: var(--kp-typography-caption-md-letter-spacing);
+$typography-caption-strong-font-size: var(--kp-typography-caption-strong-font-size); // 소형 강조
+$typography-caption-strong-font-weight: var(--kp-typography-caption-strong-font-weight);
+$typography-caption-strong-line-height: var(--kp-typography-caption-strong-line-height);
+$typography-caption-strong-letter-spacing: var(--kp-typography-caption-strong-letter-spacing);
+
+// ── custom · breakpoint ─────────────────────────────────────────
+$breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
+$breakpoint-mobile: 768px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
+
+// ── custom · dimension ──────────────────────────────────────────
+$focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
+$focus-ring-offset: var(--kp-focus-ring-offset); // TODO 시안 확인
+
+// ── custom · font ───────────────────────────────────────────────
+$font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
+
+// ── custom · semantic-color ─────────────────────────────────────
+$color-bg-surface: var(--kp-color-bg-surface); // TODO 시안 확인: 카드·입력창 등 면 배경
+$color-bg-page: var(--kp-color-bg-page); // TODO 시안 확인: 페이지 배경
+$color-bg-hover: var(--kp-color-bg-hover); // TODO 시안 확인: 행·메뉴 hover
+$color-bg-selected: var(--kp-color-bg-selected); // TODO 시안 확인: 선택된 행·메뉴
+$color-interaction-primary-hover: var(--kp-color-interaction-primary-hover); // TODO 시안 확인
+$color-interaction-primary-pressed: var(--kp-color-interaction-primary-pressed); // TODO 시안 확인
+$color-focus-ring: var(--kp-color-focus-ring); // TODO 시안 확인: 포커스 표시 색
+$color-overlay-dim: var(--kp-color-overlay-dim); // TODO 시안 확인: 모달 딤 배경
+
+// 미디어쿼리용 (CSS 변수는 @media 안에서 쓸 수 없어 값을 그대로 둔다)
+$breakpoints: (
+  tablet: 1024px,
+  mobile: 768px,
+);
+
+// :root에 출력할 CSS 변수 전체 (base/_root.scss가 사용)
+$css-variables: (
+  "--kp-color-primary-50": "#F0F7FC",
+  "--kp-color-primary-100": "#DDEDF8",
+  "--kp-color-primary-200": "#BDDDF1",
+  "--kp-color-primary-300": "#8FC6E6",
+  "--kp-color-primary-400": "#56A8D7",
+  "--kp-color-primary-500": "#2484C6",
+  "--kp-color-primary-600": "#1C6CA8",
+  "--kp-color-primary-700": "#185888",
+  "--kp-color-primary-800": "#174B70",
+  "--kp-color-primary-900": "#123B59",
+  "--kp-color-neutral-50": "#F8FAFC",
+  "--kp-color-neutral-100": "#F1F5F9",
+  "--kp-color-neutral-200": "#E7ECF2",
+  "--kp-color-neutral-300": "#D5DCE5",
+  "--kp-color-neutral-400": "#B8C2CE",
+  "--kp-color-neutral-500": "#8C98A6",
+  "--kp-color-neutral-600": "#667281",
+  "--kp-color-neutral-700": "#435064",
+  "--kp-color-neutral-800": "#1E293B",
+  "--kp-color-neutral-900": "#111827",
+  "--kp-color-base-white": "#FFFFFF",
+  "--kp-color-base-black": "#000000",
+  "--kp-color-status-success-background": "#ECFDF3",
+  "--kp-color-status-success-border": "#22C55E",
+  "--kp-color-status-success-text": "#15803D",
+  "--kp-color-status-warning-background": "#FFF8E6",
+  "--kp-color-status-warning-border": "#F59E0B",
+  "--kp-color-status-warning-text": "#B45309",
+  "--kp-color-status-error-background": "#FFF1F2",
+  "--kp-color-status-error-border": "#EF4444",
+  "--kp-color-status-error-text": "#B91C1C",
+  "--kp-color-status-info-background": "#EFF6FF",
+  "--kp-color-status-info-border": "#3B82F6",
+  "--kp-color-status-info-text": "#1D4ED8",
+  "--kp-color-chart-current": "var(--kp-color-primary-500)",
+  "--kp-color-chart-previous": "#B8C2CE",
+  "--kp-color-chart-positive": "var(--kp-color-status-success-border)",
+  "--kp-color-chart-negative": "var(--kp-color-status-error-border)",
+  "--kp-color-chart-line": "var(--kp-color-neutral-200)",
+  "--kp-color-chart-text": "var(--kp-color-neutral-600)",
+  "--kp-color-chart-inactive": "var(--kp-color-neutral-400)",
+  "--kp-color-chart-category-01": "var(--kp-color-primary-500)",
+  "--kp-color-chart-category-02": "#8B5CF6",
+  "--kp-color-chart-category-03": "#FF8A00",
+  "--kp-color-chart-category-04": "#10B981",
+  "--kp-color-chart-category-05": "#EC4899",
+  "--kp-color-chart-category-06": "#84CC16",
+  "--kp-color-chart-tooltip-background": "var(--kp-color-neutral-800)",
+  "--kp-color-chart-tooltip-text": "var(--kp-color-base-white)",
+  "--kp-color-text-heading": "var(--kp-color-neutral-900)",
+  "--kp-color-text-body": "var(--kp-color-neutral-800)",
+  "--kp-color-text-label": "var(--kp-color-neutral-700)",
+  "--kp-color-text-secondary": "var(--kp-color-neutral-600)",
+  "--kp-color-text-placeholder": "var(--kp-color-neutral-500)",
+  "--kp-color-text-disabled": "var(--kp-color-neutral-400)",
+  "--kp-color-text-inverse": "var(--kp-color-base-white)",
+  "--kp-color-text-accent": "var(--kp-color-primary-500)",
+  "--kp-color-line-subtle": "var(--kp-color-neutral-200)",
+  "--kp-color-line-default": "var(--kp-color-neutral-300)",
+  "--kp-color-line-strong": "var(--kp-color-neutral-400)",
+  "--kp-space-0": "0px",
+  "--kp-space-4": "4px",
+  "--kp-space-8": "8px",
+  "--kp-space-12": "12px",
+  "--kp-space-16": "16px",
+  "--kp-space-20": "20px",
+  "--kp-space-24": "24px",
+  "--kp-space-32": "32px",
+  "--kp-space-40": "40px",
+  "--kp-space-48": "48px",
+  "--kp-space-64": "64px",
+  "--kp-space-80": "80px",
+  "--kp-typography-typo-24-bold-font-size": "24px",
+  "--kp-typography-typo-24-bold-font-weight": "700",
+  "--kp-typography-typo-24-bold-line-height": "1.4",
+  "--kp-typography-typo-24-bold-letter-spacing": "0",
+  "--kp-typography-typo-20-bold-font-size": "20px",
+  "--kp-typography-typo-20-bold-font-weight": "700",
+  "--kp-typography-typo-20-bold-line-height": "1.4",
+  "--kp-typography-typo-20-bold-letter-spacing": "0",
+  "--kp-typography-typo-18-semi-bold-font-size": "18px",
+  "--kp-typography-typo-18-semi-bold-font-weight": "600",
+  "--kp-typography-typo-18-semi-bold-line-height": "1.45",
+  "--kp-typography-typo-18-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-16-semi-bold-font-size": "16px",
+  "--kp-typography-typo-16-semi-bold-font-weight": "600",
+  "--kp-typography-typo-16-semi-bold-line-height": "1.45",
+  "--kp-typography-typo-16-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-14-regular-font-size": "14px",
+  "--kp-typography-typo-14-regular-font-weight": "400",
+  "--kp-typography-typo-14-regular-line-height": "1.5",
+  "--kp-typography-typo-14-regular-letter-spacing": "0",
+  "--kp-typography-typo-13-medium-font-size": "13px",
+  "--kp-typography-typo-13-medium-font-weight": "500",
+  "--kp-typography-typo-13-medium-line-height": "1.5",
+  "--kp-typography-typo-13-medium-letter-spacing": "0",
+  "--kp-typography-typo-12-regular-font-size": "12px",
+  "--kp-typography-typo-12-regular-font-weight": "400",
+  "--kp-typography-typo-12-regular-line-height": "1.5",
+  "--kp-typography-typo-12-regular-letter-spacing": "0",
+  "--kp-typography-typo-12-medium-font-size": "12px",
+  "--kp-typography-typo-12-medium-font-weight": "500",
+  "--kp-typography-typo-12-medium-line-height": "1.5",
+  "--kp-typography-typo-12-medium-letter-spacing": "0",
+  "--kp-typography-typo-12-semi-bold-font-size": "12px",
+  "--kp-typography-typo-12-semi-bold-font-weight": "600",
+  "--kp-typography-typo-12-semi-bold-line-height": "1.5",
+  "--kp-typography-typo-12-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-13-regular-font-size": "13px",
+  "--kp-typography-typo-13-regular-font-weight": "400",
+  "--kp-typography-typo-13-regular-line-height": "1.5",
+  "--kp-typography-typo-13-regular-letter-spacing": "0",
+  "--kp-typography-typo-13-semi-bold-font-size": "13px",
+  "--kp-typography-typo-13-semi-bold-font-weight": "600",
+  "--kp-typography-typo-13-semi-bold-line-height": "1.5",
+  "--kp-typography-typo-13-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-14-medium-font-size": "14px",
+  "--kp-typography-typo-14-medium-font-weight": "500",
+  "--kp-typography-typo-14-medium-line-height": "1.5",
+  "--kp-typography-typo-14-medium-letter-spacing": "0",
+  "--kp-typography-typo-14-semi-bold-font-size": "14px",
+  "--kp-typography-typo-14-semi-bold-font-weight": "600",
+  "--kp-typography-typo-14-semi-bold-line-height": "1.5",
+  "--kp-typography-typo-14-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-14-bold-font-size": "14px",
+  "--kp-typography-typo-14-bold-font-weight": "700",
+  "--kp-typography-typo-14-bold-line-height": "1.5",
+  "--kp-typography-typo-14-bold-letter-spacing": "0",
+  "--kp-typography-typo-16-regular-font-size": "16px",
+  "--kp-typography-typo-16-regular-font-weight": "400",
+  "--kp-typography-typo-16-regular-line-height": "1.45",
+  "--kp-typography-typo-16-regular-letter-spacing": "0",
+  "--kp-typography-typo-16-medium-font-size": "16px",
+  "--kp-typography-typo-16-medium-font-weight": "500",
+  "--kp-typography-typo-16-medium-line-height": "1.45",
+  "--kp-typography-typo-16-medium-letter-spacing": "0",
+  "--kp-typography-typo-16-bold-font-size": "16px",
+  "--kp-typography-typo-16-bold-font-weight": "700",
+  "--kp-typography-typo-16-bold-line-height": "1.45",
+  "--kp-typography-typo-16-bold-letter-spacing": "0",
+  "--kp-typography-typo-18-regular-font-size": "18px",
+  "--kp-typography-typo-18-regular-font-weight": "400",
+  "--kp-typography-typo-18-regular-line-height": "1.45",
+  "--kp-typography-typo-18-regular-letter-spacing": "0",
+  "--kp-typography-typo-18-medium-font-size": "18px",
+  "--kp-typography-typo-18-medium-font-weight": "500",
+  "--kp-typography-typo-18-medium-line-height": "1.45",
+  "--kp-typography-typo-18-medium-letter-spacing": "0",
+  "--kp-typography-typo-18-bold-font-size": "18px",
+  "--kp-typography-typo-18-bold-font-weight": "700",
+  "--kp-typography-typo-18-bold-line-height": "1.45",
+  "--kp-typography-typo-18-bold-letter-spacing": "0",
+  "--kp-typography-typo-20-medium-font-size": "20px",
+  "--kp-typography-typo-20-medium-font-weight": "500",
+  "--kp-typography-typo-20-medium-line-height": "1.4",
+  "--kp-typography-typo-20-medium-letter-spacing": "0",
+  "--kp-typography-typo-20-semi-bold-font-size": "20px",
+  "--kp-typography-typo-20-semi-bold-font-weight": "600",
+  "--kp-typography-typo-20-semi-bold-line-height": "1.4",
+  "--kp-typography-typo-20-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-24-semi-bold-font-size": "24px",
+  "--kp-typography-typo-24-semi-bold-font-weight": "600",
+  "--kp-typography-typo-24-semi-bold-line-height": "1.4",
+  "--kp-typography-typo-24-semi-bold-letter-spacing": "0",
+  "--kp-typography-typo-13-bold-font-size": "13px",
+  "--kp-typography-typo-13-bold-font-weight": "700",
+  "--kp-typography-typo-13-bold-line-height": "1.5",
+  "--kp-typography-typo-13-bold-letter-spacing": "0",
+  "--kp-typography-typo-12-bold-font-size": "12px",
+  "--kp-typography-typo-12-bold-font-weight": "700",
+  "--kp-typography-typo-12-bold-line-height": "1.5",
+  "--kp-typography-typo-12-bold-letter-spacing": "0",
+  "--kp-typography-typo-11-medium-font-size": "11px",
+  "--kp-typography-typo-11-medium-font-weight": "500",
+  "--kp-typography-typo-11-medium-line-height": "1.5",
+  "--kp-typography-typo-11-medium-letter-spacing": "0",
+  "--kp-typography-typo-11-bold-font-size": "11px",
+  "--kp-typography-typo-11-bold-font-weight": "700",
+  "--kp-typography-typo-11-bold-line-height": "1.5",
+  "--kp-typography-typo-11-bold-letter-spacing": "0",
+  "--kp-typography-typo-10-medium-font-size": "10px",
+  "--kp-typography-typo-10-medium-font-weight": "500",
+  "--kp-typography-typo-10-medium-line-height": "1.5",
+  "--kp-typography-typo-10-medium-letter-spacing": "0",
+  "--kp-typography-typo-10-regular-font-size": "10px",
+  "--kp-typography-typo-10-regular-font-weight": "400",
+  "--kp-typography-typo-10-regular-line-height": "1.5",
+  "--kp-typography-typo-10-regular-letter-spacing": "0",
+  "--kp-breakpoint-tablet": "1024px",
+  "--kp-breakpoint-mobile": "768px",
+  "--kp-focus-ring-width": "2px",
+  "--kp-focus-ring-offset": "2px",
+  "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
+  "--kp-color-bg-surface": "var(--kp-color-base-white)",
+  "--kp-color-bg-page": "var(--kp-color-neutral-50)",
+  "--kp-color-bg-hover": "var(--kp-color-neutral-100)",
+  "--kp-color-bg-selected": "var(--kp-color-primary-50)",
+  "--kp-color-interaction-primary-hover": "var(--kp-color-primary-600)",
+  "--kp-color-interaction-primary-pressed": "var(--kp-color-primary-700)",
+  "--kp-color-focus-ring": "var(--kp-color-primary-300)",
+  "--kp-color-overlay-dim": "rgba(0, 0, 0, 0.5)",
+  "--kp-typography-heading-xl-font-size": "var(--kp-typography-typo-24-bold-font-size)",
+  "--kp-typography-heading-xl-font-weight": "var(--kp-typography-typo-24-bold-font-weight)",
+  "--kp-typography-heading-xl-line-height": "var(--kp-typography-typo-24-bold-line-height)",
+  "--kp-typography-heading-xl-letter-spacing": "var(--kp-typography-typo-24-bold-letter-spacing)",
+  "--kp-typography-heading-lg-font-size": "var(--kp-typography-typo-20-bold-font-size)",
+  "--kp-typography-heading-lg-font-weight": "var(--kp-typography-typo-20-bold-font-weight)",
+  "--kp-typography-heading-lg-line-height": "var(--kp-typography-typo-20-bold-line-height)",
+  "--kp-typography-heading-lg-letter-spacing": "var(--kp-typography-typo-20-bold-letter-spacing)",
+  "--kp-typography-heading-md-font-size": "var(--kp-typography-typo-18-semi-bold-font-size)",
+  "--kp-typography-heading-md-font-weight": "var(--kp-typography-typo-18-semi-bold-font-weight)",
+  "--kp-typography-heading-md-line-height": "var(--kp-typography-typo-18-semi-bold-line-height)",
+  "--kp-typography-heading-md-letter-spacing": "var(--kp-typography-typo-18-semi-bold-letter-spacing)",
+  "--kp-typography-heading-sm-font-size": "var(--kp-typography-typo-16-semi-bold-font-size)",
+  "--kp-typography-heading-sm-font-weight": "var(--kp-typography-typo-16-semi-bold-font-weight)",
+  "--kp-typography-heading-sm-line-height": "var(--kp-typography-typo-16-semi-bold-line-height)",
+  "--kp-typography-heading-sm-letter-spacing": "var(--kp-typography-typo-16-semi-bold-letter-spacing)",
+  "--kp-typography-body-md-font-size": "var(--kp-typography-typo-14-regular-font-size)",
+  "--kp-typography-body-md-font-weight": "var(--kp-typography-typo-14-regular-font-weight)",
+  "--kp-typography-body-md-line-height": "var(--kp-typography-typo-14-regular-line-height)",
+  "--kp-typography-body-md-letter-spacing": "var(--kp-typography-typo-14-regular-letter-spacing)",
+  "--kp-typography-body-sm-font-size": "var(--kp-typography-typo-13-regular-font-size)",
+  "--kp-typography-body-sm-font-weight": "var(--kp-typography-typo-13-regular-font-weight)",
+  "--kp-typography-body-sm-line-height": "var(--kp-typography-typo-13-regular-line-height)",
+  "--kp-typography-body-sm-letter-spacing": "var(--kp-typography-typo-13-regular-letter-spacing)",
+  "--kp-typography-label-md-font-size": "var(--kp-typography-typo-13-medium-font-size)",
+  "--kp-typography-label-md-font-weight": "var(--kp-typography-typo-13-medium-font-weight)",
+  "--kp-typography-label-md-line-height": "var(--kp-typography-typo-13-medium-line-height)",
+  "--kp-typography-label-md-letter-spacing": "var(--kp-typography-typo-13-medium-letter-spacing)",
+  "--kp-typography-label-strong-font-size": "var(--kp-typography-typo-13-semi-bold-font-size)",
+  "--kp-typography-label-strong-font-weight": "var(--kp-typography-typo-13-semi-bold-font-weight)",
+  "--kp-typography-label-strong-line-height": "var(--kp-typography-typo-13-semi-bold-line-height)",
+  "--kp-typography-label-strong-letter-spacing": "var(--kp-typography-typo-13-semi-bold-letter-spacing)",
+  "--kp-typography-label-field-font-size": "var(--kp-typography-typo-13-bold-font-size)",
+  "--kp-typography-label-field-font-weight": "var(--kp-typography-typo-13-bold-font-weight)",
+  "--kp-typography-label-field-line-height": "var(--kp-typography-typo-13-bold-line-height)",
+  "--kp-typography-label-field-letter-spacing": "var(--kp-typography-typo-13-bold-letter-spacing)",
+  "--kp-typography-caption-md-font-size": "var(--kp-typography-typo-12-regular-font-size)",
+  "--kp-typography-caption-md-font-weight": "var(--kp-typography-typo-12-regular-font-weight)",
+  "--kp-typography-caption-md-line-height": "var(--kp-typography-typo-12-regular-line-height)",
+  "--kp-typography-caption-md-letter-spacing": "var(--kp-typography-typo-12-regular-letter-spacing)",
+  "--kp-typography-caption-strong-font-size": "var(--kp-typography-typo-12-semi-bold-font-size)",
+  "--kp-typography-caption-strong-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
+  "--kp-typography-caption-strong-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
+  "--kp-typography-caption-strong-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+);

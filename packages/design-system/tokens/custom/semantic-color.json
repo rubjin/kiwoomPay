@@ -1,0 +1,44 @@
+{
+  "Bg": {
+    "Surface": {
+      "$type": "color",
+      "$value": "{Base.White}",
+      "$description": "TODO 시안 확인: 카드·입력창 등 면 배경"
+    },
+    "Page": {
+      "$type": "color",
+      "$value": "{Neutral.50}",
+      "$description": "TODO 시안 확인: 페이지 배경"
+    },
+    "Hover": {
+      "$type": "color",
+      "$value": "{Neutral.100}",
+      "$description": "TODO 시안 확인: 행·메뉴 hover"
+    },
+    "Selected": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "TODO 시안 확인: 선택된 행·메뉴"
+    }
+  },
+  "Interaction": {
+    "Primary": {
+      "Hover": { "$type": "color", "$value": "{Primary.600}", "$description": "TODO 시안 확인" },
+      "Pressed": { "$type": "color", "$value": "{Primary.700}", "$description": "TODO 시안 확인" }
+    }
+  },
+  "Focus": {
+    "Ring": {
+      "$type": "color",
+      "$value": "{Primary.300}",
+      "$description": "TODO 시안 확인: 포커스 표시 색"
+    }
+  },
+  "Overlay": {
+    "Dim": {
+      "$type": "color",
+      "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.5 },
+      "$description": "TODO 시안 확인: 모달 딤 배경"
+    }
+  }
+}

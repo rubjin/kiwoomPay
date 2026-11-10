@@ -1,0 +1,4 @@
+// 컴포넌트가 토큰을 불러오는 단일 진입점.
+//   @use 'tokens' as t;   →   color: t.$color-text-body;
+// 값은 모두 CSS 변수(var(--kp-*))로 연결되고, 실제 값은 base/_root.scss가 :root에 출력한다.
+@forward 'generated';

@@ -1,0 +1,8 @@
+{
+  "Focus": {
+    "Ring": {
+      "Width": { "$type": "dimension", "$value": "2px", "$description": "TODO 시안 확인" },
+      "Offset": { "$type": "dimension", "$value": "2px", "$description": "TODO 시안 확인" }
+    }
+  }
+}

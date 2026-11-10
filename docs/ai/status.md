@@ -4,9 +4,8 @@
 > 사람이 직접 고쳐도 된다. 여기 적힌 확정 결정은 `brief.md`보다 우선한다.
 
 ## 현재 단계
-- Phase 0 결정 확정 완료 → Phase 1 진행 전 사용자 확인 대기
-- 입력: `tokens/figma/color.json`(변수 60, 모드 "Mode 1"), `tokens/figma/space.json`(space 12개 0~80, 모드 "Default"), `tokens/figma/text-styles.json`(텍스트 스타일 29)
-- 원본 JSON 점검(2026-11-10): JSON 문법·참조·hex↔components 일치 모두 정상 → 파일 손대지 않음
+- Phase 1 완료 → 사용자 확인 대기 (다음: Phase 2 Foundation, 컴포넌트 시안 필요)
+- Storybook 실행·빌드는 이 PC에서 미검증 (VC++ 재배포 패키지 없음 → 열린 질문 참고)
 
 ## 확정 결정
 | 항목 | 결정 | 확정일 |
@@ -48,7 +47,10 @@
 - description이 없는 스타일은 역할 이름 없이 Figma 이름으로만 제공한다.
 
 ## 열린 질문
-- 없음 (시안 확보 시 코드 토큰 값·Semantic 매핑 확인 필요)
+- [Q11] Storybook 빌드가 이 PC에서 `oxc-resolver` 네이티브 모듈 로드 실패. `vcruntime140.dll` 없음(추정 원인: Microsoft Visual C++ 재배포 패키지 미설치). 설치 후 `pnpm build-storybook` 확인 필요
+- [Q12] JSP 프로젝트의 실제 정적 폴더 경로·컨텍스트 패스 (docs/jsp-integration.md는 `webapp/static/<앱>/` 가정)
+- [Q13] 모바일 시안 확인 후 `tokens/custom/breakpoint.json` 값 확정 (현재 TODO 임시값 tablet 1024 / mobile 768)
+- [Q14] 시안 확인 후 TODO 임시값 확정: `tokens/custom/semantic-color.json`(배경·hover·pressed·focus·overlay), `dimension.json`(focus ring)
 
 ## 단계별 요약
 <!-- 각 Phase 종료 시 아래 형식으로 추가
@@ -62,3 +64,20 @@
 - 만든 것: Figma 토큰 3종 분석, 확정 결정 표 작성
 - 한 가정: 부족한 토큰은 `tokens/custom/*.json`에서 퍼블리셔가 작성, Typography 역할 매핑은 description 기준
 - 다음 할 일: Phase 1 — 워크스페이스, build-tokens(figma + custom 병합), base 스타일·Pretendard self-host, Storybook, JSP 연동
+
+### Phase 1 — 2026-11-10
+- 만든 것
+  - pnpm 워크스페이스(루트 `package.json`, `pnpm-workspace.yaml`), `packages/design-system` 패키지(`@kiwoompay/design-system`)
+  - `scripts/build-tokens.mjs`: Figma JSON 3종 + `tokens/custom/*.json` → `_generated.scss`(SCSS 변수 + `--kp-*` CSS 변수 맵). 토큰 245개(Figma 188 / 코드 57). `--check` 옵션, 참조 끊김·이름 충돌·순환 참조 에러 처리
+  - `tokens/custom/`: font, typography-roles, semantic-color, dimension(focus ring), breakpoint
+  - `src/styles`: `tokens/_index.scss`, mixins(respond-to, ellipsis·line-clamp, focus-ring, typography), base(root, reset, global)
+  - ESLint 9(flat) · Prettier · Stylelint 16(하드코딩 값 경고, 요소·ID 선택자 금지, 중첩 2단계), Storybook 10(react-vite, addon-docs) 설정, Vite 라이브러리 빌드(ES + CSS 1개 + 타입 + Pretendard 복사)
+  - 문서: `docs/token-workflow.md`, `docs/jsp-integration.md`, `README.md`, Storybook `Introduction.mdx`
+- 검증: `tokens:check`, `typecheck`, `lint`(ESLint·Stylelint), `pnpm build` 통과. 에러 케이스·Stylelint 규칙 동작 확인. **Storybook은 미검증**(Q11)
+- 한 가정
+  - 버전: React 18.3, TypeScript 5.9, Vite 7, ESLint 9, Stylelint 16, pnpm 10 (최신 메이저보다 낮추어 호환성 우선)
+  - 라이브러리 산출물은 ES 모듈 + CSS 1개(`kiwoompay-ui.css`)이고 React는 peer. JSP에서는 앱 번들(`app.js`·`app.css`, 해시 없음 + `?v=`)을 로드
+  - 폰트는 `pretendard` 패키지의 dynamic-subset woff2를 `dist/fonts`로 복사해 `<link>`로 로드 (CSS 번들에 포함하지 않음)
+  - 반응형 mixin은 데스크톱 기준 `max-width` 방식, 임시 breakpoint 값 사용
+  - 컴포넌트 import는 `@use 'tokens' as t;` / `@use 'mixins' as m;` (Vite `loadPaths`)
+- 다음 할 일: Q11 해결 후 Storybook 확인 → Phase 2(Button, Icon, Field, Selection) 시안 확보
