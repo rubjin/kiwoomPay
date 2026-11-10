@@ -4,7 +4,7 @@
 > 사람이 직접 고쳐도 된다. 여기 적힌 확정 결정은 `brief.md`보다 우선한다.
 
 ## 현재 단계
-- Phase 2 진행 중 — Button·TextButton, Field 계열(Field·TextField·SearchField·TextArea·SelectBox·DateField·DateRangeField) 완료. 다음: Icon, Selection 계열(Checkbox·Radio·ToggleSwitch·Segmented), MultiSelect(시안 없음)
+- Phase 2 진행 중 — Button·TextButton, Field 계열, Selection 계열(Checkbox·Radio·ToggleSwitch·Segmented) 완료. 남은 것: Icon(SVG 소스 필요), MultiSelect(시안 없음). 다음: Phase 3 (Badge, Tab, Pagination, Modal, Tooltip, Date Picker)
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -57,6 +57,8 @@
 - [Q19] 시안에 없는 항목: 필드 hover 표현, Field 세로(라벨 위) 배치, SelectBox 키보드 이동(↑↓), Small 드롭다운 항목 글자 크기 → 현재 hover·세로 배치는 미구현, 항목 글자는 14px 고정
 - [Q20] TODO 임시값(시안 픽셀로 근사, `shadow/focus`는 `0 0 4px 0 rgba(36,132,198,0.30)`로 확정됨): `select/panel-max-height 190`, `select/status-min-height 172`, `z-index/dropdown 100` (`tokens/custom/field.json`)
 - [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field Default(40)는 시안에서 내용 폭에 딱 붙어 있으나 구현은 아이콘 앞 간격 8px 유지
+- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기(13px), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
+- [Q23] Checkbox·Radio·Toggle·Segmented의 hover 표현은 시안에 없어 미구현. 토글 이동 애니메이션은 motion 토큰이 없어 미구현
 
 ## 단계별 요약
 <!-- 각 Phase 종료 시 아래 형식으로 추가
@@ -122,3 +124,17 @@
   - DateField 형식·범위 검증, Date Picker는 포함하지 않음(Phase 3)
   - Field 안 컨트롤은 `React.useId`로 id를 자동 연결
 - 다음 할 일: Q18~Q21 확인, Selection 계열 시안, Icon 컴포넌트(SVG 소스) 후 `field/icons.tsx` 교체
+
+### Component: Selection 계열 — 2026-11-10
+- 만든 것
+  - `selection/`: `Checkbox`(indeterminate, label·helperText), `Radio`·`RadioGroup`(그룹이 선택값·name 관리), `ToggleSwitch`(role=switch), `Segmented`·`Segmented.Item`(Compound, 내부 native radio), `SelectionGroup`(세로/가로 묶음 레이아웃)
+  - 내부 공통 `SelectionItem`(컨트롤 + 라벨 + 부가 설명 레이아웃). native input을 투명하게 덮어 클릭·키보드·포커스를 그대로 받고, 모양은 형제 요소(`input:checked + .box`)가 그림
+  - 토큰(`tokens/custom/selection.json`): 크기 20/16, 체크박스 반경 4, 라디오 링 2px·점 10/8, 토글 36×20·28×16·손잡이 16/12, Segmented 높이 32·반경 6, 색(모두 Figma 색 alias). 타이포 역할 `segmented-item`(12 Medium) 추가
+  - Storybook: stories 4개, 가이드 `docs/Selection.mdx`
+- 검증: typecheck · lint(경고 0) · build · Storybook 빌드 통과. 시안 대조(크기·색 픽셀 일치). **브라우저 상호작용 테스트 24개 통과**(임시 puppeteer 스크립트, 저장소에는 포함하지 않음): Checkbox 전체 선택·indeterminate, RadioGroup, Toggle, Segmented, SelectBox(열기·선택·disabled 항목·Esc·바깥 클릭), DateField·DateRangeField 자동 정렬, SearchField(Enter·지우기), TextArea 카운터, Button loading. 이 과정에서 SelectBox Esc가 안 닫히던 버그를 찾아 수정(포커스가 밖으로 나가면 키 입력이 컴포넌트에 안 닿음 → 문서 전체에서 Esc를 듣고, 항목 mousedown에서 포커스 이동을 막음)
+- 한 가정
+  - 시안의 체크박스 반경은 모서리 윤곽을 이론값과 비교해 4로 확정. 토글 손잡이는 트랙 안쪽 2px 여백
+  - 컨트롤은 라벨 첫 줄의 세로 가운데에 맞춤(`1lh` 단위 사용 — 최신 Chrome·Edge·Safari 16.4+)
+  - Checkbox·Radio·Toggle은 `label`·`helperText` prop으로 Toggle Item/Content 구성을 대신함(별도 Item 컴포넌트 없음)
+  - Radio는 RadioGroup 안에서 그룹이 checked를 제어(controlled)하고, 밖에서는 native 속성을 그대로 사용
+- 다음 할 일: Q22~Q23 확인, Icon 컴포넌트(SVG 소스) 후 `field/icons.tsx`·체크 아이콘 교체, MultiSelect 시안, Phase 3

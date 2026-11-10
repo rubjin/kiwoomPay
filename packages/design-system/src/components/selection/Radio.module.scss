@@ -1,0 +1,79 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: inherit;
+  opacity: 0;
+}
+
+.box {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  background-color: t.$color-selection-bg;
+  border: t.$control-border-width solid t.$color-selection-border;
+  border-radius: 50%;
+
+  // 선택 점
+  &::after {
+    display: none;
+    content: '';
+    background-color: t.$color-selection-checked;
+    border-radius: 50%;
+  }
+}
+
+.md {
+  width: t.$selection-size-md;
+  height: t.$selection-size-md;
+  margin-block: calc((1lh - #{t.$selection-size-md}) / 2);
+
+  &::after {
+    width: t.$radio-dot-md;
+    height: t.$radio-dot-md;
+  }
+}
+
+.sm {
+  width: t.$selection-size-sm;
+  height: t.$selection-size-sm;
+  margin-block: calc((1lh - #{t.$selection-size-sm}) / 2);
+
+  &::after {
+    width: t.$radio-dot-sm;
+    height: t.$radio-dot-sm;
+  }
+}
+
+// ── 상태 ─────────────────────────────────────────────
+.input:checked + .box {
+  border-width: t.$radio-checked-border-width;
+  border-color: t.$color-selection-checked;
+
+  &::after {
+    display: block;
+  }
+}
+
+.input:disabled + .box {
+  background-color: t.$color-selection-bg-disabled;
+  border-color: t.$color-selection-border;
+}
+
+.input:disabled:checked + .box {
+  border-width: t.$control-border-width;
+
+  &::after {
+    background-color: t.$color-selection-disabled-checked;
+  }
+}
+
+.input:focus-visible + .box {
+  @include m.focus-ring;
+}

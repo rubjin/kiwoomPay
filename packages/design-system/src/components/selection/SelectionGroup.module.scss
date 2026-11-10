@@ -1,0 +1,14 @@
+@use 'tokens' as t;
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: t.$selection-group-gap;
+  align-items: flex-start;
+}
+
+.horizontal {
+  flex-flow: row wrap;
+  gap: t.$selection-group-gap-inline;
+  align-items: center;
+}

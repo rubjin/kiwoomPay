@@ -1,0 +1,243 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from '../src/components/selection/Checkbox.stories';
+import * as RadioStories from '../src/components/selection/Radio.stories';
+import * as ToggleSwitchStories from '../src/components/selection/ToggleSwitch.stories';
+import * as SegmentedStories from '../src/components/selection/Segmented.stories';
+
+<Meta title="Components/Selection/Guide" />
+
+# Selection
+
+선택 상태를 표시하고 바꾸는 컴포넌트 모음입니다. Checkbox · Radio · ToggleSwitch는 native `input`을 그대로 쓰므로
+`checked` / `defaultChecked` / `onChange` 등 HTML 속성이 그대로 동작하고, controlled와 uncontrolled를 모두 지원합니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>용도</th>
+      <th>선택 개수</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>Checkbox</code>
+      </td>
+      <td>선택 상태 표시. 단일 선택 · 여러 항목 선택 · 전체 선택</td>
+      <td>0개 이상</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Radio</code> · <code>RadioGroup</code>
+      </td>
+      <td>하나의 그룹에서 하나의 항목만 선택</td>
+      <td>1개</td>
+    </tr>
+    <tr>
+      <td>
+        <code>ToggleSwitch</code>
+      </td>
+      <td>설정이나 기능의 상태를 즉시 변경</td>
+      <td>켜짐 / 꺼짐</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Segmented</code> · <code>Segmented.Item</code>
+      </td>
+      <td>동급 옵션을 즉시 노출하고 하나의 값을 선택</td>
+      <td>1개</td>
+    </tr>
+  </tbody>
+</table>
+
+```tsx
+import { Checkbox, RadioGroup, Radio, ToggleSwitch, Segmented } from '@kiwoompay/design-system';
+
+<Checkbox label="약관에 동의합니다" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
+
+<RadioGroup value={type} onChange={setType}>
+  <Radio value="personal" label="개인" />
+  <Radio value="corp" label="법인" />
+</RadioGroup>
+
+<ToggleSwitch label="알림 받기" helperText="새 정산 내역이 생기면 알려줍니다." defaultChecked />
+
+<Segmented value={unit} onChange={setUnit}>
+  <Segmented.Item value="daily">일별</Segmented.Item>
+  <Segmented.Item value="monthly">월별</Segmented.Item>
+</Segmented>
+```
+
+## 1. Size
+
+`size`: `md`(기본, Default 20) · `sm`(Small 16). Checkbox · Radio · ToggleSwitch가 공통입니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>md (20)</th>
+      <th>sm (16)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Checkbox</td>
+      <td>20 × 20 · Radius 4</td>
+      <td>16 × 16 · Radius 4</td>
+    </tr>
+    <tr>
+      <td>Radio</td>
+      <td>지름 20 · 선택 점 10</td>
+      <td>지름 16 · 선택 점 8</td>
+    </tr>
+    <tr>
+      <td>ToggleSwitch</td>
+      <td>36 × 20 · 손잡이 16</td>
+      <td>28 × 16 · 손잡이 12</td>
+    </tr>
+  </tbody>
+</table>
+
+- 컨트롤과 라벨 간격은 8px, 라벨과 부가 설명 간격은 4px입니다.
+- 라벨은 `md` 14px Regular, `sm` 13px Regular(**임시**), 부가 설명은 12px Regular입니다.
+- Segmented 옵션은 높이 32 · Radius 6 · 12px 글자입니다.
+
+<Canvas of={CheckboxStories.Sizes} />
+
+## 2. Checkbox
+
+- **Off · On · Indeterminate**: `indeterminate`는 일부만 선택된 상태를 **표시만** 합니다. 전체 선택 체크박스에서 쓰고, `checked`는 직접 계산합니다.
+- **Disabled**: `disabled`. 선택된 상태는 회색 배경에 흰 체크로 표시됩니다.
+- **Content**: `label`만 · `label + helperText` · 라벨 없이(이 경우 `aria-label`을 줍니다).
+- 여러 개를 묶을 때는 `SelectionGroup`을 쓰면 항목 간격 8px로 세로 정렬됩니다. `direction="horizontal"`로 가로 나열도 가능합니다.
+
+<Canvas of={CheckboxStories.Check} />
+<Canvas of={CheckboxStories.States} />
+<Canvas of={CheckboxStories.Content} />
+<Canvas of={CheckboxStories.Group} />
+
+## 3. Radio
+
+- `RadioGroup`이 선택값(`value` / `defaultValue` / `onChange(value)`)과 `name`, `size`, `disabled`를 관리합니다. 그룹 안의 `Radio`는 `value`만 주면 됩니다.
+- 같은 그룹에서는 **하나의 항목만** 선택됩니다. 선택하면 Primary 링 2px와 점이 표시됩니다.
+- `RadioGroup`은 `direction="horizontal"`로 가로 배치할 수 있습니다.
+- `RadioGroup` 없이 쓸 때는 `name`을 직접 주고 native 속성을 씁니다.
+
+<Canvas of={RadioStories.Check} />
+<Canvas of={RadioStories.States} />
+<Canvas of={RadioStories.Group} />
+
+## 4. ToggleSwitch
+
+- 설정이나 기능의 상태를 **즉시** 켜고 끌 때 씁니다. 저장 버튼을 눌러야 반영되는 선택에는 Checkbox를 씁니다.
+- `role="switch"`로 렌더링됩니다. 움직임(애니메이션)은 motion 토큰이 정해지면 추가합니다.
+- 여러 개는 `SelectionGroup`으로 묶습니다.
+
+<Canvas of={ToggleSwitchStories.Value} />
+<Canvas of={ToggleSwitchStories.States} />
+<Canvas of={ToggleSwitchStories.Group} />
+
+## 5. Segmented
+
+`Segmented`(그룹) 안에 `Segmented.Item`을 둡니다. 내부는 native radio라서 같은 `name` 그룹으로 묶이고 방향키로도 이동합니다.
+
+- 선택값은 `value` / `defaultValue` / `onChange(value)`. 클릭 즉시 값이 바뀝니다.
+- 상태: Default · Selected · Disabled. 그룹 전체를 비활성화하려면 `Segmented`에 `disabled`를 줍니다.
+- 긴 라벨은 말줄임 처리됩니다.
+
+**언제 쓰나**
+
+- **전체 옵션 노출**: 선택하기 전에 모든 옵션을 한눈에 보고 비교해야 할 때.
+- **Single Select**: 하나의 그룹에서는 하나의 옵션만 선택합니다.
+- **즉시 전환**: 별도로 펼치지 않고 한 번 선택으로 값을 바꿉니다.
+- **Select Box를 쓰는 경우**: 전체 옵션을 항상 보여줄 필요가 없거나, 옵션 수 · 라벨 길이 때문에 한 화면에서 비교하기 어려울 때는 `SelectBox`를 씁니다.
+
+<Canvas of={SegmentedStories.States} />
+<Canvas of={SegmentedStories.Controlled} />
+
+## 무엇을 쓸까
+
+<table>
+  <thead>
+    <tr>
+      <th>상황</th>
+      <th>쓰는 것</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>동의 · 여러 항목 중 여러 개 선택 · 전체 선택</td>
+      <td>Checkbox</td>
+    </tr>
+    <tr>
+      <td>2~5개 옵션 중 하나를 고르고 값이 바로 바뀐다</td>
+      <td>Segmented</td>
+    </tr>
+    <tr>
+      <td>옵션을 나열해 두고 하나를 고른 뒤 다음 단계로 진행한다</td>
+      <td>Radio</td>
+    </tr>
+    <tr>
+      <td>옵션이 많거나 라벨이 길다</td>
+      <td>SelectBox</td>
+    </tr>
+    <tr>
+      <td>설정이나 기능을 즉시 켜고 끈다</td>
+      <td>ToggleSwitch</td>
+    </tr>
+  </tbody>
+</table>
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        전체 선택 대상 중 일부만 선택되면 전체 선택에 <code>indeterminate</code>를 준다
+      </td>
+      <td>일부만 선택됐는데 전체 선택을 체크 상태로 둔다</td>
+    </tr>
+    <tr>
+      <td>토글은 누르면 바로 반영되는 설정에만 쓴다</td>
+      <td>저장 버튼이 필요한 폼 항목에 토글을 쓴다</td>
+    </tr>
+    <tr>
+      <td>하나만 고르는 곳은 Radio(또는 Segmented)를 쓴다</td>
+      <td>하나만 고르는 곳에 Checkbox를 쓴다</td>
+    </tr>
+    <tr>
+      <td>옵션이 많으면 SelectBox로 바꾼다</td>
+      <td>긴 옵션을 Segmented에 억지로 넣어 말줄임이 생기게 한다</td>
+    </tr>
+    <tr>
+      <td>
+        라벨이 없는 Checkbox에는 <code>aria-label</code>을 준다
+      </td>
+      <td>의미를 알 수 없는 체크박스만 단독으로 둔다</td>
+    </tr>
+    <tr>
+      <td>
+        묶음은 <code>SelectionGroup</code> / <code>RadioGroup</code>으로 감싼다
+      </td>
+      <td>
+        항목마다 <code>margin</code>으로 간격을 직접 맞춘다
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- 크기·간격·반경: `selection/*`, `checkbox/radius`, `radio/*`, `toggle/*`, `segmented/*` (`tokens/custom/selection.json`)
+- 색: 모두 Figma 색 토큰 alias (`selection/*`, `toggle/*`, `segmented/*`)
+- 글자: 역할 이름 `body-md`(md) · `body-sm`(sm) · `caption-md`(부가 설명) · `segmented-item`(Segmented 옵션)
+- 시안에 없어 **임시 값(TODO)** 인 것: 비활성 라벨 색, 비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 · 좌우 패딩 · 옵션 간격

@@ -1,0 +1,39 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.root {
+  position: relative;
+  display: inline-flex;
+  gap: t.$selection-gap;
+  align-items: flex-start;
+  max-width: 100%;
+  color: t.$color-selection-text;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.md {
+  @include m.typography(body-md);
+}
+
+.sm {
+  @include m.typography(body-sm);
+}
+
+.disabled {
+  color: t.$color-selection-text-disabled;
+  cursor: not-allowed;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: t.$selection-helper-gap;
+  min-width: 0;
+}
+
+.helper {
+  @include m.typography(caption-md);
+
+  color: t.$color-selection-helper;
+}
