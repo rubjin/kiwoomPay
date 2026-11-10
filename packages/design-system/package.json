@@ -25,13 +25,15 @@
     "tokens": "node scripts/build-tokens.mjs",
     "tokens:check": "node scripts/build-tokens.mjs --check",
     "dev": "pnpm storybook",
-    "storybook": "pnpm tokens && storybook dev -p 6006",
-    "build-storybook": "pnpm tokens && storybook build",
-    "build": "pnpm tokens && vite build && tsc -p tsconfig.build.json && node scripts/copy-fonts.mjs",
+    "storybook": "pnpm tokens && pnpm icons && storybook dev -p 6006",
+    "build-storybook": "pnpm tokens && pnpm icons && storybook build",
+    "build": "pnpm tokens && pnpm icons && vite build && tsc -p tsconfig.build.json && node scripts/copy-fonts.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm lint:script && pnpm lint:style",
     "lint:script": "eslint .",
-    "lint:style": "stylelint \"src/**/*.scss\""
+    "lint:style": "stylelint \"src/**/*.scss\"",
+    "icons": "node scripts/build-icons.mjs",
+    "icons:check": "node scripts/build-icons.mjs --check"
   },
   "peerDependencies": {
     "react": "^18.3.1",

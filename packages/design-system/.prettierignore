@@ -1,0 +1,6 @@
+src/assets
+src/components/Icon/icons.generated.tsx
+src/styles/tokens/_generated.scss
+tokens/figma
+dist
+storybook-static

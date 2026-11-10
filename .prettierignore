@@ -7,3 +7,5 @@ packages/design-system/src/styles/tokens/_generated.scss
 .claude
 CLAUDE.md
 docs/ai
+packages/design-system/src/assets
+packages/design-system/src/components/Icon/icons.generated.tsx
