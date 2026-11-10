@@ -1,0 +1,9 @@
+node_modules
+dist
+storybook-static
+pnpm-lock.yaml
+packages/design-system/tokens/figma
+packages/design-system/src/styles/tokens/_generated.scss
+.claude
+CLAUDE.md
+docs/ai

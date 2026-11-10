@@ -1,0 +1,7 @@
+@use '../tokens' as t;
+
+// 키보드 포커스 표시 (접근성 토큰은 범위 밖이지만 포커스 표시는 유지한다)
+@mixin focus-ring {
+  outline: t.$focus-ring-width solid t.$color-focus-ring;
+  outline-offset: t.$focus-ring-offset;
+}

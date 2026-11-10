@@ -1,0 +1,19 @@
+@use '../tokens' as t;
+@use '../mixins' as m;
+
+body {
+  @include m.typography(body-md);
+
+  color: t.$color-text-body;
+  background-color: t.$color-bg-page;
+  -webkit-font-smoothing: antialiased;
+}
+
+// 마우스 클릭에는 숨기고 키보드 포커스에만 표시
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @include m.focus-ring;
+}

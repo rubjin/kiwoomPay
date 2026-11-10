@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Figma 원본 JSON은 내보낸 그대로 보존 (줄바꿈 변환 금지)
+packages/design-system/tokens/figma/** -text

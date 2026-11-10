@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# 키움페이 디자인 시스템
+
+가맹점관리자 · 내부관리자 · 영업대행사가 함께 쓰는 React 컴포넌트와 디자인 가이드입니다.
+
+- 세 시스템은 **같은 토큰**을 사용합니다. 시스템별 테마는 없습니다.
+- 테마는 Light만 지원하고, 밀도(size)는 `sm` · `md` · `lg` 입니다.
+- 반응형은 **가맹점관리자 전용**입니다. 내부관리자·영업대행사는 데스크톱 고정입니다.
+
+## 토큰 사용 규칙
+
+컴포넌트 SCSS는 토큰만 참조하고 값을 직접 쓰지 않습니다.
+
+```scss
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.button {
+  @include m.typography(label-md);
+
+  color: t.$color-text-inverse;
+  background-color: t.$color-primary-500;
+}
+```
+
+- SCSS 변수 `t.$color-primary-500` ↔ CSS 변수 `--kp-color-primary-500` 가 1:1로 대응합니다.
+- `Primary`·`Neutral`·`Base`(Primitive)는 컴포넌트에서 직접 쓰지 않고, `Text`·`Line`·`Status`·`Bg` 같은 Semantic 토큰을 씁니다.
+- 가이드 문서는 Phase 2 이후 컴포넌트와 함께 추가됩니다.

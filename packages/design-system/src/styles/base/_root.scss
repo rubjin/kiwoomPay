@@ -1,0 +1,8 @@
+@use '../tokens' as t;
+
+// 모든 토큰을 --kp-* CSS 변수로 출력한다.
+:root {
+  @each $name, $value in t.$css-variables {
+    #{$name}: #{$value};
+  }
+}

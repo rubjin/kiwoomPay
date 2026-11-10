@@ -1,0 +1,12 @@
+@use '../tokens' as t;
+
+// 텍스트 스타일 적용. 이름은 역할 이름(body-md, heading-lg …) 또는 Figma 이름(typo-14-regular).
+//   @include typography(body-md);
+// 이름이 문자열 보간이라 오타가 나면 CSS 변수가 비어 보인다. 목록은 tokens/custom/typography-roles.json 참고.
+@mixin typography($name) {
+  font-family: t.$font-family-base;
+  font-size: var(--kp-typography-#{$name}-font-size);
+  font-weight: var(--kp-typography-#{$name}-font-weight);
+  line-height: var(--kp-typography-#{$name}-line-height);
+  letter-spacing: var(--kp-typography-#{$name}-letter-spacing);
+}

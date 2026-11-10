@@ -1,0 +1,7 @@
+packages:
+  - packages/*
+  - apps/*
+
+# pnpm 10은 설치 스크립트를 기본 차단한다. 빌드가 필요한 패키지만 허용.
+onlyBuiltDependencies:
+  - esbuild
