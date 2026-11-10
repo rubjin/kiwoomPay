@@ -109,7 +109,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         {loading ? (
           <>
             <span className={styles.icon}>
-              <Icon name="loading" size={ICON_SIZE[size]} className={styles.spin} />
+              <Icon name="loading" size={ICON_SIZE[size]} />
             </span>
             {!iconOnly && <span className={styles.label}>{loadingText}</span>}
           </>

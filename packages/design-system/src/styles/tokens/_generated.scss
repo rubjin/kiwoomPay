@@ -410,9 +410,6 @@ $color-icon-warning: var(--kp-color-icon-warning); // Warning-circle_filled
 $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
 
-// ── custom · motion ─────────────────────────────────────────────
-$motion-duration-spin: var(--kp-motion-duration-spin); // TODO(시안) 로딩 아이콘 1회전 시간
-
 // ── custom · pagination ─────────────────────────────────────────
 $pagination-item-size: var(--kp-pagination-item-size); // Number 40×40, 높이 40 (Pagination Guide)
 $pagination-nav-min-width: var(--kp-pagination-nav-min-width); // Previous·Next 62×40
@@ -816,7 +813,6 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
-  "--kp-motion-duration-spin": "1s",
   "--kp-pagination-item-size": "var(--kp-control-height-md)",
   "--kp-pagination-nav-min-width": "62px",
   "--kp-pagination-nav-padding-x": "var(--kp-space-4)",

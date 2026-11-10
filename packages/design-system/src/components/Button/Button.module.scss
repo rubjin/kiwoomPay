@@ -108,22 +108,6 @@ $variants: primary, neutral, dark, danger;
   cursor: default;
 }
 
-.spin {
-  animation: spin t.$motion-duration-spin linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spin {
-    animation: none;
-  }
-}
-
 // ── variant × appearance × state ─────────────────────
 @each $v in $variants {
   .#{$v}.solid {
