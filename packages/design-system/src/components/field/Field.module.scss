@@ -1,0 +1,55 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.field {
+  display: flex;
+  gap: t.$field-label-gap;
+  align-items: flex-start;
+  max-width: 100%;
+}
+
+// 라벨은 필드 높이와 같은 줄에서 세로 가운데 정렬한다.
+.label {
+  @include m.typography(label-field);
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: t.$color-field-label;
+}
+
+.md {
+  min-height: t.$control-height-md;
+}
+
+.sm {
+  min-height: t.$control-height-sm;
+}
+
+.required {
+  margin-inline-start: t.$space-4;
+  color: t.$color-field-required;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: t.$field-helper-gap;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.helper {
+  @include m.typography(caption-md);
+
+  margin: 0;
+  color: t.$color-field-helper;
+}
+
+.positive {
+  color: t.$color-field-helper-positive;
+}
+
+.negative {
+  color: t.$color-field-helper-negative;
+}

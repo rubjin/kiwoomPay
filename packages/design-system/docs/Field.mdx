@@ -1,0 +1,302 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as TextFieldStories from '../src/components/field/TextField.stories';
+import * as SelectBoxStories from '../src/components/field/SelectBox.stories';
+import * as SearchFieldStories from '../src/components/field/SearchField.stories';
+import * as TextAreaStories from '../src/components/field/TextArea.stories';
+import * as DateFieldStories from '../src/components/field/DateField.stories';
+import * as DateRangeFieldStories from '../src/components/field/DateRangeField.stories';
+import * as FieldStories from '../src/components/field/Field.stories';
+
+<Meta title="Components/Field/Guide" />
+
+# Field
+
+사용자가 값을 **직접 입력하거나 선택**하는 폼 컴포넌트 모음입니다.
+모든 컴포넌트가 같은 박스(높이·여백·반경·상태 색)를 공유하므로 어떤 조합으로 놓아도 모양이 맞습니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>TextField</code>
+      </td>
+      <td>텍스트 한 줄 입력. 아이콘 · 지우기 · 단위(suffix) 지원</td>
+    </tr>
+    <tr>
+      <td>
+        <code>SearchField</code>
+      </td>
+      <td>검색어 입력과 조회 실행 전용. 검색 아이콘과 지우기 기본 포함</td>
+    </tr>
+    <tr>
+      <td>
+        <code>TextArea</code>
+      </td>
+      <td>사유 · 메모 등 여러 줄 입력. 글자수 카운터 옵션</td>
+    </tr>
+    <tr>
+      <td>
+        <code>SelectBox</code>
+      </td>
+      <td>목록에서 항목을 선택. 로딩 · 빈 상태 · 스크롤 지원</td>
+    </tr>
+    <tr>
+      <td>
+        <code>DateField</code>
+      </td>
+      <td>단일 날짜 입력. Date Picker는 달력 아이콘으로 호출</td>
+    </tr>
+    <tr>
+      <td>
+        <code>DateRangeField</code>
+      </td>
+      <td>시작일 ~ 종료일 입력. Range Date Picker는 달력 아이콘으로 호출</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Field</code>
+      </td>
+      <td>라벨 + 컨트롤 + 안내 문구(Helper)를 묶는 래퍼</td>
+    </tr>
+  </tbody>
+</table>
+
+```tsx
+import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-system';
+
+<Field label="가맹점명" required helperText="사업자등록증의 상호를 입력합니다.">
+  <TextField placeholder="입력해주세요" />
+</Field>
+
+<Field label="조회기간">
+  <DateRangeField onCalendarClick={openRangePicker} />
+</Field>
+```
+
+## 1. Size · Spec
+
+- `size`: `md`(기본, Default 40) · `sm`(Small 32). 폭에는 **고정 variant가 없습니다.** 내용 기준으로 늘어나고, 부모 폭을 채우려면 `fullWidth`를 씁니다.
+- 같은 줄에 Button과 놓을 때는 같은 size를 맞춥니다 (높이 40 / 32).
+
+<table>
+  <thead>
+    <tr>
+      <th>size</th>
+      <th>높이</th>
+      <th>좌우 패딩</th>
+      <th>Radius</th>
+      <th>테두리</th>
+      <th>글자</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>md</code>
+      </td>
+      <td>40</td>
+      <td>14</td>
+      <td>8</td>
+      <td>1</td>
+      <td>14px Regular</td>
+    </tr>
+    <tr>
+      <td>
+        <code>sm</code>
+      </td>
+      <td>32</td>
+      <td>12</td>
+      <td>6</td>
+      <td>1</td>
+      <td>13px Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+- Helper Text · Counter: 12px Regular. 아이콘과 텍스트 간격은 8px.
+- 아이콘: Leading 20(md) / 16(sm), Trailing(지우기 · 화살표 · 달력) 20.
+
+<Canvas of={TextFieldStories.Sizes} />
+
+## 2. State
+
+<table>
+  <thead>
+    <tr>
+      <th>상태</th>
+      <th>설명</th>
+      <th>표현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>입력 전</td>
+      <td>Neutral 테두리, placeholder 표시</td>
+    </tr>
+    <tr>
+      <td>Focus · Typing</td>
+      <td>입력 중</td>
+      <td>Primary 테두리 + 옅은 번짐</td>
+    </tr>
+    <tr>
+      <td>Filled</td>
+      <td>입력 완료</td>
+      <td>본문색 텍스트</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>조건 미충족</td>
+      <td>
+        <code>disabled</code> · 회색 배경, 입력 불가
+      </td>
+    </tr>
+    <tr>
+      <td>Readonly</td>
+      <td>보기 전용</td>
+      <td>
+        <code>readOnly</code> · 옅은 회색 배경, 값은 본문색
+      </td>
+    </tr>
+    <tr>
+      <td>Positive · Negative</td>
+      <td>검증 결과</td>
+      <td>
+        <code>feedback</code> · 초록 / 빨강 테두리 2px
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+- Focus는 별도 prop 없이 `:focus-within`으로 표시됩니다.
+- `controlled`(`value` + `onChange`)와 `uncontrolled`(`defaultValue`)를 모두 지원합니다.
+
+<Canvas of={TextFieldStories.States} />
+<Canvas of={TextFieldStories.Feedback} />
+
+## 3. Text Field — Content
+
+`leadingIcon`(예: 검색), `trailingIcon`, `suffix`(예: 원), `clearable`(값이 있을 때 지우기 버튼)을 조합합니다.
+`clearable`을 controlled로 쓸 때는 `onClear`에서 값을 비워야 합니다.
+
+<Canvas of={TextFieldStories.Content} />
+
+## 4. Select Box
+
+- 옵션은 `options={[{ value, label, disabled? }]}`로 넘깁니다. 선택값은 `value` / `defaultValue` / `onChange(value, option)`.
+- `name`을 주면 선택값이 hidden input으로 함께 제출되어 JSP form 전송에 쓸 수 있습니다.
+- 드롭다운 상태: Default · Hover · Selected · Disabled 항목, 항목이 많으면 **스크롤**, `loading`이면 **불러오는 중**, 옵션이 없으면 **빈 상태** 문구.
+- 바깥 영역 클릭, `Esc`로 닫힙니다.
+- 열린 상태에서 **스크롤 · 로딩 · 빈 상태**가 되면 트리거 테두리가 번짐 없이 Primary 2px로 진해집니다 (`field/strong-border-width`).
+
+<Canvas of={SelectBoxStories.States} />
+<Canvas of={SelectBoxStories.Open} />
+<Canvas of={SelectBoxStories.Scroll} />
+<Canvas of={SelectBoxStories.Loading} />
+<Canvas of={SelectBoxStories.Empty} />
+
+## 5. Search Field
+
+`Enter`로 `onSearch(value)`가 호출됩니다 (한글 조합 중에는 호출하지 않음). 조회 버튼은 옆에 `Button`(Neutral Solid)을 같은 size로 두고 간격은 8px입니다.
+
+<Canvas of={SearchFieldStories.WithButton} />
+
+## 6. Textarea
+
+- `rows`(기본 3)로 높이가 정해지고 크기 조절 핸들은 없습니다.
+- `showCounter` + `maxLength`로 우측 하단에 `0 / 200`을 표시합니다. 카운터는 박스 안에 겹쳐 놓이므로 입력이 마지막 줄까지 길어지는 용도라면 `rows`를 늘립니다.
+
+<Canvas of={TextAreaStories.Sizes} />
+
+## 7. Date Field · Date Range Field
+
+- 숫자만 입력해도 `YYYY-MM-DD`로 자동 정렬되고, `onChange`에는 정렬된 문자열이 전달됩니다 (`DateRangeField`는 `{ start, end }`).
+- Date Picker는 포함하지 않습니다. 달력 아이콘을 누르면 `onCalendarClick`이 호출되니 Picker는 직접 연결합니다. `disabled` · `readOnly`에서는 아이콘이 비활성입니다.
+- 날짜 형식 검증(존재하는 날짜인지, 시작일 ≤ 종료일)은 하지 않습니다. 검증 결과는 `feedback`으로 전달합니다.
+
+<Canvas of={DateFieldStories.States} />
+<Canvas of={DateRangeFieldStories.States} />
+
+## 8. Field — Label · Helper
+
+- 라벨은 필드 **왼쪽**에 가로로 놓이고 필드와 세로 가운데가 맞습니다. 안내 문구(Helper)는 필드 **아래**, 필드 왼쪽에 맞춰 8px 간격으로 놓입니다.
+- `required`는 라벨 옆에 Primary 색 `*`를 표시합니다. 라벨 폭은 `labelWidth`로 여러 필드에 맞춥니다.
+- 안쪽 컨트롤은 `id` · `size` · `feedback` · `disabled`를 자동으로 받습니다. 컨트롤에 직접 준 prop이 우선합니다.
+- `feedback`을 주면 안내 문구가 같은 색(초록 / 빨강)이 됩니다.
+
+<Canvas of={FieldStories.WithControls} />
+<Canvas of={FieldStories.Feedback} />
+
+## 사용 위치 규칙
+
+- 검색 영역: `SearchField` + `Button`(조회). 상세 조건이 많으면 `Field`로 라벨을 붙인 `TextField` · `SelectBox` · `DateRangeField`를 조합합니다.
+- 입력 폼: 라벨 폭을 `labelWidth`로 통일하고, 필수 항목에만 `required`를 붙입니다.
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        검증 실패 시 <code>feedback="negative"</code>와 안내 문구를 함께 보여준다
+      </td>
+      <td>빨간 테두리만 보여주고 이유를 알려주지 않는다</td>
+    </tr>
+    <tr>
+      <td>
+        필수 항목에만 <code>required</code>를 표시한다
+      </td>
+      <td>모든 항목에 필수 표시를 붙인다</td>
+    </tr>
+    <tr>
+      <td>
+        조건에 따라 못 쓰는 입력은 <code>disabled</code>, 보기만 하는 값은 <code>readOnly</code>를
+        쓴다
+      </td>
+      <td>
+        보기 전용 값을 <code>disabled</code>로 처리한다 (값이 흐려져 읽기 어렵다)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        단위가 있으면 <code>suffix</code>로 붙인다 (예: 원)
+      </td>
+      <td>입력값 안에 단위 문자를 직접 넣는다</td>
+    </tr>
+    <tr>
+      <td>같은 줄의 필드와 버튼은 같은 size를 쓴다</td>
+      <td>높이 40 필드 옆에 높이 32 버튼을 놓는다</td>
+    </tr>
+    <tr>
+      <td>날짜 검증과 Picker 연결은 화면에서 처리한다</td>
+      <td>날짜 입력 컴포넌트가 형식 검증까지 해줄 것으로 기대한다</td>
+    </tr>
+    <tr>
+      <td>
+        폭이 필요하면 <code>fullWidth</code>나 부모 레이아웃으로 정한다
+      </td>
+      <td>
+        <code>style</code>로 높이·테두리 색을 덮어쓴다
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- 크기: `control/height/*`(Button과 공유), `field/radius·padding-x·icon-size·gap` (`tokens/custom/field.json`)
+- 색: `field/*`, `select/*` — 모두 Figma 색 토큰 alias
+- 글자: 기존 역할 이름 `body-md`(md), `label-md`(sm), `caption-md`(Helper · Counter), `label-field`(Label)
+- 포커스 번짐은 `shadow/focus`(`0 0 4px 0 rgba(36, 132, 198, 0.30)`)입니다. 드롭다운 최대 높이(`select/panel-max-height`)와 로딩·빈 상태 높이는 시안 픽셀로 근사한 **임시 값(TODO)** 입니다.

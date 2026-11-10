@@ -1,0 +1,232 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// ── 아이콘 슬롯 (size 규칙보다 먼저 선언) ─────────────
+.leading,
+.trailing,
+.icon,
+.iconButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.leading {
+  color: t.$color-field-icon-muted;
+}
+
+.trailing {
+  gap: t.$field-gap;
+  color: t.$color-field-icon;
+}
+
+.icon,
+.iconButton {
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+}
+
+.iconButton {
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.muted {
+  color: t.$color-field-icon-muted;
+}
+
+// 글자수 카운터: 박스 우측 하단에 겹친다 (시안: 높이는 카운터 유무와 같다)
+.counter {
+  @include m.typography(caption-md);
+
+  position: absolute;
+  bottom: t.$space-12;
+  color: t.$color-field-counter;
+  pointer-events: none;
+}
+
+// ── 박스 ─────────────────────────────────────────────
+.box {
+  position: relative;
+  display: inline-flex;
+  gap: t.$field-gap;
+  align-items: center;
+  max-width: 100%;
+  color: t.$color-field-text;
+  vertical-align: middle;
+  background-color: t.$color-field-bg;
+  border: t.$control-border-width solid t.$color-field-border;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+.md {
+  @include m.typography(body-md);
+
+  height: t.$control-height-md;
+  padding-inline: t.$field-padding-x-md;
+  border-radius: t.$field-radius-md;
+
+  .leading {
+    width: t.$field-icon-size-md;
+    height: t.$field-icon-size-md;
+  }
+
+  .counter {
+    right: t.$field-padding-x-md;
+  }
+
+  &.multiline {
+    height: auto;
+    padding-block: t.$field-padding-x-md;
+  }
+}
+
+.sm {
+  @include m.typography(label-md);
+
+  height: t.$control-height-sm;
+  padding-inline: t.$field-padding-x-sm;
+  border-radius: t.$field-radius-sm;
+
+  .leading {
+    width: t.$field-icon-size-sm;
+    height: t.$field-icon-size-sm;
+  }
+
+  .counter {
+    right: t.$field-padding-x-sm;
+  }
+
+  &.multiline {
+    height: auto;
+    padding-block: t.$field-padding-x-sm;
+  }
+}
+
+.multiline {
+  align-items: flex-start;
+}
+
+// ── 상태 ─────────────────────────────────────────────
+// 비활성 입력은 포커스를 받을 수 없어 :focus-within에 걸리지 않는다.
+.box:focus-within,
+.active {
+  border-color: t.$color-field-border-focus;
+  box-shadow: t.$shadow-focus;
+}
+
+// 열린 SelectBox가 스크롤·로딩·빈 상태일 때: 번짐 없이 테두리만 2px로 진하게
+.box.strong {
+  border-color: t.$color-field-border-focus;
+  box-shadow: inset 0 0 0 calc(#{t.$field-strong-border-width} - #{t.$control-border-width})
+    t.$color-field-border-focus;
+}
+
+// Positive / Negative: 테두리 2px. 레이아웃이 밀리지 않도록 안쪽 그림자로 1px을 더한다.
+.box.positive {
+  border-color: t.$color-field-border-positive;
+  box-shadow: inset 0 0 0 calc(#{t.$field-feedback-border-width} - #{t.$control-border-width})
+    t.$color-field-border-positive;
+}
+
+.box.negative {
+  border-color: t.$color-field-border-negative;
+  box-shadow: inset 0 0 0 calc(#{t.$field-feedback-border-width} - #{t.$control-border-width})
+    t.$color-field-border-negative;
+}
+
+.box.readOnly {
+  background-color: t.$color-field-bg-readonly;
+}
+
+.box.disabled {
+  color: t.$color-field-text-disabled;
+  cursor: not-allowed;
+  background-color: t.$color-field-bg-disabled;
+
+  .leading,
+  .trailing,
+  .muted {
+    color: t.$color-field-icon-disabled;
+  }
+}
+
+// ── 입력 요소 ────────────────────────────────────────
+.input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: 0;
+
+  &::placeholder {
+    color: t.$color-field-text-placeholder;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  // 포커스는 박스 테두리로 표시한다 (전역 포커스 링 중복 방지)
+  &:focus-visible {
+    outline: 0;
+  }
+}
+
+.box.disabled .input::placeholder {
+  color: t.$color-field-text-disabled;
+}
+
+// 날짜 입력은 YYYY-MM-DD 10자 기준으로 폭이 정해진다 (고정 폭 variant 없음).
+.date {
+  flex: 1 1 11ch;
+  width: auto;
+}
+
+.separator {
+  flex: none;
+  color: t.$color-field-text-placeholder;
+}
+
+.filled {
+  color: t.$color-field-text;
+}
+
+.textarea {
+  display: block;
+  resize: none;
+}
+
+.suffix {
+  flex: none;
+  color: t.$color-field-text-placeholder;
+  white-space: nowrap;
+}
+
+.box.disabled .suffix {
+  color: t.$color-field-text-disabled;
+}

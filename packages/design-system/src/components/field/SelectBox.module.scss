@@ -1,0 +1,153 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.root {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+// ── 트리거 ───────────────────────────────────────────
+.trigger {
+  display: flex;
+  flex: 1;
+  gap: t.$field-gap;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  // 포커스는 박스 테두리로 표시한다
+  &:focus-visible {
+    outline: 0;
+  }
+}
+
+.value {
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.placeholder {
+  color: t.$color-field-text-placeholder;
+}
+
+.chevron {
+  display: inline-flex;
+  flex: none;
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+  color: t.$color-field-icon;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.trigger:disabled .placeholder,
+.trigger:disabled .chevron {
+  color: t.$color-field-icon-disabled;
+}
+
+// ── 드롭다운 패널 ────────────────────────────────────
+.panel {
+  position: absolute;
+  top: calc(100% + #{t.$select-panel-offset});
+  left: 0;
+  z-index: t.$z-index-dropdown;
+  width: 100%;
+  padding: t.$select-panel-padding;
+  background-color: t.$color-field-bg;
+  border: t.$control-border-width solid t.$color-field-border;
+  border-radius: t.$field-radius-md;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: t.$select-item-gap;
+  max-height: calc(
+    #{t.$select-panel-max-height} - 2 * #{t.$select-panel-padding} - 2 * #{t.$control-border-width}
+  );
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-color: t.$color-select-scroll-thumb transparent;
+  scrollbar-width: thin;
+}
+
+.option {
+  @include m.typography(body-md);
+
+  padding: t.$select-item-padding-y t.$select-item-padding-x;
+  color: t.$color-select-item-text;
+  cursor: pointer;
+  border-radius: t.$field-radius-sm;
+
+  &:hover:not(.optionDisabled, .optionSelected) {
+    background-color: t.$color-select-item-hover;
+  }
+}
+
+.optionSelected {
+  color: t.$color-select-item-selected-text;
+  background-color: t.$color-select-item-selected;
+}
+
+.optionDisabled {
+  color: t.$color-select-item-text-disabled;
+  cursor: not-allowed;
+}
+
+// ── 로딩 · 빈 상태 ───────────────────────────────────
+.status {
+  @include m.typography(body-md);
+
+  display: flex;
+  gap: t.$field-gap;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(
+    #{t.$select-status-min-height} - 2 * #{t.$select-panel-padding} - 2 * #{t.$control-border-width}
+  );
+  color: t.$color-select-item-text;
+}
+
+.empty {
+  color: t.$color-select-status-text;
+}
+
+.spinner {
+  flex: none;
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+}
+
+.spinnerTrack {
+  stroke: t.$color-select-spinner-track;
+}
+
+.spinnerArc {
+  stroke: t.$color-select-spinner-arc;
+}
