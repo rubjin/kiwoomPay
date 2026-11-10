@@ -16,7 +16,7 @@
 .modal {
   display: flex;
   flex-direction: column;
-  width: t.$modal-width;
+  width: t.$modal-width-sm;
   max-width: 100%;
   max-height: 100%;
   overflow: hidden;
@@ -31,6 +31,15 @@
   &:focus-visible {
     outline: 0;
   }
+}
+
+// 폭: sm(기본) 400 · md 620 · lg 800. width prop을 주면 그 값이 우선한다(inline style)
+.md {
+  width: t.$modal-width-md;
+}
+
+.lg {
+  width: t.$modal-width-lg;
 }
 
 // ── Header (고정) ────────────────────────────────────

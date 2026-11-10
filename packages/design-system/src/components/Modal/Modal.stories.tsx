@@ -29,23 +29,27 @@ const infoItems = [
   { label: '최근 변경일시', value: 'YYYY-MM-DD HH:MM' },
 ];
 
-function FormContent() {
+const fieldWidth: CSSProperties = { width: 200 };
+
+/** Form 본문. 조회 필드는 라벨 위(top) 또는 왼쪽(left), 나머지 필드는 라벨 왼쪽 + 폭 200 */
+function FormContent({ lookupLabel = 'top' }: { lookupLabel?: 'top' | 'left' }) {
+  const top = lookupLabel === 'top';
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-12)' }}>
-      <Field label="Label Text">
-        <div style={{ display: 'flex', gap: 'var(--kp-space-8)', flex: 1 }}>
-          <SearchField fullWidth />
+      <Field label={top ? '업체명' : 'Label Text'} labelPosition={top ? 'top' : 'left'}>
+        <div style={{ display: 'flex', gap: 'var(--kp-space-8)', width: '100%' }}>
+          <SearchField fullWidth placeholder="검색어를 입력해주세요" />
           <Button variant="neutral">조회</Button>
         </div>
       </Field>
       <Field label="입금 금액">
-        <TextField placeholder="입력해주세요" />
+        <TextField placeholder="입력해주세요" style={fieldWidth} />
       </Field>
       <Field label="입금 일자">
         <DateField />
       </Field>
       <Field label="비고">
-        <TextField placeholder="입력해주세요" />
+        <TextField placeholder="입력해주세요" style={fieldWidth} />
       </Field>
     </div>
   );
@@ -76,17 +80,17 @@ export const Types: Story = {
           <Button size="lg">저장</Button>
         </Modal.Footer>
       </Modal>
-      <Modal open inline>
+      <Modal open inline size="md">
         <Modal.Header title="상세 정보" closeButton />
         <Modal.Body>
           <Modal.Description>처리 대상의 상세 정보를 확인할 수 있습니다.</Modal.Description>
           <Modal.InfoList items={infoItems} />
         </Modal.Body>
       </Modal>
-      <Modal open inline>
+      <Modal open inline size="lg">
         <Modal.Header title="정보 입력" closeButton />
         <Modal.Body>
-          <FormContent />
+          <FormContent lookupLabel="left" />
         </Modal.Body>
         <Modal.Footer>
           <Button size="lg" variant="neutral" appearance="line">
@@ -130,6 +134,77 @@ export const Actions: Story = {
           <Button size="lg">저장</Button>
         </Modal.Footer>
       </Modal>
+    </div>
+  ),
+};
+
+type ActionCount = 'none' | 'single' | 'double';
+const actionCounts: ActionCount[] = ['none', 'single', 'double'];
+
+function FooterActions({ count, primary }: { count: ActionCount; primary: string }) {
+  if (count === 'none') return null;
+  return (
+    <Modal.Footer>
+      {count === 'double' && (
+        <Button size="lg" variant="neutral" appearance="line">
+          취소
+        </Button>
+      )}
+      <Button size="lg">{primary}</Button>
+    </Modal.Footer>
+  );
+}
+
+/**
+ * Pattern: Type × Action. Action(None · Single · Double)은 Type과 따로 조합한다.
+ * 폭은 Type별 size — Alert · Confirm sm 400 / Information md 620 / Form lg 800
+ */
+export const Patterns: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-24)' }}>
+      <div style={row}>
+        {actionCounts.map((count) => (
+          <Modal key={`alert-${count}`} open inline>
+            <Modal.Header title="안내" />
+            <Modal.Body>
+              <Modal.Description>중요한 안내 또는 처리 결과를 확인해주세요.</Modal.Description>
+            </Modal.Body>
+            <FooterActions count={count} primary="확인" />
+          </Modal>
+        ))}
+        {actionCounts.map((count) => (
+          <Modal key={`confirm-${count}`} open inline>
+            <Modal.Header title="확인" />
+            <Modal.Body>
+              <Modal.Description>입력한 항목을 저장할까요?</Modal.Description>
+            </Modal.Body>
+            <FooterActions count={count} primary="저장" />
+          </Modal>
+        ))}
+      </div>
+      <div style={row}>
+        {actionCounts.map((count) => (
+          <Modal key={`info-${count}`} open inline size="md">
+            <Modal.Header title="상세 정보" closeButton />
+            <Modal.Body>
+              <Modal.Description>처리 대상의 상세 정보를 확인할 수 있습니다.</Modal.Description>
+              <Modal.InfoList items={infoItems} />
+            </Modal.Body>
+            <FooterActions count={count} primary="확인" />
+          </Modal>
+        ))}
+      </div>
+      <div style={row}>
+        {actionCounts.map((count) => (
+          <Modal key={`form-${count}`} open inline size="lg">
+            <Modal.Header title="정보 입력" closeButton />
+            <Modal.Body>
+              <FormContent lookupLabel={count === 'double' ? 'left' : 'top'} />
+            </Modal.Body>
+            <FooterActions count={count} primary="등록" />
+          </Modal>
+        ))}
+      </div>
     </div>
   ),
 };
@@ -194,7 +269,7 @@ function FormExample() {
       <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
         Form 열기
       </Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={() => setOpen(false)} size="lg">
         <Modal.Header title="정보 입력" closeButton />
         <Modal.Body>
           <FormContent />

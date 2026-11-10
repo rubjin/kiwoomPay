@@ -1,9 +1,21 @@
 {
   "Modal": {
     "Width": {
-      "$type": "dimension",
-      "$value": "400px",
-      "$description": "Alert·Confirm·Information·Form 기본 폭 (측정값)"
+      "SM": {
+        "$type": "dimension",
+        "$value": "400px",
+        "$description": "size sm: Alert · Confirm (Modal 패턴 측정)"
+      },
+      "MD": {
+        "$type": "dimension",
+        "$value": "620px",
+        "$description": "size md: Information (Modal 패턴 측정)"
+      },
+      "LG": {
+        "$type": "dimension",
+        "$value": "800px",
+        "$description": "size lg: Form (Modal 패턴 측정)"
+      }
     },
     "Padding": {
       "$type": "dimension",

@@ -272,3 +272,11 @@
 ### Foundation: Spacing 가이드 — 2026-11-10
 - 확인: Spacing Scale 가이드의 12단계(0·4·8·12·16·20·24·32·40·48·64·80)가 Figma `space/*`와 값·이름 모두 일치 → 토큰 수정 없음. 코드 토큰 중 Scale 값과 같은 간격은 모두 `{space.N}` alias, 숫자로 적힌 간격은 Scale 밖 시안 측정값(6·10·14·11·44)뿐
 - 만든 것: 가이드 `docs/Spacing.mdx`(Storybook `Foundation/Spacing`) — Scale 표(CSS 변수로 막대 표시), Gap & Padding, Usage 4단계와 현재 컴포넌트 토큰 대응, Scale 밖 값 목록, Do/Don't, 확인 필요(Q39)
+
+### Modal 패턴(Type × Action) 반영 — 2026-11-10
+- 시안 확인: Alert · Confirm 400 / Information 620 / Form 800, 각 Type마다 Action None · Single · Double. Form 본문은 조회 필드(검색 + [조회] Neutral Solid, 라벨 위 또는 왼쪽) + 라벨 왼쪽 입력(폭 200), 줄 간격 12
+- 변경
+  - 토큰 `modal/width` → `modal/width/sm·md·lg`(400 · 620 · 800). `Modal`에 `size`(sm 기본 · md · lg) 추가, `width`는 예외 폭(Lookup 등)용으로 유지
+  - `Field` 본문이 라벨 옆 남은 폭을 차지하도록 수정 → `fullWidth` 컨트롤이 Field 안에서도 폭을 채움(기존엔 내용 폭에 갇혀 채우지 못함). 컨트롤 기본 폭은 그대로
+  - Modal stories: `Patterns`(12종 매트릭스) 추가, Types · Form 예시에 size 적용. 가이드 `docs/Modal.mdx`에 "3. Pattern (Type × Action)"과 Form 본문 배치 규칙, Spec 폭 갱신
+- 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 측정 11개 통과(폭 400 × 6 · 620 × 3 · 800 × 3, Action 0/1/2 버튼, [조회] 오른쪽 여백 20 · 검색 ↔ 조회 8, 라벨 위 4 / 왼쪽 8, 필드 40, 입력 폭 200). Field 변경 후 기존 테스트(Page Layout · Work Tab 28 · Tooltip 25) 재통과, SearchArea 화면은 수정 전과 배치 동일(픽셀 비교, 글자 안티앨리어싱 차이만)

@@ -31,11 +31,15 @@ let savedOverflow = '';
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+export type ModalSize = 'sm' | 'md' | 'lg';
+
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   open: boolean;
   /** Close(X) · 취소 · Esc가 호출한다. 미저장 이탈 정책은 여기서 처리한다 */
   onClose?: () => void;
-  /** 기본 400. 결과 Grid가 있는 Lookup 등 넓은 경우에만 지정 */
+  /** 폭: sm 400(기본, Alert · Confirm) · md 620(Information) · lg 800(Form) */
+  size?: ModalSize;
+  /** 정해진 폭(size) 밖이 필요할 때만 직접 지정 (예: 결과 Grid가 있는 Lookup) */
   width?: number | string;
   /** Esc로 닫기 (기본 true, onClose가 있을 때) */
   closeOnEsc?: boolean;
@@ -52,6 +56,7 @@ const ModalRoot = forwardRef<HTMLDivElement, ModalProps>(
     {
       open,
       onClose,
+      size = 'sm',
       width,
       closeOnEsc = true,
       closeOnDimClick = false,
@@ -114,7 +119,7 @@ const ModalRoot = forwardRef<HTMLDivElement, ModalProps>(
         aria-modal={inline ? undefined : true}
         aria-labelledby={titleId}
         tabIndex={-1}
-        className={clsx(styles.modal, className)}
+        className={clsx(styles.modal, styles[size], className)}
         style={panelStyle}
       >
         {children}

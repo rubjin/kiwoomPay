@@ -41,7 +41,8 @@ import { Modal, Button } from '@kiwoompay/design-system';
       </td>
       <td>
         딤 · 가운데 배치 · 스크롤 잠금 · 포커스 이동/복귀 · Esc. <code>open</code> ·{' '}
-        <code>onClose</code> · <code>width</code>(기본 400)
+        <code>onClose</code> · <code>size</code>(sm 400 · md 620 · lg 800) · <code>width</code>(예외
+        폭)
       </td>
     </tr>
     <tr>
@@ -140,7 +141,80 @@ import { Modal, Button } from '@kiwoompay/design-system';
 
 <Canvas of={ModalStories.Actions} />
 
-## 3. Spec
+## 3. Pattern (Type × Action)
+
+Type마다 폭(`size`)이 정해져 있고, Action(None · Single · Double)은 Type과 따로 조합합니다.
+
+<Canvas of={ModalStories.Patterns} />
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>size (폭)</th>
+      <th>Header X</th>
+      <th>Body</th>
+      <th>Action 예</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alert</td>
+      <td>
+        <code>sm</code> 400 (기본)
+      </td>
+      <td>미노출</td>
+      <td>Description</td>
+      <td>None · [확인] · [취소 + 확인]</td>
+    </tr>
+    <tr>
+      <td>Confirm</td>
+      <td>
+        <code>sm</code> 400
+      </td>
+      <td>미노출</td>
+      <td>Description</td>
+      <td>None · [저장] · [취소 + 저장]</td>
+    </tr>
+    <tr>
+      <td>Information</td>
+      <td>
+        <code>md</code> 620
+      </td>
+      <td>노출</td>
+      <td>Description + InfoList</td>
+      <td>None(기본, X로 닫기) · [확인] · [취소 + 확인]</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td>
+        <code>lg</code> 800
+      </td>
+      <td>노출</td>
+      <td>Field 묶음</td>
+      <td>None · [등록] · [취소 + 등록]</td>
+    </tr>
+    <tr>
+      <td>Lookup</td>
+      <td>
+        <code>width</code>로 지정 (결과 Grid 폭)
+      </td>
+      <td>노출</td>
+      <td>검색 + 결과</td>
+      <td>None (행 선택 시 종료)</td>
+    </tr>
+  </tbody>
+</table>
+
+### Form 본문 배치
+
+- 필드 줄 간격 12, 필드 높이 40(md), 라벨 ↔ 필드 8(왼쪽) · 4(위).
+- **조회 필드**(검색어 + [조회]): 검색 필드가 남은 폭을 채우고 [조회]는 `variant="neutral"` Solid, 간격 8.
+  라벨은 위(`labelPosition="top"`) 또는 왼쪽 중 화면에 맞게 고릅니다.
+- 그 밖의 입력(금액 · 비고 등)은 라벨 왼쪽 + 입력 폭 200, 날짜는 DateField 기본 폭.
+- 버튼이 있으면 Footer 가운데 [취소(Neutral Line) + Primary], 버튼 크기 lg.
+
+## 4. Spec
 
 <table>
   <thead>
@@ -153,7 +227,8 @@ import { Modal, Button } from '@kiwoompay/design-system';
     <tr>
       <td>폭</td>
       <td>
-        400 (Lookup 등 결과 Grid가 있으면 <code>width</code>로 지정)
+        <code>size</code> sm 400 (Alert · Confirm) · md 620 (Information) · lg 800 (Form). Lookup 등
+        결과 Grid가 있으면 <code>width</code>로 지정
       </td>
     </tr>
     <tr>
@@ -181,7 +256,7 @@ import { Modal, Button } from '@kiwoompay/design-system';
   </tbody>
 </table>
 
-## 4. Close & Action Rule
+## 5. Close & Action Rule
 
 - **Close(X)** = 현재 Modal 이탈. **취소** = Close(X)와 동일한 미저장 이탈 동작 → 둘 다 `onClose`로 처리합니다. `Esc`도 `onClose`를 호출합니다(`closeOnEsc`).
 - **Primary Action** 성공 후 후속 입력이 없으면 Modal을 자동으로 닫습니다.
@@ -191,13 +266,13 @@ import { Modal, Button } from '@kiwoompay/design-system';
 
 <Canvas of={ModalStories.Interactive} />
 
-## 5. Position
+## 6. Position
 
 - 기준은 브라우저 전체 Viewport이며, 수평 · 수직 가운데 정렬을 유지합니다(화면 크기가 바뀌어도 유지).
 - 딤은 LNB · Header를 포함한 전체 화면에 적용됩니다(`document.body`에 그립니다).
 - 최소 안전 여백 상 · 하 · 좌 · 우 40. Modal이 열린 동안 배경 페이지 스크롤은 잠깁니다.
 
-## 6. Scroll
+## 7. Scroll
 
 - 최대 높이 `calc(100vh - 80px)`. 내용이 넘치면 **Body에만** 세로 스크롤이 생기고, 스크롤바는 Body 오른쪽에 표시됩니다.
 - Header와 Footer는 고정이며, Footer Action은 스크롤 위치와 관계없이 항상 보입니다.

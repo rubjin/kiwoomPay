@@ -586,7 +586,9 @@ $lnb-icon-size: var(--kp-lnb-icon-size); // 1Depth 아이콘
 $lnb-favorite-icon-size: var(--kp-lnb-favorite-icon-size); // 즐겨찾기 하트
 
 // ── custom · modal ──────────────────────────────────────────────
-$modal-width: var(--kp-modal-width); // Alert·Confirm·Information·Form 기본 폭 (측정값)
+$modal-width-sm: var(--kp-modal-width-sm); // size sm: Alert · Confirm (Modal 패턴 측정)
+$modal-width-md: var(--kp-modal-width-md); // size md: Information (Modal 패턴 측정)
+$modal-width-lg: var(--kp-modal-width-lg); // size lg: Form (Modal 패턴 측정)
 $modal-padding: var(--kp-modal-padding); // 측정값
 $modal-radius: var(--kp-modal-radius); // 측정값(모서리 윤곽)
 $modal-section-gap: var(--kp-modal-section-gap); // Header ↔ Body ↔ Footer
@@ -1218,7 +1220,9 @@ $css-variables: (
   "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
   "--kp-lnb-icon-size": "20px",
   "--kp-lnb-favorite-icon-size": "16px",
-  "--kp-modal-width": "400px",
+  "--kp-modal-width-sm": "400px",
+  "--kp-modal-width-md": "620px",
+  "--kp-modal-width-lg": "800px",
   "--kp-modal-padding": "var(--kp-space-20)",
   "--kp-modal-radius": "10px",
   "--kp-modal-section-gap": "var(--kp-space-20)",
