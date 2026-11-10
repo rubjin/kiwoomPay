@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties } from 'react';
-import { DateRangeField, type DateRange } from './DateRangeField';
+import type { DateRange } from '../DatePicker';
+import { DateRangeField } from './DateRangeField';
 
 const row: CSSProperties = {
   display: 'flex',

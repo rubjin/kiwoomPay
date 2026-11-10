@@ -50,17 +50,13 @@ function ControlledExample() {
   const [value, setValue] = useState('');
   return (
     <div style={row}>
-      <DateField
-        value={value}
-        onChange={setValue}
-        onCalendarClick={() => alert('Date Picker 열기')}
-      />
+      <DateField value={value} onChange={setValue} />
       <span>값: {value || '(없음)'}</span>
     </div>
   );
 }
 
-/** 숫자만 입력해도 YYYY-MM-DD로 정렬된다. 달력 아이콘은 onCalendarClick으로 Date Picker를 연다. */
+/** 숫자만 입력해도 YYYY-MM-DD로 정렬된다. 필드나 달력 아이콘을 누르면 Date Picker가 열린다. */
 export const Controlled: Story = {
   render: () => <ControlledExample />,
 };

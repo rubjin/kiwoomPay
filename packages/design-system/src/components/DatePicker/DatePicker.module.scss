@@ -1,0 +1,135 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: t.$date-picker-section-gap;
+  width: t.$date-picker-panel-width;
+  padding: t.$date-picker-padding;
+  background-color: t.$color-date-picker-panel-bg;
+  border: t.$control-border-width solid t.$color-date-picker-panel-border;
+  border-radius: t.$date-picker-panel-radius;
+}
+
+// ── Calendar Header ──────────────────────────────────
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: t.$date-picker-header-height;
+}
+
+.title {
+  @include m.typography(heading-sm);
+
+  color: t.$color-date-picker-text;
+}
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: t.$date-picker-header-height;
+  height: t.$date-picker-header-height;
+  padding: 0;
+  color: t.$color-date-picker-text;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: t.$date-picker-cell-radius;
+
+  &:hover {
+    background-color: t.$color-date-picker-hover-bg;
+  }
+}
+
+// ── Calendar Day ─────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, t.$date-picker-cell-size);
+  gap: t.$date-picker-day-gap;
+}
+
+.day {
+  @include m.typography(body-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: t.$date-picker-cell-size;
+  height: t.$date-picker-cell-size;
+  padding: 0;
+  color: t.$color-date-picker-text;
+  cursor: pointer;
+  background: transparent;
+  border: t.$control-border-width solid transparent;
+  border-radius: t.$date-picker-cell-radius;
+
+  &:disabled {
+    color: t.$color-date-picker-disabled;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled, .selected, .inRange) {
+    background-color: t.$color-date-picker-hover-bg;
+  }
+
+  &:active:not(:disabled, .selected) {
+    background-color: t.$color-date-picker-pressed-bg;
+  }
+}
+
+.sat {
+  color: t.$color-date-picker-saturday;
+}
+
+.sun {
+  color: t.$color-date-picker-sunday;
+}
+
+// 지난달 날짜: 표시만 하고 선택할 수 없다
+.outside {
+  color: t.$color-date-picker-outside;
+  cursor: default;
+}
+
+.today {
+  color: t.$color-date-picker-today;
+  border-color: t.$color-date-picker-today;
+}
+
+// 기간의 중간: 모서리 없이 연한 배경
+.inRange {
+  color: t.$color-date-picker-range-text;
+  background-color: t.$color-date-picker-range-bg;
+  border-color: transparent;
+  border-radius: 0;
+}
+
+// 선택(단일) · 기간의 시작과 끝
+.selected {
+  color: t.$color-date-picker-selected-text;
+  background-color: t.$color-date-picker-selected-bg;
+  border-color: t.$color-date-picker-selected-bg;
+}
+
+// 필드와 함께 쓸 때: 필드 아래에 패널을 띄운다
+.anchor {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.anchorFull {
+  display: flex;
+  width: 100%;
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + #{t.$date-picker-popover-offset});
+  left: 0;
+  z-index: t.$z-index-dropdown;
+}

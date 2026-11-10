@@ -1,0 +1,234 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as DatePickerStories from '../src/components/DatePicker/DatePicker.stories';
+
+<Meta title="Components/DatePicker/Guide" />
+
+# Date Picker
+
+날짜를 고르는 달력 패널입니다. **일별 선택(Single)** 과 **기간 선택(Range)** 두 가지 유형이 있고,
+보통은 `DateField` · `DateRangeField`가 필드를 누르면 열어주므로 직접 쓸 일은 많지 않습니다.
+
+```tsx
+import { DateField, DateRangeField, DatePicker } from '@kiwoompay/design-system';
+
+// 필드와 함께 (권장): 필드·달력 아이콘을 누르면 열리고, 고르면 값이 반영되며 닫힌다
+<DateField value={date} onChange={setDate} />
+<DateRangeField value={range} onChange={setRange} maxRangeDays={31} />
+
+// 패널만 (화면에 펼쳐 두는 경우)
+<DatePicker value={date} onChange={setDate} />
+<DatePicker mode="range" value={range} onChange={setRange} />
+```
+
+날짜 값은 모두 `YYYY-MM-DD` 문자열이고, 기간은 `{ start, end }`입니다.
+
+## 1. Spec
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cell</td>
+      <td>40 × 40 · Radius 8</td>
+    </tr>
+    <tr>
+      <td>Panel</td>
+      <td>폭 336 · 높이는 줄 수에 따라 (6줄 340) · 테두리 1 · Radius 8</td>
+    </tr>
+    <tr>
+      <td>Gap</td>
+      <td>Day 4 · Section 12 (헤더 ↔ 날짜)</td>
+    </tr>
+    <tr>
+      <td>글자</td>
+      <td>날짜 14px Regular · 제목(2026년 8월) 16px SemiBold</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>Single · Range</td>
+    </tr>
+  </tbody>
+</table>
+
+- 일요일부터 시작하며, 첫 주의 빈칸은 지난달 날짜를 회색으로 보여줍니다(선택 불가).
+- 시안 표기의 패널 높이 380과 실제 측정값(6줄 340)이 달라 측정값을 따랐습니다.
+
+## 2. Type
+
+<Canvas of={DatePickerStories.Single} />
+<Canvas of={DatePickerStories.Range} />
+
+## 3. Day State
+
+<table>
+  <thead>
+    <tr>
+      <th>상태</th>
+      <th>표현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>본문색</td>
+    </tr>
+    <tr>
+      <td>Default_Sat · Default_Sun</td>
+      <td>토요일 파랑(Status / Info / Text) · 일요일 빨강(Status / Error / Text)</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>회색 배경 (Neutral / 50)</td>
+    </tr>
+    <tr>
+      <td>Pressed</td>
+      <td>연한 Primary 배경 (Primary / 50)</td>
+    </tr>
+    <tr>
+      <td>Selected</td>
+      <td>Primary 배경 · 흰 글자</td>
+    </tr>
+    <tr>
+      <td>Today</td>
+      <td>Primary 테두리 · Primary 글자 (선택되면 Selected가 우선)</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>비활성 글자색, 선택 불가 (지난달 날짜도 같은 색)</td>
+    </tr>
+  </tbody>
+</table>
+
+## 4. Range
+
+- **Start · End**: Selected와 같은 채움. **Middle**: 연한 Primary 배경 · Primary 글자 · 모서리 없음.
+- 첫 번째로 고른 날이 시작일, 두 번째가 종료일입니다. 종료일을 시작일보다 앞으로 고르면 그 날이 새 시작일이 됩니다.
+- 종료일까지 골라야 `onChange`가 호출됩니다(필드에서는 이때 값이 반영되고 닫힙니다).
+
+<Canvas of={DatePickerStories.Controlled} />
+
+## 5. Field + Picker
+
+<Canvas of={DatePickerStories.WithField} />
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>날짜 필드 또는 달력 아이콘을 누르면 열림</td>
+    </tr>
+    <tr>
+      <td>Result</td>
+      <td>날짜(기간은 종료일까지) 선택 → 필드에 값 반영 → 닫힘</td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>열려 있는 동안 필드는 Focus, 선택 완료 시 Filled</td>
+    </tr>
+    <tr>
+      <td>닫기</td>
+      <td>
+        바깥 영역 클릭 · <code>Esc</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+- 필드에 직접 입력할 수도 있습니다(숫자만 입력해도 `YYYY-MM-DD`로 정렬). 형식 검증은 하지 않으므로 결과는 `feedback`으로 알려줍니다.
+- 입력만 받고 달력을 쓰지 않으려면 `picker={false}`를 줍니다. `readOnly` · `disabled`에서는 열리지 않습니다.
+
+## 6. Usage
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single</td>
+      <td>단일 일자 조회 / 입력</td>
+    </tr>
+    <tr>
+      <td>Range</td>
+      <td>조회기간 등 시작일 · 종료일 입력</td>
+    </tr>
+    <tr>
+      <td>Today</td>
+      <td>오늘 날짜는 별도 상태로 인지 가능하게 표시</td>
+    </tr>
+    <tr>
+      <td>Month</td>
+      <td>이전 · 다음을 누르면 1개월 이동, 기존 선택값 유지</td>
+    </tr>
+    <tr>
+      <td>Policy</td>
+      <td>
+        최대 조회기간 · 선택 가능 범위는 화면 / 업무 정책에서 정의 → <code>min</code> ·{' '}
+        <code>max</code> · <code>isDateDisabled</code> · <code>maxRangeDays</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={DatePickerStories.DisabledDates} />
+<Canvas of={DatePickerStories.MaxRange} />
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        조회기간은 <code>DateRangeField</code> 하나로 받는다
+      </td>
+      <td>
+        시작일 · 종료일을 <code>DateField</code> 두 개로 따로 받는다
+      </td>
+    </tr>
+    <tr>
+      <td>
+        최대 조회기간이 있으면 <code>maxRangeDays</code>로 선택 단계에서 막는다
+      </td>
+      <td>아무 기간이나 고르게 한 뒤 조회 시점에 오류로 알린다</td>
+    </tr>
+    <tr>
+      <td>
+        선택할 수 없는 날짜는 <code>min</code> · <code>max</code> · <code>isDateDisabled</code>로
+        비활성화한다
+      </td>
+      <td>선택은 되게 두고 저장할 때 막는다</td>
+    </tr>
+    <tr>
+      <td>
+        서버 기준 날짜가 중요하면 <code>today</code>를 서버 날짜로 넘긴다
+      </td>
+      <td>사용자 PC 시간이 틀려도 그대로 둔다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- `date-picker/*` (`tokens/custom/datepicker.json`): 크기 · 간격 · 반경 · 색(모두 Figma 색 alias)
+- 글자: 역할 이름 `body-md`(날짜) · `heading-sm`(제목)
+- 필드와 패널 사이 간격(8)은 시안에 없어 **임시 값(TODO)** 입니다. 가맹점관리자 모바일 배치도 시안이 없어 적용하지 않았습니다.
