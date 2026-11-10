@@ -23,8 +23,16 @@
   },
   "Interaction": {
     "Primary": {
-      "Hover": { "$type": "color", "$value": "{Primary.600}", "$description": "TODO 시안 확인" },
-      "Pressed": { "$type": "color", "$value": "{Primary.700}", "$description": "TODO 시안 확인" }
+      "Hover": {
+        "$type": "color",
+        "$value": "{Primary.600}",
+        "$description": "TODO 시안 확인"
+      },
+      "Pressed": {
+        "$type": "color",
+        "$value": "{Primary.700}",
+        "$description": "TODO 시안 확인"
+      }
     }
   },
   "Focus": {
@@ -37,8 +45,12 @@
   "Overlay": {
     "Dim": {
       "$type": "color",
-      "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.5 },
-      "$description": "TODO 시안 확인: 모달 딤 배경"
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "alpha": 0.48
+      },
+      "$description": "Modal 딤 (시안 측정: 흰 바탕 위 #858585)"
     }
   }
 }

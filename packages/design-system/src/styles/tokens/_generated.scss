@@ -471,7 +471,8 @@ $color-select-status-text: var(--kp-color-select-status-text);
 $color-select-spinner-track: var(--kp-color-select-spinner-track);
 $color-select-spinner-arc: var(--kp-color-select-spinner-arc);
 $color-select-scroll-thumb: var(--kp-color-select-scroll-thumb);
-$z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 확정 필요
+$z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 확정 필요. 드롭다운·달력 팝업은 body에 띄우므로 모달(1000)보다 위
+$z-index-modal: var(--kp-z-index-modal); // TODO(시안) z-index 체계 확정 필요. 드롭다운(100)보다 위
 
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
@@ -484,6 +485,31 @@ $color-icon-success: var(--kp-color-icon-success); // Check-circle_filled
 $color-icon-warning: var(--kp-color-icon-warning); // Warning-circle_filled
 $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
+
+// ── custom · modal ──────────────────────────────────────────────
+$modal-width: var(--kp-modal-width); // Alert·Confirm·Information·Form 기본 폭 (측정값)
+$modal-padding: var(--kp-modal-padding); // 측정값
+$modal-radius: var(--kp-modal-radius); // 측정값(모서리 윤곽)
+$modal-section-gap: var(--kp-modal-section-gap); // Header ↔ Body ↔ Footer
+$modal-message-gap: var(--kp-modal-message-gap); // 설명만 있는 본문(Alert·Confirm)의 추가 아래 여백 → Footer까지 40
+$modal-footer-gap: var(--kp-modal-footer-gap); // 버튼 간격
+$modal-viewport-margin: var(--kp-modal-viewport-margin); // 최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)
+$modal-close-size: var(--kp-modal-close-size); // Header Close(X)
+$modal-shadow: var(--kp-modal-shadow); // TODO(시안) 그림자 근사값
+$color-modal-bg: var(--kp-color-modal-bg);
+$color-modal-border: var(--kp-color-modal-border);
+$color-modal-title: var(--kp-color-modal-title);
+$color-modal-description: var(--kp-color-modal-description);
+$color-modal-close: var(--kp-color-modal-close);
+$color-modal-info-bg: var(--kp-color-modal-info-bg);
+$color-modal-info-border: var(--kp-color-modal-info-border);
+$modal-info-radius: var(--kp-modal-info-radius); // 측정값
+$modal-info-padding: var(--kp-modal-info-padding);
+$modal-info-row-gap: var(--kp-modal-info-row-gap);
+$modal-info-label-width: var(--kp-modal-info-label-width); // 측정값: 값이 상자 왼쪽 128에서 시작
+$modal-info-label-gap: var(--kp-modal-info-label-gap);
+$color-modal-info-label: var(--kp-color-modal-info-label);
+$color-modal-info-value: var(--kp-color-modal-info-value);
 
 // ── custom · pagination ─────────────────────────────────────────
 $pagination-item-size: var(--kp-pagination-item-size); // Number 40×40, 높이 40 (Pagination Guide)
@@ -554,7 +580,7 @@ $color-bg-selected: var(--kp-color-bg-selected); // TODO 시안 확인: 선택�
 $color-interaction-primary-hover: var(--kp-color-interaction-primary-hover); // TODO 시안 확인
 $color-interaction-primary-pressed: var(--kp-color-interaction-primary-pressed); // TODO 시안 확인
 $color-focus-ring: var(--kp-color-focus-ring); // TODO 시안 확인: 포커스 표시 색
-$color-overlay-dim: var(--kp-color-overlay-dim); // TODO 시안 확인: 모달 딤 배경
+$color-overlay-dim: var(--kp-color-overlay-dim); // Modal 딤 (시안 측정: 흰 바탕 위 #858585)
 
 // 미디어쿼리용 (CSS 변수는 @media 안에서 쓸 수 없어 값을 그대로 둔다)
 $breakpoints: (
@@ -938,7 +964,8 @@ $css-variables: (
   "--kp-color-select-spinner-track": "var(--kp-color-neutral-200)",
   "--kp-color-select-spinner-arc": "var(--kp-color-neutral-500)",
   "--kp-color-select-scroll-thumb": "var(--kp-color-neutral-300)",
-  "--kp-z-index-dropdown": "100",
+  "--kp-z-index-dropdown": "1100",
+  "--kp-z-index-modal": "1000",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
   "--kp-color-icon-muted": "var(--kp-color-neutral-500)",
   "--kp-color-icon-accent": "var(--kp-color-primary-500)",
@@ -947,6 +974,29 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
+  "--kp-modal-width": "400px",
+  "--kp-modal-padding": "var(--kp-space-20)",
+  "--kp-modal-radius": "10px",
+  "--kp-modal-section-gap": "var(--kp-space-20)",
+  "--kp-modal-message-gap": "var(--kp-space-20)",
+  "--kp-modal-footer-gap": "var(--kp-space-8)",
+  "--kp-modal-viewport-margin": "var(--kp-space-40)",
+  "--kp-modal-close-size": "24px",
+  "--kp-modal-shadow": "0 4px 20px rgba(0, 0, 0, 0.1)",
+  "--kp-color-modal-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-modal-border": "var(--kp-color-line-subtle)",
+  "--kp-color-modal-title": "var(--kp-color-text-body)",
+  "--kp-color-modal-description": "var(--kp-color-text-secondary)",
+  "--kp-color-modal-close": "var(--kp-color-text-secondary)",
+  "--kp-color-modal-info-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-modal-info-border": "var(--kp-color-line-default)",
+  "--kp-modal-info-radius": "8px",
+  "--kp-modal-info-padding": "var(--kp-space-12)",
+  "--kp-modal-info-row-gap": "var(--kp-space-8)",
+  "--kp-modal-info-label-width": "104px",
+  "--kp-modal-info-label-gap": "var(--kp-space-12)",
+  "--kp-color-modal-info-label": "var(--kp-color-text-secondary)",
+  "--kp-color-modal-info-value": "var(--kp-color-text-body)",
   "--kp-pagination-item-size": "var(--kp-control-height-md)",
   "--kp-pagination-nav-min-width": "62px",
   "--kp-pagination-nav-padding-x": "var(--kp-space-4)",
@@ -1011,7 +1061,7 @@ $css-variables: (
   "--kp-color-interaction-primary-hover": "var(--kp-color-primary-600)",
   "--kp-color-interaction-primary-pressed": "var(--kp-color-primary-700)",
   "--kp-color-focus-ring": "var(--kp-color-primary-300)",
-  "--kp-color-overlay-dim": "rgba(0, 0, 0, 0.5)",
+  "--kp-color-overlay-dim": "rgba(0, 0, 0, 0.48)",
   "--kp-typography-heading-xl-font-size": "var(--kp-typography-typo-24-bold-font-size)",
   "--kp-typography-heading-xl-font-weight": "var(--kp-typography-typo-24-bold-font-weight)",
   "--kp-typography-heading-xl-line-height": "var(--kp-typography-typo-24-bold-line-height)",
