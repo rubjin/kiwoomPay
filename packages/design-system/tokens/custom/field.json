@@ -33,8 +33,8 @@
     },
     "LabelGapTop": {
       "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "TODO(시안) 라벨 위 배치(검색 영역)에서 라벨 ↔ 필드"
+      "$value": "{space.4}",
+      "$description": "라벨 위 배치(검색 영역)에서 라벨 ↔ 필드"
     },
     "HelperGap": {
       "$type": "dimension",
