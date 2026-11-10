@@ -1,0 +1,172 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// ── App Shell ────────────────────────────────────────
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: t.$color-page-layout-bg;
+}
+
+// LNB는 화면 높이에 고정하고 본문만 문서 스크롤
+.lnb {
+  position: sticky;
+  top: 0;
+  flex: none;
+  height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.header {
+  flex: none;
+  height: t.$page-layout-header-height;
+  background-color: t.$color-page-layout-header-bg;
+  border-bottom: t.$control-border-width solid t.$color-page-layout-divider;
+}
+
+// Work Tab: 영역 60 = 위 여백 20 + Tab 40. 아래 선은 좌우 여백 안쪽에만 그린다
+.workTab {
+  flex: none;
+  height: t.$page-layout-work-tab-height;
+  padding: t.$page-layout-padding-y t.$page-layout-padding-x 0;
+}
+
+.workTabBar {
+  display: flex;
+  gap: t.$page-layout-section-gap;
+  align-items: flex-end;
+  height: 100%;
+  box-shadow: inset 0 calc(-1 * #{t.$control-border-width}) 0 t.$color-page-layout-divider;
+}
+
+.workTabTabs {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.workTabActions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  align-self: center;
+}
+
+.content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  gap: t.$page-layout-section-gap;
+  padding: t.$page-layout-padding-y t.$page-layout-padding-x;
+}
+
+.footer {
+  flex: none;
+  height: t.$page-layout-footer-height;
+}
+
+// ── Page Title ───────────────────────────────────────
+.pageTitle {
+  display: flex;
+  gap: t.$page-layout-title-action-gap;
+  align-items: center;
+  min-height: t.$page-layout-title-height;
+}
+
+.titleText {
+  @include m.typography(heading-xl);
+  @include m.ellipsis;
+
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  color: t.$color-page-layout-title;
+}
+
+.titleActions {
+  display: flex;
+  flex: none;
+  gap: t.$page-layout-title-action-gap;
+  align-items: center;
+}
+
+// ── Section ──────────────────────────────────────────
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: t.$page-layout-section-padding;
+  min-width: 0;
+  padding: t.$page-layout-section-padding;
+  background-color: t.$color-page-layout-section-bg;
+  border: t.$control-border-width solid t.$color-page-layout-section-border;
+  border-radius: t.$page-layout-section-radius;
+}
+
+.compact {
+  gap: t.$page-layout-section-padding-compact;
+  padding: t.$page-layout-section-padding-compact;
+}
+
+.plain {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.inline {
+  flex-direction: row;
+  align-items: center;
+}
+
+.sectionHeader {
+  display: flex;
+  gap: t.$page-layout-section-header-gap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// 제목 줄 아래 구분선: 줄과 본문 사이 간격(gap)만큼 아래에 선을 둔다
+.divider {
+  padding-bottom: t.$page-layout-section-padding;
+  border-bottom: t.$control-border-width solid t.$color-page-layout-section-border;
+}
+
+.sectionHeading {
+  display: flex;
+  flex: none;
+  gap: t.$page-layout-section-header-gap;
+  align-items: center;
+  min-width: 0;
+}
+
+.sectionTitle {
+  @include m.typography(heading-md);
+
+  margin: 0;
+  color: t.$color-page-layout-section-title;
+  white-space: nowrap;
+}
+
+// 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (측정)
+.inline .sectionTitle {
+  @include m.typography(heading-sm);
+}
+
+.sectionInlineBody {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.sectionActions {
+  display: flex;
+  flex: none;
+  gap: t.$page-layout-section-header-gap;
+  align-items: center;
+  margin-left: auto;
+}
