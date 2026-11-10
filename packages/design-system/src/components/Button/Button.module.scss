@@ -1,0 +1,173 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// variant별 색 토큰: --kp-color-button-{variant}-{solid|line}-{속성}[-상태]  (tokens/custom/button.json)
+$variants: primary, neutral, dark, danger;
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  border: t.$control-border-width solid transparent;
+}
+
+// 아이콘 자식(svg 등)은 영역을 꽉 채운다. 색은 글자색(currentColor)을 따른다.
+.icon {
+  display: inline-flex;
+  flex: none;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.spinnerIcon {
+  display: block;
+}
+
+// ── size ─────────────────────────────────────────────
+.sm {
+  @include m.typography(button-sm);
+
+  height: t.$control-height-sm;
+  padding-inline: t.$control-padding-x-sm;
+  border-radius: t.$control-radius-sm;
+
+  .icon,
+  .spinnerIcon {
+    width: t.$control-icon-size-sm;
+    height: t.$control-icon-size-sm;
+  }
+
+  &.iconOnly {
+    width: t.$control-height-sm;
+  }
+}
+
+.md {
+  @include m.typography(button-md);
+
+  height: t.$control-height-md;
+  padding-inline: t.$control-padding-x-md;
+  border-radius: t.$control-radius-md;
+
+  .icon,
+  .spinnerIcon {
+    width: t.$control-icon-size-md;
+    height: t.$control-icon-size-md;
+  }
+
+  &.iconOnly {
+    width: t.$control-height-md;
+  }
+}
+
+.lg {
+  @include m.typography(button-lg);
+
+  height: t.$control-height-lg;
+  padding-inline: t.$control-padding-x-lg;
+  border-radius: t.$control-radius-lg;
+
+  .icon,
+  .spinnerIcon {
+    width: t.$control-icon-size-lg;
+    height: t.$control-icon-size-lg;
+  }
+
+  &.iconOnly {
+    width: t.$control-height-lg;
+  }
+}
+
+// 아이콘 전용 버튼은 정사각형. 패딩 없이 가운데 정렬한다.
+.iconOnly {
+  padding: 0;
+}
+
+// ── content ──────────────────────────────────────────
+.content {
+  display: inline-flex;
+  gap: t.$control-icon-gap;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.label {
+  @include m.ellipsis;
+
+  min-width: 0;
+}
+
+// ── loading: 크기를 유지한 채 내용만 숨기고 스피너를 겹친다 ──
+.spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  cursor: default;
+
+  .content {
+    visibility: hidden;
+  }
+}
+
+// ── variant × appearance × state ─────────────────────
+@each $v in $variants {
+  .#{$v}.solid {
+    color: t.$color-text-inverse;
+    background-color: var(--kp-color-button-#{$v}-solid-bg);
+
+    &:hover:not(:disabled, .loading) {
+      background-color: var(--kp-color-button-#{$v}-solid-bg-hover);
+    }
+
+    &:active:not(:disabled, .loading) {
+      background-color: var(--kp-color-button-#{$v}-solid-bg-pressed);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--kp-color-button-#{$v}-solid-bg-disabled);
+    }
+  }
+
+  .#{$v}.line {
+    color: var(--kp-color-button-#{$v}-line-text);
+    background-color: t.$color-bg-surface;
+    border-color: var(--kp-color-button-#{$v}-line-border);
+
+    &:hover:not(:disabled, .loading) {
+      color: var(--kp-color-button-#{$v}-line-text-hover);
+      background-color: var(--kp-color-button-#{$v}-line-bg-hover);
+      border-color: var(--kp-color-button-#{$v}-line-border-hover);
+    }
+
+    &:active:not(:disabled, .loading) {
+      color: var(--kp-color-button-#{$v}-line-text-pressed);
+      background-color: var(--kp-color-button-#{$v}-line-bg-pressed);
+      border-color: var(--kp-color-button-#{$v}-line-border-pressed);
+    }
+
+    &:disabled {
+      color: var(--kp-color-button-#{$v}-line-text-disabled);
+      cursor: not-allowed;
+      border-color: var(--kp-color-button-#{$v}-line-border-disabled);
+    }
+  }
+}

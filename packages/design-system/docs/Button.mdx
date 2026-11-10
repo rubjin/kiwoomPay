@@ -1,0 +1,339 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from '../src/components/Button/Button.stories';
+import * as TextButtonStories from '../src/components/Button/TextButton.stories';
+
+<Meta title="Components/Button/Guide" />
+
+# Button
+
+사용자가 **Action을 실행**하는 버튼입니다. 색은 Action의 역할과 위험도를 구분하는 기준으로 씁니다.
+화면 이동은 `TextLink`, 화면 안의 가벼운 기능 실행은 `TextButton`을 씁니다.
+
+```tsx
+import { Button, TextButton, TextLink } from '@kiwoompay/design-system';
+
+<Button variant="primary" onClick={save}>저장</Button>
+<Button variant="neutral" appearance="line">취소</Button>
+<Button leadingIcon={<Icon name="download" />}>다운로드</Button>
+<Button iconOnly icon={<Icon name="download" />} aria-label="다운로드" />
+<Button loading>저장</Button>
+```
+
+<Canvas of={ButtonStories.Playground} />
+<Controls of={ButtonStories.Playground} />
+
+## 1. Hierarchy — variant
+
+<table>
+  <thead>
+    <tr>
+      <th>variant</th>
+      <th>용도</th>
+      <th>사용 기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>저장 · 적용 · 등록 완료 등 화면의 최종/핵심 완료 Action</td>
+      <td>
+        화면 또는 팝업당 <b>1개</b>를 기본으로 사용
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>neutral</code>
+      </td>
+      <td>조회 · 설정 · 등록 · 검증 등 일반 Action</td>
+      <td>일반 업무 기능에 사용</td>
+    </tr>
+    <tr>
+      <td>
+        <code>dark</code>
+      </td>
+      <td>삭제 · 연결해제 · 설정해제 등 주의/관리 Action</td>
+      <td>주의가 필요하나 Critical은 아닌 Action</td>
+    </tr>
+    <tr>
+      <td>
+        <code>danger</code>
+      </td>
+      <td>계약해지 · 서비스중지 · 지급취소 등 Critical Action</td>
+      <td>복구하기 어렵거나 영향이 큰 경우에만 사용</td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={ButtonStories.Variants} />
+
+## 2. Structure — appearance · size
+
+- `appearance`: `solid`(채움) · `line`(테두리). 아이콘만 있는 버튼은 `iconOnly`.
+- `size`: `lg` · `md`(기본) · `sm`. 높이는 `control/height/*` 토큰이다.
+
+<table>
+  <thead>
+    <tr>
+      <th>size</th>
+      <th>높이</th>
+      <th>글자</th>
+      <th>Radius</th>
+      <th>좌우 패딩</th>
+      <th>아이콘</th>
+      <th>아이콘 전용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>lg</code>
+      </td>
+      <td>48</td>
+      <td>14px Bold</td>
+      <td>8</td>
+      <td>20</td>
+      <td>24</td>
+      <td>48×48</td>
+    </tr>
+    <tr>
+      <td>
+        <code>md</code>
+      </td>
+      <td>40</td>
+      <td>13px SemiBold</td>
+      <td>6</td>
+      <td>16</td>
+      <td>20</td>
+      <td>40×40</td>
+    </tr>
+    <tr>
+      <td>
+        <code>sm</code>
+      </td>
+      <td>32</td>
+      <td>12px SemiBold</td>
+      <td>4</td>
+      <td>12</td>
+      <td>16</td>
+      <td>32×32</td>
+    </tr>
+  </tbody>
+</table>
+
+- 아이콘과 텍스트 간격은 모든 size에서 **4px**, 버튼 사이 간격은 **8px**을 권장합니다.
+- 버튼은 텍스트 길이에 맞춰 폭이 정해집니다. 아이콘 전용만 정사각형 고정이며, 동일 폭이 필요하면 Container에서만 예외로 적용합니다.
+- 긴 텍스트는 말줄임(`…`) 처리되고 부모 폭을 넘지 않습니다.
+
+<Canvas of={ButtonStories.Sizes} />
+
+## 3. Content & Icon Position
+
+<table>
+  <thead>
+    <tr>
+      <th>구성</th>
+      <th>prop</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text Only</td>
+      <td>
+        <code>children</code>
+      </td>
+      <td>텍스트만으로 의미가 명확한 일반 Action</td>
+    </tr>
+    <tr>
+      <td>Leading Icon</td>
+      <td>
+        <code>leadingIcon</code>
+      </td>
+      <td>다운로드 · 추가 · 새로고침 등 기능 인지 보조</td>
+    </tr>
+    <tr>
+      <td>Trailing Icon</td>
+      <td>
+        <code>trailingIcon</code>
+      </td>
+      <td>다음 · 상세 이동 등 후속 흐름 암시</td>
+    </tr>
+    <tr>
+      <td>Icon Only</td>
+      <td>
+        <code>iconOnly</code> + <code>icon</code>
+      </td>
+      <td>
+        의미가 널리 알려진 아이콘. <code>aria-label</code> 필수
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+- 아이콘은 앞·뒤 **중 하나만** 씁니다. 양쪽 동시 사용은 타입에서 막혀 있습니다.
+- 아이콘은 글자색(`currentColor`)을 따르고 영역을 꽉 채우도록 만든 SVG를 넣습니다.
+
+<Canvas of={ButtonStories.Icons} />
+
+## 4. State
+
+<table>
+  <thead>
+    <tr>
+      <th>상태</th>
+      <th>설명</th>
+      <th>표현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>기본, 클릭 가능</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>마우스 오버</td>
+      <td>Default보다 한 단계 다른 배경색 (Neutral Solid는 한 단계 밝은 회색)</td>
+    </tr>
+    <tr>
+      <td>Pressed</td>
+      <td>클릭 중</td>
+      <td>Default보다 두 단계 어두운 배경색</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>조건 미충족</td>
+      <td>
+        <code>disabled</code> · 이벤트 차단
+      </td>
+    </tr>
+    <tr>
+      <td>Loading</td>
+      <td>API 처리 중</td>
+      <td>
+        <code>loading</code> · 스피너 표시, 재클릭 차단, 버튼 크기 유지
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+- Focus는 공통 포커스 스타일(`:focus-visible`)을 따릅니다. 버튼에서 따로 정의하지 않습니다.
+- `loading` 중에는 `onClick`이 호출되지 않고 `aria-busy`가 설정됩니다. 버튼을 `disabled` 처리하지 않으므로 색이 바뀌지 않습니다.
+
+<Canvas of={ButtonStories.States} />
+
+## 5. Placement
+
+- 페이지 상단 우측에 **보조 Action → 최종 Action** 순서로 둡니다. (`[엑셀 다운로드] [가맹점 등록]`)
+- Primary Solid와 Danger Solid는 **같은 그룹에 두지 않습니다.** 위험 확인 팝업은 `[취소(Neutral Line)] [강제 취소(Danger Solid)]`로 구성합니다.
+
+## 6. Usage by Role
+
+<table>
+  <thead>
+    <tr>
+      <th>역할</th>
+      <th>권장 조합</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>최종 주요 Action (저장/적용/등록 완료)</td>
+      <td>Primary · Solid · md</td>
+    </tr>
+    <tr>
+      <td>보조 Action (취소/초기화/닫기)</td>
+      <td>Neutral · Line · md</td>
+    </tr>
+    <tr>
+      <td>Section Action (Grid/Toolbar 내 추가/설정/찾기/검증)</td>
+      <td>Neutral · Line · sm~md</td>
+    </tr>
+    <tr>
+      <td>주의 Action (삭제/연동해제/설정해제)</td>
+      <td>Dark · Line · sm~md</td>
+    </tr>
+    <tr>
+      <td>Critical 최종 Confirm (계약해지/지급취소)</td>
+      <td>Danger · Solid · md</td>
+    </tr>
+    <tr>
+      <td>단순 이력조회/상세보기 등 저강도 기능</td>
+      <td>TextButton</td>
+    </tr>
+  </tbody>
+</table>
+
+## 7. TextButton · TextLink
+
+- **TextButton** — 화면 **안**에서 기능을 실행합니다. 배경·테두리가 없습니다. `variant`: `primary` · `neutral`, `size`: `md` · `sm`.
+- **TextLink** — 화면 **이동**에 씁니다(`<a>`). 모든 상태에서 밑줄을 유지합니다. 본문 안 이동은 텍스트+밑줄로 씁니다.
+
+```tsx
+<TextButton onClick={openHistory}>이력조회</TextButton>
+<TextButton variant="neutral">전체보기</TextButton>
+<TextLink href="/guide">이용가이드 안내</TextLink>
+```
+
+<Canvas of={TextButtonStories.TextAction} />
+<Canvas of={TextButtonStories.Link} />
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>화면·팝업당 Primary는 1개만 둔다</td>
+      <td>Primary Solid를 여러 개 나란히 둔다</td>
+    </tr>
+    <tr>
+      <td>최종 Action을 가장 오른쪽에 둔다</td>
+      <td>보조 Action을 최종 Action보다 오른쪽에 둔다</td>
+    </tr>
+    <tr>
+      <td>Danger는 복구하기 어려운 Critical Action에만 쓴다</td>
+      <td>일반 삭제·해제에 Danger를 쓴다 (→ Dark)</td>
+    </tr>
+    <tr>
+      <td>Primary Solid와 Danger Solid는 다른 그룹으로 분리한다</td>
+      <td>같은 줄에 Primary Solid와 Danger Solid를 함께 둔다</td>
+    </tr>
+    <tr>
+      <td>아이콘은 앞 또는 뒤 한쪽에만 둔다</td>
+      <td>앞·뒤 아이콘을 동시에 쓴다</td>
+    </tr>
+    <tr>
+      <td>
+        아이콘 전용 버튼에는 <code>aria-label</code>을 준다
+      </td>
+      <td>의미가 불분명한 아이콘만 단독으로 쓴다</td>
+    </tr>
+    <tr>
+      <td>
+        처리 중에는 <code>loading</code>으로 재클릭을 막는다
+      </td>
+      <td>처리 중 버튼을 그대로 두어 중복 요청을 허용한다</td>
+    </tr>
+    <tr>
+      <td>색·크기는 prop으로 고른다</td>
+      <td>
+        <code>className</code>/<code>style</code>으로 색·높이를 덮어쓴다
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- 크기·모서리·아이콘: `control/height|radius|padding-x|icon/size|icon/gap|border/width` (`tokens/custom/control.json`)
+- 색: `button/{variant}/{solid|line}/…` (`tokens/custom/button.json`, Figma 색 토큰 alias)
+- 글자: `button/lg|md|sm` 역할 이름 (`tokens/custom/typography-roles.json`)

@@ -4,8 +4,8 @@
 > 사람이 직접 고쳐도 된다. 여기 적힌 확정 결정은 `brief.md`보다 우선한다.
 
 ## 현재 단계
-- Phase 1 완료 → 사용자 확인 대기 (다음: Phase 2 Foundation, 컴포넌트 시안 필요)
-- Storybook 실행·빌드는 이 PC에서 미검증 (VC++ 재배포 패키지 없음 → 열린 질문 참고)
+- Phase 2 진행 중 — Button·TextButton 완료. 다음: Icon, Field 계열(TextField 등), Selection 계열 (시안 필요)
+- Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
 | 항목 | 결정 | 확정일 |
@@ -47,10 +47,12 @@
 - description이 없는 스타일은 역할 이름 없이 Figma 이름으로만 제공한다.
 
 ## 열린 질문
-- [Q11] Storybook 빌드가 이 PC에서 `oxc-resolver` 네이티브 모듈 로드 실패. `vcruntime140.dll` 없음(추정 원인: Microsoft Visual C++ 재배포 패키지 미설치). 설치 후 `pnpm build-storybook` 확인 필요
 - [Q12] JSP 프로젝트의 실제 정적 폴더 경로·컨텍스트 패스 (docs/jsp-integration.md는 `webapp/static/<앱>/` 가정)
 - [Q13] 모바일 시안 확인 후 `tokens/custom/breakpoint.json` 값 확정 (현재 TODO 임시값 tablet 1024 / mobile 768)
 - [Q14] 시안 확인 후 TODO 임시값 확정: `tokens/custom/semantic-color.json`(배경·hover·pressed·focus·overlay), `dimension.json`(focus ring)
+- [Q15] Neutral Text Action 색: 시안에서 값을 읽지 못해 `Neutral/700` 임시값(`tokens/custom/button.json`, TODO). Text Action hover 표현도 시안 확인 필요(현재 밑줄)
+- [Q16] Header Utility Link(Semantic은 Link, 시각은 Primary Line M40) 구현 방식: `Button`에 `href` 지원을 추가할지, 별도 컴포넌트로 둘지
+- [Q17] 가이드(Hierarchy 설명)는 Hover를 "한 단계 어두운 배경"이라 쓰지만 시안 값은 Neutral Solid Hover가 더 밝은 회색(Neutral/500). 시안 값을 따름 — 디자인 확인 필요
 
 ## 단계별 요약
 <!-- 각 Phase 종료 시 아래 형식으로 추가
@@ -73,11 +75,27 @@
   - `src/styles`: `tokens/_index.scss`, mixins(respond-to, ellipsis·line-clamp, focus-ring, typography), base(root, reset, global)
   - ESLint 9(flat) · Prettier · Stylelint 16(하드코딩 값 경고, 요소·ID 선택자 금지, 중첩 2단계), Storybook 10(react-vite, addon-docs) 설정, Vite 라이브러리 빌드(ES + CSS 1개 + 타입 + Pretendard 복사)
   - 문서: `docs/token-workflow.md`, `docs/jsp-integration.md`, `README.md`, Storybook `Introduction.mdx`
-- 검증: `tokens:check`, `typecheck`, `lint`(ESLint·Stylelint), `pnpm build` 통과. 에러 케이스·Stylelint 규칙 동작 확인. **Storybook은 미검증**(Q11)
+- 검증: `tokens:check`, `typecheck`, `lint`(ESLint·Stylelint), `pnpm build` 통과. 에러 케이스·Stylelint 규칙 동작 확인. Storybook 빌드 통과(이 PC는 VC++ 재배포 패키지 설치 필요했음)
 - 한 가정
   - 버전: React 18.3, TypeScript 5.9, Vite 7, ESLint 9, Stylelint 16, pnpm 10 (최신 메이저보다 낮추어 호환성 우선)
   - 라이브러리 산출물은 ES 모듈 + CSS 1개(`kiwoompay-ui.css`)이고 React는 peer. JSP에서는 앱 번들(`app.js`·`app.css`, 해시 없음 + `?v=`)을 로드
   - 폰트는 `pretendard` 패키지의 dynamic-subset woff2를 `dist/fonts`로 복사해 `<link>`로 로드 (CSS 번들에 포함하지 않음)
   - 반응형 mixin은 데스크톱 기준 `max-width` 방식, 임시 breakpoint 값 사용
   - 컴포넌트 import는 `@use 'tokens' as t;` / `@use 'mixins' as m;` (Vite `loadPaths`)
-- 다음 할 일: Q11 해결 후 Storybook 확인 → Phase 2(Button, Icon, Field, Selection) 시안 확보
+- 다음 할 일: Phase 2(Button, Icon, Field, Selection) 시안 확보
+
+### Component: Button / TextButton — 2026-11-10
+- 만든 것
+  - `Button`: variant(primary·neutral·dark·danger) × appearance(solid·line) × size(sm·md·lg) × state(default·hover·pressed·disabled·loading), Text Only / Leading / Trailing / Icon Only. forwardRef, HTML 속성 pass-through, `loading` 시 클릭 차단·크기 유지, 긴 텍스트 말줄임
+  - `TextButton`(primary·neutral, sm·md), `TextLink`(<a>, 항상 밑줄, disabled)
+  - 토큰(`tokens/custom`): `control.json`(높이 32/40/48, radius 4/6/8, 아이콘 16/20/24, 아이콘 간격, 패딩 = space alias, 테두리 1px), `button.json`(Button 56개 + TextButton 5개, 모두 Figma 색 alias), `typography-roles.json`에 `Button/LG·MD·SM` 추가
+  - Storybook: `Button.stories.tsx`, `TextButton.stories.tsx`, 가이드 `docs/Button.mdx`
+- 검증: typecheck · lint(경고 0) · build · Storybook 빌드 통과. 빌드 CSS에 하드코딩 색 없음. 헤드리스 Chrome 캡처로 variants/sizes/icons/states를 시안과 대조 확인(색은 시안 PNG 픽셀값이 기존 토큰과 모두 일치)
+- 한 가정
+  - 시안의 Type(Solid/Line)은 HTML `type` 속성과 겹쳐서 prop 이름을 `appearance`로 함. 기본값 variant=primary, appearance=solid, size=md, HTML type=button
+  - Semantic 레이어에 "액션 색"이 없어, `button/*` 컴포넌트 토큰이 Figma Primitive/Status 색을 직접 alias (컴포넌트 SCSS는 토큰만 참조)
+  - 글자: Button Guide Spec(14 Bold / 13 SemiBold / 12 SemiBold)을 따름 (Figma 텍스트 스타일 설명의 "버튼 = 13 Medium"과 다름)
+  - 아이콘은 `ReactNode`로 받음(Icon 컴포넌트 전). 아이콘 자식은 영역을 꽉 채우도록 `> *` 규칙 사용
+  - Stylelint `selector-class-pattern`을 camelCase 허용으로 변경 (`styles.iconOnly` 접근용, BEM은 계속 금지)
+  - Hover/Pressed는 Storybook에서 마우스로 확인 (강제 상태 애드온 없음). 전환(transition)은 motion 토큰이 없어 넣지 않음
+- 다음 할 일: 열린 질문 Q15~Q17 확인, Icon 컴포넌트(아이콘 SVG 소스 필요), Field 계열 시안

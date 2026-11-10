@@ -1,0 +1,48 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.textButton {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.sm {
+  @include m.typography(button-sm);
+}
+
+.md {
+  @include m.typography(button-md);
+}
+
+.primary {
+  color: t.$color-text-button-primary-text;
+}
+
+.neutral {
+  color: t.$color-text-button-neutral-text;
+}
+
+.textButton:disabled,
+.disabled {
+  color: t.$color-text-button-text-disabled;
+  cursor: not-allowed;
+}
+
+// TODO(시안): Text Action hover 표현 확인 (색 변화 없음 → 밑줄로 임시 처리)
+.textButton:hover:not(:disabled, .link) {
+  text-decoration: underline;
+}
+
+.link {
+  text-decoration: underline;
+
+  &:hover:not(.disabled) {
+    color: t.$color-text-button-primary-text-hover;
+  }
+}

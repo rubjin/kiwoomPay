@@ -12,6 +12,11 @@ export default {
     // SCSS 중첩 최대 2단계, ID 선택자 금지
     'max-nesting-depth': [2, { ignore: ['blockless-at-rules', 'pseudo-classes'] }],
     'selector-max-id': 0,
+    // CSS Modules는 styles.iconOnly 처럼 접근하므로 camelCase 단어를 허용한다 (BEM 금지)
+    'selector-class-pattern': [
+      /^[a-z][a-zA-Z0-9]*$/,
+      { message: '클래스명은 camelCase 단어로 단순하게 짓습니다 (BEM 금지)' },
+    ],
     'scss/dollar-variable-pattern': null,
   },
   overrides: [
