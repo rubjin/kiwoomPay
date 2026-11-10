@@ -1,0 +1,252 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as ModalStories from '../src/components/Modal/Modal.stories';
+
+<Meta title="Components/Modal/Guide" />
+
+# Modal
+
+업무 팝업입니다. **Header · Body · Footer**를 조합해 Alert · Confirm · Information · Form · Lookup을 만듭니다.
+Close(X)는 이탈, Footer는 업무 처리입니다.
+
+```tsx
+import { Modal, Button } from '@kiwoompay/design-system';
+
+<Modal open={open} onClose={() => setOpen(false)}>
+  <Modal.Header title="확인" />
+  <Modal.Body>
+    <Modal.Description>입력한 항목을 저장할까요?</Modal.Description>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button size="lg" variant="neutral" appearance="line" onClick={() => setOpen(false)}>
+      취소
+    </Button>
+    <Button size="lg" onClick={save}>
+      저장
+    </Button>
+  </Modal.Footer>
+</Modal>;
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>부품</th>
+      <th>역할</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>Modal</code>
+      </td>
+      <td>
+        딤 · 가운데 배치 · 스크롤 잠금 · 포커스 이동/복귀 · Esc. <code>open</code> ·{' '}
+        <code>onClose</code> · <code>width</code>(기본 400)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Modal.Header</code>
+      </td>
+      <td>
+        Title + Close(X). <code>closeButton</code>으로 X 표시 (Type 기준)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Modal.Body</code>
+      </td>
+      <td>Description + Content. 내용이 넘치면 여기만 스크롤</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Modal.Description</code>
+      </td>
+      <td>안내 문구 (14px, 보조색)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Modal.InfoList</code>
+      </td>
+      <td>
+        Information의 정보 영역 (
+        <code>
+          items=[{'{'} label, value {'}'}]
+        </code>
+        )
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Modal.Footer</code>
+      </td>
+      <td>
+        처리 버튼 (None이면 생략). 버튼은 <code>size="lg"</code>, 간격 8, 가운데 정렬
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 1. Type
+
+<Canvas of={ModalStories.Types} />
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>용도</th>
+      <th>Header X</th>
+      <th>Footer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alert</td>
+      <td>중요 안내 · 처리 결과를 명확히 인지</td>
+      <td>미노출</td>
+      <td>확인 (Single)</td>
+    </tr>
+    <tr>
+      <td>Confirm</td>
+      <td>진행 여부를 사용자가 결정</td>
+      <td>미노출</td>
+      <td>취소 + 확인/저장 (Double)</td>
+    </tr>
+    <tr>
+      <td>Information</td>
+      <td>상세 정보 확인. 별도 '닫기' 버튼을 쓰지 않음</td>
+      <td>노출</td>
+      <td>없음</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td>입력값 생성 · 수정</td>
+      <td>노출</td>
+      <td>취소 + Primary Action</td>
+    </tr>
+    <tr>
+      <td>Lookup</td>
+      <td>검색 + 결과 선택. 결과 행을 고르면 호출 화면에 값 반영 후 종료</td>
+      <td>노출</td>
+      <td>없음</td>
+    </tr>
+  </tbody>
+</table>
+
+## 2. Action
+
+버튼 개수는 Type과 분리해 필요한 처리 방식에 맞게 조합합니다: **None**(버튼 없음, Header X 또는 선택 즉시 종료) · **Single**(확인 등 단일 처리) · **Double**(취소 + 확인/저장).
+
+<Canvas of={ModalStories.Actions} />
+
+## 3. Spec
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>폭</td>
+      <td>
+        400 (Lookup 등 결과 Grid가 있으면 <code>width</code>로 지정)
+      </td>
+    </tr>
+    <tr>
+      <td>여백 · 반경</td>
+      <td>안쪽 20 · 섹션 간격 20 · Radius 10 · 테두리 1</td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>20px Bold (Figma "팝업 제목")</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>14px Regular · 보조색. 설명만 있는 본문은 Footer까지 40</td>
+    </tr>
+    <tr>
+      <td>Footer</td>
+      <td>버튼 lg(48) · 간격 8 · 가운데</td>
+    </tr>
+    <tr>
+      <td>정보 영역</td>
+      <td>
+        13px · 안쪽 12 · 줄 간격 8 · 라벨 폭 104 · 배경 Neutral 50 · 테두리 Neutral 300 · Radius 8
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 4. Close & Action Rule
+
+- **Close(X)** = 현재 Modal 이탈. **취소** = Close(X)와 동일한 미저장 이탈 동작 → 둘 다 `onClose`로 처리합니다. `Esc`도 `onClose`를 호출합니다(`closeOnEsc`).
+- **Primary Action** 성공 후 후속 입력이 없으면 Modal을 자동으로 닫습니다.
+- 딤 영역 클릭으로는 기본적으로 닫히지 않습니다(입력 중 실수 방지). 필요하면 `closeOnDimClick`.
+- Multi-select Lookup 예외: 여러 항목 선택 시 Header X 노출 / Footer [취소 + 적용]. [적용]은 선택 확정, [X · 취소]는 미적용 종료.
+- API 실패 · 재시도 처리는 화면 설계와 개발에서 확인합니다.
+
+<Canvas of={ModalStories.Interactive} />
+
+## 5. Position
+
+- 기준은 브라우저 전체 Viewport이며, 수평 · 수직 가운데 정렬을 유지합니다(화면 크기가 바뀌어도 유지).
+- 딤은 LNB · Header를 포함한 전체 화면에 적용됩니다(`document.body`에 그립니다).
+- 최소 안전 여백 상 · 하 · 좌 · 우 40. Modal이 열린 동안 배경 페이지 스크롤은 잠깁니다.
+
+## 6. Scroll
+
+- 최대 높이 `calc(100vh - 80px)`. 내용이 넘치면 **Body에만** 세로 스크롤이 생기고, 스크롤바는 Body 오른쪽에 표시됩니다.
+- Header와 Footer는 고정이며, Footer Action은 스크롤 위치와 관계없이 항상 보입니다.
+- 모달 끝에서 스크롤해도 배경으로 전달되지 않습니다(배경 스크롤 잠금).
+- Modal이 닫히면 연 요소로 포커스가 돌아갑니다.
+- Validation 오류가 나면 첫 오류 항목이 Body 안에 보이게 스크롤합니다. 오류 필드에는 `aria-invalid`가 붙으므로 아래처럼 처리합니다.
+
+```tsx
+const bodyRef = useRef<HTMLDivElement>(null);
+// 검증 실패 후
+bodyRef.current?.querySelector('[aria-invalid="true"]')?.scrollIntoView({ block: 'nearest' });
+
+<Modal.Body ref={bodyRef}>…</Modal.Body>;
+```
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alert · Confirm은 Header X 없이 Footer 버튼으로 닫는다</td>
+      <td>Alert에 X와 확인을 함께 둔다</td>
+    </tr>
+    <tr>
+      <td>Information은 X로 닫는다</td>
+      <td>Information에 별도 '닫기' 버튼을 둔다</td>
+    </tr>
+    <tr>
+      <td>Footer의 최종 Action을 오른쪽에 둔다 (취소 → 저장)</td>
+      <td>Primary를 왼쪽에 둔다</td>
+    </tr>
+    <tr>
+      <td>위험한 처리 확인은 Danger 버튼으로, Primary와 같은 그룹에 두지 않는다</td>
+      <td>삭제 확인에 Primary 버튼을 쓴다</td>
+    </tr>
+    <tr>
+      <td>긴 입력은 Body 스크롤로 처리한다</td>
+      <td>Modal 안에 또 다른 Modal을 연속으로 띄운다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰
+
+- `modal/*` (`tokens/custom/modal.json`): 폭 · 여백 · 반경 · 색(모두 Figma 색 alias), 딤 `overlay/dim`(측정: 검정 48%), `z-index/modal`
+- 시안에 없어 **임시 값(TODO)** 인 것: 그림자, z-index 체계. 가맹점관리자 모바일 배치는 시안이 없어 적용하지 않았습니다.
