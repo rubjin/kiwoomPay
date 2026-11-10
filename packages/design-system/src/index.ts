@@ -8,4 +8,5 @@ export * from './components/Icon';
 export * from './components/Modal';
 export * from './components/Pagination';
 export * from './components/field';
+export * from './components/navigation';
 export * from './components/selection';

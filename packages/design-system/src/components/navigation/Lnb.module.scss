@@ -1,0 +1,370 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// ── Shell ────────────────────────────────────────────
+.lnb {
+  display: flex;
+  flex-direction: column;
+  width: t.$lnb-width;
+  height: 100%;
+  overflow: hidden;
+  color: t.$color-lnb-text;
+  background-color: t.$color-lnb-bg;
+  border-right: t.$control-border-width solid t.$color-lnb-border;
+}
+
+.collapsed {
+  width: t.$lnb-collapsed-width;
+}
+
+.header {
+  display: flex;
+  flex: none;
+  gap: t.$space-8;
+  align-items: center;
+  height: t.$lnb-header-height;
+  padding-inline: t.$lnb-padding-x;
+}
+
+.collapsed .header {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.toggle {
+  display: inline-flex;
+  flex: none;
+  padding: 0;
+  color: t.$color-lnb-text;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.logo {
+  display: flex;
+  min-width: 0;
+}
+
+.search {
+  flex: none;
+  padding: 0 t.$lnb-padding-x t.$lnb-search-padding-y;
+}
+
+// ── View Tab ─────────────────────────────────────────
+.tabs {
+  display: flex;
+  flex: none;
+  border-bottom: t.$control-border-width solid t.$color-lnb-tab-divider;
+}
+
+.tab {
+  @include m.typography(lnb-tab);
+
+  display: inline-flex;
+  flex: 1;
+  gap: t.$space-4;
+  align-items: center;
+  justify-content: center;
+  height: t.$lnb-tab-height;
+  padding: 0;
+  margin-bottom: calc(-1 * #{t.$control-border-width});
+  color: t.$color-lnb-tab-text;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-bottom: t.$lnb-tab-indicator solid transparent;
+}
+
+.tabActive {
+  color: t.$color-lnb-tab-active;
+  border-bottom-color: t.$color-lnb-tab-active;
+}
+
+.count {
+  @include m.typography(lnb-count);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: t.$lnb-count-height;
+  height: t.$lnb-count-height;
+  padding-inline: t.$space-4;
+  color: t.$color-lnb-count-text;
+  background-color: t.$color-lnb-count-bg;
+  border-radius: calc(#{t.$lnb-count-height} / 2);
+}
+
+// ── 메뉴 영역 (넘치면 세로 스크롤) ────────────────────
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: t.$color-lnb-scroll-thumb transparent;
+  scrollbar-width: thin;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sub {
+  background-color: t.$color-lnb-sub-bg;
+}
+
+// 메뉴 행 공통 (링크·버튼)
+.depth1,
+.depth2,
+.depth3,
+.iconOnly,
+.favoriteItem,
+.result {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.label {
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.icon,
+.chevron,
+.heart,
+.go {
+  display: inline-flex;
+  flex: none;
+}
+
+.chevron {
+  color: t.$color-lnb-text;
+}
+
+.muted {
+  color: t.$color-lnb-chevron;
+}
+
+// ── 1Depth ───────────────────────────────────────────
+.depth1 {
+  @include m.typography(lnb-depth1);
+
+  gap: t.$lnb-icon-gap;
+  height: t.$lnb-depth1-height;
+  padding-inline: t.$lnb-padding-x;
+
+  &:hover {
+    background-color: t.$color-lnb-hover-bg;
+  }
+}
+
+.icon {
+  width: t.$lnb-icon-size;
+  height: t.$lnb-icon-size;
+}
+
+// ── 2Depth ───────────────────────────────────────────
+.depth2 {
+  @include m.typography(lnb-depth2);
+
+  gap: t.$space-8;
+  height: t.$lnb-depth2-height;
+  padding-right: t.$lnb-padding-x;
+  padding-left: t.$lnb-indent;
+
+  &:hover {
+    background-color: t.$color-lnb-hover-bg;
+  }
+}
+
+// ── 3Depth ───────────────────────────────────────────
+.depth3 {
+  @include m.typography(lnb-depth3);
+
+  height: t.$lnb-depth3-height;
+  padding-right: t.$lnb-padding-x;
+  padding-left: t.$lnb-indent;
+  color: t.$color-lnb-depth3-text;
+
+  .go {
+    visibility: hidden;
+  }
+
+  &:hover {
+    color: t.$color-lnb-depth3-hover;
+
+    .go {
+      visibility: visible;
+    }
+  }
+}
+
+.bullet {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  width: t.$lnb-bullet-slot;
+}
+
+// 3Depth Active: 현재 화면 (점 + 굵은 글자 + 배경)
+.depth3.active {
+  @include m.typography(lnb-depth3-active);
+
+  color: t.$color-lnb-active-text;
+  background-color: t.$color-lnb-active-bg;
+
+  .bullet::before {
+    width: t.$lnb-bullet-size;
+    height: t.$lnb-bullet-size;
+    content: '';
+    background-color: currentcolor;
+    border-radius: 50%;
+  }
+
+  .go {
+    visibility: visible;
+    color: t.$color-lnb-tab-active;
+  }
+}
+
+// ── 접은 모드 ────────────────────────────────────────
+.iconOnly {
+  justify-content: center;
+  height: t.$lnb-depth1-height;
+
+  &:hover {
+    background-color: t.$color-lnb-hover-bg;
+  }
+}
+
+// 접은 모드에서도 현재 위치(1Depth)는 표시한다
+.iconOnly.current {
+  background-color: t.$color-lnb-hover-bg;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// ── 즐겨찾기 ─────────────────────────────────────────
+.favorites {
+  padding: t.$space-16 t.$lnb-padding-x;
+}
+
+.favoriteHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: t.$space-16;
+}
+
+.favoriteTitle {
+  @include m.typography(lnb-title);
+}
+
+.favoriteList {
+  display: flex;
+  flex-direction: column;
+  gap: t.$lnb-favorite-gap;
+}
+
+.favoriteItem {
+  gap: t.$space-4;
+  align-items: flex-start;
+
+  &:hover .itemName {
+    color: t.$color-lnb-tab-active;
+  }
+}
+
+.heart {
+  margin-top: calc((1lh - #{t.$lnb-favorite-icon-size}) / 2);
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.itemName {
+  @include m.typography(lnb-item-name);
+  @include m.ellipsis;
+}
+
+.itemPath {
+  @include m.typography(lnb-item-path);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-lnb-path;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-8;
+  align-items: center;
+  padding: t.$space-16;
+  text-align: center;
+  background-color: t.$color-lnb-sub-bg;
+  border-radius: t.$field-radius-md;
+}
+
+.emptyTitle {
+  @include m.typography(lnb-item-name);
+
+  margin: 0;
+}
+
+.emptyDesc {
+  @include m.typography(caption-md);
+
+  margin: 0;
+  color: t.$color-lnb-path;
+}
+
+// ── 검색 결과 ────────────────────────────────────────
+.resultRow + .resultRow {
+  border-top: t.$control-border-width solid t.$color-lnb-divider;
+}
+
+.result {
+  flex-direction: column;
+  gap: t.$space-4;
+  align-items: stretch;
+  padding: t.$space-12 t.$lnb-padding-x;
+
+  &:hover {
+    background-color: t.$color-lnb-sub-bg;
+  }
+}
+
+.highlight {
+  color: t.$color-lnb-highlight;
+  background: none;
+}
+
+.searchEmpty {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-4;
+  padding: t.$space-16 t.$lnb-padding-x;
+}
