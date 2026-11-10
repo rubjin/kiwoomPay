@@ -531,6 +531,7 @@ $color-select-spinner-arc: var(--kp-color-select-spinner-arc);
 $color-select-scroll-thumb: var(--kp-color-select-scroll-thumb);
 $z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 확정 필요. 드롭다운·달력 팝업은 body에 띄우므로 모달(1000)보다 위
 $z-index-modal: var(--kp-z-index-modal); // TODO(시안) z-index 체계 확정 필요. 드롭다운(100)보다 위
+$z-index-tooltip: var(--kp-z-index-tooltip); // TODO(시안) z-index 체계 확정 필요. 모달·드롭다운 안의 Info 아이콘도 덮도록 가장 위
 
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
@@ -731,6 +732,20 @@ $color-tab-text-disabled: var(--kp-color-tab-text-disabled);
 $color-tab-indicator: var(--kp-color-tab-indicator);
 $color-tab-count-disabled-bg: var(--kp-color-tab-count-disabled-bg); // TODO(시안) 비활성 Tab의 Number Badge
 $color-tab-count-disabled-text: var(--kp-color-tab-count-disabled-text); // TODO(시안) 비활성 Tab의 Number Badge
+
+// ── custom · tooltip ────────────────────────────────────────────
+$tooltip-max-width: var(--kp-tooltip-max-width); // 최대 너비 (본문 296 + 좌우 여백). 넘으면 자동 줄바꿈
+$tooltip-padding-x: var(--kp-tooltip-padding-x);
+$tooltip-padding-y: var(--kp-tooltip-padding-y); // Tooltip Guide Anatomy: Padding 12 / 10
+$tooltip-radius: var(--kp-tooltip-radius);
+$tooltip-arrow-width: var(--kp-tooltip-arrow-width); // 포인터 밑변 (측정)
+$tooltip-arrow-height: var(--kp-tooltip-arrow-height); // 포인터 높이 (측정). 아이콘 끝과 포인터 끝 간격 0
+$tooltip-arrow-inset: var(--kp-tooltip-arrow-inset); // 위·아래 배치에서 몸체 왼쪽 끝 ↔ 포인터 (측정)
+$tooltip-viewport-margin: var(--kp-tooltip-viewport-margin); // TODO(시안) 화면 경계와 최소 간격
+$color-tooltip-bg: var(--kp-color-tooltip-bg);
+$color-tooltip-text: var(--kp-color-tooltip-text);
+$color-tooltip-info-icon: var(--kp-color-tooltip-info-icon); // Info 아이콘 (측정 Neutral 500)
+$color-tooltip-info-icon-disabled: var(--kp-color-tooltip-info-icon-disabled); // TODO(시안) 비활성 Info 아이콘 표현 없음
 
 // ── custom · work-tab ───────────────────────────────────────────
 $work-tab-height: var(--kp-work-tab-height); // Work Tab Item 높이 40 (측정)
@@ -1156,6 +1171,7 @@ $css-variables: (
   "--kp-color-select-scroll-thumb": "var(--kp-color-neutral-300)",
   "--kp-z-index-dropdown": "1100",
   "--kp-z-index-modal": "1000",
+  "--kp-z-index-tooltip": "1200",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
   "--kp-color-icon-muted": "var(--kp-color-neutral-500)",
   "--kp-color-icon-accent": "var(--kp-color-primary-500)",
@@ -1336,6 +1352,18 @@ $css-variables: (
   "--kp-color-tab-indicator": "var(--kp-color-primary-500)",
   "--kp-color-tab-count-disabled-bg": "var(--kp-color-neutral-100)",
   "--kp-color-tab-count-disabled-text": "var(--kp-color-neutral-400)",
+  "--kp-tooltip-max-width": "320px",
+  "--kp-tooltip-padding-x": "var(--kp-space-12)",
+  "--kp-tooltip-padding-y": "10px",
+  "--kp-tooltip-radius": "var(--kp-control-radius-lg)",
+  "--kp-tooltip-arrow-width": "12px",
+  "--kp-tooltip-arrow-height": "6px",
+  "--kp-tooltip-arrow-inset": "var(--kp-space-20)",
+  "--kp-tooltip-viewport-margin": "var(--kp-space-8)",
+  "--kp-color-tooltip-bg": "var(--kp-color-neutral-800)",
+  "--kp-color-tooltip-text": "var(--kp-color-text-inverse)",
+  "--kp-color-tooltip-info-icon": "var(--kp-color-icon-muted)",
+  "--kp-color-tooltip-info-icon-disabled": "var(--kp-color-text-disabled)",
   "--kp-typography-heading-xl-font-size": "var(--kp-typography-typo-24-bold-font-size)",
   "--kp-typography-heading-xl-font-weight": "var(--kp-typography-typo-24-bold-font-weight)",
   "--kp-typography-heading-xl-line-height": "var(--kp-typography-typo-24-bold-line-height)",

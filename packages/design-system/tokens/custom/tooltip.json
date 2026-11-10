@@ -1,0 +1,60 @@
+{
+  "Tooltip": {
+    "MaxWidth": {
+      "$type": "dimension",
+      "$value": "320px",
+      "$description": "최대 너비 (본문 296 + 좌우 여백). 넘으면 자동 줄바꿈"
+    },
+    "PaddingX": {
+      "$type": "dimension",
+      "$value": "{space.12}"
+    },
+    "PaddingY": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$description": "Tooltip Guide Anatomy: Padding 12 / 10"
+    },
+    "Radius": {
+      "$type": "dimension",
+      "$value": "{Control.Radius.LG}"
+    },
+    "ArrowWidth": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "포인터 밑변 (측정)"
+    },
+    "ArrowHeight": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$description": "포인터 높이 (측정). 아이콘 끝과 포인터 끝 간격 0"
+    },
+    "ArrowInset": {
+      "$type": "dimension",
+      "$value": "{space.20}",
+      "$description": "위·아래 배치에서 몸체 왼쪽 끝 ↔ 포인터 (측정)"
+    },
+    "ViewportMargin": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "TODO(시안) 화면 경계와 최소 간격"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Neutral.800}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Inverse}"
+    },
+    "InfoIcon": {
+      "$type": "color",
+      "$value": "{Icon.Muted}",
+      "$description": "Info 아이콘 (측정 Neutral 500)"
+    },
+    "InfoIconDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}",
+      "$description": "TODO(시안) 비활성 Info 아이콘 표현 없음"
+    }
+  }
+}

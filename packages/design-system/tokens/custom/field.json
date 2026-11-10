@@ -240,6 +240,11 @@
       "$type": "number",
       "$value": 1000,
       "$description": "TODO(시안) z-index 체계 확정 필요. 드롭다운(100)보다 위"
+    },
+    "Tooltip": {
+      "$type": "number",
+      "$value": 1200,
+      "$description": "TODO(시안) z-index 체계 확정 필요. 모달·드롭다운 안의 Info 아이콘도 덮도록 가장 위"
     }
   }
 }
