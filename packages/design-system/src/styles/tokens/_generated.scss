@@ -271,6 +271,42 @@ $typography-badge-number-font-size: var(--kp-typography-badge-number-font-size);
 $typography-badge-number-font-weight: var(--kp-typography-badge-number-font-weight);
 $typography-badge-number-line-height: var(--kp-typography-badge-number-line-height);
 $typography-badge-number-letter-spacing: var(--kp-typography-badge-number-letter-spacing);
+$typography-lnb-depth1-font-size: var(--kp-typography-lnb-depth1-font-size); // 1Depth 메뉴명 (측정 14px)
+$typography-lnb-depth1-font-weight: var(--kp-typography-lnb-depth1-font-weight);
+$typography-lnb-depth1-line-height: var(--kp-typography-lnb-depth1-line-height);
+$typography-lnb-depth1-letter-spacing: var(--kp-typography-lnb-depth1-letter-spacing);
+$typography-lnb-depth2-font-size: var(--kp-typography-lnb-depth2-font-size); // 2Depth 메뉴명 (측정 13px)
+$typography-lnb-depth2-font-weight: var(--kp-typography-lnb-depth2-font-weight);
+$typography-lnb-depth2-line-height: var(--kp-typography-lnb-depth2-line-height);
+$typography-lnb-depth2-letter-spacing: var(--kp-typography-lnb-depth2-letter-spacing);
+$typography-lnb-depth3-font-size: var(--kp-typography-lnb-depth3-font-size); // LNB 3Depth 기본 (Figma 설명)
+$typography-lnb-depth3-font-weight: var(--kp-typography-lnb-depth3-font-weight);
+$typography-lnb-depth3-line-height: var(--kp-typography-lnb-depth3-line-height);
+$typography-lnb-depth3-letter-spacing: var(--kp-typography-lnb-depth3-letter-spacing);
+$typography-lnb-depth3-active-font-size: var(--kp-typography-lnb-depth3-active-font-size); // LNB 3Depth 선택 (Figma 설명)
+$typography-lnb-depth3-active-font-weight: var(--kp-typography-lnb-depth3-active-font-weight);
+$typography-lnb-depth3-active-line-height: var(--kp-typography-lnb-depth3-active-line-height);
+$typography-lnb-depth3-active-letter-spacing: var(--kp-typography-lnb-depth3-active-letter-spacing);
+$typography-lnb-tab-font-size: var(--kp-typography-lnb-tab-font-size); // View Tab
+$typography-lnb-tab-font-weight: var(--kp-typography-lnb-tab-font-weight);
+$typography-lnb-tab-line-height: var(--kp-typography-lnb-tab-line-height);
+$typography-lnb-tab-letter-spacing: var(--kp-typography-lnb-tab-letter-spacing);
+$typography-lnb-count-font-size: var(--kp-typography-lnb-count-font-size); // TODO(시안) 즐겨찾기 개수
+$typography-lnb-count-font-weight: var(--kp-typography-lnb-count-font-weight);
+$typography-lnb-count-line-height: var(--kp-typography-lnb-count-line-height);
+$typography-lnb-count-letter-spacing: var(--kp-typography-lnb-count-letter-spacing);
+$typography-lnb-title-font-size: var(--kp-typography-lnb-title-font-size); // MY 메뉴
+$typography-lnb-title-font-weight: var(--kp-typography-lnb-title-font-weight);
+$typography-lnb-title-line-height: var(--kp-typography-lnb-title-line-height);
+$typography-lnb-title-letter-spacing: var(--kp-typography-lnb-title-letter-spacing);
+$typography-lnb-item-name-font-size: var(--kp-typography-lnb-item-name-font-size); // 즐겨찾기·검색 결과 메뉴명
+$typography-lnb-item-name-font-weight: var(--kp-typography-lnb-item-name-font-weight);
+$typography-lnb-item-name-line-height: var(--kp-typography-lnb-item-name-line-height);
+$typography-lnb-item-name-letter-spacing: var(--kp-typography-lnb-item-name-letter-spacing);
+$typography-lnb-item-path-font-size: var(--kp-typography-lnb-item-path-font-size); // LNB 즐겨찾기 보조 정보 (Figma 설명)
+$typography-lnb-item-path-font-weight: var(--kp-typography-lnb-item-path-font-weight);
+$typography-lnb-item-path-line-height: var(--kp-typography-lnb-item-path-line-height);
+$typography-lnb-item-path-letter-spacing: var(--kp-typography-lnb-item-path-letter-spacing);
 
 // ── custom · badge ──────────────────────────────────────────────
 $badge-height-md: var(--kp-badge-height-md); // Default H24
@@ -438,6 +474,7 @@ $color-field-bg-disabled: var(--kp-color-field-bg-disabled);
 $color-field-bg-readonly: var(--kp-color-field-bg-readonly);
 $color-field-border: var(--kp-color-field-border);
 $color-field-border-focus: var(--kp-color-field-border-focus);
+$color-field-caret: var(--kp-color-field-caret); // 입력 중 커서 색
 $color-field-border-positive: var(--kp-color-field-border-positive);
 $color-field-border-negative: var(--kp-color-field-border-negative);
 $color-field-text: var(--kp-color-field-text);
@@ -485,6 +522,46 @@ $color-icon-success: var(--kp-color-icon-success); // Check-circle_filled
 $color-icon-warning: var(--kp-color-icon-warning); // Warning-circle_filled
 $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
+
+// ── custom · lnb ────────────────────────────────────────────────
+$lnb-width: var(--kp-lnb-width); // Expanded
+$lnb-collapsed-width: var(--kp-lnb-collapsed-width); // Collapsed
+$lnb-header-height: var(--kp-lnb-header-height); // 측정값: 햄버거 + 로고 행
+$lnb-padding-x: var(--kp-lnb-padding-x);
+$lnb-search-padding-y: var(--kp-lnb-search-padding-y); // 측정값
+$lnb-icon-gap: var(--kp-lnb-icon-gap); // 1Depth 아이콘 ↔ 메뉴명
+$lnb-indent: var(--kp-lnb-indent); // 2·3Depth 시작 위치 = 여백 12 + 아이콘 20 + 간격 12
+$lnb-bullet-slot: var(--kp-lnb-bullet-slot); // 3Depth 앞 점 자리 (측정값)
+$lnb-bullet-size: var(--kp-lnb-bullet-size); // TODO(시안) 3Depth Active 점 크기
+$lnb-depth1-height: var(--kp-lnb-depth1-height); // 측정값
+$lnb-depth2-height: var(--kp-lnb-depth2-height); // 측정값
+$lnb-depth3-height: var(--kp-lnb-depth3-height); // 측정값
+$lnb-tab-height: var(--kp-lnb-tab-height); // 측정값
+$lnb-tab-indicator: var(--kp-lnb-tab-indicator); // 활성 탭 밑줄
+$lnb-count-height: var(--kp-lnb-count-height); // 즐겨찾기 개수 표시
+$lnb-chevron-size: var(--kp-lnb-chevron-size);
+$lnb-favorite-gap: var(--kp-lnb-favorite-gap); // 즐겨찾기 항목 간격 (측정 51 = 항목 39 + 12)
+$color-lnb-bg: var(--kp-color-lnb-bg);
+$color-lnb-border: var(--kp-color-lnb-border); // 오른쪽 경계
+$color-lnb-text: var(--kp-color-lnb-text); // 1·2Depth 메뉴명·아이콘 (#111827)
+$color-lnb-chevron: var(--kp-color-lnb-chevron);
+$color-lnb-hover-bg: var(--kp-color-lnb-hover-bg); // Hover · 접은 모드의 Current
+$color-lnb-sub-bg: var(--kp-color-lnb-sub-bg); // 2·3Depth 영역
+$color-lnb-depth3-text: var(--kp-color-lnb-depth3-text);
+$color-lnb-depth3-hover: var(--kp-color-lnb-depth3-hover); // TODO(시안) 3Depth Hover 표현 (파란 글자 + ↗로 해석)
+$color-lnb-active-bg: var(--kp-color-lnb-active-bg);
+$color-lnb-active-text: var(--kp-color-lnb-active-text);
+$color-lnb-tab-text: var(--kp-color-lnb-tab-text);
+$color-lnb-tab-active: var(--kp-color-lnb-tab-active);
+$color-lnb-tab-divider: var(--kp-color-lnb-tab-divider); // TODO(시안) 탭 아래 구분선
+$color-lnb-count-bg: var(--kp-color-lnb-count-bg);
+$color-lnb-count-text: var(--kp-color-lnb-count-text);
+$color-lnb-highlight: var(--kp-color-lnb-highlight); // 검색어 일치 문자열
+$color-lnb-path: var(--kp-color-lnb-path); // 검색 결과·즐겨찾기 경로
+$color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선
+$color-lnb-scroll-thumb: var(--kp-color-lnb-scroll-thumb);
+$lnb-icon-size: var(--kp-lnb-icon-size); // 1Depth 아이콘
+$lnb-favorite-icon-size: var(--kp-lnb-favorite-icon-size); // 즐겨찾기 하트
 
 // ── custom · modal ──────────────────────────────────────────────
 $modal-width: var(--kp-modal-width); // Alert·Confirm·Information·Form 기본 폭 (측정값)
@@ -931,6 +1008,7 @@ $css-variables: (
   "--kp-color-field-bg-readonly": "var(--kp-color-neutral-50)",
   "--kp-color-field-border": "var(--kp-color-line-default)",
   "--kp-color-field-border-focus": "var(--kp-color-primary-500)",
+  "--kp-color-field-caret": "var(--kp-color-primary-500)",
   "--kp-color-field-border-positive": "var(--kp-color-status-success-border)",
   "--kp-color-field-border-negative": "var(--kp-color-status-error-border)",
   "--kp-color-field-text": "var(--kp-color-text-body)",
@@ -974,6 +1052,44 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
+  "--kp-lnb-width": "240px",
+  "--kp-lnb-collapsed-width": "48px",
+  "--kp-lnb-header-height": "56px",
+  "--kp-lnb-padding-x": "var(--kp-space-12)",
+  "--kp-lnb-search-padding-y": "var(--kp-space-8)",
+  "--kp-lnb-icon-gap": "var(--kp-space-12)",
+  "--kp-lnb-indent": "44px",
+  "--kp-lnb-bullet-slot": "11px",
+  "--kp-lnb-bullet-size": "3px",
+  "--kp-lnb-depth1-height": "45px",
+  "--kp-lnb-depth2-height": "42px",
+  "--kp-lnb-depth3-height": "33px",
+  "--kp-lnb-tab-height": "40px",
+  "--kp-lnb-tab-indicator": "2px",
+  "--kp-lnb-count-height": "20px",
+  "--kp-lnb-chevron-size": "16px",
+  "--kp-lnb-favorite-gap": "var(--kp-space-12)",
+  "--kp-color-lnb-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-lnb-border": "var(--kp-color-neutral-100)",
+  "--kp-color-lnb-text": "var(--kp-color-text-heading)",
+  "--kp-color-lnb-chevron": "var(--kp-color-neutral-500)",
+  "--kp-color-lnb-hover-bg": "var(--kp-color-neutral-200)",
+  "--kp-color-lnb-sub-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-lnb-depth3-text": "var(--kp-color-text-secondary)",
+  "--kp-color-lnb-depth3-hover": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-active-bg": "var(--kp-color-primary-100)",
+  "--kp-color-lnb-active-text": "var(--kp-color-primary-700)",
+  "--kp-color-lnb-tab-text": "var(--kp-color-neutral-700)",
+  "--kp-color-lnb-tab-active": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-tab-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-lnb-count-bg": "var(--kp-color-primary-100)",
+  "--kp-color-lnb-count-text": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-highlight": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-path": "var(--kp-color-text-secondary)",
+  "--kp-color-lnb-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
+  "--kp-lnb-icon-size": "20px",
+  "--kp-lnb-favorite-icon-size": "16px",
   "--kp-modal-width": "400px",
   "--kp-modal-padding": "var(--kp-space-20)",
   "--kp-modal-radius": "10px",
@@ -1138,4 +1254,40 @@ $css-variables: (
   "--kp-typography-badge-number-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
   "--kp-typography-badge-number-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
   "--kp-typography-badge-number-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-lnb-depth1-font-size": "var(--kp-typography-typo-14-medium-font-size)",
+  "--kp-typography-lnb-depth1-font-weight": "var(--kp-typography-typo-14-medium-font-weight)",
+  "--kp-typography-lnb-depth1-line-height": "var(--kp-typography-typo-14-medium-line-height)",
+  "--kp-typography-lnb-depth1-letter-spacing": "var(--kp-typography-typo-14-medium-letter-spacing)",
+  "--kp-typography-lnb-depth2-font-size": "var(--kp-typography-typo-13-medium-font-size)",
+  "--kp-typography-lnb-depth2-font-weight": "var(--kp-typography-typo-13-medium-font-weight)",
+  "--kp-typography-lnb-depth2-line-height": "var(--kp-typography-typo-13-medium-line-height)",
+  "--kp-typography-lnb-depth2-letter-spacing": "var(--kp-typography-typo-13-medium-letter-spacing)",
+  "--kp-typography-lnb-depth3-font-size": "var(--kp-typography-typo-11-medium-font-size)",
+  "--kp-typography-lnb-depth3-font-weight": "var(--kp-typography-typo-11-medium-font-weight)",
+  "--kp-typography-lnb-depth3-line-height": "var(--kp-typography-typo-11-medium-line-height)",
+  "--kp-typography-lnb-depth3-letter-spacing": "var(--kp-typography-typo-11-medium-letter-spacing)",
+  "--kp-typography-lnb-depth3-active-font-size": "var(--kp-typography-typo-11-bold-font-size)",
+  "--kp-typography-lnb-depth3-active-font-weight": "var(--kp-typography-typo-11-bold-font-weight)",
+  "--kp-typography-lnb-depth3-active-line-height": "var(--kp-typography-typo-11-bold-line-height)",
+  "--kp-typography-lnb-depth3-active-letter-spacing": "var(--kp-typography-typo-11-bold-letter-spacing)",
+  "--kp-typography-lnb-tab-font-size": "var(--kp-typography-typo-13-medium-font-size)",
+  "--kp-typography-lnb-tab-font-weight": "var(--kp-typography-typo-13-medium-font-weight)",
+  "--kp-typography-lnb-tab-line-height": "var(--kp-typography-typo-13-medium-line-height)",
+  "--kp-typography-lnb-tab-letter-spacing": "var(--kp-typography-typo-13-medium-letter-spacing)",
+  "--kp-typography-lnb-count-font-size": "var(--kp-typography-typo-12-semi-bold-font-size)",
+  "--kp-typography-lnb-count-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
+  "--kp-typography-lnb-count-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
+  "--kp-typography-lnb-count-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-lnb-title-font-size": "var(--kp-typography-typo-14-semi-bold-font-size)",
+  "--kp-typography-lnb-title-font-weight": "var(--kp-typography-typo-14-semi-bold-font-weight)",
+  "--kp-typography-lnb-title-line-height": "var(--kp-typography-typo-14-semi-bold-line-height)",
+  "--kp-typography-lnb-title-letter-spacing": "var(--kp-typography-typo-14-semi-bold-letter-spacing)",
+  "--kp-typography-lnb-item-name-font-size": "var(--kp-typography-typo-12-semi-bold-font-size)",
+  "--kp-typography-lnb-item-name-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
+  "--kp-typography-lnb-item-name-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
+  "--kp-typography-lnb-item-name-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-lnb-item-path-font-size": "var(--kp-typography-typo-10-regular-font-size)",
+  "--kp-typography-lnb-item-path-font-weight": "var(--kp-typography-typo-10-regular-font-weight)",
+  "--kp-typography-lnb-item-path-line-height": "var(--kp-typography-typo-10-regular-line-height)",
+  "--kp-typography-lnb-item-path-letter-spacing": "var(--kp-typography-typo-10-regular-letter-spacing)",
 );

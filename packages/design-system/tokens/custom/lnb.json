@@ -1,0 +1,182 @@
+{
+  "Lnb": {
+    "Width": {
+      "$type": "dimension",
+      "$value": "240px",
+      "$description": "Expanded"
+    },
+    "CollapsedWidth": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$description": "Collapsed"
+    },
+    "HeaderHeight": {
+      "$type": "dimension",
+      "$value": "56px",
+      "$description": "측정값: 햄버거 + 로고 행"
+    },
+    "PaddingX": {
+      "$type": "dimension",
+      "$value": "{space.12}"
+    },
+    "SearchPaddingY": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "측정값"
+    },
+    "IconGap": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "1Depth 아이콘 ↔ 메뉴명"
+    },
+    "Indent": {
+      "$type": "dimension",
+      "$value": "44px",
+      "$description": "2·3Depth 시작 위치 = 여백 12 + 아이콘 20 + 간격 12"
+    },
+    "BulletSlot": {
+      "$type": "dimension",
+      "$value": "11px",
+      "$description": "3Depth 앞 점 자리 (측정값)"
+    },
+    "BulletSize": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$description": "TODO(시안) 3Depth Active 점 크기"
+    },
+    "Depth1Height": {
+      "$type": "dimension",
+      "$value": "45px",
+      "$description": "측정값"
+    },
+    "Depth2Height": {
+      "$type": "dimension",
+      "$value": "42px",
+      "$description": "측정값"
+    },
+    "Depth3Height": {
+      "$type": "dimension",
+      "$value": "33px",
+      "$description": "측정값"
+    },
+    "TabHeight": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "측정값"
+    },
+    "TabIndicator": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "활성 탭 밑줄"
+    },
+    "CountHeight": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "즐겨찾기 개수 표시"
+    },
+    "ChevronSize": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "FavoriteGap": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "즐겨찾기 항목 간격 (측정 51 = 항목 39 + 12)"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Neutral.100}",
+      "$description": "오른쪽 경계"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "1·2Depth 메뉴명·아이콘 (#111827)"
+    },
+    "Chevron": {
+      "$type": "color",
+      "$value": "{Neutral.500}"
+    },
+    "HoverBg": {
+      "$type": "color",
+      "$value": "{Neutral.200}",
+      "$description": "Hover · 접은 모드의 Current"
+    },
+    "SubBg": {
+      "$type": "color",
+      "$value": "{Neutral.50}",
+      "$description": "2·3Depth 영역"
+    },
+    "Depth3Text": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "Depth3Hover": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "TODO(시안) 3Depth Hover 표현 (파란 글자 + ↗로 해석)"
+    },
+    "ActiveBg": {
+      "$type": "color",
+      "$value": "{Primary.100}"
+    },
+    "ActiveText": {
+      "$type": "color",
+      "$value": "{Primary.700}"
+    },
+    "TabText": {
+      "$type": "color",
+      "$value": "{Neutral.700}"
+    },
+    "TabActive": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "TabDivider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}",
+      "$description": "TODO(시안) 탭 아래 구분선"
+    },
+    "CountBg": {
+      "$type": "color",
+      "$value": "{Primary.100}"
+    },
+    "CountText": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "Highlight": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "검색어 일치 문자열"
+    },
+    "Path": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "검색 결과·즐겨찾기 경로"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}",
+      "$description": "검색 결과 구분선"
+    },
+    "ScrollThumb": {
+      "$type": "color",
+      "$value": "{Neutral.300}"
+    },
+    "IconSize": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "1Depth 아이콘"
+    },
+    "FavoriteIconSize": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "즐겨찾기 하트"
+    }
+  }
+}

@@ -71,6 +71,11 @@
       "$type": "color",
       "$value": "{Primary.500}"
     },
+    "Caret": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "입력 중 커서 색"
+    },
     "BorderPositive": {
       "$type": "color",
       "$value": "{Status.Success.Border}"

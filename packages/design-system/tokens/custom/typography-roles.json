@@ -109,5 +109,52 @@
       "$value": "{Typo.12.SemiBold}",
       "$description": "TODO(시안) Number Badge 글자"
     }
+  },
+  "Lnb": {
+    "Depth1": {
+      "$type": "typography",
+      "$value": "{Typo.14.Medium}",
+      "$description": "1Depth 메뉴명 (측정 14px)"
+    },
+    "Depth2": {
+      "$type": "typography",
+      "$value": "{Typo.13.Medium}",
+      "$description": "2Depth 메뉴명 (측정 13px)"
+    },
+    "Depth3": {
+      "$type": "typography",
+      "$value": "{Typo.11.Medium}",
+      "$description": "LNB 3Depth 기본 (Figma 설명)"
+    },
+    "Depth3Active": {
+      "$type": "typography",
+      "$value": "{Typo.11.Bold}",
+      "$description": "LNB 3Depth 선택 (Figma 설명)"
+    },
+    "Tab": {
+      "$type": "typography",
+      "$value": "{Typo.13.Medium}",
+      "$description": "View Tab"
+    },
+    "Count": {
+      "$type": "typography",
+      "$value": "{Typo.12.SemiBold}",
+      "$description": "TODO(시안) 즐겨찾기 개수"
+    },
+    "Title": {
+      "$type": "typography",
+      "$value": "{Typo.14.SemiBold}",
+      "$description": "MY 메뉴"
+    },
+    "ItemName": {
+      "$type": "typography",
+      "$value": "{Typo.12.SemiBold}",
+      "$description": "즐겨찾기·검색 결과 메뉴명"
+    },
+    "ItemPath": {
+      "$type": "typography",
+      "$value": "{Typo.10.Regular}",
+      "$description": "LNB 즐겨찾기 보조 정보 (Figma 설명)"
+    }
   }
 }
