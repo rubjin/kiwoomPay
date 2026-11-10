@@ -239,10 +239,101 @@ $typography-caption-strong-font-size: var(--kp-typography-caption-strong-font-si
 $typography-caption-strong-font-weight: var(--kp-typography-caption-strong-font-weight);
 $typography-caption-strong-line-height: var(--kp-typography-caption-strong-line-height);
 $typography-caption-strong-letter-spacing: var(--kp-typography-caption-strong-letter-spacing);
+$typography-button-lg-font-size: var(--kp-typography-button-lg-font-size); // Button Large
+$typography-button-lg-font-weight: var(--kp-typography-button-lg-font-weight);
+$typography-button-lg-line-height: var(--kp-typography-button-lg-line-height);
+$typography-button-lg-letter-spacing: var(--kp-typography-button-lg-letter-spacing);
+$typography-button-md-font-size: var(--kp-typography-button-md-font-size); // Button Medium, Text Button Medium
+$typography-button-md-font-weight: var(--kp-typography-button-md-font-weight);
+$typography-button-md-line-height: var(--kp-typography-button-md-line-height);
+$typography-button-md-letter-spacing: var(--kp-typography-button-md-letter-spacing);
+$typography-button-sm-font-size: var(--kp-typography-button-sm-font-size); // Button Small, Text Button Small
+$typography-button-sm-font-weight: var(--kp-typography-button-sm-font-weight);
+$typography-button-sm-line-height: var(--kp-typography-button-sm-line-height);
+$typography-button-sm-letter-spacing: var(--kp-typography-button-sm-letter-spacing);
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
 $breakpoint-mobile: 768px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
+
+// ── custom · button ─────────────────────────────────────────────
+$color-button-primary-solid-bg: var(--kp-color-button-primary-solid-bg);
+$color-button-primary-solid-bg-hover: var(--kp-color-button-primary-solid-bg-hover);
+$color-button-primary-solid-bg-pressed: var(--kp-color-button-primary-solid-bg-pressed);
+$color-button-primary-solid-bg-disabled: var(--kp-color-button-primary-solid-bg-disabled);
+$color-button-primary-line-text: var(--kp-color-button-primary-line-text);
+$color-button-primary-line-text-hover: var(--kp-color-button-primary-line-text-hover);
+$color-button-primary-line-text-pressed: var(--kp-color-button-primary-line-text-pressed);
+$color-button-primary-line-text-disabled: var(--kp-color-button-primary-line-text-disabled);
+$color-button-primary-line-border: var(--kp-color-button-primary-line-border);
+$color-button-primary-line-border-hover: var(--kp-color-button-primary-line-border-hover);
+$color-button-primary-line-border-pressed: var(--kp-color-button-primary-line-border-pressed);
+$color-button-primary-line-border-disabled: var(--kp-color-button-primary-line-border-disabled);
+$color-button-primary-line-bg-hover: var(--kp-color-button-primary-line-bg-hover);
+$color-button-primary-line-bg-pressed: var(--kp-color-button-primary-line-bg-pressed);
+$color-button-neutral-solid-bg: var(--kp-color-button-neutral-solid-bg);
+$color-button-neutral-solid-bg-hover: var(--kp-color-button-neutral-solid-bg-hover);
+$color-button-neutral-solid-bg-pressed: var(--kp-color-button-neutral-solid-bg-pressed);
+$color-button-neutral-solid-bg-disabled: var(--kp-color-button-neutral-solid-bg-disabled);
+$color-button-neutral-line-text: var(--kp-color-button-neutral-line-text);
+$color-button-neutral-line-text-hover: var(--kp-color-button-neutral-line-text-hover);
+$color-button-neutral-line-text-pressed: var(--kp-color-button-neutral-line-text-pressed);
+$color-button-neutral-line-text-disabled: var(--kp-color-button-neutral-line-text-disabled);
+$color-button-neutral-line-border: var(--kp-color-button-neutral-line-border);
+$color-button-neutral-line-border-hover: var(--kp-color-button-neutral-line-border-hover);
+$color-button-neutral-line-border-pressed: var(--kp-color-button-neutral-line-border-pressed);
+$color-button-neutral-line-border-disabled: var(--kp-color-button-neutral-line-border-disabled);
+$color-button-neutral-line-bg-hover: var(--kp-color-button-neutral-line-bg-hover);
+$color-button-neutral-line-bg-pressed: var(--kp-color-button-neutral-line-bg-pressed);
+$color-button-dark-solid-bg: var(--kp-color-button-dark-solid-bg);
+$color-button-dark-solid-bg-hover: var(--kp-color-button-dark-solid-bg-hover);
+$color-button-dark-solid-bg-pressed: var(--kp-color-button-dark-solid-bg-pressed);
+$color-button-dark-solid-bg-disabled: var(--kp-color-button-dark-solid-bg-disabled);
+$color-button-dark-line-text: var(--kp-color-button-dark-line-text);
+$color-button-dark-line-text-hover: var(--kp-color-button-dark-line-text-hover);
+$color-button-dark-line-text-pressed: var(--kp-color-button-dark-line-text-pressed);
+$color-button-dark-line-text-disabled: var(--kp-color-button-dark-line-text-disabled);
+$color-button-dark-line-border: var(--kp-color-button-dark-line-border);
+$color-button-dark-line-border-hover: var(--kp-color-button-dark-line-border-hover);
+$color-button-dark-line-border-pressed: var(--kp-color-button-dark-line-border-pressed);
+$color-button-dark-line-border-disabled: var(--kp-color-button-dark-line-border-disabled);
+$color-button-dark-line-bg-hover: var(--kp-color-button-dark-line-bg-hover);
+$color-button-dark-line-bg-pressed: var(--kp-color-button-dark-line-bg-pressed);
+$color-button-danger-solid-bg: var(--kp-color-button-danger-solid-bg);
+$color-button-danger-solid-bg-hover: var(--kp-color-button-danger-solid-bg-hover);
+$color-button-danger-solid-bg-pressed: var(--kp-color-button-danger-solid-bg-pressed);
+$color-button-danger-solid-bg-disabled: var(--kp-color-button-danger-solid-bg-disabled);
+$color-button-danger-line-text: var(--kp-color-button-danger-line-text);
+$color-button-danger-line-text-hover: var(--kp-color-button-danger-line-text-hover);
+$color-button-danger-line-text-pressed: var(--kp-color-button-danger-line-text-pressed);
+$color-button-danger-line-text-disabled: var(--kp-color-button-danger-line-text-disabled);
+$color-button-danger-line-border: var(--kp-color-button-danger-line-border);
+$color-button-danger-line-border-hover: var(--kp-color-button-danger-line-border-hover);
+$color-button-danger-line-border-pressed: var(--kp-color-button-danger-line-border-pressed);
+$color-button-danger-line-border-disabled: var(--kp-color-button-danger-line-border-disabled);
+$color-button-danger-line-bg-hover: var(--kp-color-button-danger-line-bg-hover);
+$color-button-danger-line-bg-pressed: var(--kp-color-button-danger-line-bg-pressed);
+$color-text-button-primary-text: var(--kp-color-text-button-primary-text);
+$color-text-button-primary-text-hover: var(--kp-color-text-button-primary-text-hover); // TextLink hover. Text Action hover는 색 변화 없음(시안)
+$color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // TODO(시안) Neutral Text Action 색 확인
+$color-text-button-neutral-text-hover: var(--kp-color-text-button-neutral-text-hover); // TODO(시안)
+$color-text-button-text-disabled: var(--kp-color-text-button-text-disabled);
+
+// ── custom · control ────────────────────────────────────────────
+$control-height-sm: var(--kp-control-height-sm); // Button Guide 02. Spec
+$control-height-md: var(--kp-control-height-md);
+$control-height-lg: var(--kp-control-height-lg);
+$control-radius-sm: var(--kp-control-radius-sm);
+$control-radius-md: var(--kp-control-radius-md);
+$control-radius-lg: var(--kp-control-radius-lg);
+$control-padding-x-sm: var(--kp-control-padding-x-sm);
+$control-padding-x-md: var(--kp-control-padding-x-md);
+$control-padding-x-lg: var(--kp-control-padding-x-lg);
+$control-icon-size-sm: var(--kp-control-icon-size-sm);
+$control-icon-size-md: var(--kp-control-icon-size-md);
+$control-icon-size-lg: var(--kp-control-icon-size-lg);
+$control-icon-gap: var(--kp-control-icon-gap); // 아이콘-텍스트 간격 (전 size 공통)
+$control-border-width: var(--kp-control-border-width); // Line 버튼 테두리
 
 // ── custom · dimension ──────────────────────────────────────────
 $focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
@@ -459,6 +550,81 @@ $css-variables: (
   "--kp-typography-typo-10-regular-letter-spacing": "0",
   "--kp-breakpoint-tablet": "1024px",
   "--kp-breakpoint-mobile": "768px",
+  "--kp-color-button-primary-solid-bg": "var(--kp-color-primary-500)",
+  "--kp-color-button-primary-solid-bg-hover": "var(--kp-color-primary-600)",
+  "--kp-color-button-primary-solid-bg-pressed": "var(--kp-color-primary-700)",
+  "--kp-color-button-primary-solid-bg-disabled": "var(--kp-color-primary-200)",
+  "--kp-color-button-primary-line-text": "var(--kp-color-primary-500)",
+  "--kp-color-button-primary-line-text-hover": "var(--kp-color-primary-600)",
+  "--kp-color-button-primary-line-text-pressed": "var(--kp-color-primary-700)",
+  "--kp-color-button-primary-line-text-disabled": "var(--kp-color-primary-200)",
+  "--kp-color-button-primary-line-border": "var(--kp-color-primary-500)",
+  "--kp-color-button-primary-line-border-hover": "var(--kp-color-primary-600)",
+  "--kp-color-button-primary-line-border-pressed": "var(--kp-color-primary-700)",
+  "--kp-color-button-primary-line-border-disabled": "var(--kp-color-primary-200)",
+  "--kp-color-button-primary-line-bg-hover": "var(--kp-color-primary-50)",
+  "--kp-color-button-primary-line-bg-pressed": "var(--kp-color-primary-100)",
+  "--kp-color-button-neutral-solid-bg": "var(--kp-color-neutral-700)",
+  "--kp-color-button-neutral-solid-bg-hover": "var(--kp-color-neutral-500)",
+  "--kp-color-button-neutral-solid-bg-pressed": "var(--kp-color-neutral-800)",
+  "--kp-color-button-neutral-solid-bg-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-neutral-line-text": "var(--kp-color-neutral-700)",
+  "--kp-color-button-neutral-line-text-hover": "var(--kp-color-neutral-500)",
+  "--kp-color-button-neutral-line-text-pressed": "var(--kp-color-neutral-800)",
+  "--kp-color-button-neutral-line-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-neutral-line-border": "var(--kp-color-neutral-700)",
+  "--kp-color-button-neutral-line-border-hover": "var(--kp-color-neutral-500)",
+  "--kp-color-button-neutral-line-border-pressed": "var(--kp-color-neutral-800)",
+  "--kp-color-button-neutral-line-border-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-neutral-line-bg-hover": "var(--kp-color-neutral-50)",
+  "--kp-color-button-neutral-line-bg-pressed": "var(--kp-color-neutral-100)",
+  "--kp-color-button-dark-solid-bg": "var(--kp-color-neutral-900)",
+  "--kp-color-button-dark-solid-bg-hover": "var(--kp-color-neutral-800)",
+  "--kp-color-button-dark-solid-bg-pressed": "var(--kp-color-base-black)",
+  "--kp-color-button-dark-solid-bg-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-dark-line-text": "var(--kp-color-neutral-800)",
+  "--kp-color-button-dark-line-text-hover": "var(--kp-color-neutral-800)",
+  "--kp-color-button-dark-line-text-pressed": "var(--kp-color-neutral-900)",
+  "--kp-color-button-dark-line-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-dark-line-border": "var(--kp-color-neutral-800)",
+  "--kp-color-button-dark-line-border-hover": "var(--kp-color-neutral-800)",
+  "--kp-color-button-dark-line-border-pressed": "var(--kp-color-neutral-900)",
+  "--kp-color-button-dark-line-border-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-dark-line-bg-hover": "var(--kp-color-neutral-50)",
+  "--kp-color-button-dark-line-bg-pressed": "var(--kp-color-neutral-100)",
+  "--kp-color-button-danger-solid-bg": "var(--kp-color-status-error-border)",
+  "--kp-color-button-danger-solid-bg-hover": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-solid-bg-pressed": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-solid-bg-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-danger-line-text": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-line-text-hover": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-line-text-pressed": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-line-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-danger-line-border": "var(--kp-color-status-error-border)",
+  "--kp-color-button-danger-line-border-hover": "var(--kp-color-status-error-border)",
+  "--kp-color-button-danger-line-border-pressed": "var(--kp-color-status-error-text)",
+  "--kp-color-button-danger-line-border-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-button-danger-line-bg-hover": "var(--kp-color-status-error-background)",
+  "--kp-color-button-danger-line-bg-pressed": "var(--kp-color-status-error-background)",
+  "--kp-color-text-button-primary-text": "var(--kp-color-primary-500)",
+  "--kp-color-text-button-primary-text-hover": "var(--kp-color-primary-600)",
+  "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-700)",
+  "--kp-color-text-button-neutral-text-hover": "var(--kp-color-neutral-700)",
+  "--kp-color-text-button-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-control-height-sm": "32px",
+  "--kp-control-height-md": "40px",
+  "--kp-control-height-lg": "48px",
+  "--kp-control-radius-sm": "4px",
+  "--kp-control-radius-md": "6px",
+  "--kp-control-radius-lg": "8px",
+  "--kp-control-padding-x-sm": "var(--kp-space-12)",
+  "--kp-control-padding-x-md": "var(--kp-space-16)",
+  "--kp-control-padding-x-lg": "var(--kp-space-20)",
+  "--kp-control-icon-size-sm": "16px",
+  "--kp-control-icon-size-md": "20px",
+  "--kp-control-icon-size-lg": "24px",
+  "--kp-control-icon-gap": "var(--kp-space-4)",
+  "--kp-control-border-width": "1px",
   "--kp-focus-ring-width": "2px",
   "--kp-focus-ring-offset": "2px",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
@@ -514,4 +680,16 @@ $css-variables: (
   "--kp-typography-caption-strong-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
   "--kp-typography-caption-strong-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
   "--kp-typography-caption-strong-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-button-lg-font-size": "var(--kp-typography-typo-14-bold-font-size)",
+  "--kp-typography-button-lg-font-weight": "var(--kp-typography-typo-14-bold-font-weight)",
+  "--kp-typography-button-lg-line-height": "var(--kp-typography-typo-14-bold-line-height)",
+  "--kp-typography-button-lg-letter-spacing": "var(--kp-typography-typo-14-bold-letter-spacing)",
+  "--kp-typography-button-md-font-size": "var(--kp-typography-typo-13-semi-bold-font-size)",
+  "--kp-typography-button-md-font-weight": "var(--kp-typography-typo-13-semi-bold-font-weight)",
+  "--kp-typography-button-md-line-height": "var(--kp-typography-typo-13-semi-bold-line-height)",
+  "--kp-typography-button-md-letter-spacing": "var(--kp-typography-typo-13-semi-bold-letter-spacing)",
+  "--kp-typography-button-sm-font-size": "var(--kp-typography-typo-12-semi-bold-font-size)",
+  "--kp-typography-button-sm-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
+  "--kp-typography-button-sm-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
+  "--kp-typography-button-sm-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
 );

@@ -1,0 +1,77 @@
+{
+  "Control": {
+    "Height": {
+      "SM": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Button Guide 02. Spec"
+      },
+      "MD": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "LG": {
+        "$type": "dimension",
+        "$value": "48px"
+      }
+    },
+    "Radius": {
+      "SM": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "MD": {
+        "$type": "dimension",
+        "$value": "6px"
+      },
+      "LG": {
+        "$type": "dimension",
+        "$value": "8px"
+      }
+    },
+    "Padding": {
+      "X": {
+        "SM": {
+          "$type": "dimension",
+          "$value": "{space.12}"
+        },
+        "MD": {
+          "$type": "dimension",
+          "$value": "{space.16}"
+        },
+        "LG": {
+          "$type": "dimension",
+          "$value": "{space.20}"
+        }
+      }
+    },
+    "Icon": {
+      "Size": {
+        "SM": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "MD": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "LG": {
+          "$type": "dimension",
+          "$value": "24px"
+        }
+      },
+      "Gap": {
+        "$type": "dimension",
+        "$value": "{space.4}",
+        "$description": "아이콘-텍스트 간격 (전 size 공통)"
+      }
+    },
+    "Border": {
+      "Width": {
+        "$type": "dimension",
+        "$value": "1px",
+        "$description": "Line 버튼 테두리"
+      }
+    }
+  }
+}

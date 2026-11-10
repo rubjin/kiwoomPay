@@ -27,19 +27,56 @@
       "$value": "{Typo.14.Regular}",
       "$description": "본문, 테이블, 입력값"
     },
-    "SM": { "$type": "typography", "$value": "{Typo.13.Regular}", "$description": "보조 본문" }
+    "SM": {
+      "$type": "typography",
+      "$value": "{Typo.13.Regular}",
+      "$description": "보조 본문"
+    }
   },
   "Label": {
-    "MD": { "$type": "typography", "$value": "{Typo.13.Medium}", "$description": "버튼, 탭, 메뉴" },
+    "MD": {
+      "$type": "typography",
+      "$value": "{Typo.13.Medium}",
+      "$description": "버튼, 탭, 메뉴"
+    },
     "Strong": {
       "$type": "typography",
       "$value": "{Typo.13.SemiBold}",
       "$description": "선택 상태"
     },
-    "Field": { "$type": "typography", "$value": "{Typo.13.Bold}", "$description": "필드 레이블" }
+    "Field": {
+      "$type": "typography",
+      "$value": "{Typo.13.Bold}",
+      "$description": "필드 레이블"
+    }
   },
   "Caption": {
-    "MD": { "$type": "typography", "$value": "{Typo.12.Regular}", "$description": "도움말, 캡션" },
-    "Strong": { "$type": "typography", "$value": "{Typo.12.SemiBold}", "$description": "소형 강조" }
+    "MD": {
+      "$type": "typography",
+      "$value": "{Typo.12.Regular}",
+      "$description": "도움말, 캡션"
+    },
+    "Strong": {
+      "$type": "typography",
+      "$value": "{Typo.12.SemiBold}",
+      "$description": "소형 강조"
+    }
+  },
+  "Button": {
+    "LG": {
+      "$type": "typography",
+      "$value": "{Typo.14.Bold}",
+      "$description": "Button Large"
+    },
+    "MD": {
+      "$type": "typography",
+      "$value": "{Typo.13.SemiBold}",
+      "$description": "Button Medium, Text Button Medium"
+    },
+    "SM": {
+      "$type": "typography",
+      "$value": "{Typo.12.SemiBold}",
+      "$description": "Button Small, Text Button Small"
+    }
   }
 }

@@ -1,0 +1,281 @@
+{
+  "Button": {
+    "Primary": {
+      "Solid": {
+        "Bg": {
+          "$type": "color",
+          "$value": "{Primary.500}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Primary.600}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Primary.700}"
+        },
+        "BgDisabled": {
+          "$type": "color",
+          "$value": "{Primary.200}"
+        }
+      },
+      "Line": {
+        "Text": {
+          "$type": "color",
+          "$value": "{Primary.500}"
+        },
+        "TextHover": {
+          "$type": "color",
+          "$value": "{Primary.600}"
+        },
+        "TextPressed": {
+          "$type": "color",
+          "$value": "{Primary.700}"
+        },
+        "TextDisabled": {
+          "$type": "color",
+          "$value": "{Primary.200}"
+        },
+        "Border": {
+          "$type": "color",
+          "$value": "{Primary.500}"
+        },
+        "BorderHover": {
+          "$type": "color",
+          "$value": "{Primary.600}"
+        },
+        "BorderPressed": {
+          "$type": "color",
+          "$value": "{Primary.700}"
+        },
+        "BorderDisabled": {
+          "$type": "color",
+          "$value": "{Primary.200}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Primary.50}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Primary.100}"
+        }
+      }
+    },
+    "Neutral": {
+      "Solid": {
+        "Bg": {
+          "$type": "color",
+          "$value": "{Neutral.700}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Neutral.500}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "BgDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        }
+      },
+      "Line": {
+        "Text": {
+          "$type": "color",
+          "$value": "{Neutral.700}"
+        },
+        "TextHover": {
+          "$type": "color",
+          "$value": "{Neutral.500}"
+        },
+        "TextPressed": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "TextDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "Border": {
+          "$type": "color",
+          "$value": "{Neutral.700}"
+        },
+        "BorderHover": {
+          "$type": "color",
+          "$value": "{Neutral.500}"
+        },
+        "BorderPressed": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "BorderDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Neutral.50}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Neutral.100}"
+        }
+      }
+    },
+    "Dark": {
+      "Solid": {
+        "Bg": {
+          "$type": "color",
+          "$value": "{Neutral.900}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Base.Black}"
+        },
+        "BgDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        }
+      },
+      "Line": {
+        "Text": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "TextHover": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "TextPressed": {
+          "$type": "color",
+          "$value": "{Neutral.900}"
+        },
+        "TextDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "Border": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "BorderHover": {
+          "$type": "color",
+          "$value": "{Neutral.800}"
+        },
+        "BorderPressed": {
+          "$type": "color",
+          "$value": "{Neutral.900}"
+        },
+        "BorderDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Neutral.50}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Neutral.100}"
+        }
+      }
+    },
+    "Danger": {
+      "Solid": {
+        "Bg": {
+          "$type": "color",
+          "$value": "{Status.Error.Border}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "BgDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        }
+      },
+      "Line": {
+        "Text": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "TextHover": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "TextPressed": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "TextDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "Border": {
+          "$type": "color",
+          "$value": "{Status.Error.Border}"
+        },
+        "BorderHover": {
+          "$type": "color",
+          "$value": "{Status.Error.Border}"
+        },
+        "BorderPressed": {
+          "$type": "color",
+          "$value": "{Status.Error.Text}"
+        },
+        "BorderDisabled": {
+          "$type": "color",
+          "$value": "{Neutral.300}"
+        },
+        "BgHover": {
+          "$type": "color",
+          "$value": "{Status.Error.Background}"
+        },
+        "BgPressed": {
+          "$type": "color",
+          "$value": "{Status.Error.Background}"
+        }
+      }
+    }
+  },
+  "TextButton": {
+    "Primary": {
+      "Text": {
+        "$type": "color",
+        "$value": "{Primary.500}"
+      },
+      "TextHover": {
+        "$type": "color",
+        "$value": "{Primary.600}",
+        "$description": "TextLink hover. Text Action hover는 색 변화 없음(시안)"
+      }
+    },
+    "Neutral": {
+      "Text": {
+        "$type": "color",
+        "$value": "{Neutral.700}",
+        "$description": "TODO(시안) Neutral Text Action 색 확인"
+      },
+      "TextHover": {
+        "$type": "color",
+        "$value": "{Neutral.700}",
+        "$description": "TODO(시안)"
+      }
+    },
+    "TextDisabled": {
+      "$type": "color",
+      "$value": "{Neutral.300}"
+    }
+  }
+}
