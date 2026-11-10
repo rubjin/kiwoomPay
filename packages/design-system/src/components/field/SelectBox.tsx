@@ -10,7 +10,8 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
-import { useControllableState, useOutsideClick } from '../../hooks';
+import { createPortal } from 'react-dom';
+import { useControllableState, useFloatingPosition, useOutsideClick } from '../../hooks';
 import { mergeRefs } from '../../utils';
 import { Icon } from '../Icon';
 import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
@@ -111,6 +112,7 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const [scrollable, setScrollable] = useState(false);
   const listId = useId();
 
@@ -119,7 +121,12 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
   const opened = isOpen && !field.disabled;
 
   const close = useCallback(() => setOpen(false), [setOpen]);
-  useOutsideClick(rootRef, close, opened);
+  // 패널은 document.body에 띄우므로(모달 안에서 잘리지 않게) 바깥 클릭 판정에 함께 넣는다
+  useOutsideClick([rootRef, panelRef], close, opened);
+  const panelPosition = useFloatingPosition(rootRef, panelRef, opened, {
+    offsetVar: '--kp-select-panel-offset',
+    matchWidth: true,
+  });
 
   // 목록이 최대 높이를 넘어 스크롤되는지 확인한다 (트리거 테두리 강조용)
   useLayoutEffect(() => {
@@ -140,15 +147,17 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
   };
 
   // Esc로 닫기. 항목을 눌러 포커스가 밖으로 나가도 동작하도록 문서 전체에서 듣는다.
+  // 캡처 단계에서 먼저 처리해 모달의 Esc보다 앞선다 (드롭다운만 닫힘)
   useEffect(() => {
     if (!opened) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
+      event.preventDefault();
       setOpen(false);
       triggerRef.current?.focus();
     };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown, true);
+    return () => document.removeEventListener('keydown', onKeyDown, true);
   }, [opened, setOpen]);
 
   return (
@@ -190,42 +199,44 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
 
       {name && <input type="hidden" name={name} value={selected ?? ''} />}
 
-      {opened && (
-        <div className={styles.panel}>
-          {loading ? (
-            <div className={styles.status} role="status">
-              <Spinner />
-              <span>{loadingText}</span>
-            </div>
-          ) : options.length === 0 ? (
-            <div className={clsx(styles.status, styles.empty)}>{emptyText}</div>
-          ) : (
-            <ul ref={listRef} id={listId} role="listbox" className={styles.list}>
-              {options.map((option) => {
-                const isSelected = option.value === selected;
-                return (
-                  <li
-                    key={option.value}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={option.disabled || undefined}
-                    className={clsx(
-                      styles.option,
-                      isSelected && styles.optionSelected,
-                      option.disabled && styles.optionDisabled,
-                    )}
-                    // 항목을 눌러도 트리거에서 포커스가 빠지지 않게 한다
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() => select(option)}
-                  >
-                    {option.label}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      )}
+      {opened &&
+        createPortal(
+          <div ref={panelRef} className={styles.panel} style={panelPosition}>
+            {loading ? (
+              <div className={styles.status} role="status">
+                <Spinner />
+                <span>{loadingText}</span>
+              </div>
+            ) : options.length === 0 ? (
+              <div className={clsx(styles.status, styles.empty)}>{emptyText}</div>
+            ) : (
+              <ul ref={listRef} id={listId} role="listbox" className={styles.list}>
+                {options.map((option) => {
+                  const isSelected = option.value === selected;
+                  return (
+                    <li
+                      key={option.value}
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled || undefined}
+                      className={clsx(
+                        styles.option,
+                        isSelected && styles.optionSelected,
+                        option.disabled && styles.optionDisabled,
+                      )}
+                      // 항목을 눌러도 트리거에서 포커스가 빠지지 않게 한다
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => select(option)}
+                    >
+                      {option.label}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 });

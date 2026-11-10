@@ -114,7 +114,7 @@
   border-color: t.$color-date-picker-selected-bg;
 }
 
-// 필드와 함께 쓸 때: 필드 아래에 패널을 띄운다
+// 필드와 함께 쓸 때: 필드를 감싸는 기준 요소
 .anchor {
   position: relative;
   display: inline-flex;
@@ -127,9 +127,7 @@
   width: 100%;
 }
 
+// 위치(position: fixed, top/left)는 useFloatingPosition이 계산한다
 .popover {
-  position: absolute;
-  top: calc(100% + #{t.$date-picker-popover-offset});
-  left: 0;
   z-index: t.$z-index-dropdown;
 }

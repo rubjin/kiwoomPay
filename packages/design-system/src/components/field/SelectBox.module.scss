@@ -70,12 +70,9 @@
 }
 
 // ── 드롭다운 패널 ────────────────────────────────────
+// 위치·폭(position: fixed, top/left/width)은 useFloatingPosition이 계산한다
 .panel {
-  position: absolute;
-  top: calc(100% + #{t.$select-panel-offset});
-  left: 0;
   z-index: t.$z-index-dropdown;
-  width: 100%;
   padding: t.$select-panel-padding;
   background-color: t.$color-field-bg;
   border: t.$control-border-width solid t.$color-field-border;

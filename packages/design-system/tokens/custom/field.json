@@ -223,8 +223,13 @@
   "Z-Index": {
     "Dropdown": {
       "$type": "number",
-      "$value": 100,
-      "$description": "TODO(시안) z-index 체계 확정 필요"
+      "$value": 1100,
+      "$description": "TODO(시안) z-index 체계 확정 필요. 드롭다운·달력 팝업은 body에 띄우므로 모달(1000)보다 위"
+    },
+    "Modal": {
+      "$type": "number",
+      "$value": 1000,
+      "$description": "TODO(시안) z-index 체계 확정 필요. 드롭다운(100)보다 위"
     }
   }
 }

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useRef, type ReactNode } from 'react';
-import { useOutsideClick } from '../../hooks';
+import { createPortal } from 'react-dom';
+import { useFloatingPosition, useOutsideClick } from '../../hooks';
 import styles from './DatePicker.module.scss';
 
 interface DatePickerAnchorProps {
@@ -13,7 +14,8 @@ interface DatePickerAnchorProps {
   children: ReactNode;
 }
 
-// DateField · DateRangeField가 쓰는 팝오버 틀. 바깥 클릭·Esc로 닫는다. 패키지 내부용이다.
+// DateField · DateRangeField가 쓰는 팝오버 틀. 패널은 document.body에 띄워 모달 안에서도 잘리지 않는다.
+// 바깥 클릭·Esc로 닫는다. 패키지 내부용이다.
 export function DatePickerAnchor({
   open,
   onClose,
@@ -22,21 +24,34 @@ export function DatePickerAnchor({
   children,
 }: DatePickerAnchorProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  useOutsideClick(rootRef, onClose, open);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useOutsideClick([rootRef, panelRef], onClose, open);
+  const position = useFloatingPosition(rootRef, panelRef, open, {
+    offsetVar: '--kp-date-picker-popover-offset',
+  });
 
   useEffect(() => {
     if (!open) return;
+    // 캡처 단계에서 먼저 처리해 모달의 Esc보다 앞선다 (팝업만 닫힘)
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      onClose();
     };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown, true);
+    return () => document.removeEventListener('keydown', onKeyDown, true);
   }, [open, onClose]);
 
   return (
     <div ref={rootRef} className={clsx(styles.anchor, fullWidth && styles.anchorFull)}>
       {children}
-      {open && <div className={styles.popover}>{panel}</div>}
+      {open &&
+        createPortal(
+          <div ref={panelRef} className={styles.popover} style={position}>
+            {panel}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
