@@ -3,12 +3,12 @@
     "Surface": {
       "$type": "color",
       "$value": "{Base.White}",
-      "$description": "TODO 시안 확인: 카드·입력창 등 면 배경"
+      "$description": "카드·입력창 등 면 배경 (Page Layout Guide 확인)"
     },
     "Page": {
       "$type": "color",
       "$value": "{Neutral.50}",
-      "$description": "TODO 시안 확인: 페이지 배경"
+      "$description": "페이지 배경 (Page Layout Guide 확인)"
     },
     "Hover": {
       "$type": "color",

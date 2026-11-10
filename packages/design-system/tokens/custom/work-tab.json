@@ -1,0 +1,155 @@
+{
+  "WorkTab": {
+    "Height": {
+      "$type": "dimension",
+      "$value": "{Control.Height.MD}",
+      "$description": "Work Tab Item 높이 40 (측정)"
+    },
+    "PaddingX": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "Item 좌우 여백 (측정)"
+    },
+    "IconGap": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "Label ↔ 더보기 ↔ 닫기 (측정)"
+    },
+    "IconSize": {
+      "$type": "dimension",
+      "$value": "{Control.Icon.Size.LG}",
+      "$description": "더보기 · 닫기 아이콘 24 (측정)"
+    },
+    "Radius": {
+      "$type": "dimension",
+      "$value": "{Control.Radius.LG}",
+      "$description": "Item 위쪽 모서리 (측정)"
+    },
+    "IndicatorWidth": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Active 아래 선 두께 (측정)"
+    },
+    "Z-Index": {
+      "Active": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Active 테두리를 이웃 Item(공유 테두리) 위로 올림 (Bar 안에서만 쓰는 쌓임 순서)"
+      }
+    },
+    "LabelMaxWidth": {
+      "$type": "dimension",
+      "$value": "160px",
+      "$description": "TODO(시안) 긴 메뉴명 말줄임 기준"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Base.White}"
+    },
+    "BgHover": {
+      "$type": "color",
+      "$value": "{Neutral.100}"
+    },
+    "BgActive": {
+      "$type": "color",
+      "$value": "{Primary.100}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "BorderActive": {
+      "$type": "color",
+      "$value": "{Primary.200}"
+    },
+    "Indicator": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Neutral.700}"
+    },
+    "TextActive": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Neutral.700}",
+      "$description": "Hover 닫기 아이콘"
+    },
+    "IconActive": {
+      "$type": "color",
+      "$value": "{Neutral.600}",
+      "$description": "Active 더보기 · 닫기 아이콘"
+    },
+    "Menu": {
+      "Width": {
+        "$type": "dimension",
+        "$value": "200px",
+        "$description": "Action Menu 폭 (측정)"
+      },
+      "Offset": {
+        "$type": "dimension",
+        "$value": "{space.8}",
+        "$description": "TODO(시안) Trigger ↔ Menu. Work Tab 가이드의 16은 Bar 아래선 기준"
+      },
+      "TabOffset": {
+        "$type": "dimension",
+        "$value": "{space.4}",
+        "$description": "TODO(시안) Active Tab 더보기(•••)로 열 때 Tab ↔ Menu"
+      },
+      "Padding": {
+        "$type": "dimension",
+        "$value": "{space.8}"
+      },
+      "ItemPaddingX": {
+        "$type": "dimension",
+        "$value": "{space.8}"
+      },
+      "ItemPaddingY": {
+        "$type": "dimension",
+        "$value": "6px",
+        "$description": "항목 높이 33 (측정)"
+      },
+      "Radius": {
+        "$type": "dimension",
+        "$value": "{Control.Radius.LG}"
+      },
+      "Bg": {
+        "$type": "color",
+        "$value": "{Base.White}"
+      },
+      "Border": {
+        "$type": "color",
+        "$value": "{Line.Default}"
+      },
+      "ItemText": {
+        "$type": "color",
+        "$value": "{Neutral.600}"
+      },
+      "ItemHover": {
+        "$type": "color",
+        "$value": "{Neutral.50}",
+        "$description": "TODO(시안) Hover 표현 없음 — SelectBox 항목 Hover와 같게"
+      },
+      "ItemTextDisabled": {
+        "$type": "color",
+        "$value": "{Text.Disabled}",
+        "$description": "TODO(시안) 비활성 항목 표현 없음"
+      }
+    },
+    "Trigger": {
+      "Gap": {
+        "$type": "dimension",
+        "$value": "{space.4}",
+        "$description": "글자 ↔ 화살표 (측정)"
+      },
+      "Text": {
+        "$type": "color",
+        "$value": "{Primary.800}"
+      }
+    }
+  }
+}

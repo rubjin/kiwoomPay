@@ -1,0 +1,94 @@
+{
+  "PageLayout": {
+    "HeaderHeight": {
+      "$type": "dimension",
+      "$value": "66px",
+      "$description": "App Header 높이 (아래 테두리 포함, 1920 Layout Spec)"
+    },
+    "WorkTabHeight": {
+      "$type": "dimension",
+      "$value": "60px",
+      "$description": "Work Tab 영역 높이 (1920 Layout Spec). Tab 40은 아래에 붙음"
+    },
+    "FooterHeight": {
+      "$type": "dimension",
+      "$value": "74px",
+      "$description": "Footer 높이 (1920 Layout Spec)"
+    },
+    "PaddingX": {
+      "$type": "dimension",
+      "$value": "{space.24}",
+      "$description": "Page Content · Work Tab 좌우 여백 (1920 기준 Content W 1632)"
+    },
+    "PaddingY": {
+      "$type": "dimension",
+      "$value": "{space.20}",
+      "$description": "Page Content 상단 여백 · Work Tab 위 여백"
+    },
+    "SectionGap": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "Page Title · Section 사이 간격"
+    },
+    "TitleHeight": {
+      "$type": "dimension",
+      "$value": "{Control.Height.MD}",
+      "$description": "Page Title 줄 높이 40"
+    },
+    "TitleActionGap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "Page Title 오른쪽 Action 간격 (측정)"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Page}"
+    },
+    "HeaderBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}",
+      "$description": "Header 아래 · Work Tab 아래 선"
+    },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "Section": {
+      "Padding": {
+        "$type": "dimension",
+        "$value": "{space.16}",
+        "$description": "Section 카드 안쪽 여백 (검색 조건 · 조회 결과)"
+      },
+      "PaddingCompact": {
+        "$type": "dimension",
+        "$value": "{space.12}",
+        "$description": "한 줄 Section 안쪽 여백 (적용된 검색 조건 · 조회 요약)"
+      },
+      "HeaderGap": {
+        "$type": "dimension",
+        "$value": "{space.8}",
+        "$description": "Section 제목 ↔ 제목 옆 요소 · 오른쪽 Action 간격"
+      },
+      "Radius": {
+        "$type": "dimension",
+        "$value": "{Control.Radius.LG}"
+      },
+      "Bg": {
+        "$type": "color",
+        "$value": "{Bg.Surface}"
+      },
+      "Border": {
+        "$type": "color",
+        "$value": "{Line.Subtle}"
+      },
+      "Title": {
+        "$type": "color",
+        "$value": "{Text.Heading}"
+      }
+    }
+  }
+}
