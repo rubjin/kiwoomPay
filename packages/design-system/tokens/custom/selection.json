@@ -1,0 +1,212 @@
+{
+  "Selection": {
+    "Size": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Selection Components: Checkbox·Radio·Toggle 높이 (Default 20)"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Small 16"
+      }
+    },
+    "Gap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "컨트롤 ↔ 라벨"
+    },
+    "HelperGap": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "라벨 ↔ 부가 설명"
+    },
+    "GroupGap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "세로 그룹의 항목 간격"
+    },
+    "GroupGapInline": {
+      "$type": "dimension",
+      "$value": "{space.16}",
+      "$description": "TODO(시안) 가로 그룹 간격"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "Checked": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "체크 배경·테두리, 라디오 링·점"
+    },
+    "Glyph": {
+      "$type": "color",
+      "$value": "{Text.Inverse}",
+      "$description": "체크·가로선 아이콘"
+    },
+    "BgDisabled": {
+      "$type": "color",
+      "$value": "{Neutral.100}",
+      "$description": "TODO(시안) 비활성 미선택 배경은 시안에 없음 (라디오 비활성 선택 배경 기준)"
+    },
+    "DisabledChecked": {
+      "$type": "color",
+      "$value": "{Neutral.300}",
+      "$description": "비활성 선택: 체크박스 배경·라디오 점"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "TextDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}",
+      "$description": "TODO(시안) 비활성 라벨 색은 시안에 없음"
+    },
+    "Helper": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    }
+  },
+  "Checkbox": {
+    "Radius": {
+      "$type": "dimension",
+      "$value": "4px"
+    }
+  },
+  "Radio": {
+    "CheckedBorderWidth": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "선택 시 링 두께"
+    },
+    "Dot": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "10px"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$description": "Small 선택 점 8 (확정)"
+      }
+    }
+  },
+  "Toggle": {
+    "Width": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "36px"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "28px"
+      }
+    },
+    "ThumbSize": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "SM": {
+        "$type": "dimension",
+        "$value": "12px"
+      }
+    },
+    "ThumbInset": {
+      "$type": "dimension",
+      "$value": "2px"
+    },
+    "Track": {
+      "Off": {
+        "$type": "color",
+        "$value": "{Neutral.500}"
+      },
+      "On": {
+        "$type": "color",
+        "$value": "{Primary.500}"
+      },
+      "Disabled": {
+        "$type": "color",
+        "$value": "{Neutral.100}"
+      }
+    },
+    "Thumb": {
+      "Default": {
+        "$type": "color",
+        "$value": "{Base.White}"
+      },
+      "Disabled": {
+        "$type": "color",
+        "$value": "{Neutral.300}"
+      }
+    }
+  },
+  "Segmented": {
+    "Height": {
+      "$type": "dimension",
+      "$value": "{Control.Height.SM}"
+    },
+    "Radius": {
+      "$type": "dimension",
+      "$value": "{Field.Radius.SM}"
+    },
+    "MinWidth": {
+      "$type": "dimension",
+      "$value": "96px",
+      "$description": "TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)"
+    },
+    "PaddingX": {
+      "$type": "dimension",
+      "$value": "{space.16}",
+      "$description": "TODO(시안)"
+    },
+    "Gap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음"
+    },
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "SelectedBg": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "SelectedBorder": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "SelectedText": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    },
+    "DisabledBg": {
+      "$type": "color",
+      "$value": "{Neutral.50}"
+    },
+    "DisabledBorder": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "DisabledText": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    }
+  }
+}

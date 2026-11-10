@@ -78,5 +78,12 @@
       "$value": "{Typo.12.SemiBold}",
       "$description": "Button Small, Text Button Small"
     }
+  },
+  "Segmented": {
+    "Item": {
+      "$type": "typography",
+      "$value": "{Typo.12.Medium}",
+      "$description": "Segmented 옵션 (TODO 시안: 글자 굵기 확인)"
+    }
   }
 }

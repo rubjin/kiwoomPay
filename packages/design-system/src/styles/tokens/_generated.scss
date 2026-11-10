@@ -251,6 +251,10 @@ $typography-button-sm-font-size: var(--kp-typography-button-sm-font-size); // Bu
 $typography-button-sm-font-weight: var(--kp-typography-button-sm-font-weight);
 $typography-button-sm-line-height: var(--kp-typography-button-sm-line-height);
 $typography-button-sm-letter-spacing: var(--kp-typography-button-sm-letter-spacing);
+$typography-segmented-item-font-size: var(--kp-typography-segmented-item-font-size); // Segmented 옵션 (TODO 시안: 글자 굵기 확인)
+$typography-segmented-item-font-weight: var(--kp-typography-segmented-item-font-weight);
+$typography-segmented-item-line-height: var(--kp-typography-segmented-item-line-height);
+$typography-segmented-item-letter-spacing: var(--kp-typography-segmented-item-letter-spacing);
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
@@ -392,6 +396,51 @@ $z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 �
 
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
+
+// ── custom · selection ──────────────────────────────────────────
+$selection-size-md: var(--kp-selection-size-md); // Selection Components: Checkbox·Radio·Toggle 높이 (Default 20)
+$selection-size-sm: var(--kp-selection-size-sm); // Small 16
+$selection-gap: var(--kp-selection-gap); // 컨트롤 ↔ 라벨
+$selection-helper-gap: var(--kp-selection-helper-gap); // 라벨 ↔ 부가 설명
+$selection-group-gap: var(--kp-selection-group-gap); // 세로 그룹의 항목 간격
+$selection-group-gap-inline: var(--kp-selection-group-gap-inline); // TODO(시안) 가로 그룹 간격
+$color-selection-bg: var(--kp-color-selection-bg);
+$color-selection-border: var(--kp-color-selection-border);
+$color-selection-checked: var(--kp-color-selection-checked); // 체크 배경·테두리, 라디오 링·점
+$color-selection-glyph: var(--kp-color-selection-glyph); // 체크·가로선 아이콘
+$color-selection-bg-disabled: var(--kp-color-selection-bg-disabled); // TODO(시안) 비활성 미선택 배경은 시안에 없음 (라디오 비활성 선택 배경 기준)
+$color-selection-disabled-checked: var(--kp-color-selection-disabled-checked); // 비활성 선택: 체크박스 배경·라디오 점
+$color-selection-text: var(--kp-color-selection-text);
+$color-selection-text-disabled: var(--kp-color-selection-text-disabled); // TODO(시안) 비활성 라벨 색은 시안에 없음
+$color-selection-helper: var(--kp-color-selection-helper);
+$checkbox-radius: var(--kp-checkbox-radius);
+$radio-checked-border-width: var(--kp-radio-checked-border-width); // 선택 시 링 두께
+$radio-dot-md: var(--kp-radio-dot-md);
+$radio-dot-sm: var(--kp-radio-dot-sm); // Small 선택 점 8 (확정)
+$toggle-width-md: var(--kp-toggle-width-md);
+$toggle-width-sm: var(--kp-toggle-width-sm);
+$toggle-thumb-size-md: var(--kp-toggle-thumb-size-md);
+$toggle-thumb-size-sm: var(--kp-toggle-thumb-size-sm);
+$toggle-thumb-inset: var(--kp-toggle-thumb-inset);
+$color-toggle-track-off: var(--kp-color-toggle-track-off);
+$color-toggle-track-on: var(--kp-color-toggle-track-on);
+$color-toggle-track-disabled: var(--kp-color-toggle-track-disabled);
+$color-toggle-thumb-default: var(--kp-color-toggle-thumb-default);
+$color-toggle-thumb-disabled: var(--kp-color-toggle-thumb-disabled);
+$segmented-height: var(--kp-segmented-height);
+$segmented-radius: var(--kp-segmented-radius);
+$segmented-min-width: var(--kp-segmented-min-width); // TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)
+$segmented-padding-x: var(--kp-segmented-padding-x); // TODO(시안)
+$segmented-gap: var(--kp-segmented-gap); // TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음
+$color-segmented-bg: var(--kp-color-segmented-bg);
+$color-segmented-border: var(--kp-color-segmented-border);
+$color-segmented-text: var(--kp-color-segmented-text);
+$color-segmented-selected-bg: var(--kp-color-segmented-selected-bg);
+$color-segmented-selected-border: var(--kp-color-segmented-selected-border);
+$color-segmented-selected-text: var(--kp-color-segmented-selected-text);
+$color-segmented-disabled-bg: var(--kp-color-segmented-disabled-bg);
+$color-segmented-disabled-border: var(--kp-color-segmented-disabled-border);
+$color-segmented-disabled-text: var(--kp-color-segmented-disabled-text);
 
 // ── custom · semantic-color ─────────────────────────────────────
 $color-bg-surface: var(--kp-color-bg-surface); // TODO 시안 확인: 카드·입력창 등 면 배경
@@ -728,6 +777,49 @@ $css-variables: (
   "--kp-color-select-scroll-thumb": "var(--kp-color-neutral-300)",
   "--kp-z-index-dropdown": "100",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
+  "--kp-selection-size-md": "20px",
+  "--kp-selection-size-sm": "16px",
+  "--kp-selection-gap": "var(--kp-space-8)",
+  "--kp-selection-helper-gap": "var(--kp-space-4)",
+  "--kp-selection-group-gap": "var(--kp-space-8)",
+  "--kp-selection-group-gap-inline": "var(--kp-space-16)",
+  "--kp-color-selection-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-selection-border": "var(--kp-color-line-default)",
+  "--kp-color-selection-checked": "var(--kp-color-primary-500)",
+  "--kp-color-selection-glyph": "var(--kp-color-text-inverse)",
+  "--kp-color-selection-bg-disabled": "var(--kp-color-neutral-100)",
+  "--kp-color-selection-disabled-checked": "var(--kp-color-neutral-300)",
+  "--kp-color-selection-text": "var(--kp-color-text-body)",
+  "--kp-color-selection-text-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-selection-helper": "var(--kp-color-text-secondary)",
+  "--kp-checkbox-radius": "4px",
+  "--kp-radio-checked-border-width": "2px",
+  "--kp-radio-dot-md": "10px",
+  "--kp-radio-dot-sm": "8px",
+  "--kp-toggle-width-md": "36px",
+  "--kp-toggle-width-sm": "28px",
+  "--kp-toggle-thumb-size-md": "16px",
+  "--kp-toggle-thumb-size-sm": "12px",
+  "--kp-toggle-thumb-inset": "2px",
+  "--kp-color-toggle-track-off": "var(--kp-color-neutral-500)",
+  "--kp-color-toggle-track-on": "var(--kp-color-primary-500)",
+  "--kp-color-toggle-track-disabled": "var(--kp-color-neutral-100)",
+  "--kp-color-toggle-thumb-default": "var(--kp-color-base-white)",
+  "--kp-color-toggle-thumb-disabled": "var(--kp-color-neutral-300)",
+  "--kp-segmented-height": "var(--kp-control-height-sm)",
+  "--kp-segmented-radius": "var(--kp-field-radius-sm)",
+  "--kp-segmented-min-width": "96px",
+  "--kp-segmented-padding-x": "var(--kp-space-16)",
+  "--kp-segmented-gap": "var(--kp-space-8)",
+  "--kp-color-segmented-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-segmented-border": "var(--kp-color-line-default)",
+  "--kp-color-segmented-text": "var(--kp-color-text-label)",
+  "--kp-color-segmented-selected-bg": "var(--kp-color-primary-50)",
+  "--kp-color-segmented-selected-border": "var(--kp-color-primary-500)",
+  "--kp-color-segmented-selected-text": "var(--kp-color-text-accent)",
+  "--kp-color-segmented-disabled-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-segmented-disabled-border": "var(--kp-color-line-subtle)",
+  "--kp-color-segmented-disabled-text": "var(--kp-color-text-disabled)",
   "--kp-color-bg-surface": "var(--kp-color-base-white)",
   "--kp-color-bg-page": "var(--kp-color-neutral-50)",
   "--kp-color-bg-hover": "var(--kp-color-neutral-100)",
@@ -792,4 +884,8 @@ $css-variables: (
   "--kp-typography-button-sm-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
   "--kp-typography-button-sm-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
   "--kp-typography-button-sm-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-segmented-item-font-size": "var(--kp-typography-typo-12-medium-font-size)",
+  "--kp-typography-segmented-item-font-weight": "var(--kp-typography-typo-12-medium-font-weight)",
+  "--kp-typography-segmented-item-line-height": "var(--kp-typography-typo-12-medium-line-height)",
+  "--kp-typography-segmented-item-letter-spacing": "var(--kp-typography-typo-12-medium-letter-spacing)",
 );
