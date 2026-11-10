@@ -255,6 +255,10 @@ $typography-segmented-item-font-size: var(--kp-typography-segmented-item-font-si
 $typography-segmented-item-font-weight: var(--kp-typography-segmented-item-font-weight);
 $typography-segmented-item-line-height: var(--kp-typography-segmented-item-line-height);
 $typography-segmented-item-letter-spacing: var(--kp-typography-segmented-item-letter-spacing);
+$typography-pagination-item-font-size: var(--kp-typography-pagination-item-font-size); // Pagination 번호·이전·다음 (Font 14 Medium)
+$typography-pagination-item-font-weight: var(--kp-typography-pagination-item-font-weight);
+$typography-pagination-item-line-height: var(--kp-typography-pagination-item-line-height);
+$typography-pagination-item-letter-spacing: var(--kp-typography-pagination-item-letter-spacing);
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
@@ -405,6 +409,25 @@ $color-icon-success: var(--kp-color-icon-success); // Check-circle_filled
 $color-icon-warning: var(--kp-color-icon-warning); // Warning-circle_filled
 $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
+
+// ── custom · motion ─────────────────────────────────────────────
+$motion-duration-spin: var(--kp-motion-duration-spin); // TODO(시안) 로딩 아이콘 1회전 시간
+
+// ── custom · pagination ─────────────────────────────────────────
+$pagination-item-size: var(--kp-pagination-item-size); // Number 40×40, 높이 40 (Pagination Guide)
+$pagination-nav-min-width: var(--kp-pagination-nav-min-width); // Previous·Next 62×40
+$pagination-nav-padding-x: var(--kp-pagination-nav-padding-x); // 기본 문구(이전·다음)는 최소 폭 62가 적용되고, 긴 문구일 때만 쓰이는 좌우 여백
+$pagination-nav-gap: var(--kp-pagination-nav-gap); // 이전·다음의 아이콘 ↔ 글자
+$pagination-gap: var(--kp-pagination-gap); // Item 간격
+$pagination-radius: var(--kp-pagination-radius);
+$pagination-icon-size: var(--kp-pagination-icon-size);
+$color-pagination-text: var(--kp-color-pagination-text);
+$color-pagination-hover-bg: var(--kp-color-pagination-hover-bg);
+$color-pagination-pressed-bg: var(--kp-color-pagination-pressed-bg);
+$color-pagination-pressed-text: var(--kp-color-pagination-pressed-text);
+$color-pagination-active-bg: var(--kp-color-pagination-active-bg);
+$color-pagination-active-text: var(--kp-color-pagination-active-text);
+$color-pagination-disabled-text: var(--kp-color-pagination-disabled-text);
 
 // ── custom · selection ──────────────────────────────────────────
 $selection-size-md: var(--kp-selection-size-md); // Selection Components: Checkbox·Radio·Toggle 높이 (Default 20)
@@ -793,6 +816,21 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
+  "--kp-motion-duration-spin": "1s",
+  "--kp-pagination-item-size": "var(--kp-control-height-md)",
+  "--kp-pagination-nav-min-width": "62px",
+  "--kp-pagination-nav-padding-x": "var(--kp-space-4)",
+  "--kp-pagination-nav-gap": "var(--kp-space-4)",
+  "--kp-pagination-gap": "var(--kp-space-4)",
+  "--kp-pagination-radius": "8px",
+  "--kp-pagination-icon-size": "20px",
+  "--kp-color-pagination-text": "var(--kp-color-text-body)",
+  "--kp-color-pagination-hover-bg": "var(--kp-color-neutral-100)",
+  "--kp-color-pagination-pressed-bg": "var(--kp-color-primary-50)",
+  "--kp-color-pagination-pressed-text": "var(--kp-color-text-accent)",
+  "--kp-color-pagination-active-bg": "var(--kp-color-primary-500)",
+  "--kp-color-pagination-active-text": "var(--kp-color-text-inverse)",
+  "--kp-color-pagination-disabled-text": "var(--kp-color-text-disabled)",
   "--kp-selection-size-md": "20px",
   "--kp-selection-size-sm": "16px",
   "--kp-selection-gap": "var(--kp-space-8)",
@@ -904,4 +942,8 @@ $css-variables: (
   "--kp-typography-segmented-item-font-weight": "var(--kp-typography-typo-12-medium-font-weight)",
   "--kp-typography-segmented-item-line-height": "var(--kp-typography-typo-12-medium-line-height)",
   "--kp-typography-segmented-item-letter-spacing": "var(--kp-typography-typo-12-medium-letter-spacing)",
+  "--kp-typography-pagination-item-font-size": "var(--kp-typography-typo-14-medium-font-size)",
+  "--kp-typography-pagination-item-font-weight": "var(--kp-typography-typo-14-medium-font-weight)",
+  "--kp-typography-pagination-item-line-height": "var(--kp-typography-typo-14-medium-line-height)",
+  "--kp-typography-pagination-item-letter-spacing": "var(--kp-typography-typo-14-medium-letter-spacing)",
 );

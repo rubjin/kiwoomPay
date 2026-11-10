@@ -1,0 +1,65 @@
+{
+  "Pagination": {
+    "ItemSize": {
+      "$type": "dimension",
+      "$value": "{Control.Height.MD}",
+      "$description": "Number 40×40, 높이 40 (Pagination Guide)"
+    },
+    "NavMinWidth": {
+      "$type": "dimension",
+      "$value": "62px",
+      "$description": "Previous·Next 62×40"
+    },
+    "NavPaddingX": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "기본 문구(이전·다음)는 최소 폭 62가 적용되고, 긴 문구일 때만 쓰이는 좌우 여백"
+    },
+    "NavGap": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "이전·다음의 아이콘 ↔ 글자"
+    },
+    "Gap": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "Item 간격"
+    },
+    "Radius": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "IconSize": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "HoverBg": {
+      "$type": "color",
+      "$value": "{Neutral.100}"
+    },
+    "PressedBg": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "PressedText": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    },
+    "ActiveBg": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "ActiveText": {
+      "$type": "color",
+      "$value": "{Text.Inverse}"
+    },
+    "DisabledText": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "Motion": {
+    "Duration": {
+      "Spin": {
+        "$type": "duration",
+        "$value": "1s",
+        "$description": "TODO(시안) 로딩 아이콘 1회전 시간"
+      }
+    }
+  }
+}
