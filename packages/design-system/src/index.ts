@@ -7,6 +7,7 @@ export * from './components/DatePicker';
 export * from './components/Icon';
 export * from './components/Modal';
 export * from './components/Pagination';
+export * from './components/SearchArea';
 export * from './components/Tab';
 export * from './components/field';
 export * from './components/navigation';

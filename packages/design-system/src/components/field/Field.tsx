@@ -11,8 +11,10 @@ import styles from './Field.module.scss';
 import { FieldContext, type FieldFeedback, type FieldSize } from './fieldContext';
 
 export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  /** 라벨 텍스트. 라벨은 필드 왼쪽에 가로로 배치된다 */
+  /** 라벨 텍스트 */
   label?: ReactNode;
+  /** left(기본): 필드 왼쪽에 가로 배치 / top: 필드 위 (검색 영역) */
+  labelPosition?: 'left' | 'top';
   /** 필수 표시(*) */
   required?: boolean;
   /** 필드 아래 안내 문구. feedback이 있으면 해당 색으로 표시된다 */
@@ -37,6 +39,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
   (
     {
       label,
+      labelPosition = 'left',
       required,
       helperText,
       feedback,
@@ -65,7 +68,12 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
 
     return (
       <FieldContext.Provider value={context}>
-        <div {...rest} ref={ref} className={clsx(styles.field, className)} style={style}>
+        <div
+          {...rest}
+          ref={ref}
+          className={clsx(styles.field, labelPosition === 'top' && styles.top, className)}
+          style={style}
+        >
           {label && (
             <label htmlFor={id} className={clsx(styles.label, styles[size])} style={labelStyle}>
               {label}

@@ -18,6 +18,17 @@
   color: t.$color-field-label;
 }
 
+// 라벨 위 배치: 라벨은 글자 높이만 차지한다
+.top {
+  flex-direction: column;
+  gap: t.$field-label-gap-top;
+  align-items: stretch;
+}
+
+.top .label {
+  min-height: 0;
+}
+
 .md {
   min-height: t.$control-height-md;
 }
