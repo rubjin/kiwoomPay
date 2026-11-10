@@ -31,6 +31,11 @@
       "$value": "{space.8}",
       "$description": "가로 배치 Label ↔ 필드"
     },
+    "LabelGapTop": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "TODO(시안) 라벨 위 배치(검색 영역)에서 라벨 ↔ 필드"
+    },
     "HelperGap": {
       "$type": "dimension",
       "$value": "{space.8}",

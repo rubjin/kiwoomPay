@@ -156,5 +156,27 @@
       "$value": "{Typo.10.Regular}",
       "$description": "LNB 즐겨찾기 보조 정보 (Figma 설명)"
     }
+  },
+  "Tab": {
+    "MD": {
+      "$type": "typography",
+      "$value": "{Typo.14.Medium}",
+      "$description": "Medium Tab · Button Tab Label (측정 14px)"
+    },
+    "ActiveMD": {
+      "$type": "typography",
+      "$value": "{Typo.14.SemiBold}",
+      "$description": "Medium Tab Active (선택 시 굵게)"
+    },
+    "SM": {
+      "$type": "typography",
+      "$value": "{Typo.13.Medium}",
+      "$description": "Small Tab Label (Active도 같은 굵기)"
+    },
+    "CountMD": {
+      "$type": "typography",
+      "$value": "{Typo.14.SemiBold}",
+      "$description": "Medium Tab 안 Number Badge 숫자 (측정 14px)"
+    }
   }
 }

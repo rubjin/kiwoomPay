@@ -177,6 +177,25 @@
       "Text": {
         "$type": "color",
         "$value": "{Text.Inverse}"
+      },
+      "SoftPrimaryBg": {
+        "$type": "color",
+        "$value": "{Primary.100}",
+        "$description": "Soft Number Badge (Tab 건수)"
+      },
+      "SoftPrimaryText": {
+        "$type": "color",
+        "$value": "{Primary.500}"
+      },
+      "SoftErrorBg": {
+        "$type": "color",
+        "$value": "{Status.Error.Background}",
+        "$description": "TODO(시안) Soft는 Primary만 시안에 있음"
+      },
+      "SoftErrorText": {
+        "$type": "color",
+        "$value": "{Status.Error.Text}",
+        "$description": "TODO(시안) Soft는 Primary만 시안에 있음"
       }
     }
   }

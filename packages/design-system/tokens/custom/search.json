@@ -1,0 +1,19 @@
+{
+  "SearchArea": {
+    "RowGap": {
+      "$type": "dimension",
+      "$value": "{space.20}",
+      "$description": "TODO(시안) 기본 조건 줄 ↔ 상세 조건 줄"
+    },
+    "ItemGap": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "TODO(시안) 검색 필드 간격"
+    },
+    "ActionGap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "TODO(시안) 버튼 간격 (초기화 · 조회 · 상세조건)"
+    }
+  }
+}

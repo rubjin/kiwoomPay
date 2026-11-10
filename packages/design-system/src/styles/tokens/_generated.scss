@@ -307,6 +307,22 @@ $typography-lnb-item-path-font-size: var(--kp-typography-lnb-item-path-font-size
 $typography-lnb-item-path-font-weight: var(--kp-typography-lnb-item-path-font-weight);
 $typography-lnb-item-path-line-height: var(--kp-typography-lnb-item-path-line-height);
 $typography-lnb-item-path-letter-spacing: var(--kp-typography-lnb-item-path-letter-spacing);
+$typography-tab-md-font-size: var(--kp-typography-tab-md-font-size); // Medium Tab · Button Tab Label (측정 14px)
+$typography-tab-md-font-weight: var(--kp-typography-tab-md-font-weight);
+$typography-tab-md-line-height: var(--kp-typography-tab-md-line-height);
+$typography-tab-md-letter-spacing: var(--kp-typography-tab-md-letter-spacing);
+$typography-tab-active-md-font-size: var(--kp-typography-tab-active-md-font-size); // Medium Tab Active (선택 시 굵게)
+$typography-tab-active-md-font-weight: var(--kp-typography-tab-active-md-font-weight);
+$typography-tab-active-md-line-height: var(--kp-typography-tab-active-md-line-height);
+$typography-tab-active-md-letter-spacing: var(--kp-typography-tab-active-md-letter-spacing);
+$typography-tab-sm-font-size: var(--kp-typography-tab-sm-font-size); // Small Tab Label (Active도 같은 굵기)
+$typography-tab-sm-font-weight: var(--kp-typography-tab-sm-font-weight);
+$typography-tab-sm-line-height: var(--kp-typography-tab-sm-line-height);
+$typography-tab-sm-letter-spacing: var(--kp-typography-tab-sm-letter-spacing);
+$typography-tab-count-md-font-size: var(--kp-typography-tab-count-md-font-size); // Medium Tab 안 Number Badge 숫자 (측정 14px)
+$typography-tab-count-md-font-weight: var(--kp-typography-tab-count-md-font-weight);
+$typography-tab-count-md-line-height: var(--kp-typography-tab-count-md-line-height);
+$typography-tab-count-md-letter-spacing: var(--kp-typography-tab-count-md-letter-spacing);
 
 // ── custom · badge ──────────────────────────────────────────────
 $badge-height-md: var(--kp-badge-height-md); // Default H24
@@ -345,6 +361,10 @@ $color-badge-error-border: var(--kp-color-badge-error-border); // TODO(시안) L
 $color-badge-number-primary: var(--kp-color-badge-number-primary);
 $color-badge-number-error: var(--kp-color-badge-number-error);
 $color-badge-number-text: var(--kp-color-badge-number-text);
+$color-badge-number-soft-primary-bg: var(--kp-color-badge-number-soft-primary-bg); // Soft Number Badge (Tab 건수)
+$color-badge-number-soft-primary-text: var(--kp-color-badge-number-soft-primary-text);
+$color-badge-number-soft-error-bg: var(--kp-color-badge-number-soft-error-bg); // TODO(시안) Soft는 Primary만 시안에 있음
+$color-badge-number-soft-error-text: var(--kp-color-badge-number-soft-error-text); // TODO(시안) Soft는 Primary만 시안에 있음
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
@@ -465,6 +485,7 @@ $field-padding-x-md: var(--kp-field-padding-x-md);
 $field-padding-x-sm: var(--kp-field-padding-x-sm);
 $field-gap: var(--kp-field-gap); // 아이콘·접미사와 텍스트 사이
 $field-label-gap: var(--kp-field-label-gap); // 가로 배치 Label ↔ 필드
+$field-label-gap-top: var(--kp-field-label-gap-top); // TODO(시안) 라벨 위 배치(검색 영역)에서 라벨 ↔ 필드
 $field-helper-gap: var(--kp-field-helper-gap); // 필드 ↔ Helper Text
 $field-feedback-border-width: var(--kp-field-feedback-border-width); // Positive / Negative 테두리
 $field-strong-border-width: var(--kp-field-strong-border-width); // Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)
@@ -604,6 +625,11 @@ $color-pagination-active-bg: var(--kp-color-pagination-active-bg);
 $color-pagination-active-text: var(--kp-color-pagination-active-text);
 $color-pagination-disabled-text: var(--kp-color-pagination-disabled-text);
 
+// ── custom · search ─────────────────────────────────────────────
+$search-area-row-gap: var(--kp-search-area-row-gap); // TODO(시안) 기본 조건 줄 ↔ 상세 조건 줄
+$search-area-item-gap: var(--kp-search-area-item-gap); // TODO(시안) 검색 필드 간격
+$search-area-action-gap: var(--kp-search-area-action-gap); // TODO(시안) 버튼 간격 (초기화 · 조회 · 상세조건)
+
 // ── custom · selection ──────────────────────────────────────────
 $selection-size-md: var(--kp-selection-size-md); // Selection Components: Checkbox·Radio·Toggle 높이 (Default 20)
 $selection-size-sm: var(--kp-selection-size-sm); // Small 16
@@ -658,6 +684,30 @@ $color-interaction-primary-hover: var(--kp-color-interaction-primary-hover); // 
 $color-interaction-primary-pressed: var(--kp-color-interaction-primary-pressed); // TODO 시안 확인
 $color-focus-ring: var(--kp-color-focus-ring); // TODO 시안 확인: 포커스 표시 색
 $color-overlay-dim: var(--kp-color-overlay-dim); // Modal 딤 (시안 측정: 흰 바탕 위 #858585)
+
+// ── custom · tab ────────────────────────────────────────────────
+$tab-height-md: var(--kp-tab-height-md); // Medium 40 · 일반 콘텐츠 영역 (Tab Guide)
+$tab-height-sm: var(--kp-tab-height-sm); // Small 32 · 밀도가 높은 영역 (Tab Guide)
+$tab-padding-x: var(--kp-tab-padding-x); // TODO(시안) Content Width 예시에서 밑줄이 글자보다 양쪽 약 4px 넓음
+$tab-gap: var(--kp-tab-gap); // TODO(시안) Line Tab Item 간격
+$tab-indicator-width: var(--kp-tab-indicator-width); // Active 밑줄 두께
+$tab-count-gap: var(--kp-tab-count-gap); // Label ↔ Number Badge (측정)
+$tab-button-min-width: var(--kp-tab-button-min-width); // TODO(시안) Button Tab 예시 폭
+$tab-button-padding-x: var(--kp-tab-button-padding-x); // TODO(시안) 긴 Label일 때 좌우 여백
+$tab-button-radius: var(--kp-tab-button-radius);
+$tab-button-gap: var(--kp-tab-button-gap); // TODO(시안) Button Tab 간격
+$color-tab-button-bg: var(--kp-color-tab-button-bg);
+$color-tab-button-bg-active: var(--kp-color-tab-button-bg-active);
+$color-tab-button-bg-disabled: var(--kp-color-tab-button-bg-disabled);
+$color-tab-button-border: var(--kp-color-tab-button-border);
+$color-tab-button-border-active: var(--kp-color-tab-button-border-active);
+$color-tab-button-border-disabled: var(--kp-color-tab-button-border-disabled);
+$color-tab-text: var(--kp-color-tab-text);
+$color-tab-text-active: var(--kp-color-tab-text-active);
+$color-tab-text-disabled: var(--kp-color-tab-text-disabled);
+$color-tab-indicator: var(--kp-color-tab-indicator);
+$color-tab-count-disabled-bg: var(--kp-color-tab-count-disabled-bg); // TODO(시안) 비활성 Tab의 Number Badge
+$color-tab-count-disabled-text: var(--kp-color-tab-count-disabled-text); // TODO(시안) 비활성 Tab의 Number Badge
 
 // 미디어쿼리용 (CSS 변수는 @media 안에서 쓸 수 없어 값을 그대로 둔다)
 $breakpoints: (
@@ -891,6 +941,10 @@ $css-variables: (
   "--kp-color-badge-number-primary": "var(--kp-color-primary-500)",
   "--kp-color-badge-number-error": "var(--kp-color-status-error-border)",
   "--kp-color-badge-number-text": "var(--kp-color-text-inverse)",
+  "--kp-color-badge-number-soft-primary-bg": "var(--kp-color-primary-100)",
+  "--kp-color-badge-number-soft-primary-text": "var(--kp-color-primary-500)",
+  "--kp-color-badge-number-soft-error-bg": "var(--kp-color-status-error-background)",
+  "--kp-color-badge-number-soft-error-text": "var(--kp-color-status-error-text)",
   "--kp-breakpoint-tablet": "1024px",
   "--kp-breakpoint-mobile": "768px",
   "--kp-color-button-primary-solid-bg": "var(--kp-color-primary-500)",
@@ -999,6 +1053,7 @@ $css-variables: (
   "--kp-field-padding-x-sm": "var(--kp-space-12)",
   "--kp-field-gap": "var(--kp-space-8)",
   "--kp-field-label-gap": "var(--kp-space-8)",
+  "--kp-field-label-gap-top": "var(--kp-space-8)",
   "--kp-field-helper-gap": "var(--kp-space-8)",
   "--kp-field-feedback-border-width": "2px",
   "--kp-field-strong-border-width": "2px",
@@ -1127,6 +1182,9 @@ $css-variables: (
   "--kp-color-pagination-active-bg": "var(--kp-color-primary-500)",
   "--kp-color-pagination-active-text": "var(--kp-color-text-inverse)",
   "--kp-color-pagination-disabled-text": "var(--kp-color-text-disabled)",
+  "--kp-search-area-row-gap": "var(--kp-space-20)",
+  "--kp-search-area-item-gap": "var(--kp-space-12)",
+  "--kp-search-area-action-gap": "var(--kp-space-8)",
   "--kp-selection-size-md": "20px",
   "--kp-selection-size-sm": "16px",
   "--kp-selection-gap": "var(--kp-space-8)",
@@ -1178,6 +1236,28 @@ $css-variables: (
   "--kp-color-interaction-primary-pressed": "var(--kp-color-primary-700)",
   "--kp-color-focus-ring": "var(--kp-color-primary-300)",
   "--kp-color-overlay-dim": "rgba(0, 0, 0, 0.48)",
+  "--kp-tab-height-md": "var(--kp-control-height-md)",
+  "--kp-tab-height-sm": "var(--kp-control-height-sm)",
+  "--kp-tab-padding-x": "var(--kp-space-4)",
+  "--kp-tab-gap": "var(--kp-space-24)",
+  "--kp-tab-indicator-width": "2px",
+  "--kp-tab-count-gap": "6px",
+  "--kp-tab-button-min-width": "76px",
+  "--kp-tab-button-padding-x": "var(--kp-space-16)",
+  "--kp-tab-button-radius": "var(--kp-control-radius-md)",
+  "--kp-tab-button-gap": "var(--kp-space-8)",
+  "--kp-color-tab-button-bg": "var(--kp-color-base-white)",
+  "--kp-color-tab-button-bg-active": "var(--kp-color-primary-50)",
+  "--kp-color-tab-button-bg-disabled": "var(--kp-color-neutral-50)",
+  "--kp-color-tab-button-border": "var(--kp-color-neutral-300)",
+  "--kp-color-tab-button-border-active": "var(--kp-color-primary-500)",
+  "--kp-color-tab-button-border-disabled": "var(--kp-color-neutral-200)",
+  "--kp-color-tab-text": "var(--kp-color-neutral-700)",
+  "--kp-color-tab-text-active": "var(--kp-color-primary-500)",
+  "--kp-color-tab-text-disabled": "var(--kp-color-neutral-400)",
+  "--kp-color-tab-indicator": "var(--kp-color-primary-500)",
+  "--kp-color-tab-count-disabled-bg": "var(--kp-color-neutral-100)",
+  "--kp-color-tab-count-disabled-text": "var(--kp-color-neutral-400)",
   "--kp-typography-heading-xl-font-size": "var(--kp-typography-typo-24-bold-font-size)",
   "--kp-typography-heading-xl-font-weight": "var(--kp-typography-typo-24-bold-font-weight)",
   "--kp-typography-heading-xl-line-height": "var(--kp-typography-typo-24-bold-line-height)",
@@ -1290,4 +1370,20 @@ $css-variables: (
   "--kp-typography-lnb-item-path-font-weight": "var(--kp-typography-typo-10-regular-font-weight)",
   "--kp-typography-lnb-item-path-line-height": "var(--kp-typography-typo-10-regular-line-height)",
   "--kp-typography-lnb-item-path-letter-spacing": "var(--kp-typography-typo-10-regular-letter-spacing)",
+  "--kp-typography-tab-md-font-size": "var(--kp-typography-typo-14-medium-font-size)",
+  "--kp-typography-tab-md-font-weight": "var(--kp-typography-typo-14-medium-font-weight)",
+  "--kp-typography-tab-md-line-height": "var(--kp-typography-typo-14-medium-line-height)",
+  "--kp-typography-tab-md-letter-spacing": "var(--kp-typography-typo-14-medium-letter-spacing)",
+  "--kp-typography-tab-active-md-font-size": "var(--kp-typography-typo-14-semi-bold-font-size)",
+  "--kp-typography-tab-active-md-font-weight": "var(--kp-typography-typo-14-semi-bold-font-weight)",
+  "--kp-typography-tab-active-md-line-height": "var(--kp-typography-typo-14-semi-bold-line-height)",
+  "--kp-typography-tab-active-md-letter-spacing": "var(--kp-typography-typo-14-semi-bold-letter-spacing)",
+  "--kp-typography-tab-sm-font-size": "var(--kp-typography-typo-13-medium-font-size)",
+  "--kp-typography-tab-sm-font-weight": "var(--kp-typography-typo-13-medium-font-weight)",
+  "--kp-typography-tab-sm-line-height": "var(--kp-typography-typo-13-medium-line-height)",
+  "--kp-typography-tab-sm-letter-spacing": "var(--kp-typography-typo-13-medium-letter-spacing)",
+  "--kp-typography-tab-count-md-font-size": "var(--kp-typography-typo-14-semi-bold-font-size)",
+  "--kp-typography-tab-count-md-font-weight": "var(--kp-typography-typo-14-semi-bold-font-weight)",
+  "--kp-typography-tab-count-md-line-height": "var(--kp-typography-typo-14-semi-bold-line-height)",
+  "--kp-typography-tab-count-md-letter-spacing": "var(--kp-typography-typo-14-semi-bold-letter-spacing)",
 );
