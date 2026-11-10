@@ -1,0 +1,79 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 위치(position: fixed, top/left)는 Tooltip.tsx가 계산한다. 몸체는 Hug, 최대 320에서 줄바꿈
+.tooltip {
+  @include m.typography(caption-md);
+
+  position: fixed;
+  z-index: t.$z-index-tooltip;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: t.$tooltip-max-width;
+  padding: t.$tooltip-padding-y t.$tooltip-padding-x;
+  color: t.$color-tooltip-text;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+  pointer-events: none;
+  background-color: t.$color-tooltip-bg;
+  border-radius: t.$tooltip-radius;
+}
+
+// 포인터: 몸체와 같은 색 삼각형. 위치(left 또는 top)는 기준 요소 가운데에 맞춰 계산한다
+.arrow {
+  position: absolute;
+  background-color: t.$color-tooltip-bg;
+}
+
+// 아래 배치(기본): 포인터가 위를 향함
+.bottom .arrow {
+  top: calc(-1 * #{t.$tooltip-arrow-height});
+  width: t.$tooltip-arrow-width;
+  height: t.$tooltip-arrow-height;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.top .arrow {
+  bottom: calc(-1 * #{t.$tooltip-arrow-height});
+  width: t.$tooltip-arrow-width;
+  height: t.$tooltip-arrow-height;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+// 아이콘 왼쪽에 표시: 포인터가 오른쪽을 향함
+.left .arrow {
+  right: calc(-1 * #{t.$tooltip-arrow-height});
+  width: t.$tooltip-arrow-height;
+  height: t.$tooltip-arrow-width;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.right .arrow {
+  left: calc(-1 * #{t.$tooltip-arrow-height});
+  width: t.$tooltip-arrow-height;
+  height: t.$tooltip-arrow-width;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+
+// ── InfoTip: Info 아이콘 버튼 ─────────────────────────
+.infoTip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: t.$color-tooltip-info-icon;
+  vertical-align: middle;
+  cursor: default;
+  background: transparent;
+  border: 0;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+
+  &:disabled {
+    color: t.$color-tooltip-info-icon-disabled;
+  }
+}
