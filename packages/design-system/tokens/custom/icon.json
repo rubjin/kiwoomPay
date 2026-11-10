@@ -1,0 +1,35 @@
+{
+  "Icon": {
+    "Muted": {
+      "$type": "color",
+      "$value": "{Neutral.500}",
+      "$description": "회색 채움 아이콘 (Delete, Help-circle_filled)"
+    },
+    "Accent": { "$type": "color", "$value": "{Primary.500}", "$description": "Heart, Bell-on 점" },
+    "Info": {
+      "$type": "color",
+      "$value": "{Status.Info.Border}",
+      "$description": "Info-circle_filled"
+    },
+    "Success": {
+      "$type": "color",
+      "$value": "{Status.Success.Border}",
+      "$description": "Check-circle_filled"
+    },
+    "Warning": {
+      "$type": "color",
+      "$value": "{Status.Warning.Border}",
+      "$description": "Warning-circle_filled"
+    },
+    "Error": {
+      "$type": "color",
+      "$value": "{Status.Error.Border}",
+      "$description": "Alert-circle_filled, Pin"
+    },
+    "OnColor": {
+      "$type": "color",
+      "$value": "{Base.White}",
+      "$description": "색 채움 아이콘 위의 흰색 글리프(체크, X 등)"
+    }
+  }
+}
