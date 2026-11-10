@@ -6,5 +6,6 @@ export type {
   BadgeTone,
   CountBadgeTone,
   DotBadgeProps,
+  NumberBadgeAppearance,
   NumberBadgeProps,
 } from './Badge';

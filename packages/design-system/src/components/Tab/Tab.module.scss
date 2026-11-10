@@ -1,0 +1,117 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.tabs {
+  display: flex;
+  align-items: stretch;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.item {
+  display: inline-flex;
+  flex: none;
+  gap: t.$tab-count-gap;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 t.$tab-padding-x;
+  margin: 0;
+  color: t.$color-tab-text;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+
+  &:disabled {
+    color: t.$color-tab-text-disabled;
+    cursor: default;
+  }
+}
+
+.fullWidth .item {
+  flex: 1 1 0;
+}
+
+.label {
+  @include m.ellipsis;
+
+  min-width: 0;
+}
+
+.active {
+  color: t.$color-tab-text-active;
+}
+
+.item:disabled .count {
+  color: t.$color-tab-count-disabled-text;
+  background-color: t.$color-tab-count-disabled-bg;
+}
+
+// ── Line Tab ─────────────────────────────────────────
+.line {
+  gap: t.$tab-gap;
+}
+
+// Equal Width는 부모 폭을 빈틈 없이 나눈다
+.line.fullWidth {
+  gap: 0;
+}
+
+// 밑줄은 높이에 포함되도록 안쪽 그림자로 그린다
+.line .active {
+  box-shadow: inset 0 calc(-1 * #{t.$tab-indicator-width}) 0 t.$color-tab-indicator;
+}
+
+.md .item {
+  @include m.typography(tab-md);
+
+  height: t.$tab-height-md;
+}
+
+.md .active {
+  @include m.typography(tab-active-md);
+}
+
+.md .count {
+  @include m.typography(tab-count-md);
+}
+
+.sm .item {
+  @include m.typography(tab-sm);
+
+  height: t.$tab-height-sm;
+}
+
+// ── Button Tab ───────────────────────────────────────
+.button {
+  gap: t.$tab-button-gap;
+}
+
+.button .item {
+  @include m.typography(tab-md);
+
+  height: t.$tab-height-sm;
+  min-width: t.$tab-button-min-width;
+  padding: 0 t.$tab-button-padding-x;
+  background-color: t.$color-tab-button-bg;
+  border: t.$control-border-width solid t.$color-tab-button-border;
+  border-radius: t.$tab-button-radius;
+}
+
+.button .active {
+  @include m.typography(tab-active-md);
+
+  background-color: t.$color-tab-button-bg-active;
+  border-color: t.$color-tab-button-border-active;
+}
+
+.button .item:disabled {
+  background-color: t.$color-tab-button-bg-disabled;
+  border-color: t.$color-tab-button-border-disabled;
+}

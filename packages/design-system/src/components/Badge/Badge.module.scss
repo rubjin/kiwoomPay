@@ -101,3 +101,14 @@ $tones: neutral, primary, info, success, warning, error;
 .countError {
   background-color: t.$color-badge-number-error;
 }
+
+// Number Badge Soft (Tab 건수)
+.softPrimary {
+  color: t.$color-badge-number-soft-primary-text;
+  background-color: t.$color-badge-number-soft-primary-bg;
+}
+
+.softError {
+  color: t.$color-badge-number-soft-error-text;
+  background-color: t.$color-badge-number-soft-error-bg;
+}

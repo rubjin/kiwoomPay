@@ -46,6 +46,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
 Badge.displayName = 'Badge';
 
 export type CountBadgeTone = 'primary' | 'error';
+export type NumberBadgeAppearance = 'solid' | 'soft';
 
 export interface NumberBadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /** 건수 */
@@ -54,13 +55,26 @@ export interface NumberBadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 
   max?: number;
   /** primary(기본): 일반 알림 / error: 긴급·위험 건수 */
   tone?: CountBadgeTone;
+  /** solid(기본): 알림 건수 / soft: Tab 안 건수처럼 연한 배경 */
+  appearance?: NumberBadgeAppearance;
   /** 0일 때도 보여준다 (기본은 숨김) */
   showZero?: boolean;
 }
 
 /** 알림 · 미처리 건수. */
 export const NumberBadge = forwardRef<HTMLSpanElement, NumberBadgeProps>(
-  ({ count, max = 99, tone = 'primary', showZero = false, className, ...rest }, ref) => {
+  (
+    {
+      count,
+      max = 99,
+      tone = 'primary',
+      appearance = 'solid',
+      showZero = false,
+      className,
+      ...rest
+    },
+    ref,
+  ) => {
     if (count <= 0 && !showZero) return null;
     const text = count > max ? `${max}+` : String(Math.max(count, 0));
     return (
@@ -69,7 +83,13 @@ export const NumberBadge = forwardRef<HTMLSpanElement, NumberBadgeProps>(
         ref={ref}
         className={clsx(
           styles.number,
-          tone === 'error' ? styles.countError : styles.countPrimary,
+          appearance === 'soft'
+            ? tone === 'error'
+              ? styles.softError
+              : styles.softPrimary
+            : tone === 'error'
+              ? styles.countError
+              : styles.countPrimary,
           className,
         )}
       >

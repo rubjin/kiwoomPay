@@ -1,0 +1,166 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as TabStories from '../src/components/Tab/Tab.stories';
+
+<Meta title="Components/Tab Guide" />
+
+# Tab
+
+동일 화면 또는 동일 영역 안에서 콘텐츠 View를 전환합니다.
+열려 있는 업무 화면의 관리 · 닫기는 **Work Tab**을 씁니다(Tab과 구분).
+
+```tsx
+import { Tab } from '@kiwoompay/design-system';
+
+<Tab value={view} onChange={setView}>
+  <Tab.Item value="all">전체</Tab.Item>
+  <Tab.Item value="wait" count={10}>승인대기</Tab.Item>
+  <Tab.Item value="hold" disabled>보류</Tab.Item>
+</Tab>;
+{view === 'all' ? <AllList /> : <WaitList />}
+```
+
+Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서 바꿔 그립니다. (`value` · `defaultValue` · `onChange`)
+
+<Canvas of={TabStories.Playground} />
+
+## 1. Purpose
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Basic Tab (<code>variant="line"</code>)</td>
+      <td>동일 컨텍스트 안에서 콘텐츠 View 전환</td>
+    </tr>
+    <tr>
+      <td>Button Tab (<code>variant="button"</code>)</td>
+      <td>동일 영역의 동급 View를 버튼형으로 전환</td>
+    </tr>
+    <tr>
+      <td>Work Tab</td>
+      <td>열려 있는 업무 화면의 관리 · 닫기 (별도 컴포넌트)</td>
+    </tr>
+  </tbody>
+</table>
+
+## 2. State
+
+<Canvas of={TabStories.States} />
+
+<table>
+  <thead>
+    <tr>
+      <th>상태</th>
+      <th>의미</th>
+      <th>표현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>선택되지 않은 기본 상태</td>
+      <td>Neutral 700 글자</td>
+    </tr>
+    <tr>
+      <td>Active</td>
+      <td>현재 선택된 View. <strong>한 그룹에 1개만</strong></td>
+      <td>Primary 글자 + 밑줄 2px (Medium은 굵게)</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>선택할 수 없는 상태. 클릭 불가 · Interaction 없음</td>
+      <td>Neutral 400 글자</td>
+    </tr>
+  </tbody>
+</table>
+
+## 3. Size & Badge
+
+<Canvas of={TabStories.SizeAndBadge} />
+
+<table>
+  <thead>
+    <tr>
+      <th>Size</th>
+      <th>높이</th>
+      <th>글자</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>md</code> (기본)</td>
+      <td>40</td>
+      <td>14 Medium · Active 14 SemiBold</td>
+      <td>일반 콘텐츠 영역</td>
+    </tr>
+    <tr>
+      <td><code>sm</code></td>
+      <td>32</td>
+      <td>13 Medium</td>
+      <td>LNB처럼 밀도가 높은 영역</td>
+    </tr>
+  </tbody>
+</table>
+
+- 건수 정보가 View 선택 판단에 필요하면 `count`를 넘깁니다. 기존 **Number Badge**(`appearance="soft"`)를 그대로 씁니다.
+- 99를 넘으면 `99+`(`max`로 변경), 0도 표시합니다. 비활성 Tab의 Badge는 회색입니다.
+
+## 4. Group & Layout
+
+<Canvas of={TabStories.Layout} />
+
+- **Content Width (기본)**: Label 길이에 따라 Tab Item 폭이 정해집니다. Tab은 콘텐츠 중심입니다.
+- **Equal Width (`fullWidth`)**: LNB처럼 2개 View를 같은 비율로 둘 때는 부모가 폭을 정합니다. Item에 임의 고정 폭을 주지 않습니다.
+- 긴 Label은 말줄임 처리됩니다.
+
+### Button Tab
+
+<Canvas of={TabStories.ButtonTab} />
+
+- 높이 32 · Active는 Primary 50 배경 + Primary 테두리. Equal Width는 부모 Layout에서 제어합니다(`fullWidth`).
+
+## Interactive
+
+<Canvas of={TabStories.Interactive} />
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>같은 영역의 View 전환에만 쓴다</td>
+      <td>다른 업무 화면으로 이동하는 메뉴로 쓴다 (→ LNB · Work Tab)</td>
+    </tr>
+    <tr>
+      <td>Active는 그룹에 1개만 둔다</td>
+      <td>여러 Tab을 동시에 Active로 표시한다</td>
+    </tr>
+    <tr>
+      <td>건수는 <code>count</code>(Number Badge)로 표시한다</td>
+      <td>Label 문자열에 <code>(10)</code>처럼 숫자를 붙인다</td>
+    </tr>
+    <tr>
+      <td>Equal Width는 <code>fullWidth</code>로 부모가 폭을 정한다</td>
+      <td>Item마다 고정 폭(style width)을 준다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰 · 확인 필요
+
+- `tab/*` (`tokens/custom/tab.json`, 색은 모두 Figma 색 alias), 글자 역할 `tab-md` · `tab-active-md` · `tab-sm` · `tab-count-md`
+- Number Badge Soft 색 `badge/number/soft-*` (`tokens/custom/badge.json`)
+- 시안에 없어 **임시 값(TODO)** 인 것: Item 좌우 여백 4 · Item 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Badge 색, Hover 표현(미구현)
+- Title Tab 변형은 시안이 없어 만들지 않았습니다.
