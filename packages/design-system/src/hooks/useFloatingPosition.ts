@@ -5,6 +5,8 @@ interface Options {
   offsetVar?: string;
   /** 기준 요소와 같은 폭으로 맞출지 (SelectBox) */
   matchWidth?: boolean;
+  /** start(기본): 기준 요소 왼쪽에 맞춤 / end: 오른쪽에 맞춤 (화면 오른쪽 끝 메뉴) */
+  align?: 'start' | 'end';
 }
 
 const HIDDEN: CSSProperties = { position: 'fixed', top: 0, left: 0, visibility: 'hidden' };
@@ -18,7 +20,7 @@ export function useFloatingPosition(
   anchorRef: RefObject<HTMLElement | null>,
   floatingRef: RefObject<HTMLElement | null>,
   open: boolean,
-  { offsetVar, matchWidth = false }: Options = {},
+  { offsetVar, matchWidth = false, align = 'start' }: Options = {},
 ): CSSProperties {
   const [style, setStyle] = useState<CSSProperties>(HIDDEN);
 
@@ -34,13 +36,14 @@ export function useFloatingPosition(
         ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue(offsetVar)) || 0
         : 0;
       const height = floatingRef.current?.offsetHeight ?? 0;
+      const width = floatingRef.current?.offsetWidth ?? 0;
       const below = anchor.bottom + offset;
       const above = anchor.top - offset - height;
       const top = below + height > window.innerHeight && above >= 0 ? above : below;
       setStyle({
         position: 'fixed',
         top,
-        left: anchor.left,
+        left: align === 'end' && !matchWidth ? anchor.right - width : anchor.left,
         ...(matchWidth ? { width: anchor.width } : null),
       });
     };
@@ -51,7 +54,7 @@ export function useFloatingPosition(
       window.removeEventListener('scroll', update, true);
       window.removeEventListener('resize', update);
     };
-  }, [open, anchorRef, floatingRef, offsetVar, matchWidth]);
+  }, [open, anchorRef, floatingRef, offsetVar, matchWidth, align]);
 
   return style;
 }
