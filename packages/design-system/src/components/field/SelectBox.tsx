@@ -12,9 +12,9 @@ import {
 } from 'react';
 import { useControllableState, useOutsideClick } from '../../hooks';
 import { mergeRefs } from '../../utils';
+import { Icon } from '../Icon';
 import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
 import { FieldBox } from './FieldBox';
-import { ChevronDownIcon, ChevronUpIcon } from './icons';
 import styles from './SelectBox.module.scss';
 
 export interface SelectOption {
@@ -182,7 +182,9 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
           <span className={clsx(styles.value, !selectedOption && styles.placeholder)}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
-          <span className={styles.chevron}>{opened ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>
+          <span className={styles.chevron}>
+            <Icon name={opened ? 'chevron-up' : 'chevron-down'} size={20} />
+          </span>
         </button>
       </FieldBox>
 

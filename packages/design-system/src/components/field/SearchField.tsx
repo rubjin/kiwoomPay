@@ -1,5 +1,5 @@
 import { forwardRef, type KeyboardEvent } from 'react';
-import { SearchIcon } from './icons';
+import { Icon } from '../Icon';
 import { TextField, type TextFieldProps } from './TextField';
 
 export interface SearchFieldProps extends Omit<
@@ -27,7 +27,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
         type="text"
         enterKeyHint="search"
         placeholder={placeholder}
-        leadingIcon={<SearchIcon />}
+        leadingIcon={<Icon name="search" size={20} />}
         clearable
         onKeyDown={handleKeyDown}
       />

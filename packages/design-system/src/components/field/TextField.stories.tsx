@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { SearchIcon } from './icons';
+import { Icon } from '../Icon';
 import { TextField } from './TextField';
 
 const row: CSSProperties = {
@@ -65,7 +65,10 @@ export const Feedback: Story = {
 export const Content: Story = {
   render: () => (
     <div style={row}>
-      <TextField leadingIcon={<SearchIcon />} placeholder="검색어를 입력해주세요" />
+      <TextField
+        leadingIcon={<Icon name="search" size={20} />}
+        placeholder="검색어를 입력해주세요"
+      />
       <TextField clearable defaultValue="검색어" />
       <TextField suffix="원" defaultValue="1,234,000" />
     </div>

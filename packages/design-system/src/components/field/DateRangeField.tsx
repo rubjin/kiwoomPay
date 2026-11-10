@@ -1,9 +1,9 @@
 import { forwardRef, type ChangeEvent, type HTMLAttributes } from 'react';
 import { useControllableState } from '../../hooks';
 import { formatDateInput } from '../../utils';
+import { Icon } from '../Icon';
 import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
 import { FieldBox, FieldIconButton, FieldInput, FieldSeparator } from './FieldBox';
-import { CalendarIcon } from './icons';
 
 export interface DateRange {
   /** YYYY-MM-DD */
@@ -102,7 +102,7 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>((p
           disabled={field.disabled || readOnly}
           onClick={onCalendarClick}
         >
-          <CalendarIcon />
+          <Icon name="calendar" size={20} />
         </FieldIconButton>
       }
     >

@@ -1,9 +1,9 @@
 import { forwardRef, type ChangeEvent, type InputHTMLAttributes } from 'react';
 import { useControllableState } from '../../hooks';
 import { formatDateInput } from '../../utils';
+import { Icon } from '../Icon';
 import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
 import { FieldBox, FieldIconButton, FieldInput } from './FieldBox';
-import { CalendarIcon } from './icons';
 
 export interface DateFieldProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -71,7 +71,7 @@ export const DateField = forwardRef<HTMLInputElement, DateFieldProps>((props, re
           disabled={field.disabled || readOnly}
           onClick={onCalendarClick}
         >
-          <CalendarIcon />
+          <Icon name="calendar" size={20} />
         </FieldIconButton>
       }
     >

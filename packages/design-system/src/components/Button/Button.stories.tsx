@@ -1,41 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
+import { Icon } from '../Icon';
 import { Button, type ButtonAppearance, type ButtonSize, type ButtonVariant } from './Button';
 
 const variants: ButtonVariant[] = ['primary', 'neutral', 'dark', 'danger'];
 const appearances: ButtonAppearance[] = ['solid', 'line'];
 const sizes: ButtonSize[] = ['lg', 'md', 'sm'];
-
-// Icon 컴포넌트(Phase 2) 전 임시 아이콘. 실제 사용 시 Icon 컴포넌트를 넣는다.
-const DownloadIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M12 4v11" />
-    <path d="M7 11l5 5 5-5" />
-    <path d="M5 20h14" />
-  </svg>
-);
-
-const ChevronRightIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M9 5l7 7-7 7" />
-  </svg>
-);
 
 const row: CSSProperties = {
   display: 'flex',
@@ -110,18 +80,23 @@ export const Icons: Story = {
       {sizes.map((size) => (
         <div key={size} style={row}>
           <Button size={size}>텍스트</Button>
-          <Button size={size} leadingIcon={<DownloadIcon />}>
+          <Button size={size} leadingIcon={<Icon name="download" size={20} />}>
             다운로드
           </Button>
-          <Button size={size} trailingIcon={<ChevronRightIcon />}>
+          <Button size={size} trailingIcon={<Icon name="chevron-right" size={20} />}>
             다음
           </Button>
-          <Button size={size} iconOnly icon={<DownloadIcon />} aria-label="다운로드" />
+          <Button
+            size={size}
+            iconOnly
+            icon={<Icon name="download" size={20} />}
+            aria-label="다운로드"
+          />
           <Button
             size={size}
             appearance="line"
             iconOnly
-            icon={<DownloadIcon />}
+            icon={<Icon name="download" size={20} />}
             aria-label="다운로드"
           />
         </div>
@@ -159,7 +134,7 @@ export const States: Story = {
 export const LongText: Story = {
   render: () => (
     <div style={{ width: 200 }}>
-      <Button appearance="line" variant="neutral" leadingIcon={<DownloadIcon />}>
+      <Button appearance="line" variant="neutral" leadingIcon={<Icon name="download" size={20} />}>
         아주 긴 버튼 이름이 들어가는 경우에도 말줄임으로 처리됩니다
       </Button>
     </div>
