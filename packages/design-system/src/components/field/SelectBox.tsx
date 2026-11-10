@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useId,
   useLayoutEffect,
   useRef,
   useState,
   type HTMLAttributes,
-  type KeyboardEvent,
   type ReactNode,
 } from 'react';
 import { useControllableState, useOutsideClick } from '../../hooks';
@@ -97,7 +97,6 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
     id,
     fullWidth,
     className,
-    onKeyDown,
     'aria-describedby': ariaDescribedBy,
     ...rest
   } = props;
@@ -140,20 +139,23 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
     triggerRef.current?.focus();
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    onKeyDown?.(event);
-    if (event.key === 'Escape' && opened) {
+  // Esc로 닫기. 항목을 눌러 포커스가 밖으로 나가도 동작하도록 문서 전체에서 듣는다.
+  useEffect(() => {
+    if (!opened) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
       setOpen(false);
       triggerRef.current?.focus();
-    }
-  };
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [opened, setOpen]);
 
   return (
     <div
       {...rest}
       ref={mergeRefs(ref, rootRef)}
       className={clsx(styles.root, fullWidth && styles.fullWidth, className)}
-      onKeyDown={handleKeyDown}
     >
       <FieldBox
         size={field.size}
@@ -210,6 +212,8 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
                       isSelected && styles.optionSelected,
                       option.disabled && styles.optionDisabled,
                     )}
+                    // 항목을 눌러도 트리거에서 포커스가 빠지지 않게 한다
+                    onMouseDown={(event) => event.preventDefault()}
                     onClick={() => select(option)}
                   >
                     {option.label}
