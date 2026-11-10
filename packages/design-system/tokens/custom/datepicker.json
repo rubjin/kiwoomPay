@@ -1,0 +1,106 @@
+{
+  "DatePicker": {
+    "PanelWidth": {
+      "$type": "dimension",
+      "$value": "336px",
+      "$description": "Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)"
+    },
+    "Padding": {
+      "$type": "dimension",
+      "$value": "{space.16}"
+    },
+    "HeaderHeight": {
+      "$type": "dimension",
+      "$value": "34px",
+      "$description": "측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260"
+    },
+    "SectionGap": {
+      "$type": "dimension",
+      "$value": "{space.12}",
+      "$description": "Gap Section 12 (헤더 ↔ 날짜)"
+    },
+    "CellSize": {
+      "$type": "dimension",
+      "$value": "{Control.Height.MD}",
+      "$description": "Cell 40×40"
+    },
+    "DayGap": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "Gap Day 4"
+    },
+    "CellRadius": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "PanelRadius": {
+      "$type": "dimension",
+      "$value": "{Field.Radius.MD}"
+    },
+    "PopoverOffset": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "TODO(시안) 필드 ↔ 패널 간격 (시안은 패널을 떨어뜨려 표시)"
+    },
+    "PanelBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "PanelBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "Saturday": {
+      "$type": "color",
+      "$value": "{Status.Info.Text}"
+    },
+    "Sunday": {
+      "$type": "color",
+      "$value": "{Status.Error.Text}"
+    },
+    "Outside": {
+      "$type": "color",
+      "$value": "{Text.Disabled}",
+      "$description": "지난달 날짜"
+    },
+    "Disabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    },
+    "HoverBg": {
+      "$type": "color",
+      "$value": "{Neutral.50}"
+    },
+    "PressedBg": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "SelectedBg": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "Selected, Range Start·End"
+    },
+    "SelectedText": {
+      "$type": "color",
+      "$value": "{Text.Inverse}"
+    },
+    "Today": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "오늘: 테두리·글자"
+    },
+    "RangeBg": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "Range Middle"
+    },
+    "RangeText": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    }
+  }
+}

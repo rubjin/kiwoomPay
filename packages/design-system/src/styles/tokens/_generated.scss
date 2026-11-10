@@ -259,6 +259,56 @@ $typography-pagination-item-font-size: var(--kp-typography-pagination-item-font-
 $typography-pagination-item-font-weight: var(--kp-typography-pagination-item-font-weight);
 $typography-pagination-item-line-height: var(--kp-typography-pagination-item-line-height);
 $typography-pagination-item-letter-spacing: var(--kp-typography-pagination-item-letter-spacing);
+$typography-badge-md-font-size: var(--kp-typography-badge-md-font-size); // Text Badge Default (H24 · 13 Medium)
+$typography-badge-md-font-weight: var(--kp-typography-badge-md-font-weight);
+$typography-badge-md-line-height: var(--kp-typography-badge-md-line-height);
+$typography-badge-md-letter-spacing: var(--kp-typography-badge-md-letter-spacing);
+$typography-badge-sm-font-size: var(--kp-typography-badge-sm-font-size); // Text Badge Small (H20 · 12 Medium)
+$typography-badge-sm-font-weight: var(--kp-typography-badge-sm-font-weight);
+$typography-badge-sm-line-height: var(--kp-typography-badge-sm-line-height);
+$typography-badge-sm-letter-spacing: var(--kp-typography-badge-sm-letter-spacing);
+$typography-badge-number-font-size: var(--kp-typography-badge-number-font-size); // TODO(시안) Number Badge 글자
+$typography-badge-number-font-weight: var(--kp-typography-badge-number-font-weight);
+$typography-badge-number-line-height: var(--kp-typography-badge-number-line-height);
+$typography-badge-number-letter-spacing: var(--kp-typography-badge-number-letter-spacing);
+
+// ── custom · badge ──────────────────────────────────────────────
+$badge-height-md: var(--kp-badge-height-md); // Default H24
+$badge-height-sm: var(--kp-badge-height-sm); // Small H20
+$badge-padding-x-md: var(--kp-badge-padding-x-md); // 측정값
+$badge-padding-x-sm: var(--kp-badge-padding-x-sm); // 측정값
+$badge-dot-gap-md: var(--kp-badge-dot-gap-md); // 측정값: 상태 점 ↔ 글자
+$badge-dot-gap-sm: var(--kp-badge-dot-gap-sm); // 측정값
+$badge-dot-size: var(--kp-badge-dot-size); // Status Dot · Dot Badge
+$badge-number-size: var(--kp-badge-number-size); // Number Badge 높이·최소 폭
+$badge-number-padding-x: var(--kp-badge-number-padding-x); // TODO(시안) 99+ 처럼 두 자리 이상일 때 좌우 여백
+$color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
+$color-badge-neutral-text: var(--kp-color-badge-neutral-text);
+$color-badge-neutral-dot: var(--kp-color-badge-neutral-dot); // TODO(시안) Neutral은 상태 점이 시안에 없음
+$color-badge-neutral-border: var(--kp-color-badge-neutral-border); // TODO(시안)
+$color-badge-primary-bg: var(--kp-color-badge-primary-bg);
+$color-badge-primary-text: var(--kp-color-badge-primary-text);
+$color-badge-primary-dot: var(--kp-color-badge-primary-dot);
+$color-badge-primary-border: var(--kp-color-badge-primary-border);
+$color-badge-info-bg: var(--kp-color-badge-info-bg);
+$color-badge-info-text: var(--kp-color-badge-info-text);
+$color-badge-info-dot: var(--kp-color-badge-info-dot);
+$color-badge-info-border: var(--kp-color-badge-info-border); // TODO(시안) Line 스타일은 Primary만 시안에 있음
+$color-badge-success-bg: var(--kp-color-badge-success-bg);
+$color-badge-success-text: var(--kp-color-badge-success-text);
+$color-badge-success-dot: var(--kp-color-badge-success-dot);
+$color-badge-success-border: var(--kp-color-badge-success-border); // TODO(시안) Line 스타일은 Primary만 시안에 있음
+$color-badge-warning-bg: var(--kp-color-badge-warning-bg);
+$color-badge-warning-text: var(--kp-color-badge-warning-text);
+$color-badge-warning-dot: var(--kp-color-badge-warning-dot);
+$color-badge-warning-border: var(--kp-color-badge-warning-border); // TODO(시안) Line 스타일은 Primary만 시안에 있음
+$color-badge-error-bg: var(--kp-color-badge-error-bg);
+$color-badge-error-text: var(--kp-color-badge-error-text);
+$color-badge-error-dot: var(--kp-color-badge-error-dot);
+$color-badge-error-border: var(--kp-color-badge-error-border); // TODO(시안) Line 스타일은 Primary만 시안에 있음
+$color-badge-number-primary: var(--kp-color-badge-number-primary);
+$color-badge-number-error: var(--kp-color-badge-number-error);
+$color-badge-number-text: var(--kp-color-badge-number-text);
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
@@ -342,6 +392,31 @@ $control-icon-size-md: var(--kp-control-icon-size-md);
 $control-icon-size-lg: var(--kp-control-icon-size-lg);
 $control-icon-gap: var(--kp-control-icon-gap); // 아이콘-텍스트 간격 (전 size 공통)
 $control-border-width: var(--kp-control-border-width); // Line 버튼 테두리
+
+// ── custom · datepicker ─────────────────────────────────────────
+$date-picker-panel-width: var(--kp-date-picker-panel-width); // Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)
+$date-picker-padding: var(--kp-date-picker-padding);
+$date-picker-header-height: var(--kp-date-picker-header-height); // 측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260
+$date-picker-section-gap: var(--kp-date-picker-section-gap); // Gap Section 12 (헤더 ↔ 날짜)
+$date-picker-cell-size: var(--kp-date-picker-cell-size); // Cell 40×40
+$date-picker-day-gap: var(--kp-date-picker-day-gap); // Gap Day 4
+$date-picker-cell-radius: var(--kp-date-picker-cell-radius);
+$date-picker-panel-radius: var(--kp-date-picker-panel-radius);
+$date-picker-popover-offset: var(--kp-date-picker-popover-offset); // TODO(시안) 필드 ↔ 패널 간격 (시안은 패널을 떨어뜨려 표시)
+$color-date-picker-panel-bg: var(--kp-color-date-picker-panel-bg);
+$color-date-picker-panel-border: var(--kp-color-date-picker-panel-border);
+$color-date-picker-text: var(--kp-color-date-picker-text);
+$color-date-picker-saturday: var(--kp-color-date-picker-saturday);
+$color-date-picker-sunday: var(--kp-color-date-picker-sunday);
+$color-date-picker-outside: var(--kp-color-date-picker-outside); // 지난달 날짜
+$color-date-picker-disabled: var(--kp-color-date-picker-disabled);
+$color-date-picker-hover-bg: var(--kp-color-date-picker-hover-bg);
+$color-date-picker-pressed-bg: var(--kp-color-date-picker-pressed-bg);
+$color-date-picker-selected-bg: var(--kp-color-date-picker-selected-bg); // Selected, Range Start·End
+$color-date-picker-selected-text: var(--kp-color-date-picker-selected-text);
+$color-date-picker-today: var(--kp-color-date-picker-today); // 오늘: 테두리·글자
+$color-date-picker-range-bg: var(--kp-color-date-picker-range-bg); // Range Middle
+$color-date-picker-range-text: var(--kp-color-date-picker-range-text);
 
 // ── custom · dimension ──────────────────────────────────────────
 $focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
@@ -677,6 +752,42 @@ $css-variables: (
   "--kp-typography-typo-10-regular-font-weight": "400",
   "--kp-typography-typo-10-regular-line-height": "1.5",
   "--kp-typography-typo-10-regular-letter-spacing": "0",
+  "--kp-badge-height-md": "24px",
+  "--kp-badge-height-sm": "20px",
+  "--kp-badge-padding-x-md": "10px",
+  "--kp-badge-padding-x-sm": "var(--kp-space-8)",
+  "--kp-badge-dot-gap-md": "6px",
+  "--kp-badge-dot-gap-sm": "var(--kp-space-4)",
+  "--kp-badge-dot-size": "6px",
+  "--kp-badge-number-size": "20px",
+  "--kp-badge-number-padding-x": "6px",
+  "--kp-color-badge-neutral-bg": "var(--kp-color-neutral-100)",
+  "--kp-color-badge-neutral-text": "var(--kp-color-neutral-700)",
+  "--kp-color-badge-neutral-dot": "var(--kp-color-neutral-500)",
+  "--kp-color-badge-neutral-border": "var(--kp-color-line-default)",
+  "--kp-color-badge-primary-bg": "var(--kp-color-primary-50)",
+  "--kp-color-badge-primary-text": "var(--kp-color-primary-500)",
+  "--kp-color-badge-primary-dot": "var(--kp-color-primary-500)",
+  "--kp-color-badge-primary-border": "var(--kp-color-primary-500)",
+  "--kp-color-badge-info-bg": "var(--kp-color-status-info-background)",
+  "--kp-color-badge-info-text": "var(--kp-color-status-info-text)",
+  "--kp-color-badge-info-dot": "var(--kp-color-status-info-border)",
+  "--kp-color-badge-info-border": "var(--kp-color-status-info-border)",
+  "--kp-color-badge-success-bg": "var(--kp-color-status-success-background)",
+  "--kp-color-badge-success-text": "var(--kp-color-status-success-text)",
+  "--kp-color-badge-success-dot": "var(--kp-color-status-success-border)",
+  "--kp-color-badge-success-border": "var(--kp-color-status-success-border)",
+  "--kp-color-badge-warning-bg": "var(--kp-color-status-warning-background)",
+  "--kp-color-badge-warning-text": "var(--kp-color-status-warning-text)",
+  "--kp-color-badge-warning-dot": "var(--kp-color-status-warning-border)",
+  "--kp-color-badge-warning-border": "var(--kp-color-status-warning-border)",
+  "--kp-color-badge-error-bg": "var(--kp-color-status-error-background)",
+  "--kp-color-badge-error-text": "var(--kp-color-status-error-text)",
+  "--kp-color-badge-error-dot": "var(--kp-color-status-error-border)",
+  "--kp-color-badge-error-border": "var(--kp-color-status-error-border)",
+  "--kp-color-badge-number-primary": "var(--kp-color-primary-500)",
+  "--kp-color-badge-number-error": "var(--kp-color-status-error-border)",
+  "--kp-color-badge-number-text": "var(--kp-color-text-inverse)",
   "--kp-breakpoint-tablet": "1024px",
   "--kp-breakpoint-mobile": "768px",
   "--kp-color-button-primary-solid-bg": "var(--kp-color-primary-500)",
@@ -754,6 +865,29 @@ $css-variables: (
   "--kp-control-icon-size-lg": "24px",
   "--kp-control-icon-gap": "var(--kp-space-4)",
   "--kp-control-border-width": "1px",
+  "--kp-date-picker-panel-width": "336px",
+  "--kp-date-picker-padding": "var(--kp-space-16)",
+  "--kp-date-picker-header-height": "34px",
+  "--kp-date-picker-section-gap": "var(--kp-space-12)",
+  "--kp-date-picker-cell-size": "var(--kp-control-height-md)",
+  "--kp-date-picker-day-gap": "var(--kp-space-4)",
+  "--kp-date-picker-cell-radius": "8px",
+  "--kp-date-picker-panel-radius": "var(--kp-field-radius-md)",
+  "--kp-date-picker-popover-offset": "var(--kp-space-8)",
+  "--kp-color-date-picker-panel-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-date-picker-panel-border": "var(--kp-color-line-default)",
+  "--kp-color-date-picker-text": "var(--kp-color-text-body)",
+  "--kp-color-date-picker-saturday": "var(--kp-color-status-info-text)",
+  "--kp-color-date-picker-sunday": "var(--kp-color-status-error-text)",
+  "--kp-color-date-picker-outside": "var(--kp-color-text-disabled)",
+  "--kp-color-date-picker-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-date-picker-hover-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-date-picker-pressed-bg": "var(--kp-color-primary-50)",
+  "--kp-color-date-picker-selected-bg": "var(--kp-color-primary-500)",
+  "--kp-color-date-picker-selected-text": "var(--kp-color-text-inverse)",
+  "--kp-color-date-picker-today": "var(--kp-color-primary-500)",
+  "--kp-color-date-picker-range-bg": "var(--kp-color-primary-50)",
+  "--kp-color-date-picker-range-text": "var(--kp-color-text-accent)",
   "--kp-focus-ring-width": "2px",
   "--kp-focus-ring-offset": "2px",
   "--kp-field-radius-md": "8px",
@@ -942,4 +1076,16 @@ $css-variables: (
   "--kp-typography-pagination-item-font-weight": "var(--kp-typography-typo-14-medium-font-weight)",
   "--kp-typography-pagination-item-line-height": "var(--kp-typography-typo-14-medium-line-height)",
   "--kp-typography-pagination-item-letter-spacing": "var(--kp-typography-typo-14-medium-letter-spacing)",
+  "--kp-typography-badge-md-font-size": "var(--kp-typography-typo-13-medium-font-size)",
+  "--kp-typography-badge-md-font-weight": "var(--kp-typography-typo-13-medium-font-weight)",
+  "--kp-typography-badge-md-line-height": "var(--kp-typography-typo-13-medium-line-height)",
+  "--kp-typography-badge-md-letter-spacing": "var(--kp-typography-typo-13-medium-letter-spacing)",
+  "--kp-typography-badge-sm-font-size": "var(--kp-typography-typo-12-medium-font-size)",
+  "--kp-typography-badge-sm-font-weight": "var(--kp-typography-typo-12-medium-font-weight)",
+  "--kp-typography-badge-sm-line-height": "var(--kp-typography-typo-12-medium-line-height)",
+  "--kp-typography-badge-sm-letter-spacing": "var(--kp-typography-typo-12-medium-letter-spacing)",
+  "--kp-typography-badge-number-font-size": "var(--kp-typography-typo-12-semi-bold-font-size)",
+  "--kp-typography-badge-number-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
+  "--kp-typography-badge-number-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
+  "--kp-typography-badge-number-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
 );

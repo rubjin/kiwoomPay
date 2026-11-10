@@ -92,5 +92,22 @@
       "$value": "{Typo.14.Medium}",
       "$description": "Pagination 번호·이전·다음 (Font 14 Medium)"
     }
+  },
+  "Badge": {
+    "MD": {
+      "$type": "typography",
+      "$value": "{Typo.13.Medium}",
+      "$description": "Text Badge Default (H24 · 13 Medium)"
+    },
+    "SM": {
+      "$type": "typography",
+      "$value": "{Typo.12.Medium}",
+      "$description": "Text Badge Small (H20 · 12 Medium)"
+    },
+    "Number": {
+      "$type": "typography",
+      "$value": "{Typo.12.SemiBold}",
+      "$description": "TODO(시안) Number Badge 글자"
+    }
   }
 }
