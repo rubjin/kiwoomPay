@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type ReactNode } from 'react';
+import { Icon } from '../Icon';
 import styles from './Button.module.scss';
 
 export type ButtonVariant = 'primary' | 'neutral' | 'dark' | 'danger';
@@ -13,8 +14,10 @@ type ButtonBaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>
   appearance?: ButtonAppearance;
   /** sm 32 · md 40 · lg 48 (높이 px) */
   size?: ButtonSize;
-  /** API 처리 중. 스피너를 보여주고 클릭을 막는다 (버튼 크기는 유지) */
+  /** API 처리 중. 로딩 아이콘과 `loadingText`를 보여주고 클릭을 막는다. 색은 Default 그대로 */
   loading?: boolean;
+  /** 로딩 중 문구 (기본 "처리 중"). 아이콘 전용 버튼은 아이콘만 바뀐다 */
+  loadingText?: ReactNode;
 };
 
 /** 텍스트 버튼. 아이콘은 앞(leading) 또는 뒤(trailing) 중 하나만 쓴다 */
@@ -54,23 +57,8 @@ type LooseButtonProps = ButtonBaseProps & {
   icon?: ReactNode;
 };
 
-function Spinner() {
-  return (
-    <svg className={styles.spinnerIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" opacity="0.25" />
-      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          from="0 12 12"
-          to="360 12 12"
-          dur="0.8s"
-          repeatCount="indefinite"
-        />
-      </path>
-    </svg>
-  );
-}
+// 버튼 크기별 아이콘 크기 (Button Guide: Icon 24 / 20 / 16)
+const ICON_SIZE = { lg: 24, md: 20, sm: 16 } as const;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
@@ -78,6 +66,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     appearance = 'solid',
     size = 'md',
     loading = false,
+    loadingText = '처리 중',
     iconOnly = false,
     icon,
     leadingIcon,
@@ -117,7 +106,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       onClick={handleClick}
     >
       <span className={styles.content}>
-        {iconOnly ? (
+        {loading ? (
+          <>
+            <span className={styles.icon}>
+              <Icon name="loading" size={ICON_SIZE[size]} className={styles.spin} />
+            </span>
+            {!iconOnly && <span className={styles.label}>{loadingText}</span>}
+          </>
+        ) : iconOnly ? (
           <span className={styles.icon}>{icon}</span>
         ) : (
           <>
@@ -127,11 +123,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
           </>
         )}
       </span>
-      {loading && (
-        <span className={styles.spinner}>
-          <Spinner />
-        </span>
-      )}
     </button>
   );
 });

@@ -30,10 +30,6 @@ $variants: primary, neutral, dark, danger;
   }
 }
 
-.spinnerIcon {
-  display: block;
-}
-
 // ── size ─────────────────────────────────────────────
 .sm {
   @include m.typography(button-sm);
@@ -42,8 +38,7 @@ $variants: primary, neutral, dark, danger;
   padding-inline: t.$control-padding-x-sm;
   border-radius: t.$control-radius-sm;
 
-  .icon,
-  .spinnerIcon {
+  .icon {
     width: t.$control-icon-size-sm;
     height: t.$control-icon-size-sm;
   }
@@ -60,8 +55,7 @@ $variants: primary, neutral, dark, danger;
   padding-inline: t.$control-padding-x-md;
   border-radius: t.$control-radius-md;
 
-  .icon,
-  .spinnerIcon {
+  .icon {
     width: t.$control-icon-size-md;
     height: t.$control-icon-size-md;
   }
@@ -78,8 +72,7 @@ $variants: primary, neutral, dark, danger;
   padding-inline: t.$control-padding-x-lg;
   border-radius: t.$control-radius-lg;
 
-  .icon,
-  .spinnerIcon {
+  .icon {
     width: t.$control-icon-size-lg;
     height: t.$control-icon-size-lg;
   }
@@ -110,20 +103,24 @@ $variants: primary, neutral, dark, danger;
   min-width: 0;
 }
 
-// ── loading: 크기를 유지한 채 내용만 숨기고 스피너를 겹친다 ──
-.spinner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+// ── loading: 로딩 아이콘 + 문구. 색은 Default를 유지한다 ──
 .loading {
   cursor: default;
+}
 
-  .content {
-    visibility: hidden;
+.spin {
+  animation: spin t.$motion-duration-spin linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
   }
 }
 

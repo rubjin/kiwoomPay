@@ -105,7 +105,7 @@ export const Icons: Story = {
   ),
 };
 
-/** Default · Disabled · Loading. Hover / Pressed는 마우스로 확인한다. */
+/** Default · Disabled · Loading(로딩 아이콘 + "처리 중"). Hover / Pressed는 마우스로 확인한다. */
 export const States: Story = {
   render: () => (
     <div style={stack}>
@@ -131,6 +131,34 @@ export const States: Story = {
 };
 
 /** 긴 텍스트는 말줄임. 부모 폭을 넘지 않는다. */
+/** 로딩: 크기별 · 아이콘 전용. 문구는 loadingText로 바꿀 수 있다. */
+export const Loading: Story = {
+  render: () => (
+    <div style={stack}>
+      {sizes.map((size) => (
+        <div key={size} style={row}>
+          <Button size={size} loading>
+            저장
+          </Button>
+          <Button size={size} appearance="line" loading>
+            저장
+          </Button>
+          <Button size={size} loading loadingText="업로드 중">
+            업로드
+          </Button>
+          <Button
+            size={size}
+            iconOnly
+            icon={<Icon name="download" size={20} />}
+            aria-label="다운로드"
+            loading
+          />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const LongText: Story = {
   render: () => (
     <div style={{ width: 200 }}>
