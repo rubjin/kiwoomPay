@@ -74,6 +74,7 @@
 - [Q36] Work Tab 시안 확인 필요(`tokens/custom/work-tab.json` TODO): ① State 예시의 Default·Hover Tab은 내용보다 넓지만 Workspace Bar 예시는 내용 폭 → 내용 폭으로 구현, Hover 시 닫기(X)가 나타나며 Tab이 넓어짐 ② Active Tab의 •••와 "열린 화면 N ⌄" Trigger가 같은 Tab 관리 메뉴를 여는 것으로 해석(둘 다 Active Tab 대상) ③ 메뉴명 말줄임 폭 160, •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover·비활성, Trigger ↔ 메뉴 8은 임시값 ④ 고정 Tab 표시(아이콘 등) 시안 없음 → 닫기 숨김만. (Trigger 위치는 Page Layout GUI로 확인: Work Tab 줄 오른쪽 끝, 밑줄 없는 글자 + 화살표 → 반영함)
 - [Q37] Page Layout 확인 필요: ① 실제 GUI의 검색 조건 카드는 제목 줄 오른쪽에 [새로고침]·[조회], 아래에 [상세 검색 ⌄] — Search 가이드의 SearchArea(필드 줄 끝에 초기화·조회·상세조건)와 배치가 다름. 어느 쪽을 표준으로 할지 ② Header·Work Tab을 스크롤 시 고정(sticky)할지(현재 본문과 함께 스크롤, LNB만 고정) ③ 페이지 하단 여백(Total·Pagination 줄 ↔ Footer)은 상단과 같은 20으로 둠 ④ 가맹점관리자 반응형 시안 없음 → 미적용 ⑤ 적용된 검색 조건 칩·조회 요약 카드는 Data Display 가이드 때 제작
 - [Q38] Tooltip 임시값(TODO, `tokens/custom/tooltip.json`·`field.json`): 화면 경계 최소 간격 8, `z-index/tooltip` 1200, 비활성 Info 아이콘 색. 시안의 "아이콘 ↔ 포인터 0px"은 아이콘(20) 상자 기준으로 0 구현(측정상 원 바깥 1~2px 차이). 표시 애니메이션은 motion 토큰 없어 미포함. LNB 긴 메뉴명(Q32)은 아직 기본 title — Tooltip으로 바꿀지 확인
+- [Q39] Spacing 가이드 Usage와 컴포넌트 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Page Layout Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8(Search·Modal Footer·Page Title·Button Tab) ③ Icon–Text 8 ↔ Button 아이콘 간격 4. 어느 쪽을 기준으로 할지 확인
 
 ## 단계별 요약
 <!-- 각 Phase 종료 시 아래 형식으로 추가
@@ -267,3 +268,7 @@
   - 몸체 Neutral 800 · 반경 8 · 여백 12/10 · 12 Regular 흰 글자 · Hug(최대 320, 줄바꿈). 포인터 12×6, 위·아래 배치는 몸체 왼쪽에서 20 · 좌우 배치는 세로 가운데, 기준 요소 가운데에 맞추고 끝 간격 0
   - 토큰 `tokens/custom/tooltip.json`, `z-index/tooltip`(field.json). stories(Playground · SizeAndWrap · ContentExamples(시안 문구 4개) · Placement · ViewportBoundary · ContainerClip · OnButton), 가이드 `docs/Tooltip.mdx`(Storybook `Components/Tooltip/Guide`)
 - 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 테스트 25개 통과(색 · 글자 · 여백 · 반경, Short Hug · Long 320 줄바꿈, 포인터 크기 · 위치 · 간격 0(4방향), 오른쪽 끝 → Left, 아래 부족 → Top, 카드 밖 표시, 200ms 지연, 이탈 · Focus · Esc 닫기, 클릭 Focus는 즉시 표시 안 함, 버튼에 붙이기). 이 과정에서 왼쪽 배치 포인터가 0.2px 어긋나는 문제(offsetWidth 반올림)를 찾아 수정. 렌더링이 시안 문구 줄바꿈까지 일치
+
+### Foundation: Spacing 가이드 — 2026-11-10
+- 확인: Spacing Scale 가이드의 12단계(0·4·8·12·16·20·24·32·40·48·64·80)가 Figma `space/*`와 값·이름 모두 일치 → 토큰 수정 없음. 코드 토큰 중 Scale 값과 같은 간격은 모두 `{space.N}` alias, 숫자로 적힌 간격은 Scale 밖 시안 측정값(6·10·14·11·44)뿐
+- 만든 것: 가이드 `docs/Spacing.mdx`(Storybook `Foundation/Spacing`) — Scale 표(CSS 변수로 막대 표시), Gap & Padding, Usage 4단계와 현재 컴포넌트 토큰 대응, Scale 밖 값 목록, Do/Don't, 확인 필요(Q39)
