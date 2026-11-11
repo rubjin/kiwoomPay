@@ -85,7 +85,7 @@ export const States: Story = {
 export const Open: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ ...row, minHeight: 280 }}>
+    <div style={{ ...row, minHeight: 300 }}>
       <div style={cell}>
         <MultiSelect fullWidth options={options} defaultValue={['m2-end']} defaultOpen />
       </div>
@@ -110,6 +110,15 @@ export const Open: Story = {
       </div>
       <div style={cell}>
         <MultiSelect options={[]} defaultOpen fullWidth />
+      </div>
+      <div style={cell}>
+        <MultiSelect
+          size="sm"
+          options={[...options, ...reasons]}
+          defaultValue={['m2-end']}
+          defaultOpen
+          fullWidth
+        />
       </div>
     </div>
   ),

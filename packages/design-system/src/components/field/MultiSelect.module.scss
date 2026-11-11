@@ -3,7 +3,8 @@
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $multi-panel-padding: t.$space-8;
-$multi-panel-max-height: 210px; // TODO(시안) 항목 4개(36 · 간격 4)가 스크롤 없이 보이는 높이. 시안 예시마다 달라 확인 필요
+$multi-panel-max-height-md: 276px; // 넘으면 목록만 스크롤
+$multi-panel-max-height-sm: 210px;
 $multi-status-height: 190px; // Loading · Empty 패널 높이
 $multi-gap: t.$space-4; // 검색 ↔ 목록 · 항목 사이
 $multi-item-height: 36px;
@@ -83,11 +84,15 @@ $multi-item-padding-x: 10px;
   display: flex;
   flex-direction: column;
   gap: $multi-gap;
-  max-height: $multi-panel-max-height;
+  max-height: $multi-panel-max-height-md;
   padding: $multi-panel-padding;
   background-color: t.$color-field-bg;
   border: t.$control-border-width solid t.$color-field-border;
   border-radius: t.$field-radius-md;
+}
+
+.panelSm {
+  max-height: $multi-panel-max-height-sm;
 }
 
 .search {
@@ -138,6 +143,10 @@ $multi-item-padding-x: 10px;
 
 .optionDisabled {
   color: t.$color-select-item-text-disabled;
+}
+
+.panelSm .check {
+  @include m.typography(body-sm);
 }
 
 // ── 로딩 · 빈 상태 · 검색 결과 없음 ──────────────────

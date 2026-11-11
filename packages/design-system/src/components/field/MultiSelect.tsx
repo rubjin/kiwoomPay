@@ -310,7 +310,11 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
         createPortal(
           // 패널 안 검색 필드는 바깥 Field(라벨 id · 피드백)와 연결하지 않는다
           <FieldContext.Provider value={null}>
-            <div ref={panelRef} className={styles.panel} style={panelPosition}>
+            <div
+              ref={panelRef}
+              className={clsx(styles.panel, field.size === 'sm' && styles.panelSm)}
+              style={panelPosition}
+            >
               {searchable && (
                 <SearchField
                   size="sm"
