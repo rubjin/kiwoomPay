@@ -1,10 +1,11 @@
 import { Footer as FooterBase } from '@kiwoompay/design-system';
+import logoFooter from '@/assets/logo/logo-footer.svg';
 
-// 회사 정보 Footer. TODO(시안): 로고 SVG 파일을 받으면 logo를 이미지로 교체
+// 회사 정보 Footer (로고: 어두운 배경용 흰색, 110 × 16)
 export function Footer() {
   return (
     <FooterBase
-      logo={<strong>DAOU DATA</strong>}
+      logo={<img src={logoFooter} alt="DAOU DATA" width={110} height={16} />}
       items={[
         '대표이사 : 김상준',
         '사업자등록번호 : 220-81-01733',
