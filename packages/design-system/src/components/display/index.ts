@@ -4,3 +4,7 @@ export { Infobox } from './Infobox';
 export type { InfoboxProps, InfoboxItemProps, InfoboxLinkProps, InfoboxTone } from './Infobox';
 export { SummaryCard } from './SummaryCard';
 export type { SummaryCardProps, SummaryCardSize } from './SummaryCard';
+export { AddressResultRow } from './AddressResultRow';
+export type { AddressResultRowProps } from './AddressResultRow';
+export { AddressSearch } from './AddressSearch';
+export type { AddressItem, AddressSearchExample, AddressSearchProps } from './AddressSearch';

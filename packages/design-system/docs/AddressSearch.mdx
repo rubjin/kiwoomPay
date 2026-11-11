@@ -1,0 +1,73 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as AddressSearchStories from '../src/components/display/AddressSearch.stories';
+
+<Meta of={AddressSearchStories} name="Guide" />
+
+# Address Search
+
+주소를 검색해 고르는 Lookup 내용입니다. `Modal`(size lg · 800)의 `Modal.Body`에 넣어 씁니다.
+주소 API 호출은 하지 않는 순수 UI라, 조회는 화면에서 하고 결과를 넘깁니다.
+
+```tsx
+<Modal open={open} onClose={close} size="lg">
+  <Modal.Header title="주소 검색" />
+  <Modal.Body>
+    <AddressSearch
+      results={results} // undefined = 조회 전 · [] = 결과 없음
+      total={total}
+      loading={loading}
+      onSearch={(query) => fetchAddress(query)}
+      onSelect={(item) => {
+        setAddress(item);
+        close();
+      }}
+    />
+  </Modal.Body>
+</Modal>
+```
+
+## 1. 상태
+
+| 상태      | 조건             | 표시                                                 |
+| --------- | ---------------- | ---------------------------------------------------- |
+| 조회 전   | `results` 없음   | 검색 예시(도로명 · 지번 · 건물명, `examples`로 변경) |
+| 결과      | `results`에 항목 | 검색결과 **N** 건 + Address Result Row 목록          |
+| 결과 없음 | `results={[]}`   | 안내 문구(`emptyTitle` · `emptyDescription`)         |
+
+- 검색: Enter 또는 [조회] → `onSearch(검색어)`. 조회 중에는 `loading`으로 [조회]를 로딩 표시합니다.
+- 결과가 많으면 Modal Body가 스크롤됩니다(Header 고정). 페이지로 나눠 받는다면 `total`에 전체 건수를 넘깁니다.
+
+<Canvas of={AddressSearchStories.States} />
+
+## 2. Address Result Row
+
+결과 한 줄입니다. 목록 밖에서 단독으로도 쓸 수 있습니다.
+
+```tsx
+<AddressResultRow zipCode="04155" roadAddress="서울특별시 마포구 독막로 314 (염리동)" jibunAddress="서울특별시 마포구 염리동 172-10" onSelect={…} />
+```
+
+- 우편번호 · 도로명(굵게) / [지번] 지번 주소, 오른쪽 [선택](Primary Line sm)
+- 긴 주소는 말줄임(…). `jibunAddress`가 없으면 지번 줄을 그리지 않고, `onSelect`가 없으면 [선택]을 그리지 않습니다.
+
+<Canvas of={AddressSearchStories.ResultRow} />
+
+## 3. 동작 예시
+
+<Canvas of={AddressSearchStories.Interactive} />
+
+## 4. Spec
+
+- 검색 줄: SearchField md(남는 폭) + [조회] Neutral Solid md, 간격 8
+- 조회 전: 검색 ↔ "검색 예시" 20 · 줄 간격 10 · 항목 이름 칸 64 (`typo-14-bold` / `typo-13-semi-bold` · `typo-14-regular`)
+- 결과: 검색 ↔ "검색결과 N 건" 12 · ↔ 목록 12, 줄 사이 1px 선(`Line/Subtle`, 위아래 포함)
+- 결과 줄: 높이 78(위아래 16) · 두 줄 간격 3 · 우편번호 ↔ 도로명 16 · [지번] ↔ 지번 8
+  - 글자: 우편번호 `typo-13-medium` · 도로명 `typo-14-semi-bold` · 지번 `typo-13-regular` · [지번] `typo-12-regular`(높이 22 · 반경 4)
+- 결과 없음: 영역 180 가운데 · 두 줄 간격 8 (`typo-14-semi-bold` · `typo-13-regular`)
+- 색: `address/*` (`tokens/custom/address.json`, 모두 alias). 크기 · 간격은 `AddressSearch.module.scss` 맨 위 SCSS 변수
+
+## Do / Don't
+
+- ✅ Lookup Modal(lg) 안에서 사용, 선택하면 Modal을 닫고 값을 필드에 반영
+- ✅ 결과 없음과 조회 전을 구분(`[]` vs `undefined`)
+- ❌ 컴포넌트 안에서 주소 API 호출 — 화면에서 조회하고 `results`로 넘깁니다

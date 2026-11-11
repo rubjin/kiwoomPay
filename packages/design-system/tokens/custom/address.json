@@ -1,0 +1,21 @@
+{
+  "Address": {
+    "Zip": { "$type": "color", "$value": "{Text.Secondary}" },
+    "Road": { "$type": "color", "$value": "{Text.Body}" },
+    "Jibun": { "$type": "color", "$value": "{Text.Placeholder}" },
+    "TagBg": { "$type": "color", "$value": "{Bg.Page}" },
+    "TagBorder": { "$type": "color", "$value": "{Line.Subtle}" },
+    "TagText": { "$type": "color", "$value": "{Text.Secondary}" },
+    "Divider": { "$type": "color", "$value": "{Line.Subtle}" },
+    "Heading": {
+      "$type": "color",
+      "$value": "{Text.Body}",
+      "$description": "검색 예시 · 검색결과 N 건"
+    },
+    "Count": { "$type": "color", "$value": "{Text.Accent}", "$description": "검색결과 건수 숫자" },
+    "ExampleLabel": { "$type": "color", "$value": "{Text.Label}" },
+    "ExampleText": { "$type": "color", "$value": "{Text.Secondary}" },
+    "EmptyTitle": { "$type": "color", "$value": "{Text.Label}" },
+    "EmptyText": { "$type": "color", "$value": "{Text.Placeholder}" }
+  }
+}

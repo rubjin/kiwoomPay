@@ -240,6 +240,21 @@ $typography-caption-strong-font-weight: var(--kp-typography-caption-strong-font-
 $typography-caption-strong-line-height: var(--kp-typography-caption-strong-line-height);
 $typography-caption-strong-letter-spacing: var(--kp-typography-caption-strong-letter-spacing);
 
+// ── custom · address ────────────────────────────────────────────
+$color-address-zip: var(--kp-color-address-zip);
+$color-address-road: var(--kp-color-address-road);
+$color-address-jibun: var(--kp-color-address-jibun);
+$color-address-tag-bg: var(--kp-color-address-tag-bg);
+$color-address-tag-border: var(--kp-color-address-tag-border);
+$color-address-tag-text: var(--kp-color-address-tag-text);
+$color-address-divider: var(--kp-color-address-divider);
+$color-address-heading: var(--kp-color-address-heading); // 검색 예시 · 검색결과 N 건
+$color-address-count: var(--kp-color-address-count); // 검색결과 건수 숫자
+$color-address-example-label: var(--kp-color-address-example-label);
+$color-address-example-text: var(--kp-color-address-example-text);
+$color-address-empty-title: var(--kp-color-address-empty-title);
+$color-address-empty-text: var(--kp-color-address-empty-text);
+
 // ── custom · badge ──────────────────────────────────────────────
 $color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
 $color-badge-neutral-text: var(--kp-color-badge-neutral-text);
@@ -817,6 +832,19 @@ $css-variables: (
   "--kp-typography-typo-10-regular-font-weight": "400",
   "--kp-typography-typo-10-regular-line-height": "1.5",
   "--kp-typography-typo-10-regular-letter-spacing": "0",
+  "--kp-color-address-zip": "var(--kp-color-text-secondary)",
+  "--kp-color-address-road": "var(--kp-color-text-body)",
+  "--kp-color-address-jibun": "var(--kp-color-text-placeholder)",
+  "--kp-color-address-tag-bg": "var(--kp-color-bg-page)",
+  "--kp-color-address-tag-border": "var(--kp-color-line-subtle)",
+  "--kp-color-address-tag-text": "var(--kp-color-text-secondary)",
+  "--kp-color-address-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-address-heading": "var(--kp-color-text-body)",
+  "--kp-color-address-count": "var(--kp-color-text-accent)",
+  "--kp-color-address-example-label": "var(--kp-color-text-label)",
+  "--kp-color-address-example-text": "var(--kp-color-text-secondary)",
+  "--kp-color-address-empty-title": "var(--kp-color-text-label)",
+  "--kp-color-address-empty-text": "var(--kp-color-text-placeholder)",
   "--kp-color-badge-neutral-bg": "var(--kp-color-neutral-100)",
   "--kp-color-badge-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-badge-neutral-dot": "var(--kp-color-neutral-500)",

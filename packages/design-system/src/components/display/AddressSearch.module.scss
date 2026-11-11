@@ -1,0 +1,181 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$address-bar-gap: t.$space-8; // 검색 필드 ↔ [조회]
+$address-section-gap: t.$space-20; // 검색 ↔ 검색 예시
+$address-result-gap: t.$space-12; // 검색 ↔ 검색결과 N 건
+$address-list-gap: t.$space-12; // 검색결과 N 건 ↔ 목록 첫 선
+$address-example-gap: 10px; // 검색 예시 제목 ↔ 줄 · 줄 사이 (측정, 줄 간격 31)
+$address-example-label-width: 64px; // 항목 이름 칸 (값 시작 위치 측정)
+$address-empty-height: 180px; // TODO(시안) 결과 없음 영역 (가운데 정렬, 측정 역산)
+$address-empty-gap: t.$space-8;
+$address-row-padding-y: t.$space-16;
+$address-row-gap: t.$space-16; // 주소 ↔ [선택]
+$address-zip-gap: t.$space-16; // 우편번호 ↔ 도로명
+$address-line-gap: 3px; // 도로명 줄 ↔ 지번 줄 (측정, 줄 높이 78)
+$address-tag-gap: t.$space-8; // [지번] ↔ 지번 주소
+$address-tag-height: 22px;
+$address-tag-padding-x: 6px;
+$address-tag-radius: 4px;
+
+.search {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bar {
+  display: flex;
+  gap: $address-bar-gap;
+  align-items: center;
+}
+
+.heading {
+  @include m.typography(typo-14-bold);
+
+  margin: $address-result-gap 0 0;
+  color: t.$color-address-heading;
+}
+
+.count {
+  font-style: normal;
+  color: t.$color-address-count;
+}
+
+// ── 조회 전: 검색 예시 ───────────────────────────────
+.examples {
+  margin-top: calc(#{$address-section-gap} - #{$address-result-gap});
+}
+
+.exampleList {
+  display: flex;
+  flex-direction: column;
+  gap: $address-example-gap;
+  margin: $address-example-gap 0 0;
+}
+
+.example {
+  display: flex;
+  align-items: baseline;
+}
+
+.exampleLabel {
+  @include m.typography(typo-13-semi-bold);
+
+  flex: none;
+  width: $address-example-label-width;
+  color: t.$color-address-example-label;
+}
+
+.exampleText {
+  @include m.typography(typo-14-regular);
+
+  margin: 0;
+  color: t.$color-address-example-text;
+}
+
+// ── 결과 목록 ────────────────────────────────────────
+.list {
+  padding: 0;
+  margin: $address-list-gap 0 0;
+  list-style: none;
+  border-top: t.$control-border-width solid t.$color-address-divider;
+}
+
+.item {
+  border-bottom: t.$control-border-width solid t.$color-address-divider;
+}
+
+// ── 결과 없음 ────────────────────────────────────────
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: $address-empty-gap;
+  align-items: center;
+  justify-content: center;
+  min-height: $address-empty-height;
+  margin-top: $address-result-gap;
+  text-align: center;
+}
+
+.emptyTitle {
+  @include m.typography(typo-14-semi-bold);
+
+  margin: 0;
+  color: t.$color-address-empty-title;
+}
+
+.emptyText {
+  @include m.typography(typo-13-regular);
+
+  margin: 0;
+  color: t.$color-address-empty-text;
+}
+
+// ── Address Result Row ───────────────────────────────
+.row {
+  display: flex;
+  gap: $address-row-gap;
+  align-items: center;
+  padding: $address-row-padding-y 0;
+}
+
+.address {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $address-line-gap;
+  min-width: 0;
+}
+
+.roadLine,
+.jibunLine {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+}
+
+.roadLine {
+  gap: $address-zip-gap;
+}
+
+.jibunLine {
+  gap: $address-tag-gap;
+}
+
+.zip {
+  @include m.typography(typo-13-medium);
+
+  flex: none;
+  color: t.$color-address-zip;
+}
+
+.road {
+  @include m.typography(typo-14-semi-bold);
+  @include m.ellipsis;
+
+  color: t.$color-address-road;
+}
+
+.tag {
+  @include m.typography(typo-12-regular);
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: $address-tag-height;
+  padding: 0 calc(#{$address-tag-padding-x} - #{t.$control-border-width});
+  color: t.$color-address-tag-text;
+  background-color: t.$color-address-tag-bg;
+  border: t.$control-border-width solid t.$color-address-tag-border;
+  border-radius: $address-tag-radius;
+}
+
+.jibun {
+  @include m.typography(typo-13-regular);
+  @include m.ellipsis;
+
+  color: t.$color-address-jibun;
+}

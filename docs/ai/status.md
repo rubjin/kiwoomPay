@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card) 완료. 남은 것: Address · Search Result, Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) 완료. 남은 것: Search Result, Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -86,6 +86,7 @@
 - [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음, 시스템별 로고가 다를 수 있음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16, 흰색) 적용 완료. LNB 로고 `logo-lnb.svg` 업로드 대기. Footer 항목 ↔ 구분선 9 확정
+- [Q49] Address Search 확인 필요: ① 글자 — 시안 폭 비교로 우편번호 13 Medium · 도로명 14 SemiBold · 지번 13 Regular, 검색 예시 제목 14 Bold · 항목 이름 13 SemiBold · 예시 14 Regular, 검색결과 14 Bold, 결과 없음 14 SemiBold · 13 Regular로 판단 ② 측정값(Scale 밖): 검색 예시 줄 간격 10, 결과 줄 두 줄 간격 3, 결과 없음 영역 180 ③ 결과가 많을 때 시안은 4건만 보임 → 목록 자체 스크롤이 아니라 Modal Body 스크롤로 구현. 목록 최대 높이 · 페이지 나눔(더 보기 · Pagination) 여부 확인 ④ 검색 필드는 값이 있으면 지우기(x) 표시(SearchField 기본, 시안 정지 화면에는 없음)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -393,3 +394,8 @@
 - 만든 것: `navigation/Footer` — `logo` · `items`(사이 구분선 자동) · `copyright`, 가운데 한 줄 · 좁으면 항목 단위 줄바꿈. 토큰 `tokens/custom/footer.json`(배경 Neutral 700 · 글자 Text/Inverse · 구분선 Neutral 500). stories(Playground · Narrow), 가이드 `docs/Footer.mdx`. Page Layout 스토리의 Header · Footer 자리 표시를 실제 컴포넌트로 교체. 앱 `layouts/Footer` 추가 · MainLayout에 연결
 - 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 테스트 7개 통과(1680 × 74 · 배경, 글자 12 Regular 흰색, 구분선 1 × 10 · 색 · 세로 가운데, 간격 12 · 8, 가운데 정렬, 좁은 폭 줄바꿈). 렌더링 캡처가 시안과 일치
 - 한 가정: Q48
+
+### Component: Address Result Row · Address Search (Phase 4 display) — 2026-11-11
+- 만든 것: `display/AddressResultRow`(우편번호 · 도로명 / [지번] 지번 · [선택] Primary Line sm, 말줄임) · `display/AddressSearch`(Modal lg Body용 Lookup 내용: SearchField + [조회] Neutral Solid, 조회 전 = 검색 예시 · 결과 = "검색결과 N 건" + 목록 · `[]` = 결과 없음, `query` controlled/uncontrolled, `onSearch` · `onSelect` · `loading` · `total` · `examples`). 주소 API는 화면에서. 토큰 `tokens/custom/address.json`(색 모두 alias). stories(States · ResultRow · Interactive), 가이드 `docs/AddressSearch.mdx`
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 14개 통과(패널 높이 시안 ±3, 제목 · 검색 · 예시 · 결과 · 안내 글자 줄 위치가 시안과 픽셀 일치(±1), 목록 선 위치 153 · 줄 79, 검색 필드 · [조회], Row 글자 · 색 · 태그 · 간격 · [선택], Enter 조회 · 결과 4건 · 선택 시 닫힘 · 값 반영 · 결과 없음)
+- 한 가정: Q49
