@@ -1,0 +1,62 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as SummaryCardStories from '../src/components/display/SummaryCard.stories';
+
+<Meta of={SummaryCardStories} name="Guide" />
+
+# Summary Card
+
+조회 결과의 **핵심 수치 하나**를 크게 보여주는 카드입니다(총 거래 건수, 승인 금액 등). 화면 상단에 여러 개를 나란히 둡니다.
+
+## 1. 구성
+
+```tsx
+<SummaryCard title="총 거래" info="조회 기간 동안 승인된 거래 건수" value={12480} unit="₩" meta="내용 입력" />
+<SummaryCard size="sm" title="총 거래" value={12480} unit="₩" meta="내용 입력" />
+<SummaryCard title="총 거래" loading />
+<SummaryCard title="총 거래" empty />
+```
+
+| Prop                                        | 설명                                                                      |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `title`                                     | 지표 이름                                                                 |
+| `info`                                      | 제목 옆 Info 아이콘(16)의 Tooltip 문구. 없으면 아이콘 없음                |
+| `value`                                     | 값. 숫자는 천 단위 쉼표를 자동으로 붙임                                   |
+| `unit`                                      | 단위(₩, 건 …). **md는 값 앞, sm은 값 뒤**                                 |
+| `meta`                                      | 보조 문구(앞에 • 자동). **md는 값 아래, sm은 값 옆**                      |
+| `size`                                      | `md`(기본, 높이 120) · `sm`(높이 96)                                      |
+| `loading`                                   | 조회 중: 값 자리에 Skeleton                                               |
+| `empty` · `emptyTitle` · `emptyDescription` | 조회 결과 없음(기본 문구 "조회 결과 없음" / "조회 후 결과가 표시됩니다.") |
+
+## 2. 상태
+
+<Canvas of={SummaryCardStories.States} />
+
+- 카드 높이는 상태와 관계없이 같습니다(값 · Skeleton · 빈 상태 모두 카드 아래쪽에 붙음).
+- 폭은 부모가 정합니다. 여러 개는 부모 grid로 나눕니다.
+- 긴 제목 · 보조 문구는 말줄임(…)됩니다.
+
+<Canvas of={SummaryCardStories.InGrid} />
+
+## 3. Spec
+
+- 크기: md 높이 120 · sm 높이 96, 여백 16(테두리 포함) · 반경 8 · 테두리 1 `Line/Subtle`
+- 제목 줄 높이 24, 제목 ↔ Info 8
+- 글자
+  - 제목 `typo-14-semi-bold` `Text/Label`
+  - md: 값 `typo-24-bold` · 단위 `typo-14-bold`(Primary 900) · 보조 `typo-12-semi-bold`(Primary 600), 값 ↔ 단위 · 보조 4
+  - sm: 값 `typo-20-bold` `Text/Heading` · 단위 `typo-14-regular` · 보조 `typo-13-regular`(`Text/Secondary`), 간격 4
+  - 빈 상태: `typo-14-regular` `Text/Placeholder` · `typo-12-regular` `Text/Disabled`
+- Skeleton: md 120×18 · 180×10, sm 96×18 · 140×10, 간격 8 · 반경 4 · Neutral 100
+- 색: `summary-card/*` (`tokens/custom/summary-card.json`, 모두 alias). 크기 · 간격은 `SummaryCard.module.scss` 맨 위 SCSS 변수
+
+## 4. Do / Don't
+
+- ✅ 조회 조건에 따라 바뀌는 대표 수치 1개
+- ✅ 조회 중에는 `loading`, 결과가 없으면 `empty` — 0과 "결과 없음"을 구분
+- ❌ 여러 수치를 한 카드에 나열 — 카드를 나눕니다
+- ❌ 추이 · 비교 그래프 — Chart & KPI를 씁니다
+
+## Playground
+
+<Canvas of={SummaryCardStories.Playground} />
+<Controls of={SummaryCardStories.Playground} />

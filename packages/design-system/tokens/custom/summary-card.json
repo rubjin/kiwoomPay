@@ -1,0 +1,48 @@
+{
+  "SummaryCard": {
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "Value": {
+      "$type": "color",
+      "$value": "{Primary.900}",
+      "$description": "md 금액 · 단위"
+    },
+    "Meta": {
+      "$type": "color",
+      "$value": "{Primary.600}",
+      "$description": "md 보조 문구"
+    },
+    "CompactValue": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "sm 금액"
+    },
+    "CompactMeta": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "sm 단위 · 보조 문구"
+    },
+    "EmptyTitle": {
+      "$type": "color",
+      "$value": "{Text.Placeholder}"
+    },
+    "EmptyText": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    },
+    "Skeleton": {
+      "$type": "color",
+      "$value": "{Neutral.100}"
+    }
+  }
+}

@@ -1,0 +1,167 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$summary-card-height-md: 120px;
+$summary-card-height-sm: 96px;
+$summary-card-padding: t.$space-16; // 테두리 포함
+$summary-card-radius: 8px;
+$summary-card-header-height: 24px;
+$summary-card-gap: t.$space-8; // 제목 ↔ Info · 값 ↔ 단위
+$summary-card-gap-sm: t.$space-4; // 단위 ↔ 보조 문구 · md 값 ↔ 보조 문구
+$summary-card-skeleton-radius: 4px;
+$summary-card-empty-gap: 2px; // TODO(시안) 빈 상태 두 줄 사이 (글자 위치로 역산)
+$summary-card-skeleton-value-height: 18px;
+$summary-card-skeleton-meta-height: 10px;
+$summary-card-skeleton-value-width: 120px; // sm 96
+$summary-card-skeleton-meta-width: 180px; // sm 140
+$summary-card-skeleton-value-width-sm: 96px;
+$summary-card-skeleton-meta-width-sm: 140px;
+
+// 높이 고정. 제목은 위, 값(또는 Skeleton · 빈 상태)은 아래에 붙인다 → 상태가 바뀌어도 카드 높이가 같다
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: calc(#{$summary-card-padding} - #{t.$control-border-width});
+  background-color: t.$color-summary-card-bg;
+  border: t.$control-border-width solid t.$color-summary-card-border;
+  border-radius: $summary-card-radius;
+}
+
+.md {
+  height: $summary-card-height-md;
+}
+
+.sm {
+  height: $summary-card-height-sm;
+}
+
+.header {
+  display: flex;
+  gap: $summary-card-gap;
+  align-items: center;
+  min-height: $summary-card-header-height;
+  margin-bottom: auto;
+}
+
+.title {
+  @include m.typography(typo-14-semi-bold);
+  @include m.ellipsis;
+
+  min-width: 0;
+  color: t.$color-summary-card-title;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $summary-card-gap-sm;
+  min-width: 0;
+}
+
+.valueRow {
+  display: flex;
+  gap: $summary-card-gap-sm;
+  align-items: center;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.value {
+  @include m.typography(typo-24-bold);
+
+  color: t.$color-summary-card-value;
+}
+
+.unit {
+  @include m.typography(typo-14-bold);
+
+  color: t.$color-summary-card-value;
+}
+
+.meta {
+  @include m.typography(typo-12-semi-bold);
+  @include m.ellipsis;
+
+  min-width: 0;
+  color: t.$color-summary-card-meta;
+
+  &::before {
+    content: '• ';
+  }
+}
+
+// sm: 값 · 단위 · 보조 문구가 한 줄 (글자 아래선 맞춤)
+.sm .valueRow {
+  align-items: baseline;
+}
+
+.sm .value {
+  @include m.typography(typo-20-bold);
+
+  color: t.$color-summary-card-compact-value;
+}
+
+.sm .unit {
+  @include m.typography(typo-14-regular);
+
+  color: t.$color-summary-card-compact-meta;
+}
+
+.sm .meta {
+  @include m.typography(typo-13-regular);
+
+  color: t.$color-summary-card-compact-meta;
+}
+
+// ── 로딩 · 빈 상태 ───────────────────────────────────
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: $summary-card-gap;
+}
+
+.skeletonValue,
+.skeletonMeta {
+  display: block;
+  max-width: 100%;
+  background-color: t.$color-summary-card-skeleton;
+  border-radius: $summary-card-skeleton-radius;
+}
+
+.skeletonValue {
+  width: $summary-card-skeleton-value-width;
+  height: $summary-card-skeleton-value-height;
+}
+
+.skeletonMeta {
+  width: $summary-card-skeleton-meta-width;
+  height: $summary-card-skeleton-meta-height;
+}
+
+.sm .skeletonValue {
+  width: $summary-card-skeleton-value-width-sm;
+}
+
+.sm .skeletonMeta {
+  width: $summary-card-skeleton-meta-width-sm;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: $summary-card-empty-gap;
+}
+
+.emptyTitle {
+  @include m.typography(typo-14-regular);
+
+  color: t.$color-summary-card-empty-title;
+}
+
+.emptyText {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-summary-card-empty-text;
+}
