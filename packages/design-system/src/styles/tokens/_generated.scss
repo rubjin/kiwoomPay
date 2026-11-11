@@ -424,6 +424,12 @@ $color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // TO
 $color-text-button-neutral-text-hover: var(--kp-color-text-button-neutral-text-hover); // TODO(시안)
 $color-text-button-text-disabled: var(--kp-color-text-button-text-disabled);
 
+// ── custom · compact-navigation ─────────────────────────────────
+$color-compact-nav-icon: var(--kp-color-compact-nav-icon); // 이전 · 다음 화살표 (시안 #185888)
+$color-compact-nav-icon-disabled: var(--kp-color-compact-nav-icon-disabled);
+$color-compact-nav-text: var(--kp-color-compact-nav-text); // 현재 · 전체 번호
+$color-compact-nav-divider: var(--kp-color-compact-nav-divider); // 번호 사이 /
+
 // ── custom · control ────────────────────────────────────────────
 $control-height-sm: var(--kp-control-height-sm); // Button Guide 02. Spec
 $control-height-md: var(--kp-control-height-md);
@@ -942,6 +948,10 @@ $css-variables: (
   "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-neutral-text-hover": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-compact-nav-icon": "var(--kp-color-primary-700)",
+  "--kp-color-compact-nav-icon-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-compact-nav-text": "var(--kp-color-text-secondary)",
+  "--kp-color-compact-nav-divider": "var(--kp-color-text-disabled)",
   "--kp-control-height-sm": "32px",
   "--kp-control-height-md": "40px",
   "--kp-control-height-lg": "48px",

@@ -1,0 +1,56 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$compact-nav-gap: t.$space-4; // 화살표 ↔ 번호
+$compact-nav-count-gap: 2px; // TODO(시안) 번호 ↔ / (글자 간격 근사)
+$compact-nav-icon-size: 16px;
+
+.root {
+  display: inline-flex;
+  gap: $compact-nav-gap;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: $compact-nav-icon-size;
+  height: $compact-nav-icon-size;
+  padding: 0;
+  color: t.$color-compact-nav-icon;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:disabled {
+    color: t.$color-compact-nav-icon-disabled;
+    cursor: default;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.count {
+  @include m.typography(label-strong);
+
+  display: inline-flex;
+  gap: $compact-nav-count-gap;
+  align-items: center;
+  color: t.$color-compact-nav-text;
+  white-space: nowrap;
+}
+
+.divider {
+  color: t.$color-compact-nav-divider;
+}

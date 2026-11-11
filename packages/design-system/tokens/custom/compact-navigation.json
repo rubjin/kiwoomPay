@@ -1,0 +1,23 @@
+{
+  "CompactNav": {
+    "Icon": {
+      "$type": "color",
+      "$value": "{Primary.700}",
+      "$description": "이전 · 다음 화살표 (시안 #185888)"
+    },
+    "IconDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "현재 · 전체 번호"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Text.Disabled}",
+      "$description": "번호 사이 /"
+    }
+  }
+}
