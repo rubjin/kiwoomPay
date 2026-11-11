@@ -38,6 +38,7 @@ export const Playground: Story = { decorators: narrow };
 
 /** Default + Counter(우측 하단, 12px Regular) · Small */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <div style={cell}>
@@ -51,6 +52,7 @@ export const Sizes: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <div style={cell}>

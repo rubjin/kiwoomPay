@@ -10,7 +10,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Icon/Icon',
+  title: 'Components/Icon',
   component: Icon,
   args: { name: 'search', size: 24 },
   argTypes: {
@@ -33,6 +33,7 @@ const cell: CSSProperties = {
 
 /** 12 · 16 · 20 · 24. 크기마다 따로 그려진 variant를 쓴다. */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       {([12, 16, 20, 24] as IconSize[]).map((size) => (
@@ -47,6 +48,7 @@ export const Sizes: Story = {
 
 /** 선 아이콘은 글자색을 따른다. 부모의 color로 상태에 맞는 색을 준다. */
 export const Colors: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       {[
@@ -67,6 +69,7 @@ export const Colors: Story = {
 
 /** 상태 아이콘은 고유한 색을 가진다 (토큰 변수로 연결되어 있다). */
 export const Status: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       {(
@@ -164,6 +167,7 @@ function GalleryExample() {
  * 상태 아이콘(*-filled)은 고유한 색을 유지한다.
  */
 export const OnDark: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div
       style={{
@@ -188,5 +192,6 @@ export const OnDark: Story = {
 
 /** 전체 아이콘. 아래 숫자는 직접 제공되는 크기이고, 없는 크기는 가장 가까운 크기를 줄여서 그린다. */
 export const Gallery: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <GalleryExample />,
 };

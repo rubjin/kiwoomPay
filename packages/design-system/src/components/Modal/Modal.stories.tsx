@@ -15,7 +15,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Modal/Modal',
+  title: 'Components/Modal',
   component: Modal,
   args: { open: true, inline: true, children: null },
 } satisfies Meta<typeof Modal>;
@@ -57,6 +57,7 @@ function FormContent({ lookupLabel = 'top' }: { lookupLabel?: 'top' | 'left' }) 
 
 /** Type: Alert · Confirm · Information · Form (미리보기: 딤 없이 패널만) */
 export const Types: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Modal open inline>
@@ -105,6 +106,7 @@ export const Types: Story = {
 
 /** Action: None(버튼 없음) · Single · Double */
 export const Actions: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Modal open inline>
@@ -160,6 +162,7 @@ function FooterActions({ count, primary }: { count: ActionCount; primary: string
  * 폭은 Type별 size — Alert · Confirm sm 400 / Information md 620 / Form lg 800
  */
 export const Patterns: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-24)' }}>
       <div style={row}>
@@ -354,6 +357,7 @@ function LookupExample() {
 
 /** 실제 동작: 버튼으로 열고, 확인·취소·X·Esc로 닫는다. 열리면 배경 스크롤이 잠기고, 닫히면 연 버튼으로 포커스가 돌아온다. */
 export const Interactive: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...row, alignItems: 'center' }}>
       <AlertExample />

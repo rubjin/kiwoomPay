@@ -26,6 +26,7 @@ export const Playground: Story = {};
 
 /** Default 20 · Small 16 */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Radio value="md" name="sizes" size="md" label="Default 20" />
@@ -36,6 +37,7 @@ export const Sizes: Story = {
 
 /** Off · On */
 export const Check: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Radio value="off" name="check" label="Off" />
@@ -45,6 +47,7 @@ export const Check: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Radio value="a" name="states-a" label="Default" defaultChecked />
@@ -55,6 +58,7 @@ export const States: Story = {
 };
 
 export const Content: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Radio value="a" name="content-a" label="라디오" />
@@ -79,10 +83,12 @@ function GroupExample() {
 
 /** 같은 그룹에서는 하나의 항목만 선택된다. */
 export const Group: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <GroupExample />,
 };
 
 export const Horizontal: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <RadioGroup defaultValue="b" direction="horizontal" aria-label="구분">
       <Radio value="a" label="개인" />

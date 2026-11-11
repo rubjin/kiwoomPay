@@ -10,7 +10,7 @@ import { Lnb, type LnbMenuItem } from '../navigation';
 import { PageLayout } from './PageLayout';
 
 const meta = {
-  title: 'Components/Layout/PageLayout',
+  title: 'Components/Page Layout',
   component: PageLayout,
   parameters: { layout: 'fullscreen' },
   args: { children: null },
@@ -112,6 +112,7 @@ function Grid({ rows = 10 }: { rows?: number }) {
 
 /** 01. Page Structure: 공통 Shell + 조회형 화면 Section 순서 */
 export const Structure: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <PageLayout lnb={lnb} header={headerSlot} workTab={workTab} footer={footerSlot}>
       <PageLayout.Title
@@ -259,11 +260,13 @@ function TradeListPage() {
 
 /** 02. 1920 GUI 구성 예시 (통합 거래내역). [상세조건]을 펼치면 아래 Section이 밀려 내려간다 */
 export const TradeList: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <TradeListPage />,
 };
 
 /** LNB · Work Tab 없는 최소 구성 (팝업 창 등) */
 export const ContentOnly: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <PageLayout>
       <PageLayout.Title title="화면명" />

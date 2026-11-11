@@ -3,7 +3,7 @@ import { useState, type CSSProperties } from 'react';
 import { Tab } from './Tab';
 
 const meta = {
-  title: 'Components/Tab/Tab',
+  title: 'Components/Tab',
   component: Tab,
   args: { defaultValue: 'a', children: null },
   argTypes: {
@@ -34,6 +34,7 @@ export const Playground: Story = {
 
 /** Default · Active · Disabled. Active는 한 그룹에 1개만 */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Tab defaultValue="active">
       <Tab.Item value="default">Tab</Tab.Item>
@@ -47,6 +48,7 @@ export const States: Story = {
 
 /** Medium 40(일반 콘텐츠) · Small 32(밀도 높은 영역) · Badge(기존 Number Badge 재사용) */
 export const SizeAndBadge: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Tab defaultValue="a" size="md">
@@ -81,6 +83,7 @@ export const SizeAndBadge: Story = {
 
 /** Content Width(기본): Label 길이만큼 · Equal Width(fullWidth): 부모 폭을 같은 비율로 */
 export const Layout: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Tab defaultValue="a">
@@ -104,6 +107,7 @@ export const Layout: Story = {
 
 /** Button Tab: 동일 영역의 동급 View를 버튼형으로 전환 */
 export const ButtonTab: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Tab variant="button" defaultValue="a">
@@ -144,5 +148,6 @@ function InteractiveExample() {
 
 /** controlled: 선택한 Tab에 따라 화면이 View를 바꾼다 */
 export const Interactive: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <InteractiveExample />,
 };

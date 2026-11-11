@@ -59,7 +59,7 @@ const DetailActions = () => (
 );
 
 const meta = {
-  title: 'Components/Search/SearchArea',
+  title: 'Components/Search',
   component: SearchArea,
   args: { children: null },
 } satisfies Meta<typeof SearchArea>;
@@ -69,6 +69,7 @@ type Story = StoryObj<typeof meta>;
 
 /** Basic: 항상 노출되는 핵심 검색 조건 + 초기화 · 조회 · 상세조건 */
 export const Basic: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <SearchArea detail={<DetailFields />} detailActions={<DetailActions />}>
       <BasicFields />
@@ -78,6 +79,7 @@ export const Basic: Story = {
 
 /** Detail · Expanded: 상세조건을 펼치면 추가 필드와 개인 검색조건 기능 */
 export const DetailExpanded: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <SearchArea defaultExpanded detail={<DetailFields />} detailActions={<DetailActions />}>
       <BasicFields />
@@ -87,6 +89,7 @@ export const DetailExpanded: Story = {
 
 /** 상세 조건이 없는 화면: [상세조건] 버튼 없음 */
 export const BasicOnly: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <SearchArea>
       <BasicFields />
@@ -96,6 +99,7 @@ export const BasicOnly: Story = {
 
 /** Validation: 입력 오류는 Field의 feedback · helperText로 표시 */
 export const Validation: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <SearchArea>
       <Field
@@ -164,5 +168,6 @@ function InteractiveExample() {
 
 /** 실제 동작: Enter · [조회] → onSearch, [초기화] → onReset, 조회 중 로딩 */
 export const Interactive: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <InteractiveExample />,
 };

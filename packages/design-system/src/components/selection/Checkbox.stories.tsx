@@ -28,6 +28,7 @@ export const Playground: Story = {};
 
 /** Default 20 · Small 16 */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Checkbox size="md" label="Default 20" />
@@ -38,6 +39,7 @@ export const Sizes: Story = {
 
 /** Off · On · Indeterminate */
 export const Check: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Checkbox label="Off" />
@@ -48,6 +50,7 @@ export const Check: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Checkbox label="Default" defaultChecked />
@@ -59,6 +62,7 @@ export const States: Story = {
 
 /** Label · Label + Helper · 라벨 없음 */
 export const Content: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Checkbox label="체크박스" />
@@ -99,10 +103,12 @@ function GroupExample() {
 
 /** 전체 선택 대상 중 일부만 선택되면 전체 선택 체크박스를 Indeterminate로 표시한다. */
 export const Group: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <GroupExample />,
 };
 
 export const Single: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <SelectionGroup>
       <Checkbox label="거래 1건 선택" />

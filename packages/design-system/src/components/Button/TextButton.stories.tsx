@@ -27,6 +27,7 @@ export const Playground: Story = {};
 
 /** 화면 안에서 기능을 실행한다 (초기화, 전체보기 등). 배경·테두리가 없다. */
 export const TextAction: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextButton variant="primary">이력조회</TextButton>
@@ -44,6 +45,7 @@ export const TextAction: Story = {
 
 /** 다른 화면·외부 페이지로 이동한다. 모든 상태에서 밑줄을 유지한다. */
 export const Link: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextLink href="#guide">이용가이드 안내</TextLink>

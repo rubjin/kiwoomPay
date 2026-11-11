@@ -5,7 +5,7 @@ import { Modal } from '../Modal';
 import { WORK_TAB_LIMIT, WorkTab, type WorkTabAction } from './WorkTab';
 
 const meta = {
-  title: 'Components/Tab/WorkTab',
+  title: 'Components/Work Tab',
   component: WorkTab,
   args: { defaultValue: 'b', children: null },
 } satisfies Meta<typeof WorkTab>;
@@ -37,6 +37,7 @@ export const Playground: Story = {
 
 /** Default · Hover(마우스를 올려 확인: 회색 배경 + 닫기) · Active(Workspace에 1개, 더보기 + 닫기 + 아래 선) */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <WorkTab>
@@ -54,6 +55,7 @@ export const States: Story = {
 
 /** 열린 업무 화면을 좌 → 우 순서로 Gap 없이 배치. 최대 10개 */
 export const WorkspaceBar: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <WorkTab defaultValue="10" actions={sampleActions} onClose={log('닫기')}>
       {Array.from({ length: 9 }, (_, i) => (
@@ -68,6 +70,7 @@ export const WorkspaceBar: Story = {
 
 /** 긴 메뉴명은 말줄임 + 전체 이름 title. 고정 Tab처럼 닫을 수 없으면 closable={false} */
 export const LongLabelAndFixed: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <WorkTab defaultValue="b" actions={sampleActions}>
       <WorkTab.Item value="a" closable={false}>
@@ -81,6 +84,7 @@ export const LongLabelAndFixed: Story = {
 
 /** Tab 관리 메뉴: Trigger를 누르면 레이어로 노출 (Modal 아님) */
 export const ActionMenu: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ paddingBottom: 220 }}>
       <WorkTab.ActionMenu count={10} actions={sampleActions} />
@@ -235,5 +239,6 @@ function WorkspaceDemo() {
 
 /** 열기 · 전환 · 닫기 · Tab 관리 메뉴 · 10개 초과 얼럿 */
 export const Interactive: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <WorkspaceDemo />,
 };

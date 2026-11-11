@@ -41,6 +41,7 @@ export const Playground: Story = {
 
 /** variant(4) × appearance(2). 한 화면·팝업에는 Primary Solid를 1개만 둔다. */
 export const Variants: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={stack}>
       {appearances.map((appearance) => (
@@ -58,6 +59,7 @@ export const Variants: Story = {
 
 /** Large 48 · Medium 40 · Small 32 */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={stack}>
       {appearances.map((appearance) => (
@@ -75,6 +77,7 @@ export const Sizes: Story = {
 
 /** Text Only / Leading Icon / Trailing Icon / Icon Only. 아이콘은 앞·뒤 중 하나만 쓴다. */
 export const Icons: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={stack}>
       {sizes.map((size) => (
@@ -107,6 +110,7 @@ export const Icons: Story = {
 
 /** Default · Disabled · Loading(로딩 아이콘 + "처리 중"). Hover / Pressed는 마우스로 확인한다. */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={stack}>
       {appearances.map((appearance) => (
@@ -133,6 +137,7 @@ export const States: Story = {
 /** 긴 텍스트는 말줄임. 부모 폭을 넘지 않는다. */
 /** 로딩: 크기별 · 아이콘 전용. 문구는 loadingText로 바꿀 수 있다. */
 export const Loading: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={stack}>
       {sizes.map((size) => (
@@ -160,6 +165,7 @@ export const Loading: Story = {
 };
 
 export const LongText: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ width: 200 }}>
       <Button appearance="line" variant="neutral" leadingIcon={<Icon name="download" size={20} />}>

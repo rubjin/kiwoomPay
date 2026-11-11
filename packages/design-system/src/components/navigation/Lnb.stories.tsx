@@ -105,7 +105,7 @@ const Logo = () => (
 const frame: CSSProperties = { height: 760, display: 'flex' };
 
 const meta = {
-  title: 'Components/Navigation/LNB',
+  title: 'Components/LNB',
   component: Lnb,
   args: {
     items: menu,
@@ -227,5 +227,6 @@ function InteractiveExample() {
 
 /** 실제 동작: 메뉴 선택 · 펼치기 · 접기 · 즐겨찾기 탭 · 검색 · 즐겨찾기 편집(Modal) */
 export const Interactive: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <InteractiveExample />,
 };

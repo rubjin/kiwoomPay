@@ -48,6 +48,7 @@ export const Playground: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <SelectBox options={options} size="md" />
@@ -58,6 +59,7 @@ export const Sizes: Story = {
 
 /** Default · Filled · Disabled · Negative. Open은 클릭하거나 아래 스토리에서 확인한다. */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <SelectBox options={options} />
@@ -70,6 +72,7 @@ export const States: Story = {
 
 /** 열린 상태: 항목 Default · Hover(마우스 오버) · Selected · Disabled */
 export const Open: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={tall}>
       <div style={cell}>
@@ -81,6 +84,7 @@ export const Open: Story = {
 
 /** 항목이 많으면 최대 높이에서 스크롤된다. */
 export const Scroll: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={tall}>
       <div style={cell}>
@@ -91,6 +95,7 @@ export const Scroll: Story = {
 };
 
 export const Loading: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={tall}>
       <div style={cell}>
@@ -101,6 +106,7 @@ export const Loading: Story = {
 };
 
 export const Empty: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={tall}>
       <div style={cell}>
@@ -122,6 +128,7 @@ function ControlledExample() {
 
 /** controlled 사용 예시 */
 export const Controlled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={tall}>
       <ControlledExample />

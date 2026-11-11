@@ -13,7 +13,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/DatePicker/DatePicker',
+  title: 'Components/DatePicker',
   component: DatePicker,
   // 시안과 같은 화면을 위해 오늘을 고정한다 (실사용에서는 생략 → 사용자 PC 기준)
   args: { today: '2026-08-11', defaultValue: '2026-08-14' },
@@ -27,6 +27,7 @@ export const Single: Story = {};
 
 /** 기간: 시작일 → 종료일 순서로 두 번 고른다. 시작·끝은 채움, 중간은 연한 배경 */
 export const Range: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <DatePicker
       mode="range"
@@ -57,11 +58,13 @@ function ControlledExample() {
 
 /** 이전·다음 달로 이동해도 선택값은 유지된다. */
 export const Controlled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
 };
 
 /** 선택 가능 범위(min · max)와 날짜별 비활성(isDateDisabled: 주말) */
 export const DisabledDates: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <DatePicker
       today="2026-08-11"
@@ -74,6 +77,7 @@ export const DisabledDates: Story = {
 
 /** 최대 조회 기간 7일: 시작일을 고르면 7일을 넘는 날짜는 선택할 수 없다. */
 export const MaxRange: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <DatePicker mode="range" today="2026-08-11" defaultMonth="2026-08" maxRangeDays={7} />
   ),
@@ -81,6 +85,7 @@ export const MaxRange: Story = {
 
 /** 필드를 누르거나 달력 아이콘을 누르면 열리고, 날짜를 고르면 값이 반영되며 닫힌다. */
 export const WithField: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...row, minHeight: 420 }}>
       <DateField defaultValue="2026-08-14" />

@@ -280,3 +280,15 @@
   - `Field` 본문이 라벨 옆 남은 폭을 차지하도록 수정 → `fullWidth` 컨트롤이 Field 안에서도 폭을 채움(기존엔 내용 폭에 갇혀 채우지 못함). 컨트롤 기본 폭은 그대로
   - Modal stories: `Patterns`(12종 매트릭스) 추가, Types · Form 예시에 size 적용. 가이드 `docs/Modal.mdx`에 "3. Pattern (Type × Action)"과 Form 본문 배치 규칙, Spec 폭 갱신
 - 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 측정 11개 통과(폭 400 × 6 · 620 × 3 · 800 × 3, Action 0/1/2 버튼, [조회] 오른쪽 여백 20 · 검색 ↔ 조회 8, 라벨 위 4 / 왼쪽 8, 필드 40, 입력 폭 200). Field 변경 후 기존 테스트(Page Layout · Work Tab 28 · Tooltip 25) 재통과, SearchArea 화면은 수정 전과 배치 동일(픽셀 비교, 글자 안티앨리어싱 차이만)
+
+### Storybook 사이드바 구조 정리 — 2026-11-11
+- 변경: 컴포넌트가 하나인 그룹은 한 단계 줄임 — 가이드 MDX를 스토리에 붙이고(`<Meta of={…} name="Guide" />`) 스토리 title을 `Components/<이름>`으로 변경(Badge · DatePicker · Icon · LNB · Modal · Page Layout · Pagination · Search · Tab · Tooltip · Work Tab). 여러 컴포넌트를 묶는 Button · Field · Selection은 그룹 폴더 유지(`Components/<그룹>/Guide` + 컴포넌트별 스토리)
+- `.storybook/preview.ts`에 `storySort` 추가: Introduction → Foundation → Components, 각 컴포넌트 안에서 Guide 먼저
+- 규칙(새 컴포넌트): 단일 컴포넌트는 스토리 `title: 'Components/<이름>'` + MDX `<Meta of={Stories} name="Guide" />`. 묶음은 `Components/<그룹>/<컴포넌트>` + MDX `<Meta title="Components/<그룹>/Guide" />`
+- 검증: typecheck · lint · Storybook 빌드 통과, 가이드 문서 16개 렌더링(에러 없음) 확인. Storybook 주소(id)가 바뀌어 기존 북마크는 다시 찾아야 함(예: `components-modal-guide--docs` → `components-modal--guide`)
+
+### Storybook Controls 정리 — 2026-11-11
+- 문제: 고정 예시 스토리(`render: () =>`, 104개)는 args를 쓰지 않는데 Controls 패널이 보여 바꿔도 변화가 없었음. Playground에서도 `defaultValue`·`defaultOpen` 같은 초기값 컨트롤은 처음 그릴 때만 반영됨
+- 변경: 고정 예시 스토리에 `parameters: { controls: { disable: true } }` → Controls는 Playground 등 args를 쓰는 스토리에서만 보임. `.storybook/preview.ts` → `preview.tsx`, 단순 값(글자·숫자·참거짓) args가 바뀌면 스토리를 다시 그리는 데코레이터 추가(`Fragment` key, DOM 변화 없음)
+- 규칙(새 스토리): 고정 예시는 `render: () =>` + `controls: { disable: true }`, 조작용은 `args`/`render: (args) =>`
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저에서 Controls 조작 테스트 7개 통과(Tab variant·defaultValue, Button size, 고정 예시는 컨트롤 없음). 기존 테스트 재통과(DatePicker 32 · LNB 23 · Tab 19 · Pagination 20 · 공통 24, Modal · Search는 이후 확정된 폭 620·800 · 라벨 간격 4로 테스트 기대값만 옛 값)

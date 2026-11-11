@@ -26,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <DateField size="md" />
@@ -35,6 +36,7 @@ export const Sizes: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <DateField />
@@ -58,5 +60,6 @@ function ControlledExample() {
 
 /** 숫자만 입력해도 YYYY-MM-DD로 정렬된다. 필드나 달력 아이콘을 누르면 Date Picker가 열린다. */
 export const Controlled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
 };

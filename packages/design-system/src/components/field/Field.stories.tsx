@@ -39,6 +39,7 @@ export const Playground: Story = {
 
 /** 라벨은 필드 왼쪽, 안내 문구는 필드 아래(왼쪽 정렬)에 놓인다. labelWidth로 라벨 폭을 맞춘다. */
 export const WithControls: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Field
@@ -67,6 +68,7 @@ export const WithControls: Story = {
 
 /** feedback은 안쪽 컨트롤과 안내 문구 색에 함께 적용된다. */
 export const Feedback: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Field label="Label Text" feedback="positive" helperText="유효성 검증 통과">
@@ -80,6 +82,7 @@ export const Feedback: Story = {
 };
 
 export const Small: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Field label="Label Text" size="sm" helperText="Helper Text">
       <TextField placeholder="입력해주세요" />
@@ -88,6 +91,7 @@ export const Small: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Field label="Label Text" disabled>
       <TextField defaultValue="비활성화" />

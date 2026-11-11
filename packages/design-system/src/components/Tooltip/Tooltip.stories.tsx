@@ -5,7 +5,7 @@ import { InfoTip } from './InfoTip';
 import { Tooltip } from './Tooltip';
 
 const meta = {
-  title: 'Components/Tooltip/Tooltip',
+  title: 'Components/Tooltip',
   component: InfoTip,
   args: { content: '도움말 내용을 확인할 수 있습니다.' },
   argTypes: {
@@ -51,6 +51,7 @@ export const Playground: Story = {};
 
 /** Short: 콘텐츠 크기에 맞춰 가로 확장 / Long: 최대 320에서 자동 줄바꿈, 높이 Hug */
 export const SizeAndWrap: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...row, paddingBottom: 60 }}>
       <InfoTip defaultOpen content="짧은 안내 문구입니다." />
@@ -64,6 +65,7 @@ export const SizeAndWrap: Story = {
 
 /** 실제 문구 4개를 연결한 예시 (권한 관리 화면) */
 export const ContentExamples: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div
       style={{
@@ -103,6 +105,7 @@ export const ContentExamples: Story = {
 
 /** Bottom(기본) · Top · Left · Right. 공간이 모자라면 자동으로 바뀐다 */
 export const Placement: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 480px)', gridAutoRows: 120 }}>
       <div style={{ paddingLeft: 40 }}>
@@ -127,6 +130,7 @@ export const Placement: Story = {
 
 /** 화면 오른쪽 끝: 아래 배치가 넘치면 아이콘 왼쪽에 표시 (Viewport Boundary) */
 export const ViewportBoundary: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <InfoTip defaultOpen content="화면 경계를 넘지 않도록 위치를 조정합니다." />
@@ -136,6 +140,7 @@ export const ViewportBoundary: Story = {
 
 /** 카드가 overflow: hidden이어도 툴팁은 Overlay 계층에 그려져 잘리지 않는다 */
 export const ContainerClip: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div
       style={{
@@ -159,6 +164,7 @@ export const ContainerClip: Story = {
 
 /** Info 아이콘이 아닌 요소에도 Tooltip을 붙일 수 있다 (보조 설명 전용) */
 export const OnButton: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Tooltip content="선택한 거래만 취소 요청합니다.">
       <Button size="sm">선택 취소</Button>

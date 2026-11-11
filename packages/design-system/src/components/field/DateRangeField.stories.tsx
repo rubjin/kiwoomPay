@@ -28,6 +28,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <DateRangeField size="md" />
@@ -37,6 +38,7 @@ export const Sizes: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <DateRangeField />
@@ -61,5 +63,6 @@ function ControlledExample() {
 }
 
 export const Controlled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
 };

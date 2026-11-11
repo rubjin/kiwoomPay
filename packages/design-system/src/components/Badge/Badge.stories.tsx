@@ -20,7 +20,7 @@ const tones: Array<[BadgeTone, string]> = [
 ];
 
 const meta = {
-  title: 'Components/Badge/Badge',
+  title: 'Components/Badge',
   component: Badge,
   args: { children: '정상', tone: 'success', dot: true },
   argTypes: {
@@ -38,6 +38,7 @@ export const Playground: Story = {};
 
 /** Text · Number · Dot */
 export const Types: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Badge tone="success" dot>
@@ -51,6 +52,7 @@ export const Types: Story = {
 
 /** Tone: Status 색 체계를 그대로 쓴다. 상태(info~error)는 점과 함께, 분류(neutral·primary)는 점 없이. */
 export const Tones: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <div style={row}>
@@ -73,6 +75,7 @@ export const Tones: Story = {
 
 /** Soft · Line · Default(H24 · 13 Medium) · Small(H20 · 12 Medium) · Status Dot */
 export const TextBadge: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Badge tone="info" dot>
@@ -96,6 +99,7 @@ export const TextBadge: Story = {
 
 /** Number: 99를 넘으면 99+. 0이면 숨긴다(showZero로 표시). Dot: 신규 기능·메뉴 업데이트 */
 export const NumberAndDot: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <NumberBadge count={1} />
@@ -111,6 +115,7 @@ export const NumberAndDot: Story = {
 
 /** StatusDot 기준: 단독 상태는 Hide, 여러 상태를 비교하는 목록은 Show, 분류·속성은 Hide */
 export const StatusDotUsage: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <Badge tone="success">정상</Badge>

@@ -31,6 +31,7 @@ export const Playground: Story = {};
 
 /** Default 40 · Small 32. 폭은 고정 variant 없이 내용(또는 부모) 기준이다. */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextField size="md" placeholder="Default 40" />
@@ -41,6 +42,7 @@ export const Sizes: Story = {
 
 /** Default · Filled · Disabled · Readonly. Focus는 입력창을 클릭해 확인한다. */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextField placeholder="입력해주세요" />
@@ -53,6 +55,7 @@ export const States: Story = {
 
 /** Positive · Negative: 테두리 2px. 안내 문구는 Field의 helperText로 함께 쓴다. */
 export const Feedback: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextField feedback="positive" defaultValue="입력값" />
@@ -63,6 +66,7 @@ export const Feedback: Story = {
 
 /** Leading Icon · Trailing(지우기) · Suffix */
 export const Content: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <TextField
@@ -76,6 +80,7 @@ export const Content: Story = {
 };
 
 export const FullWidth: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ width: 360 }}>
       <TextField fullWidth placeholder="부모 폭을 채웁니다" />

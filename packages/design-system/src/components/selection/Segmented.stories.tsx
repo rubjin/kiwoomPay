@@ -26,6 +26,7 @@ export const Playground: Story = {
 
 /** Default · Selected · Disabled */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Segmented defaultValue="selected">
       <Segmented.Item value="default">옵션</Segmented.Item>
@@ -53,10 +54,12 @@ function ControlledExample() {
 
 /** 클릭 즉시 값이 바뀐다 (controlled). */
 export const Controlled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
 };
 
 export const LongLabel: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ width: 260 }}>
       <Segmented defaultValue="a">
@@ -68,6 +71,7 @@ export const LongLabel: Story = {
 };
 
 export const AllDisabled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Segmented defaultValue="a" disabled>
       <Segmented.Item value="a">일반</Segmented.Item>

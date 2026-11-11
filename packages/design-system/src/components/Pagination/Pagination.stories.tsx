@@ -10,7 +10,7 @@ const col: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Pagination/Pagination',
+  title: 'Components/Pagination',
   component: Pagination,
   args: { totalPages: 10, defaultPage: 1 },
   argTypes: {
@@ -38,11 +38,13 @@ function ControlledExample() {
 
 /** 이전 → 번호 → 생략(…) → 다음. 현재 페이지 1개만 Active로 표시한다. */
 export const Structure: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
 };
 
 /** 현재 위치에 따라 생략(…) 위치가 바뀐다. 칸 수는 일정하게 유지된다. */
 export const Ellipsis: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Pagination totalPages={10} defaultPage={1} />
@@ -55,6 +57,7 @@ export const Ellipsis: Story = {
 
 /** 페이지가 적으면 생략 없이 모두 보여준다. */
 export const FewPages: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Pagination totalPages={1} />
@@ -66,6 +69,7 @@ export const FewPages: Story = {
 
 /** 첫·마지막 페이지에서는 이동할 수 없는 방향이 Disabled. 조회 중에는 전체를 disabled로 막는다. */
 export const Disabled: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={col}>
       <Pagination totalPages={10} defaultPage={1} />

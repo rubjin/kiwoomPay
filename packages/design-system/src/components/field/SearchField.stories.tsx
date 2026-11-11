@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <SearchField size="md" />
@@ -35,6 +36,7 @@ export const Sizes: Story = {
 
 /** Default · Filled(지우기 버튼) · Disabled. Focus / Typing은 직접 입력해 확인한다. */
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <SearchField />
@@ -73,5 +75,6 @@ function WithButtonExample() {
 
 /** 조회 버튼과 함께: 필드와 버튼은 같은 size를 쓰고 간격은 8px이다. */
 export const WithButton: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <WithButtonExample />,
 };

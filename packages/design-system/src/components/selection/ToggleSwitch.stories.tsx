@@ -27,6 +27,7 @@ export const Playground: Story = {};
 
 /** Default 20 · Small 16 */
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <ToggleSwitch size="md" label="Default 20" />
@@ -37,6 +38,7 @@ export const Sizes: Story = {
 
 /** Off · On */
 export const Value: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <ToggleSwitch label="Off" />
@@ -46,6 +48,7 @@ export const Value: Story = {
 };
 
 export const States: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <ToggleSwitch label="Default" defaultChecked />
@@ -56,6 +59,7 @@ export const States: Story = {
 };
 
 export const Content: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div style={row}>
       <ToggleSwitch label="토글 스위치" />
@@ -82,5 +86,6 @@ function GroupExample() {
 
 /** 설정이나 기능을 즉시 켜거나 끌 때 사용한다. */
 export const Group: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <GroupExample />,
 };
