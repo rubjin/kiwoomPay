@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties } from 'react';
+import { CalendarProvider, type DateRange } from '../DatePicker';
+import { mockCalendarAdapter } from '../DatePicker/mockCalendarAdapter';
 import { DateField } from './DateField';
+import { DateRangeField } from './DateRangeField';
 
 const row: CSSProperties = {
   display: 'flex',
@@ -62,4 +65,21 @@ function ControlledExample() {
 export const Controlled: Story = {
   parameters: { controls: { disable: true } },
   render: () => <ControlledExample />,
+};
+
+/** 외부 달력(IBSheet 등) 연결: 앱 최상단의 CalendarProvider에 어댑터를 넣으면 기본 Date Picker 대신 그 달력이 열린다 */
+export const ExternalCalendar: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [single, setSingle] = useState('');
+    const [range, setRange] = useState<DateRange>({ start: '', end: '' });
+    return (
+      <CalendarProvider adapter={mockCalendarAdapter}>
+        <div style={{ display: 'flex', gap: 'var(--kp-space-16)', minHeight: 120 }}>
+          <DateField value={single} onChange={setSingle} />
+          <DateRangeField value={range} onChange={setRange} />
+        </div>
+      </CalendarProvider>
+    );
+  },
 };

@@ -85,9 +85,11 @@ $header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간�
   align-items: center;
 }
 
+// 카운트다운 중 글자 폭이 흔들리지 않도록 숫자는 고정폭
 .timer {
   @include m.typography(typo-13-bold);
 
+  font-variant-numeric: tabular-nums;
   color: t.$color-header-timer;
 }
 
@@ -121,6 +123,7 @@ $header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간�
 .maskingTime {
   @include m.typography(typo-13-bold);
 
+  font-variant-numeric: tabular-nums;
 }
 
 // ── 아이콘 버튼 ──────────────────────────────────────

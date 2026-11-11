@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useState, type ChangeEvent, type HTMLAttribute
 import { useControllableState } from '../../hooks';
 import { formatDateInput } from '../../utils';
 import { DatePicker } from '../DatePicker';
+import { useCalendarAdapter } from '../DatePicker/CalendarProvider';
 import { DatePickerAnchor } from '../DatePicker/DatePickerAnchor';
 import { isValidDate, type DateRange } from '../DatePicker/dateUtils';
 import { Icon } from '../Icon';
@@ -86,6 +87,7 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>((p
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
   const canOpen = picker && !field.disabled && !readOnly;
+  const adapter = useCalendarAdapter();
 
   const change = (key: keyof DateRange) => (event: ChangeEvent<HTMLInputElement>) => {
     setCurrent({ ...current, [key]: formatDateInput(event.target.value) });
@@ -118,11 +120,29 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>((p
     onClick: openPicker,
   } as const;
 
+  const openExternal =
+    adapter &&
+    ((anchor: HTMLElement) =>
+      adapter.open({
+        mode: 'range',
+        anchor,
+        value: {
+          start: isValidDate(current.start) ? current.start : '',
+          end: isValidDate(current.end) ? current.end : '',
+        },
+        min,
+        max,
+        maxRangeDays,
+        onSelect: handlePick,
+        onClose: close,
+      }));
+
   return (
     <DatePickerAnchor
       open={open}
       onClose={close}
       fullWidth={fullWidth}
+      openExternal={openExternal}
       panel={
         <DatePicker
           mode="range"

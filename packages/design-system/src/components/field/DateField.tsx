@@ -10,6 +10,7 @@ import {
 import { useControllableState } from '../../hooks';
 import { formatDateInput, mergeRefs } from '../../utils';
 import { DatePicker } from '../DatePicker';
+import { useCalendarAdapter } from '../DatePicker/CalendarProvider';
 import { DatePickerAnchor } from '../DatePicker/DatePickerAnchor';
 import { isValidDate } from '../DatePicker/dateUtils';
 import { Icon } from '../Icon';
@@ -82,6 +83,7 @@ export const DateField = forwardRef<HTMLInputElement, DateFieldProps>((props, re
   const inputRef = useRef<HTMLInputElement>(null);
   const close = useCallback(() => setOpen(false), []);
   const canOpen = picker && !field.disabled && !readOnly;
+  const adapter = useCalendarAdapter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrent(formatDateInput(event.target.value));
@@ -103,11 +105,25 @@ export const DateField = forwardRef<HTMLInputElement, DateFieldProps>((props, re
     inputRef.current?.focus();
   };
 
+  const openExternal =
+    adapter &&
+    ((anchor: HTMLElement) =>
+      adapter.open({
+        mode: 'single',
+        anchor,
+        value: isValidDate(current) ? current : '',
+        min,
+        max,
+        onSelect: handlePick,
+        onClose: close,
+      }));
+
   return (
     <DatePickerAnchor
       open={open}
       onClose={close}
       fullWidth={fullWidth}
+      openExternal={openExternal}
       panel={
         <DatePicker
           value={isValidDate(current) ? current : ''}

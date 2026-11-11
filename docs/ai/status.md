@@ -27,10 +27,10 @@
 | 지원 브라우저 / IE | 최신 Chrome·Edge(데스크톱). 가맹점관리자는 iOS Safari·Android Chrome 최신 2버전 추가. IE 미지원 (React 18도 IE 미지원) | 2026-11-10 |
 | 아이콘 소스 포맷 | Figma에서 SVG 내보내기(`Name=<이름>, Size=<크기>.svg`) → `scripts/build-icons.mjs`가 React 데이터(`icons.generated.tsx`)로 변환. svgr 대신 자체 스크립트(의존성 없음). 선 아이콘은 `currentColor`, 상태 아이콘만 토큰 색 | 2026-11-10 |
 | Chart 라이브러리 | Recharts (React 친화·SVG·백오피스 차트 종류 충분). Phase 4에서 도입 | 2026-11-10 |
-| DatePicker 외부 라이브러리 | 사용 안 함. Calendar 직접 구현(네이티브 Date) | 2026-11-10 |
+| DatePicker 외부 라이브러리 | **캘린더는 IBSheet 캘린더**(그리드 셀 · 검색 영역 날짜 필드 모두). DateField · DateRangeField는 그대로 두고 `CalendarProvider`(어댑터)로 외부 달력을 연결. 어댑터가 없으면 직접 구현한 DatePicker로 동작(Storybook · IBSheet 연결 전). 기존 "사용 안 함" 대체 | 2026-11-11 |
 | 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`), 폴더는 `directory-structure.md`. **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
-| 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드까지 IBSheet 캘린더로 바꿀지는 확인 필요(Q47) | 2026-11-11 |
+| 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드도 IBSheet 캘린더(어댑터) | 2026-11-11 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
 ### Typography 역할 이름 매핑안 (Figma description 기준, 시안 확인 시 조정)
@@ -83,8 +83,8 @@
 - [Q43] CPID List Item 확인 필요: ① 글자 — 렌더링 폭 비교로 CPID 13 Bold · 가맹점명 12 Regular로 판단(이미지 기준) ② 가맹점명 색 Text/Label(Neutral 700)로 판단 ③ 오른쪽 여백 14(왼쪽 12와 다름) · CPID 줄 ↔ 가맹점명 2는 측정값 ④ Hover · Disabled 표현 시안 없음(미구현) ⑤ 선택은 하나만(버튼 + aria-pressed)으로 해석
 - [Q44] Infobox 확인 필요(제목 13 SemiBold · 간격 8 확정 2026-11-11): ① 글자 — 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold는 시안 글자 폭 비교로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
 - [Q45] Summary Card 확인 필요: ① 글자 — 시안 글자 폭 비교로 제목 14 SemiBold, md 값 24 Bold · 단위 14 Bold · 보조 12 SemiBold, sm 값 20 Bold · 단위 14 Regular · 보조 13 Regular, 빈 상태 14 Regular · 12 Regular로 판단 ② 제목 ↔ Info 간격: 시안 약 10 → 8로 구현(아이콘 2px 왼쪽) ③ md · sm 색이 다름(md 값 Primary 900 · 보조 Primary 600 / sm 값 Text/Heading · 보조 Text/Secondary) — 의도 확인 ④ sm 빈 상태는 시안에서 아래 여백을 1px 넘음 → 카드 높이 고정, 글자 1px 아래 ⑤ Skeleton 애니메이션 없음(motion 토큰 없음) ⑥ 값 앞 · 뒤 단위 위치는 size로 정해짐(md 앞 · sm 뒤)
-- [Q46] Header 확인 필요: ① 글자 — 시안 글자 폭 비교로 사용자 정보 항목 11 Medium · 값 12 Bold, 세션 시간 13 Bold, 해제 중 문구 12 SemiBold · 시간 13 Bold로 판단 ② 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover)은 임시값, 시안의 다운로드 센터 ↔ 아이콘 간격 10은 영역 간격 12로 통일(2px) ③ 버튼 폭이 시안보다 1~2px 넓음(공통 Button 여백) → 오른쪽 영역 위치가 최대 6px 왼쪽 ④ 시간 숫자는 시안대로 비례폭(카운트다운 때 글자 폭이 조금씩 바뀜). 고정폭(tabular)으로 할지 확인 ⑤ 마스킹 해제 시 사유 입력 Modal 시안 필요 ⑥ Global Search(Q35)는 시안대로 SearchField로 구현 — 검색 결과 패널은 시안 없음
-- [Q47] 캘린더를 IBSheet로 한다는 범위: 그리드 셀 날짜 입력만인지, 검색 영역 날짜 필드(현재 디자인 시스템 DatePicker)도 IBSheet 캘린더로 바꾸는지
+- [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
+- [Q47] IBSheet 캘린더 연결: IBSheet8 라이브러리 · 라이선스 파일과 캘린더 API 문서 필요 → `apps/internal-admin/src/app/providers/ibsheetCalendar.ts`를 채움(현재 null → 기본 DatePicker). React 19에서 IBSheet8 사용 가능 여부도 확인
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -376,3 +376,8 @@
 - 만든 것: `navigation/Header`(Compound) — `Header.Search`(SearchField md, 남는 폭) · `Header.UserInfo`(항목 이름 위 · 값 아래 · 구분선) · `Header.Divider` · `Header.Session`(남은 시간 HH:MM:SS 빨강 + [연장]) · `Header.Masking`([마스킹 해제] / 해제 중 초록 상자: MM:SS · [연장] · [마스킹 적용]) · `Header.Download`(Primary Line + 건수) · `Header.Actions` · `Header.IconButton`(32 · 아이콘 24 · dot → bell-on). 시간은 초로 받고 카운트다운은 화면이 관리, `formatRemaining` export. 토큰 `tokens/custom/header.json`(색 모두 alias). stories(States · Interactive), 가이드 `docs/Header.mdx`. 앱 `apps/internal-admin`의 임시 헤더를 이 컴포넌트로 교체
 - 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 테스트 14개 통과(검색 위치 · 간격 40, 구분선 위치(시안 ±7), 버튼 폭(±2) · 간격, 아이콘 위치(시안과 일치), 해제 중 상자 279 × 40, 글자 · 색, 카운트다운 · 해제 · 적용 동작, 아이콘 버튼 aria-label · 포커스). 렌더링 캡처가 시안과 일치
 - 한 가정: Q46 · Q47
+
+### Header 확인 반영 · IBSheet 캘린더 연결 구조 — 2026-11-11
+- Header: 세션 · 마스킹 남은 시간 숫자를 고정폭(tabular-nums)으로 — 카운트다운 중 글자 폭이 흔들리지 않음. Q46 ①② 확인 완료
+- 캘린더 = IBSheet(사용자 결정): `DatePicker/CalendarProvider`(`CalendarAdapter.open(options) → close`, single · range, anchor · value · min · max · maxRangeDays · onSelect · onClose). DateField · DateRangeField는 어댑터가 있으면 기본 패널 대신 외부 달력을 열고(바깥 클릭 · Esc는 외부 달력 담당), 다시 누르거나 사라지면 닫기 함수 호출. 어댑터가 없으면 기존 DatePicker. 예시 `mockCalendarAdapter` + DateField 스토리 ExternalCalendar, DatePicker 가이드 0절. 앱: `app/providers/ibsheetCalendar.ts`(IBSheet 받기 전까지 null) + App을 CalendarProvider로 감쌈
+- 검증: typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드 통과. 외부 달력 테스트 9개(필드 · 아이콘으로 열기, 선택 반영 · 닫힘, 선택 없이 닫기, 다시 누르면 닫기, 기간 모드, 어댑터 없으면 기본 패널) · DatePicker 32 · 공통 24 재통과

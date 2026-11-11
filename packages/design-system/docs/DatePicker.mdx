@@ -22,6 +22,37 @@ import { DateField, DateRangeField, DatePicker } from '@kiwoompay/design-system'
 
 날짜 값은 모두 `YYYY-MM-DD` 문자열이고, 기간은 `{ start, end }`입니다.
 
+## 0. 외부 달력 (IBSheet 캘린더)
+
+프로젝트의 캘린더는 **IBSheet 캘린더**를 씁니다(그리드 셀 · 검색 영역 날짜 필드 모두).
+날짜 필드는 그대로 두고, 앱 최상단에서 `CalendarProvider`에 어댑터를 넣으면 필드가 기본 Date Picker 대신 그 달력을 엽니다.
+어댑터가 없으면(`null`) 이 문서의 기본 Date Picker로 동작합니다(Storybook · IBSheet 연결 전).
+
+```tsx
+import { CalendarProvider, type CalendarAdapter } from '@kiwoompay/design-system';
+
+const ibsheetCalendar: CalendarAdapter = {
+  open(options) {
+    // options.anchor 아래에 IBSheet 캘린더를 띄운다
+    // options.mode: 'single' | 'range', value · min · max · (range) maxRangeDays
+    // 고르면 options.onSelect(값), 고르지 않고 닫히면 options.onClose()
+    return () => {
+      /* 달력 닫기 */
+    };
+  },
+};
+
+<CalendarProvider adapter={ibsheetCalendar}>
+  <App />
+</CalendarProvider>;
+```
+
+- 필드 입력(숫자만 쳐도 `YYYY-MM-DD` 정렬) · 필드 모양 · 상태는 디자인 시스템이 그대로 맡습니다.
+- 바깥 클릭 · Esc로 닫기는 외부 달력이 처리합니다. 필드를 다시 누르거나 필드가 사라지면 어댑터가 돌려준 닫기 함수를 부릅니다.
+- `isDateDisabled`(날짜별 막기)는 기본 Date Picker에서만 동작합니다. 외부 달력에서는 `min` · `max` · `maxRangeDays`만 넘깁니다.
+- 연결 위치: `apps/internal-admin/src/app/providers/ibsheetCalendar.ts` (IBSheet 라이브러리를 받은 뒤 채움)
+- 예시: Storybook `Components/Field/DateField` › ExternalCalendar (가짜 어댑터)
+
 ## 1. Spec
 
 <table>
