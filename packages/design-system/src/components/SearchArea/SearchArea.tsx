@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, useId, type FormEvent, type FormHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, useId, type FormHTMLAttributes, type ReactNode } from 'react';
 import { useControllableState } from '../../hooks';
 import { Button } from '../Button';
 import styles from './SearchArea.module.scss';
@@ -67,7 +67,7 @@ export const SearchArea = forwardRef<HTMLFormElement, SearchAreaProps>(
     const [open, setOpen] = useControllableState(expanded, defaultExpanded, onExpandedChange);
     const hasDetail = detail !== undefined && detail !== null;
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit: FormHTMLAttributes<HTMLFormElement>['onSubmit'] = (event) => {
       event.preventDefault();
       onSubmit?.(event);
       if (!loading) onSearch?.();
