@@ -146,6 +146,11 @@
         "$value": "{Status.Error.Text}",
         "$description": "TODO(시안) Soft는 Primary만 시안에 있음"
       }
+    },
+    "Unread": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "Unread Indicator N 글자 (시안 #2484C6)"
     }
   }
 }

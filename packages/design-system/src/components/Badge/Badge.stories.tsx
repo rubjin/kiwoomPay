@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { Badge, DotBadge, NumberBadge, type BadgeTone } from './Badge';
+import { Badge, DotBadge, NumberBadge, type BadgeTone, UnreadIndicator } from './Badge';
 
 const row: CSSProperties = {
   display: 'flex',
@@ -109,6 +109,24 @@ export const NumberAndDot: Story = {
       <NumberBadge count={0} showZero />
       <DotBadge aria-label="새 기능" />
       <DotBadge tone="error" aria-label="새 알림" />
+    </div>
+  ),
+};
+
+/** 읽지 않은 항목 옆 "N" (알림 목록 · 게시물) */
+export const Unread: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--kp-space-8)' }}>
+      <span style={{ display: 'inline-flex', gap: 'var(--kp-space-4)', alignItems: 'center' }}>
+        <UnreadIndicator />
+      </span>
+      <span style={{ display: 'inline-flex', gap: 'var(--kp-space-4)', alignItems: 'center' }}>
+        정산 일정 변경 안내 <UnreadIndicator />
+      </span>
+      <span style={{ display: 'inline-flex', gap: 'var(--kp-space-4)', alignItems: 'center' }}>
+        시스템 점검 안내
+      </span>
     </div>
   ),
 };

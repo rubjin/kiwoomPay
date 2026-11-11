@@ -1,4 +1,4 @@
-export { Badge, DotBadge, NumberBadge } from './Badge';
+export { Badge, DotBadge, NumberBadge, UnreadIndicator } from './Badge';
 export type {
   BadgeAppearance,
   BadgeProps,
@@ -8,4 +8,5 @@ export type {
   DotBadgeProps,
   NumberBadgeAppearance,
   NumberBadgeProps,
+  UnreadIndicatorProps,
 } from './Badge';

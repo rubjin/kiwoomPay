@@ -123,3 +123,13 @@ $tones: neutral, primary, info, success, warning, error;
   color: t.$color-badge-number-soft-error-text;
   background-color: t.$color-badge-number-soft-error-bg;
 }
+
+// Unread Indicator: 읽지 않은 항목 옆 "N"
+.unread {
+  @include m.typography(badge-unread);
+
+  display: inline-block;
+  flex: none;
+  color: t.$color-badge-unread;
+  vertical-align: middle;
+}

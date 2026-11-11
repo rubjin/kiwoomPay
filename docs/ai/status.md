@@ -77,6 +77,7 @@
 - [Q38] Tooltip 임시값(TODO, `tokens/custom/tooltip.json`·`field.json`): 화면 경계 최소 간격 8, `z-index/tooltip` 1200, 비활성 Info 아이콘 색. 시안의 "아이콘 ↔ 포인터 0px"은 아이콘(20) 상자 기준으로 0 구현(측정상 원 바깥 1~2px 차이). 표시 애니메이션은 motion 토큰 없어 미포함. LNB 긴 메뉴명(Q32)은 아직 기본 title — Tooltip으로 바꿀지 확인
 - [Q39] Spacing 가이드 Usage와 컴포넌트 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Page Layout Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8(Search·Modal Footer·Page Title·Button Tab) ③ Icon–Text 8 ↔ Button 아이콘 간격 4. 어느 쪽을 기준으로 할지 확인
 - [Q41] Compact Navigation 시안 확인 필요: 번호 ↔ `/` 간격 2(글자 간격 근사, TODO), 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로) 시안 없음, 사용 위치(카드 · Carousel 추정)
+- [Q42] Unread Indicator: 시안(8 × 17, Primary 500 "N")의 높이가 `Typo/11/Bold`(11 × 1.5)와 맞아 이 스타일로 판단 — 글자 크기 · 굵기 확인 필요. 사용 위치(알림 목록 · 게시물 등)와 "N" 외 다른 글자 필요 여부 확인
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -315,3 +316,8 @@
 - 만든 것: `navigation/CompactNavigation` — `< 1 / 3 >` 이전 · 다음 이동(`total` · `page`/`defaultPage`/`onChange` · `loop` · `disabled`), 처음 · 마지막에서 화살표 비활성. 토큰 `tokens/custom/compact-navigation.json`(색 모두 alias: 화살표 Primary 700 · 비활성 Text/Disabled · 번호 Text/Secondary · / Text/Disabled). stories(Playground · States · InCard), 가이드 `docs/CompactNavigation.mdx`(Storybook `Components/Compact Navigation`)
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 15개 통과(아이콘 16 · 간격 4, 번호 12 SemiBold · 색, 처음/중간/마지막 비활성, 이동 · loop · disabled, 키보드 포커스).
 - 한 가정: Q41. 숫자 글자는 12 SemiBold(`caption-strong`) — 크기 12는 사용자 확인
+
+### Component: Unread Indicator — 2026-11-11
+- 만든 것: `Badge/UnreadIndicator` — 읽지 않은 항목 옆 "N"(기본 `aria-label` "읽지 않음", 글자 변경 가능). 토큰 `badge/unread`(Text/Accent), 타이포 역할 `badge-unread`(Typo/11/Bold). Badge stories `Unread`, Badge 가이드 4절에 DotBadge(신규 기능 · 메뉴)와 구분 설명
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 4개 통과(N · 11 Bold · #2484C6 · 8 × 16.5, 가이드 렌더링)
+- 한 가정: Q42

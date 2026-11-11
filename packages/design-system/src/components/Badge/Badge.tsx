@@ -128,3 +128,28 @@ export const DotBadge = forwardRef<HTMLSpanElement, DotBadgeProps>(
 );
 
 DotBadge.displayName = 'DotBadge';
+
+export interface UnreadIndicatorProps extends HTMLAttributes<HTMLSpanElement> {
+  /** 표시 글자 (기본 N) */
+  children?: ReactNode;
+}
+
+/**
+ * 읽지 않은 알림 · 게시물 · 메시지 옆에 붙는 "N" 표시. 신규 기능 · 메뉴 표시는 DotBadge를 쓴다.
+ * 기본 `aria-label`은 "읽지 않음"이다.
+ */
+export const UnreadIndicator = forwardRef<HTMLSpanElement, UnreadIndicatorProps>(
+  ({ children = 'N', className, 'aria-label': ariaLabel = '읽지 않음', ...rest }, ref) => (
+    <span
+      {...rest}
+      ref={ref}
+      role="img"
+      aria-label={ariaLabel}
+      className={clsx(styles.unread, className)}
+    >
+      {children}
+    </span>
+  ),
+);
+
+UnreadIndicator.displayName = 'UnreadIndicator';

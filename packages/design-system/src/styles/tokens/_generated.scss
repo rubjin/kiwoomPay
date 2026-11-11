@@ -271,6 +271,10 @@ $typography-badge-number-font-size: var(--kp-typography-badge-number-font-size);
 $typography-badge-number-font-weight: var(--kp-typography-badge-number-font-weight);
 $typography-badge-number-line-height: var(--kp-typography-badge-number-line-height);
 $typography-badge-number-letter-spacing: var(--kp-typography-badge-number-letter-spacing);
+$typography-badge-unread-font-size: var(--kp-typography-badge-unread-font-size); // Unread Indicator N (시안 높이 17 = 11 × 1.5, 굵기는 이미지 판단)
+$typography-badge-unread-font-weight: var(--kp-typography-badge-unread-font-weight);
+$typography-badge-unread-line-height: var(--kp-typography-badge-unread-line-height);
+$typography-badge-unread-letter-spacing: var(--kp-typography-badge-unread-letter-spacing);
 $typography-lnb-depth1-font-size: var(--kp-typography-lnb-depth1-font-size); // 1Depth 메뉴명 (측정 14px)
 $typography-lnb-depth1-font-weight: var(--kp-typography-lnb-depth1-font-weight);
 $typography-lnb-depth1-line-height: var(--kp-typography-lnb-depth1-line-height);
@@ -356,6 +360,7 @@ $color-badge-number-soft-primary-bg: var(--kp-color-badge-number-soft-primary-bg
 $color-badge-number-soft-primary-text: var(--kp-color-badge-number-soft-primary-text);
 $color-badge-number-soft-error-bg: var(--kp-color-badge-number-soft-error-bg); // TODO(시안) Soft는 Primary만 시안에 있음
 $color-badge-number-soft-error-text: var(--kp-color-badge-number-soft-error-text); // TODO(시안) Soft는 Primary만 시안에 있음
+$color-badge-unread: var(--kp-color-badge-unread); // Unread Indicator N 글자 (시안 #2484C6)
 
 // ── custom · breakpoint ─────────────────────────────────────────
 $breakpoint-tablet: 1024px; // TODO 모바일 시안 확인 (가맹점관리자 전용, 이 값 이하)
@@ -885,6 +890,7 @@ $css-variables: (
   "--kp-color-badge-number-soft-primary-text": "var(--kp-color-primary-500)",
   "--kp-color-badge-number-soft-error-bg": "var(--kp-color-status-error-background)",
   "--kp-color-badge-number-soft-error-text": "var(--kp-color-status-error-text)",
+  "--kp-color-badge-unread": "var(--kp-color-text-accent)",
   "--kp-breakpoint-tablet": "1024px",
   "--kp-breakpoint-mobile": "768px",
   "--kp-color-button-primary-solid-bg": "var(--kp-color-primary-500)",
@@ -1205,6 +1211,10 @@ $css-variables: (
   "--kp-typography-badge-number-font-weight": "var(--kp-typography-typo-12-semi-bold-font-weight)",
   "--kp-typography-badge-number-line-height": "var(--kp-typography-typo-12-semi-bold-line-height)",
   "--kp-typography-badge-number-letter-spacing": "var(--kp-typography-typo-12-semi-bold-letter-spacing)",
+  "--kp-typography-badge-unread-font-size": "var(--kp-typography-typo-11-bold-font-size)",
+  "--kp-typography-badge-unread-font-weight": "var(--kp-typography-typo-11-bold-font-weight)",
+  "--kp-typography-badge-unread-line-height": "var(--kp-typography-typo-11-bold-line-height)",
+  "--kp-typography-badge-unread-letter-spacing": "var(--kp-typography-typo-11-bold-letter-spacing)",
   "--kp-typography-lnb-depth1-font-size": "var(--kp-typography-typo-14-medium-font-size)",
   "--kp-typography-lnb-depth1-font-weight": "var(--kp-typography-typo-14-medium-font-weight)",
   "--kp-typography-lnb-depth1-line-height": "var(--kp-typography-typo-14-medium-line-height)",

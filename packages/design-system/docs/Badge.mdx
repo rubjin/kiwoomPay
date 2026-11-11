@@ -8,7 +8,7 @@ import * as BadgeStories from '../src/components/Badge/Badge.stories';
 상태 · 속성 · 분류를 짧게 표시하는 Text Badge와, 건수를 보여주는 Number Badge, 신규 표시용 Dot Badge가 있습니다.
 
 ```tsx
-import { Badge, NumberBadge, DotBadge } from '@kiwoompay/design-system';
+import { Badge, NumberBadge, DotBadge, UnreadIndicator } from '@kiwoompay/design-system';
 
 <Badge tone="success" dot>정상</Badge>          {/* 상태 */}
 <Badge tone="primary" appearance="line">주요</Badge> {/* 속성·분류 */}
@@ -197,6 +197,16 @@ KWP Color Guide의 Status 의미 체계를 그대로 씁니다.
 
 <Canvas of={BadgeStories.NumberAndDot} />
 
+### Unread Indicator
+
+읽지 않은 알림 · 게시물 · 메시지 이름 옆에 `N`을 붙여 표시합니다(`UnreadIndicator`). 11 Bold · Primary 500.
+
+- 읽으면 화면에서 지웁니다. 건수가 필요하면 Number Badge를 씁니다.
+- 신규 **기능 · 메뉴** 표시는 `DotBadge`, 읽지 않은 **항목** 표시는 `UnreadIndicator`로 구분합니다.
+- 기본 `aria-label`은 "읽지 않음"입니다.
+
+<Canvas of={BadgeStories.Unread} />
+
 ## 5. Usage
 
 <table>
@@ -267,6 +277,6 @@ KWP Color Guide의 Status 의미 체계를 그대로 씁니다.
 
 ## 토큰
 
-- 색: `badge/*` (`tokens/custom/badge.json`, 모두 Figma 색 alias). 컴포넌트 전용 크기 · 간격은 `*.module.scss` 맨 위 SCSS 변수(`Badge.module.scss`)
+- 색: `badge/*` (`tokens/custom/badge.json`, 모두 Figma 색 alias), 글자 역할 `badge-md` · `badge-sm` · `badge-number` · `badge-unread`. 컴포넌트 전용 크기 · 간격은 `*.module.scss` 맨 위 SCSS 변수(`Badge.module.scss`)
 - 글자: 역할 이름 `badge-md`(13 Medium) · `badge-sm`(12 Medium) · `badge-number`
 - 시안에 없어 **임시 값(TODO)** 인 것: Neutral 상태 점 색, Primary 외 tone의 Line 테두리 색, Number 두 자리 이상 좌우 여백 · 글자

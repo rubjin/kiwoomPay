@@ -108,6 +108,11 @@
       "$type": "typography",
       "$value": "{Typo.12.SemiBold}",
       "$description": "TODO(시안) Number Badge 글자"
+    },
+    "Unread": {
+      "$type": "typography",
+      "$value": "{Typo.11.Bold}",
+      "$description": "Unread Indicator N (시안 높이 17 = 11 × 1.5, 굵기는 이미지 판단)"
     }
   },
   "Lnb": {
