@@ -1,0 +1,54 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as FooterStories from '../src/components/navigation/Footer.stories';
+
+<Meta of={FooterStories} name="Guide" />
+
+# Footer
+
+모든 화면 아래에 보이는 회사 정보 줄입니다. `PageLayout`의 `footer` 슬롯(높이 74)에 넣습니다.
+
+```tsx
+<Footer
+  logo={<img src={logoUrl} alt="DAOU DATA" />}
+  items={[
+    '대표이사 : 김상준',
+    '사업자등록번호 : 220-81-01733',
+    '주소',
+    '대표전화 : 1588-5984',
+    'FAX : 02-6280-3268',
+  ]}
+  copyright="Copyright ⓒ DAOU Tech Inc. All Rights Reserved."
+/>
+```
+
+| Prop        | 설명                                                 |
+| ----------- | ---------------------------------------------------- |
+| `logo`      | 회사 로고(이미지 · SVG, 높이 16에 맞춤)              |
+| `items`     | 회사 정보 항목. 항목 사이에 구분선이 자동으로 들어감 |
+| `copyright` | 저작권 문구(마지막 항목)                             |
+
+<Canvas of={FooterStories.Playground} />
+
+## 규칙
+
+- 내용은 가운데 정렬, 한 줄. 폭이 좁으면 **항목 단위로** 줄바꿈합니다(항목 안에서는 끊기지 않음).
+- 회사 정보는 세 시스템이 같으므로 앱의 `layouts/Footer`에서 한 번만 정의합니다.
+
+<Canvas of={FooterStories.Narrow} />
+
+## Spec
+
+- 높이 74(슬롯) · 좌우 여백 24 · 배경 Neutral 700
+- 로고 높이 16 · 로고 ↔ 정보 12 · 항목 ↔ 구분선 8
+- 구분선 1 × 10 Neutral 500
+- 글자 `typo-12-regular` 흰색(`Text/Inverse`)
+- 색: `footer/*` (`tokens/custom/footer.json`, 모두 alias). 크기 · 간격은 `Footer.module.scss` 맨 위 SCSS 변수
+
+## Do / Don't
+
+- ✅ 로고는 이미지(SVG)로 — 글자로 흉내 내지 않기
+- ❌ 링크 · 버튼 넣기(시안에 없음) — 필요하면 디자인 확인 후 추가
+
+## Playground
+
+<Controls of={FooterStories.Playground} />

@@ -6,7 +6,7 @@ import { Pagination } from '../Pagination';
 import { SearchArea } from '../SearchArea';
 import { WorkTab } from '../Tab';
 import { DateRangeField, Field, SearchField, SelectBox } from '../field';
-import { Lnb, type LnbMenuItem } from '../navigation';
+import { Footer, Header, Lnb, type LnbMenuItem } from '../navigation';
 import { PageLayout } from './PageLayout';
 
 const meta = {
@@ -19,7 +19,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// ── 예시용 자리 표시 (Header · Footer 컴포넌트 · IBSheet8은 별도) ──────────
+// ── 예시용 자리 표시 (IBSheet8 그리드 등) ──────────
 const placeholder: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
@@ -34,13 +34,42 @@ function Slot({ children, style }: { children: ReactNode; style?: CSSProperties 
 }
 
 const footerSlot = (
-  <Slot style={{ background: 'var(--kp-color-neutral-700)', color: 'var(--kp-color-base-white)' }}>
-    FOOTER · 회사 정보 · 사업자등록번호 · 주소 · 대표전화 / FAX · Copyright (Footer 컴포넌트 예정)
-  </Slot>
+  <Footer
+    logo={<strong>DAOU DATA</strong>}
+    items={[
+      '대표이사 : 김상준',
+      '사업자등록번호 : 220-81-01733',
+      '04156 서울특별시 마포구 독막로 311 (염리동, 재화스퀘어) 3층, 5층',
+      '대표전화 : 1588-5984',
+      'FAX : 02-6280-3268',
+    ]}
+    copyright="Copyright ⓒ DAOU Tech Inc. All Rights Reserved."
+  />
 );
 
 const headerSlot = (
-  <Slot>APP HEADER · 공통 검색 · 사용자 정보 · 세션 관리 (Header 컴포넌트 예정)</Slot>
+  <Header>
+    <Header.Search />
+    <Header.UserInfo
+      items={[
+        { label: '아이디', value: 'kw*******' },
+        { label: '이름', value: '홍*동' },
+        { label: '소속', value: 'PG운영팀' },
+        { label: '권한', value: '관리자' },
+      ]}
+    />
+    <Header.Divider />
+    <Header.Session remaining={10038} />
+    <Header.Divider />
+    <Header.Masking />
+    <Header.Divider />
+    <Header.Download count={1} />
+    <Header.Actions>
+      <Header.IconButton icon="user" label="내 정보" />
+      <Header.IconButton icon="bell" label="알림" dot />
+      <Header.IconButton icon="power" label="로그아웃" />
+    </Header.Actions>
+  </Header>
 );
 
 const menu: LnbMenuItem[] = [

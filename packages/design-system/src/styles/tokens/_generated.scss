@@ -436,6 +436,11 @@ $z-index-tooltip: var(--kp-z-index-tooltip); // TODO(시안) z-index 체계 확�
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
 
+// ── custom · footer ─────────────────────────────────────────────
+$color-footer-bg: var(--kp-color-footer-bg);
+$color-footer-text: var(--kp-color-footer-text);
+$color-footer-divider: var(--kp-color-footer-divider); // 정보 항목 사이 세로선 (시안 1px 반 픽셀 위치, 혼합색 #677485 = Neutral 500 + 배경)
+
 // ── custom · header ─────────────────────────────────────────────
 $color-header-divider: var(--kp-color-header-divider);
 $color-header-info-label: var(--kp-color-header-info-label); // 사용자 정보 항목 이름 (아이디 · 이름 …)
@@ -988,6 +993,9 @@ $css-variables: (
   "--kp-z-index-modal": "1000",
   "--kp-z-index-tooltip": "1200",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
+  "--kp-color-footer-bg": "var(--kp-color-neutral-700)",
+  "--kp-color-footer-text": "var(--kp-color-text-inverse)",
+  "--kp-color-footer-divider": "var(--kp-color-neutral-500)",
   "--kp-color-header-divider": "var(--kp-color-line-subtle)",
   "--kp-color-header-info-label": "var(--kp-color-text-placeholder)",
   "--kp-color-header-info-value": "var(--kp-color-text-heading)",

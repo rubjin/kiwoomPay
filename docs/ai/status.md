@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · display(CPID List Item · Infobox · Summary Card) 완료. 남은 것: Footer, Address · Search Result, Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card) 완료. 남은 것: Address · Search Result, Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -85,6 +85,7 @@
 - [Q45] Summary Card 확인 필요: ① 글자 — 시안 글자 폭 비교로 제목 14 SemiBold, md 값 24 Bold · 단위 14 Bold · 보조 12 SemiBold, sm 값 20 Bold · 단위 14 Regular · 보조 13 Regular, 빈 상태 14 Regular · 12 Regular로 판단 ② 제목 ↔ Info 간격: 시안 약 10 → 8로 구현(아이콘 2px 왼쪽) ③ md · sm 색이 다름(md 값 Primary 900 · 보조 Primary 600 / sm 값 Text/Heading · 보조 Text/Secondary) — 의도 확인 ④ sm 빈 상태는 시안에서 아래 여백을 1px 넘음 → 카드 높이 고정, 글자 1px 아래 ⑤ Skeleton 애니메이션 없음(motion 토큰 없음) ⑥ 값 앞 · 뒤 단위 위치는 size로 정해짐(md 앞 · sm 뒤)
 - [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
+- [Q48] Footer: 로고 SVG 파일 필요(현재 글자로 대신, LNB 로고 Q32와 같은 파일인지). 시안의 항목 ↔ 구분선 간격은 약 8.5~9(반 픽셀 선) → 8로 구현, 전체 폭이 시안보다 약 14px 좁음
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -387,3 +388,8 @@
 - 캘린더 어댑터 `app/providers/ibsheetCalendar.ts`: IBSheet8 매뉴얼(공개 문서 static/show-calendar · appx/position) 기준 `IBSheet.showCalendar(calOption, position, callback)` 연결 — Format yyyy-MM-dd, Range(기간) 1, min · max → OnCanEditDate, 필드 아래 8 위치, 콜백 ms → YYYY-MM-DD · "시작~종료" → {start, end}, 최대 기간 초과 무시, 선택 없이 닫힘 → onClose, 필드에서 닫기 → Close(). `window.IBSheet`가 없으면 null(기본 DatePicker)
 - 로드 위치: `index.html`(개발, 주석) · `docs/jsp-integration.md` 7절(셸 JSP, app.js보다 먼저)
 - 검증: typecheck 통과. 매뉴얼 형식의 가짜 `IBSheet.showCalendar`로 어댑터 변환 테스트 10개 통과(실제 IBSheet로는 미확인)
+
+### Component: Footer (Phase 4) — 2026-11-11
+- 만든 것: `navigation/Footer` — `logo` · `items`(사이 구분선 자동) · `copyright`, 가운데 한 줄 · 좁으면 항목 단위 줄바꿈. 토큰 `tokens/custom/footer.json`(배경 Neutral 700 · 글자 Text/Inverse · 구분선 Neutral 500). stories(Playground · Narrow), 가이드 `docs/Footer.mdx`. Page Layout 스토리의 Header · Footer 자리 표시를 실제 컴포넌트로 교체. 앱 `layouts/Footer` 추가 · MainLayout에 연결
+- 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 테스트 7개 통과(1680 × 74 · 배경, 글자 12 Regular 흰색, 구분선 1 × 10 · 색 · 세로 가운데, 간격 12 · 8, 가운데 정렬, 좁은 폭 줄바꿈). 렌더링 캡처가 시안과 일치
+- 한 가정: Q48

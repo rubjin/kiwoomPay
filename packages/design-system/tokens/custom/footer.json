@@ -1,0 +1,17 @@
+{
+  "Footer": {
+    "Bg": {
+      "$type": "color",
+      "$value": "{Neutral.700}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Inverse}"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Neutral.500}",
+      "$description": "정보 항목 사이 세로선 (시안 1px 반 픽셀 위치, 혼합색 #677485 = Neutral 500 + 배경)"
+    }
+  }
+}

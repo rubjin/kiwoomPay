@@ -1,0 +1,52 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$footer-padding-x: t.$space-24;
+$footer-logo-gap: t.$space-12; // 로고 ↔ 회사 정보
+$footer-item-gap: t.$space-8; // 항목 ↔ 구분선
+$footer-divider-height: 10px;
+$footer-logo-height: 16px; // 로고 높이 (시안 DAOU DATA 111 × 16)
+
+.footer {
+  display: flex;
+  gap: $footer-logo-gap;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 $footer-padding-x;
+  color: t.$color-footer-text;
+  background-color: t.$color-footer-bg;
+}
+
+.logo {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: $footer-logo-height;
+
+  > * {
+    height: 100%;
+  }
+}
+
+.info {
+  @include m.typography(typo-12-regular);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: $footer-item-gap;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+}
+
+.item {
+  white-space: nowrap;
+}
+
+.divider {
+  width: t.$control-border-width;
+  height: $footer-divider-height;
+  background-color: t.$color-footer-divider;
+}
