@@ -139,11 +139,6 @@
       "$type": "color",
       "$value": "{Text.Accent}"
     },
-    "AllBg": {
-      "$type": "color",
-      "$value": "{Neutral.50}",
-      "$description": "TODO(시안) MultiSelect 전체 선택 행 배경. 시안의 모든 패널에서 회색이라 고정 배경으로 해석"
-    },
     "ItemText": {
       "$type": "color",
       "$value": "{Text.Body}"

@@ -81,13 +81,21 @@ export const States: Story = {
   ),
 };
 
-/** 열린 상태: 전체(일부 선택) · Selected · Default · Scroll · Loading · Empty */
+/** 열린 상태: 1개 선택 · 여러 개 선택(쉼표 나열) · Scroll · Loading · Empty */
 export const Open: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ ...row, minHeight: 260 }}>
+    <div style={{ ...row, minHeight: 280 }}>
       <div style={cell}>
         <MultiSelect fullWidth options={options} defaultValue={['m2-end']} defaultOpen />
+      </div>
+      <div style={cell}>
+        <MultiSelect
+          fullWidth
+          options={options}
+          defaultValue={['m2-end', 'm2-start', 'm1-end']}
+          defaultOpen
+        />
       </div>
       <div style={cell}>
         <MultiSelect
@@ -117,7 +125,7 @@ export const Wide: Story = {
   ),
 };
 
-/** 선택값(controlled) · 여러 개 선택 시 "첫 항목 외 N", 전부 선택 시 "전체" */
+/** 선택값(controlled) · 여러 개 선택 시 쉼표로 나열(넘치면 말줄임) */
 export const Controlled: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {

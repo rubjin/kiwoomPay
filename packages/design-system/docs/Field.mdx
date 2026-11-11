@@ -216,9 +216,9 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 - 항목을 누르면 바로 반영되고 패널은 **열린 채로** 유지됩니다(확인 버튼 없음). 바깥 클릭 · `Esc`로 닫습니다.
 - 패널 맨 위 **옵션 검색**(`searchable`, 기본 표시)으로 목록을 거릅니다. 닫으면 검색어가 지워집니다.
 - **전체**(`selectAll`, 기본 표시)는 지금 보이는(검색된) 항목 중 선택 가능한 것만 선택 · 해제합니다. 일부만 선택되면 – 표시입니다.
-- 트리거 표시: 1개 → 항목 이름, 여러 개 → `첫 항목 외 N`, 전부 → `전체`. 다르게 보여야 하면 `renderValue`를 씁니다.
+- 트리거 표시: 선택한 항목 이름을 **쉼표로 나열**하고 넘치면 말줄임(…)합니다. 다르게 보여야 하면 `renderValue`를 씁니다.
 - `name`을 주면 선택값마다 hidden input이 하나씩 제출됩니다(JSP form 전송).
-- 패널 폭은 트리거 폭을 따르고, 최대 높이 190을 넘으면 목록만 스크롤됩니다. 항목 높이 30 · 간격 4 · 체크박스 16.
+- 패널 폭은 트리거 폭을 따르고, 항목 4개를 넘으면 목록만 스크롤됩니다. 항목 높이 36 · 간격 4 · 좌우 여백 10 · 체크박스 16. 로딩 · 빈 상태 패널은 높이 190.
 
 <Canvas of={MultiSelectStories.States} />
 <Canvas of={MultiSelectStories.Open} />
@@ -321,6 +321,6 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 ## 토큰
 
 - 크기: `control/height/*`(Button과 공유), 여러 필드가 함께 쓰는 `field/radius·gap·icon-size/trailing·label-gap-top` (`tokens/custom/field.json`). 그 밖의 컴포넌트 전용 크기 · 간격은 `*.module.scss` 맨 위 SCSS 변수
-- 색: `field/*`, `select/*` — 모두 Figma 색 토큰 alias. MultiSelect 전체 행 배경은 `select/all-bg`(Neutral 50, 임시 해석)
+- 색: `field/*`, `select/*` — 모두 Figma 색 토큰 alias.
 - 글자: 기존 역할 이름 `body-md`(md), `label-md`(sm), `caption-md`(Helper · Counter), `label-field`(Label)
 - 포커스 번짐은 `shadow/focus`(`0 0 4px 0 rgba(36, 132, 198, 0.30)`)입니다. 드롭다운 최대 높이(`select/panel-max-height`)와 로딩·빈 상태 높이는 시안 픽셀로 근사한 **임시 값(TODO)** 입니다.

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import {
+  Fragment,
   forwardRef,
   useCallback,
   useEffect,
@@ -46,7 +47,7 @@ export interface MultiSelectProps extends Omit<
   /** 전체 선택 항목 (기본 표시) */
   selectAll?: boolean;
   allLabel?: string;
-  /** 트리거에 보일 선택 요약. 기본: 1개 → 이름, 여러 개 → "이름 외 N", 전부 → allLabel */
+  /** 트리거에 보일 선택 요약. 기본: 선택한 이름을 쉼표로 나열(넘치면 말줄임) */
   renderValue?: (selected: MultiSelectOption[]) => ReactNode;
   loading?: boolean;
   loadingText?: string;
@@ -179,16 +180,14 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
 
   const selectedOptions = options.filter((option) => selectedSet.has(option.value));
   const summary = (() => {
-    const [first, ...others] = selectedOptions;
-    if (!first) return null;
+    if (selectedOptions.length === 0) return null;
     if (renderValue) return renderValue(selectedOptions);
-    if (selectAll && options.length > 1 && others.length + 1 === options.length) return allLabel;
-    if (others.length === 0) return first.label;
-    return (
-      <>
-        {first.label} 외 {others.length}
-      </>
-    );
+    return selectedOptions.map((option, index) => (
+      <Fragment key={option.value}>
+        {index > 0 && ', '}
+        {option.label}
+      </Fragment>
+    ));
   })();
 
   useEffect(() => {
@@ -227,7 +226,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
         className={styles.list}
       >
         {selectAll && (
-          <li className={clsx(styles.option, styles.all)}>
+          <li className={styles.option}>
             <Checkbox
               size="sm"
               className={styles.check}
