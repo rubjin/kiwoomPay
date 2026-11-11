@@ -84,7 +84,7 @@
 - [Q44] Infobox 확인 필요(제목 13 SemiBold · 간격 8 확정 2026-11-11): ① 글자 — 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold는 시안 글자 폭 비교로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
 - [Q45] Summary Card 확인 필요: ① 글자 — 시안 글자 폭 비교로 제목 14 SemiBold, md 값 24 Bold · 단위 14 Bold · 보조 12 SemiBold, sm 값 20 Bold · 단위 14 Regular · 보조 13 Regular, 빈 상태 14 Regular · 12 Regular로 판단 ② 제목 ↔ Info 간격: 시안 약 10 → 8로 구현(아이콘 2px 왼쪽) ③ md · sm 색이 다름(md 값 Primary 900 · 보조 Primary 600 / sm 값 Text/Heading · 보조 Text/Secondary) — 의도 확인 ④ sm 빈 상태는 시안에서 아래 여백을 1px 넘음 → 카드 높이 고정, 글자 1px 아래 ⑤ Skeleton 애니메이션 없음(motion 토큰 없음) ⑥ 값 앞 · 뒤 단위 위치는 size로 정해짐(md 앞 · sm 뒤)
 - [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
-- [Q47] IBSheet 캘린더 연결: IBSheet8 라이브러리 · 라이선스 파일과 캘린더 API 문서 필요 → `apps/internal-admin/src/app/providers/ibsheetCalendar.ts`를 채움(현재 null → 기본 DatePicker). React 19에서 IBSheet8 사용 가능 여부도 확인
+- [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -381,3 +381,9 @@
 - Header: 세션 · 마스킹 남은 시간 숫자를 고정폭(tabular-nums)으로 — 카운트다운 중 글자 폭이 흔들리지 않음. Q46 ①② 확인 완료
 - 캘린더 = IBSheet(사용자 결정): `DatePicker/CalendarProvider`(`CalendarAdapter.open(options) → close`, single · range, anchor · value · min · max · maxRangeDays · onSelect · onClose). DateField · DateRangeField는 어댑터가 있으면 기본 패널 대신 외부 달력을 열고(바깥 클릭 · Esc는 외부 달력 담당), 다시 누르거나 사라지면 닫기 함수 호출. 어댑터가 없으면 기존 DatePicker. 예시 `mockCalendarAdapter` + DateField 스토리 ExternalCalendar, DatePicker 가이드 0절. 앱: `app/providers/ibsheetCalendar.ts`(IBSheet 받기 전까지 null) + App을 CalendarProvider로 감쌈
 - 검증: typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드 통과. 외부 달력 테스트 9개(필드 · 아이콘으로 열기, 선택 반영 · 닫힘, 선택 없이 닫기, 다시 누르면 닫기, 기간 모드, 어댑터 없으면 기본 패널) · DatePicker 32 · 공통 24 재통과
+
+### IBSheet8 설치 · 캘린더 어댑터 구현 — 2026-11-11
+- 설치(npm, MIT): `apps/internal-admin`에 `@ibsheet/react` 1.1.2(공식 React 래퍼, React 18 · 19 지원) · `@ibsheet/interface` 1.0.4(타입). IBSheet8 본체(`ibsheet.js`)와 라이선스(`ibleaders.js`)는 상용이라 받을 수 없음 → 업체에서 받아야 함(Q47)
+- 캘린더 어댑터 `app/providers/ibsheetCalendar.ts`: IBSheet8 매뉴얼(공개 문서 static/show-calendar · appx/position) 기준 `IBSheet.showCalendar(calOption, position, callback)` 연결 — Format yyyy-MM-dd, Range(기간) 1, min · max → OnCanEditDate, 필드 아래 8 위치, 콜백 ms → YYYY-MM-DD · "시작~종료" → {start, end}, 최대 기간 초과 무시, 선택 없이 닫힘 → onClose, 필드에서 닫기 → Close(). `window.IBSheet`가 없으면 null(기본 DatePicker)
+- 로드 위치: `index.html`(개발, 주석) · `docs/jsp-integration.md` 7절(셸 JSP, app.js보다 먼저)
+- 검증: typecheck 통과. 매뉴얼 형식의 가짜 `IBSheet.showCalendar`로 어댑터 변환 테스트 10개 통과(실제 IBSheet로는 미확인)

@@ -130,3 +130,24 @@ createRoot(document.getElementById('root')!).render(<App />);
 
 `pnpm --filter @kiwoompay/internal-admin dev` → `http://localhost:5173`. Vite 개발 서버가 `index.html`로 셸 역할을 하고, `/api`는 `localhost:8580`으로 프록시한다. JSP 서버를 띄우지 않아도 화면을 개발할 수 있다.
 디자인 시스템을 고친 뒤에는 `pnpm build`(디자인 시스템 `dist` 갱신)를 먼저 실행한다.
+
+## 7. IBSheet8 (그리드 · 캘린더)
+
+IBSheet8 본체는 상용 라이브러리라 npm에 없다. 업체(IB Leaders)에서 받은 파일(라이선스 `ibleaders.js` 포함)을 정적 폴더에 두고 **React 앱보다 먼저** 로드한다.
+npm으로는 공식 React 래퍼 `@ibsheet/react`(그리드)와 타입 `@ibsheet/interface`만 설치한다(MIT, React 18 · 19 지원).
+
+```jsp
+<%-- 셸 JSP <head> : app.js보다 먼저 --%>
+<c:set var="ibsheet" value="${ctx}/static/ibsheet" />
+<script src="${ibsheet}/ibleaders.js"></script>          <%-- 라이선스 (도메인별 발급) --%>
+<script src="${ibsheet}/ibsheet.js"></script>
+<script src="${ibsheet}/locale/ko.js"></script>
+<script src="${ibsheet}/plugins/ibsheet-common.js"></script>
+<script src="${ibsheet}/plugins/ibsheet-dialog.js"></script>
+<script src="${ibsheet}/plugins/ibsheet-excel.js"></script>
+```
+
+- `css` 폴더는 `ibsheet.js`와 같은 경로에 둔다(엑셀 · PDF 내보내기 스타일).
+- 개발 서버: 같은 파일을 `apps/<앱>/public/ibsheet/`에 두고 `index.html`의 주석을 푼다.
+- 캘린더: `src/app/providers/ibsheetCalendar.ts`가 `IBSheet.showCalendar`로 날짜 필드(DateField · DateRangeField)에 연결한다. `window.IBSheet`가 없으면 디자인 시스템 기본 Date Picker로 동작한다.
+- 라이선스 파일은 도메인(개발 · 운영)별로 발급되는 경우가 많다. 저장소에 커밋할지는 사내 정책에 따른다.

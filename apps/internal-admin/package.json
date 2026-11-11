@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ibsheet/interface": "1.0.4",
+    "@ibsheet/react": "1.1.2",
     "@kiwoompay/design-system": "workspace:*",
     "axios": "^1.7.9",
     "react": "^19.2.0",

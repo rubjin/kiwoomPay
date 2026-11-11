@@ -14,6 +14,12 @@ importers:
 
   apps/internal-admin:
     dependencies:
+      '@ibsheet/interface':
+        specifier: 1.0.4
+        version: 1.0.4
+      '@ibsheet/react':
+        specifier: 1.1.2
+        version: 1.1.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@kiwoompay/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
@@ -488,6 +494,15 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
+
+  '@ibsheet/interface@1.0.4':
+    resolution: {integrity: sha512-ByYzzkDh65Gj5slwEtia1Se3a8PfppYj5KfTvm5NkBN6ZVQbcOlMdQaXVfXye8iTgjfcM2IWUdkVJvRze7lEdw==}
+
+  '@ibsheet/react@1.1.2':
+    resolution: {integrity: sha512-zCB99fWZSCIZMLOm9AgCdcZut1FrllAFtwY/DMzD7O+kW/x3NdN7h4Q1hllFv7VDUQA9o/fII0XrdFGongSEXA==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@joshwooding/vite-plugin-react-docgen-typescript@0.7.0':
     resolution: {integrity: sha512-qvsTEwEFefhdirGOPnu9Wp6ChfIwy2dBCRuETU3uE+4cC+PFoxMSiiEhxk4lOluA34eARHA0OxqsEUYDqRMgeQ==}
@@ -3229,6 +3244,14 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.4.3': {}
+
+  '@ibsheet/interface@1.0.4': {}
+
+  '@ibsheet/react@1.1.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@ibsheet/interface': 1.0.4
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   '@joshwooding/vite-plugin-react-docgen-typescript@0.7.0(typescript@5.9.3)(vite@7.3.8(@types/node@20.19.43)(sass@1.108.1))':
     dependencies:
