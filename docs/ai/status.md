@@ -80,7 +80,7 @@
 - [Q41] Compact Navigation 시안 확인 필요: 번호 ↔ `/` 간격 2(글자 간격 근사, TODO), 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로) 시안 없음, 사용 위치(카드 · Carousel 추정)
 - [Q42] Unread Indicator: 시안(8 × 17, Primary 500 "N")의 높이가 `Typo/11/Bold`(11 × 1.5)와 맞아 이 스타일로 판단 — 글자 크기 · 굵기 확인 필요. 사용 위치(알림 목록 · 게시물 등)와 "N" 외 다른 글자 필요 여부 확인
 - [Q43] CPID List Item 확인 필요: ① 글자 — 렌더링 폭 비교로 CPID 13 Bold · 가맹점명 12 Regular로 판단(이미지 기준) ② 가맹점명 색 Text/Label(Neutral 700)로 판단 ③ 오른쪽 여백 14(왼쪽 12와 다름) · CPID 줄 ↔ 가맹점명 2는 측정값 ④ Hover · Disabled 표현 시안 없음(미구현) ⑤ 선택은 하나만(버튼 + aria-pressed)으로 해석
-- [Q44] Infobox 확인 필요: ① 글자 — 시안 이미지 글자 폭 비교로 제목 13 Bold · 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명 ↔ 오른쪽 영역 최소 간격 24(임시) · 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
+- [Q44] Infobox 확인 필요(제목 13 SemiBold · 간격 8 확정 2026-11-11): ① 글자 — 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold는 시안 글자 폭 비교로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
