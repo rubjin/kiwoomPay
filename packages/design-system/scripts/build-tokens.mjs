@@ -8,6 +8,7 @@
 //   tokens/figma/space.json        Figma Variables(간격) — 수정 금지
 //   tokens/figma/text-styles.json  Figma Text Styles     — 수정 금지
 //   tokens/custom/*.json           퍼블리셔가 작성한 코드 토큰 (DTCG 형식)
+//   tokens/custom/themes/*.json    시스템별 테마 — 기존 토큰의 값만 덮어쓴다 (파일명 = data-system 값)
 //
 // 이름 규칙은 docs/token-workflow.md 참고.
 
@@ -18,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FIGMA_DIR = path.join(ROOT, 'tokens/figma');
 const CUSTOM_DIR = path.join(ROOT, 'tokens/custom');
+const THEMES_DIR = path.join(CUSTOM_DIR, 'themes');
 const OUT_FILE = path.join(ROOT, 'src/styles/tokens/_generated.scss');
 const CSS_PREFIX = '--kp-';
 
@@ -36,6 +38,8 @@ const FIGMA_FILES = {
 const tokens = [];
 const byPath = new Map(); // "Primary.500" → 토큰 이름 (alias 해석용)
 const byName = new Map(); // "color-primary-500" → 토큰
+/** 시스템별 테마: [{ system, overrides: [{ name, value?, ref? }] }] */
+const themes = [];
 
 const fail = (msg) => {
   console.error(`[build-tokens] ${msg}`);
@@ -216,6 +220,40 @@ function collectTypographyRole(node, pathParts, ctx, where) {
   }
 }
 
+// ---------- 시스템별 테마 ----------
+
+/** 테마 파일은 새 토큰을 만들지 않고, 이미 있는 토큰의 값만 바꾼다. */
+function collectTheme(json, system, source) {
+  const overrides = [];
+  const visit = (node, pathParts) => {
+    for (const [key, child] of Object.entries(node)) {
+      if (key.startsWith('$') || child === null || typeof child !== 'object') continue;
+      const nextPath = [...pathParts, key];
+      if (!('$value' in child)) {
+        visit(child, nextPath);
+        continue;
+      }
+      const where = `${source} › ${nextPath.join('/')}`;
+      if (child.$type === 'typography') fail(`${where}: 테마에서는 typography를 바꿀 수 없습니다`);
+      const name = (child.$type === 'color' ? ['color', ...nextPath] : nextPath)
+        .map(kebab)
+        .join('-');
+      if (!byName.has(name))
+        fail(`${where}: 테마는 기존 토큰만 덮어쓸 수 있습니다 ("${name}" 없음)`);
+      const refMatch = typeof child.$value === 'string' ? child.$value.match(REF) : null;
+      if (refMatch) overrides.push({ name, ref: refMatch[1], where });
+      else
+        overrides.push({
+          name,
+          value: child.$type === 'color' ? colorValue(child.$value, where) : String(child.$value),
+        });
+    }
+  };
+  visit(json, []);
+  if (!overrides.length) fail(`${source}: 덮어쓸 토큰이 없습니다`);
+  themes.push({ system, overrides });
+}
+
 // ---------- alias 해석 ----------
 
 function resolveRef(token) {
@@ -284,6 +322,18 @@ function render() {
   }
   lines.push(');', '');
 
+  lines.push(
+    '// 시스템별 테마 — :root[data-system="<이름>"]에 덮어쓸 CSS 변수 (base/_root.scss가 사용)',
+  );
+  lines.push('$themes: (');
+  for (const theme of themes) {
+    lines.push(`  ${quote(theme.system)}: (`);
+    for (const o of theme.overrides)
+      lines.push(`    ${quote(CSS_PREFIX + o.name)}: ${quote(o.value)},`);
+    lines.push('  ),');
+  }
+  lines.push(');', '');
+
   return lines.join('\n');
 }
 
@@ -317,6 +367,28 @@ async function main() {
   for (const t of tokens) if (t.ref) resolveRef(t);
   checkCycles();
 
+  let themeFiles = [];
+  try {
+    themeFiles = (await readdir(THEMES_DIR)).filter((f) => f.endsWith('.json')).sort();
+  } catch {
+    /* tokens/custom/themes 없음 */
+  }
+  for (const file of themeFiles) {
+    const system = file.replace('.json', '');
+    if (!/^[a-z][a-z0-9-]*$/.test(system))
+      fail(`tokens/custom/themes/${file}: 파일명은 소문자 kebab-case`);
+    const json = await readJson(path.join(THEMES_DIR, file));
+    collectTheme(json, system, `tokens/custom/themes/${file}`);
+  }
+  for (const theme of themes)
+    for (const o of theme.overrides)
+      if (o.ref) {
+        const target = byPath.get(o.ref);
+        if (!target || !byName.has(target))
+          fail(`${o.where}: 참조 대상 "{${o.ref}}"를 찾을 수 없습니다`);
+        o.value = `var(${CSS_PREFIX}${target})`;
+      }
+
   const next = render();
   if (check) {
     let current = '';
@@ -333,7 +405,7 @@ async function main() {
   await writeFile(OUT_FILE, next, 'utf8');
   const figmaCount = tokens.filter((t) => t.source.startsWith('tokens/figma')).length;
   console.log(
-    `[build-tokens] ${path.relative(ROOT, OUT_FILE)} 생성 — 토큰 ${tokens.length}개 (Figma ${figmaCount}, 코드 ${tokens.length - figmaCount})`,
+    `[build-tokens] ${path.relative(ROOT, OUT_FILE)} 생성 — 토큰 ${tokens.length}개 (Figma ${figmaCount}, 코드 ${tokens.length - figmaCount}), 테마 ${themes.map((t) => `${t.system}(${t.overrides.length})`).join(' · ') || '없음'}`,
   );
 }
 

@@ -6,3 +6,13 @@
     #{$name}: #{$value};
   }
 }
+
+// 시스템별 테마: <html data-system="merchant"> 처럼 html에 붙인다.
+// alias 변수(예: 버튼 배경 → primary-500)는 html에서 계산되므로, 하위 요소에 붙이면 반영되지 않는다.
+@each $system, $variables in t.$themes {
+  :root[data-system='#{$system}'] {
+    @each $name, $value in $variables {
+      #{$name}: #{$value};
+    }
+  }
+}

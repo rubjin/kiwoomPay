@@ -1529,3 +1529,20 @@ $css-variables: (
   "--kp-work-tab-trigger-gap": "var(--kp-space-4)",
   "--kp-color-work-tab-trigger-text": "var(--kp-color-primary-800)",
 );
+
+// 시스템별 테마 — :root[data-system="<이름>"]에 덮어쓸 CSS 변수 (base/_root.scss가 사용)
+$themes: (
+  "merchant": (
+    "--kp-color-primary-50": "#F2F4FF",
+    "--kp-color-primary-100": "#E1E6FF",
+    "--kp-color-primary-200": "#C5CFFE",
+    "--kp-color-primary-300": "#A0AEFF",
+    "--kp-color-primary-400": "#7581FE",
+    "--kp-color-primary-500": "#514FEC",
+    "--kp-color-primary-600": "#423EC9",
+    "--kp-color-primary-700": "#3533A3",
+    "--kp-color-primary-800": "#2C2D85",
+    "--kp-color-primary-900": "#22236A",
+    "--kp-shadow-focus": "0 0 4px 0 rgba(81, 79, 236, 0.30)",
+  ),
+);

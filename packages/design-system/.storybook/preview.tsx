@@ -17,8 +17,32 @@ const remountOnArgsChange: Decorator = (Story, context) => {
   );
 };
 
+// 시스템별 키컬러 확인: 툴바에서 고른 시스템을 <html data-system>에 넣는다 (tokens/custom/themes/*.json)
+const applySystem: Decorator = (Story, context) => {
+  const system = context.globals.system as string | undefined;
+  if (system && system !== 'internal') document.documentElement.dataset.system = system;
+  else delete document.documentElement.dataset.system;
+  return <Story />;
+};
+
 const preview: Preview = {
-  decorators: [remountOnArgsChange],
+  decorators: [remountOnArgsChange, applySystem],
+  globalTypes: {
+    system: {
+      description: '시스템별 키컬러',
+      toolbar: {
+        title: '시스템',
+        icon: 'paintbrush',
+        items: [
+          { value: 'internal', title: '내부관리자 (기본)' },
+          { value: 'merchant', title: '가맹점관리자' },
+          { value: 'agency', title: '영업대행사 (미정 · 기본색)' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: { system: 'internal' },
   parameters: {
     controls: { expanded: true },
     layout: 'padded',

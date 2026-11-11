@@ -69,7 +69,8 @@ export default defineConfig({
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="assets" value="${ctx}/static/merchant-admin" />
 <!DOCTYPE html>
-<html lang="ko">
+<!-- 시스템별 키컬러: 가맹점관리자 merchant · 영업대행사 agency · 내부관리자는 생략 (docs/token-workflow.md C) -->
+<html lang="ko" data-system="merchant">
   <head>
     <meta charset="UTF-8" />
     <!-- 가맹점관리자만 반응형. 내부관리자·영업대행사는 viewport 태그를 넣지 않는다 -->

@@ -32,6 +32,23 @@
 }
 ```
 
+## C. 시스템별 키컬러(테마)
+
+세 시스템은 컴포넌트와 토큰을 공유하고 **키컬러(Primary 10단계)만** 다르다. Figma 토큰은 그대로 두고 코드의 테마 파일로 덮어쓴다.
+
+| 시스템       | `data-system` | 테마 파일                            | 키컬러(Primary 500) |
+| ------------ | ------------- | ------------------------------------ | ------------------- |
+| 내부관리자   | 없음(기본)    | — (Figma 값 그대로)                  | #2484C6             |
+| 가맹점관리자 | `merchant`    | `tokens/custom/themes/merchant.json` | #514FEC             |
+| 영업대행사   | `agency`      | 미정 → 파일이 없으면 기본색          | —                   |
+
+1. `tokens/custom/themes/<시스템>.json`에 바꿀 토큰만 적는다. 파일명이 `data-system` 값이 된다(소문자 kebab-case).
+2. 테마는 **기존 토큰의 값만** 바꿀 수 있다. 없는 토큰 · typography · 끊긴 참조는 빌드 에러.
+3. 키컬러를 바꿀 때는 `Primary/50~900` 전부와, 값으로 들어 있는 `Shadow/Focus`(포커스 번짐 rgba)를 함께 적는다. Primary를 가리키는 다른 토큰(버튼 · 탭 · LNB 등)은 자동으로 따라간다.
+4. `pnpm tokens` → `_generated.scss`의 `$themes` → CSS `:root[data-system='merchant'] { --kp-color-primary-500: … }`
+5. 페이지는 **`<html>`에** `data-system`을 붙인다. 하위 요소에 붙이면 alias 변수(예: 버튼 배경)가 이미 html에서 계산된 뒤라 바뀌지 않는다.
+6. Storybook 툴바의 **시스템** 메뉴로 시스템별 색을 확인한다.
+
 ## 이름 규칙 (Figma ↔ SCSS ↔ CSS 변수 1:1)
 
 경로를 소문자 kebab-case로 이어 붙인다. 색(`$type: color`)만 앞에 `color-`가 붙는다.

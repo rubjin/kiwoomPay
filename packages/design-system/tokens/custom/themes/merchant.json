@@ -1,0 +1,22 @@
+{
+  "$description": "가맹점관리자 테마 — <html data-system=\"merchant\">. 기존 토큰의 값만 덮어쓴다. Primary 500만 확정, 나머지 단계는 기본 Primary 단계의 밝기·채도 관계를 500에 적용해 계산한 임시값",
+  "Primary": {
+    "50": { "$type": "color", "$value": "#F2F4FF", "$description": "TODO(시안) 계산값" },
+    "100": { "$type": "color", "$value": "#E1E6FF", "$description": "TODO(시안) 계산값" },
+    "200": { "$type": "color", "$value": "#C5CFFE", "$description": "TODO(시안) 계산값" },
+    "300": { "$type": "color", "$value": "#A0AEFF", "$description": "TODO(시안) 계산값" },
+    "400": { "$type": "color", "$value": "#7581FE", "$description": "TODO(시안) 계산값" },
+    "500": { "$type": "color", "$value": "#514FEC", "$description": "가맹점관리자 키컬러 (확정)" },
+    "600": { "$type": "color", "$value": "#423EC9", "$description": "TODO(시안) 계산값" },
+    "700": { "$type": "color", "$value": "#3533A3", "$description": "TODO(시안) 계산값" },
+    "800": { "$type": "color", "$value": "#2C2D85", "$description": "TODO(시안) 계산값" },
+    "900": { "$type": "color", "$value": "#22236A", "$description": "TODO(시안) 계산값" }
+  },
+  "Shadow": {
+    "Focus": {
+      "$type": "shadow",
+      "$value": "0 0 4px 0 rgba(81, 79, 236, 0.30)",
+      "$description": "포커스 번짐 — 기본값의 Primary 500 자리에 가맹점 500"
+    }
+  }
+}
