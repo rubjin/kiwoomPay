@@ -445,6 +445,17 @@ $color-icon-warning: var(--kp-color-icon-warning); // Warning-circle_filled
 $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
 
+// ── custom · infobox ────────────────────────────────────────────
+$color-infobox-info-bg: var(--kp-color-infobox-info-bg);
+$color-infobox-info-border: var(--kp-color-infobox-info-border);
+$color-infobox-neutral-bg: var(--kp-color-infobox-neutral-bg);
+$color-infobox-neutral-border: var(--kp-color-infobox-neutral-border);
+$color-infobox-icon: var(--kp-color-infobox-icon);
+$color-infobox-title: var(--kp-color-infobox-title);
+$color-infobox-text: var(--kp-color-infobox-text);
+$color-infobox-label: var(--kp-color-infobox-label);
+$color-infobox-link: var(--kp-color-infobox-link);
+
 // ── custom · lnb ────────────────────────────────────────────────
 $color-lnb-bg: var(--kp-color-lnb-bg);
 $color-lnb-border: var(--kp-color-lnb-border); // 오른쪽 경계
@@ -961,6 +972,15 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
+  "--kp-color-infobox-info-bg": "var(--kp-color-primary-50)",
+  "--kp-color-infobox-info-border": "var(--kp-color-primary-200)",
+  "--kp-color-infobox-neutral-bg": "var(--kp-color-bg-page)",
+  "--kp-color-infobox-neutral-border": "var(--kp-color-line-default)",
+  "--kp-color-infobox-icon": "var(--kp-color-text-body)",
+  "--kp-color-infobox-title": "var(--kp-color-text-heading)",
+  "--kp-color-infobox-text": "var(--kp-color-text-secondary)",
+  "--kp-color-infobox-label": "var(--kp-color-text-label)",
+  "--kp-color-infobox-link": "var(--kp-color-text-accent)",
   "--kp-color-lnb-bg": "var(--kp-color-bg-surface)",
   "--kp-color-lnb-border": "var(--kp-color-neutral-100)",
   "--kp-color-lnb-text": "var(--kp-color-text-heading)",

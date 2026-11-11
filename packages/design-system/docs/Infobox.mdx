@@ -1,0 +1,64 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as InfoboxStories from '../src/components/display/Infobox.stories';
+
+<Meta of={InfoboxStories} name="Guide" />
+
+# Infobox
+
+화면 안에 **항상 보이는 안내 문구**를 묶어 보여주는 상자입니다. 사용자가 닫거나 응답할 필요가 없는 정보(수정 불가 안내, 문의처, 조회 범위 등)에 씁니다.
+
+## 1. 구성
+
+```tsx
+<Infobox tone="info">
+  <Infobox.Item
+    title="계정정보 변경 안내"
+    actionLabel="변경 요청"
+    action={
+      <Infobox.Link href="mailto:pg-admin@daoudata.co.kr">pg-admin@daoudata.co.kr</Infobox.Link>
+    }
+  >
+    휴대전화번호·이메일 등 기본 계정정보는 직접 수정할 수 없습니다.
+  </Infobox.Item>
+</Infobox>
+```
+
+| 요소                     | 설명                                                                   |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `Infobox`                | 상자. `tone` info(파란 배경 · 기본) · neutral(회색 배경)               |
+| `Infobox.Item`           | 한 줄: 아이콘 · 제목(`title`) · 설명(children) · 오른쪽 영역           |
+| `actionLabel` · `action` | 오른쪽 보조 문구와 링크 · 버튼. 둘 다 없으면 오른쪽 영역을 그리지 않음 |
+| `icon`                   | 아이콘 바꾸기(기본 Info). `null`이면 숨김                              |
+| `Infobox.Link`           | 오른쪽 끝 링크(Primary 13 Bold, Hover 밑줄)                            |
+
+<Canvas of={InfoboxStories.Types} />
+
+## 2. 규칙
+
+- 여러 줄을 넣으면 **제목 · 설명 열이 맞춰집니다**(가장 긴 제목 기준).
+- 오른쪽 영역은 항상 오른쪽 끝에 붙고 줄바꿈하지 않습니다. 폭이 좁으면 설명이 줄바꿈됩니다.
+- 상자 폭은 부모를 채웁니다.
+
+<Canvas of={InfoboxStories.Variations} />
+
+## 3. Spec
+
+- 높이: 한 줄 46 · 두 줄 74 (위아래 여백 12 · 줄 높이 20 · 줄 간격 8)
+- 좌우 여백 16 · 반경 8 · 테두리 1
+- 아이콘 20(`info-box`) ↔ 제목 ↔ 설명 간격 8, 라벨 ↔ 링크 8
+- 글자: 제목 `typo-13-bold` · 설명 `typo-13-regular` · 라벨 `typo-12-regular` · 링크 `typo-13-bold`
+- 색: `infobox/*` (`tokens/custom/infobox.json`, 모두 alias) — Info 배경 Primary 50 · 테두리 Primary 200, Neutral 배경 `Bg/Page` · 테두리 `Line/Default`, 아이콘 `Text/Body` · 제목 `Text/Heading` · 설명 `Text/Secondary` · 라벨 `Text/Label` · 링크 `Text/Accent`
+- 크기 · 간격은 `Infobox.module.scss` 맨 위 SCSS 변수
+
+## 4. Do / Don't
+
+- ✅ 화면을 이용하는 동안 계속 알아야 하는 안내
+- ✅ 같은 성격의 안내 여러 개는 한 상자에 줄로 묶기
+- ❌ 저장 결과 · 오류처럼 일시적인 알림 — Toast · Modal을 씁니다
+- ❌ 페이지 상단 공지 · 점검 안내 — Page Notice를 씁니다
+- ❌ 긴 본문(여러 문단) — 설명은 한두 문장으로
+
+## Playground
+
+<Canvas of={InfoboxStories.Playground} />
+<Controls of={InfoboxStories.Playground} />

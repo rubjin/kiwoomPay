@@ -1,0 +1,103 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$infobox-padding-y: t.$space-12;
+$infobox-padding-x: t.$space-16;
+$infobox-radius: 8px;
+$infobox-row-gap: t.$space-8; // 줄 사이
+$infobox-gap: t.$space-8; // 아이콘 ↔ 제목 ↔ 설명 · 라벨 ↔ 링크
+$infobox-action-gap: t.$space-16; // TODO(시안) 설명 ↔ 오른쪽 영역 최소 간격 (시안은 설명이 짧아 확인 불가)
+$infobox-icon-size: 20px; // 줄 높이 = 아이콘 높이
+
+// 여러 줄이 제목 · 설명 열을 맞추도록 상자 전체를 한 grid로 두고, 줄(Item)은 subgrid로 참여한다
+.infobox {
+  display: grid;
+  grid-template-columns: auto max-content minmax(0, 1fr) auto;
+  row-gap: $infobox-row-gap;
+  padding: $infobox-padding-y $infobox-padding-x;
+  border: t.$control-border-width solid;
+  border-radius: $infobox-radius;
+}
+
+.info {
+  background-color: t.$color-infobox-info-bg;
+  border-color: t.$color-infobox-info-border;
+}
+
+.neutral {
+  background-color: t.$color-infobox-neutral-bg;
+  border-color: t.$color-infobox-neutral-border;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  column-gap: $infobox-gap;
+  align-items: center;
+  min-height: $infobox-icon-size;
+}
+
+.icon {
+  display: inline-flex;
+  grid-column: 1;
+  width: $infobox-icon-size;
+  height: $infobox-icon-size;
+  color: t.$color-infobox-icon;
+
+  &:empty {
+    width: 0;
+  }
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.title {
+  @include m.typography(typo-13-bold);
+
+  grid-column: 2;
+  color: t.$color-infobox-title;
+}
+
+.text {
+  @include m.typography(typo-13-regular);
+
+  grid-column: 3;
+  min-width: 0;
+  color: t.$color-infobox-text;
+}
+
+.action {
+  display: inline-flex;
+  grid-column: 4;
+  gap: $infobox-gap;
+  align-items: center;
+  justify-self: end;
+  margin-left: $infobox-action-gap;
+  white-space: nowrap;
+}
+
+.label {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-infobox-label;
+}
+
+.link {
+  @include m.typography(typo-13-bold);
+
+  color: t.$color-infobox-link;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}

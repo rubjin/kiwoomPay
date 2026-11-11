@@ -1,0 +1,44 @@
+{
+  "Infobox": {
+    "Info": {
+      "Bg": {
+        "$type": "color",
+        "$value": "{Primary.50}"
+      },
+      "Border": {
+        "$type": "color",
+        "$value": "{Primary.200}"
+      }
+    },
+    "Neutral": {
+      "Bg": {
+        "$type": "color",
+        "$value": "{Bg.Page}"
+      },
+      "Border": {
+        "$type": "color",
+        "$value": "{Line.Default}"
+      }
+    },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "Text": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "Label": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "Link": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    }
+  }
+}
