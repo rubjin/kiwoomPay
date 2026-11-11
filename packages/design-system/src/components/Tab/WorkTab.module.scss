@@ -1,6 +1,21 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$work-tab-height: t.$control-height-md; // Work Tab Item 높이 40 (측정)
+$work-tab-padding-x: t.$space-12; // Item 좌우 여백 (측정)
+$work-tab-icon-gap: t.$space-4; // Label ↔ 더보기 ↔ 닫기 (측정)
+$work-tab-icon-size: t.$control-icon-size-lg; // 더보기 · 닫기 아이콘 24 (측정)
+$work-tab-radius: t.$control-radius-lg; // Item 위쪽 모서리 (측정)
+$work-tab-indicator-width: 2px; // Active 아래 선 두께 (측정)
+$work-tab-label-max-width: 160px; // TODO(시안) 긴 메뉴명 말줄임 기준
+$work-tab-menu-width: 200px; // Action Menu 폭 (측정)
+$work-tab-menu-padding: t.$space-8;
+$work-tab-menu-item-padding-x: t.$space-8;
+$work-tab-menu-item-padding-y: 6px; // 항목 높이 33 (측정)
+$work-tab-menu-radius: t.$control-radius-lg;
+$work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
+
 // ── Workspace Bar ────────────────────────────────────
 // Item 사이 Gap 없이 연속 배치. 이웃 Item과 테두리 1줄을 공유한다.
 .bar {
@@ -13,15 +28,15 @@
   position: relative;
   display: inline-flex;
   flex: 0 1 auto;
-  gap: t.$work-tab-icon-gap;
+  gap: $work-tab-icon-gap;
   align-items: center;
   min-width: 0;
-  height: t.$work-tab-height;
-  padding-right: t.$work-tab-padding-x;
+  height: $work-tab-height;
+  padding-right: $work-tab-padding-x;
   color: t.$color-work-tab-text;
   background-color: t.$color-work-tab-bg;
   border: t.$control-border-width solid t.$color-work-tab-border;
-  border-radius: t.$work-tab-radius t.$work-tab-radius 0 0;
+  border-radius: $work-tab-radius $work-tab-radius 0 0;
 
   & + & {
     margin-left: calc(-1 * #{t.$control-border-width});
@@ -39,7 +54,7 @@
   background-color: t.$color-work-tab-bg-active;
   border-color: t.$color-work-tab-border-active;
   border-bottom-color: t.$color-work-tab-indicator;
-  box-shadow: inset 0 calc(#{t.$control-border-width} - #{t.$work-tab-indicator-width}) 0
+  box-shadow: inset 0 calc(#{t.$control-border-width} - #{$work-tab-indicator-width}) 0
     t.$color-work-tab-indicator;
 
   &:hover {
@@ -55,7 +70,7 @@
   align-self: stretch;
   align-items: center;
   min-width: 0;
-  padding: 0 0 0 t.$work-tab-padding-x;
+  padding: 0 0 0 $work-tab-padding-x;
   margin: 0;
   color: inherit;
   cursor: pointer;
@@ -70,7 +85,7 @@
 .label {
   @include m.ellipsis;
 
-  max-width: t.$work-tab-label-max-width;
+  max-width: $work-tab-label-max-width;
 }
 
 .iconButton {
@@ -78,8 +93,8 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  width: t.$work-tab-icon-size;
-  height: t.$work-tab-icon-size;
+  width: $work-tab-icon-size;
+  height: $work-tab-icon-size;
   padding: 0;
   margin: 0;
   color: t.$color-work-tab-icon;
@@ -112,7 +127,7 @@
   @include m.typography(heading-sm);
 
   display: inline-flex;
-  gap: t.$work-tab-trigger-gap;
+  gap: $work-tab-trigger-gap;
   align-items: center;
   padding: 0;
   margin: 0;
@@ -140,18 +155,18 @@
   z-index: t.$z-index-dropdown;
   display: flex;
   flex-direction: column;
-  width: t.$work-tab-menu-width;
-  padding: t.$work-tab-menu-padding;
+  width: $work-tab-menu-width;
+  padding: $work-tab-menu-padding;
   background-color: t.$color-work-tab-menu-bg;
   border: t.$control-border-width solid t.$color-work-tab-menu-border;
-  border-radius: t.$work-tab-menu-radius;
+  border-radius: $work-tab-menu-radius;
 }
 
 .menuItem {
   @include m.typography(body-md);
   @include m.ellipsis;
 
-  padding: t.$work-tab-menu-item-padding-y t.$work-tab-menu-item-padding-x;
+  padding: $work-tab-menu-item-padding-y $work-tab-menu-item-padding-x;
   margin: 0;
   color: t.$color-work-tab-menu-item-text;
   text-align: left;

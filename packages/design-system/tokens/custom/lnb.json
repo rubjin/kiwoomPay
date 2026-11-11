@@ -1,88 +1,5 @@
 {
   "Lnb": {
-    "Width": {
-      "$type": "dimension",
-      "$value": "240px",
-      "$description": "Expanded"
-    },
-    "CollapsedWidth": {
-      "$type": "dimension",
-      "$value": "48px",
-      "$description": "Collapsed"
-    },
-    "HeaderHeight": {
-      "$type": "dimension",
-      "$value": "56px",
-      "$description": "측정값: 햄버거 + 로고 행"
-    },
-    "PaddingX": {
-      "$type": "dimension",
-      "$value": "{space.12}"
-    },
-    "SearchPaddingY": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "측정값"
-    },
-    "IconGap": {
-      "$type": "dimension",
-      "$value": "{space.12}",
-      "$description": "1Depth 아이콘 ↔ 메뉴명"
-    },
-    "Indent": {
-      "$type": "dimension",
-      "$value": "44px",
-      "$description": "2·3Depth 시작 위치 = 여백 12 + 아이콘 20 + 간격 12"
-    },
-    "BulletSlot": {
-      "$type": "dimension",
-      "$value": "11px",
-      "$description": "3Depth 앞 점 자리 (측정값)"
-    },
-    "BulletSize": {
-      "$type": "dimension",
-      "$value": "3px",
-      "$description": "TODO(시안) 3Depth Active 점 크기"
-    },
-    "Depth1Height": {
-      "$type": "dimension",
-      "$value": "45px",
-      "$description": "측정값"
-    },
-    "Depth2Height": {
-      "$type": "dimension",
-      "$value": "42px",
-      "$description": "측정값"
-    },
-    "Depth3Height": {
-      "$type": "dimension",
-      "$value": "33px",
-      "$description": "측정값"
-    },
-    "TabHeight": {
-      "$type": "dimension",
-      "$value": "40px",
-      "$description": "측정값"
-    },
-    "TabIndicator": {
-      "$type": "dimension",
-      "$value": "2px",
-      "$description": "활성 탭 밑줄"
-    },
-    "CountHeight": {
-      "$type": "dimension",
-      "$value": "20px",
-      "$description": "즐겨찾기 개수 표시"
-    },
-    "ChevronSize": {
-      "$type": "dimension",
-      "$value": "16px"
-    },
-    "FavoriteGap": {
-      "$type": "dimension",
-      "$value": "{space.12}",
-      "$description": "즐겨찾기 항목 간격 (측정 51 = 항목 39 + 12)"
-    },
     "Bg": {
       "$type": "color",
       "$value": "{Bg.Surface}"
@@ -167,16 +84,6 @@
     "ScrollThumb": {
       "$type": "color",
       "$value": "{Neutral.300}"
-    },
-    "IconSize": {
-      "$type": "dimension",
-      "$value": "20px",
-      "$description": "1Depth 아이콘"
-    },
-    "FavoriteIconSize": {
-      "$type": "dimension",
-      "$value": "16px",
-      "$description": "즐겨찾기 하트"
     }
   }
 }

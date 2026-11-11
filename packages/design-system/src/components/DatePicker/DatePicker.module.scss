@@ -1,15 +1,25 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$date-picker-panel-width: 336px; // Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)
+$date-picker-padding: t.$space-16;
+$date-picker-header-height: 34px; // 측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260
+$date-picker-section-gap: t.$space-12; // Gap Section 12 (헤더 ↔ 날짜)
+$date-picker-cell-size: t.$control-height-md; // Cell 40×40
+$date-picker-day-gap: t.$space-4; // Gap Day 4
+$date-picker-cell-radius: 8px;
+$date-picker-panel-radius: t.$field-radius-md;
+
 .panel {
   display: flex;
   flex-direction: column;
-  gap: t.$date-picker-section-gap;
-  width: t.$date-picker-panel-width;
-  padding: t.$date-picker-padding;
+  gap: $date-picker-section-gap;
+  width: $date-picker-panel-width;
+  padding: $date-picker-padding;
   background-color: t.$color-date-picker-panel-bg;
   border: t.$control-border-width solid t.$color-date-picker-panel-border;
-  border-radius: t.$date-picker-panel-radius;
+  border-radius: $date-picker-panel-radius;
 }
 
 // ── Calendar Header ──────────────────────────────────
@@ -17,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: t.$date-picker-header-height;
+  height: $date-picker-header-height;
 }
 
 .title {
@@ -30,14 +40,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: t.$date-picker-header-height;
-  height: t.$date-picker-header-height;
+  width: $date-picker-header-height;
+  height: $date-picker-header-height;
   padding: 0;
   color: t.$color-date-picker-text;
   cursor: pointer;
   background: none;
   border: 0;
-  border-radius: t.$date-picker-cell-radius;
+  border-radius: $date-picker-cell-radius;
 
   &:hover {
     background-color: t.$color-date-picker-hover-bg;
@@ -47,8 +57,8 @@
 // ── Calendar Day ─────────────────────────────────────
 .grid {
   display: grid;
-  grid-template-columns: repeat(7, t.$date-picker-cell-size);
-  gap: t.$date-picker-day-gap;
+  grid-template-columns: repeat(7, $date-picker-cell-size);
+  gap: $date-picker-day-gap;
 }
 
 .day {
@@ -57,14 +67,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: t.$date-picker-cell-size;
-  height: t.$date-picker-cell-size;
+  width: $date-picker-cell-size;
+  height: $date-picker-cell-size;
   padding: 0;
   color: t.$color-date-picker-text;
   cursor: pointer;
   background: transparent;
   border: t.$control-border-width solid transparent;
-  border-radius: t.$date-picker-cell-radius;
+  border-radius: $date-picker-cell-radius;
 
   &:disabled {
     color: t.$color-date-picker-disabled;

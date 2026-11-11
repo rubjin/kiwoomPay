@@ -1,6 +1,9 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$checkbox-radius: 4px;
+
 // input은 투명하게 라벨 전체를 덮어 클릭·포커스를 받고, 모양은 바로 다음의 .box가 그린다.
 .input {
   position: absolute;
@@ -27,7 +30,7 @@
   color: t.$color-selection-glyph;
   background-color: t.$color-selection-bg;
   border: t.$control-border-width solid t.$color-selection-border;
-  border-radius: t.$checkbox-radius;
+  border-radius: $checkbox-radius;
 }
 
 // 체크박스를 라벨 첫 줄의 세로 가운데에 맞춘다 (1lh = 라벨 한 줄 높이)

@@ -1,21 +1,27 @@
 @use 'tokens' as t;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$search-area-item-gap: t.$space-16; // 검색 필드 간격 · 필드 ↔ 버튼 묶음 · 줄바꿈 시 줄 간격
+$search-area-action-gap: t.$space-8; // 버튼 간격 (초기화 · 조회 · 상세조건)
+$search-area-detail-gap: t.$space-16; // 기본 조건 줄 ↔ 상세 조건 구분선
+$search-area-detail-padding: t.$space-24; // 상세 조건 구분선 ↔ 상세 조건 줄
+
 .searchArea {
   display: flex;
   flex-direction: column;
-  gap: t.$search-area-detail-gap;
+  gap: $search-area-detail-gap;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: t.$search-area-item-gap;
+  gap: $search-area-item-gap;
   align-items: flex-start;
 }
 
 // 상세 조건: 기본 조건과 구분선으로 나눈다.
 .detail {
-  padding-top: t.$search-area-detail-padding;
+  padding-top: $search-area-detail-padding;
   border-top: t.$control-border-width solid t.$color-search-area-divider;
 }
 
@@ -24,7 +30,7 @@
 .actions {
   display: flex;
   flex: none;
-  gap: t.$search-area-action-gap;
+  gap: $search-area-action-gap;
   align-items: center;
 
   $label-height: calc(

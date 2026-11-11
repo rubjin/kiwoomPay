@@ -1,6 +1,14 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$field-padding-x-md: 14px;
+$field-padding-x-sm: t.$space-12;
+$field-feedback-border-width: 2px; // Positive / Negative 테두리
+$field-strong-border-width: 2px; // Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)
+$field-icon-size-md: 20px; // Leading Icon (md)
+$field-icon-size-sm: 16px; // Leading Icon (sm)
+
 // ── 아이콘 슬롯 (size 규칙보다 먼저 선언) ─────────────
 .leading,
 .trailing,
@@ -80,21 +88,21 @@
   @include m.typography(body-md);
 
   height: t.$control-height-md;
-  padding-inline: t.$field-padding-x-md;
+  padding-inline: $field-padding-x-md;
   border-radius: t.$field-radius-md;
 
   .leading {
-    width: t.$field-icon-size-md;
-    height: t.$field-icon-size-md;
+    width: $field-icon-size-md;
+    height: $field-icon-size-md;
   }
 
   .counter {
-    right: t.$field-padding-x-md;
+    right: $field-padding-x-md;
   }
 
   &.multiline {
     height: auto;
-    padding-block: t.$field-padding-x-md;
+    padding-block: $field-padding-x-md;
   }
 }
 
@@ -102,21 +110,21 @@
   @include m.typography(label-md);
 
   height: t.$control-height-sm;
-  padding-inline: t.$field-padding-x-sm;
+  padding-inline: $field-padding-x-sm;
   border-radius: t.$field-radius-sm;
 
   .leading {
-    width: t.$field-icon-size-sm;
-    height: t.$field-icon-size-sm;
+    width: $field-icon-size-sm;
+    height: $field-icon-size-sm;
   }
 
   .counter {
-    right: t.$field-padding-x-sm;
+    right: $field-padding-x-sm;
   }
 
   &.multiline {
     height: auto;
-    padding-block: t.$field-padding-x-sm;
+    padding-block: $field-padding-x-sm;
   }
 }
 
@@ -135,20 +143,20 @@
 // 열린 SelectBox가 스크롤·로딩·빈 상태일 때: 번짐 없이 테두리만 2px로 진하게
 .box.strong {
   border-color: t.$color-field-border-focus;
-  box-shadow: inset 0 0 0 calc(#{t.$field-strong-border-width} - #{t.$control-border-width})
+  box-shadow: inset 0 0 0 calc(#{$field-strong-border-width} - #{t.$control-border-width})
     t.$color-field-border-focus;
 }
 
 // Positive / Negative: 테두리 2px. 레이아웃이 밀리지 않도록 안쪽 그림자로 1px을 더한다.
 .box.positive {
   border-color: t.$color-field-border-positive;
-  box-shadow: inset 0 0 0 calc(#{t.$field-feedback-border-width} - #{t.$control-border-width})
+  box-shadow: inset 0 0 0 calc(#{$field-feedback-border-width} - #{t.$control-border-width})
     t.$color-field-border-positive;
 }
 
 .box.negative {
   border-color: t.$color-field-border-negative;
-  box-shadow: inset 0 0 0 calc(#{t.$field-feedback-border-width} - #{t.$control-border-width})
+  box-shadow: inset 0 0 0 calc(#{$field-feedback-border-width} - #{t.$control-border-width})
     t.$color-field-border-negative;
 }
 

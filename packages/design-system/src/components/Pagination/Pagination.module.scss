@@ -1,6 +1,15 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$pagination-item-size: t.$control-height-md; // Number 40×40, 높이 40 (Pagination Guide)
+$pagination-nav-min-width: 62px; // Previous·Next 62×40
+$pagination-nav-padding-x: t.$space-4; // 기본 문구(이전·다음)는 최소 폭 62가 적용되고, 긴 문구일 때만 쓰이는 좌우 여백
+$pagination-nav-gap: t.$space-4; // 이전·다음의 아이콘 ↔ 글자
+$pagination-gap: t.$space-4; // Item 간격
+$pagination-radius: 8px;
+$pagination-icon-size: 20px;
+
 .root {
   display: flex;
   justify-content: center;
@@ -8,7 +17,7 @@
 
 .list {
   display: flex;
-  gap: t.$pagination-gap;
+  gap: $pagination-gap;
   align-items: center;
   padding: 0;
   margin: 0;
@@ -22,15 +31,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: t.$pagination-item-size;
-  height: t.$pagination-item-size;
+  min-width: $pagination-item-size;
+  height: $pagination-item-size;
   padding: 0 t.$space-4;
   color: t.$color-pagination-text;
   white-space: nowrap;
   cursor: pointer;
   background: transparent;
   border: 0;
-  border-radius: t.$pagination-radius;
+  border-radius: $pagination-radius;
 
   &:disabled {
     color: t.$color-pagination-disabled-text;
@@ -55,14 +64,14 @@
 }
 
 .nav {
-  gap: t.$pagination-nav-gap;
-  min-width: t.$pagination-nav-min-width;
-  padding-inline: t.$pagination-nav-padding-x;
+  gap: $pagination-nav-gap;
+  min-width: $pagination-nav-min-width;
+  padding-inline: $pagination-nav-padding-x;
 }
 
 .icon {
-  width: t.$pagination-icon-size;
-  height: t.$pagination-icon-size;
+  width: $pagination-icon-size;
+  height: $pagination-icon-size;
 }
 
 .ellipsis {
@@ -71,8 +80,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: t.$pagination-item-size;
-  height: t.$pagination-item-size;
+  min-width: $pagination-item-size;
+  height: $pagination-item-size;
   color: t.$color-pagination-text;
   user-select: none;
 }

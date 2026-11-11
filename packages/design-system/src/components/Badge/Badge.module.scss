@@ -1,6 +1,17 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$badge-height-md: 24px; // Default H24
+$badge-height-sm: 20px; // Small H20
+$badge-padding-x-md: 10px; // 측정값
+$badge-padding-x-sm: t.$space-8; // 측정값
+$badge-dot-gap-md: 6px; // 측정값: 상태 점 ↔ 글자
+$badge-dot-gap-sm: t.$space-4; // 측정값
+$badge-dot-size: 6px; // Status Dot · Dot Badge
+$badge-number-size: 20px; // Number Badge 높이·최소 폭
+$badge-number-padding-x: 6px; // TODO(시안) 99+ 처럼 두 자리 이상일 때 좌우 여백
+
 // tone별 색 토큰: --kp-color-badge-{tone}-{bg|text|dot|border}  (tokens/custom/badge.json)
 $tones: neutral, primary, info, success, warning, error;
 
@@ -17,8 +28,8 @@ $tones: neutral, primary, info, success, warning, error;
 
 .dot {
   flex: none;
-  width: t.$badge-dot-size;
-  height: t.$badge-dot-size;
+  width: $badge-dot-size;
+  height: $badge-dot-size;
   border-radius: 50%;
 }
 
@@ -32,19 +43,19 @@ $tones: neutral, primary, info, success, warning, error;
 .md {
   @include m.typography(badge-md);
 
-  gap: t.$badge-dot-gap-md;
-  height: t.$badge-height-md;
-  padding-inline: t.$badge-padding-x-md;
-  border-radius: calc(#{t.$badge-height-md} / 2);
+  gap: $badge-dot-gap-md;
+  height: $badge-height-md;
+  padding-inline: $badge-padding-x-md;
+  border-radius: calc(#{$badge-height-md} / 2);
 }
 
 .sm {
   @include m.typography(badge-sm);
 
-  gap: t.$badge-dot-gap-sm;
-  height: t.$badge-height-sm;
-  padding-inline: t.$badge-padding-x-sm;
-  border-radius: calc(#{t.$badge-height-sm} / 2);
+  gap: $badge-dot-gap-sm;
+  height: $badge-height-sm;
+  padding-inline: $badge-padding-x-sm;
+  border-radius: calc(#{$badge-height-sm} / 2);
 }
 
 @each $tone in $tones {
@@ -74,21 +85,21 @@ $tones: neutral, primary, info, success, warning, error;
   flex: none;
   align-items: center;
   justify-content: center;
-  min-width: t.$badge-number-size;
-  height: t.$badge-number-size;
-  padding-inline: t.$badge-number-padding-x;
+  min-width: $badge-number-size;
+  height: $badge-number-size;
+  padding-inline: $badge-number-padding-x;
   color: t.$color-badge-number-text;
   white-space: nowrap;
   vertical-align: middle;
-  border-radius: calc(#{t.$badge-number-size} / 2);
+  border-radius: calc(#{$badge-number-size} / 2);
 }
 
 // ── Dot Badge (New Indicator) ────────────────────────
 .dotBadge {
   display: inline-block;
   flex: none;
-  width: t.$badge-dot-size;
-  height: t.$badge-dot-size;
+  width: $badge-dot-size;
+  height: $badge-dot-size;
   vertical-align: middle;
   border-radius: 50%;
 }

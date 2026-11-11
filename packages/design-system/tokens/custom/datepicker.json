@@ -1,42 +1,5 @@
 {
   "DatePicker": {
-    "PanelWidth": {
-      "$type": "dimension",
-      "$value": "336px",
-      "$description": "Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)"
-    },
-    "Padding": {
-      "$type": "dimension",
-      "$value": "{space.16}"
-    },
-    "HeaderHeight": {
-      "$type": "dimension",
-      "$value": "34px",
-      "$description": "측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260"
-    },
-    "SectionGap": {
-      "$type": "dimension",
-      "$value": "{space.12}",
-      "$description": "Gap Section 12 (헤더 ↔ 날짜)"
-    },
-    "CellSize": {
-      "$type": "dimension",
-      "$value": "{Control.Height.MD}",
-      "$description": "Cell 40×40"
-    },
-    "DayGap": {
-      "$type": "dimension",
-      "$value": "{space.4}",
-      "$description": "Gap Day 4"
-    },
-    "CellRadius": {
-      "$type": "dimension",
-      "$value": "8px"
-    },
-    "PanelRadius": {
-      "$type": "dimension",
-      "$value": "{Field.Radius.MD}"
-    },
     "PopoverOffset": {
       "$type": "dimension",
       "$value": "{space.8}",

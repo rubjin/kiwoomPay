@@ -1,6 +1,13 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$toggle-width-md: 36px;
+$toggle-width-sm: 28px;
+$toggle-thumb-size-md: 16px;
+$toggle-thumb-size-sm: 12px;
+$toggle-thumb-inset: 2px;
+
 .input {
   position: absolute;
   inset: 0;
@@ -19,8 +26,8 @@
   // 손잡이. 움직임(transition)은 motion 토큰이 없어 넣지 않았다.
   &::after {
     position: absolute;
-    top: t.$toggle-thumb-inset;
-    inset-inline-start: t.$toggle-thumb-inset;
+    top: $toggle-thumb-inset;
+    inset-inline-start: $toggle-thumb-inset;
     width: var(--thumb);
     height: var(--thumb);
     content: '';
@@ -31,18 +38,18 @@
 
 // 높이의 절반을 반경으로 써서 양 끝이 완전히 둥근 알약 모양을 만든다
 .md {
-  --thumb: #{t.$toggle-thumb-size-md};
+  --thumb: #{$toggle-thumb-size-md};
 
-  width: t.$toggle-width-md;
+  width: $toggle-width-md;
   height: t.$selection-size-md;
   margin-block: calc((1lh - #{t.$selection-size-md}) / 2);
   border-radius: calc(#{t.$selection-size-md} / 2);
 }
 
 .sm {
-  --thumb: #{t.$toggle-thumb-size-sm};
+  --thumb: #{$toggle-thumb-size-sm};
 
-  width: t.$toggle-width-sm;
+  width: $toggle-width-sm;
   height: t.$selection-size-sm;
   margin-block: calc((1lh - #{t.$selection-size-sm}) / 2);
   border-radius: calc(#{t.$selection-size-sm} / 2);
@@ -53,7 +60,7 @@
   background-color: t.$color-toggle-track-on;
 
   &::after {
-    inset-inline-start: calc(100% - #{t.$toggle-thumb-inset} - var(--thumb));
+    inset-inline-start: calc(100% - #{$toggle-thumb-inset} - var(--thumb));
   }
 }
 

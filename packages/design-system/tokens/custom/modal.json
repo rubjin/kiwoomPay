@@ -1,57 +1,5 @@
 {
   "Modal": {
-    "Width": {
-      "SM": {
-        "$type": "dimension",
-        "$value": "400px",
-        "$description": "size sm: Alert · Confirm (Modal 패턴 측정)"
-      },
-      "MD": {
-        "$type": "dimension",
-        "$value": "620px",
-        "$description": "size md: Information (Modal 패턴 측정)"
-      },
-      "LG": {
-        "$type": "dimension",
-        "$value": "800px",
-        "$description": "size lg: Form (Modal 패턴 측정)"
-      }
-    },
-    "Padding": {
-      "$type": "dimension",
-      "$value": "{space.20}",
-      "$description": "측정값"
-    },
-    "Radius": {
-      "$type": "dimension",
-      "$value": "10px",
-      "$description": "측정값(모서리 윤곽)"
-    },
-    "SectionGap": {
-      "$type": "dimension",
-      "$value": "{space.20}",
-      "$description": "Header ↔ Body ↔ Footer"
-    },
-    "MessageGap": {
-      "$type": "dimension",
-      "$value": "{space.20}",
-      "$description": "설명만 있는 본문(Alert·Confirm)의 추가 아래 여백 → Footer까지 40"
-    },
-    "FooterGap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "버튼 간격"
-    },
-    "ViewportMargin": {
-      "$type": "dimension",
-      "$value": "{space.40}",
-      "$description": "최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)"
-    },
-    "CloseSize": {
-      "$type": "dimension",
-      "$value": "24px",
-      "$description": "Header Close(X)"
-    },
     "Shadow": {
       "$type": "shadow",
       "$value": "0 4px 20px rgba(0, 0, 0, 0.1)",
@@ -85,28 +33,6 @@
       "Border": {
         "$type": "color",
         "$value": "{Line.Default}"
-      },
-      "Radius": {
-        "$type": "dimension",
-        "$value": "8px",
-        "$description": "측정값"
-      },
-      "Padding": {
-        "$type": "dimension",
-        "$value": "{space.12}"
-      },
-      "RowGap": {
-        "$type": "dimension",
-        "$value": "{space.8}"
-      },
-      "LabelWidth": {
-        "$type": "dimension",
-        "$value": "104px",
-        "$description": "측정값: 값이 상자 왼쪽 128에서 시작"
-      },
-      "LabelGap": {
-        "$type": "dimension",
-        "$value": "{space.12}"
       },
       "Label": {
         "$type": "color",

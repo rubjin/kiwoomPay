@@ -49,18 +49,15 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
   </tbody>
 </table>
 
-시안 Spec에 이름이 있는 간격 · 여백(예: 검색 필드 간격)은 컴포넌트 토큰(`search-area/item-gap`)으로 만들고,
-컴포넌트 토큰은 새 값을 만들지 않고 `{space.16}`처럼 Scale을 가리킵니다.
-컴포넌트 내부의 작은 조합 간격은 `t.$space-8`처럼 Scale을 바로 써도 됩니다.
-
-```json
-// tokens/custom/search.json
-"ItemGap": { "$type": "dimension", "$value": "{space.16}" }
-```
+간격은 Scale(`t.$space-N`)을 씁니다. 시안 Spec에 이름이 있는 간격(예: 검색 필드 간격)은 컴포넌트 파일 맨 위에
+SCSS 변수로 두고 Scale을 가리킵니다. 여러 컴포넌트가 함께 쓰는 값(`control/*` 등)만 토큰(`tokens/custom`)으로 둡니다.
 
 ```scss
+// SearchArea.module.scss
+$search-area-item-gap: t.$space-16; // 검색 필드 간격
+
 .row {
-  gap: t.$search-area-item-gap; // → var(--kp-search-area-item-gap) → var(--kp-space-16)
+  gap: $search-area-item-gap;
 }
 ```
 
@@ -101,7 +98,7 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
       <th>범위</th>
       <th>값</th>
       <th>용도</th>
-      <th>현재 컴포넌트 토큰</th>
+      <th>현재 컴포넌트 값</th>
     </tr>
   </thead>
   <tbody>
@@ -151,7 +148,7 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
 <table>
   <thead>
     <tr>
-      <th>토큰</th>
+      <th>이름</th>
       <th>값</th>
       <th>근거</th>
     </tr>
@@ -189,7 +186,8 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
   </tbody>
 </table>
 
-크기(높이 · 아이콘 · 반경 · 선 두께)는 Spacing이 아니라 각 `control/*` · 컴포넌트 토큰으로 관리합니다.
+표의 이름은 `control/*` · `field/gap`처럼 공통 토큰이거나, 컴포넌트 파일의 SCSS 변수입니다(`lnb/indent` → `Lnb.module.scss`의 `$lnb-indent`).
+크기(높이 · 아이콘 · 반경 · 선 두께)는 Spacing이 아니라 공통 `control/*` 토큰이나 컴포넌트 파일의 SCSS 변수로 관리합니다.
 
 ## Do / Don't
 
@@ -208,8 +206,10 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
       </td>
     </tr>
     <tr>
-      <td>시안 Spec 값(검색 필드 간격 등)은 컴포넌트 토큰으로 만들어 Scale을 가리키게 한다</td>
-      <td>컴포넌트 토큰에 Scale과 같은 값을 숫자(px)로 다시 적는다</td>
+      <td>
+        시안 Spec 값(검색 필드 간격 등)은 컴포넌트 파일 맨 위 SCSS 변수로 두고 Scale을 가리키게 한다
+      </td>
+      <td>Scale과 같은 값을 숫자(px)로 다시 적거나, 선언에 값을 직접 쓴다</td>
     </tr>
     <tr>
       <td>관계가 가까운 요소는 작은 값, 영역 구분은 큰 값</td>

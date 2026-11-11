@@ -1,19 +1,5 @@
 {
   "Tooltip": {
-    "MaxWidth": {
-      "$type": "dimension",
-      "$value": "320px",
-      "$description": "최대 너비 (본문 296 + 좌우 여백). 넘으면 자동 줄바꿈"
-    },
-    "PaddingX": {
-      "$type": "dimension",
-      "$value": "{space.12}"
-    },
-    "PaddingY": {
-      "$type": "dimension",
-      "$value": "10px",
-      "$description": "Tooltip Guide Anatomy: Padding 12 / 10"
-    },
     "Radius": {
       "$type": "dimension",
       "$value": "{Control.Radius.LG}"

@@ -1,11 +1,31 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$lnb-width: 240px; // Expanded
+$lnb-collapsed-width: 48px; // Collapsed
+$lnb-header-height: 56px; // 측정값: 햄버거 + 로고 행
+$lnb-padding-x: t.$space-12;
+$lnb-search-padding-y: t.$space-8; // 측정값
+$lnb-icon-gap: t.$space-12; // 1Depth 아이콘 ↔ 메뉴명
+$lnb-indent: 44px; // 2·3Depth 시작 위치 = 여백 12 + 아이콘 20 + 간격 12
+$lnb-bullet-slot: 11px; // 3Depth 앞 점 자리 (측정값)
+$lnb-bullet-size: 3px; // TODO(시안) 3Depth Active 점 크기
+$lnb-depth1-height: 45px; // 측정값
+$lnb-depth2-height: 42px; // 측정값
+$lnb-depth3-height: 33px; // 측정값
+$lnb-tab-height: 40px; // 측정값
+$lnb-tab-indicator: 2px; // 활성 탭 밑줄
+$lnb-count-height: 20px; // 즐겨찾기 개수 표시
+$lnb-favorite-gap: t.$space-12; // 즐겨찾기 항목 간격 (측정 51 = 항목 39 + 12)
+$lnb-icon-size: 20px; // 1Depth 아이콘
+$lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
+
 // ── Shell ────────────────────────────────────────────
 .lnb {
   display: flex;
   flex-direction: column;
-  width: t.$lnb-width;
+  width: $lnb-width;
   height: 100%;
   overflow: hidden;
   color: t.$color-lnb-text;
@@ -14,7 +34,7 @@
 }
 
 .collapsed {
-  width: t.$lnb-collapsed-width;
+  width: $lnb-collapsed-width;
 }
 
 .header {
@@ -22,8 +42,8 @@
   flex: none;
   gap: t.$space-8;
   align-items: center;
-  height: t.$lnb-header-height;
-  padding-inline: t.$lnb-padding-x;
+  height: $lnb-header-height;
+  padding-inline: $lnb-padding-x;
 }
 
 .collapsed .header {
@@ -48,7 +68,7 @@
 
 .search {
   flex: none;
-  padding: 0 t.$lnb-padding-x t.$lnb-search-padding-y;
+  padding: 0 $lnb-padding-x $lnb-search-padding-y;
 }
 
 // ── View Tab ─────────────────────────────────────────
@@ -66,14 +86,14 @@
   gap: t.$space-4;
   align-items: center;
   justify-content: center;
-  height: t.$lnb-tab-height;
+  height: $lnb-tab-height;
   padding: 0;
   margin-bottom: calc(-1 * #{t.$control-border-width});
   color: t.$color-lnb-tab-text;
   cursor: pointer;
   background: none;
   border: 0;
-  border-bottom: t.$lnb-tab-indicator solid transparent;
+  border-bottom: $lnb-tab-indicator solid transparent;
 }
 
 .tabActive {
@@ -87,12 +107,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: t.$lnb-count-height;
-  height: t.$lnb-count-height;
+  min-width: $lnb-count-height;
+  height: $lnb-count-height;
   padding-inline: t.$space-4;
   color: t.$color-lnb-count-text;
   background-color: t.$color-lnb-count-bg;
-  border-radius: calc(#{t.$lnb-count-height} / 2);
+  border-radius: calc(#{$lnb-count-height} / 2);
 }
 
 // ── 메뉴 영역 (넘치면 세로 스크롤) ────────────────────
@@ -161,9 +181,9 @@
 .depth1 {
   @include m.typography(lnb-depth1);
 
-  gap: t.$lnb-icon-gap;
-  height: t.$lnb-depth1-height;
-  padding-inline: t.$lnb-padding-x;
+  gap: $lnb-icon-gap;
+  height: $lnb-depth1-height;
+  padding-inline: $lnb-padding-x;
 
   &:hover {
     background-color: t.$color-lnb-hover-bg;
@@ -171,8 +191,8 @@
 }
 
 .icon {
-  width: t.$lnb-icon-size;
-  height: t.$lnb-icon-size;
+  width: $lnb-icon-size;
+  height: $lnb-icon-size;
 }
 
 // ── 2Depth ───────────────────────────────────────────
@@ -180,9 +200,9 @@
   @include m.typography(lnb-depth2);
 
   gap: t.$space-8;
-  height: t.$lnb-depth2-height;
-  padding-right: t.$lnb-padding-x;
-  padding-left: t.$lnb-indent;
+  height: $lnb-depth2-height;
+  padding-right: $lnb-padding-x;
+  padding-left: $lnb-indent;
 
   &:hover {
     background-color: t.$color-lnb-hover-bg;
@@ -193,9 +213,9 @@
 .depth3 {
   @include m.typography(lnb-depth3);
 
-  height: t.$lnb-depth3-height;
-  padding-right: t.$lnb-padding-x;
-  padding-left: t.$lnb-indent;
+  height: $lnb-depth3-height;
+  padding-right: $lnb-padding-x;
+  padding-left: $lnb-indent;
   color: t.$color-lnb-depth3-text;
 
   .go {
@@ -215,7 +235,7 @@
   display: inline-flex;
   flex: none;
   align-items: center;
-  width: t.$lnb-bullet-slot;
+  width: $lnb-bullet-slot;
 }
 
 // 3Depth Active: 현재 화면 (점 + 굵은 글자 + 배경)
@@ -226,8 +246,8 @@
   background-color: t.$color-lnb-active-bg;
 
   .bullet::before {
-    width: t.$lnb-bullet-size;
-    height: t.$lnb-bullet-size;
+    width: $lnb-bullet-size;
+    height: $lnb-bullet-size;
     content: '';
     background-color: currentcolor;
     border-radius: 50%;
@@ -242,7 +262,7 @@
 // ── 접은 모드 ────────────────────────────────────────
 .iconOnly {
   justify-content: center;
-  height: t.$lnb-depth1-height;
+  height: $lnb-depth1-height;
 
   &:hover {
     background-color: t.$color-lnb-hover-bg;
@@ -265,7 +285,7 @@
 
 // ── 즐겨찾기 ─────────────────────────────────────────
 .favorites {
-  padding: t.$space-16 t.$lnb-padding-x;
+  padding: t.$space-16 $lnb-padding-x;
 }
 
 .favoriteHeader {
@@ -282,7 +302,7 @@
 .favoriteList {
   display: flex;
   flex-direction: column;
-  gap: t.$lnb-favorite-gap;
+  gap: $lnb-favorite-gap;
 }
 
 .favoriteItem {
@@ -295,7 +315,7 @@
 }
 
 .heart {
-  margin-top: calc((1lh - #{t.$lnb-favorite-icon-size}) / 2);
+  margin-top: calc((1lh - #{$lnb-favorite-icon-size}) / 2);
 }
 
 .itemText {
@@ -350,7 +370,7 @@
   flex-direction: column;
   gap: t.$space-4;
   align-items: stretch;
-  padding: t.$space-12 t.$lnb-padding-x;
+  padding: t.$space-12 $lnb-padding-x;
 
   &:hover {
     background-color: t.$color-lnb-sub-bg;
@@ -366,5 +386,5 @@
   display: flex;
   flex-direction: column;
   gap: t.$space-4;
-  padding: t.$space-16 t.$lnb-padding-x;
+  padding: t.$space-16 $lnb-padding-x;
 }

@@ -325,15 +325,6 @@ $typography-tab-count-md-line-height: var(--kp-typography-tab-count-md-line-heig
 $typography-tab-count-md-letter-spacing: var(--kp-typography-tab-count-md-letter-spacing);
 
 // ── custom · badge ──────────────────────────────────────────────
-$badge-height-md: var(--kp-badge-height-md); // Default H24
-$badge-height-sm: var(--kp-badge-height-sm); // Small H20
-$badge-padding-x-md: var(--kp-badge-padding-x-md); // 측정값
-$badge-padding-x-sm: var(--kp-badge-padding-x-sm); // 측정값
-$badge-dot-gap-md: var(--kp-badge-dot-gap-md); // 측정값: 상태 점 ↔ 글자
-$badge-dot-gap-sm: var(--kp-badge-dot-gap-sm); // 측정값
-$badge-dot-size: var(--kp-badge-dot-size); // Status Dot · Dot Badge
-$badge-number-size: var(--kp-badge-number-size); // Number Badge 높이·최소 폭
-$badge-number-padding-x: var(--kp-badge-number-padding-x); // TODO(시안) 99+ 처럼 두 자리 이상일 때 좌우 여백
 $color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
 $color-badge-neutral-text: var(--kp-color-badge-neutral-text);
 $color-badge-neutral-dot: var(--kp-color-badge-neutral-dot); // TODO(시안) Neutral은 상태 점이 시안에 없음
@@ -450,14 +441,6 @@ $control-icon-gap: var(--kp-control-icon-gap); // 아이콘-텍스트 간격 (�
 $control-border-width: var(--kp-control-border-width); // Line 버튼 테두리
 
 // ── custom · datepicker ─────────────────────────────────────────
-$date-picker-panel-width: var(--kp-date-picker-panel-width); // Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)
-$date-picker-padding: var(--kp-date-picker-padding);
-$date-picker-header-height: var(--kp-date-picker-header-height); // 측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260
-$date-picker-section-gap: var(--kp-date-picker-section-gap); // Gap Section 12 (헤더 ↔ 날짜)
-$date-picker-cell-size: var(--kp-date-picker-cell-size); // Cell 40×40
-$date-picker-day-gap: var(--kp-date-picker-day-gap); // Gap Day 4
-$date-picker-cell-radius: var(--kp-date-picker-cell-radius);
-$date-picker-panel-radius: var(--kp-date-picker-panel-radius);
 $date-picker-popover-offset: var(--kp-date-picker-popover-offset); // TODO(시안) 필드 ↔ 패널 간격 (시안은 패널을 떨어뜨려 표시)
 $color-date-picker-panel-bg: var(--kp-color-date-picker-panel-bg);
 $color-date-picker-panel-border: var(--kp-color-date-picker-panel-border);
@@ -481,14 +464,8 @@ $focus-ring-offset: var(--kp-focus-ring-offset); // TODO 시안 확인
 // ── custom · field ──────────────────────────────────────────────
 $field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
 $field-radius-sm: var(--kp-field-radius-sm);
-$field-padding-x-md: var(--kp-field-padding-x-md);
-$field-padding-x-sm: var(--kp-field-padding-x-sm);
 $field-gap: var(--kp-field-gap); // 아이콘·접미사와 텍스트 사이
-$field-label-gap: var(--kp-field-label-gap); // 가로 배치 Label ↔ 필드
 $field-label-gap-top: var(--kp-field-label-gap-top); // 라벨 위 배치(검색 영역)에서 라벨 ↔ 필드
-$field-helper-gap: var(--kp-field-helper-gap); // 필드 ↔ Helper Text
-$field-feedback-border-width: var(--kp-field-feedback-border-width); // Positive / Negative 테두리
-$field-strong-border-width: var(--kp-field-strong-border-width); // Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)
 $color-field-icon: var(--kp-color-field-icon); // Chevron · Calendar
 $color-field-bg: var(--kp-color-field-bg);
 $color-field-bg-disabled: var(--kp-color-field-bg-disabled);
@@ -509,17 +486,9 @@ $color-field-helper: var(--kp-color-field-helper);
 $color-field-helper-positive: var(--kp-color-field-helper-positive); // 시안: 글자색이 Border 색(Text 색 아님)
 $color-field-helper-negative: var(--kp-color-field-helper-negative); // 시안: 글자색이 Border 색(Text 색 아님)
 $color-field-counter: var(--kp-color-field-counter);
-$field-icon-size-md: var(--kp-field-icon-size-md); // Leading Icon (md)
-$field-icon-size-sm: var(--kp-field-icon-size-sm); // Leading Icon (sm)
 $field-icon-size-trailing: var(--kp-field-icon-size-trailing); // Chevron · Calendar · Clear (전 size 공통)
 $shadow-focus: var(--kp-shadow-focus); // 포커스 번짐 (Figma 확정값)
 $select-panel-offset: var(--kp-select-panel-offset); // 필드 ↔ 드롭다운 패널
-$select-panel-padding: var(--kp-select-panel-padding);
-$select-item-padding-y: var(--kp-select-item-padding-y);
-$select-item-padding-x: var(--kp-select-item-padding-x);
-$select-item-gap: var(--kp-select-item-gap);
-$select-panel-max-height: var(--kp-select-panel-max-height); // TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤
-$select-status-min-height: var(--kp-select-status-min-height); // TODO(시안) Loading/Empty 패널 높이 근사
 $color-select-item-hover: var(--kp-color-select-item-hover);
 $color-select-item-selected: var(--kp-color-select-item-selected);
 $color-select-item-selected-text: var(--kp-color-select-item-selected-text);
@@ -546,23 +515,6 @@ $color-icon-error: var(--kp-color-icon-error); // Alert-circle_filled, Pin
 $color-icon-on-color: var(--kp-color-icon-on-color); // 색 채움 아이콘 위의 흰색 글리프(체크, X 등)
 
 // ── custom · lnb ────────────────────────────────────────────────
-$lnb-width: var(--kp-lnb-width); // Expanded
-$lnb-collapsed-width: var(--kp-lnb-collapsed-width); // Collapsed
-$lnb-header-height: var(--kp-lnb-header-height); // 측정값: 햄버거 + 로고 행
-$lnb-padding-x: var(--kp-lnb-padding-x);
-$lnb-search-padding-y: var(--kp-lnb-search-padding-y); // 측정값
-$lnb-icon-gap: var(--kp-lnb-icon-gap); // 1Depth 아이콘 ↔ 메뉴명
-$lnb-indent: var(--kp-lnb-indent); // 2·3Depth 시작 위치 = 여백 12 + 아이콘 20 + 간격 12
-$lnb-bullet-slot: var(--kp-lnb-bullet-slot); // 3Depth 앞 점 자리 (측정값)
-$lnb-bullet-size: var(--kp-lnb-bullet-size); // TODO(시안) 3Depth Active 점 크기
-$lnb-depth1-height: var(--kp-lnb-depth1-height); // 측정값
-$lnb-depth2-height: var(--kp-lnb-depth2-height); // 측정값
-$lnb-depth3-height: var(--kp-lnb-depth3-height); // 측정값
-$lnb-tab-height: var(--kp-lnb-tab-height); // 측정값
-$lnb-tab-indicator: var(--kp-lnb-tab-indicator); // 활성 탭 밑줄
-$lnb-count-height: var(--kp-lnb-count-height); // 즐겨찾기 개수 표시
-$lnb-chevron-size: var(--kp-lnb-chevron-size);
-$lnb-favorite-gap: var(--kp-lnb-favorite-gap); // 즐겨찾기 항목 간격 (측정 51 = 항목 39 + 12)
 $color-lnb-bg: var(--kp-color-lnb-bg);
 $color-lnb-border: var(--kp-color-lnb-border); // 오른쪽 경계
 $color-lnb-text: var(--kp-color-lnb-text); // 1·2Depth 메뉴명·아이콘 (#111827)
@@ -582,20 +534,8 @@ $color-lnb-highlight: var(--kp-color-lnb-highlight); // 검색어 일치 문자�
 $color-lnb-path: var(--kp-color-lnb-path); // 검색 결과·즐겨찾기 경로
 $color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선
 $color-lnb-scroll-thumb: var(--kp-color-lnb-scroll-thumb);
-$lnb-icon-size: var(--kp-lnb-icon-size); // 1Depth 아이콘
-$lnb-favorite-icon-size: var(--kp-lnb-favorite-icon-size); // 즐겨찾기 하트
 
 // ── custom · modal ──────────────────────────────────────────────
-$modal-width-sm: var(--kp-modal-width-sm); // size sm: Alert · Confirm (Modal 패턴 측정)
-$modal-width-md: var(--kp-modal-width-md); // size md: Information (Modal 패턴 측정)
-$modal-width-lg: var(--kp-modal-width-lg); // size lg: Form (Modal 패턴 측정)
-$modal-padding: var(--kp-modal-padding); // 측정값
-$modal-radius: var(--kp-modal-radius); // 측정값(모서리 윤곽)
-$modal-section-gap: var(--kp-modal-section-gap); // Header ↔ Body ↔ Footer
-$modal-message-gap: var(--kp-modal-message-gap); // 설명만 있는 본문(Alert·Confirm)의 추가 아래 여백 → Footer까지 40
-$modal-footer-gap: var(--kp-modal-footer-gap); // 버튼 간격
-$modal-viewport-margin: var(--kp-modal-viewport-margin); // 최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)
-$modal-close-size: var(--kp-modal-close-size); // Header Close(X)
 $modal-shadow: var(--kp-modal-shadow); // TODO(시안) 그림자 근사값
 $color-modal-bg: var(--kp-color-modal-bg);
 $color-modal-border: var(--kp-color-modal-border);
@@ -604,43 +544,19 @@ $color-modal-description: var(--kp-color-modal-description);
 $color-modal-close: var(--kp-color-modal-close);
 $color-modal-info-bg: var(--kp-color-modal-info-bg);
 $color-modal-info-border: var(--kp-color-modal-info-border);
-$modal-info-radius: var(--kp-modal-info-radius); // 측정값
-$modal-info-padding: var(--kp-modal-info-padding);
-$modal-info-row-gap: var(--kp-modal-info-row-gap);
-$modal-info-label-width: var(--kp-modal-info-label-width); // 측정값: 값이 상자 왼쪽 128에서 시작
-$modal-info-label-gap: var(--kp-modal-info-label-gap);
 $color-modal-info-label: var(--kp-color-modal-info-label);
 $color-modal-info-value: var(--kp-color-modal-info-value);
 
 // ── custom · page-layout ────────────────────────────────────────
-$page-layout-header-height: var(--kp-page-layout-header-height); // App Header 높이 (아래 테두리 포함, 1920 Layout Spec)
-$page-layout-work-tab-height: var(--kp-page-layout-work-tab-height); // Work Tab 영역 높이 (1920 Layout Spec). Tab 40은 아래에 붙음
-$page-layout-footer-height: var(--kp-page-layout-footer-height); // Footer 높이 (1920 Layout Spec)
-$page-layout-padding-x: var(--kp-page-layout-padding-x); // Page Content · Work Tab 좌우 여백 (1920 기준 Content W 1632)
-$page-layout-padding-y: var(--kp-page-layout-padding-y); // Page Content 상단 여백 · Work Tab 위 여백
-$page-layout-section-gap: var(--kp-page-layout-section-gap); // Page Title · Section 사이 간격
-$page-layout-title-height: var(--kp-page-layout-title-height); // Page Title 줄 높이 40
-$page-layout-title-action-gap: var(--kp-page-layout-title-action-gap); // Page Title 오른쪽 Action 간격 (측정)
 $color-page-layout-bg: var(--kp-color-page-layout-bg);
 $color-page-layout-header-bg: var(--kp-color-page-layout-header-bg);
 $color-page-layout-divider: var(--kp-color-page-layout-divider); // Header 아래 · Work Tab 아래 선
 $color-page-layout-title: var(--kp-color-page-layout-title);
-$page-layout-section-padding: var(--kp-page-layout-section-padding); // Section 카드 안쪽 여백 (검색 조건 · 조회 결과)
-$page-layout-section-padding-compact: var(--kp-page-layout-section-padding-compact); // 한 줄 Section 안쪽 여백 (적용된 검색 조건 · 조회 요약)
-$page-layout-section-header-gap: var(--kp-page-layout-section-header-gap); // Section 제목 ↔ 제목 옆 요소 · 오른쪽 Action 간격
-$page-layout-section-radius: var(--kp-page-layout-section-radius);
 $color-page-layout-section-bg: var(--kp-color-page-layout-section-bg);
 $color-page-layout-section-border: var(--kp-color-page-layout-section-border);
 $color-page-layout-section-title: var(--kp-color-page-layout-section-title);
 
 // ── custom · pagination ─────────────────────────────────────────
-$pagination-item-size: var(--kp-pagination-item-size); // Number 40×40, 높이 40 (Pagination Guide)
-$pagination-nav-min-width: var(--kp-pagination-nav-min-width); // Previous·Next 62×40
-$pagination-nav-padding-x: var(--kp-pagination-nav-padding-x); // 기본 문구(이전·다음)는 최소 폭 62가 적용되고, 긴 문구일 때만 쓰이는 좌우 여백
-$pagination-nav-gap: var(--kp-pagination-nav-gap); // 이전·다음의 아이콘 ↔ 글자
-$pagination-gap: var(--kp-pagination-gap); // Item 간격
-$pagination-radius: var(--kp-pagination-radius);
-$pagination-icon-size: var(--kp-pagination-icon-size);
 $color-pagination-text: var(--kp-color-pagination-text);
 $color-pagination-hover-bg: var(--kp-color-pagination-hover-bg);
 $color-pagination-pressed-bg: var(--kp-color-pagination-pressed-bg);
@@ -650,19 +566,11 @@ $color-pagination-active-text: var(--kp-color-pagination-active-text);
 $color-pagination-disabled-text: var(--kp-color-pagination-disabled-text);
 
 // ── custom · search ─────────────────────────────────────────────
-$search-area-item-gap: var(--kp-search-area-item-gap); // 검색 필드 간격 · 필드 ↔ 버튼 묶음 · 줄바꿈 시 줄 간격
-$search-area-action-gap: var(--kp-search-area-action-gap); // 버튼 간격 (초기화 · 조회 · 상세조건)
-$search-area-detail-gap: var(--kp-search-area-detail-gap); // 기본 조건 줄 ↔ 상세 조건 구분선
-$search-area-detail-padding: var(--kp-search-area-detail-padding); // 상세 조건 구분선 ↔ 상세 조건 줄
 $color-search-area-divider: var(--kp-color-search-area-divider); // 상세 조건 구분선
 
 // ── custom · selection ──────────────────────────────────────────
 $selection-size-md: var(--kp-selection-size-md); // Selection Components: Checkbox·Radio·Toggle 높이 (Default 20)
 $selection-size-sm: var(--kp-selection-size-sm); // Small 16
-$selection-gap: var(--kp-selection-gap); // 컨트롤 ↔ 라벨
-$selection-helper-gap: var(--kp-selection-helper-gap); // 라벨 ↔ 부가 설명
-$selection-group-gap: var(--kp-selection-group-gap); // 세로 그룹의 항목 간격
-$selection-group-gap-inline: var(--kp-selection-group-gap-inline); // TODO(시안) 가로 그룹 간격
 $color-selection-bg: var(--kp-color-selection-bg);
 $color-selection-border: var(--kp-color-selection-border);
 $color-selection-checked: var(--kp-color-selection-checked); // 체크 배경·테두리, 라디오 링·점
@@ -672,25 +580,11 @@ $color-selection-disabled-checked: var(--kp-color-selection-disabled-checked); /
 $color-selection-text: var(--kp-color-selection-text);
 $color-selection-text-disabled: var(--kp-color-selection-text-disabled); // TODO(시안) 비활성 라벨 색은 시안에 없음
 $color-selection-helper: var(--kp-color-selection-helper);
-$checkbox-radius: var(--kp-checkbox-radius);
-$radio-checked-border-width: var(--kp-radio-checked-border-width); // 선택 시 링 두께
-$radio-dot-md: var(--kp-radio-dot-md);
-$radio-dot-sm: var(--kp-radio-dot-sm); // Small 선택 점 8 (확정)
-$toggle-width-md: var(--kp-toggle-width-md);
-$toggle-width-sm: var(--kp-toggle-width-sm);
-$toggle-thumb-size-md: var(--kp-toggle-thumb-size-md);
-$toggle-thumb-size-sm: var(--kp-toggle-thumb-size-sm);
-$toggle-thumb-inset: var(--kp-toggle-thumb-inset);
 $color-toggle-track-off: var(--kp-color-toggle-track-off);
 $color-toggle-track-on: var(--kp-color-toggle-track-on);
 $color-toggle-track-disabled: var(--kp-color-toggle-track-disabled);
 $color-toggle-thumb-default: var(--kp-color-toggle-thumb-default);
 $color-toggle-thumb-disabled: var(--kp-color-toggle-thumb-disabled);
-$segmented-height: var(--kp-segmented-height);
-$segmented-radius: var(--kp-segmented-radius);
-$segmented-min-width: var(--kp-segmented-min-width); // TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)
-$segmented-padding-x: var(--kp-segmented-padding-x); // TODO(시안)
-$segmented-gap: var(--kp-segmented-gap); // TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음
 $color-segmented-bg: var(--kp-color-segmented-bg);
 $color-segmented-border: var(--kp-color-segmented-border);
 $color-segmented-text: var(--kp-color-segmented-text);
@@ -712,16 +606,6 @@ $color-focus-ring: var(--kp-color-focus-ring); // TODO 시안 확인: 포커스 
 $color-overlay-dim: var(--kp-color-overlay-dim); // Modal 딤 (시안 측정: 흰 바탕 위 #858585)
 
 // ── custom · tab ────────────────────────────────────────────────
-$tab-height-md: var(--kp-tab-height-md); // Medium 40 · 일반 콘텐츠 영역 (Tab Guide)
-$tab-height-sm: var(--kp-tab-height-sm); // Small 32 · 밀도가 높은 영역 (Tab Guide)
-$tab-padding-x: var(--kp-tab-padding-x); // TODO(시안) Content Width 예시에서 밑줄이 글자보다 양쪽 약 4px 넓음
-$tab-gap: var(--kp-tab-gap); // TODO(시안) Line Tab Item 간격
-$tab-indicator-width: var(--kp-tab-indicator-width); // Active 밑줄 두께
-$tab-count-gap: var(--kp-tab-count-gap); // Label ↔ Number Badge (측정)
-$tab-button-min-width: var(--kp-tab-button-min-width); // TODO(시안) Button Tab 예시 폭
-$tab-button-padding-x: var(--kp-tab-button-padding-x); // TODO(시안) 긴 Label일 때 좌우 여백
-$tab-button-radius: var(--kp-tab-button-radius);
-$tab-button-gap: var(--kp-tab-button-gap); // TODO(시안) Button Tab 간격
 $color-tab-button-bg: var(--kp-color-tab-button-bg);
 $color-tab-button-bg-active: var(--kp-color-tab-button-bg-active);
 $color-tab-button-bg-disabled: var(--kp-color-tab-button-bg-disabled);
@@ -736,9 +620,6 @@ $color-tab-count-disabled-bg: var(--kp-color-tab-count-disabled-bg); // TODO(시
 $color-tab-count-disabled-text: var(--kp-color-tab-count-disabled-text); // TODO(시안) 비활성 Tab의 Number Badge
 
 // ── custom · tooltip ────────────────────────────────────────────
-$tooltip-max-width: var(--kp-tooltip-max-width); // 최대 너비 (본문 296 + 좌우 여백). 넘으면 자동 줄바꿈
-$tooltip-padding-x: var(--kp-tooltip-padding-x);
-$tooltip-padding-y: var(--kp-tooltip-padding-y); // Tooltip Guide Anatomy: Padding 12 / 10
 $tooltip-radius: var(--kp-tooltip-radius);
 $tooltip-arrow-width: var(--kp-tooltip-arrow-width); // 포인터 밑변 (측정)
 $tooltip-arrow-height: var(--kp-tooltip-arrow-height); // 포인터 높이 (측정). 아이콘 끝과 포인터 끝 간격 0
@@ -750,14 +631,7 @@ $color-tooltip-info-icon: var(--kp-color-tooltip-info-icon); // Info 아이콘 (
 $color-tooltip-info-icon-disabled: var(--kp-color-tooltip-info-icon-disabled); // TODO(시안) 비활성 Info 아이콘 표현 없음
 
 // ── custom · work-tab ───────────────────────────────────────────
-$work-tab-height: var(--kp-work-tab-height); // Work Tab Item 높이 40 (측정)
-$work-tab-padding-x: var(--kp-work-tab-padding-x); // Item 좌우 여백 (측정)
-$work-tab-icon-gap: var(--kp-work-tab-icon-gap); // Label ↔ 더보기 ↔ 닫기 (측정)
-$work-tab-icon-size: var(--kp-work-tab-icon-size); // 더보기 · 닫기 아이콘 24 (측정)
-$work-tab-radius: var(--kp-work-tab-radius); // Item 위쪽 모서리 (측정)
-$work-tab-indicator-width: var(--kp-work-tab-indicator-width); // Active 아래 선 두께 (측정)
 $work-tab-z-index-active: var(--kp-work-tab-z-index-active); // Active 테두리를 이웃 Item(공유 테두리) 위로 올림 (Bar 안에서만 쓰는 쌓임 순서)
-$work-tab-label-max-width: var(--kp-work-tab-label-max-width); // TODO(시안) 긴 메뉴명 말줄임 기준
 $color-work-tab-bg: var(--kp-color-work-tab-bg);
 $color-work-tab-bg-hover: var(--kp-color-work-tab-bg-hover);
 $color-work-tab-bg-active: var(--kp-color-work-tab-bg-active);
@@ -768,19 +642,13 @@ $color-work-tab-text: var(--kp-color-work-tab-text);
 $color-work-tab-text-active: var(--kp-color-work-tab-text-active);
 $color-work-tab-icon: var(--kp-color-work-tab-icon); // Hover 닫기 아이콘
 $color-work-tab-icon-active: var(--kp-color-work-tab-icon-active); // Active 더보기 · 닫기 아이콘
-$work-tab-menu-width: var(--kp-work-tab-menu-width); // Action Menu 폭 (측정)
 $work-tab-menu-offset: var(--kp-work-tab-menu-offset); // TODO(시안) Trigger ↔ Menu. Work Tab 가이드의 16은 Bar 아래선 기준
 $work-tab-menu-tab-offset: var(--kp-work-tab-menu-tab-offset); // TODO(시안) Active Tab 더보기(•••)로 열 때 Tab ↔ Menu
-$work-tab-menu-padding: var(--kp-work-tab-menu-padding);
-$work-tab-menu-item-padding-x: var(--kp-work-tab-menu-item-padding-x);
-$work-tab-menu-item-padding-y: var(--kp-work-tab-menu-item-padding-y); // 항목 높이 33 (측정)
-$work-tab-menu-radius: var(--kp-work-tab-menu-radius);
 $color-work-tab-menu-bg: var(--kp-color-work-tab-menu-bg);
 $color-work-tab-menu-border: var(--kp-color-work-tab-menu-border);
 $color-work-tab-menu-item-text: var(--kp-color-work-tab-menu-item-text);
 $color-work-tab-menu-item-hover: var(--kp-color-work-tab-menu-item-hover); // TODO(시안) Hover 표현 없음 — SelectBox 항목 Hover와 같게
 $color-work-tab-menu-item-text-disabled: var(--kp-color-work-tab-menu-item-text-disabled); // TODO(시안) 비활성 항목 표현 없음
-$work-tab-trigger-gap: var(--kp-work-tab-trigger-gap); // 글자 ↔ 화살표 (측정)
 $color-work-tab-trigger-text: var(--kp-color-work-tab-trigger-text);
 
 // 미디어쿼리용 (CSS 변수는 @media 안에서 쓸 수 없어 값을 그대로 둔다)
@@ -979,15 +847,6 @@ $css-variables: (
   "--kp-typography-typo-10-regular-font-weight": "400",
   "--kp-typography-typo-10-regular-line-height": "1.5",
   "--kp-typography-typo-10-regular-letter-spacing": "0",
-  "--kp-badge-height-md": "24px",
-  "--kp-badge-height-sm": "20px",
-  "--kp-badge-padding-x-md": "10px",
-  "--kp-badge-padding-x-sm": "var(--kp-space-8)",
-  "--kp-badge-dot-gap-md": "6px",
-  "--kp-badge-dot-gap-sm": "var(--kp-space-4)",
-  "--kp-badge-dot-size": "6px",
-  "--kp-badge-number-size": "20px",
-  "--kp-badge-number-padding-x": "6px",
   "--kp-color-badge-neutral-bg": "var(--kp-color-neutral-100)",
   "--kp-color-badge-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-badge-neutral-dot": "var(--kp-color-neutral-500)",
@@ -1096,14 +955,6 @@ $css-variables: (
   "--kp-control-icon-size-lg": "24px",
   "--kp-control-icon-gap": "var(--kp-space-4)",
   "--kp-control-border-width": "1px",
-  "--kp-date-picker-panel-width": "336px",
-  "--kp-date-picker-padding": "var(--kp-space-16)",
-  "--kp-date-picker-header-height": "34px",
-  "--kp-date-picker-section-gap": "var(--kp-space-12)",
-  "--kp-date-picker-cell-size": "var(--kp-control-height-md)",
-  "--kp-date-picker-day-gap": "var(--kp-space-4)",
-  "--kp-date-picker-cell-radius": "8px",
-  "--kp-date-picker-panel-radius": "var(--kp-field-radius-md)",
   "--kp-date-picker-popover-offset": "var(--kp-space-8)",
   "--kp-color-date-picker-panel-bg": "var(--kp-color-bg-surface)",
   "--kp-color-date-picker-panel-border": "var(--kp-color-line-default)",
@@ -1123,14 +974,8 @@ $css-variables: (
   "--kp-focus-ring-offset": "2px",
   "--kp-field-radius-md": "8px",
   "--kp-field-radius-sm": "6px",
-  "--kp-field-padding-x-md": "14px",
-  "--kp-field-padding-x-sm": "var(--kp-space-12)",
   "--kp-field-gap": "var(--kp-space-8)",
-  "--kp-field-label-gap": "var(--kp-space-8)",
   "--kp-field-label-gap-top": "var(--kp-space-4)",
-  "--kp-field-helper-gap": "var(--kp-space-8)",
-  "--kp-field-feedback-border-width": "2px",
-  "--kp-field-strong-border-width": "2px",
   "--kp-color-field-icon": "var(--kp-color-neutral-500)",
   "--kp-color-field-bg": "var(--kp-color-bg-surface)",
   "--kp-color-field-bg-disabled": "var(--kp-color-neutral-100)",
@@ -1151,17 +996,9 @@ $css-variables: (
   "--kp-color-field-helper-positive": "var(--kp-color-status-success-border)",
   "--kp-color-field-helper-negative": "var(--kp-color-status-error-border)",
   "--kp-color-field-counter": "var(--kp-color-text-secondary)",
-  "--kp-field-icon-size-md": "20px",
-  "--kp-field-icon-size-sm": "16px",
   "--kp-field-icon-size-trailing": "20px",
   "--kp-shadow-focus": "0 0 4px 0 rgba(36, 132, 198, 0.30)",
   "--kp-select-panel-offset": "var(--kp-space-8)",
-  "--kp-select-panel-padding": "var(--kp-space-8)",
-  "--kp-select-item-padding-y": "var(--kp-space-8)",
-  "--kp-select-item-padding-x": "var(--kp-space-8)",
-  "--kp-select-item-gap": "var(--kp-space-8)",
-  "--kp-select-panel-max-height": "190px",
-  "--kp-select-status-min-height": "172px",
   "--kp-color-select-item-hover": "var(--kp-color-neutral-50)",
   "--kp-color-select-item-selected": "var(--kp-color-primary-50)",
   "--kp-color-select-item-selected-text": "var(--kp-color-text-accent)",
@@ -1182,23 +1019,6 @@ $css-variables: (
   "--kp-color-icon-warning": "var(--kp-color-status-warning-border)",
   "--kp-color-icon-error": "var(--kp-color-status-error-border)",
   "--kp-color-icon-on-color": "var(--kp-color-base-white)",
-  "--kp-lnb-width": "240px",
-  "--kp-lnb-collapsed-width": "48px",
-  "--kp-lnb-header-height": "56px",
-  "--kp-lnb-padding-x": "var(--kp-space-12)",
-  "--kp-lnb-search-padding-y": "var(--kp-space-8)",
-  "--kp-lnb-icon-gap": "var(--kp-space-12)",
-  "--kp-lnb-indent": "44px",
-  "--kp-lnb-bullet-slot": "11px",
-  "--kp-lnb-bullet-size": "3px",
-  "--kp-lnb-depth1-height": "45px",
-  "--kp-lnb-depth2-height": "42px",
-  "--kp-lnb-depth3-height": "33px",
-  "--kp-lnb-tab-height": "40px",
-  "--kp-lnb-tab-indicator": "2px",
-  "--kp-lnb-count-height": "20px",
-  "--kp-lnb-chevron-size": "16px",
-  "--kp-lnb-favorite-gap": "var(--kp-space-12)",
   "--kp-color-lnb-bg": "var(--kp-color-bg-surface)",
   "--kp-color-lnb-border": "var(--kp-color-neutral-100)",
   "--kp-color-lnb-text": "var(--kp-color-text-heading)",
@@ -1218,18 +1038,6 @@ $css-variables: (
   "--kp-color-lnb-path": "var(--kp-color-text-secondary)",
   "--kp-color-lnb-divider": "var(--kp-color-line-subtle)",
   "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
-  "--kp-lnb-icon-size": "20px",
-  "--kp-lnb-favorite-icon-size": "16px",
-  "--kp-modal-width-sm": "400px",
-  "--kp-modal-width-md": "620px",
-  "--kp-modal-width-lg": "800px",
-  "--kp-modal-padding": "var(--kp-space-20)",
-  "--kp-modal-radius": "10px",
-  "--kp-modal-section-gap": "var(--kp-space-20)",
-  "--kp-modal-message-gap": "var(--kp-space-20)",
-  "--kp-modal-footer-gap": "var(--kp-space-8)",
-  "--kp-modal-viewport-margin": "var(--kp-space-40)",
-  "--kp-modal-close-size": "24px",
   "--kp-modal-shadow": "0 4px 20px rgba(0, 0, 0, 0.1)",
   "--kp-color-modal-bg": "var(--kp-color-bg-surface)",
   "--kp-color-modal-border": "var(--kp-color-line-subtle)",
@@ -1238,39 +1046,15 @@ $css-variables: (
   "--kp-color-modal-close": "var(--kp-color-text-secondary)",
   "--kp-color-modal-info-bg": "var(--kp-color-neutral-50)",
   "--kp-color-modal-info-border": "var(--kp-color-line-default)",
-  "--kp-modal-info-radius": "8px",
-  "--kp-modal-info-padding": "var(--kp-space-12)",
-  "--kp-modal-info-row-gap": "var(--kp-space-8)",
-  "--kp-modal-info-label-width": "104px",
-  "--kp-modal-info-label-gap": "var(--kp-space-12)",
   "--kp-color-modal-info-label": "var(--kp-color-text-secondary)",
   "--kp-color-modal-info-value": "var(--kp-color-text-body)",
-  "--kp-page-layout-header-height": "66px",
-  "--kp-page-layout-work-tab-height": "60px",
-  "--kp-page-layout-footer-height": "74px",
-  "--kp-page-layout-padding-x": "var(--kp-space-24)",
-  "--kp-page-layout-padding-y": "var(--kp-space-20)",
-  "--kp-page-layout-section-gap": "var(--kp-space-12)",
-  "--kp-page-layout-title-height": "var(--kp-control-height-md)",
-  "--kp-page-layout-title-action-gap": "var(--kp-space-8)",
   "--kp-color-page-layout-bg": "var(--kp-color-bg-page)",
   "--kp-color-page-layout-header-bg": "var(--kp-color-bg-surface)",
   "--kp-color-page-layout-divider": "var(--kp-color-line-subtle)",
   "--kp-color-page-layout-title": "var(--kp-color-text-heading)",
-  "--kp-page-layout-section-padding": "var(--kp-space-16)",
-  "--kp-page-layout-section-padding-compact": "var(--kp-space-12)",
-  "--kp-page-layout-section-header-gap": "var(--kp-space-8)",
-  "--kp-page-layout-section-radius": "var(--kp-control-radius-lg)",
   "--kp-color-page-layout-section-bg": "var(--kp-color-bg-surface)",
   "--kp-color-page-layout-section-border": "var(--kp-color-line-subtle)",
   "--kp-color-page-layout-section-title": "var(--kp-color-text-heading)",
-  "--kp-pagination-item-size": "var(--kp-control-height-md)",
-  "--kp-pagination-nav-min-width": "62px",
-  "--kp-pagination-nav-padding-x": "var(--kp-space-4)",
-  "--kp-pagination-nav-gap": "var(--kp-space-4)",
-  "--kp-pagination-gap": "var(--kp-space-4)",
-  "--kp-pagination-radius": "8px",
-  "--kp-pagination-icon-size": "20px",
   "--kp-color-pagination-text": "var(--kp-color-text-body)",
   "--kp-color-pagination-hover-bg": "var(--kp-color-neutral-100)",
   "--kp-color-pagination-pressed-bg": "var(--kp-color-primary-50)",
@@ -1278,17 +1062,9 @@ $css-variables: (
   "--kp-color-pagination-active-bg": "var(--kp-color-primary-500)",
   "--kp-color-pagination-active-text": "var(--kp-color-text-inverse)",
   "--kp-color-pagination-disabled-text": "var(--kp-color-text-disabled)",
-  "--kp-search-area-item-gap": "var(--kp-space-16)",
-  "--kp-search-area-action-gap": "var(--kp-space-8)",
-  "--kp-search-area-detail-gap": "var(--kp-space-16)",
-  "--kp-search-area-detail-padding": "var(--kp-space-24)",
   "--kp-color-search-area-divider": "var(--kp-color-line-subtle)",
   "--kp-selection-size-md": "20px",
   "--kp-selection-size-sm": "16px",
-  "--kp-selection-gap": "var(--kp-space-8)",
-  "--kp-selection-helper-gap": "var(--kp-space-4)",
-  "--kp-selection-group-gap": "var(--kp-space-8)",
-  "--kp-selection-group-gap-inline": "var(--kp-space-16)",
   "--kp-color-selection-bg": "var(--kp-color-bg-surface)",
   "--kp-color-selection-border": "var(--kp-color-line-default)",
   "--kp-color-selection-checked": "var(--kp-color-primary-500)",
@@ -1298,25 +1074,11 @@ $css-variables: (
   "--kp-color-selection-text": "var(--kp-color-text-body)",
   "--kp-color-selection-text-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-selection-helper": "var(--kp-color-text-secondary)",
-  "--kp-checkbox-radius": "4px",
-  "--kp-radio-checked-border-width": "2px",
-  "--kp-radio-dot-md": "10px",
-  "--kp-radio-dot-sm": "8px",
-  "--kp-toggle-width-md": "36px",
-  "--kp-toggle-width-sm": "28px",
-  "--kp-toggle-thumb-size-md": "16px",
-  "--kp-toggle-thumb-size-sm": "12px",
-  "--kp-toggle-thumb-inset": "2px",
   "--kp-color-toggle-track-off": "var(--kp-color-neutral-500)",
   "--kp-color-toggle-track-on": "var(--kp-color-primary-500)",
   "--kp-color-toggle-track-disabled": "var(--kp-color-neutral-100)",
   "--kp-color-toggle-thumb-default": "var(--kp-color-base-white)",
   "--kp-color-toggle-thumb-disabled": "var(--kp-color-neutral-300)",
-  "--kp-segmented-height": "var(--kp-control-height-sm)",
-  "--kp-segmented-radius": "var(--kp-field-radius-sm)",
-  "--kp-segmented-min-width": "96px",
-  "--kp-segmented-padding-x": "var(--kp-space-16)",
-  "--kp-segmented-gap": "var(--kp-space-8)",
   "--kp-color-segmented-bg": "var(--kp-color-bg-surface)",
   "--kp-color-segmented-border": "var(--kp-color-line-default)",
   "--kp-color-segmented-text": "var(--kp-color-text-label)",
@@ -1334,16 +1096,6 @@ $css-variables: (
   "--kp-color-interaction-primary-pressed": "var(--kp-color-primary-700)",
   "--kp-color-focus-ring": "var(--kp-color-primary-300)",
   "--kp-color-overlay-dim": "rgba(0, 0, 0, 0.48)",
-  "--kp-tab-height-md": "var(--kp-control-height-md)",
-  "--kp-tab-height-sm": "var(--kp-control-height-sm)",
-  "--kp-tab-padding-x": "var(--kp-space-4)",
-  "--kp-tab-gap": "var(--kp-space-24)",
-  "--kp-tab-indicator-width": "2px",
-  "--kp-tab-count-gap": "6px",
-  "--kp-tab-button-min-width": "76px",
-  "--kp-tab-button-padding-x": "var(--kp-space-16)",
-  "--kp-tab-button-radius": "var(--kp-control-radius-md)",
-  "--kp-tab-button-gap": "var(--kp-space-8)",
   "--kp-color-tab-button-bg": "var(--kp-color-base-white)",
   "--kp-color-tab-button-bg-active": "var(--kp-color-primary-50)",
   "--kp-color-tab-button-bg-disabled": "var(--kp-color-neutral-50)",
@@ -1356,9 +1108,6 @@ $css-variables: (
   "--kp-color-tab-indicator": "var(--kp-color-primary-500)",
   "--kp-color-tab-count-disabled-bg": "var(--kp-color-neutral-100)",
   "--kp-color-tab-count-disabled-text": "var(--kp-color-neutral-400)",
-  "--kp-tooltip-max-width": "320px",
-  "--kp-tooltip-padding-x": "var(--kp-space-12)",
-  "--kp-tooltip-padding-y": "10px",
   "--kp-tooltip-radius": "var(--kp-control-radius-lg)",
   "--kp-tooltip-arrow-width": "12px",
   "--kp-tooltip-arrow-height": "6px",
@@ -1496,14 +1245,7 @@ $css-variables: (
   "--kp-typography-tab-count-md-font-weight": "var(--kp-typography-typo-14-semi-bold-font-weight)",
   "--kp-typography-tab-count-md-line-height": "var(--kp-typography-typo-14-semi-bold-line-height)",
   "--kp-typography-tab-count-md-letter-spacing": "var(--kp-typography-typo-14-semi-bold-letter-spacing)",
-  "--kp-work-tab-height": "var(--kp-control-height-md)",
-  "--kp-work-tab-padding-x": "var(--kp-space-12)",
-  "--kp-work-tab-icon-gap": "var(--kp-space-4)",
-  "--kp-work-tab-icon-size": "var(--kp-control-icon-size-lg)",
-  "--kp-work-tab-radius": "var(--kp-control-radius-lg)",
-  "--kp-work-tab-indicator-width": "2px",
   "--kp-work-tab-z-index-active": "1",
-  "--kp-work-tab-label-max-width": "160px",
   "--kp-color-work-tab-bg": "var(--kp-color-base-white)",
   "--kp-color-work-tab-bg-hover": "var(--kp-color-neutral-100)",
   "--kp-color-work-tab-bg-active": "var(--kp-color-primary-100)",
@@ -1514,19 +1256,13 @@ $css-variables: (
   "--kp-color-work-tab-text-active": "var(--kp-color-primary-500)",
   "--kp-color-work-tab-icon": "var(--kp-color-neutral-700)",
   "--kp-color-work-tab-icon-active": "var(--kp-color-neutral-600)",
-  "--kp-work-tab-menu-width": "200px",
   "--kp-work-tab-menu-offset": "var(--kp-space-8)",
   "--kp-work-tab-menu-tab-offset": "var(--kp-space-4)",
-  "--kp-work-tab-menu-padding": "var(--kp-space-8)",
-  "--kp-work-tab-menu-item-padding-x": "var(--kp-space-8)",
-  "--kp-work-tab-menu-item-padding-y": "6px",
-  "--kp-work-tab-menu-radius": "var(--kp-control-radius-lg)",
   "--kp-color-work-tab-menu-bg": "var(--kp-color-base-white)",
   "--kp-color-work-tab-menu-border": "var(--kp-color-line-default)",
   "--kp-color-work-tab-menu-item-text": "var(--kp-color-neutral-600)",
   "--kp-color-work-tab-menu-item-hover": "var(--kp-color-neutral-50)",
   "--kp-color-work-tab-menu-item-text-disabled": "var(--kp-color-text-disabled)",
-  "--kp-work-tab-trigger-gap": "var(--kp-space-4)",
   "--kp-color-work-tab-trigger-text": "var(--kp-color-primary-800)",
 );
 

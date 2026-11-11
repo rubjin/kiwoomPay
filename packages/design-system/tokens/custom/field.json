@@ -11,45 +11,15 @@
         "$value": "6px"
       }
     },
-    "PaddingX": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "14px"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "{space.12}"
-      }
-    },
     "Gap": {
       "$type": "dimension",
       "$value": "{space.8}",
       "$description": "아이콘·접미사와 텍스트 사이"
     },
-    "LabelGap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "가로 배치 Label ↔ 필드"
-    },
     "LabelGapTop": {
       "$type": "dimension",
       "$value": "{space.4}",
       "$description": "라벨 위 배치(검색 영역)에서 라벨 ↔ 필드"
-    },
-    "HelperGap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "필드 ↔ Helper Text"
-    },
-    "FeedbackBorderWidth": {
-      "$type": "dimension",
-      "$value": "2px",
-      "$description": "Positive / Negative 테두리"
-    },
-    "StrongBorderWidth": {
-      "$type": "dimension",
-      "$value": "2px",
-      "$description": "Select 열림 + 스크롤·로딩·빈 상태의 트리거 테두리 (Field Components Select Box · Dropdown State)"
     },
     "Icon": {
       "$type": "color",
@@ -137,16 +107,6 @@
       "$value": "{Text.Secondary}"
     },
     "IconSize": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "20px",
-        "$description": "Leading Icon (md)"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "16px",
-        "$description": "Leading Icon (sm)"
-      },
       "Trailing": {
         "$type": "dimension",
         "$value": "20px",
@@ -166,32 +126,6 @@
       "$type": "dimension",
       "$value": "{space.8}",
       "$description": "필드 ↔ 드롭다운 패널"
-    },
-    "PanelPadding": {
-      "$type": "dimension",
-      "$value": "{space.8}"
-    },
-    "ItemPaddingY": {
-      "$type": "dimension",
-      "$value": "{space.8}"
-    },
-    "ItemPaddingX": {
-      "$type": "dimension",
-      "$value": "{space.8}"
-    },
-    "ItemGap": {
-      "$type": "dimension",
-      "$value": "{space.8}"
-    },
-    "PanelMaxHeight": {
-      "$type": "dimension",
-      "$value": "190px",
-      "$description": "TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤"
-    },
-    "StatusMinHeight": {
-      "$type": "dimension",
-      "$value": "172px",
-      "$description": "TODO(시안) Loading/Empty 패널 높이 근사"
     },
     "ItemHover": {
       "$type": "color",

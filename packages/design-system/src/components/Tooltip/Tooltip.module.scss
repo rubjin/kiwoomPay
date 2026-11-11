@@ -1,6 +1,11 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$tooltip-max-width: 320px; // 최대 너비 (본문 296 + 좌우 여백). 넘으면 자동 줄바꿈
+$tooltip-padding-x: t.$space-12;
+$tooltip-padding-y: 10px; // Tooltip Guide Anatomy: Padding 12 / 10
+
 // 위치(position: fixed, top/left)는 Tooltip.tsx가 계산한다. 몸체는 Hug, 최대 320에서 줄바꿈
 .tooltip {
   @include m.typography(caption-md);
@@ -9,8 +14,8 @@
   z-index: t.$z-index-tooltip;
   box-sizing: border-box;
   width: max-content;
-  max-width: t.$tooltip-max-width;
-  padding: t.$tooltip-padding-y t.$tooltip-padding-x;
+  max-width: $tooltip-max-width;
+  padding: $tooltip-padding-y $tooltip-padding-x;
   color: t.$color-tooltip-text;
   overflow-wrap: break-word;
   white-space: pre-line;

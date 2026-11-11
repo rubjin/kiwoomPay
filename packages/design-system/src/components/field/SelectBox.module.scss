@@ -1,6 +1,14 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$select-panel-padding: t.$space-8;
+$select-item-padding-y: t.$space-8;
+$select-item-padding-x: t.$space-8;
+$select-item-gap: t.$space-8;
+$select-panel-max-height: 190px; // TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤
+$select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 근사
+
 .root {
   position: relative;
   display: inline-flex;
@@ -73,7 +81,7 @@
 // 위치·폭(position: fixed, top/left/width)은 useFloatingPosition이 계산한다
 .panel {
   z-index: t.$z-index-dropdown;
-  padding: t.$select-panel-padding;
+  padding: $select-panel-padding;
   background-color: t.$color-field-bg;
   border: t.$control-border-width solid t.$color-field-border;
   border-radius: t.$field-radius-md;
@@ -82,9 +90,9 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: t.$select-item-gap;
+  gap: $select-item-gap;
   max-height: calc(
-    #{t.$select-panel-max-height} - 2 * #{t.$select-panel-padding} - 2 * #{t.$control-border-width}
+    #{$select-panel-max-height} - 2 * #{$select-panel-padding} - 2 * #{t.$control-border-width}
   );
   padding: 0;
   margin: 0;
@@ -97,7 +105,7 @@
 .option {
   @include m.typography(body-md);
 
-  padding: t.$select-item-padding-y t.$select-item-padding-x;
+  padding: $select-item-padding-y $select-item-padding-x;
   color: t.$color-select-item-text;
   cursor: pointer;
   border-radius: t.$field-radius-sm;
@@ -126,7 +134,7 @@
   align-items: center;
   justify-content: center;
   min-height: calc(
-    #{t.$select-status-min-height} - 2 * #{t.$select-panel-padding} - 2 * #{t.$control-border-width}
+    #{$select-status-min-height} - 2 * #{$select-panel-padding} - 2 * #{t.$control-border-width}
   );
   color: t.$color-select-item-text;
 }

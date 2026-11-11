@@ -1,6 +1,18 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$tab-height-md: t.$control-height-md; // Medium 40 · 일반 콘텐츠 영역 (Tab Guide)
+$tab-height-sm: t.$control-height-sm; // Small 32 · 밀도가 높은 영역 (Tab Guide)
+$tab-padding-x: t.$space-4; // TODO(시안) Content Width 예시에서 밑줄이 글자보다 양쪽 약 4px 넓음
+$tab-gap: t.$space-24; // TODO(시안) Line Tab Item 간격
+$tab-indicator-width: 2px; // Active 밑줄 두께
+$tab-count-gap: 6px; // Label ↔ Number Badge (측정)
+$tab-button-min-width: 76px; // TODO(시안) Button Tab 예시 폭
+$tab-button-padding-x: t.$space-16; // TODO(시안) 긴 Label일 때 좌우 여백
+$tab-button-radius: t.$control-radius-md;
+$tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
+
 .tabs {
   display: flex;
   align-items: stretch;
@@ -13,11 +25,11 @@
 .item {
   display: inline-flex;
   flex: none;
-  gap: t.$tab-count-gap;
+  gap: $tab-count-gap;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  padding: 0 t.$tab-padding-x;
+  padding: 0 $tab-padding-x;
   margin: 0;
   color: t.$color-tab-text;
   cursor: pointer;
@@ -55,7 +67,7 @@
 
 // ── Line Tab ─────────────────────────────────────────
 .line {
-  gap: t.$tab-gap;
+  gap: $tab-gap;
 }
 
 // Equal Width는 부모 폭을 빈틈 없이 나눈다
@@ -65,13 +77,13 @@
 
 // 밑줄은 높이에 포함되도록 안쪽 그림자로 그린다
 .line .active {
-  box-shadow: inset 0 calc(-1 * #{t.$tab-indicator-width}) 0 t.$color-tab-indicator;
+  box-shadow: inset 0 calc(-1 * #{$tab-indicator-width}) 0 t.$color-tab-indicator;
 }
 
 .md .item {
   @include m.typography(tab-md);
 
-  height: t.$tab-height-md;
+  height: $tab-height-md;
 }
 
 .md .active {
@@ -85,23 +97,23 @@
 .sm .item {
   @include m.typography(tab-sm);
 
-  height: t.$tab-height-sm;
+  height: $tab-height-sm;
 }
 
 // ── Button Tab ───────────────────────────────────────
 .button {
-  gap: t.$tab-button-gap;
+  gap: $tab-button-gap;
 }
 
 .button .item {
   @include m.typography(tab-md);
 
-  height: t.$tab-height-sm;
-  min-width: t.$tab-button-min-width;
-  padding: 0 t.$tab-button-padding-x;
+  height: $tab-height-sm;
+  min-width: $tab-button-min-width;
+  padding: 0 $tab-button-padding-x;
   background-color: t.$color-tab-button-bg;
   border: t.$control-border-width solid t.$color-tab-button-border;
-  border-radius: t.$tab-button-radius;
+  border-radius: $tab-button-radius;
 }
 
 .button .active {

@@ -1,9 +1,13 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$field-label-gap: t.$space-8; // 가로 배치 Label ↔ 필드
+$field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
+
 .field {
   display: flex;
-  gap: t.$field-label-gap;
+  gap: $field-label-gap;
   align-items: flex-start;
   max-width: 100%;
 }
@@ -47,7 +51,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: t.$field-helper-gap;
+  gap: $field-helper-gap;
   align-items: flex-start;
   min-width: 0;
 }

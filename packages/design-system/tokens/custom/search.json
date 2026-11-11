@@ -1,25 +1,5 @@
 {
   "SearchArea": {
-    "ItemGap": {
-      "$type": "dimension",
-      "$value": "{space.16}",
-      "$description": "검색 필드 간격 · 필드 ↔ 버튼 묶음 · 줄바꿈 시 줄 간격"
-    },
-    "ActionGap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "버튼 간격 (초기화 · 조회 · 상세조건)"
-    },
-    "DetailGap": {
-      "$type": "dimension",
-      "$value": "{space.16}",
-      "$description": "기본 조건 줄 ↔ 상세 조건 구분선"
-    },
-    "DetailPadding": {
-      "$type": "dimension",
-      "$value": "{space.24}",
-      "$description": "상세 조건 구분선 ↔ 상세 조건 줄"
-    },
     "Divider": {
       "$type": "color",
       "$value": "{Line.Subtle}",

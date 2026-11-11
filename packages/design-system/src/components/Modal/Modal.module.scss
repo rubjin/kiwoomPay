@@ -1,6 +1,23 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$modal-width-sm: 400px; // size sm: Alert · Confirm (Modal 패턴 측정)
+$modal-width-md: 620px; // size md: Information (Modal 패턴 측정)
+$modal-width-lg: 800px; // size lg: Form (Modal 패턴 측정)
+$modal-padding: t.$space-20; // 측정값
+$modal-radius: 10px; // 측정값(모서리 윤곽)
+$modal-section-gap: t.$space-20; // Header ↔ Body ↔ Footer
+$modal-message-gap: t.$space-20; // 설명만 있는 본문(Alert·Confirm)의 추가 아래 여백 → Footer까지 40
+$modal-footer-gap: t.$space-8; // 버튼 간격
+$modal-viewport-margin: t.$space-40; // 최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)
+$modal-close-size: 24px; // Header Close(X)
+$modal-info-radius: 8px; // 측정값
+$modal-info-padding: t.$space-12;
+$modal-info-row-gap: t.$space-8;
+$modal-info-label-width: 104px; // 측정값: 값이 상자 왼쪽 128에서 시작
+$modal-info-label-gap: t.$space-12;
+
 // 브라우저 전체 화면 기준 가운데. 상·하·좌·우 최소 40 여백 → 패널 최대 높이 calc(100vh - 80px)
 .dim {
   position: fixed;
@@ -9,19 +26,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: t.$modal-viewport-margin;
+  padding: $modal-viewport-margin;
   background-color: t.$color-overlay-dim;
 }
 
 .modal {
   display: flex;
   flex-direction: column;
-  width: t.$modal-width-sm;
+  width: $modal-width-sm;
   max-width: 100%;
   max-height: 100%;
   overflow: hidden;
   background-color: t.$color-modal-bg;
-  border-radius: t.$modal-radius;
+  border-radius: $modal-radius;
 
   // 시안(Figma)은 테두리를 안쪽에 그려 크기에 포함한다 → 레이아웃에 영향 없는 안쪽 그림자로 그린다
   box-shadow:
@@ -35,11 +52,11 @@
 
 // 폭: sm(기본) 400 · md 620 · lg 800. width prop을 주면 그 값이 우선한다(inline style)
 .md {
-  width: t.$modal-width-md;
+  width: $modal-width-md;
 }
 
 .lg {
-  width: t.$modal-width-lg;
+  width: $modal-width-lg;
 }
 
 // ── Header (고정) ────────────────────────────────────
@@ -48,7 +65,7 @@
   flex: none;
   gap: t.$space-8;
   align-items: center;
-  padding: t.$modal-padding t.$modal-padding 0;
+  padding: $modal-padding $modal-padding 0;
 }
 
 .title {
@@ -65,8 +82,8 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  width: t.$modal-close-size;
-  height: t.$modal-close-size;
+  width: $modal-close-size;
+  height: $modal-close-size;
   padding: 0;
   color: t.$color-modal-close;
   cursor: pointer;
@@ -80,7 +97,7 @@
 
   flex: 1 1 auto;
   min-height: 0;
-  padding: t.$modal-section-gap t.$modal-padding t.$modal-padding;
+  padding: $modal-section-gap $modal-padding $modal-padding;
   overflow-y: auto;
   color: t.$color-modal-title;
 }
@@ -91,7 +108,7 @@
 
   // 설명만 있는 본문(Alert · Confirm)은 Footer까지 여유를 더 둔다
   &:last-child {
-    margin-bottom: t.$modal-message-gap;
+    margin-bottom: $modal-message-gap;
   }
 }
 
@@ -101,12 +118,12 @@
 
   display: flex;
   flex-direction: column;
-  gap: t.$modal-info-row-gap;
-  padding: t.$modal-info-padding;
+  gap: $modal-info-row-gap;
+  padding: $modal-info-padding;
   margin: t.$space-12 0 0;
   background-color: t.$color-modal-info-bg;
   border: t.$control-border-width solid t.$color-modal-info-border;
-  border-radius: t.$modal-info-radius;
+  border-radius: $modal-info-radius;
 
   &:first-child {
     margin-top: 0;
@@ -115,12 +132,12 @@
 
 .infoRow {
   display: flex;
-  gap: t.$modal-info-label-gap;
+  gap: $modal-info-label-gap;
 }
 
 .infoLabel {
   flex: none;
-  width: t.$modal-info-label-width;
+  width: $modal-info-label-width;
   color: t.$color-modal-info-label;
 }
 
@@ -135,8 +152,8 @@
 .footer {
   display: flex;
   flex: none;
-  gap: t.$modal-footer-gap;
+  gap: $modal-footer-gap;
   align-items: center;
   justify-content: center;
-  padding: 0 t.$modal-padding t.$modal-padding;
+  padding: 0 $modal-padding $modal-padding;
 }

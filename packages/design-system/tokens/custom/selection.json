@@ -12,26 +12,6 @@
         "$description": "Small 16"
       }
     },
-    "Gap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "컨트롤 ↔ 라벨"
-    },
-    "HelperGap": {
-      "$type": "dimension",
-      "$value": "{space.4}",
-      "$description": "라벨 ↔ 부가 설명"
-    },
-    "GroupGap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "세로 그룹의 항목 간격"
-    },
-    "GroupGapInline": {
-      "$type": "dimension",
-      "$value": "{space.16}",
-      "$description": "TODO(시안) 가로 그룹 간격"
-    },
     "Bg": {
       "$type": "color",
       "$value": "{Bg.Surface}"
@@ -74,55 +54,7 @@
       "$value": "{Text.Secondary}"
     }
   },
-  "Checkbox": {
-    "Radius": {
-      "$type": "dimension",
-      "$value": "4px"
-    }
-  },
-  "Radio": {
-    "CheckedBorderWidth": {
-      "$type": "dimension",
-      "$value": "2px",
-      "$description": "선택 시 링 두께"
-    },
-    "Dot": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "10px"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "8px",
-        "$description": "Small 선택 점 8 (확정)"
-      }
-    }
-  },
   "Toggle": {
-    "Width": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "36px"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "28px"
-      }
-    },
-    "ThumbSize": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "16px"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "12px"
-      }
-    },
-    "ThumbInset": {
-      "$type": "dimension",
-      "$value": "2px"
-    },
     "Track": {
       "Off": {
         "$type": "color",
@@ -149,29 +81,6 @@
     }
   },
   "Segmented": {
-    "Height": {
-      "$type": "dimension",
-      "$value": "{Control.Height.SM}"
-    },
-    "Radius": {
-      "$type": "dimension",
-      "$value": "{Field.Radius.SM}"
-    },
-    "MinWidth": {
-      "$type": "dimension",
-      "$value": "96px",
-      "$description": "TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)"
-    },
-    "PaddingX": {
-      "$type": "dimension",
-      "$value": "{space.16}",
-      "$description": "TODO(시안)"
-    },
-    "Gap": {
-      "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음"
-    },
     "Bg": {
       "$type": "color",
       "$value": "{Bg.Surface}"

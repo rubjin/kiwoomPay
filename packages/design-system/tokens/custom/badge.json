@@ -1,56 +1,5 @@
 {
   "Badge": {
-    "Height": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "24px",
-        "$description": "Default H24"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "20px",
-        "$description": "Small H20"
-      }
-    },
-    "PaddingX": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "10px",
-        "$description": "측정값"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "{space.8}",
-        "$description": "측정값"
-      }
-    },
-    "DotGap": {
-      "MD": {
-        "$type": "dimension",
-        "$value": "6px",
-        "$description": "측정값: 상태 점 ↔ 글자"
-      },
-      "SM": {
-        "$type": "dimension",
-        "$value": "{space.4}",
-        "$description": "측정값"
-      }
-    },
-    "DotSize": {
-      "$type": "dimension",
-      "$value": "6px",
-      "$description": "Status Dot · Dot Badge"
-    },
-    "NumberSize": {
-      "$type": "dimension",
-      "$value": "20px",
-      "$description": "Number Badge 높이·최소 폭"
-    },
-    "NumberPaddingX": {
-      "$type": "dimension",
-      "$value": "6px",
-      "$description": "TODO(시안) 99+ 처럼 두 자리 이상일 때 좌우 여백"
-    },
     "Neutral": {
       "Bg": {
         "$type": "color",

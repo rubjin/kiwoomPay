@@ -1,6 +1,11 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$radio-checked-border-width: 2px; // 선택 시 링 두께
+$radio-dot-md: 10px;
+$radio-dot-sm: 8px; // Small 선택 점 8 (확정)
+
 .input {
   position: absolute;
   inset: 0;
@@ -35,8 +40,8 @@
   margin-block: calc((1lh - #{t.$selection-size-md}) / 2);
 
   &::after {
-    width: t.$radio-dot-md;
-    height: t.$radio-dot-md;
+    width: $radio-dot-md;
+    height: $radio-dot-md;
   }
 }
 
@@ -46,14 +51,14 @@
   margin-block: calc((1lh - #{t.$selection-size-sm}) / 2);
 
   &::after {
-    width: t.$radio-dot-sm;
-    height: t.$radio-dot-sm;
+    width: $radio-dot-sm;
+    height: $radio-dot-sm;
   }
 }
 
 // ── 상태 ─────────────────────────────────────────────
 .input:checked + .box {
-  border-width: t.$radio-checked-border-width;
+  border-width: $radio-checked-border-width;
   border-color: t.$color-selection-checked;
 
   &::after {

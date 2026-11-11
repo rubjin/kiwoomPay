@@ -1,55 +1,6 @@
 {
   "Tab": {
-    "HeightMD": {
-      "$type": "dimension",
-      "$value": "{Control.Height.MD}",
-      "$description": "Medium 40 · 일반 콘텐츠 영역 (Tab Guide)"
-    },
-    "HeightSM": {
-      "$type": "dimension",
-      "$value": "{Control.Height.SM}",
-      "$description": "Small 32 · 밀도가 높은 영역 (Tab Guide)"
-    },
-    "PaddingX": {
-      "$type": "dimension",
-      "$value": "{space.4}",
-      "$description": "TODO(시안) Content Width 예시에서 밑줄이 글자보다 양쪽 약 4px 넓음"
-    },
-    "Gap": {
-      "$type": "dimension",
-      "$value": "{space.24}",
-      "$description": "TODO(시안) Line Tab Item 간격"
-    },
-    "IndicatorWidth": {
-      "$type": "dimension",
-      "$value": "2px",
-      "$description": "Active 밑줄 두께"
-    },
-    "CountGap": {
-      "$type": "dimension",
-      "$value": "6px",
-      "$description": "Label ↔ Number Badge (측정)"
-    },
     "Button": {
-      "MinWidth": {
-        "$type": "dimension",
-        "$value": "76px",
-        "$description": "TODO(시안) Button Tab 예시 폭"
-      },
-      "PaddingX": {
-        "$type": "dimension",
-        "$value": "{space.16}",
-        "$description": "TODO(시안) 긴 Label일 때 좌우 여백"
-      },
-      "Radius": {
-        "$type": "dimension",
-        "$value": "{Control.Radius.MD}"
-      },
-      "Gap": {
-        "$type": "dimension",
-        "$value": "{space.8}",
-        "$description": "TODO(시안) Button Tab 간격"
-      },
       "Bg": {
         "$type": "color",
         "$value": "{Base.White}"

@@ -1,14 +1,18 @@
 @use 'tokens' as t;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$selection-group-gap: t.$space-8; // 세로 그룹의 항목 간격
+$selection-group-gap-inline: t.$space-16; // TODO(시안) 가로 그룹 간격
+
 .group {
   display: flex;
   flex-direction: column;
-  gap: t.$selection-group-gap;
+  gap: $selection-group-gap;
   align-items: flex-start;
 }
 
 .horizontal {
   flex-flow: row wrap;
-  gap: t.$selection-group-gap-inline;
+  gap: $selection-group-gap-inline;
   align-items: center;
 }

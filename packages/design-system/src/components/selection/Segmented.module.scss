@@ -1,9 +1,16 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$segmented-height: t.$control-height-sm;
+$segmented-radius: t.$field-radius-sm;
+$segmented-min-width: 96px; // TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)
+$segmented-padding-x: t.$space-16; // TODO(시안)
+$segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음
+
 .root {
   display: inline-flex;
-  gap: t.$segmented-gap;
+  gap: $segmented-gap;
   max-width: 100%;
   vertical-align: middle;
 }
@@ -31,15 +38,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: t.$segmented-min-width;
+  min-width: $segmented-min-width;
   max-width: 100%;
-  height: t.$segmented-height;
-  padding-inline: t.$segmented-padding-x;
+  height: $segmented-height;
+  padding-inline: $segmented-padding-x;
   color: t.$color-segmented-text;
   white-space: nowrap;
   background-color: t.$color-segmented-bg;
   border: t.$control-border-width solid t.$color-segmented-border;
-  border-radius: t.$segmented-radius;
+  border-radius: $segmented-radius;
 }
 
 .label {

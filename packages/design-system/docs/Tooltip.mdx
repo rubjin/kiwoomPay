@@ -239,7 +239,7 @@ import { InfoTip, Tooltip } from '@kiwoompay/design-system';
 
 ## 토큰 · 확인 필요
 
-- `tooltip/*` (`tokens/custom/tooltip.json`), `z-index/tooltip`. 색은 모두 alias (Neutral 800 · Text/Inverse · Icon/Muted)
+- `tooltip/*` (`tokens/custom/tooltip.json`: 위치 계산에 JS가 읽는 크기 · 색), `z-index/tooltip`. 나머지 여백은 `Tooltip.module.scss` 맨 위 SCSS 변수. 색은 모두 alias (Neutral 800 · Text/Inverse · Icon/Muted)
 - **임시 값(TODO)**: 화면 경계 최소 간격 8, z-index 1200(모달 · 드롭다운 위), 비활성 Info 아이콘 색
 - 시안 표기는 "아이콘 ↔ 포인터 끝 0px"이고, 측정상 아이콘(20) 아래 1~2px 차이는 원 바깥 여백으로 판단해 0으로 구현했습니다
 - 표시 · 숨김 애니메이션은 motion 토큰이 없어 넣지 않았습니다

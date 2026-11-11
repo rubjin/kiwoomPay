@@ -296,7 +296,7 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 
 ## 토큰
 
-- 크기: `control/height/*`(Button과 공유), `field/radius·padding-x·icon-size·gap` (`tokens/custom/field.json`)
+- 크기: `control/height/*`(Button과 공유), 여러 필드가 함께 쓰는 `field/radius·gap·icon-size/trailing·label-gap-top` (`tokens/custom/field.json`). 그 밖의 컴포넌트 전용 크기 · 간격은 `*.module.scss` 맨 위 SCSS 변수
 - 색: `field/*`, `select/*` — 모두 Figma 색 토큰 alias
 - 글자: 기존 역할 이름 `body-md`(md), `label-md`(sm), `caption-md`(Helper · Counter), `label-field`(Label)
 - 포커스 번짐은 `shadow/focus`(`0 0 4px 0 rgba(36, 132, 198, 0.30)`)입니다. 드롭다운 최대 높이(`select/panel-max-height`)와 로딩·빈 상태 높이는 시안 픽셀로 근사한 **임시 값(TODO)** 입니다.
