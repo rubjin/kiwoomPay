@@ -327,6 +327,14 @@ $typography-tab-count-md-font-size: var(--kp-typography-tab-count-md-font-size);
 $typography-tab-count-md-font-weight: var(--kp-typography-tab-count-md-font-weight);
 $typography-tab-count-md-line-height: var(--kp-typography-tab-count-md-line-height);
 $typography-tab-count-md-letter-spacing: var(--kp-typography-tab-count-md-letter-spacing);
+$typography-cpid-item-title-font-size: var(--kp-typography-cpid-item-title-font-size); // TODO(시안) CPID (렌더링 폭 비교로 판단)
+$typography-cpid-item-title-font-weight: var(--kp-typography-cpid-item-title-font-weight);
+$typography-cpid-item-title-line-height: var(--kp-typography-cpid-item-title-line-height);
+$typography-cpid-item-title-letter-spacing: var(--kp-typography-cpid-item-title-letter-spacing);
+$typography-cpid-item-name-font-size: var(--kp-typography-cpid-item-name-font-size); // TODO(시안) 가맹점명 (렌더링 폭 비교로 판단)
+$typography-cpid-item-name-font-weight: var(--kp-typography-cpid-item-name-font-weight);
+$typography-cpid-item-name-line-height: var(--kp-typography-cpid-item-name-line-height);
+$typography-cpid-item-name-letter-spacing: var(--kp-typography-cpid-item-name-letter-spacing);
 
 // ── custom · badge ──────────────────────────────────────────────
 $color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
@@ -450,6 +458,14 @@ $control-icon-size-md: var(--kp-control-icon-size-md);
 $control-icon-size-lg: var(--kp-control-icon-size-lg);
 $control-icon-gap: var(--kp-control-icon-gap); // 아이콘-텍스트 간격 (전 size 공통)
 $control-border-width: var(--kp-control-border-width); // Line 버튼 테두리
+
+// ── custom · cpid-item ──────────────────────────────────────────
+$color-cpid-item-bg: var(--kp-color-cpid-item-bg);
+$color-cpid-item-border: var(--kp-color-cpid-item-border);
+$color-cpid-item-selected-bg: var(--kp-color-cpid-item-selected-bg);
+$color-cpid-item-selected-border: var(--kp-color-cpid-item-selected-border);
+$color-cpid-item-title: var(--kp-color-cpid-item-title);
+$color-cpid-item-name: var(--kp-color-cpid-item-name); // TODO(시안) 가맹점명. 가장 진한 픽셀(#5A6678)이 Text/Secondary보다 진해 Text/Label로 판단
 
 // ── custom · datepicker ─────────────────────────────────────────
 $date-picker-popover-offset: var(--kp-date-picker-popover-offset); // TODO(시안) 필드 ↔ 패널 간격 (시안은 패널을 떨어뜨려 표시)
@@ -971,6 +987,12 @@ $css-variables: (
   "--kp-control-icon-size-lg": "24px",
   "--kp-control-icon-gap": "var(--kp-space-4)",
   "--kp-control-border-width": "1px",
+  "--kp-color-cpid-item-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-cpid-item-border": "var(--kp-color-line-subtle)",
+  "--kp-color-cpid-item-selected-bg": "var(--kp-color-primary-50)",
+  "--kp-color-cpid-item-selected-border": "var(--kp-color-primary-500)",
+  "--kp-color-cpid-item-title": "var(--kp-color-text-heading)",
+  "--kp-color-cpid-item-name": "var(--kp-color-text-label)",
   "--kp-date-picker-popover-offset": "var(--kp-space-8)",
   "--kp-color-date-picker-panel-bg": "var(--kp-color-bg-surface)",
   "--kp-color-date-picker-panel-border": "var(--kp-color-line-default)",
@@ -1265,6 +1287,14 @@ $css-variables: (
   "--kp-typography-tab-count-md-font-weight": "var(--kp-typography-typo-14-semi-bold-font-weight)",
   "--kp-typography-tab-count-md-line-height": "var(--kp-typography-typo-14-semi-bold-line-height)",
   "--kp-typography-tab-count-md-letter-spacing": "var(--kp-typography-typo-14-semi-bold-letter-spacing)",
+  "--kp-typography-cpid-item-title-font-size": "var(--kp-typography-typo-13-bold-font-size)",
+  "--kp-typography-cpid-item-title-font-weight": "var(--kp-typography-typo-13-bold-font-weight)",
+  "--kp-typography-cpid-item-title-line-height": "var(--kp-typography-typo-13-bold-line-height)",
+  "--kp-typography-cpid-item-title-letter-spacing": "var(--kp-typography-typo-13-bold-letter-spacing)",
+  "--kp-typography-cpid-item-name-font-size": "var(--kp-typography-typo-12-regular-font-size)",
+  "--kp-typography-cpid-item-name-font-weight": "var(--kp-typography-typo-12-regular-font-weight)",
+  "--kp-typography-cpid-item-name-line-height": "var(--kp-typography-typo-12-regular-line-height)",
+  "--kp-typography-cpid-item-name-letter-spacing": "var(--kp-typography-typo-12-regular-letter-spacing)",
   "--kp-work-tab-z-index-active": "1",
   "--kp-color-work-tab-bg": "var(--kp-color-base-white)",
   "--kp-color-work-tab-bg-hover": "var(--kp-color-neutral-100)",

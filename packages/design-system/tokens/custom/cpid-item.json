@@ -1,0 +1,29 @@
+{
+  "CpidItem": {
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "SelectedBg": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "SelectedBorder": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "Name": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "TODO(시안) 가맹점명. 가장 진한 픽셀(#5A6678)이 Text/Secondary보다 진해 Text/Label로 판단"
+    }
+  }
+}

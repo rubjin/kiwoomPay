@@ -10,6 +10,7 @@ export * from './components/Pagination';
 export * from './components/SearchArea';
 export * from './components/Tab';
 export * from './components/Tooltip';
+export * from './components/display';
 export * from './components/field';
 export * from './components/layout';
 export * from './components/navigation';

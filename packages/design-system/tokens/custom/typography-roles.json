@@ -183,5 +183,17 @@
       "$value": "{Typo.14.SemiBold}",
       "$description": "Medium Tab 안 Number Badge 숫자 (측정 14px)"
     }
+  },
+  "CpidItem": {
+    "Title": {
+      "$type": "typography",
+      "$value": "{Typo.13.Bold}",
+      "$description": "TODO(시안) CPID (렌더링 폭 비교로 판단)"
+    },
+    "Name": {
+      "$type": "typography",
+      "$value": "{Typo.12.Regular}",
+      "$description": "TODO(시안) 가맹점명 (렌더링 폭 비교로 판단)"
+    }
   }
 }

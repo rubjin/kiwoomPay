@@ -1,0 +1,63 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$cpid-item-padding-y: t.$space-8;
+$cpid-item-padding-left: t.$space-12;
+$cpid-item-padding-right: 14px; // TODO(시안) 측정값(왼쪽 12와 다름)
+$cpid-item-radius: 6px;
+$cpid-item-row-height: 20px; // 첫 줄 = 상태 Badge(sm) 높이
+$cpid-item-line-gap: 2px; // TODO(시안) CPID 줄 ↔ 가맹점명 (높이 58 기준 역산)
+$cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: $cpid-item-line-gap $cpid-item-status-gap;
+  align-items: center;
+  width: 100%;
+  padding: $cpid-item-padding-y $cpid-item-padding-right $cpid-item-padding-y
+    $cpid-item-padding-left;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background-color: t.$color-cpid-item-bg;
+  border: t.$control-border-width solid t.$color-cpid-item-border;
+  border-radius: $cpid-item-radius;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.selected {
+  background-color: t.$color-cpid-item-selected-bg;
+  border-color: t.$color-cpid-item-selected-border;
+}
+
+.cpid {
+  @include m.typography(cpid-item-title);
+  @include m.ellipsis;
+
+  min-height: $cpid-item-row-height;
+  line-height: $cpid-item-row-height;
+  color: t.$color-cpid-item-title;
+}
+
+.status {
+  display: inline-flex;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.name {
+  @include m.typography(cpid-item-name);
+  @include m.ellipsis;
+
+  grid-column: 1 / -1;
+  color: t.$color-cpid-item-name;
+}

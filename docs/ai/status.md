@@ -78,6 +78,7 @@
 - [Q39] Spacing 가이드 Usage와 컴포넌트 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Page Layout Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8(Search·Modal Footer·Page Title·Button Tab) ③ Icon–Text 8 ↔ Button 아이콘 간격 4. 어느 쪽을 기준으로 할지 확인
 - [Q41] Compact Navigation 시안 확인 필요: 번호 ↔ `/` 간격 2(글자 간격 근사, TODO), 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로) 시안 없음, 사용 위치(카드 · Carousel 추정)
 - [Q42] Unread Indicator: 시안(8 × 17, Primary 500 "N")의 높이가 `Typo/11/Bold`(11 × 1.5)와 맞아 이 스타일로 판단 — 글자 크기 · 굵기 확인 필요. 사용 위치(알림 목록 · 게시물 등)와 "N" 외 다른 글자 필요 여부 확인
+- [Q43] CPID List Item 확인 필요: ① 글자 — 렌더링 폭 비교로 CPID 13 Bold · 가맹점명 12 Regular로 판단(이미지 기준) ② 가맹점명 색 Text/Label(Neutral 700)로 판단 ③ 오른쪽 여백 14(왼쪽 12와 다름) · CPID 줄 ↔ 가맹점명 2는 측정값 ④ Hover · Disabled 표현 시안 없음(미구현) ⑤ 선택은 하나만(버튼 + aria-pressed)으로 해석
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -325,3 +326,8 @@
 ### MultiSelect 시안 변경 반영 — 2026-11-11
 - 변경: 전체 행 배경 제거(토큰 `select/all-bg` 삭제), 항목 높이 30 → 36 · 좌우 여백 8 → 10, 패널 아래 여백 12 → 8, 최대 높이 210(항목 4개), 트리거 요약 "외 N"/"전체" → 선택한 이름 쉼표 나열(말줄임). Open 스토리에 여러 개 선택 예시 추가, Field 가이드 갱신
 - 검증: typecheck · lint · Storybook 빌드 통과, 브라우저 테스트 27개 통과(새 값 기준)
+
+### Component: CPID List Item (Phase 4 display) — 2026-11-11
+- 만든 것: `display/CpidListItem`(새 폴더 `display/`) — 버튼 카드: `cpid` · `merchantName` · `status`(Badge sm · dot 슬롯) · `selected`(Primary 50 배경 · Primary 500 테두리, aria-pressed), 한 줄 말줄임. 토큰 `tokens/custom/cpid-item.json`(색 모두 alias), 타이포 역할 `cpid-item-title`(Typo/13/Bold) · `cpid-item-name`(Typo/12/Regular). stories(Playground · States · SelectableList), 가이드 `docs/CpidListItem.mdx`(Storybook `Components/CPID List Item`)
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 12개 통과(288 × 58 · 반경 6 · 간격 8, 기본/선택 색 · 테두리, 글자 · 색, Badge 위치(시안 좌표와 일치), 가맹점명 위치, 선택 이동, 말줄임, 포커스, 가이드)
+- 한 가정: Q43
