@@ -1,0 +1,70 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as HeaderStories from '../src/components/navigation/Header.stories';
+
+<Meta of={HeaderStories} name="Guide" />
+
+# Header
+
+로그인 후 모든 화면 위에 보이는 App Header의 **내용**입니다. `PageLayout`의 `header` 슬롯(높이 66 · 아래 선)에 넣습니다.
+조각을 조합하는 Compound 컴포넌트라, 시스템마다 필요한 조각만 골라 씁니다.
+
+## 1. 구성
+
+```tsx
+<Header>
+  <Header.Search onSearch={…} />
+  <Header.UserInfo items={[{ label: '아이디', value: 'kw*******' }, …]} />
+  <Header.Divider />
+  <Header.Session remaining={sessionSeconds} onExtend={…} />
+  <Header.Divider />
+  <Header.Masking unmasked={…} remaining={maskingSeconds} onUnmask={…} onExtend={…} onApply={…} />
+  <Header.Divider />
+  <Header.Download count={1} onClick={…} />
+  <Header.Actions>
+    <Header.IconButton icon="user" label="내 정보" />
+    <Header.IconButton icon="bell" label="알림" dot />
+    <Header.IconButton icon="power" label="로그아웃" />
+  </Header.Actions>
+</Header>
+```
+
+| 조각                | 설명                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------ |
+| `Header.Search`     | 공통 검색(CPID · 상호명 · 사업자번호). 남는 폭을 채움. `SearchField` props 그대로                      |
+| `Header.UserInfo`   | 로그인 사용자 정보. 항목 이름(위) · 값(아래), 항목 사이 구분선. **마스킹된 값은 화면에서 만들어 넣음** |
+| `Header.Divider`    | 영역 구분선(높이 40)                                                                                   |
+| `Header.Session`    | 세션 남은 시간(빨강, `HH:MM:SS`) + [연장]                                                              |
+| `Header.Masking`    | 기본 [마스킹 해제] / `unmasked`이면 초록 상자: 남은 시간(`MM:SS`) · [연장] · [마스킹 적용]             |
+| `Header.Download`   | [다운로드 센터] Primary Line + 건수(0이면 숨김)                                                        |
+| `Header.Actions`    | 오른쪽 아이콘 버튼 묶음                                                                                |
+| `Header.IconButton` | 아이콘 버튼(32, 아이콘 24). `label`은 스크린리더 · 마우스 올림 문구. `dot`이면 새 알림 점(bell)        |
+
+- **시간은 초(number)로 넘깁니다.** 카운트다운 · 만료 처리 · 연장 API는 화면(앱)이 관리합니다. 표시 형식은 `formatRemaining(초, 시간포함)`.
+- [마스킹 해제]를 누른 뒤 사유 입력 · 재인증은 화면에서 Modal로 처리합니다.
+
+<Canvas of={HeaderStories.States} />
+
+## 2. 동작 예시
+
+카운트다운 · [연장] · [마스킹 해제] → 해제 중 → [마스킹 적용]을 눌러 볼 수 있습니다.
+
+<Canvas of={HeaderStories.Interactive} />
+
+## 3. Spec
+
+- 높이: `PageLayout` 슬롯 66(아래 선 포함), 내용은 세로 가운데. 좌우 여백 24
+- 영역 간격 12(구분선 양옆), 검색 ↔ 사용자 정보 40, 아이콘 버튼 사이 8
+- 컨트롤 높이 40(md) · 해제 중 상자 안 버튼 32(sm)
+- 글자
+  - 사용자 정보: 항목 `typo-11-medium` `Text/Placeholder` · 값 `typo-12-bold` `Text/Heading`
+  - 세션 시간 `typo-13-bold` `Status/Error/Border`
+  - 해제 중: `typo-12-semi-bold` · 시간 `typo-13-bold`, 색 `Status/Success/*`(배경 · 테두리 · 글자), 반경 6
+- 아이콘 버튼 색 Primary 900, Hover 배경 `Bg/Hover`(임시)
+- 색: `header/*` (`tokens/custom/header.json`, 모두 alias). 크기 · 간격은 `Header.module.scss` 맨 위 SCSS 변수
+
+## 4. Do / Don't
+
+- ✅ 시스템에 없는 조각은 빼고 조합(예: 마스킹이 없는 시스템은 `Header.Masking` 생략)
+- ✅ 값의 마스킹(`kw*******`)은 서버 · 화면에서 처리한 문자열을 넘기기
+- ❌ Header 안에서 타이머 · API 호출 — 앱의 상태(zustand 등)에서 관리
+- ❌ 아이콘 버튼에 `label` 없이 쓰기

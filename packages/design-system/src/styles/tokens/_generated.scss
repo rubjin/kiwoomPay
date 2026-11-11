@@ -436,6 +436,17 @@ $z-index-tooltip: var(--kp-z-index-tooltip); // TODO(시안) z-index 체계 확�
 // ── custom · font ───────────────────────────────────────────────
 $font-family-base: var(--kp-font-family-base); // 웹폰트(Pretendard Variable) 로딩 후 fallback 순서
 
+// ── custom · header ─────────────────────────────────────────────
+$color-header-divider: var(--kp-color-header-divider);
+$color-header-info-label: var(--kp-color-header-info-label); // 사용자 정보 항목 이름 (아이디 · 이름 …)
+$color-header-info-value: var(--kp-color-header-info-value);
+$color-header-timer: var(--kp-color-header-timer); // 세션 남은 시간 (시안 #EF4444)
+$color-header-icon: var(--kp-color-header-icon); // 오른쪽 아이콘 버튼 (내 정보 · 알림 · 로그아웃)
+$color-header-icon-hover: var(--kp-color-header-icon-hover); // TODO(시안) 아이콘 버튼 Hover 배경
+$color-header-masking-bg: var(--kp-color-header-masking-bg);
+$color-header-masking-border: var(--kp-color-header-masking-border);
+$color-header-masking-text: var(--kp-color-header-masking-text);
+
 // ── custom · icon ───────────────────────────────────────────────
 $color-icon-muted: var(--kp-color-icon-muted); // 회색 채움 아이콘 (Delete, Help-circle_filled)
 $color-icon-accent: var(--kp-color-icon-accent); // Heart, Bell-on 점
@@ -977,6 +988,15 @@ $css-variables: (
   "--kp-z-index-modal": "1000",
   "--kp-z-index-tooltip": "1200",
   "--kp-font-family-base": "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif",
+  "--kp-color-header-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-header-info-label": "var(--kp-color-text-placeholder)",
+  "--kp-color-header-info-value": "var(--kp-color-text-heading)",
+  "--kp-color-header-timer": "var(--kp-color-status-error-border)",
+  "--kp-color-header-icon": "var(--kp-color-primary-900)",
+  "--kp-color-header-icon-hover": "var(--kp-color-bg-hover)",
+  "--kp-color-header-masking-bg": "var(--kp-color-status-success-background)",
+  "--kp-color-header-masking-border": "var(--kp-color-status-success-border)",
+  "--kp-color-header-masking-text": "var(--kp-color-status-success-text)",
   "--kp-color-icon-muted": "var(--kp-color-neutral-500)",
   "--kp-color-icon-accent": "var(--kp-color-primary-500)",
   "--kp-color-icon-info": "var(--kp-color-status-info-border)",

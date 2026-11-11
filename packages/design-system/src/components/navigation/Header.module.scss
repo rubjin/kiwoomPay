@@ -1,0 +1,159 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$header-padding-x: t.$space-24;
+$header-gap: t.$space-12; // 영역 사이 (구분선 양옆)
+$header-search-gap: t.$space-40; // 검색 ↔ 사용자 정보
+$header-divider-height: t.$control-height-md; // 40
+$header-info-divider-height: 32px; // 사용자 정보 항목 사이 구분선
+$header-info-padding-x: t.$space-8;
+$header-session-gap: t.$space-8; // 시간 ↔ [연장]
+$header-masking-padding-x: t.$space-8;
+$header-masking-gap: t.$space-8;
+$header-masking-dot: 8px;
+$header-masking-dot-gap: t.$space-4; // TODO(시안) 점 ↔ 문구
+$header-actions-gap: t.$space-8;
+$header-download-badge-gap: t.$space-4; // 다운로드 센터 문구 ↔ 건수
+$header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간격으로 역산)
+
+.header {
+  display: flex;
+  gap: $header-gap;
+  align-items: center;
+  height: 100%;
+  padding: 0 $header-padding-x;
+  white-space: nowrap;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  margin-right: calc(#{$header-search-gap} - #{$header-gap});
+}
+
+// ── 사용자 정보 ──────────────────────────────────────
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 $header-info-padding-x;
+
+  & + & {
+    border-left: t.$control-border-width solid t.$color-header-divider;
+  }
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.infoLabel {
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-header-info-label;
+}
+
+.infoValue {
+  @include m.typography(typo-12-bold);
+
+  margin: 0;
+  color: t.$color-header-info-value;
+}
+
+.divider {
+  flex: none;
+  width: t.$control-border-width;
+  height: $header-divider-height;
+  background-color: t.$color-header-divider;
+}
+
+// ── 세션 · 마스킹 ────────────────────────────────────
+.session {
+  display: flex;
+  gap: $header-session-gap;
+  align-items: center;
+}
+
+.timer {
+  @include m.typography(typo-13-bold);
+
+  color: t.$color-header-timer;
+}
+
+.masking {
+  display: flex;
+  gap: $header-masking-gap;
+  align-items: center;
+  height: $header-divider-height;
+  padding: 0 calc(#{$header-masking-padding-x} - #{t.$control-border-width});
+  background-color: t.$color-header-masking-bg;
+  border: t.$control-border-width solid t.$color-header-masking-border;
+  border-radius: t.$control-radius-md;
+}
+
+.maskingStatus {
+  @include m.typography(typo-12-semi-bold);
+
+  display: inline-flex;
+  gap: $header-masking-dot-gap;
+  align-items: center;
+  color: t.$color-header-masking-text;
+}
+
+.maskingDot {
+  width: $header-masking-dot;
+  height: $header-masking-dot;
+  background-color: currentcolor;
+  border-radius: 50%;
+}
+
+.maskingTime {
+  @include m.typography(typo-13-bold);
+
+}
+
+// ── 아이콘 버튼 ──────────────────────────────────────
+.actions {
+  display: flex;
+  gap: $header-actions-gap;
+  align-items: center;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $header-icon-button;
+  height: $header-icon-button;
+  padding: 0;
+  color: t.$color-header-icon;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: t.$control-radius-sm;
+
+  &:hover {
+    background-color: t.$color-header-icon-hover;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.download {
+  display: inline-flex;
+  gap: $header-download-badge-gap;
+  align-items: center;
+}

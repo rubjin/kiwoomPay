@@ -1,0 +1,46 @@
+{
+  "Header": {
+    "Divider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "InfoLabel": {
+      "$type": "color",
+      "$value": "{Text.Placeholder}",
+      "$description": "사용자 정보 항목 이름 (아이디 · 이름 …)"
+    },
+    "InfoValue": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "Timer": {
+      "$type": "color",
+      "$value": "{Status.Error.Border}",
+      "$description": "세션 남은 시간 (시안 #EF4444)"
+    },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Primary.900}",
+      "$description": "오른쪽 아이콘 버튼 (내 정보 · 알림 · 로그아웃)"
+    },
+    "IconHover": {
+      "$type": "color",
+      "$value": "{Bg.Hover}",
+      "$description": "TODO(시안) 아이콘 버튼 Hover 배경"
+    },
+    "Masking": {
+      "Bg": {
+        "$type": "color",
+        "$value": "{Status.Success.Background}"
+      },
+      "Border": {
+        "$type": "color",
+        "$value": "{Status.Success.Border}"
+      },
+      "Text": {
+        "$type": "color",
+        "$value": "{Status.Success.Text}"
+      }
+    }
+  }
+}

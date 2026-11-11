@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation 완료. 남은 것: Header, Footer, Grid(layout), display, chart&kpi (시안 필요)
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · display(CPID List Item · Infobox · Summary Card) 완료. 남은 것: Footer, Address · Search Result, Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -30,6 +30,7 @@
 | DatePicker 외부 라이브러리 | 사용 안 함. Calendar 직접 구현(네이티브 Date) | 2026-11-10 |
 | 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`), 폴더는 `directory-structure.md`. **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
+| 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드까지 IBSheet 캘린더로 바꿀지는 확인 필요(Q47) | 2026-11-11 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
 ### Typography 역할 이름 매핑안 (Figma description 기준, 시안 확인 시 조정)
@@ -82,6 +83,8 @@
 - [Q43] CPID List Item 확인 필요: ① 글자 — 렌더링 폭 비교로 CPID 13 Bold · 가맹점명 12 Regular로 판단(이미지 기준) ② 가맹점명 색 Text/Label(Neutral 700)로 판단 ③ 오른쪽 여백 14(왼쪽 12와 다름) · CPID 줄 ↔ 가맹점명 2는 측정값 ④ Hover · Disabled 표현 시안 없음(미구현) ⑤ 선택은 하나만(버튼 + aria-pressed)으로 해석
 - [Q44] Infobox 확인 필요(제목 13 SemiBold · 간격 8 확정 2026-11-11): ① 글자 — 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold는 시안 글자 폭 비교로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
 - [Q45] Summary Card 확인 필요: ① 글자 — 시안 글자 폭 비교로 제목 14 SemiBold, md 값 24 Bold · 단위 14 Bold · 보조 12 SemiBold, sm 값 20 Bold · 단위 14 Regular · 보조 13 Regular, 빈 상태 14 Regular · 12 Regular로 판단 ② 제목 ↔ Info 간격: 시안 약 10 → 8로 구현(아이콘 2px 왼쪽) ③ md · sm 색이 다름(md 값 Primary 900 · 보조 Primary 600 / sm 값 Text/Heading · 보조 Text/Secondary) — 의도 확인 ④ sm 빈 상태는 시안에서 아래 여백을 1px 넘음 → 카드 높이 고정, 글자 1px 아래 ⑤ Skeleton 애니메이션 없음(motion 토큰 없음) ⑥ 값 앞 · 뒤 단위 위치는 size로 정해짐(md 앞 · sm 뒤)
+- [Q46] Header 확인 필요: ① 글자 — 시안 글자 폭 비교로 사용자 정보 항목 11 Medium · 값 12 Bold, 세션 시간 13 Bold, 해제 중 문구 12 SemiBold · 시간 13 Bold로 판단 ② 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover)은 임시값, 시안의 다운로드 센터 ↔ 아이콘 간격 10은 영역 간격 12로 통일(2px) ③ 버튼 폭이 시안보다 1~2px 넓음(공통 Button 여백) → 오른쪽 영역 위치가 최대 6px 왼쪽 ④ 시간 숫자는 시안대로 비례폭(카운트다운 때 글자 폭이 조금씩 바뀜). 고정폭(tabular)으로 할지 확인 ⑤ 마스킹 해제 시 사유 입력 Modal 시안 필요 ⑥ Global Search(Q35)는 시안대로 SearchField로 구현 — 검색 결과 패널은 시안 없음
+- [Q47] 캘린더를 IBSheet로 한다는 범위: 그리드 셀 날짜 입력만인지, 검색 영역 날짜 필드(현재 디자인 시스템 DatePicker)도 IBSheet 캘린더로 바꾸는지
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -368,3 +371,8 @@
 - 만든 것: `display/SummaryCard` — `title` · `info`(InfoTip 16) · `value`(숫자는 천 단위 쉼표) · `unit` · `meta`(• 자동) · `size` md 120 / sm 96(높이 고정) · `loading`(Skeleton) · `empty`(기본 문구). 값 · Skeleton · 빈 상태는 카드 아래에 붙여 상태가 바뀌어도 높이 같음. 토큰 `tokens/custom/summary-card.json`(색 모두 alias). stories(Playground · States · InGrid), 가이드 `docs/SummaryCard.mdx`(Storybook `Components/Summary Card`)
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 12개 통과(크기 320×120 · 280×96, 색 · 테두리 · 반경, 제목 · Info 위치, 값 · 단위 · 보조 글자 · 색, Skeleton 크기 · 위치(시안과 일치), 빈 상태). 렌더링 캡처가 시안과 일치(글자 위치 1~2px 이내)
 - 한 가정: Q45
+
+### Component: Header (Phase 4) — 2026-11-11
+- 만든 것: `navigation/Header`(Compound) — `Header.Search`(SearchField md, 남는 폭) · `Header.UserInfo`(항목 이름 위 · 값 아래 · 구분선) · `Header.Divider` · `Header.Session`(남은 시간 HH:MM:SS 빨강 + [연장]) · `Header.Masking`([마스킹 해제] / 해제 중 초록 상자: MM:SS · [연장] · [마스킹 적용]) · `Header.Download`(Primary Line + 건수) · `Header.Actions` · `Header.IconButton`(32 · 아이콘 24 · dot → bell-on). 시간은 초로 받고 카운트다운은 화면이 관리, `formatRemaining` export. 토큰 `tokens/custom/header.json`(색 모두 alias). stories(States · Interactive), 가이드 `docs/Header.mdx`. 앱 `apps/internal-admin`의 임시 헤더를 이 컴포넌트로 교체
+- 검증: typecheck · lint · build · Storybook 빌드 통과. 브라우저 테스트 14개 통과(검색 위치 · 간격 40, 구분선 위치(시안 ±7), 버튼 폭(±2) · 간격, 아이콘 위치(시안과 일치), 해제 중 상자 279 × 40, 글자 · 색, 카운트다운 · 해제 · 적용 동작, 아이콘 버튼 aria-label · 포커스). 렌더링 캡처가 시안과 일치
+- 한 가정: Q46 · Q47
