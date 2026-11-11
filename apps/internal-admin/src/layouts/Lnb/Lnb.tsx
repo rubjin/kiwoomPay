@@ -1,6 +1,7 @@
 import { Lnb as LnbBase, type LnbMenuItem } from '@kiwoompay/design-system';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { config } from '@/app/config';
+import logoLnb from '@/assets/logo/logo-lnb.svg';
 import { MENUS } from '@/constants/menu';
 
 // KWPC0103 LNB. TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
@@ -25,6 +26,7 @@ export function Lnb() {
 
   return (
     <LnbBase
+      logo={<img src={logoLnb} alt="키움페이" width={125} height={23} />}
       items={items}
       activeId={active?.id}
       onNavigate={(item, event) => {
