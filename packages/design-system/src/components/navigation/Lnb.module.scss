@@ -79,7 +79,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 }
 
 .tab {
-  @include m.typography(lnb-tab);
+  @include m.typography(typo-13-medium);
 
   display: inline-flex;
   flex: 1;
@@ -102,7 +102,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 }
 
 .count {
-  @include m.typography(lnb-count);
+  @include m.typography(typo-12-semi-bold);
 
   display: inline-flex;
   align-items: center;
@@ -179,7 +179,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
 // ── 1Depth ───────────────────────────────────────────
 .depth1 {
-  @include m.typography(lnb-depth1);
+  @include m.typography(typo-14-medium);
 
   gap: $lnb-icon-gap;
   height: $lnb-depth1-height;
@@ -197,7 +197,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
 // ── 2Depth ───────────────────────────────────────────
 .depth2 {
-  @include m.typography(lnb-depth2);
+  @include m.typography(typo-13-medium);
 
   gap: t.$space-8;
   height: $lnb-depth2-height;
@@ -211,7 +211,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
 // ── 3Depth ───────────────────────────────────────────
 .depth3 {
-  @include m.typography(lnb-depth3);
+  @include m.typography(typo-11-medium);
 
   height: $lnb-depth3-height;
   padding-right: $lnb-padding-x;
@@ -240,7 +240,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
 // 3Depth Active: 현재 화면 (점 + 굵은 글자 + 배경)
 .depth3.active {
-  @include m.typography(lnb-depth3-active);
+  @include m.typography(typo-11-bold);
 
   color: t.$color-lnb-active-text;
   background-color: t.$color-lnb-active-bg;
@@ -296,7 +296,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 }
 
 .favoriteTitle {
-  @include m.typography(lnb-title);
+  @include m.typography(typo-14-semi-bold);
 }
 
 .favoriteList {
@@ -325,12 +325,12 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 }
 
 .itemName {
-  @include m.typography(lnb-item-name);
+  @include m.typography(typo-12-semi-bold);
   @include m.ellipsis;
 }
 
 .itemPath {
-  @include m.typography(lnb-item-path);
+  @include m.typography(typo-10-regular);
   @include m.ellipsis;
 
   margin: 0;
@@ -349,13 +349,13 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 }
 
 .emptyTitle {
-  @include m.typography(lnb-item-name);
+  @include m.typography(typo-12-semi-bold);
 
   margin: 0;
 }
 
 .emptyDesc {
-  @include m.typography(caption-md);
+  @include m.typography(typo-12-regular);
 
   margin: 0;
   color: t.$color-lnb-path;

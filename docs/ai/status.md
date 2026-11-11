@@ -20,7 +20,7 @@
 | 계층 분류 | Figma 컬렉션은 1개 그대로 둔다. 코드에서 Primitive(`Primary`·`Neutral`·`Base`) / Semantic(`Text`·`Line`·`Status`·`Chart`)으로 분류. 컴포넌트는 Semantic·Component 토큰만 참조 | 2026-11-10 |
 | 추가 Semantic 색 | 코드(`tokens/custom`)에서 Primitive alias로 추가: 배경(surface·page·hover·selected), primary hover/pressed, focus ring, overlay(dim). 매핑은 시안 확인 후 | 2026-11-10 |
 | Status·Chart raw hex | 값 그대로 유지 (Primitive로 올리지 않음). `Chart/Previous`(=Neutral/400 값)도 그대로 | 2026-11-10 |
-| Typography 이름 | Figma 이름(`Typo/14/Regular`)을 그대로 생성하고, 역할 이름(예: `body/md`)을 코드에서 alias로 추가. 컴포넌트는 역할 이름만 사용. 매핑안은 아래 | 2026-11-10 |
+| Typography 이름 | **컴포넌트 SCSS는 Figma 스타일 이름을 그대로 사용**(`Typo / 16 / SemiBold` → `@include m.typography(typo-16-semi-bold)`) — 이름만 보고 크기 · 굵기를 확인할 수 있게. 없는 이름은 빌드 에러. 컴포넌트 전용 글자 역할(`badge-md` 등)은 만들지 않음. 역할 이름(`heading-sm` 등, 아래 표)은 앱 화면용 alias로만 유지 | 2026-11-11 (변경, 기존 "역할 이름만 사용" 대체) |
 | Pretendard 로딩 | 웹폰트. 패키지에 woff2(dynamic subset) self-host — 사내망·CDN 차단 대비. fallback: `Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif` | 2026-11-10 |
 | size(sm/md/lg) | 이름에 넣은 단일 변수 (`control/height/sm` 등). 모드 사용 안 함 | 2026-11-10 |
 | Figma Code syntax(Web) | 입력하지 않음 (Figma 토큰 추가 없음, 이름 변환 규칙으로 대응) | 2026-11-10 |
@@ -45,7 +45,6 @@
 | `caption/md` | Typo/12/Regular | 도움말, 캡션 |
 | `caption/strong` | Typo/12/SemiBold | 소형 강조 |
 
-- 11·10px 스타일(LNB 전용)은 역할 이름 대신 `lnb/*` Component 토큰으로 둔다.
 - description이 없는 스타일은 역할 이름 없이 Figma 이름으로만 제공한다.
 
 ## 열린 질문
@@ -335,3 +334,8 @@
 ### MultiSelect 크기별 패널 높이 · 글자 — 2026-11-11
 - 변경(사용자 확정): 패널 최대 높이 md 276 · sm 210, 항목 글자 md 14(body-md) · sm 13(body-sm). Loading · Empty 패널 190은 그대로. Open 스토리에 sm 스크롤 예시 추가, Field 가이드 갱신
 - 검증: typecheck · Storybook 빌드 통과, 브라우저 측정(md 최대 276 · 14px, sm 최대 210 · 13px, 넘치면 목록 스크롤) + 기존 테스트 27개 재통과
+
+### 리팩토링: 글자 스타일을 Figma 이름으로 — 2026-11-11
+- 이유(사용자 요청): `@include m.typography(heading-sm)`만 봐서는 크기 · 굵기를 알 수 없어 시안과 대조하기 어려움
+- 변경: 컴포넌트 SCSS 58곳을 Figma 스타일 이름(`typo-<크기>-<굵기>`)으로 교체. 컴포넌트 전용 글자 역할 24개(button · badge · lnb · tab · pagination · segmented · cpid-item) 삭제, 역할 이름 11개(heading · body · label · caption)는 앱 화면용으로 유지. `typography` mixin이 없는 이름이면 빌드 에러. DatePicker 제목은 `heading-sm` + `font-weight: 700` 덮어쓰기 → `typo-16-bold`. 가이드 `docs/Typography.mdx`(Storybook `Foundation/Typography`: 스타일 목록 · 크기 · 굵기 · 예시 · 역할 이름 대응) 추가, 각 컴포넌트 가이드의 "글자" 줄 · `docs/token-workflow.md` 갱신
+- 검증: tokens · typecheck · lint · build · Storybook 빌드 통과, 오타 이름 빌드 에러 확인. 전체 스토리 141개 계산된 스타일이 변경 전과 동일(회전 중인 Spinner 1개만 애니메이션 타이밍 차이)

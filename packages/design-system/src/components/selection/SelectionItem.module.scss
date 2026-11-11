@@ -17,11 +17,11 @@ $selection-helper-gap: t.$space-4; // 라벨 ↔ 부가 설명
 }
 
 .md {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 }
 
 .sm {
-  @include m.typography(body-sm);
+  @include m.typography(typo-13-regular);
 }
 
 .disabled {
@@ -37,7 +37,7 @@ $selection-helper-gap: t.$space-4; // 라벨 ↔ 부가 설명
 }
 
 .helper {
-  @include m.typography(caption-md);
+  @include m.typography(typo-12-regular);
 
   color: t.$color-selection-helper;
 }

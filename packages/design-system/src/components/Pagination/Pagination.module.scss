@@ -26,7 +26,7 @@ $pagination-icon-size: 20px;
 
 // 번호 · 이전 · 다음 공통
 .item {
-  @include m.typography(pagination-item);
+  @include m.typography(typo-14-medium);
 
   display: inline-flex;
   align-items: center;
@@ -75,7 +75,7 @@ $pagination-icon-size: 20px;
 }
 
 .ellipsis {
-  @include m.typography(pagination-item);
+  @include m.typography(typo-14-medium);
 
   display: inline-flex;
   align-items: center;

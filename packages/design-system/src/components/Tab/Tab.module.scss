@@ -81,21 +81,21 @@ $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 }
 
 .md .item {
-  @include m.typography(tab-md);
+  @include m.typography(typo-14-medium);
 
   height: $tab-height-md;
 }
 
 .md .active {
-  @include m.typography(tab-active-md);
+  @include m.typography(typo-14-semi-bold);
 }
 
 .md .count {
-  @include m.typography(tab-count-md);
+  @include m.typography(typo-14-semi-bold);
 }
 
 .sm .item {
-  @include m.typography(tab-sm);
+  @include m.typography(typo-13-medium);
 
   height: $tab-height-sm;
 }
@@ -106,7 +106,7 @@ $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 }
 
 .button .item {
-  @include m.typography(tab-md);
+  @include m.typography(typo-14-medium);
 
   height: $tab-height-sm;
   min-width: $tab-button-min-width;
@@ -117,7 +117,7 @@ $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 }
 
 .button .active {
-  @include m.typography(tab-active-md);
+  @include m.typography(typo-14-semi-bold);
 
   background-color: t.$color-tab-button-bg-active;
   border-color: t.$color-tab-button-border-active;

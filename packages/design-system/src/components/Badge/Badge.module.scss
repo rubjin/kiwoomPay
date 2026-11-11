@@ -41,7 +41,7 @@ $tones: neutral, primary, info, success, warning, error;
 
 // 높이의 절반을 반경으로 써서 알약 모양을 만든다
 .md {
-  @include m.typography(badge-md);
+  @include m.typography(typo-13-medium);
 
   gap: $badge-dot-gap-md;
   height: $badge-height-md;
@@ -50,7 +50,7 @@ $tones: neutral, primary, info, success, warning, error;
 }
 
 .sm {
-  @include m.typography(badge-sm);
+  @include m.typography(typo-12-medium);
 
   gap: $badge-dot-gap-sm;
   height: $badge-height-sm;
@@ -79,7 +79,7 @@ $tones: neutral, primary, info, success, warning, error;
 
 // ── Number Badge ─────────────────────────────────────
 .number {
-  @include m.typography(badge-number);
+  @include m.typography(typo-12-semi-bold);
 
   display: inline-flex;
   flex: none;
@@ -126,7 +126,7 @@ $tones: neutral, primary, info, success, warning, error;
 
 // Unread Indicator: 읽지 않은 항목 옆 "N"
 .unread {
-  @include m.typography(badge-unread);
+  @include m.typography(typo-11-bold);
 
   display: inline-block;
   flex: none;

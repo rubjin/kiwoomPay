@@ -13,11 +13,11 @@
 }
 
 .sm {
-  @include m.typography(button-sm);
+  @include m.typography(typo-12-semi-bold);
 }
 
 .md {
-  @include m.typography(button-md);
+  @include m.typography(typo-13-semi-bold);
 }
 
 .primary {

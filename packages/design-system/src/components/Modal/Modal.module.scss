@@ -69,7 +69,7 @@ $modal-info-label-gap: t.$space-12;
 }
 
 .title {
-  @include m.typography(heading-lg);
+  @include m.typography(typo-20-bold);
 
   flex: 1;
   min-width: 0;
@@ -93,7 +93,7 @@ $modal-info-label-gap: t.$space-12;
 
 // ── Body (내용이 넘치면 여기만 스크롤) ────────────────
 .body {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   flex: 1 1 auto;
   min-height: 0;
@@ -114,7 +114,7 @@ $modal-info-label-gap: t.$space-12;
 
 // ── Information 정보 영역 ────────────────────────────
 .info {
-  @include m.typography(body-sm);
+  @include m.typography(typo-13-regular);
 
   display: flex;
   flex-direction: column;

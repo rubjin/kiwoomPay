@@ -126,7 +126,7 @@ $multi-item-padding-x: 10px;
 
 // 항목 전체를 누를 수 있도록 Checkbox 라벨이 행을 채운다
 .option > .check {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   display: flex;
   flex: 1;
@@ -146,12 +146,12 @@ $multi-item-padding-x: 10px;
 }
 
 .panelSm .check {
-  @include m.typography(body-sm);
+  @include m.typography(typo-13-regular);
 }
 
 // ── 로딩 · 빈 상태 · 검색 결과 없음 ──────────────────
 .status {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   display: flex;
   flex: 1;

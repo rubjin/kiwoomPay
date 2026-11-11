@@ -2,7 +2,7 @@
 @use '../mixins' as m;
 
 body {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   color: t.$color-text-body;
   background-color: t.$color-bg-page;

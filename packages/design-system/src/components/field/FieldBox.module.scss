@@ -58,7 +58,7 @@ $field-icon-size-sm: 16px; // Leading Icon (sm)
 
 // 글자수 카운터: 박스 우측 하단에 겹친다 (시안: 높이는 카운터 유무와 같다)
 .counter {
-  @include m.typography(caption-md);
+  @include m.typography(typo-12-regular);
 
   position: absolute;
   bottom: t.$space-12;
@@ -85,7 +85,7 @@ $field-icon-size-sm: 16px; // Leading Icon (sm)
 }
 
 .md {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   height: t.$control-height-md;
   padding-inline: $field-padding-x-md;
@@ -107,7 +107,7 @@ $field-icon-size-sm: 16px; // Leading Icon (sm)
 }
 
 .sm {
-  @include m.typography(label-md);
+  @include m.typography(typo-13-medium);
 
   height: t.$control-height-sm;
   padding-inline: $field-padding-x-sm;

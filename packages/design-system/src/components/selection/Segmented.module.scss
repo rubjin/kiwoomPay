@@ -33,7 +33,7 @@ $segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)�
 }
 
 .text {
-  @include m.typography(segmented-item);
+  @include m.typography(typo-12-medium);
 
   display: inline-flex;
   align-items: center;

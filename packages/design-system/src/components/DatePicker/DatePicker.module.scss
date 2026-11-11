@@ -31,7 +31,7 @@ $date-picker-panel-radius: t.$field-radius-md;
 }
 
 .title {
-  @include m.typography(heading-sm);
+  @include m.typography(typo-16-bold);
 
   color: t.$color-date-picker-text;
 }
@@ -62,7 +62,7 @@ $date-picker-panel-radius: t.$field-radius-md;
 }
 
 .day {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   display: inline-flex;
   align-items: center;

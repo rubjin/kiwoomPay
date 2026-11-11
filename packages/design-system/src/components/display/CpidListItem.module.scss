@@ -40,7 +40,7 @@ $cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
 }
 
 .cpid {
-  @include m.typography(cpid-item-title);
+  @include m.typography(typo-13-bold);
   @include m.ellipsis;
 
   min-height: $cpid-item-row-height;
@@ -55,7 +55,7 @@ $cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
 }
 
 .name {
-  @include m.typography(cpid-item-name);
+  @include m.typography(typo-12-regular);
   @include m.ellipsis;
 
   grid-column: 1 / -1;

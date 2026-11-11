@@ -14,7 +14,7 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
 
 // 라벨은 필드 높이와 같은 줄에서 세로 가운데 정렬한다.
 .label {
-  @include m.typography(label-field);
+  @include m.typography(typo-13-bold);
 
   display: inline-flex;
   flex: none;
@@ -57,7 +57,7 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
 }
 
 .helper {
-  @include m.typography(caption-md);
+  @include m.typography(typo-12-regular);
 
   margin: 0;
   color: t.$color-field-helper;

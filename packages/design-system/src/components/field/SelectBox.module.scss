@@ -103,7 +103,7 @@ $select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 �
 }
 
 .option {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   padding: $select-item-padding-y $select-item-padding-x;
   color: t.$color-select-item-text;
@@ -127,7 +127,7 @@ $select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 �
 
 // ── 로딩 · 빈 상태 ───────────────────────────────────
 .status {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
 
   display: flex;
   gap: t.$field-gap;

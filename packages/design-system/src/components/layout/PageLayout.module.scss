@@ -93,7 +93,7 @@ $page-layout-section-radius: t.$control-radius-lg;
 }
 
 .titleText {
-  @include m.typography(heading-xl);
+  @include m.typography(typo-24-bold);
   @include m.ellipsis;
 
   flex: 1 1 0;
@@ -160,7 +160,7 @@ $page-layout-section-radius: t.$control-radius-lg;
 }
 
 .sectionTitle {
-  @include m.typography(heading-md);
+  @include m.typography(typo-18-semi-bold);
 
   margin: 0;
   color: t.$color-page-layout-section-title;
@@ -169,7 +169,7 @@ $page-layout-section-radius: t.$control-radius-lg;
 
 // 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (측정)
 .inline .sectionTitle {
-  @include m.typography(heading-sm);
+  @include m.typography(typo-16-semi-bold);
 }
 
 .sectionInlineBody {

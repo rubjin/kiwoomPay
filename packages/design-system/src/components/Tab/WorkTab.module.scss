@@ -64,7 +64,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
 
 // 메뉴명 영역 전체가 선택 버튼 (왼쪽 여백 포함)
 .select {
-  @include m.typography(label-md);
+  @include m.typography(typo-13-medium);
 
   display: flex;
   align-self: stretch;
@@ -124,7 +124,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
 
 // ── 열린 화면 Trigger (Work Tab 줄 오른쪽 끝, 글자 + 화살표) ─────
 .trigger {
-  @include m.typography(heading-sm);
+  @include m.typography(typo-16-semi-bold);
 
   display: inline-flex;
   gap: $work-tab-trigger-gap;
@@ -163,7 +163,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
 }
 
 .menuItem {
-  @include m.typography(body-md);
+  @include m.typography(typo-14-regular);
   @include m.ellipsis;
 
   padding: $work-tab-menu-item-padding-y $work-tab-menu-item-padding-x;

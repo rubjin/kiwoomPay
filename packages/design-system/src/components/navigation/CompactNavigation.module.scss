@@ -42,7 +42,7 @@ $compact-nav-icon-size: 16px;
 }
 
 .count {
-  @include m.typography(caption-strong);
+  @include m.typography(typo-12-semi-bold);
 
   display: inline-flex;
   gap: $compact-nav-count-gap;

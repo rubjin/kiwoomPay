@@ -32,7 +32,7 @@ $variants: primary, neutral, dark, danger;
 
 // ── size ─────────────────────────────────────────────
 .sm {
-  @include m.typography(button-sm);
+  @include m.typography(typo-12-semi-bold);
 
   height: t.$control-height-sm;
   padding-inline: t.$control-padding-x-sm;
@@ -49,7 +49,7 @@ $variants: primary, neutral, dark, danger;
 }
 
 .md {
-  @include m.typography(button-md);
+  @include m.typography(typo-13-semi-bold);
 
   height: t.$control-height-md;
   padding-inline: t.$control-padding-x-md;
@@ -66,7 +66,7 @@ $variants: primary, neutral, dark, danger;
 }
 
 .lg {
-  @include m.typography(button-lg);
+  @include m.typography(typo-14-bold);
 
   height: t.$control-height-lg;
   padding-inline: t.$control-padding-x-lg;

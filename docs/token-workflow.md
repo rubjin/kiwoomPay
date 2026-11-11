@@ -78,17 +78,17 @@ $lnb-padding-x: t.$space-12; // Scale과 같은 값은 숫자 대신 Scale을 �
 
 경로를 소문자 kebab-case로 이어 붙인다. 색(`$type: color`)만 앞에 `color-`가 붙는다.
 
-| 원본 경로                     | SCSS 변수                                      | CSS 변수                                           |
-| ----------------------------- | ---------------------------------------------- | -------------------------------------------------- |
-| `Primary/500` (color)         | `$color-primary-500`                           | `--kp-color-primary-500`                           |
-| `Status/Success/Text` (color) | `$color-status-success-text`                   | `--kp-color-status-success-text`                   |
-| `space/16`                    | `$space-16`                                    | `--kp-space-16` (`16px`)                           |
-| `Typo / 14 / Regular`         | `$typography-typo-14-regular-font-size` 외 3개 | `--kp-typography-typo-14-regular-font-size` 외 3개 |
-| 역할 이름 `Body/MD`           | `$typography-body-md-font-size` 외 3개         | `--kp-typography-body-md-font-size` 외 3개         |
-| `Font/Family/Base`            | `$font-family-base`                            | `--kp-font-family-base`                            |
-| `Breakpoint/Tablet`           | `$breakpoint-tablet` (값 그대로)               | `--kp-breakpoint-tablet`                           |
+| 원본 경로                      | SCSS 변수                                      | CSS 변수                                           |
+| ------------------------------ | ---------------------------------------------- | -------------------------------------------------- |
+| `Primary/500` (color)          | `$color-primary-500`                           | `--kp-color-primary-500`                           |
+| `Status/Success/Text` (color)  | `$color-status-success-text`                   | `--kp-color-status-success-text`                   |
+| `space/16`                     | `$space-16`                                    | `--kp-space-16` (`16px`)                           |
+| `Typo / 14 / Regular`          | `$typography-typo-14-regular-font-size` 외 3개 | `--kp-typography-typo-14-regular-font-size` 외 3개 |
+| 역할 이름 `Body/MD`(앱 화면용) | `$typography-body-md-font-size` 외 3개         | `--kp-typography-body-md-font-size` 외 3개         |
+| `Font/Family/Base`             | `$font-family-base`                            | `--kp-font-family-base`                            |
+| `Breakpoint/Tablet`            | `$breakpoint-tablet` (값 그대로)               | `--kp-breakpoint-tablet`                           |
 
-- Typography는 속성 4개(`font-size` · `font-weight` · `line-height` · `letter-spacing`)로 풀어서 내보낸다. 컴포넌트에서는 `@include m.typography(body-md)`를 쓴다.
+- Typography는 속성 4개(`font-size` · `font-weight` · `line-height` · `letter-spacing`)로 풀어서 내보낸다. 컴포넌트에서는 Figma 스타일 이름 그대로 `@include m.typography(typo-14-regular)`를 쓴다(이름만 보고 크기 · 굵기를 알 수 있게). 없는 이름은 빌드 에러. 컴포넌트 전용 글자 역할은 만들지 않는다. 목록은 Storybook `Foundation/Typography`.
 - Figma의 `{Primary.500}` 같은 참조는 CSS에서 `var(--kp-color-primary-500)`로 이어져 계층이 유지된다.
 - 브레이크포인트만 SCSS 변수에 값을 그대로 둔다 (`@media` 안에서는 CSS 변수를 쓸 수 없기 때문). `@include m.respond-to(tablet)`로 사용한다.
 - 컴포넌트에서 Primitive(`Primary`·`Neutral`·`Base`)를 직접 쓰지 않고 Semantic(`Text`·`Line`·`Status`·`Bg`…)을 쓴다.

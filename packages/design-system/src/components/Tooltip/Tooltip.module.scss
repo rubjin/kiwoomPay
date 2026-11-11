@@ -8,7 +8,7 @@ $tooltip-padding-y: 10px; // Tooltip Guide Anatomy: Padding 12 / 10
 
 // 위치(position: fixed, top/left)는 Tooltip.tsx가 계산한다. 몸체는 Hug, 최대 320에서 줄바꿈
 .tooltip {
-  @include m.typography(caption-md);
+  @include m.typography(typo-12-regular);
 
   position: fixed;
   z-index: t.$z-index-tooltip;
