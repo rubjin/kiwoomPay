@@ -13,3 +13,5 @@ export { DateField } from './DateField';
 export type { DateFieldProps } from './DateField';
 export { DateRangeField } from './DateRangeField';
 export type { DateRangeFieldProps } from './DateRangeField';
+export { MultiSelect } from './MultiSelect';
+export type { MultiSelectOption, MultiSelectProps } from './MultiSelect';

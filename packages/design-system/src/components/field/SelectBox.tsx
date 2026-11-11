@@ -17,6 +17,7 @@ import { Icon } from '../Icon';
 import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
 import { FieldBox } from './FieldBox';
 import styles from './SelectBox.module.scss';
+import { Spinner } from './Spinner';
 
 export interface SelectOption {
   value: string;
@@ -49,29 +50,6 @@ export interface SelectBoxProps extends Omit<
   /** 라벨 연결용 id (트리거 버튼에 붙는다) */
   id?: string;
   fullWidth?: boolean;
-}
-
-function Spinner() {
-  return (
-    <svg className={styles.spinner} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle className={styles.spinnerTrack} cx="10" cy="10" r="7" strokeWidth="2" />
-      <path
-        className={styles.spinnerArc}
-        d="M17 10a7 7 0 0 0-7-7"
-        strokeWidth="2"
-        strokeLinecap="round"
-      >
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          from="0 10 10"
-          to="360 10 10"
-          dur="0.8s"
-          repeatCount="indefinite"
-        />
-      </path>
-    </svg>
-  );
 }
 
 /**

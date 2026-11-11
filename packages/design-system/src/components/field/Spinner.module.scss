@@ -1,0 +1,15 @@
+@use 'tokens' as t;
+
+.spinner {
+  flex: none;
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+}
+
+.track {
+  stroke: t.$color-select-spinner-track;
+}
+
+.arc {
+  stroke: t.$color-select-spinner-arc;
+}

@@ -4,7 +4,7 @@
 > 사람이 직접 고쳐도 된다. 여기 적힌 확정 결정은 `brief.md`보다 우선한다.
 
 ## 현재 단계
-- Phase 2 완료(MultiSelect만 시안 대기). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
+- Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout 완료. 남은 것: Header, Footer, Compact Navigation, Grid(layout), display, chart&kpi (시안 필요)
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
@@ -55,7 +55,7 @@
 - [Q15] Neutral Text Action 색: 시안에서 값을 읽지 못해 `Neutral/700` 임시값(`tokens/custom/button.json`, TODO). Text Action hover 표현도 시안 확인 필요(현재 밑줄)
 - [Q16] Header Utility Link(Semantic은 Link, 시각은 Primary Line M40) 구현 방식: `Button`에 `href` 지원을 추가할지, 별도 컴포넌트로 둘지
 - [Q17] 가이드(Hierarchy 설명)는 Hover를 "한 단계 어두운 배경"이라 쓰지만 시안 값은 Neutral Solid Hover가 더 밝은 회색(Neutral/500). 시안 값을 따름 — 디자인 확인 필요
-- [Q18] MultiSelect(Multi-select Dropdown)는 Field 시안에 없어 만들지 않음. 시안 필요
+- [Q18] MultiSelect 시안 확인 필요(`temp/컴포넌트/Multi-select Dropdown.png`): ① "전체" 행이 모든 패널에서 회색(Neutral 50)이라 고정 배경으로 해석(Hover 표현인지 확인) ② 여러 개 선택 시 트리거 표시 시안 없음 → `첫 항목 외 N` · 전부 `전체` ③ 마지막 항목 아래 여백 12(항목 4개 = 패널 190) ④ 아래 줄 예시(폭 320)는 항목 36 · 간격 0으로 위 줄(30 · 4)과 다름 → 위 줄 기준 ⑤ 열림 상태 트리거 글자가 회색인 예시가 있으나 다른 예시는 진한 색 → 진한 색
 - [Q19] 시안에 없는 항목: 필드 hover 표현, Field 세로(라벨 위) 배치, SelectBox 키보드 이동(↑↓), Small 드롭다운 항목 글자 크기 → 현재 hover·세로 배치는 미구현, 항목 글자는 14px 고정
 - [Q20] TODO 임시값(시안 픽셀로 근사, `shadow/focus`는 `0 0 4px 0 rgba(36,132,198,0.30)`로 확정됨): `select/panel-max-height 190`, `select/status-min-height 172`, `z-index/dropdown 100` (`tokens/custom/field.json`)
 - [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field Default(40)는 시안에서 내용 폭에 딱 붙어 있으나 구현은 아이콘 앞 간격 8px 유지
@@ -304,3 +304,8 @@
 - 변경: 컴포넌트 JSON의 크기 토큰 149개 중 한 SCSS 파일에서만 쓰는 131개를 그 `*.module.scss` 맨 위 SCSS 변수로 옮김(이름 · 값 · TODO 설명 유지, alias는 `t.$space-N` 등으로), 사용처 없는 1개(`lnb/chevron-size`) 삭제. 남긴 17개: 여러 컴포넌트 공유(`field/gap` · `field/label-gap-top` · `field/icon-size/trailing` · `selection/size/*`), 다른 토큰이 참조(`field/radius/*`), JS가 CSS 변수로 읽음(Tooltip 화살표 · 여백, Work Tab 메뉴 위치, Select · DatePicker 팝업 간격). 코드 토큰 549 → 417개
 - 문서: `docs/token-workflow.md`(토큰 / SCSS 변수 구분 표), `Spacing.mdx` 규칙, 각 컴포넌트 가이드의 "토큰" 줄, Stylelint 경고 문구
 - 검증: tokens:check · typecheck · lint · build · Storybook 빌드 통과. **전체 스토리 129개 · 요소 15,937개의 계산된 스타일(크기 · 위치 · 간격 · 테두리 · 반경 · 색 · 글자 등 36개 속성)이 리팩토링 전과 완전히 동일**(기본 · 가맹점 테마 모두)
+
+### Component: MultiSelect (Phase 2) — 2026-11-11
+- 만든 것: `field/MultiSelect` — 옵션 검색(SearchField sm) · 전체 선택(indeterminate) · 항목 Checkbox sm, `value: string[]`(옵션 순서) · controlled/uncontrolled, 선택 시 패널 유지, 트리거 요약(1개 이름 · `외 N` · `전체`, `renderValue`), loading · empty · 검색 결과 없음, `name` → 값마다 hidden input. 패널 안 검색은 바깥 Field Context와 분리(id · 피드백 중복 방지). SelectBox의 Spinner를 공용 `field/Spinner`로 분리. 토큰 `select/all-bg`(TODO). stories(Playground · States · Open · Wide · Controlled), Field 가이드 4-1절
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 27개 통과(패널 200 · 190 · 여백 8 · 트리거 ↔ 패널 8, 검색 32 · 항목 30 · 간격 4 · 체크박스 16 · 글자 14, 전체/선택 배경, indeterminate, 스크롤 강조, Loading · Empty 190, md 40 · sm 32, 선택 · 해제 · 순서, 전체 선택/해제, 검색 필터 · 검색 중 전체, 결과 없음, Esc · 바깥 클릭, 검색어 초기화, Field 안 id 중복 없음)
+- 한 가정: Q18 ①~⑤

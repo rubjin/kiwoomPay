@@ -142,17 +142,3 @@ $select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 �
 .empty {
   color: t.$color-select-status-text;
 }
-
-.spinner {
-  flex: none;
-  width: t.$field-icon-size-trailing;
-  height: t.$field-icon-size-trailing;
-}
-
-.spinnerTrack {
-  stroke: t.$color-select-spinner-track;
-}
-
-.spinnerArc {
-  stroke: t.$color-select-spinner-arc;
-}

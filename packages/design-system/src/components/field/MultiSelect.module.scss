@@ -1,0 +1,166 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$multi-panel-padding: t.$space-8;
+$multi-panel-padding-bottom: t.$space-12; // TODO(시안) 마지막 항목 아래 12 (항목 4개 = 패널 190)
+$multi-panel-height: 190px; // 패널 최대 높이(Loading · Empty는 이 높이로 고정). SelectBox와 같은 값
+$multi-gap: t.$space-4; // 검색 ↔ 목록 · 항목 사이
+$multi-item-height: 30px;
+$multi-item-padding-x: t.$space-8;
+
+.root {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+// ── 트리거 (SelectBox와 같다) ────────────────────────
+.trigger {
+  display: flex;
+  flex: 1;
+  gap: t.$field-gap;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+}
+
+.value {
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.placeholder {
+  color: t.$color-field-text-placeholder;
+}
+
+.chevron {
+  display: inline-flex;
+  flex: none;
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+  color: t.$color-field-icon;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.trigger:disabled .placeholder,
+.trigger:disabled .chevron {
+  color: t.$color-field-icon-disabled;
+}
+
+// ── 패널 ─────────────────────────────────────────────
+// 위치·폭은 useFloatingPosition이 계산한다
+.panel {
+  z-index: t.$z-index-dropdown;
+  display: flex;
+  flex-direction: column;
+  gap: $multi-gap;
+  max-height: $multi-panel-height;
+  padding: $multi-panel-padding $multi-panel-padding $multi-panel-padding-bottom;
+  background-color: t.$color-field-bg;
+  border: t.$control-border-width solid t.$color-field-border;
+  border-radius: t.$field-radius-md;
+}
+
+.search {
+  flex: none;
+}
+
+.list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $multi-gap;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-color: t.$color-select-scroll-thumb transparent;
+  scrollbar-width: thin;
+}
+
+.option {
+  display: flex;
+  flex: none;
+  color: t.$color-select-item-text;
+  border-radius: t.$field-radius-sm;
+
+  &:hover:not(.optionDisabled, .optionSelected) {
+    background-color: t.$color-select-item-hover;
+  }
+}
+
+// 항목 전체를 누를 수 있도록 Checkbox 라벨이 행을 채운다
+.option > .check {
+  @include m.typography(body-md);
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  min-height: $multi-item-height;
+  padding: 0 $multi-item-padding-x;
+  color: inherit;
+}
+
+.all {
+  background-color: t.$color-select-all-bg;
+}
+
+.optionSelected {
+  background-color: t.$color-select-item-selected;
+}
+
+.optionDisabled {
+  color: t.$color-select-item-text-disabled;
+}
+
+// ── 로딩 · 빈 상태 · 검색 결과 없음 ──────────────────
+.status {
+  @include m.typography(body-md);
+
+  display: flex;
+  flex: 1;
+  gap: t.$field-gap;
+  align-items: center;
+  justify-content: center;
+  color: t.$color-select-item-text;
+}
+
+// 상태 표시일 때 패널은 최대 높이로 고정한다
+.panel:has(.status) {
+  height: $multi-panel-height;
+}
+
+.empty {
+  color: t.$color-select-status-text;
+}

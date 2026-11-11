@@ -492,6 +492,7 @@ $select-panel-offset: var(--kp-select-panel-offset); // 필드 ↔ 드롭다운 
 $color-select-item-hover: var(--kp-color-select-item-hover);
 $color-select-item-selected: var(--kp-color-select-item-selected);
 $color-select-item-selected-text: var(--kp-color-select-item-selected-text);
+$color-select-all-bg: var(--kp-color-select-all-bg); // TODO(시안) MultiSelect 전체 선택 행 배경. 시안의 모든 패널에서 회색이라 고정 배경으로 해석
 $color-select-item-text: var(--kp-color-select-item-text);
 $color-select-item-text-disabled: var(--kp-color-select-item-text-disabled);
 $color-select-status-text: var(--kp-color-select-status-text);
@@ -1002,6 +1003,7 @@ $css-variables: (
   "--kp-color-select-item-hover": "var(--kp-color-neutral-50)",
   "--kp-color-select-item-selected": "var(--kp-color-primary-50)",
   "--kp-color-select-item-selected-text": "var(--kp-color-text-accent)",
+  "--kp-color-select-all-bg": "var(--kp-color-neutral-50)",
   "--kp-color-select-item-text": "var(--kp-color-text-body)",
   "--kp-color-select-item-text-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-select-status-text": "var(--kp-color-text-placeholder)",
