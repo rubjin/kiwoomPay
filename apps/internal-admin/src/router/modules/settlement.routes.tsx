@@ -13,4 +13,6 @@ import { menuPlaceholderRoutes } from '../placeholder';
 //   0608 분배정산 → pages/settlement/distribution/
 //   0609 정산 정책 관리 → pages/settlement/policy/
 //   0610 정산 스케줄 관리 → pages/settlement/schedule/
-export const settlementRoutes = <Route path="settlement">{menuPlaceholderRoutes('settlement')}</Route>;
+export const settlementRoutes = (
+  <Route path="settlement">{menuPlaceholderRoutes('settlement')}</Route>
+);

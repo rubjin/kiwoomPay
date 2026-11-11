@@ -28,6 +28,7 @@
 | 아이콘 소스 포맷 | Figma에서 SVG 내보내기(`Name=<이름>, Size=<크기>.svg`) → `scripts/build-icons.mjs`가 React 데이터(`icons.generated.tsx`)로 변환. svgr 대신 자체 스크립트(의존성 없음). 선 아이콘은 `currentColor`, 상태 아이콘만 토큰 색 | 2026-11-10 |
 | Chart 라이브러리 | Recharts (React 친화·SVG·백오피스 차트 종류 충분). Phase 4에서 도입 | 2026-11-10 |
 | DatePicker 외부 라이브러리 | 사용 안 함. Calendar 직접 구현(네이티브 Date) | 2026-11-10 |
+| 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`), 폴더는 `directory-structure.md`. **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
 ### Typography 역할 이름 매핑안 (Figma description 기준, 시안 확인 시 조정)
@@ -48,7 +49,7 @@
 - description이 없는 스타일은 역할 이름 없이 Figma 이름으로만 제공한다.
 
 ## 열린 질문
-- [Q12] JSP 프로젝트의 실제 정적 폴더 경로·컨텍스트 패스 (docs/jsp-integration.md는 `webapp/static/<앱>/` 가정)
+- [Q12] JSP 프로젝트의 실제 정적 폴더 경로 · 셸 JSP 위치 · 서버 forward 설정 (docs/jsp-integration.md는 `webapp/static/<앱>/` · Spring 컨트롤러 예시 가정. 컨텍스트 패스는 셸의 `data-basename`으로 받으므로 빌드와 무관)
 - [Q13] 모바일 시안 확인 후 `tokens/custom/breakpoint.json` 값 확정 (현재 TODO 임시값 tablet 1024 / mobile 768)
 - [Q14] 시안 확인 후 TODO 임시값 확정: `tokens/custom/semantic-color.json`(hover·selected·pressed·focus·overlay), `dimension.json`(focus ring). `Bg/Page`(Neutral 50)·`Bg/Surface`(흰색)는 Page Layout Guide로 확정
 - [Q15] Neutral Text Action 색: 시안에서 값을 읽지 못해 `Neutral/700` 임시값(`tokens/custom/button.json`, TODO). Text Action hover 표현도 시안 확인 필요(현재 밑줄)
@@ -344,4 +345,9 @@
 - 만든 것: `directory-structure.md` 기준 내부관리자 앱 폴더 구조. `app/`(main · App) · `router/`(index · RequireAuth · lazy(`lazyPage`) · placeholder · `modules/*.routes.tsx` 10개) · `layouts/`(MainLayout = 디자인 시스템 PageLayout, Header 자리, Lnb = 디자인 시스템 Lnb + constants 메뉴) · `pages/<1depth>/<2depth>/` 48개 · `api/<1depth>` · `types/<1depth>` · `components/{common,search,popups}` · `constants/menu.ts`(화면ID ↔ path 단일 출처). 화면이 없는 2depth는 PlaceholderPage로 연결, 예시로 `transaction/integrated/list`(lazy) · `auth/login`(레이아웃 밖) · 404
 - 스택: React 18.3(디자인 시스템 peer와 맞춤) · react-router-dom 6 · zustand 5 · axios · Vite 7. antd 미사용. 빌드는 jsp-integration 방식(app.js · app.css, base `/static/internal-admin/`, `JSP_STATIC_DIR`)
 - 검증: typecheck · build 통과. dev 서버 브라우저 확인 8개(/ → 대시보드, integrated → list lazy, placeholder, 404, 로그인 레이아웃 밖, 디자인 시스템 CSS · Pretendard, LNB 클릭 SPA 이동)
-- 열린 질문: 기존 프로젝트(React 19 · antd 5)에서 코드 이관 방식 · React 버전, `docs/jsp-integration.md`는 "JSP별 data-page, React Router 없음" 전제라 SPA(react-router) 방식으로 고쳐야 함(서버가 메뉴 path를 셸 JSP로 forward), store · http 인터셉터 이관
+- 열린 질문: 기존 프로젝트(React 19 · antd 5)에서 코드 이관 방식 · React 버전, store · http 인터셉터 이관
+
+### JSP 연동을 SPA 방식으로 — 2026-11-11
+- 변경: `docs/jsp-integration.md`를 "JSP마다 data-page" → "앱마다 셸 JSP 1개 + React Router"로 다시 씀(흐름 · 산출물 · Vite 설정 · 셸 JSP · Spring forward 예시 · 개발 서버)
+- 앱: `src/app/config.ts`(셸의 `data-basename` · `data-api-base`) → BrowserRouter basename · axios baseURL. 빌드 `base: './'`(컨텍스트 패스와 무관), lazy chunk는 `chunks/<이름>-<해시>.js`, `scripts/copy-fonts.mjs`로 폰트 복사. LNB 링크 href에 컨텍스트 패스 포함(새 탭 열기), 클릭은 SPA 이동
+- 검증: 컨텍스트 `/admin` 셸 + forward를 흉내 낸 서버에서 빌드 결과 확인 — 화면 URL 직접 진입 시 셸 → 라우트 · lazy chunk 로드, 상대 경로 폰트 로드, LNB href `/admin/...` · SPA 이동, 로그인 안 했으면 `/admin/auth/login`

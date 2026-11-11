@@ -17,7 +17,8 @@ export default defineConfig(({ command }) => ({
   server: {
     proxy: { '/api': 'http://localhost:8580' },
   },
-  base: command === 'build' ? '/static/internal-admin/' : '/',
+  // 상대 경로: lazy chunk · 폰트를 app.js 위치 기준으로 찾는다 → 컨텍스트 패스가 바뀌어도 빌드를 다시 할 필요 없음
+  base: command === 'build' ? './' : '/',
   build: {
     outDir,
     emptyOutDir: true,

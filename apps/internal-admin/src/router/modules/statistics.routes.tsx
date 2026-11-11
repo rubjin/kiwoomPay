@@ -7,4 +7,6 @@ import { menuPlaceholderRoutes } from '../placeholder';
 //   0502 리스크 & RM 관리 → pages/statistics/risk/
 //   0503 대손 및 채권 관리 → pages/statistics/bad-debt/
 //   0504 보고자료 센터 → pages/statistics/report-center/
-export const statisticsRoutes = <Route path="statistics">{menuPlaceholderRoutes('statistics')}</Route>;
+export const statisticsRoutes = (
+  <Route path="statistics">{menuPlaceholderRoutes('statistics')}</Route>
+);
