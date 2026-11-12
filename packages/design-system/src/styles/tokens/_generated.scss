@@ -507,6 +507,7 @@ $color-lnb-highlight: var(--kp-color-lnb-highlight); // 검색어 일치 문자�
 $color-lnb-path: var(--kp-color-lnb-path); // 검색 결과·즐겨찾기 경로
 $color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선
 $color-lnb-scroll-thumb: var(--kp-color-lnb-scroll-thumb);
+$color-lnb-result-hover: var(--kp-color-lnb-result-hover); // 메뉴 검색 결과 Hover (Search Result Item 시안)
 
 // ── custom · modal ──────────────────────────────────────────────
 $modal-shadow: var(--kp-modal-shadow);
@@ -1067,6 +1068,7 @@ $css-variables: (
   "--kp-color-lnb-path": "var(--kp-color-text-secondary)",
   "--kp-color-lnb-divider": "var(--kp-color-line-subtle)",
   "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
+  "--kp-color-lnb-result-hover": "var(--kp-color-primary-50)",
   "--kp-modal-shadow": "0 8px 24px 0 rgba(0, 0, 0, 0.12)",
   "--kp-color-modal-bg": "var(--kp-color-bg-surface)",
   "--kp-color-modal-title": "var(--kp-color-text-body)",

@@ -84,6 +84,11 @@
     "ScrollThumb": {
       "$type": "color",
       "$value": "{Neutral.300}"
+    },
+    "ResultHover": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "메뉴 검색 결과 Hover (Search Result Item 시안)"
     }
   }
 }
