@@ -551,3 +551,24 @@
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 build, 브라우저 테스트 13개 통과(조회 전 · 선택 전 비활성, 조회기준일 라디오, 사유 없음 Alert, Confirm, 처리 중 비활성, 완료 Alert 시점에 재조회 끝남, 사유 비움, 2페이지에서 취소 후 2페이지 유지, 콘솔 에러 없음)
 - 정산 실행 화면(`MerchantSettlementExecutePage`)도 처리 후 `refresh()` → 완료 Alert 순서로 변경
 
+### 앱 검색 조건 파일 구조 정리 — 2026-11-12
+- 규칙(사용자 확인): 관리자 화면은 선택지를 대부분 여러 화면이 같이 쓰므로
+  - 선택지 → 앱 공통 `apps/internal-admin/src/constants/options/`(`common` 전체 · 시각, `transaction`, `settlement`, `merchant`, `index`에서 모두 export). `Option<V>` 타입
+  - 화면마다 다른 검색 항목 · 순서 · 표시 형식 → 화면 `components/searchFields.ts`(`SEARCH_FIELDS`)
+  - 화면마다 다른 초기 검색값 → 화면 `components/initialParams.ts`(`createInitialParams()` — 오늘 기준 기간이 있어 함수로, 화면에 들어올 때 만듦. 전에는 앱 로드 시 한 번 계산돼 자정을 넘기면 어제 기준으로 남았음)
+  - 한 화면의 UI 목록(CPID 탭 · 정산 원장 Action 등 선택지가 아닌 것)은 화면 파일에 둔다
+- 적용: 통합 거래내역(선택지 이동, `SOURCES` → `TX_SOURCES`, 취소 구분 `CANCEL_TYPES` 포함), 가맹점 정산 실행/처리(정산주기 `SETTLEMENT_CYCLES`, 직접 만든 적용 조건 칩 함수 → `SEARCH_FIELDS` + `toAppliedFilters`, 칩 순서 · 문구 그대로), 가맹점 기본/계약 정보(`components/options.ts` 삭제 → 공통 constants, CPID 탭은 화면 파일로). P01 가이드에 파일 배치 · `createInitialParams` 반영
+- 검증: 앱 build(tsc 포함), 브라우저 확인(거래내역 초기 기간 최근 1주일 · 선택지 · 칩, 정산 칩 정산주기 전체 · 지급예정일 숨김 · CPID 칩, 가맹점 신규/수정 렌더, 콘솔 에러 없음), 기존 취소 흐름 테스트 13개 재통과
+
+### 공통코드 선택지 (useCodeOptions) — 2026-11-12
+- 셀렉트 · 라디오 선택지를 서버 공통코드에서 받는 구조(사용자 선택). API 스펙 미정 → 지금은 임시값을 돌려줌
+  - `api/common/code.ts` `fetchCodes(group)` — TODO(API) 주소 · 응답 형식 · 서버 그룹 ID
+  - `store/code.ts`(zustand): 그룹별 캐시, 그룹당 한 번만 요청, 실패 시 임시값 유지 후 다음에 재요청. `getCodeOptions(group)`(React 밖)
+  - `hooks/useCodeOptions(group, { withAll })`: 받기 전에는 임시값을 바로 반환 → 화면이 비지 않음
+  - `utils/code.ts` `codeLabel(group, value)`: searchFields 칩 · 요약 문구, 'all' → 전체
+  - 임시값 `constants/codes.ts` `CODE_FALLBACK`(그룹 10개: TX_TYPE · PAY_METHOD · TX_STATUS · TX_SOURCE · CANCEL_TYPE · SETTLEMENT_CYCLE · BIZ_TYPE · MERCHANT_STATUS · COUNTRY · CONTACT_ROLE, "전체" 제외)
+  - `constants/options`는 고정 선택지만(전체 · 시각 · 조회기준일)
+- 적용: 통합 거래내역(검색 셀렉트 · 거래원천 · 취소 구분 · 칩), 정산 실행(정산주기 MultiSelect · 칩), 가맹점 기본정보(국가 · 사업자구분 · 상태 · 담당자 업무구분 · 제목 옆 사업자구분 이름). P01 가이드 반영
+- 검증: 앱 build(tsc 포함), 브라우저 확인(결제수단 선택지 전체 + 4개, 라디오 선택지, 칩, 정산 칩, 가맹점 신규/수정 · 사업자구분 이름, 콘솔 에러 없음), 취소 흐름 테스트 13개 재통과
+- [Q40] 공통코드 API 스펙 필요: 주소, 응답 형식(code · name 필드명, 정렬 · 사용 여부), 그룹 ID, 다국어 여부. 받으면 `fetchCodes`만 바꾸면 됨
+

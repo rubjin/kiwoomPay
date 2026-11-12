@@ -16,52 +16,17 @@ import {
   SelectBox,
   TextField,
   useDialog,
+  toAppliedFilters,
   useSearchResult,
-  type AppliedFilter,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { fetchSettlementLedgers, requestLedgerAction } from '@/api/settlement/merchantSettlement';
-import type {
-  MerchantSettlementParams,
-  MerchantSettlementSummary,
-} from '@/types/settlement/merchantSettlement';
+import { useCodeOptions } from '@/hooks/useCodeOptions';
+import type { MerchantSettlementSummary } from '@/types/settlement/merchantSettlement';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
+import { createInitialParams } from './components/initialParams';
 import { ledgerColumns } from './components/ledgerColumns';
-
-const CYCLE_OPTIONS = [
-  { value: 'D1', label: 'D+1' },
-  { value: 'D5', label: 'D+5' },
-  { value: 'M1_END', label: 'M+1 월말' },
-  { value: 'M1_START', label: 'M+1 월초' },
-];
-
-const INITIAL_PARAMS: MerchantSettlementParams = {
-  cpid: '',
-  bizNo: '',
-  merchantName: '',
-  payDate: { start: '', end: '' },
-  quickPeriod: '',
-  cycles: [],
-};
-
-function toAppliedFilters(params: MerchantSettlementParams | null): AppliedFilter[] {
-  if (!params) return [];
-  const items: AppliedFilter[] = [];
-  const { start, end } = params.payDate;
-  if (start || end) items.push({ label: '지급예정일', value: `${start} ~ ${end}` });
-  const cycles = CYCLE_OPTIONS.filter((o) => params.cycles.includes(o.value));
-  items.push({
-    label: '정산주기',
-    value:
-      cycles.length === 0 || cycles.length === CYCLE_OPTIONS.length
-        ? '전체'
-        : cycles.map((o) => o.label).join(', '),
-  });
-  if (params.cpid) items.push({ label: 'CPID', value: params.cpid });
-  if (params.bizNo) items.push({ label: '사업자번호', value: params.bizNo });
-  if (params.merchantName) items.push({ label: '가맹점명', value: params.merchantName });
-  return items;
-}
+import { SEARCH_FIELDS } from './components/searchFields';
 
 function toSummaryItems(summary?: MerchantSettlementSummary) {
   return [
@@ -81,10 +46,11 @@ const LEDGER_ACTIONS = ['지급예정일 일괄 변경', '선택 원장 재산�
 /** KWPC06010201 가맹점 정산 실행/처리 — 페이지 패턴 P01 Search → Result (V04 적용 조건 · 요약, V05 선택 Action) */
 export function MerchantSettlementExecutePage() {
   const dialog = useDialog();
+  const settlementCycles = useCodeOptions('SETTLEMENT_CYCLE');
   const [selected, setSelected] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
   const result = useSearchResult({
-    initialParams: INITIAL_PARAMS,
+    initialParams: createInitialParams(),
     fetch: async (request) => {
       setSelected([]);
       return fetchSettlementLedgers(request);
@@ -206,7 +172,7 @@ export function MerchantSettlementExecutePage() {
         <Field label="정산주기" style={{ width: 273 }}>
           <MultiSelect
             fullWidth
-            options={CYCLE_OPTIONS}
+            options={settlementCycles}
             value={params.cycles}
             onChange={(cycles) => setParam('cycles', cycles)}
             placeholder="선택해주세요"
@@ -214,7 +180,7 @@ export function MerchantSettlementExecutePage() {
         </Field>
       </SearchPanel>
 
-      <AppliedFilters items={toAppliedFilters(result.appliedParams)} />
+      <AppliedFilters items={toAppliedFilters(SEARCH_FIELDS, result.appliedParams)} />
       <ResultSummary items={toSummaryItems(result.summary)} />
 
       <ResultPanel

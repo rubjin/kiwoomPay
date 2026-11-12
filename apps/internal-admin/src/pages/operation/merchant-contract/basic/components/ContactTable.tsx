@@ -1,6 +1,6 @@
 import { Checkbox, FormTable, SelectBox, TextField } from '@kiwoompay/design-system';
 import type { MerchantContact } from '@/types/operation/merchantBasic';
-import { CONTACT_ROLES } from './options';
+import { useCodeOptions } from '@/hooks/useCodeOptions';
 
 interface Props {
   rows: MerchantContact[];
@@ -19,6 +19,7 @@ const FIELDS: [keyof MerchantContact, string][] = [
 
 /** 담당자 정보 표 (Figma: 머리 44 + 행 52, 업무구분 Select + 입력 4칸) */
 export function ContactTable({ rows, onChange, selected, onSelectedChange }: Props) {
+  const contactRoles = useCodeOptions('CONTACT_ROLE');
   const all = rows.length > 0 && rows.every((r) => selected.includes(r.key));
   const set = (key: string, patch: Partial<MerchantContact>) =>
     onChange(rows.map((r) => (r.key === key ? { ...r, ...patch } : r)));
@@ -59,7 +60,7 @@ export function ContactTable({ rows, onChange, selected, onSelectedChange }: Pro
               aria-label="업무구분"
               fullWidth
               placeholder="선택"
-              options={CONTACT_ROLES}
+              options={contactRoles}
               value={row.role}
               onChange={(role) => set(row.key, { role })}
             />

@@ -10,18 +10,10 @@ import {
   SelectBox,
   TextField,
 } from '@kiwoompay/design-system';
+import { DATE_BASIS, END_TIMES, START_TIMES, isDateBasis } from '@/constants/options';
+import { useCodeOptions } from '@/hooks/useCodeOptions';
 import type { IntegratedTransactionParams } from '@/types/transaction/integratedTransaction';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
-import {
-  DATE_BASIS,
-  END_TIMES,
-  PAY_METHODS,
-  SOURCES,
-  START_TIMES,
-  TX_STATUSES,
-  TX_TYPES,
-  isDateBasis,
-} from './searchFields';
 
 type Params = IntegratedTransactionParams;
 
@@ -71,6 +63,11 @@ export function TransactionSearchPanel({
   loading,
   onNotReady,
 }: TransactionSearchPanelProps) {
+  const txTypes = useCodeOptions('TX_TYPE', { withAll: true });
+  const payMethods = useCodeOptions('PAY_METHOD', { withAll: true });
+  const txStatuses = useCodeOptions('TX_STATUS', { withAll: true });
+  const txSources = useCodeOptions('TX_SOURCE', { withAll: true });
+
   return (
     <SearchPanel
       onSearch={onSearch}
@@ -196,7 +193,7 @@ export function TransactionSearchPanel({
         <Field label="거래구분" style={GROW}>
           <SelectBox
             fullWidth
-            options={TX_TYPES}
+            options={txTypes}
             value={params.txType}
             onChange={(v) => setParam('txType', v)}
           />
@@ -204,7 +201,7 @@ export function TransactionSearchPanel({
         <Field label="결제수단" style={GROW}>
           <SelectBox
             fullWidth
-            options={PAY_METHODS}
+            options={payMethods}
             value={params.payMethod}
             onChange={(v) => setParam('payMethod', v)}
           />
@@ -212,7 +209,7 @@ export function TransactionSearchPanel({
         <Field label="거래상태" style={GROW}>
           <SelectBox
             fullWidth
-            options={TX_STATUSES}
+            options={txStatuses}
             value={params.txStatus}
             onChange={(v) => setParam('txStatus', v)}
           />
@@ -224,7 +221,7 @@ export function TransactionSearchPanel({
             value={params.source}
             onChange={(v) => setParam('source', v)}
           >
-            {SOURCES.map((s) => (
+            {txSources.map((s) => (
               <Radio key={s.value} value={s.value} label={s.label} />
             ))}
           </RadioGroup>

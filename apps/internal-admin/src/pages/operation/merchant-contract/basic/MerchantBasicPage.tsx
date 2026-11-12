@@ -14,7 +14,20 @@ import { emptyBasic, fetchMerchant, newContact, saveMerchant } from '@/api/opera
 import type { MerchantRecord } from '@/types/operation/merchantBasic';
 import { BasicInfoTable } from './components/BasicInfoTable';
 import { ContactTable } from './components/ContactTable';
-import { BIZ_TYPES, CPID_TABS } from './components/options';
+import { codeLabel } from '@/utils/code';
+
+/** 선택 CPID 영역 탭 (이 화면 전용) */
+const CPID_TABS = [
+  'CPID 기본 정보',
+  'RM 관리',
+  '영업 정보',
+  '정산계좌 정보',
+  '담당자 정보',
+  '공지메일 발송정보',
+  '지급보류',
+  '공동 영업 수익 배분',
+  '결제수단별 설정',
+];
 
 type Mode = 'create' | 'edit';
 
@@ -109,7 +122,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
                   { label: '사업자번호', value: basic.bizNo },
                   {
                     label: '사업자구분',
-                    value: `${BIZ_TYPES.find((b) => b.value === basic.bizType)?.label.replace('사업자', '') ?? ''} (${basic.smeGrade})`,
+                    value: `${basic.bizType ? codeLabel('BIZ_TYPE', basic.bizType).replace('사업자', '') : ''} (${basic.smeGrade})`,
                   },
                 ]}
               />

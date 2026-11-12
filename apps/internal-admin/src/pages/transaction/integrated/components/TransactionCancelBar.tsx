@@ -9,12 +9,7 @@ import {
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { cancelTransactions } from '@/api/transaction/integratedTransaction';
-
-const CANCEL_TYPES = [
-  { value: 'normal', label: '일반취소' },
-  { value: 'offset', label: '상계취소' },
-  { value: 'force', label: '강제취소' },
-];
+import { useCodeOptions } from '@/hooks/useCodeOptions';
 
 export interface TransactionCancelBarProps {
   /** 선택한 거래번호 */
@@ -32,6 +27,7 @@ export function TransactionCancelBar({
   onCancelled,
 }: TransactionCancelBarProps) {
   const dialog = useDialog();
+  const cancelTypes = useCodeOptions('CANCEL_TYPE');
   const [cancelType, setCancelType] = useState('normal');
   const [reason, setReason] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -42,7 +38,7 @@ export function TransactionCancelBar({
       await dialog.alert('취소사유를 입력해주세요.');
       return;
     }
-    const typeLabel = optionLabel(CANCEL_TYPES, cancelType);
+    const typeLabel = optionLabel(cancelTypes, cancelType);
     // TODO(정책) 취소 가능 상태 · 부분취소 금액 · 금액 영향 미리보기(P04 V04 · V05)는 화면설계서 확인 후
     const ok = await dialog.confirm(`선택한 거래 ${selected.length}건을 ${typeLabel}할까요?`, {
       confirmText: typeLabel,
@@ -83,7 +79,7 @@ export function TransactionCancelBar({
         value={cancelType}
         onChange={setCancelType}
       >
-        {CANCEL_TYPES.map((t) => (
+        {cancelTypes.map((t) => (
           <Radio key={t.value} value={t.value} label={t.label} />
         ))}
       </RadioGroup>

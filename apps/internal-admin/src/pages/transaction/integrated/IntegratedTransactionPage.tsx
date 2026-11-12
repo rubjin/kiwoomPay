@@ -15,7 +15,8 @@ import {
 import { useState } from 'react';
 import { fetchIntegratedTransactions } from '@/api/transaction/integratedTransaction';
 import type { IntegratedTransactionSummary } from '@/types/transaction/integratedTransaction';
-import { INITIAL_PARAMS, SEARCH_FIELDS } from './components/searchFields';
+import { createInitialParams } from './components/initialParams';
+import { SEARCH_FIELDS } from './components/searchFields';
 import { TransactionCancelBar } from './components/TransactionCancelBar';
 import { TransactionSearchPanel } from './components/TransactionSearchPanel';
 import { transactionColumns } from './components/transactionColumns';
@@ -34,13 +35,14 @@ function toSummaryItems(s?: IntegratedTransactionSummary) {
 
 /**
  * KWPC04010100 통합 거래내역 — 페이지 패턴 P01 (최초진입 검색 조건 접힘) + 선택 거래 취소(P04).
- * 검색 조건 정의(라벨 · 표시 형식)는 components/searchFields — 적용 조건 칩 · 내 검색조건 요약이 같이 쓴다
+ * 검색 조건 정의(항목 · 순서 · 표시 형식)는 components/searchFields — 적용 조건 칩 · 내 검색조건 요약이 같이 쓴다.
+ * 초기값은 components/initialParams, 선택지는 @/constants/options
  */
 export function IntegratedTransactionPage() {
   const dialog = useDialog();
   const [selected, setSelected] = useState<string[]>([]);
   const result = useSearchResult({
-    initialParams: INITIAL_PARAMS,
+    initialParams: createInitialParams(),
     fetch: async (request) => {
       setSelected([]);
       return fetchIntegratedTransactions(request);

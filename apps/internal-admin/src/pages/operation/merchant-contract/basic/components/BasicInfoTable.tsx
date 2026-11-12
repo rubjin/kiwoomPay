@@ -10,7 +10,7 @@ import {
 } from '@kiwoompay/design-system';
 import type { ReactNode } from 'react';
 import type { Address, MerchantBasicInfo } from '@/types/operation/merchantBasic';
-import { BIZ_TYPES, COUNTRIES, MERCHANT_STATUSES } from './options';
+import { useCodeOptions } from '@/hooks/useCodeOptions';
 
 interface Props {
   value: MerchantBasicInfo;
@@ -36,6 +36,7 @@ function AddressCell({
   before?: ReactNode;
   disabled?: boolean;
 }) {
+  const countries = useCodeOptions('COUNTRY');
   const set = (patch: Partial<Address>) => onChange({ ...value, ...patch });
   return (
     <Cell colSpan={7}>
@@ -46,7 +47,7 @@ function AddressCell({
         placeholder="선택"
         fullWidth
         style={{ width: 192, flex: 'none' }}
-        options={COUNTRIES}
+        options={countries}
         value={value.country}
         disabled={disabled}
         onChange={(country) => set({ country })}
@@ -87,6 +88,8 @@ function AddressCell({
 
 /** 기본 정보 표 (Figma KWPC07010101 기본 정보: 4쌍 × 8줄) */
 export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
+  const bizTypes = useCodeOptions('BIZ_TYPE');
+  const merchantStatuses = useCodeOptions('MERCHANT_STATUS');
   const text = (key: keyof MerchantBasicInfo, label: string) => (
     <TextField
       aria-label={label}
@@ -123,7 +126,7 @@ export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
             aria-label="사업자구분"
             fullWidth
             placeholder="선택"
-            options={BIZ_TYPES}
+            options={bizTypes}
             value={v.bizType}
             onChange={(bizType) => onChange({ bizType })}
           />
@@ -163,7 +166,7 @@ export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
             aria-label="업체상태"
             fullWidth
             placeholder="선택"
-            options={MERCHANT_STATUSES}
+            options={merchantStatuses}
             value={v.status}
             onChange={(status) => onChange({ status })}
           />
