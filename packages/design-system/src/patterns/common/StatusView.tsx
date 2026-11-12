@@ -7,25 +7,27 @@ import styles from './StatusView.module.scss';
 export type StatusViewStatus = 'idle' | 'loading' | 'empty' | 'error' | 'forbidden';
 
 const DEFAULTS: Record<StatusViewStatus, { icon: IconName; title: string; description: string }> = {
-  // Figma KWPC04010100 최초진입: "거래내역을 조회해주세요" — 제목은 화면이 바꾼다 (title prop)
+  // Figma 상태별 GUI 02 Initial · KWPC04010100 최초진입: "거래내역을 조회해주세요" — 제목은 화면이 바꾼다 (title prop)
   idle: {
     icon: 'search',
     title: '내역을 조회해주세요',
     description: '검색조건을 설정한 후 [조회] 버튼을 눌러주세요',
   },
+  // Figma 상태별 GUI 03 Loading (시안 문구 "조회 중 입니다" → 맞춤법대로 붙여 씀)
   loading: { icon: 'loading', title: '조회 중입니다', description: '잠시만 기다려주세요' },
-  // Figma Grid State / Empty
+  // Figma 상태별 GUI 01 Empty
   empty: {
     icon: 'empty',
     title: '조회 결과가 없습니다',
     description: '검색조건을 변경하여 다시 조회해주세요',
   },
-  // TODO(시안) 오류 · 권한 없음 문구
+  // Figma 상태별 GUI 04 Error (Alert-circle_filled 빨강)
   error: {
-    icon: 'alert-circle',
+    icon: 'alert-circle-filled',
     title: '조회 중 오류가 발생했습니다',
-    description: '잠시 후 다시 시도해주세요',
+    description: '재조회하여 다시 시도해주세요',
   },
+  // TODO(시안) 권한 없음 문구
   forbidden: {
     icon: 'lock',
     title: '조회 권한이 없습니다',

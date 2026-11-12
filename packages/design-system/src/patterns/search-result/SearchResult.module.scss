@@ -131,6 +131,15 @@ $sr-grid-cell-padding-x: t.$space-12;
   min-width: 0;
 }
 
+// SearchPanel.Grid: 같은 폭 N칸 (칸 수는 inline grid-template-columns)
+.fieldGrid {
+  display: grid;
+  flex: 1 1 100%;
+  gap: $sr-gap;
+  align-items: center;
+  min-width: 0;
+}
+
 .detailToggle {
   @include m.typography(typo-16-bold);
 

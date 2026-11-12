@@ -58,4 +58,5 @@ export function optionLabel(
 }
 
 /** 문자열 조건: 비어 있으면 표시하지 않음 */
-export const textValue = (value: string | undefined | null) => (value?.trim() ? value.trim() : null);
+export const textValue = (value: string | undefined | null) =>
+  value?.trim() ? value.trim() : null;

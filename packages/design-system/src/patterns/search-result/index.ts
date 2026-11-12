@@ -1,5 +1,5 @@
 export { SearchPanel } from './SearchPanel';
-export type { SearchPanelProps } from './SearchPanel';
+export type { SearchPanelGridProps, SearchPanelProps } from './SearchPanel';
 export { AppliedFilters } from './AppliedFilters';
 export type { AppliedFilter, AppliedFiltersProps } from './AppliedFilters';
 export { ResultSummary } from './ResultSummary';
