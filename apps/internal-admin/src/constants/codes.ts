@@ -14,7 +14,10 @@ export type CodeGroup =
   | 'BIZ_TYPE'
   | 'MERCHANT_STATUS'
   | 'COUNTRY'
-  | 'CONTACT_ROLE';
+  | 'CONTACT_ROLE'
+  | 'DOWNLOAD_AREA'
+  | 'DOWNLOAD_STATUS'
+  | 'DOWNLOAD_FILE_STATUS';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -71,5 +74,21 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
     { value: '정산', label: '정산' },
     { value: '개발', label: '개발' },
     { value: '상담', label: '상담' },
+  ],
+  // 다운로드 센터: 업무영역 · 처리상태 · 파일상태
+  DOWNLOAD_AREA: [
+    { value: 'TRANSACTION', label: '거래내역' },
+    { value: 'SETTLEMENT', label: '정산내역' },
+    { value: 'ADDON', label: '부가서비스' },
+    { value: 'MERCHANT', label: '가맹점정보' },
+  ],
+  DOWNLOAD_STATUS: [
+    { value: 'GENERATING', label: '생성중' },
+    { value: 'DONE', label: '완료' },
+    { value: 'FAILED', label: '실패' },
+  ],
+  DOWNLOAD_FILE_STATUS: [
+    { value: 'AVAILABLE', label: '다운로드 가능' },
+    { value: 'EXPIRED', label: '만료' },
   ],
 };

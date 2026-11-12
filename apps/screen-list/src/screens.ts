@@ -54,6 +54,22 @@ const PLAN = 'IA v0.7 (26-11-03) · GUI 26-11-10';
 export const SCREENS: ScreenInfo[] = [
   {
     system: 'internal',
+    id: 'KWPC0104',
+    depth1: '메인',
+    depth2: '다운로드센터',
+    depth3: '',
+    name: '다운로드 센터',
+    path: '/main/download-center',
+    type: '목록',
+    pattern: 'P01',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-12',
+    tempWork:
+      '그리드 미리보기 · 예시 데이터 · 진입 시 바로 조회 · 기본 기간(이번 달) · 생성중 상세 Footer [닫기]',
+  },
+  {
+    system: 'internal',
     id: 'KWPC04010100',
     depth1: '거래내역',
     depth2: '통합 거래 및 예외 관리',

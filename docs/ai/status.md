@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -89,6 +89,7 @@
 - [Q51] Lookup Search(찾기 방식 Button Tab 40 반영 2026-11-12) 남은 확인: ① Figma 설명 "별도 Footer Action 없음" ↔ 결과 예시의 [닫기] · [확인] — 화면 정책으로 Modal.Footer ② Initial 시안 본문 아래 여백 0 → Modal 기본 20 유지 ③ 결과 행 선택은 IBSheet 이벤트
 - [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
 - [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
+- [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -596,3 +597,13 @@
 - 적용: SelectBox Open(기본 · 불러오는 중 · 항목 없음 나란히), MultiSelect Open(1개 · 여러 개 · 많음 · Small 많음 · 불러오는 중 · 항목 없음 — 줄바꿈 시 패널이 겹치던 문제 해결)
 - 규칙(새 스토리): 상태를 나란히 보여 줄 때는 `Case`로 이름 · 설명을 붙인다
 - 검증: typecheck · lint 통과, 가이드 37개의 코드 블록 261개에 parameters · 배치용 div 없음, 콘솔 에러 없음
+
+### Screen: KWPC0104 다운로드 센터 (P01) — 2026-11-12
+- 시안: `temp/페이지/메인/다운로드센터.png` · `다운로드요청상세.png` (PNG 측정)
+- 디자인 시스템
+  - `SearchPanel actionsPlacement="inline"`: [초기화] · [조회]를 필드 줄 끝에, 제목 16(md) · 제목 줄 32 · 접기 없음 — 조건이 한 줄뿐인 화면용. 기본(header)은 그대로(통합 거래내역 검색 카드 변경 전후 같음 확인). 스토리 InlineActions · 가이드
+  - `Infobox.Item` `title` 생략 가능 — 설명이 제목 자리부터 이어짐(한 줄 안내). Variations 스토리 · 가이드
+- 앱 `pages/main/download-center/`: `DownloadCenterPage`(상단 안내 Infobox · 검색 업무영역 · 처리상태 · 파일상태 · 요청일 · 파일명 · 결과 Grid 미리보기 · Pagination), `components/`(`downloadColumns` · `downloadActions`(작업 규칙: 완료+다운로드 가능 → 다운로드, 실패 → 재시도, 완료+만료 → 재요청, 생성중 → 없음) · `statusBadges` · `DownloadDetailModal`(1056: 안내 · 요청 정보 · 처리 및 파일 정보(FormTable 2쌍) · 요청 조건 · 이력 · Footer) · `RequestConditions`(요청 조건 줄, 시안 측정 인라인 스타일) · `initialParams`). `api/main/downloadCenter`(예시 24건, 날짜는 이번 달 안으로 옮김) · `types/main/downloadCenter`. 공통코드 `DOWNLOAD_AREA` · `DOWNLOAD_STATUS` · `DOWNLOAD_FILE_STATUS` 추가. 라우트 `/main/download-center`, 헤더 [다운로드 센터] → 이동. 화면 목록에 추가(작업중)
+- 흐름: 다운로드는 바로 내려받기(TODO API), 재시도 · 재요청은 Confirm → 요청 → `refresh()` → 완료 Alert, 상세 팝업 Footer도 같은 처리
+- 검증: typecheck · lint · build(디자인 시스템 · 앱 · 화면 목록) 통과. 앱 브라우저 테스트 15개 통과(헤더 버튼 이동, 진입 시 10행 · Total 24, [조회] 필드 줄 끝 · 접기 없음, 행별 작업 버튼, 상세 1056 · 내용 · Footer, 재시도 Confirm → 생성중 → Alert, 파일명 검색 · 초기화, 3페이지 4행). 검색 카드 높이 139(시안 138), favicon 404는 기존
+- 한 가정: Q55
