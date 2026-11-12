@@ -12,3 +12,5 @@ export { LookupSearch } from './LookupSearch';
 export type { LookupSearchProps } from './LookupSearch';
 export { ColumnPicker } from './ColumnPicker';
 export type { ColumnPickerItem, ColumnPickerProps } from './ColumnPicker';
+export { ActionBar } from './ActionBar';
+export type { ActionBarProps } from './ActionBar';

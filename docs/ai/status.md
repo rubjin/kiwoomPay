@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) 완료. 남은 것: 취소사유입력, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -61,7 +61,7 @@
 - [Q19] 시안에 없는 항목: 필드 hover 표현, Field 세로(라벨 위) 배치, SelectBox 키보드 이동(↑↓), Small 드롭다운 항목 글자 크기 → 현재 hover·세로 배치는 미구현, 항목 글자는 14px 고정
 - [Q20] TODO 임시값(시안 픽셀로 근사, `shadow/focus`는 `0 0 4px 0 rgba(36,132,198,0.30)`로 확정됨): `select/panel-max-height 190`, `select/status-min-height 172`, `z-index/dropdown 100` (`tokens/custom/field.json`)
 - [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field Default(40)는 시안에서 내용 폭에 딱 붙어 있으나 구현은 아이콘 앞 간격 8px 유지
-- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기(13px), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
+- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기(13px — Figma 취소사유입력의 sm 라디오 이름은 14px), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
 - [Q23] Checkbox·Radio·Toggle·Segmented의 hover 표현은 시안에 없어 미구현. 토글 이동 애니메이션은 motion 토큰이 없어 미구현
 - [Q24] 아이콘 이름 지정 확인 (Figma 이름만으로 만들 수 없어 코드에서 지정, `scripts/build-icons.mjs`): `1dp(0~6)` → home·card-check·bar-chart·file-text·building·archive·shield-check, `Link-external` 12·`24-1`(↗ 모양) → `arrow-up-right`, `Setting` `20-1`(슬라이더 모양) → `setting-sliders`. Figma 쪽 이름도 맞춰 두면 좋음
 - [Q26] 회색으로 내보낸 선 아이콘(eye·eye-off·pin-line·drag-handle·info-circle 16·arrow-up-right)은 규칙(고정 컬러 없음)에 따라 `currentColor`로 바꿈 → 회색이 필요하면 쓰는 쪽에서 color 지정. loading 아이콘 회전 애니메이션은 motion 토큰이 없어 미포함
@@ -445,3 +445,8 @@
 - 만든 것: `navigation/FavoriteMenuPicker` — Figma Modal_Favorite Edit Modal 본문. 안내 · 메뉴 검색(일치 메뉴만 남기고 모두 펼침) · 1Depth 펼침 상자(접힘 62 · 펼침 머리 40) · 2Depth 펼침 · 3Depth 체크박스(최대 `max` 10, 다 차면 비활성). `FavoriteCount`("선택한 메뉴 N / 10"). `Modal.Header`에 `addon` 추가(제목 · addon · 닫기 간격 8 → 12). 토큰 `tokens/custom/favorite-menu.json`. 스토리(FavoriteEdit · Full), 가이드 `docs/FavoriteMenuPicker.mdx`. LNB Interactive 스토리의 임시 편집 Modal을 이 컴포넌트로 교체(Q33)
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 10개 통과(모달 620 · 개수 표시 글자 · 색, 안내, 1Depth 62 · 배경 · 16 Bold Primary 900, 펼침 머리 40, 2Depth 14 Bold · 3Depth 14 Medium, 선택 · 개수, 펼침, 검색 필터, 10개 차면 비활성). LNB 테스트 23개 재통과(편집 → 검색 → 선택 → 저장). 렌더링이 Figma 스크린샷과 일치(검색창 높이 제외)
 - 한 가정: Q52
+
+### Component: Action Bar (취소사유입력) — 2026-11-12
+- 만든 것: `display/ActionBar` — Figma 취소사유입력(29406:96321): 회색 작업 바(Neutral 50 · Line/Subtle · 반경 4 · 여백 12 테두리 안쪽 · 간격 12) + 라벨(11 Bold Text/Label) + 내용 슬롯. 취소사유 구성(입력 sm 200 · 라디오 sm 가로 · [선택 취소] Dark sm)은 스토리 CancelReason. 토큰 `tokens/custom/action-bar.json`. 가이드 `docs/ActionBar.mdx`
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 확인(배경 · 테두리 · 반경, 높이 58(테두리 제외 56 = Figma), 라벨 글자 · 위치, 입력 200 × 32 · 버튼 32 Dark · 오른쪽 12, 입력 · 라디오 선택 반영, 콘솔 에러 없음). Figma 설명은 Address Row 설명이 복사돼 있어 용도는 이름으로 판단
+- 한 가정: Figma sm 라디오 이름 14px ↔ 현재 13px(Q22)

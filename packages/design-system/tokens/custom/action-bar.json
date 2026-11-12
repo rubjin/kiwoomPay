@@ -1,0 +1,7 @@
+{
+  "ActionBar": {
+    "Bg": { "$type": "color", "$value": "{Bg.Page}" },
+    "Border": { "$type": "color", "$value": "{Line.Subtle}" },
+    "Label": { "$type": "color", "$value": "{Text.Label}" }
+  }
+}

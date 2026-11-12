@@ -1,0 +1,26 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (Figma 취소사유입력 29406:96359)
+$action-bar-padding: t.$space-12;
+$action-bar-gap: t.$space-12;
+$action-bar-radius: 4px;
+
+.bar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: $action-bar-gap;
+  align-items: center;
+  max-width: 100%;
+  padding: $action-bar-padding; // Figma 여백은 테두리 안쪽 (CPID와 같은 규칙)
+  background-color: t.$color-action-bar-bg;
+  border: t.$control-border-width solid t.$color-action-bar-border;
+  border-radius: $action-bar-radius;
+}
+
+.label {
+  @include m.typography(typo-11-bold);
+
+  flex: none;
+  color: t.$color-action-bar-label;
+}

@@ -1,0 +1,36 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/components/display/ActionBar.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Action Bar
+
+그리드에서 고른 행에 **바로 적용할 입력 + 실행**을 한 줄로 묶는 회색 작업 바입니다(예: 취소사유입력). 보통 그리드(IBSheet) 위 · 아래에 둡니다.
+
+```tsx
+<ActionBar label="취소사유">
+  <TextField size="sm" placeholder="취소사유 입력" style={{ width: 200 }} />
+  <RadioGroup size="sm" direction="horizontal" value={type} onChange={setType}>
+    <Radio value="normal" label="일반취소" />
+    <Radio value="offset" label="상계취소" />
+    <Radio value="force" label="강제취소" />
+  </RadioGroup>
+  <Button size="sm" variant="dark" onClick={cancelSelected}>
+    선택 취소
+  </Button>
+</ActionBar>
+```
+
+<Canvas of={Stories.CancelReason} />
+
+## 규칙
+
+- 안에는 **sm(32) 크기** 컨트롤을 둡니다. 실행 버튼은 Figma 예시처럼 주의가 필요한 관리 Action이면 `variant="dark"`.
+- 폭은 내용에 맞춥니다(`inline-flex`). 좁으면 다음 줄로 넘어갑니다.
+
+## Spec (Figma 취소사유입력 29406:96321)
+
+- 배경 `Bg/Page`(Neutral 50) · 테두리 `Line/Subtle` · 반경 4 · 여백 12(테두리 안쪽) · 간격 12
+- 라벨 `typo-11-bold` `Text/Label`
+- 예시: 입력 200 × 32, 라디오 sm, [선택 취소] Dark sm
+- 시안과 다른 점: Figma 라디오 이름은 14px, 현재 Radio sm 이름은 13px(Q22)

@@ -240,6 +240,11 @@ $typography-caption-strong-font-weight: var(--kp-typography-caption-strong-font-
 $typography-caption-strong-line-height: var(--kp-typography-caption-strong-line-height);
 $typography-caption-strong-letter-spacing: var(--kp-typography-caption-strong-letter-spacing);
 
+// ── custom · action-bar ─────────────────────────────────────────
+$color-action-bar-bg: var(--kp-color-action-bar-bg);
+$color-action-bar-border: var(--kp-color-action-bar-border);
+$color-action-bar-label: var(--kp-color-action-bar-label);
+
 // ── custom · address ────────────────────────────────────────────
 $color-address-zip: var(--kp-color-address-zip);
 $color-address-road: var(--kp-color-address-road);
@@ -859,6 +864,9 @@ $css-variables: (
   "--kp-typography-typo-10-regular-font-weight": "400",
   "--kp-typography-typo-10-regular-line-height": "1.5",
   "--kp-typography-typo-10-regular-letter-spacing": "0",
+  "--kp-color-action-bar-bg": "var(--kp-color-bg-page)",
+  "--kp-color-action-bar-border": "var(--kp-color-line-subtle)",
+  "--kp-color-action-bar-label": "var(--kp-color-text-label)",
   "--kp-color-address-zip": "var(--kp-color-text-secondary)",
   "--kp-color-address-road": "var(--kp-color-text-body)",
   "--kp-color-address-jibun": "var(--kp-color-text-placeholder)",
