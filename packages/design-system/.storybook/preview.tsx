@@ -1,6 +1,7 @@
 import type { Decorator, Preview } from '@storybook/react-vite';
 import { Fragment } from 'react';
 import '../src/styles/index.scss';
+import { cleanStorySource } from './sourceTransform';
 
 // defaultValue · defaultOpen 같은 초기값은 처음 그릴 때만 반영된다.
 // 단순 값(글자·숫자·참거짓) 컨트롤이 바뀌면 다시 그려서 Controls 변경이 바로 보이게 한다.
@@ -75,6 +76,8 @@ const preview: Preview = {
   initialGlobals: { system: 'internal' },
   parameters: {
     controls: { expanded: true },
+    // 코드 복사(Show code): parameters · 배치용 감싸기를 빼고 사용 코드만
+    docs: { source: { transform: cleanStorySource } },
     layout: 'padded',
     // 사이드바 순서: 소개 → Foundation(토큰) → Components(단일 UI) → Composites(컴포넌트 조합, 역할별 섹션)
     // → Layout(화면 틀) → Patterns(페이지 패턴). 각 항목 안에서는 Guide를 먼저

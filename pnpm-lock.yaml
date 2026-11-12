@@ -137,6 +137,9 @@ importers:
       pretendard:
         specifier: ^1.3.9
         version: 1.3.9
+      prettier:
+        specifier: 3.9.10
+        version: 3.9.10
       react:
         specifier: ^19.2.0
         version: 19.3.1
