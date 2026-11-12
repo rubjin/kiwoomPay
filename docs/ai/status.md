@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -88,7 +88,7 @@
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
 - [Q51] Lookup Search(찾기 방식 Button Tab 40 반영 2026-11-12) 남은 확인: ① Figma 설명 "별도 Footer Action 없음" ↔ 결과 예시의 [닫기] · [확인] — 화면 정책으로 Modal.Footer ② Initial 시안 본문 아래 여백 0 → Modal 기본 20 유지 ③ 결과 행 선택은 IBSheet 이벤트
 - [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
-- [Q54] P01(KWPC06010201) 확인 필요: ① Figma 최초진입은 0건과 같은 문구(조회 결과가 없습니다) → 패턴 문서(조회 전/0건 구분)에 따라 조회 전 문구 "조회 전입니다 / 검색 조건을 입력한 후 조회해주세요"(TODO) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
+- [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -491,3 +491,23 @@
 - 검증: tokens · typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드 통과. 1680 화면에서 카드 위치 · 높이가 Figma와 일치(검색 147 · 상세 58 · 적용 조건 58 · 요약 86, y 72/218/288/358/456, 요약 항목 213 × 60, 칩 32). 앱 브라우저 테스트 15개 통과(경로, 최초진입 조회 전 · Action 비활성, 1주일 → 날짜, 조회 → 칩 · 10행 · Total 28 · 요약, 선택 없이 Action → Alert, 2건 선택 → Confirm → 완료 Alert, 3페이지 8행, Enter 0건, 초기화 → 입력만 비움, 상세 검색 · 접기). 기존 테스트 재통과(공통 24 · step5 22 · MultiSelect 27 · 가이드 28 · Q36/Q53 · Modal 스크롤), 실패는 옛 기대값(Date Picker 340 · 검색 라벨 위 배치)뿐
 - 참고: Storybook 빌드가 가끔 깨진 결과(L7[e] is not a function)를 내는데 다시 빌드하면 정상 — 코드 문제 아님
 - 한 가정: Q54
+
+### Screen: KWPC04010100 통합 거래내역 (P01) — 2026-11-12
+- 시안: 최초진입_검색조건접힘(30056:104296). 숨김 레이어로 펼친 검색 조건 2줄 · 상세 검색 구조 확인
+- 디자인 시스템
+  - `SearchPanel.Row`(줄 나누기), `defaultCollapsed`로 최초 접힘(제목 줄 74, 상세 검색 줄도 숨김)
+  - `ResultSummary` 항목 `values`(건 • 원), `ResultPanel` 제목 묶음 ↔ 오른쪽 Action 20(Action Bar 앞), Grid 미리보기 머리 40
+  - `StatusView` 조회 전 기본 문구를 Figma로("내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요", 제목은 화면별)
+  - `LookupField`(P03 호출 필드: 검색 아이콘 입력 + [찾기]), `Segmented fullWidth`
+  - Field: 라벨 왼쪽 배치에서 본문 높이를 필드 높이(40)로 잡아 라디오 등 낮은 컨트롤을 라벨 줄 가운데에
+  - 날짜 입력 폭: `width: 10ch`가 field-sizing을 막고 있어 `auto`로(글자 폭, 미지원 브라우저는 size 10자)
+- 앱: `pages/transaction/integrated/IntegratedTransactionPage`(TODO 자리 교체), `api/transaction/integratedTransaction`(예시 데이터), `types/transaction/integratedTransaction`, 퀵 기간 공통화 `utils/period`(정산 화면도 사용)
+- 검증: lint · typecheck · build(디자인 시스템 · 앱) · Storybook 빌드 통과. 앱 브라우저 테스트 15개 통과(최초진입 접힘 74 · 위치 y 72/158/228/326가 Figma와 일치, 결과 머리 90 · Grid 머리 40, 조회 전 문구, 요약 - 건 • - 원, 펼침 2줄 40/40, 조회 10행 · Total 23 · 금액, 적용 조건, 선택 없음 · 사유 없음 Alert, 상계취소 Confirm → 완료 Alert, 1개월 퀵 기간, 콘솔 에러 없음). 기존 테스트 재통과(공통 24 · 가이드 28 · MultiSelect 27 · step5 22 · P01 위치), 실패는 옛 기대값뿐
+- 한 가정 / 확인 필요: 민원접수 · 전체취소 · 부분취소 칸 표시 방식(Y / - 로 임시), 시각 선택 옵션(정시 + 23:59), 거래구분 · 결제수단 · 거래상태 코드(임시), 상세 검색 내용 시안 없음, 취소 처리 가능 조건 · 금액 영향 미리보기는 화면설계서
+
+### KWPC04010100 상세검색 · 검색 조건 정리 — 2026-11-12
+- 시안: 최초진입(29406:101527) · 상세검색(29406:97669) · 목록(29395:79807) · 내 검색조건 관리 저장조건 있음/없음(29503:90470 · 91203). 하단 Grid 스타일은 IBSheet로 하므로 보류
+- 디자인 시스템: 상세 검색 펼침 배경 Primary 50(토큰 `search-result/detail-bg`). 검색 조건 정의 `SearchFieldDef` + `toAppliedFilters` · `summarizeSearch` · `optionLabel` · `textValue` — 적용 조건 칩과 내 검색조건 요약을 같은 정의로. P01 가이드에 "검색 조건 폼 정리"(params · 기본값 · 정의, 폼 유형 표)
+- 앱: 통합 거래내역 `components/searchFields`(선택지 · INITIAL_PARAMS · SEARCH_FIELDS), 상세 검색 2줄(고객명 · 구매자 ID · 카드번호 · 승인번호 · 전화번호 / 예금주명 · 가상계좌번호 · 상품권 · 결제요청코드 + 개인정보 포함 검색), 적용 조건 칩 "조회기간 …"(Figma), 취소사유 바는 행 선택 시에만 활성
+- 검증: tokens · typecheck · lint · build 통과. 앱 브라우저 테스트 18개 통과(상세 검색 영역 높이 170 · 배경 · 2줄 40 · 2줄 필드 306 · 체크박스 오른쪽 17 = Figma, 칩에 고객명 · 개인정보 제외, 선택 전 취소사유 바 비활성 → 선택 후 활성 등)
+- 다음: 내 검색조건 관리 Modal(P07 V03) — 저장된 조건 목록 · 선택한 조건 요약(summarizeSearch) · 현재 조건 덮어쓰기 · 삭제 · 적용 · 신규 등록

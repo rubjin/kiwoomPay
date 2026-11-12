@@ -25,6 +25,7 @@ import type {
   MerchantSettlementParams,
   MerchantSettlementSummary,
 } from '@/types/settlement/merchantSettlement';
+import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 import { ledgerColumns } from './components/ledgerColumns';
 
 const CYCLE_OPTIONS = [
@@ -32,13 +33,6 @@ const CYCLE_OPTIONS = [
   { value: 'D5', label: 'D+5' },
   { value: 'M1_END', label: 'M+1 월말' },
   { value: 'M1_START', label: 'M+1 월초' },
-];
-
-const QUICK_PERIODS = [
-  { value: '1w', label: '1주일', days: 7 },
-  { value: '1m', label: '1개월', months: 1 },
-  { value: '2m', label: '2개월', months: 2 },
-  { value: '3m', label: '3개월', months: 3 },
 ];
 
 const INITIAL_PARAMS: MerchantSettlementParams = {
@@ -49,19 +43,6 @@ const INITIAL_PARAMS: MerchantSettlementParams = {
   quickPeriod: '',
   cycles: [],
 };
-
-const ymd = (date: Date) =>
-  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-
-/** 오늘 기준 이전 기간 (TODO(정책) 기준일 · 종료일 포함 여부는 화면설계서 확인) */
-function rangeOf(value: string) {
-  const period = QUICK_PERIODS.find((p) => p.value === value);
-  const end = new Date();
-  const start = new Date(end);
-  if (period?.days) start.setDate(start.getDate() - period.days);
-  if (period?.months) start.setMonth(start.getMonth() - period.months);
-  return { start: ymd(start), end: ymd(end) };
-}
 
 function toAppliedFilters(params: MerchantSettlementParams | null): AppliedFilter[] {
   if (!params) return [];
@@ -209,7 +190,9 @@ export function MerchantSettlementExecutePage() {
             size="md"
             aria-label="지급예정일 기간"
             value={params.quickPeriod}
-            onChange={(quickPeriod) => setParams({ quickPeriod, payDate: rangeOf(quickPeriod) })}
+            onChange={(quickPeriod) =>
+              setParams({ quickPeriod, payDate: rangeOfQuickPeriod(quickPeriod) })
+            }
           >
             {QUICK_PERIODS.map((p) => (
               <Segmented.Item key={p.value} value={p.value}>
