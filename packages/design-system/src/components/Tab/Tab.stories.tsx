@@ -10,6 +10,7 @@ const meta = {
     variant: { control: 'inline-radio', options: ['line', 'button', 'title'] },
     size: { control: 'inline-radio', options: ['md', 'sm'] },
   },
+  parameters: { tempWork: 'Tab 사이 간격(Line · Button · Title) · 비활성 Tab 숫자 배지' },
 } satisfies Meta<typeof Tab>;
 
 export default meta;

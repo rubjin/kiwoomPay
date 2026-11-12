@@ -26,6 +26,7 @@ const meta = {
       <CpidListItem {...args} status={active} />
     </div>
   ),
+  parameters: { tempWork: '가맹점명 글자 색 (캡처 측정으로 판단)' },
 } satisfies Meta<typeof CpidListItem>;
 
 export default meta;

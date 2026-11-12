@@ -18,6 +18,7 @@ const meta = {
       </div>
     ),
   ],
+  parameters: { tempWork: '화면 경계 최소 간격 · 비활성 Info 아이콘 · z-index' },
 } satisfies Meta<typeof InfoTip>;
 
 export default meta;

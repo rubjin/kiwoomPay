@@ -120,7 +120,7 @@ const meta = {
       </div>
     ),
   ],
-  parameters: { layout: 'fullscreen' },
+  parameters: { tempWork: '3Depth Active 점 크기 · 탭 아래 구분선', layout: 'fullscreen' },
 } satisfies Meta<typeof Lnb>;
 
 export default meta;

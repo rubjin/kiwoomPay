@@ -17,6 +17,7 @@ const meta = {
   component: DatePicker,
   // 시안과 같은 화면을 위해 오늘을 고정한다 (실사용에서는 생략 → 사용자 PC 기준)
   args: { today: '2026-08-11', defaultValue: '2026-08-14' },
+  parameters: { tempWork: '필드 ↔ 달력 패널 간격' },
 } satisfies Meta<typeof DatePicker>;
 
 export default meta;

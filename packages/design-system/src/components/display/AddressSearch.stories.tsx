@@ -31,7 +31,7 @@ const sample: AddressItem[] = [
 const meta = {
   title: 'Components/Address Search',
   component: AddressSearch,
-  parameters: { layout: 'padded' },
+  parameters: { tempWork: '결과 없음 영역 위치', layout: 'padded' },
 } satisfies Meta<typeof AddressSearch>;
 
 export default meta;

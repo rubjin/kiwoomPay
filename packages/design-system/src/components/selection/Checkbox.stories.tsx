@@ -19,6 +19,7 @@ const meta = {
     disabled: { control: 'boolean' },
     indeterminate: { control: 'boolean' },
   },
+  parameters: { tempWork: '비활성 라벨 색 · 가로 그룹 간격' },
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;

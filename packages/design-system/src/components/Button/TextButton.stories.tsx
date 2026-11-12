@@ -18,6 +18,7 @@ const meta = {
     size: { control: 'inline-radio', options: ['sm', 'md'] },
     disabled: { control: 'boolean' },
   },
+  parameters: { tempWork: 'Neutral 텍스트 버튼 색' },
 } satisfies Meta<typeof TextButton>;
 
 export default meta;

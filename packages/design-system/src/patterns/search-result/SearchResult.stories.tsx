@@ -542,7 +542,10 @@ function SettlementScreen({
 
 /** 최초 진입: 조회 전 상태 (P-3). [조회]를 누르면 예시 데이터가 나온다 */
 export const Initial: Story = {
-  parameters: { controls: { disable: true } },
+  parameters: {
+    controls: { disable: true },
+    tempWork: '상세 검색 내용 · 그리드 미리보기(IBSheet 연결 전) · 예시 데이터',
+  },
   render: () => (
     <DialogProvider>
       <SettlementScreen />
@@ -552,7 +555,10 @@ export const Initial: Story = {
 
 /** 조회 결과: 적용 조건 · 요약 · Grid · Pagination. 행을 선택하고 업무 Action을 누르면 Confirm → Alert */
 export const Result: Story = {
-  parameters: { controls: { disable: true } },
+  parameters: {
+    controls: { disable: true },
+    tempWork: '상세 검색 내용 · 그리드 미리보기(IBSheet 연결 전) · 예시 데이터',
+  },
   render: () => (
     <DialogProvider>
       <SettlementScreen autoSearch />
@@ -562,7 +568,10 @@ export const Result: Story = {
 
 /** 조회 결과 0건 */
 export const Empty: Story = {
-  parameters: { controls: { disable: true } },
+  parameters: {
+    controls: { disable: true },
+    tempWork: '상세 검색 내용 · 그리드 미리보기(IBSheet 연결 전) · 예시 데이터',
+  },
   render: () => (
     <DialogProvider>
       <SettlementScreen mode="empty" autoSearch />
@@ -572,7 +581,11 @@ export const Empty: Story = {
 
 /** 결과 영역 상태 표시: 조회 전 · 조회 중 · 0건 · 오류 · 권한 없음 */
 export const States: Story = {
-  parameters: { controls: { disable: true }, layout: 'padded' },
+  parameters: {
+    controls: { disable: true },
+    layout: 'padded',
+    tempWork: '권한 없음(forbidden) 문구',
+  },
   render: () => (
     <div
       style={{

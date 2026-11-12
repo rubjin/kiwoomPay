@@ -47,7 +47,7 @@ const meta = {
   title: 'Components/Favorite Menu Picker',
   component: FavoriteMenuPicker,
   args: { items: menu },
-  parameters: { layout: 'padded' },
+  parameters: { tempWork: '펼침 화살표 색', layout: 'padded' },
 } satisfies Meta<typeof FavoriteMenuPicker>;
 
 export default meta;

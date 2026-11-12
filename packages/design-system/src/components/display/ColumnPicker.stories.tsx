@@ -25,7 +25,7 @@ const meta = {
   title: 'Components/Column Picker',
   component: ColumnPicker,
   args: { items: columns },
-  parameters: { layout: 'padded' },
+  parameters: { tempWork: '드래그 중 표시 · 놓을 위치 표시', layout: 'padded' },
 } satisfies Meta<typeof ColumnPicker>;
 
 export default meta;

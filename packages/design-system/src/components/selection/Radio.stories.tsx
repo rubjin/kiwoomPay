@@ -17,6 +17,7 @@ const meta = {
     size: { control: 'inline-radio', options: ['md', 'sm'] },
     disabled: { control: 'boolean' },
   },
+  parameters: { tempWork: '비활성 라벨 색 · 가로 그룹 간격' },
 } satisfies Meta<typeof Radio>;
 
 export default meta;

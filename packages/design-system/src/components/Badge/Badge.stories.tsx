@@ -29,6 +29,7 @@ const meta = {
     size: { control: 'inline-radio', options: ['md', 'sm'] },
     dot: { control: 'boolean' },
   },
+  parameters: { tempWork: 'Neutral 상태 점 색 · Primary 외 Line/Soft 색 · 두 자리 숫자 좌우 여백' },
 } satisfies Meta<typeof Badge>;
 
 export default meta;

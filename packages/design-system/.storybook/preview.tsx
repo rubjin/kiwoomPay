@@ -25,8 +25,38 @@ const applySystem: Decorator = (Story, context) => {
   return <Story />;
 };
 
+// 시안 · 정책 없이 임시로 만든 부분 표시: 스토리(또는 meta) parameters.tempWork → 오른쪽 위 "(임의 작업: …)" 배지
+const tempWorkBadge: Decorator = (Story, context) => {
+  const text = context.parameters.tempWork as string | undefined;
+  if (!text) return <Story />;
+  return (
+    <div style={{ position: 'relative' }}>
+      <Story />
+      <div
+        role="note"
+        style={{
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          zIndex: 2000,
+          maxWidth: 480,
+          padding: '4px 8px',
+          font: '600 12px/1.5 Pretendard, sans-serif',
+          color: 'var(--kp-color-status-warning-text)',
+          background: 'var(--kp-color-status-warning-background)',
+          border: '1px solid var(--kp-color-status-warning-border)',
+          borderRadius: 4,
+          pointerEvents: 'none',
+        }}
+      >
+        (임의 작업: {text})
+      </div>
+    </div>
+  );
+};
+
 const preview: Preview = {
-  decorators: [remountOnArgsChange, applySystem],
+  decorators: [remountOnArgsChange, applySystem, tempWorkBadge],
   globalTypes: {
     system: {
       description: '시스템별 키컬러',
