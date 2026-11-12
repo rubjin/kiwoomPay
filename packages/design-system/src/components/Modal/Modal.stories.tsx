@@ -61,15 +61,6 @@ export const Types: Story = {
   render: () => (
     <div style={row}>
       <Modal open inline>
-        <Modal.Header title="안내" />
-        <Modal.Body>
-          <Modal.Description>중요한 안내 또는 처리 결과를 확인해주세요.</Modal.Description>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button size="lg">확인</Button>
-        </Modal.Footer>
-      </Modal>
-      <Modal open inline>
         <Modal.Header title="확인" />
         <Modal.Body>
           <Modal.Description>입력한 항목을 저장할까요?</Modal.Description>
@@ -104,7 +95,7 @@ export const Types: Story = {
   ),
 };
 
-/** Action: None(버튼 없음) · Single · Double */
+/** Action: None(버튼 없음) · Double (버튼 1개 예시는 싣지 않음) */
 export const Actions: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
@@ -140,25 +131,23 @@ export const Actions: Story = {
   ),
 };
 
-type ActionCount = 'none' | 'single' | 'double';
-const actionCounts: ActionCount[] = ['none', 'single', 'double'];
+type ActionCount = 'none' | 'double';
+const actionCounts: ActionCount[] = ['none', 'double'];
 
 function FooterActions({ count, primary }: { count: ActionCount; primary: string }) {
   if (count === 'none') return null;
   return (
     <Modal.Footer>
-      {count === 'double' && (
-        <Button size="lg" variant="neutral" appearance="line">
-          취소
-        </Button>
-      )}
+      <Button size="lg" variant="neutral" appearance="line">
+        취소
+      </Button>
       <Button size="lg">{primary}</Button>
     </Modal.Footer>
   );
 }
 
 /**
- * Pattern: Type × Action. Action(None · Single · Double)은 Type과 따로 조합한다.
+ * Pattern: Type × Action. Action(None · Double)은 Type과 따로 조합한다. 버튼 1개 예시는 싣지 않음
  * 폭은 Type별 size — Alert · Confirm sm 400 / Information md 620 / Form lg 800
  */
 export const Patterns: Story = {
