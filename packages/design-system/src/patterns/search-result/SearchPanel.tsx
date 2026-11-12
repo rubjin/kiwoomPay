@@ -35,9 +35,9 @@ export interface SearchPanelProps extends Omit<
 /**
  * P01 검색 조건 카드 (KWP GUI 기준).
  * 제목 줄 오른쪽에 [초기화 ↻] · [조회], 구분선 아래 기본 조건, 아래 붙은 카드에 [상세 검색 ⌄].
- * 필드는 Field(라벨 왼쪽) + 각 입력 컴포넌트를 children으로 넣는다.
+ * 필드는 Field(라벨 왼쪽) + 각 입력 컴포넌트를 children으로 넣는다. 줄을 나누려면 SearchPanel.Row.
  */
-export const SearchPanel = forwardRef<HTMLFormElement, SearchPanelProps>(
+const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
   (
     {
       title = '검색 조건',
@@ -134,7 +134,7 @@ export const SearchPanel = forwardRef<HTMLFormElement, SearchPanelProps>(
           )}
         </div>
         {hasDetail && (
-          <div className={clsx(styles.card, styles.cardBottom)}>
+          <div className={clsx(styles.card, styles.cardBottom, isExpanded && styles.detailOpen)}>
             <button
               type="button"
               className={styles.detailToggle}
@@ -157,4 +157,14 @@ export const SearchPanel = forwardRef<HTMLFormElement, SearchPanelProps>(
     );
   },
 );
-SearchPanel.displayName = 'SearchPanel';
+SearchPanelRoot.displayName = 'SearchPanel';
+
+/** 필드를 줄 단위로 나눌 때 (한 줄 = 전체 폭, 줄 사이 16) */
+const SearchPanelRow = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...rest }, ref) => (
+    <div {...rest} ref={ref} className={clsx(styles.fieldLine, className)} />
+  ),
+);
+SearchPanelRow.displayName = 'SearchPanel.Row';
+
+export const SearchPanel = Object.assign(SearchPanelRoot, { Row: SearchPanelRow });

@@ -7,11 +7,11 @@ import styles from './StatusView.module.scss';
 export type StatusViewStatus = 'idle' | 'loading' | 'empty' | 'error' | 'forbidden';
 
 const DEFAULTS: Record<StatusViewStatus, { icon: IconName; title: string; description: string }> = {
-  // TODO(시안) 조회 전 문구: Figma 최초진입은 0건과 같은 문구라 P01 "조회 전 / 0건 구분" 기준으로 따로 둔다
+  // Figma KWPC04010100 최초진입: "거래내역을 조회해주세요" — 제목은 화면이 바꾼다 (title prop)
   idle: {
     icon: 'search',
-    title: '조회 전입니다',
-    description: '검색 조건을 입력한 후 조회해주세요',
+    title: '내역을 조회해주세요',
+    description: '검색조건을 설정한 후 [조회] 버튼을 눌러주세요',
   },
   loading: { icon: 'loading', title: '조회 중입니다', description: '잠시만 기다려주세요' },
   // Figma Grid State / Empty

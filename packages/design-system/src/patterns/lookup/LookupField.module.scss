@@ -1,0 +1,9 @@
+@use 'tokens' as t;
+
+// Figma KWPC04010100 Search Field + Search Button: 입력 ↔ [찾기] 8
+.lookupField {
+  display: inline-flex;
+  gap: t.$space-8;
+  align-items: center;
+  max-width: 100%;
+}

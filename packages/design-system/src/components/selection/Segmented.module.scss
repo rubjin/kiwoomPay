@@ -61,6 +61,20 @@ $segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
   border-radius: 0;
 }
 
+.fullWidth {
+  display: flex;
+  width: 100%;
+
+  // 옵션(label)을 같은 폭으로
+  > * {
+    flex: 1 1 0;
+  }
+
+  .text {
+    width: 100%;
+  }
+}
+
 .md .text {
   min-width: 0;
   height: $segmented-height-md;

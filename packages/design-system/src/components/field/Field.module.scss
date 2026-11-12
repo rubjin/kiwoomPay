@@ -60,7 +60,21 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   flex-direction: column;
   gap: $field-helper-gap;
   align-items: flex-start;
+  justify-content: center; // 라디오처럼 필드보다 낮은 컨트롤은 라벨 줄 가운데
   min-width: 0;
+}
+
+// 라벨 왼쪽 배치: 본문을 라벨(필드) 높이만큼 잡아 낮은 컨트롤을 가운데에
+.md + .body {
+  min-height: t.$control-height-md;
+}
+
+.sm + .body {
+  min-height: t.$control-height-sm;
+}
+
+.lg + .body {
+  min-height: t.$control-height-lg;
 }
 
 .helper {

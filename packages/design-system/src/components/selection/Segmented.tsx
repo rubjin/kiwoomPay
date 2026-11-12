@@ -37,12 +37,25 @@ export interface SegmentedProps extends Omit<
   disabled?: boolean;
   /** sm 32(기본) · md 40 (검색 조건 줄에서 필드 높이 40에 맞출 때) */
   size?: SegmentedSize;
+  /** 부모 폭을 채우고 옵션을 같은 폭으로 나눈다 */
+  fullWidth?: boolean;
   children: ReactNode;
 }
 
 const SegmentedRoot = forwardRef<HTMLDivElement, SegmentedProps>(
   (
-    { value, defaultValue, onChange, name, disabled, size = 'sm', className, children, ...rest },
+    {
+      value,
+      defaultValue,
+      onChange,
+      name,
+      disabled,
+      size = 'sm',
+      fullWidth = false,
+      className,
+      children,
+      ...rest
+    },
     ref,
   ) => {
     const autoName = useId();
@@ -63,7 +76,12 @@ const SegmentedRoot = forwardRef<HTMLDivElement, SegmentedProps>(
           {...rest}
           ref={ref}
           role="radiogroup"
-          className={clsx(styles.root, size === 'md' && styles.md, className)}
+          className={clsx(
+            styles.root,
+            size === 'md' && styles.md,
+            fullWidth && styles.fullWidth,
+            className,
+          )}
         >
           {children}
         </div>

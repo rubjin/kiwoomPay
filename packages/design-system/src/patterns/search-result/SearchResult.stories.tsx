@@ -403,7 +403,6 @@ function SettlementScreen({
               options={[]}
               placeholder="내 검색조건 선택"
               emptyText="저장된 검색조건이 없습니다"
-              
             />
             <Button variant="neutral" appearance="line">
               내 검색조건 관리

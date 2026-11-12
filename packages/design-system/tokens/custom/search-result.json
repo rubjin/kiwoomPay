@@ -5,7 +5,10 @@
       "$value": "{Bg.Surface}",
       "$description": "검색 조건 · 적용 조건 · 조회 요약 · 조회 결과 카드 배경"
     },
-    "PanelBorder": { "$type": "color", "$value": "{Line.Subtle}" },
+    "PanelBorder": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
     "Title": {
       "$type": "color",
       "$value": "{Text.Heading}",
@@ -16,19 +19,34 @@
       "$value": "{Text.Body}",
       "$description": "적용된 검색 조건 · 조회 요약 제목"
     },
-    "Icon": { "$type": "color", "$value": "{Text.Label}", "$description": "검색 조건 접기 화살표" },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "검색 조건 접기 화살표"
+    },
     "DetailToggle": {
       "$type": "color",
       "$value": "{Text.Accent}",
       "$description": "상세 검색 토글 (Primary 500)"
+    },
+    "DetailBg": {
+      "$type": "color",
+      "$value": "{Bg.Selected}",
+      "$description": "상세 검색 펼침 영역 (Primary 50, Figma KWPC04010100 상세검색)"
     },
     "ChipBg": {
       "$type": "color",
       "$value": "{Bg.Selected}",
       "$description": "적용된 검색 조건 칩 (Primary 50)"
     },
-    "ChipBorder": { "$type": "color", "$value": "{Line.Default}" },
-    "ChipText": { "$type": "color", "$value": "{Text.Body}" },
+    "ChipBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "ChipText": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
     "Placeholder": {
       "$type": "color",
       "$value": "{Text.Placeholder}",
@@ -39,11 +57,26 @@
       "$value": "{Bg.Selected}",
       "$description": "조회 요약 항목 (Primary 50)"
     },
-    "SummaryBorder": { "$type": "color", "$value": "{Line.Default}" },
-    "SummaryLabel": { "$type": "color", "$value": "{Text.Label}" },
-    "SummaryValue": { "$type": "color", "$value": "{Text.Body}" },
-    "TotalLabel": { "$type": "color", "$value": "{Text.Body}" },
-    "TotalValue": { "$type": "color", "$value": "{Text.Accent}" },
+    "SummaryBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "SummaryLabel": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "SummaryValue": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "TotalLabel": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "TotalValue": {
+      "$type": "color",
+      "$value": "{Text.Accent}"
+    },
     "GridHeaderBg": {
       "$type": "color",
       "$value": "{Bg.Page}",
@@ -54,11 +87,20 @@
       "$value": "{Line.Subtle}",
       "$description": "TODO(시안) IBSheet 연결 전 임시 미리보기 표 선"
     },
-    "GridText": { "$type": "color", "$value": "{Text.Body}" },
-    "GridHeaderText": { "$type": "color", "$value": "{Text.Label}" }
+    "GridText": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "GridHeaderText": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    }
   },
   "StatusView": {
-    "Icon": { "$type": "color", "$value": "{Text.Label}" },
+    "Icon": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
     "Title": {
       "$type": "color",
       "$value": "{Text.Body}",

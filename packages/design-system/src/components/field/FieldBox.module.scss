@@ -235,10 +235,10 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
 }
 
 // 날짜 입력은 글자(YYYY-MM-DD) 폭에 맞춘다 (Figma Date Range Field 253). fullWidth면 남는 폭을 채운다.
-// field-sizing 미지원 브라우저는 10ch
+// width를 지정하면 field-sizing이 무시되므로 auto. 미지원 브라우저는 input size(10자) 폭
 .date {
   flex: 1 1 auto;
-  width: 10ch;
+  width: auto;
   field-sizing: content;
 }
 

@@ -1,13 +1,18 @@
 import clsx from 'clsx';
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import styles from './SearchResult.module.scss';
 
-export interface ResultSummaryItem {
-  label: ReactNode;
+export interface ResultSummaryValue {
   /** 숫자는 천 단위 쉼표. null · undefined(조회 전)는 '-' */
   value?: number | string | null;
   /** 단위 (기본 '건') */
   unit?: ReactNode;
+}
+
+export interface ResultSummaryItem extends ResultSummaryValue {
+  label: ReactNode;
+  /** 값이 여러 개일 때 (예: 건수 • 금액). 있으면 value · unit 대신 쓴다 */
+  values?: ResultSummaryValue[];
 }
 
 export interface ResultSummaryProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -34,8 +39,17 @@ export const ResultSummary = forwardRef<HTMLElement, ResultSummaryProps>(
           <div key={index} className={styles.summaryItem}>
             <dt className={styles.summaryLabel}>{item.label}</dt>
             <dd className={styles.summaryValue}>
-              <strong className={styles.summaryNumber}>{formatValue(item.value)}</strong>
-              <span>{item.unit ?? '건'}</span>
+              {(item.values ?? [item]).map((v, i) => (
+                <Fragment key={i}>
+                  {i > 0 && (
+                    <span className={styles.summaryDot} aria-hidden>
+                      •
+                    </span>
+                  )}
+                  <strong className={styles.summaryNumber}>{formatValue(v.value)}</strong>
+                  <span>{v.unit ?? '건'}</span>
+                </Fragment>
+              ))}
             </dd>
           </div>
         ))}
