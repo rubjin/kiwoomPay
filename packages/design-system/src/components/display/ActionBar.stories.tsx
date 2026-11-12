@@ -6,7 +6,7 @@ import { Radio, RadioGroup } from '../selection';
 import { ActionBar } from './ActionBar';
 
 const meta = {
-  title: 'Components/Action Bar',
+  title: 'Composites/Result/Action Bar',
   component: ActionBar,
   args: { label: '취소사유', children: null },
   parameters: { layout: 'padded' },

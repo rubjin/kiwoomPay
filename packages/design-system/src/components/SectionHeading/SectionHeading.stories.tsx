@@ -7,7 +7,7 @@ import { TextField } from '../field';
 import { SectionHeading } from './SectionHeading';
 
 const meta = {
-  title: 'Components/Section Heading',
+  title: 'Components/Display/Section Heading',
   component: SectionHeading,
   parameters: { layout: 'padded' },
   args: { title: '기본 정보', size: 'lg', subtle: false },

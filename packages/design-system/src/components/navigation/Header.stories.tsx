@@ -45,7 +45,7 @@ function Example({ unmasked = false, session = 10038, masking = 3595 }) {
 }
 
 const meta = {
-  title: 'Components/Header',
+  title: 'Layout/Header',
   component: Header,
   parameters: { layout: 'padded' },
 } satisfies Meta<typeof Header>;

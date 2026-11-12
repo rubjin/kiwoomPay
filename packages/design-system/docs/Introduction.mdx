@@ -28,4 +28,16 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 - SCSS 변수 `t.$color-primary-500` ↔ CSS 변수 `--kp-color-primary-500` 가 1:1로 대응합니다.
 - `Primary`·`Neutral`·`Base`(Primitive)는 컴포넌트에서 직접 쓰지 않고, `Text`·`Line`·`Status`·`Bg` 같은 Semantic 토큰을 씁니다.
-- 가이드 문서는 Phase 2 이후 컴포넌트와 함께 추가됩니다.
+
+## 사이드바 구성
+
+| 그룹           | 섹션                                                   | 기준                                   |
+| -------------- | ------------------------------------------------------ | -------------------------------------- |
+| **Foundation** | Typography · Spacing                                   | 토큰 가이드                            |
+| **Components** | Action · Input · Navigation · Display · Feedback, Icon | 혼자 쓰는 단일 UI                      |
+| **Composites** | Search · Result · Form · Feedback                      | 여러 컴포넌트를 묶은 업무 부품, 역할별 |
+| **Layout**     | Page Layout · Header · Footer · LNB · Work Tab         | 화면 틀                                |
+| **Patterns**   | P01 Search → Result · P02 Record → Form                | 화면 단위 조합 예시(페이지 패턴)       |
+
+각 항목은 Guide(사용 목적 · 종류 · Do/Don't)가 먼저 나오고, 그 아래에 예시 스토리가 있습니다.
+코드 import는 그룹과 관계없이 모두 `@kiwoompay/design-system`에서 합니다.

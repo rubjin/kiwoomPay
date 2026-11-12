@@ -8,7 +8,7 @@ import { ResultPanel } from './ResultPanel';
 import { ResultSummary } from './ResultSummary';
 
 const meta = {
-  title: 'Components/Search Result/Result Parts',
+  title: 'Composites/Result/Result Parts',
   parameters: { layout: 'padded' },
 } satisfies Meta;
 export default meta;

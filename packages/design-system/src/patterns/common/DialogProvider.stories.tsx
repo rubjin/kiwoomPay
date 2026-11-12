@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import { DialogProvider, useDialog } from './DialogProvider';
 
 const meta = {
-  title: 'Components/Dialog',
+  title: 'Composites/Feedback/Dialog',
   parameters: { controls: { disable: true } },
 } satisfies Meta;
 export default meta;

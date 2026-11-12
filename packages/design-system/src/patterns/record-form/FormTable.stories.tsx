@@ -5,7 +5,7 @@ import { Checkbox, Radio, RadioGroup } from '../../components/selection';
 import { FormTable } from './FormTable';
 
 const meta = {
-  title: 'Components/Record Form/FormTable',
+  title: 'Composites/Form/Record Form/FormTable',
   component: FormTable,
   parameters: { layout: 'padded' },
   args: { children: null },

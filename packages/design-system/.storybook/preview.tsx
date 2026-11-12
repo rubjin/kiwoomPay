@@ -76,13 +76,40 @@ const preview: Preview = {
   parameters: {
     controls: { expanded: true },
     layout: 'padded',
-    // 사이드바 순서: 소개 → Foundation → Components, 각 컴포넌트 안에서는 Guide를 먼저
+    // 사이드바 순서: 소개 → Foundation(토큰) → Components(단일 UI, 역할별 섹션) → Composites(컴포넌트 조합, 역할별 섹션)
+    // → Layout(화면 틀) → Patterns(페이지 패턴). 각 항목 안에서는 Guide를 먼저
     options: {
       storySort: {
         order: [
           'Introduction',
           'Foundation',
           'Components',
+          [
+            'Action',
+            ['*', ['Guide', '*']],
+            'Input',
+            ['Field', ['Guide', '*'], 'Selection', ['Guide', '*'], '*', ['Guide', '*']],
+            'Navigation',
+            ['*', ['Guide', '*']],
+            'Display',
+            ['*', ['Guide', '*']],
+            'Feedback',
+            ['*', ['Guide', '*']],
+            'Icon',
+            ['Guide', '*'],
+          ],
+          'Composites',
+          [
+            'Search',
+            ['Search Area', ['Guide', '*'], 'Search Panel', ['Guide', '*'], '*', ['Guide', '*']],
+            'Result',
+            ['Result Parts', ['Guide', '*'], 'Status View', ['Guide', '*'], '*', ['Guide', '*']],
+            'Form',
+            ['*', ['Guide', '*']],
+            'Feedback',
+            ['*', ['Guide', '*']],
+          ],
+          'Layout',
           ['*', ['Guide', '*']],
           'Patterns',
           ['*', ['Guide', '*']],

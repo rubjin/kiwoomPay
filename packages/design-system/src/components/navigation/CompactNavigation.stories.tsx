@@ -5,7 +5,7 @@ import { CompactNavigation } from './CompactNavigation';
 const row: CSSProperties = { display: 'flex', gap: 'var(--kp-space-24)', alignItems: 'center' };
 
 const meta = {
-  title: 'Components/Compact Navigation',
+  title: 'Layout/Compact Navigation',
   component: CompactNavigation,
   args: { total: 3, defaultPage: 1 },
   argTypes: {

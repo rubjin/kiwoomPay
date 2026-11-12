@@ -579,3 +579,13 @@
 - 검증: typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드. **바꾸기 전/후 픽셀 비교 25장 모두 동일** — Storybook 20(Page Layout · FormSection · Result Parts · SearchPanel · P01 · P02, 정적 빌드 2개 비교)과 앱 5(통합 거래내역 · 정산 실행 조회 후, 가맹점 신규/수정, Placeholder). 새 스토리 5개 · 가이드 렌더, 긴 제목 말줄임 확인, 취소 흐름 테스트 13개 재통과
 - 참고: 이미 떠 있던 Storybook(6006)은 deps 캐시가 깨져 모든 스토리가 "Failed to fetch dynamically imported module" — 재시작 필요(`node_modules/.cache/storybook` 삭제 후 `pnpm storybook`)
 
+### Storybook 사이드바 구분 — 2026-11-12
+- 그룹(사용자 확인): Introduction → **Foundation**(토큰 가이드) → **Components**(단일 UI 15) → **Composites**(컴포넌트 조합 10: Search · Search Result · Record Form · Lookup Field · Lookup Search · Address Search · Column Picker · Favorite Menu Picker · Action Bar · Dialog) → **Layout**(화면 틀 6: Page Layout · Header · Footer · LNB · Compact Navigation · Work Tab) → **Patterns**(P01 · P02). 각 항목 안에서 Guide 먼저(`.storybook/preview.tsx` storySort)
+- 스토리 · 가이드 title만 변경(21개 파일). 코드 폴더 · import 경로는 그대로(코드 폴더는 `components/` · `patterns/` 두 갈래라 Storybook 그룹과 1:1 아님). Introduction에 그룹 설명 추가
+- 새 컴포넌트를 만들 때 그룹 기준: 혼자 쓰면 Components, 여러 컴포넌트를 묶은 업무 부품이면 Composites, 화면 틀이면 Layout
+- Icon 가이드는 컴포넌트 스토리와 함께 있어 Components에 둠(Foundation은 Typography · Spacing)
+- 역할별 섹션 추가(사용자 확인, 같은 날):
+  - Components: **Action**(Button) · **Input**(Field · Selection · DatePicker) · **Navigation**(Tab · Pagination) · **Display**(Badge · Infobox · Summary Card · CPID List Item · Section Heading) · **Feedback**(Modal · Tooltip) · Icon(섹션 없음)
+  - Composites: **Search**(Search Area · Search Panel · Lookup Field · Lookup Search · Address Search) · **Result**(Result Parts · Status View(테이블 결과 상태) · Action Bar · Column Picker) · **Form**(Record Form) · **Feedback**(Dialog · Favorite Menu Picker)
+  - Search Result 가이드를 `docs/SearchPanel.mdx`(Search) · `docs/ResultParts.mdx`(Result)로 나눔(내용 이동만). storySort에 섹션 순서 · 섹션 안 대표 항목 순서 고정
+

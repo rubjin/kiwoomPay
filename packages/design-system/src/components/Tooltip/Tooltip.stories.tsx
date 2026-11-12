@@ -5,7 +5,7 @@ import { InfoTip } from './InfoTip';
 import { Tooltip } from './Tooltip';
 
 const meta = {
-  title: 'Components/Tooltip',
+  title: 'Components/Feedback/Tooltip',
   component: InfoTip,
   args: { content: '도움말 내용을 확인할 수 있습니다.' },
   argTypes: {

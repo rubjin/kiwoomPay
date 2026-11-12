@@ -62,7 +62,7 @@ const bizGrid = (
 );
 
 const meta = {
-  title: 'Components/Lookup Search',
+  title: 'Composites/Search/Lookup Search',
   component: LookupSearch,
   parameters: { layout: 'padded' },
 } satisfies Meta<typeof LookupSearch>;

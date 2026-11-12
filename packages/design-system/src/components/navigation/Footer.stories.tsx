@@ -17,7 +17,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'Components/Footer',
+  title: 'Layout/Footer',
   component: Footer,
   args: { logo, items, copyright: 'Copyright ⓒ DAOU Tech Inc. All Rights Reserved.' },
   argTypes: { logo: { control: false }, items: { control: false }, copyright: { control: 'text' } },

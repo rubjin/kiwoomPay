@@ -30,7 +30,7 @@ const tall: CSSProperties = { minHeight: 260 };
 const cell: CSSProperties = { width: 200 };
 
 const meta = {
-  title: 'Components/Field/MultiSelect',
+  title: 'Components/Input/Field/MultiSelect',
   component: MultiSelect,
   args: { options, placeholder: '선택해주세요' },
   argTypes: {

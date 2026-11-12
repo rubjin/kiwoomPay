@@ -11,7 +11,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Field/TextField',
+  title: 'Components/Input/Field/TextField',
   component: TextField,
   args: { placeholder: '입력해주세요' },
   argTypes: {

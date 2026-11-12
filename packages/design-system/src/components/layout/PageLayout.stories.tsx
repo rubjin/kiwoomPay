@@ -11,7 +11,7 @@ import { Footer, Header, Lnb, type LnbMenuItem } from '../navigation';
 import { PageLayout } from './PageLayout';
 
 const meta = {
-  title: 'Components/Page Layout',
+  title: 'Layout/Page Layout',
   component: PageLayout,
   parameters: { layout: 'fullscreen' },
   args: { children: null },

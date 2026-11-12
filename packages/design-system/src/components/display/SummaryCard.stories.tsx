@@ -7,7 +7,7 @@ const sm = { width: 280 };
 const info = '조회 기간 동안 승인된 거래 건수입니다.';
 
 const meta = {
-  title: 'Components/Summary Card',
+  title: 'Components/Display/Summary Card',
   component: SummaryCard,
   args: {
     title: '총 거래',

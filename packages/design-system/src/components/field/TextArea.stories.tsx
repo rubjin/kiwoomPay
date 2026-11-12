@@ -11,7 +11,7 @@ const row: CSSProperties = {
 const cell: CSSProperties = { width: 240 };
 
 const meta = {
-  title: 'Components/Field/TextArea',
+  title: 'Components/Input/Field/TextArea',
   component: TextArea,
   args: { placeholder: '내용을 입력해주세요', fullWidth: true },
   argTypes: {

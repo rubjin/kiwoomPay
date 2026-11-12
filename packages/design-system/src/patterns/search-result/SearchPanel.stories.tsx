@@ -5,7 +5,7 @@ import { LookupField } from '../lookup';
 import { SearchPanel } from './SearchPanel';
 
 const meta = {
-  title: 'Components/Search Result/SearchPanel',
+  title: 'Composites/Search/Search Panel',
   component: SearchPanel,
   parameters: { layout: 'padded' },
   args: { children: null },

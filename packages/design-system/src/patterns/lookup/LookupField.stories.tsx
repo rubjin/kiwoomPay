@@ -4,7 +4,7 @@ import { Field } from '../../components/field';
 import { LookupField } from './LookupField';
 
 const meta = {
-  title: 'Components/Lookup Field',
+  title: 'Composites/Search/Lookup Field',
   component: LookupField,
   args: {
     placeholder: '사업자번호를 입력해주세요',

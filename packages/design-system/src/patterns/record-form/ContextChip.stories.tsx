@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ContextChip } from './ContextChip';
 
 const meta = {
-  title: 'Components/Record Form/ContextChip',
+  title: 'Composites/Form/Record Form/ContextChip',
   component: ContextChip,
   args: {
     items: [

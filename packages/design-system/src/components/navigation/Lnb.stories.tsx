@@ -105,7 +105,7 @@ const Logo = () => (
 const frame: CSSProperties = { height: 760, display: 'flex' };
 
 const meta = {
-  title: 'Components/LNB',
+  title: 'Layout/LNB',
   component: Lnb,
   args: {
     items: menu,

@@ -29,7 +29,7 @@ const sample: AddressItem[] = [
 ];
 
 const meta = {
-  title: 'Components/Address Search',
+  title: 'Composites/Search/Address Search',
   component: AddressSearch,
   parameters: { tempWork: '결과 없음 영역 위치', layout: 'padded' },
 } satisfies Meta<typeof AddressSearch>;

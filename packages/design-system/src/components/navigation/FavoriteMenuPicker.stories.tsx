@@ -44,7 +44,7 @@ const menu: LnbMenuItem[] = [
 ];
 
 const meta = {
-  title: 'Components/Favorite Menu Picker',
+  title: 'Composites/Feedback/Favorite Menu Picker',
   component: FavoriteMenuPicker,
   args: { items: menu },
   parameters: { tempWork: '펼침 화살표 색', layout: 'padded' },

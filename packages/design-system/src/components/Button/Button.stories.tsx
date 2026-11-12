@@ -20,7 +20,7 @@ const stack: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Button/Button',
+  title: 'Components/Action/Button/Button',
   component: Button,
   args: { children: '버튼명' },
   argTypes: {

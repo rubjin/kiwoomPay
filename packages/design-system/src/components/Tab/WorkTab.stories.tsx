@@ -5,7 +5,7 @@ import { Modal } from '../Modal';
 import { WORK_TAB_LIMIT, WorkTab, type WorkTabAction } from './WorkTab';
 
 const meta = {
-  title: 'Components/Work Tab',
+  title: 'Layout/Work Tab',
   component: WorkTab,
   args: { defaultValue: 'b', children: null },
   parameters: { tempWork: '메뉴 위치 간격 · 메뉴 항목 Hover · 비활성 표현' },

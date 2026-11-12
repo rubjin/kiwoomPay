@@ -59,7 +59,7 @@ const DetailActions = () => (
 );
 
 const meta = {
-  title: 'Components/Search',
+  title: 'Composites/Search/Search Area',
   component: SearchArea,
   args: { children: null },
 } satisfies Meta<typeof SearchArea>;

@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import { StatusView } from './StatusView';
 
 const meta = {
-  title: 'Components/Status View',
+  title: 'Composites/Result/Status View',
   component: StatusView,
   args: { status: 'empty' },
   argTypes: {

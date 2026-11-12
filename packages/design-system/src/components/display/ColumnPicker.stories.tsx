@@ -22,7 +22,7 @@ const columns: ColumnPickerItem[] = [
 ].map((label, i) => ({ value: `c${i}`, label }));
 
 const meta = {
-  title: 'Components/Column Picker',
+  title: 'Composites/Result/Column Picker',
   component: ColumnPicker,
   args: { items: columns },
   parameters: { tempWork: '드래그 중 표시 · 놓을 위치 표시', layout: 'padded' },

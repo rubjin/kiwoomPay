@@ -7,7 +7,7 @@ import { ContextChip } from './ContextChip';
 import { FormSection } from './FormSection';
 
 const meta = {
-  title: 'Components/Record Form/FormSection',
+  title: 'Composites/Form/Record Form/FormSection',
   component: FormSection,
   parameters: { layout: 'padded' },
   args: { title: '기본 정보', collapsible: true, defaultCollapsed: false },
