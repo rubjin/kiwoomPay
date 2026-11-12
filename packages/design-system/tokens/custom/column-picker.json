@@ -1,0 +1,10 @@
+{
+  "ColumnPicker": {
+    "Description": { "$type": "color", "$value": "{Text.Secondary}" },
+    "ItemBg": { "$type": "color", "$value": "{Bg.Surface}" },
+    "ItemBorder": { "$type": "color", "$value": "{Line.Default}" },
+    "ItemText": { "$type": "color", "$value": "{Text.Body}" },
+    "Handle": { "$type": "color", "$value": "{Neutral.400}", "$description": "드래그 아이콘 (Figma move 아이콘 회색)" },
+    "DropBorder": { "$type": "color", "$value": "{Primary.500}", "$description": "TODO(시안) 드래그 중 놓을 위치 표시" }
+  }
+}

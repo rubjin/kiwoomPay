@@ -10,3 +10,5 @@ export { AddressSearch } from './AddressSearch';
 export type { AddressItem, AddressSearchExample, AddressSearchProps } from './AddressSearch';
 export { LookupSearch } from './LookupSearch';
 export type { LookupSearchProps } from './LookupSearch';
+export { ColumnPicker } from './ColumnPicker';
+export type { ColumnPickerItem, ColumnPickerProps } from './ColumnPicker';

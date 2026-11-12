@@ -1,0 +1,68 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (Figma Modal/Modal_Excel Download)
+$column-picker-gap: t.$space-12; // 안내 · 전체선택 · 항목 줄 사이, 항목 사이
+$column-picker-item-width: 200px;
+$column-picker-item-padding-x: 14px; // 필드와 같은 여백
+$column-picker-item-gap: t.$space-4;
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: $column-picker-gap;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.description {
+  @include m.typography(typo-14-regular);
+
+  margin: 0;
+  color: t.$color-column-picker-description;
+}
+
+.grid {
+  display: grid;
+  gap: $column-picker-gap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: $column-picker-item-gap;
+  align-items: center;
+  width: $column-picker-item-width;
+  height: t.$control-height-md;
+  padding: 0 calc(#{$column-picker-item-padding-x} - #{t.$control-border-width});
+  cursor: grab;
+  background-color: t.$color-column-picker-item-bg;
+  border: t.$control-border-width solid t.$color-column-picker-item-border;
+  border-radius: t.$field-radius-md;
+}
+
+.handle {
+  display: inline-flex;
+  flex: none;
+  color: t.$color-column-picker-handle;
+}
+
+.label {
+  @include m.typography(typo-14-regular);
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+  color: t.$color-column-picker-item-text;
+}
+
+// TODO(시안) 드래그 중 표시 (Figma에 없음)
+.dragging {
+  opacity: 0.4;
+}
+
+.over {
+  border-color: t.$color-column-picker-drop-border;
+}

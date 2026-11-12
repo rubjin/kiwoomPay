@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. 남은 것: 엑셀 다운로드 · 즐겨찾기 편집 모달, 취소사유입력, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) 완료. 남은 것: 즐겨찾기 편집 모달, 취소사유입력, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -434,3 +434,8 @@
 - 만든 것: `display/LookupSearch` — 조회형 Lookup Modal 본문(Figma Modal/Lookup 사업자번호 · 원가정보, Select Box/Modal/Search Result (Lookup) · Empty). 검색 줄(`label` 왼쪽 + SearchField + [조회] Neutral Solid, `extraFields` · `header` 슬롯) + 결과(children = IBSheet8 그리드) · `empty`(높이 480 안내). query controlled/uncontrolled, `onSearch` · `loading`. 토큰 `tokens/custom/lookup.json`. stories(Initial · Result(예시 그리드 + Footer) · Empty(표준산업분류: Button Tab + 조건 2개, 폭 880) · Interactive), 가이드 `docs/LookupSearch.mdx`
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 11개 통과(Figma 값: 폭 800 · 제목 20 SemiBold · 닫기, 검색창 x 20 · y 68 · 40 · [조회] 오른쪽 20 · 간격 8, 라벨 13 Bold · 간격 8, 검색 ↔ 그리드 12, 결과 없음 480 · 글자 · 간격 6, Empty 폭 880 · Tab · 조건 2, Enter 조회 → 그리드 · 결과 없음 · 닫기). 렌더링 캡처가 Figma 스크린샷과 일치
 - 한 가정: Q51
+
+### Component: Column Picker (엑셀 다운로드) — 2026-11-12
+- 만든 것: `display/ColumnPicker` — Figma Modal/Modal_Excel Download 본문. 안내 · 전체선택(일부 선택 표시) · 항목 칸(200 × 40, 이동 아이콘 · 이름 · 체크박스) 4열 그리드, 드래그로 순서 변경(브라우저 기본 Drag and Drop, 라이브러리 없음). `items` · `onItemsChange` · `value`(항목 순서대로) · `columns`. 토큰 `tokens/custom/column-picker.json`. 스토리 ExcelDownload(Modal 876 + Footer), 가이드 `docs/ColumnPicker.mdx`
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 10개 통과(모달 876 × 418 = Figma, 안내 위치 · 글자, 항목 200 × 40 · 반경 8 · 테두리 · 4열 · 간격 12, 글자 · 아이콘 20, 전체선택 indeterminate · 전체 선택 · 해제, 항목 선택, 드래그 순서 변경). 렌더링이 Figma 스크린샷과 일치
+- 한 가정: 드래그 중 표시(반투명 · 놓을 칸 Primary 테두리)는 시안 없어 임시. 키보드 순서 변경 미지원

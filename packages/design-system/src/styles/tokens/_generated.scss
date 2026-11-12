@@ -356,6 +356,14 @@ $color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // TO
 $color-text-button-neutral-text-hover: var(--kp-color-text-button-neutral-text-hover); // TODO(시안)
 $color-text-button-text-disabled: var(--kp-color-text-button-text-disabled);
 
+// ── custom · column-picker ──────────────────────────────────────
+$color-column-picker-description: var(--kp-color-column-picker-description);
+$color-column-picker-item-bg: var(--kp-color-column-picker-item-bg);
+$color-column-picker-item-border: var(--kp-color-column-picker-item-border);
+$color-column-picker-item-text: var(--kp-color-column-picker-item-text);
+$color-column-picker-handle: var(--kp-color-column-picker-handle); // 드래그 아이콘 (Figma move 아이콘 회색)
+$color-column-picker-drop-border: var(--kp-color-column-picker-drop-border); // TODO(시안) 드래그 중 놓을 위치 표시
+
 // ── custom · compact-navigation ─────────────────────────────────
 $color-compact-nav-icon: var(--kp-color-compact-nav-icon); // 이전 · 다음 화살표 (시안 #185888)
 $color-compact-nav-icon-disabled: var(--kp-color-compact-nav-icon-disabled);
@@ -945,6 +953,12 @@ $css-variables: (
   "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-neutral-text-hover": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-column-picker-description": "var(--kp-color-text-secondary)",
+  "--kp-color-column-picker-item-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-column-picker-item-border": "var(--kp-color-line-default)",
+  "--kp-color-column-picker-item-text": "var(--kp-color-text-body)",
+  "--kp-color-column-picker-handle": "var(--kp-color-neutral-400)",
+  "--kp-color-column-picker-drop-border": "var(--kp-color-primary-500)",
   "--kp-color-compact-nav-icon": "var(--kp-color-primary-700)",
   "--kp-color-compact-nav-icon-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-compact-nav-text": "var(--kp-color-text-secondary)",
