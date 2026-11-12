@@ -2,16 +2,11 @@
   "Modal": {
     "Shadow": {
       "$type": "shadow",
-      "$value": "0 4px 20px rgba(0, 0, 0, 0.1)",
-      "$description": "TODO(시안) 그림자 근사값"
+      "$value": "0 8px 24px 0 rgba(0, 0, 0, 0.12)"
     },
     "Bg": {
       "$type": "color",
       "$value": "{Bg.Surface}"
-    },
-    "Border": {
-      "$type": "color",
-      "$value": "{Line.Subtle}"
     },
     "Title": {
       "$type": "color",

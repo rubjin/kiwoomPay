@@ -509,9 +509,8 @@ $color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선
 $color-lnb-scroll-thumb: var(--kp-color-lnb-scroll-thumb);
 
 // ── custom · modal ──────────────────────────────────────────────
-$modal-shadow: var(--kp-modal-shadow); // TODO(시안) 그림자 근사값
+$modal-shadow: var(--kp-modal-shadow);
 $color-modal-bg: var(--kp-color-modal-bg);
-$color-modal-border: var(--kp-color-modal-border);
 $color-modal-title: var(--kp-color-modal-title);
 $color-modal-description: var(--kp-color-modal-description);
 $color-modal-close: var(--kp-color-modal-close);
@@ -1068,9 +1067,8 @@ $css-variables: (
   "--kp-color-lnb-path": "var(--kp-color-text-secondary)",
   "--kp-color-lnb-divider": "var(--kp-color-line-subtle)",
   "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
-  "--kp-modal-shadow": "0 4px 20px rgba(0, 0, 0, 0.1)",
+  "--kp-modal-shadow": "0 8px 24px 0 rgba(0, 0, 0, 0.12)",
   "--kp-color-modal-bg": "var(--kp-color-bg-surface)",
-  "--kp-color-modal-border": "var(--kp-color-line-subtle)",
   "--kp-color-modal-title": "var(--kp-color-text-body)",
   "--kp-color-modal-description": "var(--kp-color-text-secondary)",
   "--kp-color-modal-close": "var(--kp-color-text-secondary)",

@@ -233,7 +233,7 @@ Type마다 폭(`size`)이 정해져 있고, Action(None · Single · Double)은 
     </tr>
     <tr>
       <td>여백 · 반경</td>
-      <td>안쪽 20 · 섹션 간격 20 · Radius 10 · 테두리 1</td>
+      <td>안쪽 20 · 섹션 간격 20 · Radius 12 · 테두리 없음 · 그림자 0 8px 24px rgba(0,0,0,.12)</td>
     </tr>
     <tr>
       <td>Title</td>
@@ -324,4 +324,4 @@ bodyRef.current?.querySelector('[aria-invalid="true"]')?.scrollIntoView({ block:
 ## 토큰
 
 - 색 · 그림자: `modal/*` (`tokens/custom/modal.json`, 색은 모두 Figma 색 alias). 폭 · 여백 · 반경은 `Modal.module.scss` 맨 위 SCSS 변수, 딤 `overlay/dim`(측정: 검정 48%), `z-index/modal`
-- 시안에 없어 **임시 값(TODO)** 인 것: 그림자, z-index 체계. 가맹점관리자 모바일 배치는 시안이 없어 적용하지 않았습니다.
+- 시안에 없어 **임시 값(TODO)** 인 것: z-index 체계. 가맹점관리자 모바일 배치는 시안이 없어 적용하지 않았습니다.
