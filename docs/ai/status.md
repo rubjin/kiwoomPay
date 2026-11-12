@@ -607,3 +607,9 @@
 - 흐름: 다운로드는 바로 내려받기(TODO API), 재시도 · 재요청은 Confirm → 요청 → `refresh()` → 완료 Alert, 상세 팝업 Footer도 같은 처리
 - 검증: typecheck · lint · build(디자인 시스템 · 앱 · 화면 목록) 통과. 앱 브라우저 테스트 15개 통과(헤더 버튼 이동, 진입 시 10행 · Total 24, [조회] 필드 줄 끝 · 접기 없음, 행별 작업 버튼, 상세 1056 · 내용 · Footer, 재시도 Confirm → 생성중 → Alert, 파일명 검색 · 초기화, 3페이지 4행). 검색 카드 높이 139(시안 138), favicon 404는 기존
 - 한 가정: Q55
+
+### PageLayout.Title → SectionHeading — 2026-11-13
+- `SectionHeading`에 `size="xl"`(24 Bold) · `as="h1"` 추가, `PageLayout.Title`이 SectionHeading xl로 그림(높이 40 · 제목 ↔ addon 12 · Action 사이 8, props 그대로). 중복 토큰 `page-layout/title` 삭제(section-heading/title과 같은 Text/Heading)
+- 검토만(변경 없음): `FormSection` 대상 표시(label · title)는 이미 SectionHeading. 제목 탭 줄(`tabs` · `tabActions`)은 제목 자리가 탭 목록이라 h2 제목으로 묶지 않음
+- 검증: typecheck · lint · tokens 통과, **변경 전/후 픽셀 비교 16장 모두 동일**(Storybook Page Layout 4 · P01 5 · P02 1, 앱 다운로드 센터 · 통합 거래내역 · 정산 실행 · 가맹점 신규/수정 · Placeholder)
+

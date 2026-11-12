@@ -43,6 +43,10 @@
   color: t.$color-section-heading-title;
 }
 
+.xl {
+  @include m.typography(typo-24-bold);
+}
+
 .lg {
   @include m.typography(typo-18-bold);
 }

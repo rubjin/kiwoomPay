@@ -13,10 +13,6 @@
       "$value": "{Line.Subtle}",
       "$description": "Header 아래 · Work Tab 아래 선"
     },
-    "Title": {
-      "$type": "color",
-      "$value": "{Text.Heading}"
-    },
     "Section": {
       "Bg": {
         "$type": "color",

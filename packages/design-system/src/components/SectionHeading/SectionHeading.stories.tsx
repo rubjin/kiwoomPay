@@ -12,9 +12,9 @@ const meta = {
   parameters: { layout: 'padded' },
   args: { title: '기본 정보', size: 'lg', subtle: false },
   argTypes: {
-    size: { control: 'inline-radio', options: ['lg', 'md'] },
+    size: { control: 'inline-radio', options: ['xl', 'lg', 'md'] },
     subtle: { control: 'boolean' },
-    as: { control: 'inline-radio', options: ['h2', 'h3', 'h4'] },
+    as: { control: 'inline-radio', options: ['h1', 'h2', 'h3', 'h4'] },
   },
 } satisfies Meta<typeof SectionHeading>;
 export default meta;
@@ -36,11 +36,12 @@ export const Playground: Story = {
   ),
 };
 
-/** lg 18 Bold (Section · 검색 조건 · 폼 카드) · md 16 Bold (조회 결과) · md subtle (한 줄 카드) */
+/** xl 24 Bold (화면명 — PageLayout.Title) · lg 18 Bold (Section · 검색 조건 · 폼 카드) · md 16 Bold (조회 결과) · md subtle (한 줄 카드) */
 export const Sizes: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <SectionHeading as="h1" size="xl" title="화면명 (xl · PageLayout.Title)" />
       <div style={card}>
         <SectionHeading title="검색 조건 (lg)" />
       </div>

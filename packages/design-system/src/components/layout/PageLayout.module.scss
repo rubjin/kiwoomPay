@@ -86,41 +86,20 @@ $page-layout-section-radius: t.$control-radius-lg;
 
 // ── Page Title ───────────────────────────────────────
 .pageTitle {
-  display: flex;
-  gap: $page-layout-title-action-gap;
-  align-items: center;
+  --section-heading-gap: #{$page-layout-title-action-gap};
+  --section-heading-actions-gap: #{$page-layout-title-action-gap};
+
   min-height: $page-layout-title-height;
 }
 
-.titleText {
-  @include m.typography(typo-24-bold);
-  @include m.ellipsis;
-
-  flex: 1 1 0;
-  min-width: 0;
-  margin: 0;
-  color: t.$color-page-layout-title;
-}
-
-// 제목 옆 요소가 있으면 제목은 글자 폭, 옆 요소가 남는 폭 (Figma KWPC07010101 현재 사업자: 제목과 12)
-.titleHug {
-  flex: 0 1 auto;
-}
-
+// 제목 ↔ addon 12 (SectionHeading 줄 간격 8 + 4). 넘치면 addon이 먼저 준다
 .titleAddon {
   display: flex;
-  flex: 1 1 0;
+  flex: 0 1 auto;
   gap: t.$space-8;
   align-items: center;
   min-width: 0;
-  margin-left: calc(#{t.$space-12} - #{$page-layout-title-action-gap});
-}
-
-.titleActions {
-  display: flex;
-  flex: none;
-  gap: $page-layout-title-action-gap;
-  align-items: center;
+  margin-left: calc(#{t.$space-12} - #{t.$space-8});
 }
 
 // ── Section ──────────────────────────────────────────

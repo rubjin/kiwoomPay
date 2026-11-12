@@ -55,15 +55,21 @@ export interface PageTitleProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
   actions?: ReactNode;
 }
 
+/** 화면명 줄 = SectionHeading xl(24 Bold · h1). 높이 40, 제목 ↔ addon 12, Action 사이 8 */
 const PageTitle = forwardRef<HTMLDivElement, PageTitleProps>(
   ({ title, titleAddon, actions, className, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.pageTitle, className)}>
-      <h1 className={clsx(styles.titleText, titleAddon !== undefined && styles.titleHug)}>
-        {title}
-      </h1>
-      {titleAddon !== undefined && <div className={styles.titleAddon}>{titleAddon}</div>}
-      {actions && <div className={styles.titleActions}>{actions}</div>}
-    </div>
+    <SectionHeading
+      {...rest}
+      ref={ref}
+      className={clsx(styles.pageTitle, className)}
+      as="h1"
+      size="xl"
+      title={title}
+      addon={
+        titleAddon !== undefined ? <div className={styles.titleAddon}>{titleAddon}</div> : undefined
+      }
+      actions={actions}
+    />
   ),
 );
 PageTitle.displayName = 'PageLayout.Title';

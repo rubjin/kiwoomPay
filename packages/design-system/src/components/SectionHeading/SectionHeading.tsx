@@ -2,17 +2,17 @@ import clsx from 'clsx';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import styles from './SectionHeading.module.scss';
 
-export type SectionHeadingSize = 'lg' | 'md';
+export type SectionHeadingSize = 'xl' | 'lg' | 'md';
 
 export interface SectionHeadingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** 제목 */
   title?: ReactNode;
-  /** lg 18 Bold(기본: Section · 검색 조건 · 폼 카드) · md 16 Bold(조회 결과 · 한 줄 카드) */
+  /** xl 24 Bold(화면명 — PageLayout.Title) · lg 18 Bold(기본: Section · 검색 조건 · 폼 카드) · md 16 Bold(조회 결과 · 한 줄 카드) */
   size?: SectionHeadingSize;
   /** 한 줄 카드 제목처럼 한 단계 옅은 글자색 (적용된 검색 조건 · 조회 요약) */
   subtle?: boolean;
-  /** 제목 태그 (기본 h2) */
-  as?: 'h2' | 'h3' | 'h4';
+  /** 제목 태그 (기본 h2, 화면명은 h1) */
+  as?: 'h1' | 'h2' | 'h3' | 'h4';
   /** 제목 앞 작은 이름 (10 Regular, 예: 선택 CPID) */
   label?: ReactNode;
   /** 제목 옆 설명 (12 Regular, 제목과 12) */
