@@ -61,7 +61,7 @@
 - [Q19] 시안에 없는 항목: 필드 hover 표현, Field 세로(라벨 위) 배치, SelectBox 키보드 이동(↑↓), Small 드롭다운 항목 글자 크기 → 현재 hover·세로 배치는 미구현, 항목 글자는 14px 고정
 - [Q20] TODO 임시값(시안 픽셀로 근사, `shadow/focus`는 `0 0 4px 0 rgba(36,132,198,0.30)`로 확정됨): `select/panel-max-height 190`, `select/status-min-height 172`, `z-index/dropdown 100` (`tokens/custom/field.json`)
 - [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field Default(40)는 시안에서 내용 폭에 딱 붙어 있으나 구현은 아이콘 앞 간격 8px 유지
-- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기(13px — Figma 취소사유입력의 sm 라디오 이름은 14px), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
+- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기 md 14 · sm 13 확정(2026-11-12), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
 - [Q23] Checkbox·Radio·Toggle·Segmented의 hover 표현은 시안에 없어 미구현. 토글 이동 애니메이션은 motion 토큰이 없어 미구현
 - [Q24] 아이콘 이름 지정 확인 (Figma 이름만으로 만들 수 없어 코드에서 지정, `scripts/build-icons.mjs`): `1dp(0~6)` → home·card-check·bar-chart·file-text·building·archive·shield-check, `Link-external` 12·`24-1`(↗ 모양) → `arrow-up-right`, `Setting` `20-1`(슬라이더 모양) → `setting-sliders`. Figma 쪽 이름도 맞춰 두면 좋음
 - [Q26] 회색으로 내보낸 선 아이콘(eye·eye-off·pin-line·drag-handle·info-circle 16·arrow-up-right)은 규칙(고정 컬러 없음)에 따라 `currentColor`로 바꿈 → 회색이 필요하면 쓰는 쪽에서 color 지정. loading 아이콘 회전 애니메이션은 motion 토큰이 없어 미포함
@@ -84,8 +84,8 @@
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
-- [Q51] Lookup Search: ① Figma 설명은 "별도 Footer Action 없음"인데 결과 예시에는 [닫기] · [확인] — 화면 정책으로 Modal.Footer를 붙이게 둠 ② Initial 시안은 본문 아래 여백 0(높이 108) → Modal 기본 아래 여백 20 유지 ③ 표준산업분류 Empty의 찾기 방식 Button Tab은 높이 40 · 14 Regular/Bold — 현재 Button Tab은 32 · 14 Medium/SemiBold(Tab/Button 설명은 H32) → 크기 확인 필요 ④ 결과 행 선택(클릭 · 더블클릭)은 IBSheet 이벤트로 처리
-- [Q52] 즐겨찾기 편집: ① 검색창 높이 Figma 48 → 40(필드 크기에 lg 48 없음) — 필드에 lg 추가할지 ② 선택 개수 숫자 색 Figma secondary/500(#8B5CF6) → 같은 값의 Chart/Category/02로 연결, 별도 Secondary 색 필요 여부 ③ 화살표 색(Figma 아이콘 이미지) Text/Label로 임시 ④ 하위 없는 2Depth도 체크박스로 고를 수 있게 함
+- [Q51] Lookup Search(찾기 방식 Button Tab 40 반영 2026-11-12) 남은 확인: ① Figma 설명 "별도 Footer Action 없음" ↔ 결과 예시의 [닫기] · [확인] — 화면 정책으로 Modal.Footer ② Initial 시안 본문 아래 여백 0 → Modal 기본 20 유지 ③ 결과 행 선택은 IBSheet 이벤트
+- [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -450,3 +450,8 @@
 - 만든 것: `display/ActionBar` — Figma 취소사유입력(29406:96321): 회색 작업 바(Neutral 50 · Line/Subtle · 반경 4 · 여백 12 테두리 안쪽 · 간격 12) + 라벨(11 Bold Text/Label) + 내용 슬롯. 취소사유 구성(입력 sm 200 · 라디오 sm 가로 · [선택 취소] Dark sm)은 스토리 CancelReason. 토큰 `tokens/custom/action-bar.json`. 가이드 `docs/ActionBar.mdx`
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 확인(배경 · 테두리 · 반경, 높이 58(테두리 제외 56 = Figma), 라벨 글자 · 위치, 입력 200 × 32 · 버튼 32 Dark · 오른쪽 12, 입력 · 라디오 선택 반영, 콘솔 에러 없음). Figma 설명은 Address Row 설명이 복사돼 있어 용도는 이름으로 판단
 - 한 가정: Figma sm 라디오 이름 14px ↔ 현재 13px(Q22)
+
+### Q51 · Q52 · Q22 반영 — 2026-11-12
+- Button Tab 크기: md 40(기본) · sm 32 (`size`). 기존 Button Tab 기본 높이가 32 → 40으로 바뀜(sm으로 32 유지 가능). ButtonTab 스토리에 md · sm
+- 필드 크기 `lg`(48) 추가: md와 글자(14) · 여백 14 · 반경 8 같고 높이만 48 (FieldBox · Field 라벨). 즐겨찾기 편집 검색을 lg로
+- Radio · Checkbox 이름 글자 md 14 · sm 13 확정(코드 변경 없음)

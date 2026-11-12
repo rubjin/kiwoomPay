@@ -111,7 +111,11 @@ export const ButtonTab: Story = {
   render: () => (
     <div style={col}>
       <Tab variant="button" defaultValue="a">
-        <Tab.Item value="a">Tab</Tab.Item>
+        <Tab.Item value="a">Tab (md 40)</Tab.Item>
+        <Tab.Item value="b">Tab</Tab.Item>
+      </Tab>
+      <Tab variant="button" size="sm" defaultValue="a">
+        <Tab.Item value="a">Tab (sm 32)</Tab.Item>
         <Tab.Item value="b">Tab</Tab.Item>
         <Tab.Item value="c" disabled>
           Tab

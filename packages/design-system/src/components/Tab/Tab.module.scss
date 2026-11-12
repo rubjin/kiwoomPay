@@ -131,12 +131,16 @@ $tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 �
 .button .item {
   @include m.typography(typo-14-medium);
 
-  height: $tab-height-sm;
+  height: $tab-height-md; // md 40 (Figma Lookup 찾기 방식 Tab) · sm 32 (Tab/Button)
   min-width: $tab-button-min-width;
   padding: 0 $tab-button-padding-x;
   background-color: t.$color-tab-button-bg;
   border: t.$control-border-width solid t.$color-tab-button-border;
   border-radius: $tab-button-radius;
+}
+
+.buttonSm .item {
+  height: $tab-height-sm;
 }
 
 .button .active {

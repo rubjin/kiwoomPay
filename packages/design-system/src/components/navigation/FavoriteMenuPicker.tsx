@@ -108,6 +108,7 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
           {description ?? `자주 사용하는 메뉴를 최대 ${max}개까지 선택할 수 있습니다.`}
         </p>
         <SearchField
+          size="lg"
           fullWidth
           placeholder={searchPlaceholder}
           value={query}

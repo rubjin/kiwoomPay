@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 
-export type FieldSize = 'sm' | 'md';
+/** sm 32 · md 40 · lg 48 (lg는 md와 글자 · 여백이 같고 높이만 크다) */
+export type FieldSize = 'sm' | 'md' | 'lg';
 export type FieldFeedback = 'positive' | 'negative';
 
 export interface FieldContextValue {

@@ -41,6 +41,10 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   min-height: t.$control-height-sm;
 }
 
+.lg {
+  min-height: t.$control-height-lg;
+}
+
 .required {
   margin-inline-start: t.$space-4;
   color: t.$color-field-required;

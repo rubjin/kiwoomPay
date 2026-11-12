@@ -36,7 +36,7 @@ export interface TabProps extends Omit<
   onChange?: (value: string) => void;
   /** line(기본): 밑줄 Tab / button: 동급 View를 버튼형으로 전환 / title: 섹션 제목처럼 쓰는 Tab(14 · Active Bold + 굵은 밑줄 4) */
   variant?: TabVariant;
-  /** md(기본) 40 · sm 32. Button · Title Tab은 크기 하나(32 · 34) */
+  /** md(기본) 40 · sm 32. Button Tab도 md 40 · sm 32, Title Tab은 크기 하나(34) */
   size?: TabSize;
   /** Equal Width: 부모 폭을 Item 수만큼 같은 비율로 나눈다 */
   fullWidth?: boolean;
@@ -79,6 +79,7 @@ const TabRoot = forwardRef<HTMLDivElement, TabProps>(
             styles.tabs,
             styles[variant],
             variant === 'line' && styles[size],
+            variant === 'button' && size === 'sm' && styles.buttonSm,
             fullWidth && styles.fullWidth,
             className,
           )}

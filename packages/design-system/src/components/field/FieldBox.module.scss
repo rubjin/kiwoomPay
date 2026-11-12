@@ -106,6 +106,29 @@ $field-icon-size-sm: 16px; // Leading Icon (sm)
   }
 }
 
+// lg: md와 같은 글자 · 여백 · 반경, 높이만 48 (Figma 즐겨찾기 편집 검색)
+.lg {
+  @include m.typography(typo-14-regular);
+
+  height: t.$control-height-lg;
+  padding-inline: $field-padding-x-md;
+  border-radius: t.$field-radius-md;
+
+  .leading {
+    width: $field-icon-size-md;
+    height: $field-icon-size-md;
+  }
+
+  .counter {
+    right: $field-padding-x-md;
+  }
+
+  &.multiline {
+    height: auto;
+    padding-block: $field-padding-x-md;
+  }
+}
+
 .sm {
   @include m.typography(typo-13-medium);
 
