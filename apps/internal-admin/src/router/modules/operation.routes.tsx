@@ -1,4 +1,6 @@
-import { Route } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
+import { MENU } from '@/constants/menu';
+import { lazyPage } from '../lazy';
 import { menuPlaceholderRoutes } from '../placeholder';
 
 // 07 운영관리
@@ -13,4 +15,18 @@ import { menuPlaceholderRoutes } from '../placeholder';
 //   0708 신규 계약/청약 관리 → pages/operation/new-contract/
 //   0709 오프라인 PG 관리 → pages/operation/offline-pg/
 //   0710 프로모션 관리 → pages/operation/promotion/
-export const operationRoutes = <Route path="operation">{menuPlaceholderRoutes('operation')}</Route>;
+const page = () => import('@/pages/operation/merchant-contract/basic/MerchantBasicPage');
+const MerchantCreatePage = lazyPage(page, 'MerchantCreatePage');
+const MerchantEditPage = lazyPage(page, 'MerchantEditPage');
+
+export const operationRoutes = (
+  <Route path="operation">
+    <Route path="merchant-contract">
+      <Route index element={<Navigate to="basic/edit" replace />} />
+      {/* KWPC07010101 가맹점 기본/계약 정보 관리: 신규등록 · 조회수정 */}
+      <Route path="basic/new" element={<MerchantCreatePage />} />
+      <Route path="basic/edit" element={<MerchantEditPage />} />
+    </Route>
+    {menuPlaceholderRoutes('operation', [MENU.KWPC0701])}
+  </Route>
+);

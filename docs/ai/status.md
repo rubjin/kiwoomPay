@@ -517,3 +517,16 @@
 - 규칙: 시안 · 정책 없이 임시로 만든 부분은 "(임의 작업)"으로 표시. Storybook은 스토리 · meta `parameters.tempWork` → 캔버스 오른쪽 위 "(임의 작업: …)" 배지(`.storybook/preview.tsx` tempWorkBadge). 표시한 스토리: Badge · TextButton · Column Picker · CPID List Item · DatePicker · Favorite Menu Picker · Tooltip · LNB · Checkbox · Radio · Tab · Work Tab · Address Search · P01(Initial · Result · Empty · States)
 - 상태별 GUI(29426:102820) 확인: 조회 실패 아이콘 · 문구를 시안대로 수정. 확인 필요 — 조회 중 띄어쓰기(시안 "조회 중 입니다"), 검색 조건 접힘 높이(시안 72 ↔ 30056:104296은 74)
 - 참고: 배지 표시 스토리는 캔버스에 감싸는 div가 하나 생겨 `#storybook-root > div`를 재던 기존 테스트 일부(DatePicker 패널 · Tab 폭)가 감싸는 div를 잼 — 실제 크기는 같음(DatePicker 336 × 344 확인)
+
+### Pattern: P02 Record → Form + KWPC07010101 가맹점 기본/계약 정보 관리 — 2026-11-12
+- 시안: 신규등록_Collapsed(28459:11020) · 조회수정(28298:50)
+- 디자인 시스템 `src/patterns/record-form/` (Storybook `Patterns/P02 Record Form`)
+  - `FormTable`(+ Row · Label(required *) · Cell(colSpan) · Head · InlineLabel): 라벨 138 + 값 칸 4쌍 격자(`pairs`) 또는 직접 열 구성(`template`, 담당자 표 36 + 5칸). 줄 52 · 머리 44, 라벨 12 Bold Neutral 100 배경, 테두리는 줄 높이 안(Figma)
+  - `FormSection`(+ Header 소제목 18 Bold + 설명 12 · Heading 선택 CPID): 카드(여백 16 − 테두리 1), 제목 18 SemiBold, 접기/열기(13 Bold + ⌃⌄), 위에 붙는 제목 탭 `tabs` + 오른쪽 `tabActions`(카드 위 8)
+  - `ContextChip`(현재 사업자 | 사업자번호 …, 흰색 · muted 회색), `PageLayout.Title titleAddon`(제목 옆 12)
+  - 토큰 `tokens/custom/record-form.json`. Title Tab 사이 간격 8(TODO) → 0 (Figma 붙어 있음, Q34 일부 해소)
+- 앱: 최소 폭 1920(MainLayout). `/operation/merchant-contract/basic/new`(신규등록) · `/basic/edit`(조회수정) — 기본 정보 8줄 · 담당자 표(추가 · 선택 삭제) · 저장(Confirm → Alert) · 가맹점 정보관리(선택 CPID 문맥, 신규는 접힘)
+- 검증: typecheck · lint · build · Storybook 빌드 통과. 1920 화면에서 Figma와 1px 이내(제목 탭 y70 · 버튼 y55 · 기본 정보 카드 y103 h793(Figma 792) · 줄 52 · 라벨 138/값 262 · 아래 버튼 y903 · CPID 카드 y951 h64 · 국가 192). 1600 화면은 가로 스크롤(최소 폭 1920)
+- (임의 작업): 고객 확인 정보 · 결제 오픈 현황 탭 내용, CPID 상세 영역(9개 탭), 선택지 값, 필수 검증(사업자구분만), 찾기 · 주소 · 사업자번호 수정 팝업 연결, 예시 데이터
+- 화면 목록(`apps/screen-list`)에 신규등록 · 조회수정 추가 (작업중)
+- Storybook 정리(같은 날): 패턴 부품을 Components에도 스토리 · 가이드로 추가 — `Components/Search Result`(Guide · SearchPanel(Playground · Rows · DetailGrid · Collapsed) · Result Parts(AppliedFilters · ResultSummary · ResultPanel · 상태)), `Components/Record Form`(Guide · FormTable(Pairs · ColSpan · Matrix · ReadOnly) · FormSection(Playground · Tabbed · SubHeader · Heading) · ContextChip), `Components/Lookup Field` · `Components/Status View` · `Components/Dialog`(각 Guide), `Patterns/P02 Record Form` Guide. 기존 보강: Segmented Sizes · FullWidth(Selection 가이드), Page Layout TitleAddon(가이드). 새 스토리 · 가이드 33개 렌더링 확인

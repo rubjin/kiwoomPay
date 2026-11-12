@@ -130,7 +130,7 @@ export function App() {
         <GridPlaceholder
           columns={columnsOf(current.url)}
           rows={rows}
-          rowKey={(s) => s.system + s.id}
+          rowKey={(s) => s.system + s.path}
         />
       </ResultPanel>
 
