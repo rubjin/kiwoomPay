@@ -57,19 +57,17 @@ type TextKey = {
     : never;
 }[keyof IntegratedTransactionParams];
 
-/** 상세 검색 (Figma KWPC04010100 상세검색): 1줄은 같은 폭, 2줄은 306 고정 + 오른쪽 개인정보 포함 검색 */
-const DETAIL_ROW1: [TextKey, string][] = [
+/** 상세 검색 칸 순서 (5칸 격자 · 왼쪽 위부터). 마지막 칸은 개인정보 포함 검색 */
+const DETAIL_FIELDS: [TextKey, string, string?][] = [
   ['customerName', '고객명'],
   ['buyerId', '구매자 ID'],
   ['cardNo', '카드번호'],
   ['approvalNo', '승인번호'],
   ['phone', '전화번호'],
-];
-const DETAIL_ROW2: [TextKey, string, string][] = [
-  ['depositor', '예금주명', '예금주명 입력'],
-  ['virtualAccountNo', '가상계좌번호', '가상계좌번호 입력'],
+  ['depositor', '예금주명'],
+  ['virtualAccountNo', '가상계좌번호'],
   ['giftCard', '상품권', '발행사/ID/핀번호 입력'],
-  ['payRequestCode', '결제요청코드', '결제요청코드 입력'],
+  ['payRequestCode', '결제요청코드'],
 ];
 
 function toSummaryItems(s?: IntegratedTransactionSummary) {
@@ -163,46 +161,32 @@ export function IntegratedTransactionPage() {
         }
       />
 
-      {/* 최초진입: 검색 조건 접힘 (Figma 최초진입_검색조건접힘) */}
+      {/* 최초진입: 검색 조건 펼침 (Figma 29406:101527). 접힘은 사용자가 ⌃로 접는 상태 (30056:104296) */}
       <SearchPanel
-        defaultCollapsed
         onSearch={result.search}
         onReset={result.reset}
         loading={result.loading}
         detail={
-          <>
-            <SearchPanel.Row>
-              {DETAIL_ROW1.map(([key, label]) => (
-                <Field key={key} label={label} style={{ flex: '1 1 0' }}>
-                  <TextField
-                    fullWidth
-                    placeholder={`${label} 입력`}
-                    value={params[key]}
-                    onChange={(e) => setParam(key, e.target.value)}
-                  />
-                </Field>
-              ))}
-            </SearchPanel.Row>
-            <SearchPanel.Row>
-              {DETAIL_ROW2.map(([key, label, placeholder]) => (
-                <Field key={key} label={label} style={{ width: 306 }}>
-                  <TextField
-                    fullWidth
-                    placeholder={placeholder}
-                    value={params[key]}
-                    onChange={(e) => setParam(key, e.target.value)}
-                  />
-                </Field>
-              ))}
-              <Checkbox
-                size="sm"
-                label="개인정보 포함 검색"
-                style={{ marginLeft: 'auto' }}
-                checked={params.includePersonal}
-                onChange={(e) => setParam('includePersonal', e.target.checked)}
-              />
-            </SearchPanel.Row>
-          </>
+          // 상세 검색: 5칸 격자 (Figma 칸 폭 306.8 = (1598 - 16 × 4) / 5). 두 줄의 칸이 위아래로 맞는다
+          <SearchPanel.Grid columns={5}>
+            {DETAIL_FIELDS.map(([key, label, placeholder]) => (
+              <Field key={key} label={label}>
+                <TextField
+                  fullWidth
+                  placeholder={placeholder ?? `${label} 입력`}
+                  value={params[key]}
+                  onChange={(e) => setParam(key, e.target.value)}
+                />
+              </Field>
+            ))}
+            <Checkbox
+              size="sm"
+              label="개인정보 포함 검색"
+              style={{ justifySelf: 'end' }}
+              checked={params.includePersonal}
+              onChange={(e) => setParam('includePersonal', e.target.checked)}
+            />
+          </SearchPanel.Grid>
         }
       >
         <SearchPanel.Row>
