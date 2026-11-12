@@ -146,6 +146,7 @@ import { Checkbox, RadioGroup, Radio, ToggleSwitch, Segmented } from '@kiwoompay
 - 선택값은 `value` / `defaultValue` / `onChange(value)`. 클릭 즉시 값이 바뀝니다.
 - 상태: Default · Selected · Disabled. 그룹 전체를 비활성화하려면 `Segmented`에 `disabled`를 줍니다.
 - 긴 라벨은 말줄임 처리됩니다.
+- 크기: `size` sm 32(기본) · **md 40** — 검색 조건 줄처럼 필드 높이 40과 나란히 둘 때 (폭은 글자 + 좌우 12). `fullWidth`: 부모 폭을 채우고 옵션을 같은 폭으로.
 
 **언제 쓰나**
 
@@ -156,6 +157,8 @@ import { Checkbox, RadioGroup, Radio, ToggleSwitch, Segmented } from '@kiwoompay
 
 <Canvas of={SegmentedStories.States} />
 <Canvas of={SegmentedStories.Controlled} />
+<Canvas of={SegmentedStories.Sizes} />
+<Canvas of={SegmentedStories.FullWidth} />
 
 ## 무엇을 쓸까
 

@@ -1,0 +1,45 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/patterns/common/DialogProvider.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Dialog (alert · confirm)
+
+처리 결과 안내와 실행 전 확인을 **Alert(Modal sm)로 통일**합니다. Toast는 쓰지 않습니다 (페이지 패턴 P-1).
+
+- 앱 최상위에 `<DialogProvider>` 한 번, 화면에서는 `useDialog()`
+- `alert(message, options?)` → 닫히면 resolve · `confirm(message, options?)` → 확인이면 `true`
+- `options`: `title`(기본 알림 · 확인) · `confirmText` · `cancelText` · `variant`(`danger`: 되돌리기 어려운 처리)
+- 여러 개를 연달아 열면 순서대로 하나씩 보인다
+
+<Canvas of={Stories.Playground} />
+
+```tsx
+const dialog = useDialog();
+if (selected.length === 0) return dialog.alert('처리할 원장을 선택해주세요.');
+if (
+  !(await dialog.confirm(`선택한 원장 ${selected.length}건을 지급확정할까요?`, {
+    confirmText: '지급확정',
+  }))
+)
+  return;
+await api.confirm(selected);
+await dialog.alert('지급확정되었습니다.');
+```
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>확인 버튼 문구를 처리 이름으로 (지급확정 · 강제취소)</td>
+      <td>모든 confirm을 [확인]으로 둔다</td>
+    </tr>
+  </tbody>
+</table>

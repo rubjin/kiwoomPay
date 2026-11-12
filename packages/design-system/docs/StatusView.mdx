@@ -1,0 +1,40 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/patterns/common/StatusView.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Status View
+
+결과 영역의 공통 상태 표시입니다. 화면은 `status`만 넘기고, 문구 · 아이콘 · 높이(220)는 여기서 정합니다.
+기준 시안: KWPC04010100 통합 거래내역 상태별 GUI.
+
+| status      | 아이콘                    | 제목                             | 설명                                          |
+| ----------- | ------------------------- | -------------------------------- | --------------------------------------------- |
+| `idle`      | search                    | 내역을 조회해주세요 (화면별)     | 검색조건을 설정한 후 [조회] 버튼을 눌러주세요 |
+| `loading`   | loading                   | 조회 중입니다                    | 잠시만 기다려주세요                           |
+| `empty`     | empty                     | 조회 결과가 없습니다             | 검색조건을 변경하여 다시 조회해주세요         |
+| `error`     | alert-circle-filled(빨강) | 조회 중 오류가 발생했습니다      | 재조회하여 다시 시도해주세요                  |
+| `forbidden` | lock                      | (임의 작업) 조회 권한이 없습니다 | 권한이 필요하면 관리자에게 문의해주세요       |
+
+- 제목 18 SemiBold, 설명 14 Regular, 아이콘 24, 간격 8
+- `title` · `description`(null이면 숨김) · `action`(예: [다시 시도])으로 바꿀 수 있다
+- 보통 `ResultPanel status`로 쓴다 (Grid 머리 아래)
+
+<Canvas of={Stories.States} />
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>조회 전(idle)과 결과 없음(empty)을 구분한다</td>
+      <td>최초 진입에 "조회 결과가 없습니다"를 보여준다</td>
+    </tr>
+  </tbody>
+</table>

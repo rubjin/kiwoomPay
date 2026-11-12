@@ -102,6 +102,20 @@ $page-layout-section-radius: t.$control-radius-lg;
   color: t.$color-page-layout-title;
 }
 
+// 제목 옆 요소가 있으면 제목은 글자 폭, 옆 요소가 남는 폭 (Figma KWPC07010101 현재 사업자: 제목과 12)
+.titleHug {
+  flex: 0 1 auto;
+}
+
+.titleAddon {
+  display: flex;
+  flex: 1 1 0;
+  gap: t.$space-8;
+  align-items: center;
+  min-width: 0;
+  margin-left: calc(#{t.$space-12} - #{$page-layout-title-action-gap});
+}
+
 .titleActions {
   display: flex;
   flex: none;

@@ -79,3 +79,35 @@ export const AllDisabled: Story = {
     </Segmented>
   ),
 };
+
+/** 크기: sm 32(기본) · md 40 — 검색 조건 줄에서 필드 높이 40에 맞출 때 (Figma KWPC06010201 퀵 기간) */
+export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+      {(['sm', 'md'] as const).map((size) => (
+        <Segmented key={size} size={size} defaultValue="1w" aria-label={`조회 기간 ${size}`}>
+          <Segmented.Item value="1w">1주일</Segmented.Item>
+          <Segmented.Item value="1m">1개월</Segmented.Item>
+          <Segmented.Item value="2m">2개월</Segmented.Item>
+          <Segmented.Item value="3m">3개월</Segmented.Item>
+        </Segmented>
+      ))}
+    </div>
+  ),
+};
+
+/** fullWidth: 부모 폭을 채우고 옵션을 같은 폭으로 (Figma KWPC04010100 조회 기간) */
+export const FullWidth: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ width: 360 }}>
+      <Segmented size="md" fullWidth defaultValue="1m" aria-label="조회 기간">
+        <Segmented.Item value="1w">1주일</Segmented.Item>
+        <Segmented.Item value="1m">1개월</Segmented.Item>
+        <Segmented.Item value="2m">2개월</Segmented.Item>
+        <Segmented.Item value="3m">3개월</Segmented.Item>
+      </Segmented>
+    </div>
+  ),
+};

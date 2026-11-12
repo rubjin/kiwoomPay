@@ -1,0 +1,88 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as TableStories from '../src/patterns/record-form/FormTable.stories';
+import * as SectionStories from '../src/patterns/record-form/FormSection.stories';
+import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
+
+<Meta title="Components/Record Form/Guide" />
+
+# Record Form
+
+한 업무 대상(사업자 · CPID · 계정 등)을 **조회 · 등록 · 수정**하는 화면의 부품입니다 (페이지 패턴 P02).
+기준 시안: KWPC07010101 가맹점 기본/계약 정보 관리 (신규등록 · 조회수정).
+
+| 부품                  | 용도                                                                     |
+| --------------------- | ------------------------------------------------------------------------ |
+| `FormTable`           | 회색 라벨 + 흰 값 칸 표. 라벨-값 4쌍(기본) 또는 직접 열 구성(목록형 표)  |
+| `FormSection`         | 정보 카드: 제목 · 접기/열기 · 위에 붙는 제목 탭 + 오른쪽 Action          |
+| `FormSection.Header`  | 카드 안 소제목 줄 (담당자 정보 + 설명 + 이력조회 · 추가 · 삭제)          |
+| `FormSection.Heading` | 제목 자리의 대상 표시 (선택 CPID + 이름 18 Bold, 아래 줄 문맥 · 상태)    |
+| `ContextChip`         | 현재 사업자 \| 사업자번호 \| … 한 줄 문맥 (제목 옆 흰색 · 카드 안 muted) |
+
+## 1. FormTable
+
+- 줄 52(입력 40 + 위 6 · 아래 5 + 테두리), 라벨 138 · 12 Bold · Neutral 100 배경, 필수는 `required`(빨간 \*)
+- `colSpan`: 값 1칸 = 1, 값 2칸 넓이 = 3 (라벨 하나 포함), 라벨 뒤 줄 끝까지 = 7
+- 칸 안에 여러 입력이면 `FormTable.InlineLabel`(12 Bold)로 이름을 붙인다 (주소: 국가 · 우편번호 · 주소)
+- 목록형 표는 `template`(예: `36px repeat(5, minmax(0, 1fr))`) + `FormTable.Head`(머리 44 · 가운데)
+- 조회 전용 값은 입력 대신 **텍스트** (페이지 패턴 P-5)
+
+<Canvas of={TableStories.Pairs} />
+<Canvas of={TableStories.ColSpan} />
+<Canvas of={TableStories.Matrix} />
+
+## 2. FormSection
+
+- 카드 여백 16(테두리 포함), 제목 18 SemiBold, 접기/열기 13 Bold + ⌃⌄. 접으면 본문만 숨김
+- `tabs`(Tab `variant="title"`) + `tabActions`: 탭 밑줄이 카드 테두리에 겹치고, 버튼은 카드 위 8. 카드 왼쪽 위 모서리는 각진다
+- 탭이 있으면 `className` · `style`은 탭 + 카드 묶음에 준다 (페이지에서 위치 조정)
+
+<Canvas of={SectionStories.Tabbed} />
+<Canvas of={SectionStories.SubHeader} />
+<Canvas of={SectionStories.Heading} />
+
+## 3. ContextChip
+
+<Canvas of={ChipStories.Playground} />
+
+## 사용 예
+
+```tsx
+<FormSection tabs={<Tab variant="title">…</Tab>} tabActions={saveButtons} title="기본 정보" collapsible>
+  <FormTable>
+    <FormTable.Row>
+      <FormTable.Label required>사업자번호</FormTable.Label>
+      <FormTable.Cell><TextField fullWidth value={…} /></FormTable.Cell>
+      <FormTable.Label>업종</FormTable.Label>
+      <FormTable.Cell colSpan={5}><TextField fullWidth /></FormTable.Cell>
+    </FormTable.Row>
+  </FormTable>
+  <FormSection.Header title="담당자 정보" description="…" actions={…} />
+  <FormTable template="36px repeat(5, minmax(0, 1fr))">…</FormTable>
+</FormSection>
+```
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>입력 요소는 `fullWidth`로 칸을 채운다</td>
+      <td>칸마다 폭을 숫자로 고정한다 (주소의 국가 · 우편번호처럼 시안에 고정 폭이 있을 때만)</td>
+    </tr>
+    <tr>
+      <td>조회 · 등록 · 수정은 같은 표 구조에서 값 · 입력만 바꾼다</td>
+      <td>모드마다 다른 표를 만든다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 토큰 · 확인 필요
+
+- 색 `record-form/*` (`tokens/custom/record-form.json`), 크기는 `RecordForm.module.scss` 맨 위 SCSS 변수
+- (임의 작업) 조회 전용 화면 시안 없음 — 값 텍스트 표시 규칙만 적용

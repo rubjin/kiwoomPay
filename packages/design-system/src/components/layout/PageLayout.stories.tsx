@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties, type ReactNode } from 'react';
+import { Badge } from '../Badge';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Pagination } from '../Pagination';
@@ -302,6 +303,28 @@ export const ContentOnly: Story = {
       <PageLayout.Section title="내용">
         <Slot style={{ height: 120 }}>Section</Slot>
       </PageLayout.Section>
+    </PageLayout>
+  ),
+};
+
+/** 제목 옆 요소 (titleAddon): 현재 대상 문맥 · 상태 Badge (Figma KWPC07010101 조회수정) */
+export const TitleAddon: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <PageLayout>
+      <PageLayout.Title
+        title="가맹점 기본/계약 정보 관리"
+        titleAddon={
+          <Badge size="sm" tone="success" dot>
+            정상
+          </Badge>
+        }
+        actions={
+          <Button variant="neutral" appearance="line">
+            내 검색조건 관리
+          </Button>
+        }
+      />
     </PageLayout>
   ),
 };

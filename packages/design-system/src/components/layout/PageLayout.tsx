@@ -48,14 +48,19 @@ PageLayoutRoot.displayName = 'PageLayout';
 export interface PageTitleProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** 화면명 */
   title: ReactNode;
+  /** 제목 바로 옆 요소 (예: 현재 사업자 ContextChip · 상태 Badge). 제목과 12 간격 */
+  titleAddon?: ReactNode;
   /** 화면별 Action (예: 내 검색조건 선택 · 관리) */
   actions?: ReactNode;
 }
 
 const PageTitle = forwardRef<HTMLDivElement, PageTitleProps>(
-  ({ title, actions, className, ...rest }, ref) => (
+  ({ title, titleAddon, actions, className, ...rest }, ref) => (
     <div {...rest} ref={ref} className={clsx(styles.pageTitle, className)}>
-      <h1 className={styles.titleText}>{title}</h1>
+      <h1 className={clsx(styles.titleText, titleAddon !== undefined && styles.titleHug)}>
+        {title}
+      </h1>
+      {titleAddon !== undefined && <div className={styles.titleAddon}>{titleAddon}</div>}
       {actions && <div className={styles.titleActions}>{actions}</div>}
     </div>
   ),

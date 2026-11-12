@@ -16,7 +16,7 @@ $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 $tab-title-height: 34px; // Title Tab: 글자 영역 30 + 밑줄 4 (Figma Tab/Title)
 $tab-title-padding-x: 10px; // Figma Tab/Title Content padding
 $tab-title-indicator: 4px;
-$tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 나란히 놓인 예시 없음)
+$tab-title-gap: 0; // Figma KWPC07010101: Title Tab은 붙어 있음 (사업자 정보 관리 · 고객 확인 정보 · 결제 오픈 현황)
 
 .tabs {
   display: flex;

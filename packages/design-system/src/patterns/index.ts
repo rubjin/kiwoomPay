@@ -2,3 +2,4 @@
 export * from './common';
 export * from './search-result';
 export * from './lookup';
+export * from './record-form';

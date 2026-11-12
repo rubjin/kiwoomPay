@@ -1,0 +1,59 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as PanelStories from '../src/patterns/search-result/SearchPanel.stories';
+import * as PartStories from '../src/patterns/search-result/ResultParts.stories';
+
+<Meta title="Components/Search Result/Guide" />
+
+# Search Result
+
+조회 화면(페이지 패턴 P01 Search → Result)을 이루는 부품입니다. 구성 순서 · 상태 흐름 · 검색 조건 정리는
+**Patterns › P01 Search Result › Guide**를 따릅니다.
+
+| 부품               | 용도                                                                               |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `SearchPanel`      | 검색 조건 카드: 제목 · 접기, [초기화 ↻] · [조회], 기본 조건, 아래 붙은 [상세 검색] |
+| `SearchPanel.Row`  | 필드 줄 나누기 (한 줄 = 전체 폭)                                                   |
+| `SearchPanel.Grid` | 같은 폭 N칸 격자 (상세 검색 5칸)                                                   |
+| `AppliedFilters`   | 조회에 사용한 조건 칩 (조회 전 안내)                                               |
+| `ResultSummary`    | 조회 요약 수치 (값 1개 · 여러 개, 조회 전 `-`)                                     |
+| `ResultPanel`      | 조회 결과 카드 (제목 · Grid 공통 Action · 업무 Action · 상태 표시)                 |
+| `ResultFooter`     | Total + Pagination                                                                 |
+| `GridPlaceholder`  | (임의 작업) IBSheet 연결 전 미리보기 표                                            |
+
+## SearchPanel
+
+<Canvas of={PanelStories.Rows} />
+<Canvas of={PanelStories.DetailGrid} />
+<Canvas of={PanelStories.Collapsed} />
+
+- 필드는 `Field`(라벨 왼쪽 · 간격 8) + md 40, 필드 사이 16
+- 상세 검색을 펼치면 영역 배경 Primary 50, 접어도 값은 유지
+- `defaultCollapsed`: 제목 줄만 (상세 검색 줄도 숨김)
+
+## 결과 영역
+
+<Canvas of={PartStories.AppliedFilter} />
+<Canvas of={PartStories.Summary} />
+<Canvas of={PartStories.Panel} />
+<Canvas of={PartStories.PanelStates} />
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>칸이 위아래로 맞아야 하면 `SearchPanel.Grid`</td>
+      <td>필드마다 폭을 숫자로 맞춘다</td>
+    </tr>
+    <tr>
+      <td>결과 Grid는 IBSheet8</td>
+      <td>`GridPlaceholder`를 실제 화면에 남긴다</td>
+    </tr>
+  </tbody>
+</table>

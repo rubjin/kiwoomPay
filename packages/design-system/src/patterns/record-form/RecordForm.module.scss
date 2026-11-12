@@ -1,0 +1,275 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC07010101 가맹점 기본/계약 정보 관리 (P02 Record → Form)
+$rf-row-height: 52px; // 입력 40 + 위아래 6
+$rf-head-height: 44px; // 목록형 표 머리
+// 위 6 · 아래 5 + 아래 테두리 1 = 줄 52 (Figma 테두리는 줄 높이 안)
+$rf-cell-padding: 6px t.$space-8 5px;
+$rf-cell-gap: t.$space-12; // 칸 안 요소 사이 (라디오 · 주소 줄)
+$rf-label-gap: 2px; // 라벨 ↔ *
+$rf-section-padding: t.$space-16;
+$rf-section-gap: t.$space-16; // 제목 줄 ↔ 본문, 본문 블록 사이
+$rf-section-radius: t.$control-radius-lg;
+$rf-sub-gap: t.$space-8; // 소제목 줄 ↔ 아래 표
+$rf-sub-title-gap: t.$space-12; // 소제목 ↔ 설명
+$rf-sub-actions-gap: t.$space-16; // 이력조회 ↔ 버튼 묶음
+$rf-tab-actions-offset: t.$space-8; // 탭 줄 버튼 ↔ 카드 위
+$rf-chip-height: 20px;
+$rf-chip-radius: 12px;
+$rf-chip-padding-x: t.$space-8;
+$rf-chip-gap: t.$space-4;
+
+// ── FormTable ────────────────────────────────────────
+.table {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.row {
+  display: grid;
+}
+
+.label,
+.cell,
+.head {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: $rf-row-height;
+  padding: $rf-cell-padding;
+  border-bottom: t.$control-border-width solid t.$color-record-form-border;
+}
+
+.label,
+.head {
+  @include m.typography(typo-12-bold);
+
+  color: t.$color-record-form-label-text;
+  background-color: t.$color-record-form-label-bg;
+}
+
+.label {
+  gap: $rf-label-gap;
+}
+
+.required {
+  color: t.$color-record-form-required;
+}
+
+.cell {
+  gap: $rf-cell-gap;
+  background-color: t.$color-record-form-cell-bg;
+}
+
+.head {
+  justify-content: center;
+  min-height: $rf-head-height;
+  text-align: center;
+}
+
+.center {
+  justify-content: center;
+}
+
+// 첫 줄 위 테두리도 줄 높이 안 (Figma 첫 줄 52 = 테두리 위 · 아래 포함)
+.row:first-child > * {
+  padding-top: calc(6px - #{t.$control-border-width});
+  border-top: t.$control-border-width solid t.$color-record-form-border;
+}
+
+.inlineLabel {
+  @include m.typography(typo-12-bold);
+
+  flex: none;
+  color: t.$color-record-form-label-text;
+  white-space: nowrap;
+}
+
+// ── FormSection ──────────────────────────────────────
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $rf-section-gap;
+  min-width: 0;
+
+  // Figma 카드 테두리는 안쪽 → 여백 16에서 테두리 1을 뺀다
+  padding: calc(#{$rf-section-padding} - #{t.$control-border-width});
+  background-color: t.$color-record-form-section-bg;
+  border: t.$control-border-width solid t.$color-record-form-border;
+  border-radius: $rf-section-radius;
+}
+
+// 위에 제목 탭이 붙으면 왼쪽 위 모서리는 각지게
+.tabbed {
+  border-start-start-radius: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  gap: t.$space-16;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  @include m.typography(typo-18-semi-bold);
+
+  margin: 0;
+  line-height: normal; // Figma 기본 정보 제목 줄 21 (leading normal)
+  color: t.$color-record-form-title;
+}
+
+.sectionActions {
+  display: flex;
+  gap: t.$space-20;
+  align-items: center;
+  margin-left: auto;
+}
+
+.toggle {
+  @include m.typography(typo-13-bold);
+
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  color: t.$color-record-form-toggle;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: $rf-section-gap;
+  min-width: 0;
+}
+
+// 소제목 줄 (담당자 정보): 아래 표와 8
+.subHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: calc(#{$rf-sub-gap} - #{$rf-section-gap});
+}
+
+.subHeading {
+  display: flex;
+  gap: $rf-sub-title-gap;
+  align-items: center;
+}
+
+.subTitle {
+  @include m.typography(typo-18-bold);
+
+  margin: 0;
+  color: t.$color-record-form-title;
+}
+
+.description {
+  @include m.typography(typo-12-regular);
+
+  margin: 0;
+  color: t.$color-record-form-description;
+}
+
+.subActions {
+  display: flex;
+  gap: $rf-sub-actions-gap;
+  align-items: center;
+}
+
+// 제목 탭 + 오른쪽 Action (버튼은 카드 위 8, 탭 밑줄은 카드 테두리에 겹침)
+.tabbedGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tabRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.tabs {
+  margin-bottom: calc(-1 * #{t.$control-border-width});
+}
+
+.tabActions {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  margin-bottom: $rf-tab-actions-offset;
+}
+
+// FormSection.Heading: 선택 CPID (10) + 대상 이름 (18 Bold), 아래 줄 문맥
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-8;
+  min-width: 0;
+}
+
+.headingLine {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  min-width: 0;
+}
+
+.headingLabel {
+  @include m.typography(typo-10-regular);
+
+  flex: none;
+  color: t.$color-record-form-description;
+}
+
+.headingValue {
+  @include m.typography(typo-18-bold);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-record-form-title;
+}
+
+// ── ContextChip ──────────────────────────────────────
+.chip {
+  display: inline-flex;
+  gap: $rf-chip-gap;
+  align-items: center;
+  height: $rf-chip-height;
+  padding-inline: $rf-chip-padding-x;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: t.$color-record-form-chip-bg;
+  border-radius: $rf-chip-radius;
+}
+
+.chipMuted {
+  background-color: t.$color-record-form-chip-bg-muted;
+}
+
+.chipLabel {
+  @include m.typography(typo-10-regular);
+
+  color: t.$color-record-form-chip-label;
+}
+
+.chipValue {
+  @include m.typography(typo-12-semi-bold);
+
+  color: t.$color-record-form-chip-value;
+}
+
+.chipDivider {
+  @include m.typography(typo-10-medium);
+
+  color: t.$color-record-form-chip-divider;
+}

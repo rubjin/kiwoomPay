@@ -1,0 +1,44 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/patterns/lookup/LookupField.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Lookup Field
+
+직접 입력하거나 **[찾기]로 Lookup 팝업(페이지 패턴 P03)을 열어 값을 채우는** 필드입니다.
+검색 아이콘 입력 + [찾기] (간격 8). 기준 시안: KWPC04010100 사업자번호 · CPID.
+
+- `onFind`: 팝업을 연다. 팝업에서 고른 값을 `value`에 넣는 것은 화면이 한다
+- 팝업을 **취소하거나 결과가 없으면 값은 그대로** 둔다
+- 크기 sm · md · lg — [찾기] 버튼이 같은 높이로 따라간다. `inputWidth`로 입력 폭 지정
+
+<Canvas of={Stories.Sizes} />
+<Canvas of={Stories.WithField} />
+
+```tsx
+<Field label="사업자번호">
+  <LookupField
+    value={bizNo}
+    onChange={setBizNo}
+    onFind={openBizLookup}
+    placeholder="사업자번호를 입력해주세요"
+  />
+</Field>
+```
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>팝업에서 선택을 확정했을 때만 값을 바꾼다</td>
+      <td>팝업을 닫으면 값을 비운다</td>
+    </tr>
+  </tbody>
+</table>
