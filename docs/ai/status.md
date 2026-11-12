@@ -68,7 +68,7 @@
 - [Q28] Pagination 반응형(가맹점관리자 모바일) 시안 없음 → 미적용. 결과가 1페이지 이하일 때 숨길지는 화면 정책으로 정함(컴포넌트는 그대로 표시)
 - [Q29] Date Picker: 시안 표기 패널 높이 380 ≠ 측정 340(6줄, 테두리 포함) → 측정값 사용. 필드 ↔ 패널 간격 8은 임시값(TODO). 기간 선택 중 마우스 위치까지 미리 보여주는 표시는 시안에 없어 미구현
 - [Q30] Badge 임시값(TODO): Neutral 상태 점 색(Neutral/500), Primary 외 tone의 Line 테두리(각 Status Border), Number 두 자리 이상 좌우 여백 6·글자(12 SemiBold). 3글자 이상 배지는 시안보다 2px 넓게 렌더링됨(글자 폭 반올림 차이로 판단, 2글자는 정확히 일치)
-- [Q31] Modal 임시값(TODO): 그림자(0 4px 20px rgba(0,0,0,.1) 근사), z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
+- [Q31] Modal(테두리 없음 · 반경 12 · 그림자 0 8px 24px rgba(0,0,0,.12) 확정 2026-11-12) 임시값(TODO): z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
 - [Q32] LNB 임시값(TODO, `tokens/custom/lnb.json`): 3Depth Hover 표현(파란 글자 + ↗로 해석 — ↗가 "이동" 표시인지 외부 링크 표시인지 확인 필요, 외부 링크는 link-external 아이콘으로 구분), Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
 - [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal 내용(메뉴 트리 + 체크박스)은 시안이 없어 Storybook 예시로만 제공
 - [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab 변형 시안 없음(미구현). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
@@ -86,7 +86,7 @@
 - [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
-- [Q49] Address Search 확인 필요: ① 글자 — 시안 폭 비교로 우편번호 13 Medium · 도로명 14 SemiBold · 지번 13 Regular, 검색 예시 제목 14 Bold · 항목 이름 13 SemiBold · 예시 14 Regular, 검색결과 14 Bold, 결과 없음 14 SemiBold · 13 Regular로 판단 ② 측정값(Scale 밖): 검색 예시 줄 간격 10, 결과 줄 두 줄 간격 3, 결과 없음 영역 180 ③ 결과가 많을 때 시안은 4건만 보임 → 목록 자체 스크롤이 아니라 Modal Body 스크롤로 구현. 목록 최대 높이 · 페이지 나눔(더 보기 · Pagination) 여부 확인 ④ 검색 필드는 값이 있으면 지우기(x) 표시(SearchField 기본, 시안 정지 화면에는 없음)
+- [Q49] Address Search 확인 필요: (우편번호 13 SemiBold · 최소 폭 46, 도로명 14 Bold, 결과 줄 두 줄 간격 4 확정 2026-11-12) ① 글자 — 시안 폭 비교로 지번 13 Regular, 검색 예시 제목 14 Bold · 항목 이름 13 SemiBold · 예시 14 Regular, 검색결과 14 Bold, 결과 없음 14 SemiBold · 13 Regular로 판단 ② 측정값(Scale 밖): 검색 예시 줄 간격 10, 결과 없음 영역 180 ③ 결과가 많을 때 시안은 4건만 보임 → 목록 자체 스크롤이 아니라 Modal Body 스크롤로 구현. 목록 최대 높이 · 페이지 나눔(더 보기 · Pagination) 여부 확인 ④ 검색 필드는 값이 있으면 지우기(x) 표시(SearchField 기본, 시안 정지 화면에는 없음)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -399,3 +399,8 @@
 - 만든 것: `display/AddressResultRow`(우편번호 · 도로명 / [지번] 지번 · [선택] Primary Line sm, 말줄임) · `display/AddressSearch`(Modal lg Body용 Lookup 내용: SearchField + [조회] Neutral Solid, 조회 전 = 검색 예시 · 결과 = "검색결과 N 건" + 목록 · `[]` = 결과 없음, `query` controlled/uncontrolled, `onSearch` · `onSelect` · `loading` · `total` · `examples`). 주소 API는 화면에서. 토큰 `tokens/custom/address.json`(색 모두 alias). stories(States · ResultRow · Interactive), 가이드 `docs/AddressSearch.mdx`
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 14개 통과(패널 높이 시안 ±3, 제목 · 검색 · 예시 · 결과 · 안내 글자 줄 위치가 시안과 픽셀 일치(±1), 목록 선 위치 153 · 줄 79, 검색 필드 · [조회], Row 글자 · 색 · 태그 · 간격 · [선택], Enter 조회 · 결과 4건 · 선택 시 닫힘 · 값 반영 · 결과 없음)
 - 한 가정: Q49
+
+### Modal 모양 · Address Search 글자 확정 반영 — 2026-11-12
+- Modal: 테두리 제거(토큰 `modal/border` 삭제), 반경 10 → 12, 그림자 `0 8px 24px 0 rgba(0,0,0,.12)`(TODO 해제), 배경 Base White(`Bg/Surface` 그대로). Modal을 쓰는 모든 화면(Lookup · Address Search 등)에 적용
+- Address Result Row: 우편번호 13 SemiBold · 최소 폭 46, 도로명 14 Bold, 두 줄 간격 3 → 4(줄 높이 79)
+- 검증: tokens · typecheck · lint · build · Storybook 빌드 통과. 브라우저 확인 5개(Modal 반경 12 · 테두리 없음 · 그림자 하나, 우편번호 · 도로명 글자 · 최소 폭 · 간격 16, 두 줄 간격 4 · 줄 높이 79). 기존 Modal · Address 테스트의 반경 10 · 테두리 · 줄 78 기대값은 옛 값
