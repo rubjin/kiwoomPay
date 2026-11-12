@@ -63,13 +63,13 @@ export const Tabbed: Story = {
   ),
 };
 
-/** 본문 중간 제목 줄 (FormSection.Header): 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
+/** 본문 중간 제목 줄 (FormSection.Heading): 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
 export const SameLevelTitles: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={wrap}>
       <FormSection title="기본 정보">
-        <FormSection.Header
+        <FormSection.Heading
           title="담당자 정보"
           description="자금세탁방지 공지용 담당자 정보"
           actions={
@@ -87,13 +87,14 @@ export const SameLevelTitles: Story = {
   ),
 };
 
-/** 제목 자리에 대상 표시 (FormSection.Heading) + 오른쪽 탭 · 접힘 (Figma 가맹점 정보관리) */
+/** 대상 표시 (label + title, 아래 줄 context) + 오른쪽 탭 · 접힘 (Figma 가맹점 정보관리) */
 export const Heading: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...wrap, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <FormSection
-        title={<FormSection.Heading label="선택 CPID" value="등록된 CPID가 없습니다" />}
+        label="선택 CPID"
+        title="등록된 CPID가 없습니다"
         actions={
           <Tab size="sm" defaultValue="a">
             <Tab.Item value="a">CPID 기본 정보</Tab.Item>
@@ -106,8 +107,10 @@ export const Heading: Story = {
         내용
       </FormSection>
       <FormSection
-        title={
-          <FormSection.Heading label="선택 CPID" value="CTS123456 · ABC몰">
+        label="선택 CPID"
+        title="CTS123456 · ABC몰"
+        context={
+          <>
             <ContextChip
               muted
               items={[
@@ -118,7 +121,7 @@ export const Heading: Story = {
             <Badge size="sm" tone="success" dot>
               서비스 · 사용중
             </Badge>
-          </FormSection.Heading>
+          </>
         }
         collapsible
       >

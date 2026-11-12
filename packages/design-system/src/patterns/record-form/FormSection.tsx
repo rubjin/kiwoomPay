@@ -61,7 +61,13 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
       onCollapsedChange,
     );
     const text = { collapse: '접기', expand: '열기', ...labels };
-    const hasHeader = title !== undefined || actions !== undefined || collapsible;
+    const hasHeader =
+      title !== undefined ||
+      label !== undefined ||
+      description !== undefined ||
+      context !== undefined ||
+      actions !== undefined ||
+      collapsible;
     const toggle = collapsible && (
       <button
         type="button"

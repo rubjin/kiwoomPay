@@ -538,5 +538,7 @@
 - 참고: 앱 타입 검사(tsc)는 여전히 `dist/types`를 본다 — 디자인 시스템에 새 export를 추가하면 앱 typecheck 전에 `pnpm build` 필요
 
 ### FormSection 제목 줄 통일 — 2026-11-12
-- 카드 제목(기본 정보)도 소제목(담당자 정보)과 같은 `FormSection.Header`로 그린다 — 접기/열기는 제목 줄 오른쪽 Action 끝. `FormSection`에 `description` prop 추가. 기본 정보 · 담당자 정보는 같은 레벨(h2) — 소제목 개념 없음
+- 카드 제목(기본 정보)도 소제목(담당자 정보)과 같은 `FormSection.Heading`으로 그린다 — 접기/열기는 제목 줄 오른쪽 Action 끝. `FormSection`에 `description` prop 추가. 기본 정보 · 담당자 정보는 같은 레벨(h2) — 소제목 개념 없음
 - 글자: 둘 다 **18 Bold · 줄 높이 26** (사용자 결정. 시안의 기본 정보 18 SemiBold · 21과 다름 → 기본 정보 카드 793 → 798)
+- API 정리: `FormSection.Header` 삭제 → 본문 중간 제목 줄은 `FormSection.Heading`(title · description · actions). 대상 표시(선택 CPID)는 `FormSection`의 `label` + `title` + `context`(아래 줄 ContextChip · Badge) — 옛 `Heading value` 사용처(스토리 · 가이드 · 가맹점 기본/계약 정보 화면) 교체. 제목 줄은 label · description · context만 있어도 그린다
+- 검증: 디자인 시스템 typecheck · lint · build, 앱 build(tsc 포함), Storybook 빌드 통과

@@ -143,7 +143,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               onChange={(patch) => setRecord({ ...record, basic: { ...basic, ...patch } })}
               onAction={notReady}
             />
-            <FormSection.Header
+            <FormSection.Heading
               title="담당자 정보"
               description="자금세탁방지 공지용 담당자 정보"
               actions={
@@ -215,12 +215,11 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
             saveButtons
           )
         }
-        title={
-          record.cpid ? (
-            <FormSection.Heading
-              label="선택 CPID"
-              value={`${record.cpid.id} · ${record.cpid.name}`}
-            >
+        label="선택 CPID"
+        title={record.cpid ? `${record.cpid.id} · ${record.cpid.name}` : '등록된 CPID가 없습니다'}
+        context={
+          record.cpid && (
+            <>
               <ContextChip
                 muted
                 items={[
@@ -235,9 +234,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               <Badge size="sm" tone="success" dot>
                 {record.cpid.service}
               </Badge>
-            </FormSection.Heading>
-          ) : (
-            <FormSection.Heading label="선택 CPID" value="등록된 CPID가 없습니다" />
+            </>
           )
         }
         actions={
