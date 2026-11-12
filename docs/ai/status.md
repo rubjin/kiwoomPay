@@ -589,3 +589,10 @@
   - Composites: **Search**(Search Area · Search Panel · Lookup Field · Lookup Search · Address Search) · **Result**(Result Parts · Status View(테이블 결과 상태) · Action Bar · Column Picker) · **Form**(Record Form) · **Feedback**(Dialog · Favorite Menu Picker)
   - Search Result 가이드를 `docs/SearchPanel.mdx`(Search) · `docs/ResultParts.mdx`(Result)로 나눔(내용 이동만). storySort에 섹션 순서 · 섹션 안 대표 항목 순서 고정
 
+
+### Storybook 코드 복사 정리 · 케이스 설명 — 2026-11-12
+- 코드 복사(Show code): `.storybook/sourceTransform.ts`(`docs.source.transform`) — 고정 예시 스토리는 스토리 객체(parameters 등) 대신 render가 그리는 JSX만, 배치용 감싸기(속성이 style · key뿐인 div, `Case`)는 벗기고 prettier로 정렬. args 스토리는 그대로. prettier(babel 파서)를 Storybook에서만 지연 로드(design-system devDependency)
+- 예시 칸 `src/stories/Case.tsx`(`label` · `description` · `width` · `height`, `caseRow`): 칸 위에 케이스 이름 · 설명, 코드 복사에는 `{/* 이름 — 설명 */}` 주석으로 남음. 라이브러리 타입 빌드에서 제외(`tsconfig.build.json`)
+- 적용: SelectBox Open(기본 · 불러오는 중 · 항목 없음 나란히), MultiSelect Open(1개 · 여러 개 · 많음 · Small 많음 · 불러오는 중 · 항목 없음 — 줄바꿈 시 패널이 겹치던 문제 해결)
+- 규칙(새 스토리): 상태를 나란히 보여 줄 때는 `Case`로 이름 · 설명을 붙인다
+- 검증: typecheck · lint 통과, 가이드 37개의 코드 블록 261개에 parameters · 배치용 div 없음, 콘솔 에러 없음

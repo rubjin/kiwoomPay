@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties } from 'react';
+import { Case, caseRow } from '../../stories/Case';
 import { Field } from './Field';
 import { MultiSelect, type MultiSelectOption } from './MultiSelect';
 
@@ -81,45 +82,45 @@ export const States: Story = {
   ),
 };
 
-/** 열린 상태: 1개 선택 · 여러 개 선택(쉼표 나열) · Scroll · Loading · Empty */
+/** 열린 상태: 1개 선택 · 여러 개 선택(쉼표 나열) · 스크롤 · 불러오는 중 · 항목 없음 · Small 스크롤 */
 export const Open: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ ...row, minHeight: 300 }}>
-      <div style={cell}>
+    <div style={caseRow}>
+      <Case label="1개 선택" description="이름 표시, 전체는 일부 선택(–)" height={380}>
         <MultiSelect fullWidth options={options} defaultValue={['m2-end']} defaultOpen />
-      </div>
-      <div style={cell}>
+      </Case>
+      <Case label="여러 개 선택" description="쉼표로 나열, 넘치면 말줄임" height={380}>
         <MultiSelect
           fullWidth
           options={options}
           defaultValue={['m2-end', 'm2-start', 'm1-end']}
           defaultOpen
         />
-      </div>
-      <div style={cell}>
+      </Case>
+      <Case label="항목이 많음" description="최대 높이 276(md)에서 목록 스크롤" height={380}>
         <MultiSelect
+          fullWidth
           options={[...options, ...reasons]}
           defaultValue={['m2-end']}
           defaultOpen
-          fullWidth
         />
-      </div>
-      <div style={cell}>
-        <MultiSelect options={options} loading defaultOpen fullWidth />
-      </div>
-      <div style={cell}>
-        <MultiSelect options={[]} defaultOpen fullWidth />
-      </div>
-      <div style={cell}>
+      </Case>
+      <Case label="Small 항목이 많음" description="최대 높이 210(sm), 글자 13" height={380}>
         <MultiSelect
+          fullWidth
           size="sm"
           options={[...options, ...reasons]}
           defaultValue={['m2-end']}
           defaultOpen
-          fullWidth
         />
-      </div>
+      </Case>
+      <Case label="불러오는 중" description="loading" height={380}>
+        <MultiSelect fullWidth options={options} loading defaultOpen />
+      </Case>
+      <Case label="선택 가능한 항목 없음" description="options 빈 배열" height={380}>
+        <MultiSelect fullWidth options={[]} defaultOpen />
+      </Case>
     </div>
   ),
 };

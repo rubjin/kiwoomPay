@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties } from 'react';
+import { Case, caseRow } from '../../stories/Case';
 import { SelectBox, type SelectOption } from './SelectBox';
 
 const options: SelectOption[] = [
@@ -70,14 +71,20 @@ export const States: Story = {
   ),
 };
 
-/** 열린 상태: 항목 Default · Hover(마우스 오버) · Selected · Disabled */
+/** 열린 상태: 기본(항목 Default · Hover(마우스 오버) · Selected · Disabled) · 불러오는 중 · 선택 가능한 항목 없음 */
 export const Open: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={tall}>
-      <div style={cell}>
+    <div style={caseRow}>
+      <Case label="기본" description="항목 Default · Hover · Selected · Disabled" height={320}>
         <SelectBox options={options} defaultOpen defaultValue="selected" fullWidth />
-      </div>
+      </Case>
+      <Case label="불러오는 중" description="loading" height={320}>
+        <SelectBox options={[]} defaultOpen loading fullWidth />
+      </Case>
+      <Case label="선택 가능한 항목 없음" description="options 빈 배열" height={320}>
+        <SelectBox options={[]} defaultOpen fullWidth />
+      </Case>
     </div>
   ),
 };
@@ -89,28 +96,6 @@ export const Scroll: Story = {
     <div style={tall}>
       <div style={cell}>
         <SelectBox options={many} defaultOpen fullWidth />
-      </div>
-    </div>
-  ),
-};
-
-export const Loading: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div style={tall}>
-      <div style={cell}>
-        <SelectBox options={[]} defaultOpen loading fullWidth />
-      </div>
-    </div>
-  ),
-};
-
-export const Empty: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div style={tall}>
-      <div style={cell}>
-        <SelectBox options={[]} defaultOpen fullWidth />
       </div>
     </div>
   ),
