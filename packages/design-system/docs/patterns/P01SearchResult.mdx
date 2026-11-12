@@ -43,6 +43,7 @@ const result = useSearchResult({ initialParams, fetch: api.fetchList }); // auto
 - **입력 조건(`params`)과 조회 조건(`appliedParams`)을 분리**합니다. 조건을 바꿔도 [조회] 전까지 결과 · 적용 조건 칩은 그대로입니다.
 - [초기화]는 입력 조건만 기본값으로 되돌립니다(결과는 유지).
 - 페이지 이동은 마지막으로 조회한 조건으로 다시 조회합니다. 늦게 온 이전 응답은 버립니다.
+- 처리 · 저장 후 목록 갱신은 `await result.refresh()` — 같은 조건 · 같은 페이지로 재조회하고, 행이 빠져 현재 페이지가 비면 마지막 페이지로 옮깁니다. 완료 Alert는 재조회 뒤에 띄웁니다.
 - `status`: `idle`(조회 전) · `loading` · `success` · `empty`(0건) · `error` · `forbidden`(`isForbidden`으로 판별)
 
 ### 검색 조건 배치

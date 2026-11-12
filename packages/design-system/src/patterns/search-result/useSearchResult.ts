@@ -53,7 +53,7 @@ export function useSearchResult<P extends object, T, S = undefined>({
   const initialRef = useRef(initialParams);
 
   const run = useCallback(
-    async (nextParams: P, nextPage: number) => {
+    async (nextParams: P, nextPage: number): Promise<SearchResultPage<T, S> | undefined> => {
       requestId.current += 1;
       const id = requestId.current;
       setStatus('loading');
@@ -61,15 +61,17 @@ export function useSearchResult<P extends object, T, S = undefined>({
       setPageState(nextPage);
       try {
         const result = await fetchRef.current({ params: nextParams, page: nextPage, pageSize });
-        if (id !== requestId.current) return;
+        if (id !== requestId.current) return undefined;
         setData(result);
         setError(null);
         setStatus(result.total === 0 ? 'empty' : 'success');
+        return result;
       } catch (e) {
-        if (id !== requestId.current) return;
+        if (id !== requestId.current) return undefined;
         setData(null);
         setError(e);
         setStatus(isForbidden?.(e) ? 'forbidden' : 'error');
+        return undefined;
       }
     },
     [pageSize, isForbidden],
@@ -85,6 +87,18 @@ export function useSearchResult<P extends object, T, S = undefined>({
     },
     [run, appliedParams],
   );
+
+  /**
+   * 재조회: 마지막으로 조회한 조건 · 현재 페이지 그대로 (처리 · 저장 후 목록 갱신).
+   * 행이 빠져 현재 페이지가 비면 마지막 페이지로 옮긴다. 조회 전이면 아무것도 하지 않는다
+   */
+  const refresh = useCallback(async () => {
+    if (!appliedParams) return;
+    const res = await run(appliedParams, page);
+    if (res && res.items.length === 0 && res.total > 0 && page > 1) {
+      await run(appliedParams, Math.ceil(res.total / pageSize));
+    }
+  }, [run, appliedParams, page, pageSize]);
 
   /** 초기화: 입력 조건만 기본값으로 (결과는 유지) */
   const reset = useCallback(() => setParamsState(initialRef.current), []);
@@ -124,6 +138,7 @@ export function useSearchResult<P extends object, T, S = undefined>({
       error,
       page,
       setPage,
+      refresh,
       pageSize,
       totalPages,
     }),
@@ -140,6 +155,7 @@ export function useSearchResult<P extends object, T, S = undefined>({
       error,
       page,
       setPage,
+      refresh,
       pageSize,
       totalPages,
     ],
