@@ -1,4 +1,4 @@
-import { CalendarProvider } from '@kiwoompay/design-system';
+import { CalendarProvider, DialogProvider } from '@kiwoompay/design-system';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from '@/router';
 import { config } from './config';
@@ -10,9 +10,12 @@ const calendarAdapter = createIbsheetCalendarAdapter();
 export function App() {
   return (
     <CalendarProvider adapter={calendarAdapter}>
-      <BrowserRouter basename={config.basename}>
-        <AppRoutes />
-      </BrowserRouter>
+      {/* 성공 · 실패 안내는 Alert로 통일 (Toast 없음) */}
+      <DialogProvider>
+        <BrowserRouter basename={config.basename}>
+          <AppRoutes />
+        </BrowserRouter>
+      </DialogProvider>
     </CalendarProvider>
   );
 }

@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴(P01~P08) 구조 설계안 작성 — `docs/ai/page-patterns-plan.md` (P-1~P-6 확정). 다음: 공통(StatusView · ResultToolbar · DialogProvider · PageNotice) → P01
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -88,6 +88,7 @@
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
 - [Q51] Lookup Search(찾기 방식 Button Tab 40 반영 2026-11-12) 남은 확인: ① Figma 설명 "별도 Footer Action 없음" ↔ 결과 예시의 [닫기] · [확인] — 화면 정책으로 Modal.Footer ② Initial 시안 본문 아래 여백 0 → Modal 기본 20 유지 ③ 결과 행 선택은 IBSheet 이벤트
 - [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
+- [Q54] P01(KWPC06010201) 확인 필요: ① Figma 최초진입은 0건과 같은 문구(조회 결과가 없습니다) → 패턴 문서(조회 전/0건 구분)에 따라 조회 전 문구 "조회 전입니다 / 검색 조건을 입력한 후 조회해주세요"(TODO) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -479,3 +480,14 @@
 - Work Tab(Q36 ⓪, 사용자 확정): 메뉴명 최대 12자(`WORK_TAB_LABEL_MAX`), 넘으면 12자 + … (전체 이름은 title). Figma대로 메뉴명 영역 최소 99 · 왼쪽 여백 14 · 오른쪽 12 · 간격 Hover 8 / Active 4 · Active 13 SemiBold. 기존 말줄임 폭 160 제거
 - 라벨 배치(Q53, 사용자 확정): 검색 영역 라벨은 위가 아니라 **필드 왼쪽 · 간격 8**. SearchArea · Page Layout 예시 · Search 가이드를 왼쪽 배치로 바꾸고 버튼을 내리던 여백 제거. `labelPosition="top"`(Modal Form용)도 간격 4 → 8(`field/label-gap-top`)
 - 검증: tokens · typecheck · lint · Storybook 빌드 통과. 브라우저 측정(짧은 메뉴명 Tab 127 = 14 + 99 + 12 + 테두리, 긴 메뉴명 12자 + … · title 전체, Active 13 SemiBold, 검색 라벨 ↔ 필드 8 · 같은 줄, [조회] ↔ 필드 위치 같음, 콘솔 에러 없음)
+
+### Pattern: P01 Search → Result + KWPC06010201 — 2026-11-12
+- 만든 것 (디자인 시스템 `src/patterns/`, Storybook `Patterns/P01 Search Result`)
+  - 공통: `StatusView`(조회 전 · 조회 중 · 0건 · 오류 · 권한 없음, Figma Grid State / Empty 18 SemiBold · 14 Regular · 높이 220), `DialogProvider` · `useDialog`(alert · confirm Promise, Modal sm — 성공/실패 안내 Alert 통일)
+  - P01: `SearchPanel`(KWP GUI 검색 카드: 제목 18 Bold + 접기, [초기화 ↻] · [조회], 구분선, 필드 줄 간격 16, 아래 붙은 [상세 검색] 16 Bold Primary), `AppliedFilters`(칩 32 · Primary 50 · 13 Medium, 조회 전 안내), `ResultSummary`(항목 60 · 24 Bold 숫자 + 단위, 조회 전 -), `ResultPanel`(제목 줄 64 · 16 Bold + 공통/업무 Action, success 외에는 StatusView), `ResultFooter`(Total + 가운데 Pagination), `GridPlaceholder`(IBSheet 연결 전 임시 미리보기, 선택 체크박스), `useSearchResult`(입력/조회 조건 분리, 늦은 응답 무시, autoSearch 기본 false)
+  - 토큰 `tokens/custom/search-result.json`(색 모두 Semantic alias). `Segmented size="md"`(40, 폭은 글자 + 12). PageLayout Section 제목 18/16 SemiBold → Bold(Figma). 날짜 입력 폭 11ch → 글자 폭(field-sizing: content, 미지원 브라우저 10ch) → Date Range Field 246(Figma 253)
+  - 가이드 `docs/patterns/P01SearchResult.mdx`(구성 순서 · 흐름 · 상태 체크리스트 · 선택 Action · 기본값 · Do/Don't)
+- 앱: `pages/settlement/merchant/execute/MerchantSettlementExecutePage`(`/settlement/merchant/execute`, `/settlement/merchant`은 이동), `api/settlement/merchantSettlement`(예시 데이터, TODO API), `types/settlement/merchantSettlement`, App에 `DialogProvider`
+- 검증: tokens · typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드 통과. 1680 화면에서 카드 위치 · 높이가 Figma와 일치(검색 147 · 상세 58 · 적용 조건 58 · 요약 86, y 72/218/288/358/456, 요약 항목 213 × 60, 칩 32). 앱 브라우저 테스트 15개 통과(경로, 최초진입 조회 전 · Action 비활성, 1주일 → 날짜, 조회 → 칩 · 10행 · Total 28 · 요약, 선택 없이 Action → Alert, 2건 선택 → Confirm → 완료 Alert, 3페이지 8행, Enter 0건, 초기화 → 입력만 비움, 상세 검색 · 접기). 기존 테스트 재통과(공통 24 · step5 22 · MultiSelect 27 · 가이드 28 · Q36/Q53 · Modal 스크롤), 실패는 옛 기대값(Date Picker 340 · 검색 라벨 위 배치)뿐
+- 참고: Storybook 빌드가 가끔 깨진 결과(L7[e] is not a function)를 내는데 다시 빌드하면 정상 — 코드 문제 아님
+- 한 가정: Q54
