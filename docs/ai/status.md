@@ -78,16 +78,12 @@
 - [Q37] Page Layout 확인 필요: ① 실제 GUI의 검색 조건 카드는 제목 줄 오른쪽에 [새로고침]·[조회], 아래에 [상세 검색 ⌄] — Search 가이드의 SearchArea(필드 줄 끝에 초기화·조회·상세조건)와 배치가 다름. 어느 쪽을 표준으로 할지 ② Header·Work Tab을 스크롤 시 고정(sticky)할지(현재 본문과 함께 스크롤, LNB만 고정) ③ 페이지 하단 여백(Total·Pagination 줄 ↔ Footer)은 상단과 같은 20으로 둠 ④ 가맹점관리자 반응형 시안 없음 → 미적용 ⑤ 적용된 검색 조건 칩·조회 요약 카드는 Data Display 가이드 때 제작
 - [Q38] Tooltip 임시값(TODO, `tokens/custom/tooltip.json`·`field.json`): 화면 경계 최소 간격 8, `z-index/tooltip` 1200, 비활성 Info 아이콘 색. 시안의 "아이콘 ↔ 포인터 0px"은 아이콘(20) 상자 기준으로 0 구현(측정상 원 바깥 1~2px 차이). 표시 애니메이션은 motion 토큰 없어 미포함. LNB 긴 메뉴명(Q32)은 아직 기본 title — Tooltip으로 바꿀지 확인
 - [Q39] Spacing 가이드 Usage와 컴포넌트 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Page Layout Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8(Search·Modal Footer·Page Title·Button Tab) ③ Icon–Text 8 ↔ Button 아이콘 간격 4. 어느 쪽을 기준으로 할지 확인
-- [Q41] Compact Navigation 시안 확인 필요: 번호 ↔ `/` 간격 2(글자 간격 근사, TODO), 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로) 시안 없음, 사용 위치(카드 · Carousel 추정)
-- [Q42] Unread Indicator: 시안(8 × 17, Primary 500 "N")의 높이가 `Typo/11/Bold`(11 × 1.5)와 맞아 이 스타일로 판단 — 글자 크기 · 굵기 확인 필요. 사용 위치(알림 목록 · 게시물 등)와 "N" 외 다른 글자 필요 여부 확인
-- [Q43] CPID List Item 확인 필요: ① 글자 — 렌더링 폭 비교로 CPID 13 Bold · 가맹점명 12 Regular로 판단(이미지 기준) ② 가맹점명 색 Text/Label(Neutral 700)로 판단 ③ 오른쪽 여백 14(왼쪽 12와 다름) · CPID 줄 ↔ 가맹점명 2는 측정값 ④ Hover · Disabled 표현 시안 없음(미구현) ⑤ 선택은 하나만(버튼 + aria-pressed)으로 해석
-- [Q44] Infobox 확인 필요(제목 13 SemiBold · 간격 8 확정 2026-11-11): ① 글자 — 설명 13 Regular · 라벨("변경 요청") 12 Regular · 링크 13 Bold는 시안 글자 폭 비교로 판단 ② 두 줄 예시는 설명 시작이 한 줄 예시보다 4px 오른쪽(제목 열 고정 폭으로 보임) → 구현은 가장 긴 제목 기준으로 열 맞춤 ③ 설명이 길 때 줄바꿈(말줄임 아님) ④ 아이콘은 `info-box`(20, Neutral 800)
-- [Q45] Summary Card 확인 필요: ① 글자 — 시안 글자 폭 비교로 제목 14 SemiBold, md 값 24 Bold · 단위 14 Bold · 보조 12 SemiBold, sm 값 20 Bold · 단위 14 Regular · 보조 13 Regular, 빈 상태 14 Regular · 12 Regular로 판단 ② 제목 ↔ Info 간격: 시안 약 10 → 8로 구현(아이콘 2px 왼쪽) ③ md · sm 색이 다름(md 값 Primary 900 · 보조 Primary 600 / sm 값 Text/Heading · 보조 Text/Secondary) — 의도 확인 ④ sm 빈 상태는 시안에서 아래 여백을 1px 넘음 → 카드 높이 고정, 글자 1px 아래 ⑤ Skeleton 애니메이션 없음(motion 토큰 없음) ⑥ 값 앞 · 뒤 단위 위치는 size로 정해짐(md 앞 · sm 뒤)
-- [Q46] Header(글자 · 위치 확인 완료, 시간 숫자 고정폭으로 확정 2026-11-11) 남은 확인: 아이콘 버튼 누르는 영역 32 · Hover 배경(Bg/Hover) 임시값, 마스킹 해제 사유 입력 Modal 시안, Global Search 결과 패널 시안
+- [Q41] Compact Navigation(번호 글자 Figma 확정 2026-11-12: 현재 12 Bold · " / 전체" 12 Regular, 공백 간격) · 1페이지 이하면 숨김(2026-11-12 반영) 남은 확인: 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로)
+- [Q45] Summary Card(Figma 반영 2026-11-12: 제목 14 Bold · Info 20 · 단위 13 Medium · 빈 상태 제목 14 Medium) 남은 확인: Skeleton 애니메이션 없음(motion 토큰 없음)
+- [Q46] Header(Figma 반영 2026-11-12: 검색 필드 배경 Neutral 50, 사용자 정보 구분선 1 × 32, [다운로드 센터] ↔ 아이콘 10, 아이콘 버튼 반경 6) 남은 확인: 아이콘 버튼 Hover 배경(Figma에 없음, Bg/Hover 임시), 마스킹 해제 사유 입력 Modal, Global Search 결과 패널
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
-- [Q49] Address Search 확인 필요: (우편번호 13 SemiBold · 최소 폭 46, 도로명 14 Bold, 결과 줄 두 줄 간격 4 확정 2026-11-12) ① 글자 — 시안 폭 비교로 지번 13 Regular, 검색 예시 제목 14 Bold · 항목 이름 13 SemiBold · 예시 14 Regular, 검색결과 14 Bold, 결과 없음 14 SemiBold · 13 Regular로 판단 ② 측정값(Scale 밖): 검색 예시 줄 간격 10, 결과 없음 영역 180 ③ 결과가 많을 때 시안은 4건만 보임 → 목록 자체 스크롤이 아니라 Modal Body 스크롤로 구현. 목록 최대 높이 · 페이지 나눔(더 보기 · Pagination) 여부 확인 ④ 검색 필드는 값이 있으면 지우기(x) 표시(SearchField 기본, 시안 정지 화면에는 없음)
-- [Q50] LNB Search Result: 시안 두 번째 행의 Primary 50 배경을 Hover(+ 키보드 Focus)로 해석 — 현재 화면(Active) 표시인지 확인. 행 높이 61 · 위아래 여백 12로 확정(2026-11-12, 시안 60과 1px 차이). Search Result Item · Pattern은 LNB 내부 구성으로 두고 별도 컴포넌트로 export하지 않음. Figma 링크(node 28078-1271)는 이 세션에서 Figma 연결 인증이 안 돼 PNG로 측정
+- [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -410,3 +406,20 @@
 - 기존 LNB 메뉴 검색 결과를 시안(`temp/컴포넌트/Search Result Item · Pattern.png`)에 맞춤: 좌우 여백 12 → 16, 행 높이 61 → 60(아래 여백 11), 구분선을 행 사이 → 행마다 아래(마지막 포함), Hover 배경 Neutral 50 → Primary 50(토큰 `lnb/result-hover` 추가, 키보드 Focus 포함), 결과 없음 위아래 여백 16 → 20 · 좌우 16. 글자(12 SemiBold · 10 Regular) · 색 · 강조는 이미 일치. LNB 가이드 검색 절에 규격 추가
 - 검증: lint · Storybook 빌드 통과. 시안과 같은 방식(글자 픽셀)으로 측정한 테스트 7개 통과(행 60 + 선 1, 이름 · 경로 글자 위치 ±1 · 왼쪽 16, 글자 · 색 · 강조, Hover 배경, 결과 없음 위치 · 글자). 기존 LNB 23 · 테마 18 재통과
 - 한 가정: Q50
+
+### Figma 대조 반영 (커밋 전) — 2026-11-12
+- Figma MCP 연결 후 컴포넌트 페이지(node 2-4)에서 PNG 글자 폭으로 추정했던 값을 대조
+- 일치(변경 없음): Infobox · Unread Indicator · LNB Search Result(두 번째 행 = Hover 확인) · Footer 글자 · 간격
+- 반영
+  - Modal 제목 20 Bold → **20 SemiBold**(모든 Modal 공통)
+  - Summary Card: 제목 14 SemiBold → 14 Bold, Info 아이콘 16 → 20, 단위 md 14 Bold · sm 14 Regular → 13 Medium, 빈 상태 제목 14 Regular → 14 Medium
+  - CPID List Item: 높이 58 유지(Figma H56은 테두리 제외, 사용자 확인), 반경 6 → 8, 여백 12 / 14 → 좌우 12 · 위아래 8(테두리 안쪽), CPID 13 Bold → 13 SemiBold
+  - Address: 결과 줄 79 → 78(위아래 16 → 12, 세로 가운데), 우편번호 ↔ 도로명 16 → 8, 예시 항목 이름 13 SemiBold → 13 Bold, 결과 없음 제목 14 SemiBold → 14 Bold · 간격 8 → 6, 스토리 Modal에 닫기(X)
+  - Compact Navigation: "1/3"(12 SemiBold, 간격 2) → "1 / 3"(현재 번호 12 Bold · 나머지 12 Regular, 공백)
+  - Header: 검색 필드 배경 Neutral 50(토큰 `header/search-bg`, 영역 안에서 `--kp-color-field-bg` 덮어쓰기), 사용자 정보 구분선 1 × 32(항목 높이 → 32), [다운로드 센터] ↔ 아이콘 12 → 10, 아이콘 버튼 반경 4 → 6
+  - Footer 좌우 여백 24 → 20
+- 검증: tokens · typecheck · lint · build · Storybook 빌드 통과. Figma 값 대조 테스트 12개 통과. 기존 테스트 재통과(공통 24 · Infobox 12 · LNB 23 · LNB 검색 7 · DatePicker 32 · MultiSelect 27 · Footer 7 · 가이드 24, Compact Nav 동작). 실패는 이번에 바꾼 값을 옛 값으로 기대하는 테스트뿐(CPID 58 · 반경 6, Summary 글자, Header 위치)
+
+### Q41 · Q44 처리 — 2026-11-12
+- Compact Navigation: 전체가 1페이지 이하(`total <= 1`)면 컨트롤을 그리지 않음(Figma 설명 "one page hides control"). 가이드 반영
+- Q44(Infobox 두 줄 제목 열 · tone 이름) 확인 완료 → 현재 구현 유지

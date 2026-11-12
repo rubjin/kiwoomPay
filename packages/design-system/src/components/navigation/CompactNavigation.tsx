@@ -23,7 +23,7 @@ export interface CompactNavigationProps extends Omit<
 
 /**
  * `< 1 / 3 >` 형태의 작은 이전 · 다음 이동. 카드 · Carousel처럼 좁은 영역에서 쓴다.
- * 번호 목록이 필요한 목록 화면에는 Pagination을 쓴다.
+ * 번호 목록이 필요한 목록 화면에는 Pagination을 쓴다. 전체가 1페이지 이하면 그리지 않는다.
  */
 export const CompactNavigation = forwardRef<HTMLElement, CompactNavigationProps>(
   (
@@ -49,6 +49,9 @@ export const CompactNavigation = forwardRef<HTMLElement, CompactNavigationProps>
     const canPrev = !disabled && (value > 1 || (loop && count > 1));
     const canNext = !disabled && (value < count || (loop && count > 1));
 
+    // 한 페이지뿐이면 이동할 곳이 없으므로 그리지 않는다 (Figma: one page hides control)
+    if (count <= 1) return null;
+
     const move = (next: number) => {
       const target = next < 1 ? count : next > count ? 1 : next;
       setCurrent(target);
@@ -67,11 +70,12 @@ export const CompactNavigation = forwardRef<HTMLElement, CompactNavigationProps>
           <Icon name="chevron-left" size={16} />
         </button>
         <span className={styles.count} aria-live="polite">
-          <span>{value}</span>
+          {/* Figma: 현재 번호 Bold · ' / 전체' Regular (공백 포함) */}
+          <span className={styles.current}>{value}</span>{' '}
           <span className={styles.divider} aria-hidden="true">
             /
-          </span>
-          <span>{count}</span>
+          </span>{' '}
+          {count}
         </span>
         <button
           type="button"
