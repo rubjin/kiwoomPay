@@ -1,5 +1,10 @@
 {
   "Header": {
+    "SearchBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "Header 공통 검색 필드 배경 (Neutral 50)"
+    },
     "Divider": {
       "$type": "color",
       "$value": "{Line.Subtle}"
@@ -26,7 +31,7 @@
     "IconHover": {
       "$type": "color",
       "$value": "{Bg.Hover}",
-      "$description": "TODO(시안) 아이콘 버튼 Hover 배경"
+      "$description": "아이콘 버튼 Hover 배경 (TODO: Figma에 Hover 상태 없음)"
     },
     "Masking": {
       "Bg": {

@@ -67,7 +67,7 @@ $modal-info-label-gap: t.$space-12;
 }
 
 .title {
-  @include m.typography(typo-20-bold);
+  @include m.typography(typo-20-semi-bold);
 
   flex: 1;
   min-width: 0;

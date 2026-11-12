@@ -19,7 +19,7 @@ import * as SummaryCardStories from '../src/components/display/SummaryCard.stori
 | Prop                                        | 설명                                                                      |
 | ------------------------------------------- | ------------------------------------------------------------------------- |
 | `title`                                     | 지표 이름                                                                 |
-| `info`                                      | 제목 옆 Info 아이콘(16)의 Tooltip 문구. 없으면 아이콘 없음                |
+| `info`                                      | 제목 옆 Info 아이콘(20)의 Tooltip 문구. 없으면 아이콘 없음                |
 | `value`                                     | 값. 숫자는 천 단위 쉼표를 자동으로 붙임                                   |
 | `unit`                                      | 단위(₩, 건 …). **md는 값 앞, sm은 값 뒤**                                 |
 | `meta`                                      | 보조 문구(앞에 • 자동). **md는 값 아래, sm은 값 옆**                      |
@@ -42,10 +42,10 @@ import * as SummaryCardStories from '../src/components/display/SummaryCard.stori
 - 크기: md 높이 120 · sm 높이 96, 여백 16(테두리 포함) · 반경 8 · 테두리 1 `Line/Subtle`
 - 제목 줄 높이 24, 제목 ↔ Info 8
 - 글자
-  - 제목 `typo-14-semi-bold` `Text/Label`
-  - md: 값 `typo-24-bold` · 단위 `typo-14-bold`(Primary 900) · 보조 `typo-12-semi-bold`(Primary 600), 값 ↔ 단위 · 보조 4
-  - sm: 값 `typo-20-bold` `Text/Heading` · 단위 `typo-14-regular` · 보조 `typo-13-regular`(`Text/Secondary`), 간격 4
-  - 빈 상태: `typo-14-regular` `Text/Placeholder` · `typo-12-regular` `Text/Disabled`
+  - 제목 `typo-14-bold` `Text/Label` · Info 아이콘 20
+  - md: 값 `typo-24-bold` · 단위 `typo-13-medium`(Primary 900, 값과 세로 가운데) · 보조 `typo-12-semi-bold`(Primary 600), 값 ↔ 단위 · 보조 4
+  - sm: 값 `typo-20-bold` `Text/Heading` · 단위 `typo-13-medium` · 보조 `typo-13-regular`(`Text/Secondary`), 간격 4
+  - 빈 상태: `typo-14-medium` `Text/Placeholder` · 두 줄 간격 2 · `typo-12-regular` `Text/Disabled`
 - Skeleton: md 120×18 · 180×10, sm 96×18 · 140×10, 간격 8 · 반경 4 · Neutral 100
 - 색: `summary-card/*` (`tokens/custom/summary-card.json`, 모두 alias). 크기 · 간격은 `SummaryCard.module.scss` 맨 위 SCSS 변수
 

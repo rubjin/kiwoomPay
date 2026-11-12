@@ -10,7 +10,7 @@ $summary-card-header-height: 24px;
 $summary-card-gap: t.$space-8; // 제목 ↔ Info · 값 ↔ 단위
 $summary-card-gap-sm: t.$space-4; // 단위 ↔ 보조 문구 · md 값 ↔ 보조 문구
 $summary-card-skeleton-radius: 4px;
-$summary-card-empty-gap: 2px; // TODO(시안) 빈 상태 두 줄 사이 (글자 위치로 역산)
+$summary-card-empty-gap: 2px; // 빈 상태 두 줄 사이
 $summary-card-skeleton-value-height: 18px;
 $summary-card-skeleton-meta-height: 10px;
 $summary-card-skeleton-value-width: 120px; // sm 96
@@ -46,7 +46,7 @@ $summary-card-skeleton-meta-width-sm: 140px;
 }
 
 .title {
-  @include m.typography(typo-14-semi-bold);
+  @include m.typography(typo-14-bold);
   @include m.ellipsis;
 
   min-width: 0;
@@ -75,7 +75,7 @@ $summary-card-skeleton-meta-width-sm: 140px;
 }
 
 .unit {
-  @include m.typography(typo-14-bold);
+  @include m.typography(typo-13-medium);
 
   color: t.$color-summary-card-value;
 }
@@ -104,7 +104,7 @@ $summary-card-skeleton-meta-width-sm: 140px;
 }
 
 .sm .unit {
-  @include m.typography(typo-14-regular);
+  @include m.typography(typo-13-medium);
 
   color: t.$color-summary-card-compact-meta;
 }
@@ -155,7 +155,7 @@ $summary-card-skeleton-meta-width-sm: 140px;
 }
 
 .emptyTitle {
-  @include m.typography(typo-14-regular);
+  @include m.typography(typo-14-medium);
 
   color: t.$color-summary-card-empty-title;
 }

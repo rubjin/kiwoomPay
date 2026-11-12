@@ -12,10 +12,11 @@ $header-session-gap: t.$space-8; // 시간 ↔ [연장]
 $header-masking-padding-x: t.$space-8;
 $header-masking-gap: t.$space-8;
 $header-masking-dot: 8px;
-$header-masking-dot-gap: t.$space-4; // TODO(시안) 점 ↔ 문구
+$header-masking-dot-gap: t.$space-4; // 점 ↔ 문구 ↔ 시간
 $header-actions-gap: t.$space-8;
+$header-utility-gap: 10px; // [다운로드 센터] ↔ 아이콘 버튼 (Figma Utility Group)
 $header-download-badge-gap: t.$space-4; // 다운로드 센터 문구 ↔ 건수
-$header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간격으로 역산)
+$header-icon-button: 32px; // 누르는 영역 (아이콘 24, Figma)
 
 .header {
   display: flex;
@@ -26,35 +27,39 @@ $header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간�
   white-space: nowrap;
 }
 
+// Header 검색은 회색 배경 필드 (Figma Search_Field_Header): 필드 배경 토큰을 이 영역에서만 바꾼다
 .search {
+  --kp-color-field-bg: #{t.$color-header-search-bg};
+
   flex: 1;
   min-width: 0;
   margin-right: calc(#{$header-search-gap} - #{$header-gap});
 }
 
 // ── 사용자 정보 ──────────────────────────────────────
+// 항목 ↔ 구분선(1 × 32) ↔ 항목 간격 8
 .userInfo {
   display: flex;
+  gap: calc(#{$header-info-padding-x} * 2 + #{t.$control-border-width});
   align-items: center;
   margin: 0;
 }
 
 .infoItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 $header-info-padding-x;
 
-  & + & {
-    border-left: t.$control-border-width solid t.$color-header-divider;
-  }
-
-  &:first-child {
-    padding-left: 0;
-  }
-
-  &:last-child {
-    padding-right: 0;
+  & + &::before {
+    position: absolute;
+    top: 50%;
+    left: calc(-1 * (#{$header-info-padding-x} + #{t.$control-border-width}));
+    width: t.$control-border-width;
+    height: $header-info-divider-height;
+    content: '';
+    background-color: t.$color-header-divider;
+    transform: translateY(-50%);
   }
 }
 
@@ -129,6 +134,7 @@ $header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간�
 // ── 아이콘 버튼 ──────────────────────────────────────
 .actions {
   display: flex;
+  margin-left: calc(#{$header-utility-gap} - #{$header-gap});
   gap: $header-actions-gap;
   align-items: center;
 }
@@ -144,7 +150,7 @@ $header-icon-button: 32px; // TODO(시안) 누르는 영역 (아이콘 24, 간�
   cursor: pointer;
   background: none;
   border: 0;
-  border-radius: t.$control-radius-sm;
+  border-radius: t.$control-radius-md;
 
   &:hover {
     background-color: t.$color-header-icon-hover;

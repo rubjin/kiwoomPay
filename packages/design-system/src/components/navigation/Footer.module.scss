@@ -2,7 +2,7 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
-$footer-padding-x: t.$space-24;
+$footer-padding-x: t.$space-20; // Figma Footer padding 20
 $footer-logo-gap: t.$space-12; // 로고 ↔ 회사 정보
 $footer-item-gap: 9px; // 항목 ↔ 구분선 (시안 확정값, Spacing Scale 밖)
 $footer-divider-height: 10px;

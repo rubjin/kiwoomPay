@@ -457,12 +457,13 @@ $color-footer-text: var(--kp-color-footer-text);
 $color-footer-divider: var(--kp-color-footer-divider); // 정보 항목 사이 세로선 (시안 1px 반 픽셀 위치, 혼합색 #677485 = Neutral 500 + 배경)
 
 // ── custom · header ─────────────────────────────────────────────
+$color-header-search-bg: var(--kp-color-header-search-bg); // Header 공통 검색 필드 배경 (Neutral 50)
 $color-header-divider: var(--kp-color-header-divider);
 $color-header-info-label: var(--kp-color-header-info-label); // 사용자 정보 항목 이름 (아이디 · 이름 …)
 $color-header-info-value: var(--kp-color-header-info-value);
 $color-header-timer: var(--kp-color-header-timer); // 세션 남은 시간 (시안 #EF4444)
 $color-header-icon: var(--kp-color-header-icon); // 오른쪽 아이콘 버튼 (내 정보 · 알림 · 로그아웃)
-$color-header-icon-hover: var(--kp-color-header-icon-hover); // TODO(시안) 아이콘 버튼 Hover 배경
+$color-header-icon-hover: var(--kp-color-header-icon-hover); // 아이콘 버튼 Hover 배경 (TODO: Figma에 Hover 상태 없음)
 $color-header-masking-bg: var(--kp-color-header-masking-bg);
 $color-header-masking-border: var(--kp-color-header-masking-border);
 $color-header-masking-text: var(--kp-color-header-masking-text);
@@ -1024,6 +1025,7 @@ $css-variables: (
   "--kp-color-footer-bg": "var(--kp-color-neutral-700)",
   "--kp-color-footer-text": "var(--kp-color-text-inverse)",
   "--kp-color-footer-divider": "var(--kp-color-neutral-500)",
+  "--kp-color-header-search-bg": "var(--kp-color-bg-page)",
   "--kp-color-header-divider": "var(--kp-color-line-subtle)",
   "--kp-color-header-info-label": "var(--kp-color-text-placeholder)",
   "--kp-color-header-info-value": "var(--kp-color-text-heading)",

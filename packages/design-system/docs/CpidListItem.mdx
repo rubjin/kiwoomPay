@@ -60,9 +60,9 @@ import { CpidListItem, Badge } from '@kiwoompay/design-system';
 
 ## Spec
 
-- 폭은 부모를 채움(시안 288) · 높이 58 · 반경 6 · 테두리 1
-- 여백 위아래 8 · 왼쪽 12 · 오른쪽 14, CPID 줄 높이 20(Badge sm) · 가맹점명 줄 간격 2
-- CPID 13 Bold `Text/Heading` · 가맹점명 12 Regular `Text/Label`
+- 폭은 부모를 채움(시안 288) · 높이 58(테두리 제외 56) · 반경 8 · 테두리 1 (Figma CPID/List Item)
+- 여백 위아래 8 · 좌우 12(테두리 안쪽), CPID 줄 높이 20(Badge sm) · 가맹점명 줄 간격 2
+- CPID 13 SemiBold `Text/Heading` · 가맹점명 12 Regular `Text/Label`
 
 ## Do / Don't
 
@@ -87,5 +87,5 @@ import { CpidListItem, Badge } from '@kiwoompay/design-system';
 
 ## 토큰
 
-- 색: `cpid-item/*` (`tokens/custom/cpid-item.json`, 모두 Figma 색 alias), 글자 `typo-13-bold`(CPID) · `typo-12-regular`(가맹점명). 크기 · 간격은 `CpidListItem.module.scss` 맨 위 SCSS 변수
-- 시안에 없어 **임시 값(TODO)** 인 것: 오른쪽 여백 14 · 줄 간격 2(측정값), 글자 크기 · 굵기(렌더링 폭 비교로 판단), 가맹점명 색, Hover 표현(미구현)
+- 색: `cpid-item/*` (`tokens/custom/cpid-item.json`, 모두 Figma 색 alias), 글자 `typo-13-semi-bold`(CPID) · `typo-12-regular`(가맹점명). 크기 · 간격은 `CpidListItem.module.scss` 맨 위 SCSS 변수
+- 시안에 없어 미구현: Hover · Disabled 표현

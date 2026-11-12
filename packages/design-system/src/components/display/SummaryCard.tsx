@@ -8,7 +8,7 @@ export type SummaryCardSize = 'md' | 'sm';
 export interface SummaryCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** 지표 이름 */
   title: ReactNode;
-  /** 제목 옆 Info 아이콘의 Tooltip 문구. 없으면 아이콘을 그리지 않는다 */
+  /** 제목 옆 Info 아이콘(20)의 Tooltip 문구. 없으면 아이콘을 그리지 않는다 */
   info?: ReactNode;
   /** 값. 숫자는 천 단위 쉼표를 붙인다 */
   value?: ReactNode;
@@ -87,7 +87,7 @@ export const SummaryCard = forwardRef<HTMLDivElement, SummaryCardProps>(
       >
         <div className={styles.header}>
           <span className={styles.title}>{title}</span>
-          {info !== undefined && <InfoTip content={info} size={16} />}
+          {info !== undefined && <InfoTip content={info} size={20} />}
         </div>
         {body}
       </div>

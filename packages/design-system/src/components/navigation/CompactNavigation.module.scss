@@ -3,7 +3,6 @@
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $compact-nav-gap: t.$space-4; // 화살표 ↔ 번호
-$compact-nav-count-gap: 2px; // TODO(시안) 번호 ↔ / (글자 간격 근사)
 $compact-nav-icon-size: 16px;
 
 .root {
@@ -42,13 +41,14 @@ $compact-nav-icon-size: 16px;
 }
 
 .count {
-  @include m.typography(typo-12-semi-bold);
+  @include m.typography(typo-12-regular);
 
-  display: inline-flex;
-  gap: $compact-nav-count-gap;
-  align-items: center;
   color: t.$color-compact-nav-text;
   white-space: nowrap;
+}
+
+.current {
+  @include m.typography(typo-12-bold);
 }
 
 .divider {

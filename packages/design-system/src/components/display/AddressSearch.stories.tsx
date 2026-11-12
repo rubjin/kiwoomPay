@@ -43,19 +43,19 @@ export const States: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--kp-space-20)', alignItems: 'flex-start' }}>
       <Modal open inline size="lg">
-        <Modal.Header title="주소 검색" closeButton={false} />
+        <Modal.Header title="주소 검색" closeButton />
         <Modal.Body>
           <AddressSearch />
         </Modal.Body>
       </Modal>
       <Modal open inline size="lg">
-        <Modal.Header title="주소 검색" closeButton={false} />
+        <Modal.Header title="주소 검색" closeButton />
         <Modal.Body>
           <AddressSearch defaultQuery="독막로" results={sample} total={12} onSelect={() => {}} />
         </Modal.Body>
       </Modal>
       <Modal open inline size="lg">
-        <Modal.Header title="주소 검색" closeButton={false} />
+        <Modal.Header title="주소 검색" closeButton />
         <Modal.Body>
           <AddressSearch defaultQuery="검색되지 않는 주소" results={[]} />
         </Modal.Body>
@@ -109,7 +109,7 @@ export const Interactive: Story = {
           {picked ? `(${picked.zipCode}) ${picked.roadAddress}` : '선택 안 함'}
         </span>
         <Modal open={open} onClose={() => setOpen(false)} size="lg">
-          <Modal.Header title="주소 검색" />
+          <Modal.Header title="주소 검색" closeButton />
           <Modal.Body>
             <AddressSearch
               results={results}

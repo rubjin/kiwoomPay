@@ -9,10 +9,11 @@ $address-list-gap: t.$space-12; // 검색결과 N 건 ↔ 목록 첫 선
 $address-example-gap: 10px; // 검색 예시 제목 ↔ 줄 · 줄 사이 (측정, 줄 간격 31)
 $address-example-label-width: 64px; // 항목 이름 칸 (값 시작 위치 측정)
 $address-empty-height: 180px; // TODO(시안) 결과 없음 영역 (가운데 정렬, 측정 역산)
-$address-empty-gap: t.$space-8;
-$address-row-padding-y: t.$space-16;
+$address-empty-gap: 6px; // 결과 없음 두 줄 사이 (Figma)
+$address-row-height: 78px; // Figma Address Result Row H78 · 세로 가운데
+$address-row-padding-y: t.$space-12;
 $address-row-gap: t.$space-16; // 주소 ↔ [선택]
-$address-zip-gap: t.$space-16; // 우편번호 ↔ 도로명
+$address-zip-gap: t.$space-8; // 우편번호(최소 폭 46) ↔ 도로명
 $address-zip-min-width: 46px;
 $address-line-gap: t.$space-4; // 도로명 줄 ↔ 지번 줄
 $address-tag-gap: t.$space-8; // [지번] ↔ 지번 주소
@@ -62,7 +63,7 @@ $address-tag-radius: 4px;
 }
 
 .exampleLabel {
-  @include m.typography(typo-13-semi-bold);
+  @include m.typography(typo-13-bold);
 
   flex: none;
   width: $address-example-label-width;
@@ -101,7 +102,7 @@ $address-tag-radius: 4px;
 }
 
 .emptyTitle {
-  @include m.typography(typo-14-semi-bold);
+  @include m.typography(typo-14-bold);
 
   margin: 0;
   color: t.$color-address-empty-title;
@@ -119,6 +120,7 @@ $address-tag-radius: 4px;
   display: flex;
   gap: $address-row-gap;
   align-items: center;
+  min-height: $address-row-height;
   padding: $address-row-padding-y 0;
 }
 

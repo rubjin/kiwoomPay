@@ -2,12 +2,12 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+// Figma CPID/List Item: H56(테두리 제외) → 58 · R8 · Padding 12 / 8 (테두리 바깥)
 $cpid-item-padding-y: t.$space-8;
-$cpid-item-padding-left: t.$space-12;
-$cpid-item-padding-right: 14px; // TODO(시안) 측정값(왼쪽 12와 다름)
-$cpid-item-radius: 6px;
+$cpid-item-padding-x: t.$space-12;
+$cpid-item-radius: 8px;
 $cpid-item-row-height: 20px; // 첫 줄 = 상태 Badge(sm) 높이
-$cpid-item-line-gap: 2px; // TODO(시안) CPID 줄 ↔ 가맹점명 (높이 58 기준 역산)
+$cpid-item-line-gap: 2px; // CPID 줄 ↔ 가맹점명
 $cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
 
 .item {
@@ -16,8 +16,7 @@ $cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
   gap: $cpid-item-line-gap $cpid-item-status-gap;
   align-items: center;
   width: 100%;
-  padding: $cpid-item-padding-y $cpid-item-padding-right $cpid-item-padding-y
-    $cpid-item-padding-left;
+  padding: $cpid-item-padding-y $cpid-item-padding-x;
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -40,7 +39,7 @@ $cpid-item-status-gap: t.$space-8; // CPID ↔ 상태
 }
 
 .cpid {
-  @include m.typography(typo-13-bold);
+  @include m.typography(typo-13-semi-bold);
   @include m.ellipsis;
 
   min-height: $cpid-item-row-height;

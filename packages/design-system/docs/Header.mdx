@@ -30,7 +30,7 @@ import * as HeaderStories from '../src/components/navigation/Header.stories';
 
 | 조각                | 설명                                                                                                   |
 | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| `Header.Search`     | 공통 검색(CPID · 상호명 · 사업자번호). 남는 폭을 채움. `SearchField` props 그대로                      |
+| `Header.Search`     | 공통 검색(CPID · 상호명 · 사업자번호). 남는 폭을 채움, 배경 Neutral 50. `SearchField` props 그대로     |
 | `Header.UserInfo`   | 로그인 사용자 정보. 항목 이름(위) · 값(아래), 항목 사이 구분선. **마스킹된 값은 화면에서 만들어 넣음** |
 | `Header.Divider`    | 영역 구분선(높이 40)                                                                                   |
 | `Header.Session`    | 세션 남은 시간(빨강, `HH:MM:SS`) + [연장]                                                              |
@@ -53,13 +53,13 @@ import * as HeaderStories from '../src/components/navigation/Header.stories';
 ## 3. Spec
 
 - 높이: `PageLayout` 슬롯 66(아래 선 포함), 내용은 세로 가운데. 좌우 여백 24
-- 영역 간격 12(구분선 양옆), 검색 ↔ 사용자 정보 40, 아이콘 버튼 사이 8
+- 영역 간격 12(구분선 양옆), 검색 ↔ 사용자 정보 40, 사용자 정보 항목 ↔ 구분선(1 × 32) 8, [다운로드 센터] ↔ 아이콘 버튼 10, 아이콘 버튼 사이 8
 - 컨트롤 높이 40(md) · 해제 중 상자 안 버튼 32(sm)
 - 글자
   - 사용자 정보: 항목 `typo-11-medium` `Text/Placeholder` · 값 `typo-12-bold` `Text/Heading`
   - 세션 시간 `typo-13-bold` `Status/Error/Border`
   - 해제 중: `typo-12-semi-bold` · 시간 `typo-13-bold`, 색 `Status/Success/*`(배경 · 테두리 · 글자), 반경 6
-- 아이콘 버튼 색 Primary 900, Hover 배경 `Bg/Hover`(임시)
+- 아이콘 버튼 32 · 반경 6 · 색 Primary 900, Hover 배경 `Bg/Hover`(임시, Figma에 Hover 없음)
 - 색: `header/*` (`tokens/custom/header.json`, 모두 alias). 크기 · 간격은 `Header.module.scss` 맨 위 SCSS 변수
 
 ## 4. Do / Don't

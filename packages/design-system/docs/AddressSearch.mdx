@@ -59,11 +59,11 @@ import * as AddressSearchStories from '../src/components/display/AddressSearch.s
 ## 4. Spec
 
 - 검색 줄: SearchField md(남는 폭) + [조회] Neutral Solid md, 간격 8
-- 조회 전: 검색 ↔ "검색 예시" 20 · 줄 간격 10 · 항목 이름 칸 64 (`typo-14-bold` / `typo-13-semi-bold` · `typo-14-regular`)
+- 조회 전: 검색 ↔ "검색 예시" 20 · 줄 간격 10 · 항목 이름 칸 64 (`typo-14-bold` / `typo-13-bold` · `typo-14-regular`)
 - 결과: 검색 ↔ "검색결과 N 건" 12 · ↔ 목록 12, 줄 사이 1px 선(`Line/Subtle`, 위아래 포함)
-- 결과 줄: 높이 79(위아래 16) · 두 줄 간격 4 · 우편번호(최소 폭 46) ↔ 도로명 16 · [지번] ↔ 지번 8
+- 결과 줄: 높이 78(위아래 12, 세로 가운데) · 두 줄 간격 4 · 우편번호(최소 폭 46) ↔ 도로명 8 · [지번] ↔ 지번 8
   - 글자: 우편번호 `typo-13-semi-bold` · 도로명 `typo-14-bold` · 지번 `typo-13-regular` · [지번] `typo-12-regular`(높이 22 · 반경 4)
-- 결과 없음: 영역 180 가운데 · 두 줄 간격 8 (`typo-14-semi-bold` · `typo-13-regular`)
+- 결과 없음: 영역 180 가운데 · 두 줄 간격 6 (`typo-14-bold` · `typo-13-regular`)
 - 색: `address/*` (`tokens/custom/address.json`, 모두 alias). 크기 · 간격은 `AddressSearch.module.scss` 맨 위 SCSS 변수
 
 ## Do / Don't
