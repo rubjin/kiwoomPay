@@ -439,7 +439,7 @@ $color-favorite-menu-item-disabled: var(--kp-color-favorite-menu-item-disabled);
 $field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
 $field-radius-sm: var(--kp-field-radius-sm);
 $field-gap: var(--kp-field-gap); // 아이콘·접미사와 텍스트 사이
-$field-label-gap-top: var(--kp-field-label-gap-top); // 라벨 위 배치(검색 영역)에서 라벨 ↔ 필드
+$field-label-gap-top: var(--kp-field-label-gap-top); // 라벨 위 배치(labelPosition=top)에서 라벨 ↔ 필드 (Figma 8, 가로 배치와 같음)
 $color-field-icon: var(--kp-color-field-icon); // Chevron · Calendar
 $color-field-bg: var(--kp-color-field-bg);
 $color-field-bg-disabled: var(--kp-color-field-bg-disabled);
@@ -1042,7 +1042,7 @@ $css-variables: (
   "--kp-field-radius-md": "8px",
   "--kp-field-radius-sm": "6px",
   "--kp-field-gap": "var(--kp-space-8)",
-  "--kp-field-label-gap-top": "var(--kp-space-4)",
+  "--kp-field-label-gap-top": "var(--kp-space-8)",
   "--kp-color-field-icon": "var(--kp-color-neutral-500)",
   "--kp-color-field-bg": "var(--kp-color-bg-surface)",
   "--kp-color-field-bg-disabled": "var(--kp-color-neutral-100)",

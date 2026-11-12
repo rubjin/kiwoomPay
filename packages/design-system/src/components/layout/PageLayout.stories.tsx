@@ -206,14 +206,14 @@ function TradeListPage() {
           onExpandedChange={setExpanded}
           detail={
             <>
-              <Field label="결제수단" labelPosition="top">
+              <Field label="결제수단">
                 <SelectBox
                   options={[{ value: 'all', label: '전체' }]}
                   defaultValue="all"
                   style={{ width: 200 }}
                 />
               </Field>
-              <Field label="처리상태" labelPosition="top">
+              <Field label="처리상태">
                 <SelectBox
                   options={[{ value: 'all', label: '전체' }]}
                   defaultValue="all"
@@ -223,17 +223,17 @@ function TradeListPage() {
             </>
           }
         >
-          <Field label="조회기간" labelPosition="top">
+          <Field label="조회기간">
             <DateRangeField />
           </Field>
-          <Field label="상태" labelPosition="top">
+          <Field label="상태">
             <SelectBox
               options={[{ value: 'all', label: '전체' }]}
               defaultValue="all"
               style={{ width: 200 }}
             />
           </Field>
-          <Field label="검색어" labelPosition="top">
+          <Field label="검색어">
             <SearchField placeholder="가맹점명 또는 가맹점ID" style={{ width: 320 }} />
           </Field>
         </SearchArea>

@@ -116,7 +116,10 @@ WorkTab은 Active 값과 버튼 이벤트만 다룹니다. 열린 Tab 목록 · 
     </tr>
     <tr>
       <td>긴 메뉴명</td>
-      <td>정해진 폭을 넘으면 말줄임, 마우스를 올리면 전체 이름(title)</td>
+      <td>
+        최대 <strong>12자</strong>(<code>WORK_TAB_LABEL_MAX</code>). 넘으면 12자 + 말줄임(…),
+        마우스를 올리면 전체 이름(title). 메뉴명 영역은 최소 99(Figma)
+      </td>
     </tr>
   </tbody>
 </table>
@@ -239,10 +242,9 @@ WorkTab은 Active 값과 버튼 이벤트만 다룹니다. 열린 Tab 목록 · 
 ## 토큰 · 확인 필요
 
 - 색 · 메뉴 위치(JS가 읽음): `work-tab/*` (`tokens/custom/work-tab.json`, 색은 모두 Figma 색 alias). 크기 · 간격은 `WorkTab.module.scss` 맨 위 SCSS 변수.
-- 시안 측정: Item 높이 40 · 좌우 여백 12 · 아이콘 24 · 간격 4 · 위 모서리 8 · Active 아래 선 2px,
+- Figma: Item 높이 40 · 여백 왼쪽 14 · 오른쪽 12 · 메뉴명 영역 최소 99 · 13 Medium(Active 13 SemiBold) · 아이콘 24 · 간격 Hover 8 · Active 4 · 위 모서리 8 · Active 아래 선 2px,
   메뉴 폭 200 · 안쪽 여백 8 · 항목 높이 33 · 모서리 8
-- **임시 값(TODO)**: 메뉴명 말줄임 기준 폭 160, Active Tab의 •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover ·
+- **임시 값(TODO)**: Active Tab의 •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover ·
   비활성 표현, Trigger ↔ 메뉴 8
-- 시안의 State 예시는 Default · Hover Tab 폭이 내용보다 넓지만 Workspace Bar 예시는 내용 폭에 맞춰져
-  있어 **내용 폭 기준**으로 구현했습니다. Hover 시 닫기(X)가 나타나며 그만큼 Tab이 넓어집니다
+- 메뉴명 영역 99는 최소 폭이라 짧은 메뉴명도 Figma 폭과 같습니다. Hover 시 닫기(X)가 나타나며 그만큼 Tab이 넓어집니다
 - 고정 Tab의 표시(아이콘 등)는 시안이 없어 닫기 숨김만 제공합니다

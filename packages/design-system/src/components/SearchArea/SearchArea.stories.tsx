@@ -21,13 +21,13 @@ const procOptions = [
 // 아래 필드 조합은 예시. 실제 검색 조건 · 기본값 · 필수 여부는 화면설계서에서 정한다
 const BasicFields = () => (
   <>
-    <Field label="조회기간" labelPosition="top" size="sm">
+    <Field label="조회기간" size="sm">
       <DateRangeField />
     </Field>
-    <Field label="상태" labelPosition="top" size="sm" style={{ width: 200 }}>
+    <Field label="상태" size="sm" style={{ width: 200 }}>
       <SelectBox options={statusOptions} defaultValue="all" fullWidth />
     </Field>
-    <Field label="검색어" labelPosition="top" size="sm" style={{ width: 320 }}>
+    <Field label="검색어" size="sm" style={{ width: 320 }}>
       <SearchField placeholder="가맹점명 또는 가맹점ID" fullWidth />
     </Field>
   </>
@@ -35,13 +35,13 @@ const BasicFields = () => (
 
 const DetailFields = () => (
   <>
-    <Field label="결제수단" labelPosition="top" size="sm" style={{ width: 200 }}>
+    <Field label="결제수단" size="sm" style={{ width: 200 }}>
       <SelectBox options={payOptions} defaultValue="all" fullWidth />
     </Field>
-    <Field label="처리상태" labelPosition="top" size="sm" style={{ width: 200 }}>
+    <Field label="처리상태" size="sm" style={{ width: 200 }}>
       <SelectBox options={procOptions} defaultValue="all" fullWidth />
     </Field>
-    <Field label="가맹점ID" labelPosition="top" size="sm" style={{ width: 240 }}>
+    <Field label="가맹점ID" size="sm" style={{ width: 240 }}>
       <SearchField placeholder="ID를 입력해주세요" fullWidth />
     </Field>
   </>
@@ -104,14 +104,14 @@ export const Validation: Story = {
     <SearchArea>
       <Field
         label="조회기간"
-        labelPosition="top"
+
         size="sm"
         feedback="negative"
         helperText="조회기간은 최대 3개월입니다."
       >
         <DateRangeField defaultValue={{ start: '2026-01-01', end: '2026-06-30' }} />
       </Field>
-      <Field label="가맹점ID" labelPosition="top" size="sm" required style={{ width: 240 }}>
+      <Field label="가맹점ID" size="sm" required style={{ width: 240 }}>
         <TextField placeholder="ID를 입력해주세요" fullWidth />
       </Field>
     </SearchArea>
@@ -146,13 +146,13 @@ function InteractiveExample() {
         detail={<DetailFields />}
         detailActions={<DetailActions />}
       >
-        <Field label="조회기간" labelPosition="top" size="sm">
+        <Field label="조회기간" size="sm">
           <DateRangeField value={period} onChange={setPeriod} />
         </Field>
-        <Field label="상태" labelPosition="top" size="sm" style={{ width: 200 }}>
+        <Field label="상태" size="sm" style={{ width: 200 }}>
           <SelectBox options={statusOptions} value={status} onChange={setStatus} fullWidth />
         </Field>
-        <Field label="검색어" labelPosition="top" size="sm" style={{ width: 320 }}>
+        <Field label="검색어" size="sm" style={{ width: 320 }}>
           <SearchField
             placeholder="가맹점명 또는 가맹점ID"
             value={keyword}

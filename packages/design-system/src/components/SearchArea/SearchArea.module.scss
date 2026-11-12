@@ -25,17 +25,10 @@ $search-area-detail-padding: t.$space-24; // 상세 조건 구분선 ↔ 상세 
   border-top: t.$control-border-width solid t.$color-search-area-divider;
 }
 
-// 버튼은 필드 줄에 맞춘다: 라벨(위 배치) 한 줄 높이 + 라벨 ↔ 필드 간격만큼 내린다.
-// 필드 아래 오류 문구가 생겨도 버튼 위치는 바뀌지 않는다.
+// 버튼은 필드 줄에 맞춘다 (라벨이 필드 왼쪽이라 같은 높이에서 시작)
 .actions {
   display: flex;
   flex: none;
   gap: $search-area-action-gap;
   align-items: center;
-
-  $label-height: calc(
-    #{t.$typography-label-field-font-size} * #{t.$typography-label-field-line-height}
-  );
-
-  margin-top: calc(#{$label-height} + #{t.$field-label-gap-top});
 }

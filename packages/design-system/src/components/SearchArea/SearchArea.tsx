@@ -19,7 +19,7 @@ const defaultLabels: Required<SearchAreaLabels> = {
 };
 
 export interface SearchAreaProps extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onReset'> {
-  /** 기본 조건: 항상 보이는 핵심 검색 필드 (Field labelPosition="top" 권장) */
+  /** 기본 조건: 항상 보이는 핵심 검색 필드 (Field 라벨 왼쪽 배치) */
   children: ReactNode;
   /** 상세 조건: 펼쳤을 때 추가되는 필드. 없으면 [상세조건] 버튼도 없다 */
   detail?: ReactNode;

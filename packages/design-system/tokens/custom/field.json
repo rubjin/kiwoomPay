@@ -18,8 +18,8 @@
     },
     "LabelGapTop": {
       "$type": "dimension",
-      "$value": "{space.4}",
-      "$description": "라벨 위 배치(검색 영역)에서 라벨 ↔ 필드"
+      "$value": "{space.8}",
+      "$description": "라벨 위 배치(labelPosition=top)에서 라벨 ↔ 필드 (Figma 8, 가로 배치와 같음)"
     },
     "Icon": {
       "$type": "color",

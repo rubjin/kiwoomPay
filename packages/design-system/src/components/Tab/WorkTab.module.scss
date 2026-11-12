@@ -3,12 +3,14 @@
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $work-tab-height: t.$control-height-md; // Work Tab Item 높이 40 (측정)
-$work-tab-padding-x: t.$space-12; // Item 좌우 여백 (측정)
-$work-tab-icon-gap: t.$space-4; // Label ↔ 더보기 ↔ 닫기 (측정)
+$work-tab-padding-left: 14px; // Figma Work Tab: 왼쪽 14
+$work-tab-padding-x: t.$space-12; // Item 오른쪽 여백 (Figma 12)
+$work-tab-icon-gap: t.$space-4; // Active: Label ↔ 더보기 ↔ 닫기 (Figma 4)
+$work-tab-hover-gap: t.$space-8; // Hover: Label ↔ 닫기 (Figma 8)
 $work-tab-icon-size: t.$control-icon-size-lg; // 더보기 · 닫기 아이콘 24 (측정)
 $work-tab-radius: t.$control-radius-lg; // Item 위쪽 모서리 (측정)
 $work-tab-indicator-width: 2px; // Active 아래 선 두께 (측정)
-$work-tab-label-max-width: 160px; // TODO(시안) 긴 메뉴명 말줄임 기준
+$work-tab-label-min-width: 99px; // Figma 메뉴명 영역 99 (짧은 메뉴명도 이 폭 유지). 긴 메뉴명은 12자 + … (WorkTab.tsx)
 $work-tab-menu-width: 200px; // Action Menu 폭 (측정)
 $work-tab-menu-padding: t.$space-8;
 $work-tab-menu-item-padding-x: t.$space-8;
@@ -43,6 +45,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
   }
 
   &:hover {
+    gap: $work-tab-hover-gap;
     background-color: t.$color-work-tab-bg-hover;
   }
 }
@@ -58,6 +61,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
     t.$color-work-tab-indicator;
 
   &:hover {
+    gap: $work-tab-icon-gap;
     background-color: t.$color-work-tab-bg-active;
   }
 }
@@ -70,7 +74,7 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
   align-self: stretch;
   align-items: center;
   min-width: 0;
-  padding: 0 0 0 $work-tab-padding-x;
+  padding: 0 0 0 $work-tab-padding-left;
   margin: 0;
   color: inherit;
   cursor: pointer;
@@ -85,7 +89,12 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
 .label {
   @include m.ellipsis;
 
-  max-width: $work-tab-label-max-width;
+  min-width: $work-tab-label-min-width;
+}
+
+// Active 메뉴명 13 SemiBold (Figma)
+.active .select {
+  @include m.typography(typo-13-semi-bold);
 }
 
 .iconButton {

@@ -24,6 +24,16 @@ import styles from './WorkTab.module.scss';
 /** 한 Workspace에서 열 수 있는 Work Tab 최대 개수. 초과 시 새 Tab 대신 얼럿을 띄운다 (화면에서 처리) */
 export const WORK_TAB_LIMIT = 10;
 
+/** 메뉴명 최대 글자 수 (Figma Work Tab "최대 글자 12자까지"). 넘으면 12자 + 말줄임(…) */
+export const WORK_TAB_LABEL_MAX = 12;
+
+const truncateLabel = (text: string) => {
+  const chars = Array.from(text);
+  return chars.length > WORK_TAB_LABEL_MAX
+    ? `${chars.slice(0, WORK_TAB_LABEL_MAX).join('')}…`
+    : text;
+};
+
 export interface WorkTabAction {
   /** 항목 식별자 (React key) */
   key: string;
@@ -222,7 +232,7 @@ const WorkTabItem = forwardRef<HTMLDivElement, WorkTabItemProps>(
           title={title ?? label}
           onClick={() => group.onSelect(value)}
         >
-          <span className={styles.label}>{children}</span>
+          <span className={styles.label}>{label ? truncateLabel(label) : children}</span>
         </button>
         {hasMore && (
           <button

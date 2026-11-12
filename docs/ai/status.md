@@ -54,29 +54,29 @@
 - [Q12] JSP 프로젝트의 실제 정적 폴더 경로 · 셸 JSP 위치 · 서버 forward 설정 (docs/jsp-integration.md는 `webapp/static/<앱>/` · Spring 컨트롤러 예시 가정. 컨텍스트 패스는 셸의 `data-basename`으로 받으므로 빌드와 무관)
 - [Q13] 모바일 시안 확인 후 `tokens/custom/breakpoint.json` 값 확정 (현재 TODO 임시값 tablet 1024 / mobile 768)
 - [Q14] 시안 확인 후 TODO 임시값 확정: `tokens/custom/semantic-color.json`(hover·selected·pressed·focus·overlay), `dimension.json`(focus ring). `Bg/Page`(Neutral 50)·`Bg/Surface`(흰색)는 Page Layout Guide로 확정
-- [Q15] Neutral Text Action 색: 시안에서 값을 읽지 못해 `Neutral/700` 임시값(`tokens/custom/button.json`, TODO). Text Action hover 표현도 시안 확인 필요(현재 밑줄)
+- [Q15] Neutral Text Action은 Figma에 없음 → `Neutral/700` 임시값 유지(`tokens/custom/button.json`, TODO). Hover는 Figma대로 Primary 50 배경(밑줄 없음)으로 확정(2026-11-12)
 - [Q16] Header Utility Link(Semantic은 Link, 시각은 Primary Line M40) 구현 방식: `Button`에 `href` 지원을 추가할지, 별도 컴포넌트로 둘지
 - [Q17] 가이드(Hierarchy 설명)는 Hover를 "한 단계 어두운 배경"이라 쓰지만 시안 값은 Neutral Solid Hover가 더 밝은 회색(Neutral/500). 시안 값을 따름 — 디자인 확인 필요
 - [Q18] MultiSelect(시안 변경 반영 2026-11-11: 전체 행 배경 없음 · 항목 36 · 여러 개 선택 시 쉼표 나열 · 패널 최대 높이 md 276 / sm 210 · 항목 글자 md 14 / sm 13 확정) 확인 필요: ① 시안은 전부 선택해도 "전체"가 일부 선택(–)으로 그려짐 → 구현은 체크(✓) ② 열림 상태 트리거 글자가 회색인 예시가 있으나 다른 예시는 진한 색 → 진한 색
 - [Q19] 시안에 없는 항목: 필드 hover 표현, Field 세로(라벨 위) 배치, SelectBox 키보드 이동(↑↓), Small 드롭다운 항목 글자 크기 → 현재 hover·세로 배치는 미구현, 항목 글자는 14px 고정
-- [Q20] TODO 임시값(시안 픽셀로 근사, `shadow/focus`는 `0 0 4px 0 rgba(36,132,198,0.30)`로 확정됨): `select/panel-max-height 190`, `select/status-min-height 172`, `z-index/dropdown 100` (`tokens/custom/field.json`)
-- [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field Default(40)는 시안에서 내용 폭에 딱 붙어 있으나 구현은 아이콘 앞 간격 8px 유지
-- [Q22] Selection 시안에 없는 항목(임시값, Radio sm 선택 점 8은 확정됨, `tokens/custom/selection.json` TODO): 비활성 라벨 색·비활성 미선택 배경, 가로 그룹 간격, Segmented 최소 폭 96·좌우 패딩 16·옵션 간 간격 8(시안은 단일 옵션만 보여줌), sm 라벨 글자 크기 md 14 · sm 13 확정(2026-11-12), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
+- [Q20] Select 패널 최대 높이 190 · 로딩/빈 상태 174 Figma 확정(2026-11-12). 남은 임시값: `z-index/dropdown`
+- [Q21] 시안 불일치 확인: SelectBox Negative 상태의 화살표만 진한 색(#1E293B)이고 나머지 상태는 Neutral/500. 현재 Neutral/500로 통일함. Date Field 날짜 ↔ 달력 아이콘 간격은 Figma 4로 반영(2026-11-12)
+- [Q22] Selection 시안에 없는 항목(임시값, `tokens/custom/selection.json` TODO): 비활성 라벨 색, 가로 그룹 간격. (Segmented는 Figma로 확정 2026-11-12: 최소 60 · 좌우 12 · 옵션 붙임, 비활성 미선택 배경 확정) sm 라벨 글자 크기 md 14 · sm 13 확정(2026-11-12), 체크박스 sm 체크 아이콘 크기(20 프레임을 0.8배)
 - [Q23] Checkbox·Radio·Toggle·Segmented의 hover 표현은 시안에 없어 미구현. 토글 이동 애니메이션은 motion 토큰이 없어 미구현
 - [Q24] 아이콘 이름 지정 확인 (Figma 이름만으로 만들 수 없어 코드에서 지정, `scripts/build-icons.mjs`): `1dp(0~6)` → home·card-check·bar-chart·file-text·building·archive·shield-check, `Link-external` 12·`24-1`(↗ 모양) → `arrow-up-right`, `Setting` `20-1`(슬라이더 모양) → `setting-sliders`. Figma 쪽 이름도 맞춰 두면 좋음
 - [Q26] 회색으로 내보낸 선 아이콘(eye·eye-off·pin-line·drag-handle·info-circle 16·arrow-up-right)은 규칙(고정 컬러 없음)에 따라 `currentColor`로 바꿈 → 회색이 필요하면 쓰는 쪽에서 color 지정. loading 아이콘 회전 애니메이션은 motion 토큰이 없어 미포함
 - [Q28] Pagination 반응형(가맹점관리자 모바일) 시안 없음 → 미적용. 결과가 1페이지 이하일 때 숨길지는 화면 정책으로 정함(컴포넌트는 그대로 표시)
-- [Q29] Date Picker: 시안 표기 패널 높이 380 ≠ 측정 340(6줄, 테두리 포함) → 측정값 사용. 필드 ↔ 패널 간격 8은 임시값(TODO). 기간 선택 중 마우스 위치까지 미리 보여주는 표시는 시안에 없어 미구현
-- [Q30] Badge 임시값(TODO): Neutral 상태 점 색(Neutral/500), Primary 외 tone의 Line 테두리(각 Status Border), Number 두 자리 이상 좌우 여백 6·글자(12 SemiBold). 3글자 이상 배지는 시안보다 2px 넓게 렌더링됨(글자 폭 반올림 차이로 판단, 2글자는 정확히 일치)
+- [Q29] Date Picker: Figma로 336 × 344 · 반경 12 · 헤더 40 확정(2026-11-12). 필드 ↔ 패널 간격 8은 임시값(TODO). 기간 선택 중 마우스 위치까지 미리 보여주는 표시는 시안에 없어 미구현
+- [Q30] Badge 임시값(TODO): Neutral 상태 점 색(Neutral/500, Figma는 이미지라 값 확인 불가), Primary · Neutral 외 tone의 Line 테두리(각 Status Border, Neutral은 Neutral 100 확정), Number 두 자리 이상 좌우 여백 6·글자(12 SemiBold). 3글자 이상 배지는 시안보다 2px 넓게 렌더링됨(글자 폭 반올림 차이로 판단, 2글자는 정확히 일치)
 - [Q31] Modal(테두리 없음 · 반경 12 · 그림자 0 8px 24px rgba(0,0,0,.12) 확정 2026-11-12) 임시값(TODO): z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
-- [Q32] LNB 임시값(TODO, `tokens/custom/lnb.json`): 3Depth Hover 표현(파란 글자 + ↗로 해석 — ↗가 "이동" 표시인지 외부 링크 표시인지 확인 필요, 외부 링크는 link-external 아이콘으로 구분), Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
+- [Q32] LNB: 3Depth Hover(흰 배경 + 파란 글자 + ↗) · 2Depth 12 Medium · Current 진한 글자 Figma 확정(2026-11-12). 확인 필요: Figma Depth=2 Hover는 Default와 같음(구현은 Neutral 200 배경 유지), Figma Depth=3 Active는 배경 없음 ↔ 전체 LNB 예시는 Primary 100 배경(예시 따름), 전체 LNB 예시의 "모두 펼침" 줄은 미구현. 남은 임시값(TODO): Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
 - [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal은 Figma로 FavoriteMenuPicker 구현(2026-11-12)
-- [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab은 Figma로 구현(2026-11-12, Tab 사이 간격 8 임시). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
+- [Q34] Tab(Figma 반영 2026-11-12: Line md 14 Regular/Active 14 Bold · 좌우 12, sm 12 Regular/Active 12 SemiBold · 좌우 10, Button Tab 14 Regular/Active 14 Bold · 좌우 md 26 · sm 12) 임시값(TODO): Line Tab 사이 간격 0, Button Tab 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab은 Figma로 구현(2026-11-12, Tab 사이 간격 8 임시). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
 - [Q35] Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리). Search 가이드의 회색 박스는 다른 섹션과 같은 설명용 카드로 보고 SearchArea에 넣지 않음 — 검색 영역에 박스가 필요한지 확인 필요
 
-- [Q36] Work Tab 시안 확인 필요(`tokens/custom/work-tab.json` TODO): ① State 예시의 Default·Hover Tab은 내용보다 넓지만 Workspace Bar 예시는 내용 폭 → 내용 폭으로 구현, Hover 시 닫기(X)가 나타나며 Tab이 넓어짐 ② Active Tab의 •••와 "열린 화면 N ⌄" Trigger가 같은 Tab 관리 메뉴를 여는 것으로 해석(둘 다 Active Tab 대상) ③ 메뉴명 말줄임 폭 160, •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover·비활성, Trigger ↔ 메뉴 8은 임시값 ④ 고정 Tab 표시(아이콘 등) 시안 없음 → 닫기 숨김만. (Trigger 위치는 Page Layout GUI로 확인: Work Tab 줄 오른쪽 끝, 밑줄 없는 글자 + 화살표 → 반영함)
+- [Q36] Work Tab 시안 확인 필요(`tokens/custom/work-tab.json` TODO): ① State 예시의 Default·Hover Tab은 내용보다 넓지만 Workspace Bar 예시는 내용 폭 → 내용 폭으로 구현, Hover 시 닫기(X)가 나타나며 Tab이 넓어짐 ② Active Tab의 •••와 "열린 화면 N ⌄" Trigger가 같은 Tab 관리 메뉴를 여는 것으로 해석(둘 다 Active Tab 대상) ③ •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover·비활성, Trigger ↔ 메뉴 8은 임시값 ④ 고정 Tab 표시(아이콘 등) 시안 없음 → 닫기 숨김만. (Trigger 위치는 Page Layout GUI로 확인: Work Tab 줄 오른쪽 끝, 밑줄 없는 글자 + 화살표 → 반영함)
 - [Q37] Page Layout 확인 필요: ① 실제 GUI의 검색 조건 카드는 제목 줄 오른쪽에 [새로고침]·[조회], 아래에 [상세 검색 ⌄] — Search 가이드의 SearchArea(필드 줄 끝에 초기화·조회·상세조건)와 배치가 다름. 어느 쪽을 표준으로 할지 ② Header·Work Tab을 스크롤 시 고정(sticky)할지(현재 본문과 함께 스크롤, LNB만 고정) ③ 페이지 하단 여백(Total·Pagination 줄 ↔ Footer)은 상단과 같은 20으로 둠 ④ 가맹점관리자 반응형 시안 없음 → 미적용 ⑤ 적용된 검색 조건 칩·조회 요약 카드는 Data Display 가이드 때 제작
-- [Q38] Tooltip 임시값(TODO, `tokens/custom/tooltip.json`·`field.json`): 화면 경계 최소 간격 8, `z-index/tooltip` 1200, 비활성 Info 아이콘 색. 시안의 "아이콘 ↔ 포인터 0px"은 아이콘(20) 상자 기준으로 0 구현(측정상 원 바깥 1~2px 차이). 표시 애니메이션은 motion 토큰 없어 미포함. LNB 긴 메뉴명(Q32)은 아직 기본 title — Tooltip으로 바꿀지 확인
+- [Q38] Tooltip(Figma 반영 2026-11-12: 포인터 높이 8 · 기준 요소 바깥 8) 임시값(TODO, `tokens/custom/tooltip.json`·`field.json`): 화면 경계 최소 간격 8, `z-index/tooltip` 1200, 비활성 Info 아이콘 색. 표시 애니메이션은 motion 토큰 없어 미포함. LNB 긴 메뉴명(Q32)은 아직 기본 title — Tooltip으로 바꿀지 확인
 - [Q39] Spacing 가이드 Usage와 컴포넌트 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Page Layout Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8(Search·Modal Footer·Page Title·Button Tab) ③ Icon–Text 8 ↔ Button 아이콘 간격 4. 어느 쪽을 기준으로 할지 확인
 - [Q41] Compact Navigation(번호 글자 Figma 확정 2026-11-12: 현재 12 Bold · " / 전체" 12 Regular, 공백 간격) · 1페이지 이하면 숨김(2026-11-12 반영) 남은 확인: 화살표 Hover · 누르는 영역 크기(현재 아이콘 16 그대로)
 - [Q45] Summary Card(Figma 반영 2026-11-12: 제목 14 Bold · Info 20 · 단위 13 Medium · 빈 상태 제목 14 Medium) 남은 확인: Skeleton 애니메이션 없음(motion 토큰 없음)
@@ -455,3 +455,25 @@
 - Button Tab 크기: md 40(기본) · sm 32 (`size`). 기존 Button Tab 기본 높이가 32 → 40으로 바뀜(sm으로 32 유지 가능). ButtonTab 스토리에 md · sm
 - 필드 크기 `lg`(48) 추가: md와 글자(14) · 여백 14 · 반경 8 같고 높이만 48 (FieldBox · Field 라벨). 즐겨찾기 편집 검색을 lg로
 - Radio · Checkbox 이름 글자 md 14 · sm 13 확정(코드 변경 없음)
+
+### 기존 컴포넌트 Figma 재대조 — 2026-11-12
+- 일치(변경 없음): Pagination · Calendar Day/Header 색 · Checkbox · Toggle · Text Field(크기 · 글자 · 포커스 · 비활성 · 읽기전용 · 피드백 · 헬퍼) · Search Field · Text Area · Button(크기 · 글자 · 여백 · 반경) · MultiSelect(항목 36 · 여백 10 · 패널 높이) · LNB 행 높이 45/42/33
+- 반영
+  - Segmented: 옵션을 테두리 겹쳐 붙임(바깥 모서리만 반경) · 최소 폭 60 · 좌우 12 · 선택 12 SemiBold
+  - Tab: Line md 14 Regular / Active 14 Bold · 좌우 12, sm 12 Regular / Active 12 SemiBold · 좌우 10, Button Tab 14 Regular / Active 14 Bold · 좌우 md 26 · sm 12, 최소 폭 제거, Count 14 Bold
+  - Badge: Line Neutral 테두리 Neutral 100
+  - Tooltip: 포인터 높이 6 → 8, 기준 요소 바깥 간격 0 → 8(`tooltip/offset`)
+  - Text Button: md 13 Bold, Hover 밑줄 → Primary 50 배경(`text-button/hover-bg`)
+  - Field: 필수 표시(*) 12 Bold
+  - Select Box: 로딩 · 빈 상태 패널 172 → 174, sm 항목 13 Medium(md 14 Regular)
+  - MultiSelect: 항목 반경 6 → 4
+  - Date Field · Date Range Field: 날짜 ↔ 달력 아이콘 8 → 4(~ 양옆 8 유지)
+  - Date Picker: 336 × 340 → 336 × 344, 반경 8 → 12, 헤더 34 → 40, 이전 · 다음 아이콘 20 → 24(누르는 영역 24)
+  - LNB: 2Depth 13 → 12 Medium · 기본 Text/Secondary · Current Text/Heading, 3Depth Hover 흰 배경(`lnb/depth3-hover-bg`)
+- 검증: tokens · typecheck · lint · Storybook 빌드 통과. 반영값 측정 22개 통과. 기존 테스트 재통과(공통 24 · MultiSelect 27 · 가이드 28 · Figma 대조 12 · Pagination · DatePicker 31/32 · LNB 22/23 · Tab 12/19) — 실패는 이번에 바꾼 값(Date Picker 340 · LNB 2Depth 13px · Tab 글자 · 여백)을 옛 값으로 기대하는 테스트와 기존 Q30(Badge 폭 2px)뿐
+- 확인 필요: Q32(LNB Depth 컴포넌트 ↔ 전체 예시 차이)
+
+### Work Tab 메뉴명 · 검색 영역 라벨 배치 — 2026-11-12
+- Work Tab(Q36 ⓪, 사용자 확정): 메뉴명 최대 12자(`WORK_TAB_LABEL_MAX`), 넘으면 12자 + … (전체 이름은 title). Figma대로 메뉴명 영역 최소 99 · 왼쪽 여백 14 · 오른쪽 12 · 간격 Hover 8 / Active 4 · Active 13 SemiBold. 기존 말줄임 폭 160 제거
+- 라벨 배치(Q53, 사용자 확정): 검색 영역 라벨은 위가 아니라 **필드 왼쪽 · 간격 8**. SearchArea · Page Layout 예시 · Search 가이드를 왼쪽 배치로 바꾸고 버튼을 내리던 여백 제거. `labelPosition="top"`(Modal Form용)도 간격 4 → 8(`field/label-gap-top`)
+- 검증: tokens · typecheck · lint · Storybook 빌드 통과. 브라우저 측정(짧은 메뉴명 Tab 127 = 14 + 99 + 12 + 테두리, 긴 메뉴명 12자 + … · title 전체, Active 13 SemiBold, 검색 라벨 ↔ 필드 8 · 같은 줄, [조회] ↔ 필드 위치 같음, 콘솔 에러 없음)
