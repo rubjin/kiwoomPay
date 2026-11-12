@@ -70,6 +70,10 @@ $infobox-icon-size: 20px; // 줄 높이 = 아이콘 높이
   color: t.$color-infobox-text;
 }
 
+.textWide {
+  grid-column: 2 / 4;
+}
+
 .action {
   display: inline-flex;
   grid-column: 4;

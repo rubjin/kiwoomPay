@@ -132,3 +132,21 @@ export const Collapsed: Story = {
     </SearchPanel>
   ),
 };
+
+/** actionsPlacement="inline": 조건이 한 줄뿐인 화면 — [초기화] · [조회]를 필드 줄 끝에 (제목 16 · 접기 없음, 다운로드 센터) */
+export const InlineActions: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <SearchPanel title="검색조건" actionsPlacement="inline" onSearch={() => {}} onReset={() => {}}>
+      <Field label="처리상태" style={{ width: 183 }}>
+        <SelectBox fullWidth options={status} defaultValue="all" />
+      </Field>
+      <Field label="요청일">
+        <DateRangeField defaultValue={{ start: '2026-08-01', end: '2026-08-31' }} />
+      </Field>
+      <Field label="파일명" style={{ flex: '1 1 240px' }}>
+        <TextField fullWidth placeholder="파일명 또는 요청명을 입력해주세요" />
+      </Field>
+    </SearchPanel>
+  ),
+};

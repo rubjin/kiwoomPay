@@ -17,10 +17,12 @@ import * as PanelStories from '../src/patterns/search-result/SearchPanel.stories
 <Canvas of={PanelStories.Rows} />
 <Canvas of={PanelStories.DetailGrid} />
 <Canvas of={PanelStories.Collapsed} />
+<Canvas of={PanelStories.InlineActions} />
 
 - 필드는 `Field`(라벨 왼쪽 · 간격 8) + md 40, 필드 사이 16
 - 상세 검색을 펼치면 영역 배경 Primary 50, 접어도 값은 유지
 - `defaultCollapsed`: 제목 줄만 (상세 검색 줄도 숨김)
+- `actionsPlacement="inline"`: 조건이 한 줄뿐인 화면(다운로드 센터) — [초기화] · [조회]를 필드 줄 끝에 두고, 제목 16 · 제목 줄 32 · 접기 없음. 남는 폭은 마지막 필드(`flex`)가 채운다
 
 ## Do / Don't
 

@@ -105,6 +105,20 @@ $sr-grid-cell-padding-x: t.$space-12;
   align-items: center;
 }
 
+// actionsPlacement="inline": 제목 줄에 버튼이 없어도 높이 32 (시안 다운로드센터.png 측정)
+.searchHeaderInline {
+  min-height: t.$control-height-sm;
+}
+
+// actionsPlacement="inline": 필드 줄 끝 [초기화] · [조회] (버튼 사이 8)
+.inlineActions {
+  display: flex;
+  flex: none;
+  gap: $sr-heading-gap;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
 // SearchPanel.Row: 한 줄 전체 폭
 .fieldLine {
   display: flex;

@@ -23,13 +23,13 @@ import * as InfoboxStories from '../src/components/display/Infobox.stories';
 </Infobox>
 ```
 
-| 요소                     | 설명                                                                   |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `Infobox`                | 상자. `tone` info(파란 배경 · 기본) · neutral(회색 배경)               |
-| `Infobox.Item`           | 한 줄: 아이콘 · 제목(`title`) · 설명(children) · 오른쪽 영역           |
-| `actionLabel` · `action` | 오른쪽 보조 문구와 링크 · 버튼. 둘 다 없으면 오른쪽 영역을 그리지 않음 |
-| `icon`                   | 아이콘 바꾸기(기본 Info). `null`이면 숨김                              |
-| `Infobox.Link`           | 오른쪽 끝 링크(Primary 13 Bold, Hover 밑줄)                            |
+| 요소                     | 설명                                                                    |
+| ------------------------ | ----------------------------------------------------------------------- |
+| `Infobox`                | 상자. `tone` info(파란 배경 · 기본) · neutral(회색 배경)                |
+| `Infobox.Item`           | 한 줄: 아이콘 · 제목(`title`, 생략 가능) · 설명(children) · 오른쪽 영역 |
+| `actionLabel` · `action` | 오른쪽 보조 문구와 링크 · 버튼. 둘 다 없으면 오른쪽 영역을 그리지 않음  |
+| `icon`                   | 아이콘 바꾸기(기본 Info). `null`이면 숨김                               |
+| `Infobox.Link`           | 오른쪽 끝 링크(Primary 13 Bold, Hover 밑줄)                             |
 
 <Canvas of={InfoboxStories.Types} />
 
@@ -38,6 +38,7 @@ import * as InfoboxStories from '../src/components/display/Infobox.stories';
 - 여러 줄을 넣으면 **제목 · 설명 열이 맞춰집니다**(가장 긴 제목 기준).
 - 오른쪽 영역은 항상 오른쪽 끝에 붙고 줄바꿈하지 않습니다. 폭이 좁으면 설명이 줄바꿈됩니다.
 - 상자 폭은 부모를 채웁니다.
+- 제목 없이 안내 문장만 있으면 `title`을 생략합니다 — 설명이 아이콘 바로 옆부터 이어집니다(화면 상단 안내 · 팝업 안내).
 
 <Canvas of={InfoboxStories.Variations} />
 

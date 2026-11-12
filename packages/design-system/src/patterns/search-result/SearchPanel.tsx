@@ -18,6 +18,11 @@ export interface SearchPanelProps extends Omit<
   onReset?: () => void;
   /** 조회 중: [조회] 로딩 · 중복 실행 차단 */
   loading?: boolean;
+  /**
+   * [초기화] · [조회] 위치. header(기본): 제목 줄 오른쪽 + 접기 화살표 /
+   * inline: 필드 줄 끝, 제목 16 · 접기 없음 (조건이 한 줄뿐인 화면 — 다운로드 센터)
+   */
+  actionsPlacement?: 'header' | 'inline';
   /** 상세 검색 조건. 없으면 '상세 검색' 줄을 그리지 않는다 */
   detail?: ReactNode;
   /** 상세 검색 펼침 (controlled) */
@@ -45,6 +50,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       onSearch,
       onReset,
       loading = false,
+      actionsPlacement = 'header',
       detail,
       expanded,
       defaultExpanded = false,
@@ -85,7 +91,27 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       if (!loading) onSearch?.();
     };
 
+    const inline = actionsPlacement === 'inline';
     const hasDetail = detail !== undefined && !isCollapsed;
+
+    const actions = (
+      <>
+        {onReset && (
+          <Button
+            variant="neutral"
+            appearance="line"
+            iconOnly
+            icon={<Icon name="refresh" size={20} />}
+            aria-label={text.reset}
+            disabled={loading}
+            onClick={onReset}
+          />
+        )}
+        <Button type="submit" variant="neutral" loading={loading}>
+          {text.search}
+        </Button>
+      </>
+    );
 
     return (
       <form
@@ -98,42 +124,31 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       >
         <div className={clsx(styles.card, hasDetail && styles.cardTop)}>
           <SectionHeading
-            className={styles.searchHeader}
+            className={clsx(styles.searchHeader, inline && styles.searchHeaderInline)}
+            size={inline ? 'md' : 'lg'}
             title={title}
             addon={
-              <button
-                type="button"
-                className={styles.iconToggle}
-                aria-expanded={!isCollapsed}
-                aria-controls={bodyId}
-                aria-label={isCollapsed ? text.expand : text.collapse}
-                onClick={() => setCollapsed(!isCollapsed)}
-              >
-                <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={24} />
-              </button>
+              inline ? undefined : (
+                <button
+                  type="button"
+                  className={styles.iconToggle}
+                  aria-expanded={!isCollapsed}
+                  aria-controls={bodyId}
+                  aria-label={isCollapsed ? text.expand : text.collapse}
+                  onClick={() => setCollapsed(!isCollapsed)}
+                >
+                  <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={24} />
+                </button>
+              )
             }
-            actions={
-              <>
-                {onReset && (
-                  <Button
-                    variant="neutral"
-                    appearance="line"
-                    iconOnly
-                    icon={<Icon name="refresh" size={20} />}
-                    aria-label={text.reset}
-                    disabled={loading}
-                    onClick={onReset}
-                  />
-                )}
-                <Button type="submit" variant="neutral" loading={loading}>
-                  {text.search}
-                </Button>
-              </>
-            }
+            actions={inline ? undefined : actions}
           />
-          {!isCollapsed && (
+          {(inline || !isCollapsed) && (
             <div id={bodyId} className={styles.searchBody}>
-              <div className={styles.fieldRow}>{children}</div>
+              <div className={styles.fieldRow}>
+                {children}
+                {inline && <div className={styles.inlineActions}>{actions}</div>}
+              </div>
             </div>
           )}
         </div>

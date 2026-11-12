@@ -63,13 +63,18 @@ export const Types: Story = {
   ),
 };
 
-/** 오른쪽 영역 없음 · 좁은 폭(설명 줄바꿈) */
+/** 오른쪽 영역 없음 · 제목 없음(한 줄 안내) · 좁은 폭(설명 줄바꿈) */
 export const Variations: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...stack, width: 640 }}>
       <Infobox>
         <Infobox.Item title="조회 안내">최근 3개월 거래만 조회할 수 있습니다.</Infobox.Item>
+      </Infobox>
+      <Infobox>
+        <Infobox.Item>
+          대용량 파일은 비동기로 생성되며, 완료 후 목록에서 다운로드할 수 있습니다.
+        </Infobox.Item>
       </Infobox>
       <Infobox>{account}</Infobox>
     </div>

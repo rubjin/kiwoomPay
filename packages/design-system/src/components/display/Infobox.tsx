@@ -31,8 +31,8 @@ const InfoboxRoot = forwardRef<HTMLDivElement, InfoboxProps>(
 InfoboxRoot.displayName = 'Infobox';
 
 export interface InfoboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** 안내 제목 (굵게) */
-  title: ReactNode;
+  /** 안내 제목 (굵게). 없으면 설명이 제목 자리부터 이어진다 (한 줄 안내) */
+  title?: ReactNode;
   /** 오른쪽 보조 문구 (예: "변경 요청") */
   actionLabel?: ReactNode;
   /** 오른쪽 끝 요소 (예: Infobox.Link, TextButton) */
@@ -49,8 +49,8 @@ const InfoboxItem = forwardRef<HTMLDivElement, InfoboxItemProps>(
       <span className={styles.icon}>
         {icon === undefined ? <Icon name="info-box" size={20} /> : icon}
       </span>
-      <strong className={styles.title}>{title}</strong>
-      <span className={styles.text}>{children}</span>
+      {title !== undefined && <strong className={styles.title}>{title}</strong>}
+      <span className={clsx(styles.text, title === undefined && styles.textWide)}>{children}</span>
       {(actionLabel !== undefined || action !== undefined) && (
         <span className={styles.action}>
           {actionLabel !== undefined && <span className={styles.label}>{actionLabel}</span>}
