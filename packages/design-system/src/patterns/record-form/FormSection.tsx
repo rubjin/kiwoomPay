@@ -5,8 +5,14 @@ import { useControllableState } from '../../hooks';
 import styles from './RecordForm.module.scss';
 
 export interface FormSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
-  /** 제목. 글자면 18 SemiBold, 노드면 그대로 (예: 선택 CPID 문맥) */
+  /** 제목 (FormSection.Heading — 18 Bold · h2) */
   title?: ReactNode;
+  /** 제목 앞 작은 이름 (예: 선택 CPID) */
+  label?: ReactNode;
+  /** 제목 아래 줄 문맥 (ContextChip · 상태 Badge) */
+  context?: ReactNode;
+  /** 제목 옆 설명 (12 Regular) */
+  description?: ReactNode;
   /** 제목 줄 오른쪽 (접기 버튼 앞) */
   actions?: ReactNode;
   /** 접기 · 열기 버튼 */
@@ -30,6 +36,9 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
   (
     {
       title,
+      label,
+      context,
+      description,
       actions,
       collapsible = false,
       collapsed,
@@ -53,6 +62,18 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
     );
     const text = { collapse: '접기', expand: '열기', ...labels };
     const hasHeader = title !== undefined || actions !== undefined || collapsible;
+    const toggle = collapsible && (
+      <button
+        type="button"
+        className={styles.toggle}
+        aria-expanded={!isCollapsed}
+        aria-controls={bodyId}
+        onClick={() => setCollapsed(!isCollapsed)}
+      >
+        {isCollapsed ? text.expand : text.collapse}
+        <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={20} />
+      </button>
+    );
 
     const card = (
       <section
@@ -66,24 +87,23 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
         style={tabs === undefined ? style : undefined}
       >
         {hasHeader && (
-          <div className={styles.sectionHeader}>
-            {typeof title === 'string' ? <h2 className={styles.sectionTitle}>{title}</h2> : title}
-            <div className={styles.sectionActions}>
-              {actions}
-              {collapsible && (
-                <button
-                  type="button"
-                  className={styles.toggle}
-                  aria-expanded={!isCollapsed}
-                  aria-controls={bodyId}
-                  onClick={() => setCollapsed(!isCollapsed)}
-                >
-                  {isCollapsed ? text.expand : text.collapse}
-                  <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={20} />
-                </button>
-              )}
-            </div>
-          </div>
+          // 카드 제목 줄도 본문 중간 제목 줄과 같은 FormSection.Heading — 접기는 오른쪽 Action 끝
+          <FormSectionHeading
+            className={styles.cardHeading}
+            title={title}
+            label={label}
+            description={description}
+            actions={
+              actions || toggle ? (
+                <>
+                  {actions}
+                  {toggle}
+                </>
+              ) : undefined
+            }
+          >
+            {context}
+          </FormSectionHeading>
         )}
         {!isCollapsed && children !== undefined && (
           <div id={bodyId} className={styles.sectionBody}>
@@ -108,53 +128,48 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
 );
 FormSectionRoot.displayName = 'FormSection';
 
-export interface FormSectionHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** 소제목 (18 Bold) */
-  title: ReactNode;
-  /** 소제목 옆 설명 (12 Regular) */
+export interface FormSectionHeadingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  /** 제목 (18 Bold · 줄 높이 26 · h2) */
+  title?: ReactNode;
+  /** 제목 앞 작은 이름 (10 Regular, 예: 선택 CPID) */
+  label?: ReactNode;
+  /** 제목 옆 설명 (12 Regular, 예: 자금세탁방지 공지용 담당자 정보) */
   description?: ReactNode;
-  /** 오른쪽 (이력조회 · 추가 · 삭제) */
+  /** 오른쪽 (이력조회 · 추가 · 삭제, 탭) */
   actions?: ReactNode;
-}
-
-/** 섹션 안의 소제목 줄 (예: 담당자 정보) */
-const FormSectionHeader = forwardRef<HTMLDivElement, FormSectionHeaderProps>(
-  ({ title, description, actions, className, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.subHeader, className)}>
-      <div className={styles.subHeading}>
-        <h3 className={styles.subTitle}>{title}</h3>
-        {description && <p className={styles.description}>{description}</p>}
-      </div>
-      {actions && <div className={styles.subActions}>{actions}</div>}
-    </div>
-  ),
-);
-FormSectionHeader.displayName = 'FormSection.Header';
-
-export interface RecordHeadingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** 작은 이름 (예: 선택 CPID) */
-  label: ReactNode;
-  /** 대상 이름 (18 Bold) */
-  value: ReactNode;
-  /** 아래 줄 (ContextChip · 상태 Badge) */
+  /** 제목 아래 줄 (ContextChip · 상태 Badge) */
   children?: ReactNode;
 }
 
-/** 섹션 제목 자리의 대상 표시 (Figma Context / 선택 CPID) */
-const RecordHeading = forwardRef<HTMLDivElement, RecordHeadingProps>(
-  ({ label, value, className, children, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.heading, className)}>
-      <div className={styles.headingLine}>
-        <span className={styles.headingLabel}>{label}</span>
-        <h2 className={styles.headingValue}>{value}</h2>
+/**
+ * 제목 줄 (h2). 카드 제목(기본 정보) · 본문 중간 제목(담당자 정보) · 대상 표시(선택 CPID)를 모두 이것으로 그린다 —
+ * 한 카드 안의 제목은 같은 레벨 · 같은 모양.
+ */
+const FormSectionHeading = forwardRef<HTMLDivElement, FormSectionHeadingProps>(
+  ({ title, label, description, actions, className, children, ...rest }, ref) => (
+    <div
+      {...rest}
+      ref={ref}
+      className={clsx(
+        styles.heading,
+        children !== undefined && children !== null && styles.headingTop,
+        className,
+      )}
+    >
+      <div className={styles.headingMain}>
+        <div className={styles.headingLine}>
+          {label !== undefined && <span className={styles.headingLabel}>{label}</span>}
+          {title !== undefined && <h2 className={styles.headingTitle}>{title}</h2>}
+          {description && <p className={styles.headingDescription}>{description}</p>}
+        </div>
+        {children !== undefined && children !== null && (
+          <div className={styles.headingLine}>{children}</div>
+        )}
       </div>
-      {children && <div className={styles.headingLine}>{children}</div>}
+      {actions && <div className={styles.headingActions}>{actions}</div>}
     </div>
   ),
 );
-RecordHeading.displayName = 'FormSection.Heading';
+FormSectionHeading.displayName = 'FormSection.Heading';
 
-export const FormSection = Object.assign(FormSectionRoot, {
-  Header: FormSectionHeader,
-  Heading: RecordHeading,
-});
+export const FormSection = Object.assign(FormSectionRoot, { Heading: FormSectionHeading });

@@ -63,8 +63,8 @@ export const Tabbed: Story = {
   ),
 };
 
-/** 소제목 줄 (FormSection.Header): 18 Bold + 설명 12 + 오른쪽 Action, 아래 표와 8 */
-export const SubHeader: Story = {
+/** 본문 중간 제목 줄 (FormSection.Header): 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
+export const SameLevelTitles: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={wrap}>

@@ -536,3 +536,7 @@
 - 적용: `apps/internal-admin` · `apps/screen-list` vite.config (`mergeConfig`), 두 앱에 `sass` devDependency 추가
 - 효과: 컴포넌트 수정 → 앱 화면에 즉시 반영(HMR, `pnpm build` 불필요). 확인: FormSectionHeader 설명을 주석 처리하면 새로고침 없이 사라지고 되돌리면 다시 보임. 운영 빌드 app.js에 src 경로 없음
 - 참고: 앱 타입 검사(tsc)는 여전히 `dist/types`를 본다 — 디자인 시스템에 새 export를 추가하면 앱 typecheck 전에 `pnpm build` 필요
+
+### FormSection 제목 줄 통일 — 2026-11-12
+- 카드 제목(기본 정보)도 소제목(담당자 정보)과 같은 `FormSection.Header`로 그린다 — 접기/열기는 제목 줄 오른쪽 Action 끝. `FormSection`에 `description` prop 추가. 기본 정보 · 담당자 정보는 같은 레벨(h2) — 소제목 개념 없음
+- 글자: 둘 다 **18 Bold · 줄 높이 26** (사용자 결정. 시안의 기본 정보 18 SemiBold · 21과 다름 → 기본 정보 카드 793 → 798)
