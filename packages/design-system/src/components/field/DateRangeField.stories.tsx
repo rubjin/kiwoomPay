@@ -12,7 +12,7 @@ const row: CSSProperties = {
 const filled: DateRange = { start: '2026-08-01', end: '2026-08-13' };
 
 const meta = {
-  title: 'Components/Input/Field/DateRangeField',
+  title: 'Components/Field/DateRangeField',
   component: DateRangeField,
   argTypes: {
     size: { control: 'inline-radio', options: ['md', 'sm'] },

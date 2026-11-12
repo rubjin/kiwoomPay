@@ -10,7 +10,7 @@ const col: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Navigation/Pagination',
+  title: 'Components/Pagination',
   component: Pagination,
   args: { totalPages: 10, defaultPage: 1 },
   argTypes: {

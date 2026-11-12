@@ -3,7 +3,7 @@ import { useState, type CSSProperties } from 'react';
 import { Tab } from './Tab';
 
 const meta = {
-  title: 'Components/Navigation/Tab',
+  title: 'Components/Tab',
   component: Tab,
   args: { defaultValue: 'a', children: null },
   argTypes: {

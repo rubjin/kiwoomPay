@@ -585,7 +585,7 @@
 - 새 컴포넌트를 만들 때 그룹 기준: 혼자 쓰면 Components, 여러 컴포넌트를 묶은 업무 부품이면 Composites, 화면 틀이면 Layout
 - Icon 가이드는 컴포넌트 스토리와 함께 있어 Components에 둠(Foundation은 Typography · Spacing)
 - 역할별 섹션 추가(사용자 확인, 같은 날):
-  - Components: **Action**(Button) · **Input**(Field · Selection · DatePicker) · **Navigation**(Tab · Pagination) · **Display**(Badge · Infobox · Summary Card · CPID List Item · Section Heading) · **Feedback**(Modal · Tooltip) · Icon(섹션 없음)
+  - Components: 섹션 없이 컴포넌트를 바로 나열(사용자 요청으로 Action · Input · Navigation · Display · Feedback 섹션 제거, 같은 날). 이름순(Button · Field · Selection 묶음 폴더는 유지)
   - Composites: **Search**(Search Area · Search Panel · Lookup Field · Lookup Search · Address Search) · **Result**(Result Parts · Status View(테이블 결과 상태) · Action Bar · Column Picker) · **Form**(Record Form) · **Feedback**(Dialog · Favorite Menu Picker)
   - Search Result 가이드를 `docs/SearchPanel.mdx`(Search) · `docs/ResultParts.mdx`(Result)로 나눔(내용 이동만). storySort에 섹션 순서 · 섹션 안 대표 항목 순서 고정
 

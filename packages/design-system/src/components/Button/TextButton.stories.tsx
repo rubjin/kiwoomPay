@@ -10,7 +10,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Action/Button/TextButton',
+  title: 'Components/Button/TextButton',
   component: TextButton,
   args: { children: '이력조회' },
   argTypes: {

@@ -11,7 +11,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Input/Selection/Checkbox',
+  title: 'Components/Selection/Checkbox',
   component: Checkbox,
   args: { label: '체크박스' },
   argTypes: {

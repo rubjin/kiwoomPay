@@ -25,7 +25,7 @@ const history = (
 const stack = { display: 'grid', gap: 'var(--kp-space-24)', width: 1242 };
 
 const meta = {
-  title: 'Components/Display/Infobox',
+  title: 'Components/Infobox',
   component: Infobox,
   args: { tone: 'info', children: account },
   argTypes: {

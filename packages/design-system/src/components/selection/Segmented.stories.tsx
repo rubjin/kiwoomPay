@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Segmented } from './Segmented';
 
 const meta = {
-  title: 'Components/Input/Selection/Segmented',
+  title: 'Components/Selection/Segmented',
   component: Segmented,
   args: { children: null },
   argTypes: {

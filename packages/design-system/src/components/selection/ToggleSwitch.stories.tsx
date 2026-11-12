@@ -11,7 +11,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Input/Selection/ToggleSwitch',
+  title: 'Components/Selection/ToggleSwitch',
   component: ToggleSwitch,
   args: { label: '토글 스위치' },
   argTypes: {

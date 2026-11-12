@@ -17,7 +17,7 @@ const stopped = (
 const list = { display: 'grid', gap: 'var(--kp-space-8)', width: 288 };
 
 const meta = {
-  title: 'Components/Display/CPID List Item',
+  title: 'Components/CPID List Item',
   component: CpidListItem,
   args: { cpid: 'CPID', merchantName: '가맹점명', selected: false },
   argTypes: { selected: { control: 'boolean' }, disabled: { control: 'boolean' } },

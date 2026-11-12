@@ -10,7 +10,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Input/Selection/Radio',
+  title: 'Components/Selection/Radio',
   component: Radio,
   args: { label: '라디오', value: 'a', name: 'playground' },
   argTypes: {

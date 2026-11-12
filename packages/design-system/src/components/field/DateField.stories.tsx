@@ -13,7 +13,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Input/Field/DateField',
+  title: 'Components/Field/DateField',
   component: DateField,
   argTypes: {
     size: { control: 'inline-radio', options: ['md', 'sm'] },

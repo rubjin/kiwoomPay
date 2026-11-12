@@ -15,7 +15,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Feedback/Modal',
+  title: 'Components/Modal',
   component: Modal,
   args: { open: true, inline: true, children: null },
 } satisfies Meta<typeof Modal>;

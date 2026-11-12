@@ -20,7 +20,7 @@ const tones: Array<[BadgeTone, string]> = [
 ];
 
 const meta = {
-  title: 'Components/Display/Badge',
+  title: 'Components/Badge',
   component: Badge,
   args: { children: '정상', tone: 'success', dot: true },
   argTypes: {

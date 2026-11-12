@@ -25,7 +25,7 @@ const tall: CSSProperties = { minHeight: 300 };
 const cell: CSSProperties = { width: 200 };
 
 const meta = {
-  title: 'Components/Input/Field/SelectBox',
+  title: 'Components/Field/SelectBox',
   component: SelectBox,
   args: { options, placeholder: '선택해주세요' },
   argTypes: {

@@ -15,7 +15,7 @@ const industries = [
 ];
 
 const meta = {
-  title: 'Components/Input/Field/Field',
+  title: 'Components/Field/Field',
   component: Field,
   args: { label: 'Label Text', required: true, helperText: 'Helper Text', children: null },
   argTypes: {

@@ -11,7 +11,7 @@ const row: CSSProperties = {
 };
 
 const meta = {
-  title: 'Components/Input/Field/SearchField',
+  title: 'Components/Field/SearchField',
   component: SearchField,
   argTypes: {
     size: { control: 'inline-radio', options: ['md', 'sm'] },
