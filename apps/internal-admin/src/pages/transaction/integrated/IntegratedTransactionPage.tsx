@@ -31,7 +31,6 @@ import {
   toAppliedFilters,
 } from '@kiwoompay/design-system';
 
-
 import { useState } from 'react';
 import {
   cancelTransactions,
