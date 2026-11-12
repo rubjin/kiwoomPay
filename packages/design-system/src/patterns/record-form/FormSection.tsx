@@ -26,6 +26,11 @@ export interface FormSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'tit
   tabs?: ReactNode;
   /** 탭 줄 오른쪽 (카드 위 8에 맞춘 버튼: 새로고침 · 등록 · 저장) */
   tabActions?: ReactNode;
+  /**
+   * 화면명(PageLayout.Title) 바로 아래 첫 탭 묶음: 탭 줄 버튼이 화면명 줄과 겹치게 올라가고 화면명 ↔ 제목 탭 10.
+   * 기본(카드 아래)은 위 카드 ↔ 탭 줄 버튼 7 (Figma KWPC07010101)
+   */
+  underTitle?: boolean;
   children?: ReactNode;
 }
 
@@ -48,6 +53,7 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
       labels,
       tabs,
       tabActions,
+      underTitle = false,
       className,
       style,
       children,
@@ -123,7 +129,10 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
     if (tabs === undefined) return card;
     return (
       // 탭이 있으면 className · style은 탭 + 카드 묶음에 준다
-      <div className={clsx(styles.tabbedGroup, className)} style={style}>
+      <div
+        className={clsx(styles.tabbedGroup, underTitle && styles.underTitle, className)}
+        style={style}
+      >
         <div className={styles.tabRow}>
           <div className={styles.tabs}>{tabs}</div>
           {tabActions && <div className={styles.tabActions}>{tabActions}</div>}

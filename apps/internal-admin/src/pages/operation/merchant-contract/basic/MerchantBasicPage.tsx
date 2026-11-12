@@ -136,7 +136,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
 
       {/* 사업자 정보 관리 (Figma: 제목 탭 + 오른쪽 새로고침 · 등록) */}
       <FormSection
-        style={{ marginTop: -17 }}
+        underTitle
         tabs={
           <Tab variant="title" value={view} onChange={setView}>
             <Tab.Item value="business">사업자 정보 관리</Tab.Item>
@@ -197,7 +197,6 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
 
       {/* 가맹점 정보관리 — 선택 CPID (Figma: 신규는 접힘 "열기", 조회수정은 펼침) */}
       <FormSection
-        style={{ marginTop: -5 }}
         tabs={
           <Tab variant="title" value="cpid">
             <Tab.Item value="cpid">가맹점 정보관리</Tab.Item>

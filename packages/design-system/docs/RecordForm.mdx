@@ -35,6 +35,7 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 - 기본 정보 · 담당자 정보는 **같은 레벨의 제목**(h2)이고 같은 `FormSection.Heading` — 18 Bold · 줄 높이 26 + 설명(`description`) + 오른쪽 Action. 카드 첫 제목 줄은 접기가 오른쪽 Action 끝에 붙고, 접으면 카드 본문 전체(담당자 정보 포함)가 숨는다
 - 대상 표시(선택 CPID): `label`(10 Regular) + `title`(대상 이름 18 Bold), 아래 줄 문맥 · 상태는 `context` — 오른쪽 Action은 위에 맞춘다
 - `tabs`(Tab `variant="title"`) + `tabActions`: 탭 밑줄이 카드 테두리에 겹치고, 버튼은 카드 위 8. 카드 왼쪽 위 모서리는 각진다
+- 탭 묶음 위 간격은 컴포넌트가 맞춘다(화면에서 `marginTop`으로 보정하지 않음): 기본은 위 카드 ↔ 탭 줄 버튼 7, 화면명 바로 아래 첫 묶음은 **`underTitle`** — 버튼이 화면명 줄과 겹쳐 올라가고 화면명 ↔ 제목 탭 10 (Figma KWPC07010101)
 - 탭이 있으면 `className` · `style`은 탭 + 카드 묶음에 준다 (페이지에서 위치 조정)
 
 <Canvas of={SectionStories.Tabbed} />
@@ -48,7 +49,7 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 ## 사용 예
 
 ```tsx
-<FormSection tabs={<Tab variant="title">…</Tab>} tabActions={saveButtons} title="기본 정보" collapsible>
+<FormSection underTitle tabs={<Tab variant="title">…</Tab>} tabActions={saveButtons} title="기본 정보" collapsible>
   <FormTable>
     <FormTable.Row>
       <FormTable.Label required>사업자번호</FormTable.Label>

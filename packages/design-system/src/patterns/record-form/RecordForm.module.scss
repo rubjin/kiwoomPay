@@ -14,6 +14,15 @@ $rf-section-radius: t.$control-radius-lg;
 $rf-title-gap-below: t.$space-8; // 본문 중간 제목 줄(담당자 정보) ↔ 아래 표
 $rf-title-actions-gap: t.$space-16; // 이력조회 ↔ 버튼 묶음
 $rf-tab-actions-offset: t.$space-8; // 탭 줄 버튼 ↔ 카드 위
+// 탭 묶음 위 간격 (Page Content Section 간격 12 기준 보정, Figma KWPC07010101)
+$rf-page-section-gap: t.$space-12; // PageLayout 본문 Section 간격
+$rf-tab-group-gap: 7px; // 위 카드 ↔ 탭 줄 버튼
+$rf-title-tab-gap: 10px; // underTitle: 화면명 ↔ 제목 탭 (버튼은 화면명 줄과 겹쳐 올라감)
+$rf-title-tab-height: 34px; // Tab variant="title" 높이
+// 탭 줄이 탭보다 높은 만큼 (버튼 40 + 아래 8 − 탭 34 + 탭이 카드 테두리에 겹치는 1)
+$rf-tab-row-rise: calc(
+  #{t.$control-height-md} + #{$rf-tab-actions-offset} - #{$rf-title-tab-height} + 1px
+);
 $rf-chip-height: 20px;
 $rf-chip-radius: 12px;
 $rf-chip-padding-x: t.$space-8;
@@ -145,6 +154,12 @@ $rf-chip-gap: t.$space-4;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  margin-top: calc(#{$rf-tab-group-gap} - #{$rf-page-section-gap});
+}
+
+// 탭 줄 높이 = 버튼 40 + 아래 8 (탭 34보다 큼). 화면명 ↔ 탭 10이 되도록 그 차이만큼 더 올린다
+.underTitle {
+  margin-top: calc(#{$rf-title-tab-gap} - #{$rf-page-section-gap} - #{$rf-tab-row-rise});
 }
 
 .tabRow {

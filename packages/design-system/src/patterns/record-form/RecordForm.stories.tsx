@@ -50,7 +50,7 @@ export const RecordForm: Story = {
         }
       />
       <FormSection
-        style={{ marginTop: -17 }}
+        underTitle
         tabs={
           <Tab variant="title" defaultValue="a">
             <Tab.Item value="a">사업자 정보 관리</Tab.Item>

@@ -612,4 +612,5 @@
 - `SectionHeading`에 `size="xl"`(24 Bold) · `as="h1"` 추가, `PageLayout.Title`이 SectionHeading xl로 그림(높이 40 · 제목 ↔ addon 12 · Action 사이 8, props 그대로). 중복 토큰 `page-layout/title` 삭제(section-heading/title과 같은 Text/Heading)
 - 검토만(변경 없음): `FormSection` 대상 표시(label · title)는 이미 SectionHeading. 제목 탭 줄(`tabs` · `tabActions`)은 제목 자리가 탭 목록이라 h2 제목으로 묶지 않음
 - 검증: typecheck · lint · tokens 통과, **변경 전/후 픽셀 비교 16장 모두 동일**(Storybook Page Layout 4 · P01 5 · P02 1, 앱 다운로드 센터 · 통합 거래내역 · 정산 실행 · 가맹점 신규/수정 · Placeholder)
+- 이어서(같은 날): 화면에서 넣던 탭 묶음 보정값(`marginTop: -17` · `-5`)을 `FormSection`으로 옮김 — 기본 위 카드 ↔ 탭 줄 버튼 7, `underTitle`(화면명 바로 아래 첫 묶음) 화면명 ↔ 제목 탭 10 · 버튼은 화면명 줄과 겹침. 가맹점 기본/계약 정보 · P02 스토리에서 보정값 제거. 픽셀 비교(P02 스토리 · 가맹점 신규/수정 · 거래내역 · 다운로드 센터) 모두 동일
 
