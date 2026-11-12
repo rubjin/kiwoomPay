@@ -8,6 +8,7 @@ import {
   Tab,
   TextButton,
   useDialog,
+  SectionHeading,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { emptyBasic, fetchMerchant, newContact, saveMerchant } from '@/api/operation/merchantBasic';
@@ -145,7 +146,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
           </Tab>
         }
         tabActions={saveButtons}
-        title="기본 정보"
+        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
         {view === 'business' ? (
@@ -156,7 +157,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               onChange={(patch) => setRecord({ ...record, basic: { ...basic, ...patch } })}
               onAction={notReady}
             />
-            <FormSection.Heading
+            <SectionHeading
               title="담당자 정보"
               description="자금세탁방지 공지용 담당자 정보"
               actions={
@@ -227,36 +228,41 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
             saveButtons
           )
         }
-        label="선택 CPID"
-        title={record.cpid ? `${record.cpid.id} · ${record.cpid.name}` : '등록된 CPID가 없습니다'}
-        context={
-          record.cpid && (
-            <>
-              <ContextChip
-                muted
-                items={[
-                  { label: '현재 사업자', value: basic.nameKo },
-                  { label: '사업자번호', value: basic.bizNo },
-                  { label: '대표자명', value: basic.ceo },
-                ]}
-              />
-              <Badge size="sm" tone="primary" dot>
-                {record.cpid.contract}
-              </Badge>
-              <Badge size="sm" tone="success" dot>
-                {record.cpid.service}
-              </Badge>
-            </>
-          )
-        }
-        actions={
-          <Tab size="sm" value={cpidTab} onChange={setCpidTab} aria-label="CPID 정보">
-            {CPID_TABS.map((t) => (
-              <Tab.Item key={t} value={t}>
-                {t}
-              </Tab.Item>
-            ))}
-          </Tab>
+        heading={
+          <SectionHeading
+            label="선택 CPID"
+            title={
+              record.cpid ? `${record.cpid.id} · ${record.cpid.name}` : '등록된 CPID가 없습니다'
+            }
+            actions={
+              <Tab size="sm" value={cpidTab} onChange={setCpidTab} aria-label="CPID 정보">
+                {CPID_TABS.map((t) => (
+                  <Tab.Item key={t} value={t}>
+                    {t}
+                  </Tab.Item>
+                ))}
+              </Tab>
+            }
+          >
+            {record.cpid && (
+              <>
+                <ContextChip
+                  muted
+                  items={[
+                    { label: '현재 사업자', value: basic.nameKo },
+                    { label: '사업자번호', value: basic.bizNo },
+                    { label: '대표자명', value: basic.ceo },
+                  ]}
+                />
+                <Badge size="sm" tone="primary" dot>
+                  {record.cpid.contract}
+                </Badge>
+                <Badge size="sm" tone="success" dot>
+                  {record.cpid.service}
+                </Badge>
+              </>
+            )}
+          </SectionHeading>
         }
         collapsible
         defaultCollapsed={mode === 'create'}

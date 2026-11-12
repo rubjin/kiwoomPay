@@ -56,6 +56,8 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
       <div
         {...rest}
         ref={ref}
+        // 감싸는 영역이 제목 줄 간격을 맞출 때 쓰는 표시 (예: FormSection 본문 중간 제목 ↔ 아래 표 8)
+        data-section-heading=""
         className={clsx(
           styles.heading,
           hasContext && styles.top,

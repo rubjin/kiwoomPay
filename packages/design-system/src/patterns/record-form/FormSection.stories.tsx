@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../../components/Badge';
 import { Button, TextButton } from '../../components/Button';
 import { Icon } from '../../components/Icon';
+import { SectionHeading } from '../../components/SectionHeading';
 import { Tab } from '../../components/Tab';
 import { ContextChip } from './ContextChip';
 import { FormSection } from './FormSection';
@@ -10,7 +11,7 @@ const meta = {
   title: 'Composites/Form/Record Form/FormSection',
   component: FormSection,
   parameters: { layout: 'padded' },
-  args: { title: '기본 정보', collapsible: true, defaultCollapsed: false },
+  args: { collapsible: true, defaultCollapsed: false },
   argTypes: {
     collapsible: { control: 'boolean' },
     defaultCollapsed: { control: 'boolean' },
@@ -24,7 +25,9 @@ const wrap = { padding: 12, background: 'var(--kp-color-bg-page)' };
 export const Playground: Story = {
   render: (args) => (
     <div style={wrap}>
-      <FormSection {...args}>섹션 내용 (FormTable 등)</FormSection>
+      <FormSection {...args} heading={<SectionHeading title="기본 정보" />}>
+        섹션 내용 (FormTable 등)
+      </FormSection>
     </div>
   ),
 };
@@ -54,7 +57,7 @@ export const Tabbed: Story = {
             <Button>등록</Button>
           </>
         }
-        title="기본 정보"
+        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
         내용
@@ -63,13 +66,13 @@ export const Tabbed: Story = {
   ),
 };
 
-/** 본문 중간 제목 줄 (FormSection.Heading): 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
+/** 본문 중간 제목 줄도 SectionHeading: 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
 export const SameLevelTitles: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={wrap}>
-      <FormSection title="기본 정보">
-        <FormSection.Heading
+      <FormSection heading={<SectionHeading title="기본 정보" />}>
+        <SectionHeading
           title="담당자 정보"
           description="자금세탁방지 공지용 담당자 정보"
           actions={
@@ -93,13 +96,17 @@ export const Heading: Story = {
   render: () => (
     <div style={{ ...wrap, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <FormSection
-        label="선택 CPID"
-        title="등록된 CPID가 없습니다"
-        actions={
-          <Tab size="sm" defaultValue="a">
-            <Tab.Item value="a">CPID 기본 정보</Tab.Item>
-            <Tab.Item value="b">RM 관리</Tab.Item>
-          </Tab>
+        heading={
+          <SectionHeading
+            label="선택 CPID"
+            title="등록된 CPID가 없습니다"
+            actions={
+              <Tab size="sm" defaultValue="a">
+                <Tab.Item value="a">CPID 기본 정보</Tab.Item>
+                <Tab.Item value="b">RM 관리</Tab.Item>
+              </Tab>
+            }
+          />
         }
         collapsible
         defaultCollapsed
@@ -107,10 +114,8 @@ export const Heading: Story = {
         내용
       </FormSection>
       <FormSection
-        label="선택 CPID"
-        title="CTS123456 · ABC몰"
-        context={
-          <>
+        heading={
+          <SectionHeading label="선택 CPID" title="CTS123456 · ABC몰">
             <ContextChip
               muted
               items={[
@@ -121,7 +126,7 @@ export const Heading: Story = {
             <Badge size="sm" tone="success" dot>
               서비스 · 사용중
             </Badge>
-          </>
+          </SectionHeading>
         }
         collapsible
       >

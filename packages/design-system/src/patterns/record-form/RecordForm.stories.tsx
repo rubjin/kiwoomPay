@@ -6,6 +6,7 @@ import { Icon } from '../../components/Icon';
 import { PageLayout } from '../../components/layout';
 import { Checkbox, Radio, RadioGroup } from '../../components/selection';
 import { Tab } from '../../components/Tab';
+import { SectionHeading } from '../../components/SectionHeading';
 import { ContextChip } from './ContextChip';
 import { FormSection } from './FormSection';
 import { FormTable } from './FormTable';
@@ -69,7 +70,7 @@ export const RecordForm: Story = {
             <Button>저장</Button>
           </>
         }
-        title="기본 정보"
+        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
         <FormTable>
@@ -120,7 +121,7 @@ export const RecordForm: Story = {
             </Cell>
           </Row>
         </FormTable>
-        <FormSection.Heading
+        <SectionHeading
           title="담당자 정보"
           description="자금세탁방지 공지용 담당자 정보"
           actions={
@@ -161,7 +162,11 @@ export const RecordForm: Story = {
           </Row>
         </FormTable>
       </FormSection>
-      <FormSection label="선택 CPID" title="등록된 CPID가 없습니다" collapsible defaultCollapsed>
+      <FormSection
+        heading={<SectionHeading label="선택 CPID" title="등록된 CPID가 없습니다" />}
+        collapsible
+        defaultCollapsed
+      >
         내용
       </FormSection>
     </div>

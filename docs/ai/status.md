@@ -613,4 +613,5 @@
 - 검토만(변경 없음): `FormSection` 대상 표시(label · title)는 이미 SectionHeading. 제목 탭 줄(`tabs` · `tabActions`)은 제목 자리가 탭 목록이라 h2 제목으로 묶지 않음
 - 검증: typecheck · lint · tokens 통과, **변경 전/후 픽셀 비교 16장 모두 동일**(Storybook Page Layout 4 · P01 5 · P02 1, 앱 다운로드 센터 · 통합 거래내역 · 정산 실행 · 가맹점 신규/수정 · Placeholder)
 - 이어서(같은 날): 화면에서 넣던 탭 묶음 보정값(`marginTop: -17` · `-5`)을 `FormSection`으로 옮김 — 기본 위 카드 ↔ 탭 줄 버튼 7, `underTitle`(화면명 바로 아래 첫 묶음) 화면명 ↔ 제목 탭 10 · 버튼은 화면명 줄과 겹침. 가맹점 기본/계약 정보 · P02 스토리에서 보정값 제거. 픽셀 비교(P02 스토리 · 가맹점 신규/수정 · 거래내역 · 다운로드 센터) 모두 동일
+- 이어서(같은 날, 사용자 요청): 화면 코드에서도 `SectionHeading`이 보이도록 `FormSection` API 변경 — `title` · `label` · `context` · `description` · `actions` 대신 **`heading={<SectionHeading … />}`**(접기 버튼은 FormSection이 오른쪽 끝에 붙임), `FormSection.Heading` 삭제 → 본문 중간 제목도 `<SectionHeading>` 직접(아래 표 8 · 오른쪽 항목 사이 16은 FormSection 본문이 `data-section-heading`으로 맞춤). 스토리 · 가이드 · 가맹점 기본/계약 정보 화면 교체. 픽셀 비교 11장(FormSection 스토리 4 · P02 · 앱 6) 모두 동일
 
