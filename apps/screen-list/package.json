@@ -1,0 +1,25 @@
+{
+  "name": "@kiwoompay/screen-list",
+  "version": "0.1.0",
+  "private": true,
+  "description": "화면 확인용 목록 (임의 작업) — 시스템별 작업 현황 · 화면 링크",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@kiwoompay/design-system": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.8"
+  }
+}

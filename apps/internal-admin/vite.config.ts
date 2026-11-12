@@ -15,6 +15,9 @@ export default defineConfig(({ command }) => ({
   // 개발 서버에서만 디자인 시스템 빌드 폴더(fonts/)를 정적 파일로 쓴다. 운영은 JSP가 폰트를 로드
   publicDir: command === 'serve' ? r('../../packages/design-system/dist') : false,
   server: {
+    // 화면 목록 앱(apps/screen-list)의 링크가 이 주소를 가리킨다 (VITE_URL_INTERNAL 기본값)
+    port: 5173,
+    strictPort: true,
     proxy: { '/api': 'http://localhost:8580' },
   },
   // 상대 경로: lazy chunk · 폰트를 app.js 위치 기준으로 찾는다 → 컨텍스트 패스가 바뀌어도 빌드를 다시 할 필요 없음
