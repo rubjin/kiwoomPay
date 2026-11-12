@@ -120,7 +120,7 @@ export const RecordForm: Story = {
             </Cell>
           </Row>
         </FormTable>
-        <FormSection.Header
+        <FormSection
           title="담당자 정보"
           description="자금세탁방지 공지용 담당자 정보"
           actions={
@@ -162,7 +162,7 @@ export const RecordForm: Story = {
         </FormTable>
       </FormSection>
       <FormSection
-        title={<FormSection.Heading label="선택 CPID" value="등록된 CPID가 없습니다" />}
+        title={<FormSection label="선택 CPID" description="등록된 CPID가 없습니다" />}
         collapsible
         defaultCollapsed
       >
