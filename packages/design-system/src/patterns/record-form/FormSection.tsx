@@ -1,24 +1,34 @@
 import clsx from 'clsx';
 import {
-  cloneElement,
+  Children,
+  createContext,
   forwardRef,
+  useContext,
   useId,
+  type ButtonHTMLAttributes,
   type HTMLAttributes,
-  type ReactElement,
   type ReactNode,
 } from 'react';
 import { Icon } from '../../components/Icon';
-import { SectionHeading, type SectionHeadingProps } from '../../components/SectionHeading';
 import { useControllableState } from '../../hooks';
 import styles from './RecordForm.module.scss';
 
-export interface FormSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+interface CollapseContextValue {
+  collapsed: boolean;
+  toggle: () => void;
+  sectionId: string;
+  labels: { collapse: string; expand: string };
+}
+
+const CollapseContext = createContext<CollapseContextValue | null>(null);
+// 접힌 카드의 첫 묶음: 제목 줄만 그린다
+const HeadingOnlyContext = createContext(false);
+
+export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
   /**
-   * 카드 제목 줄 — `<SectionHeading title="기본 정보" />` (lg 18 Bold).
-   * 대상 표시는 label · 아래 줄 문맥은 children (예: 선택 CPID). 접기 버튼은 FormSection이 오른쪽 끝에 붙인다
+   * 카드 접기 · 열기. 접으면 첫 묶음(FormGroup)의 제목 줄만 남는다 (Figma: 기본 정보를 접으면 담당자 정보도 숨음).
+   * 버튼은 첫 제목 줄 actions에 `<FormSection.Toggle />`로 넣는다
    */
-  heading?: ReactElement<SectionHeadingProps>;
-  /** 접기 · 열기 버튼 */
   collapsible?: boolean;
   collapsed?: boolean;
   defaultCollapsed?: boolean;
@@ -33,17 +43,29 @@ export interface FormSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'tit
    * 기본(카드 아래)은 위 카드 ↔ 탭 줄 버튼 7 (Figma KWPC07010101)
    */
   underTitle?: boolean;
+  /** 묶음(FormGroup)들. 묶음 사이 16 */
   children?: ReactNode;
 }
 
 /**
- * P02 Record → Form 정보 섹션 카드 (Figma KWPC07010101).
- * 제목 줄 + 접기/열기, 카드 위 제목 탭 · 화면 Action 묶음을 함께 둘 수 있다.
+ * P02 Record → Form 정보 카드 (박스). 배경 · 테두리 · 여백 · 위 제목 탭 · 접기 상태만 맡고,
+ * 내용은 "제목 + 폼" 묶음(FormGroup)으로 넣는다.
+ *
+ * @example
+ * <FormSection collapsible>
+ *   <FormGroup>
+ *     <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+ *     <FormTable>…</FormTable>
+ *   </FormGroup>
+ *   <FormGroup>
+ *     <SectionHeading title="담당자 정보" actions={…} />
+ *     <FormTable template="…">…</FormTable>
+ *   </FormGroup>
+ * </FormSection>
  */
-export const FormSection = forwardRef<HTMLElement, FormSectionProps>(
+const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
   (
     {
-      heading,
       collapsible = false,
       collapsed,
       defaultCollapsed = false,
@@ -54,50 +76,26 @@ export const FormSection = forwardRef<HTMLElement, FormSectionProps>(
       underTitle = false,
       className,
       style,
+      id,
       children,
       ...rest
     },
     ref,
   ) => {
-    const bodyId = useId();
+    const autoId = useId();
+    const sectionId = id ?? autoId;
     const [isCollapsed, setCollapsed] = useControllableState(
       collapsed,
       defaultCollapsed,
       onCollapsedChange,
     );
-    const text = { collapse: '접기', expand: '열기', ...labels };
-    const toggle = collapsible && (
-      <button
-        type="button"
-        className={styles.toggle}
-        aria-expanded={!isCollapsed}
-        aria-controls={bodyId}
-        onClick={() => setCollapsed(!isCollapsed)}
-      >
-        {isCollapsed ? text.expand : text.collapse}
-        <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={20} />
-      </button>
-    );
-
-    // 카드 제목 줄 = 넘겨받은 SectionHeading + 오른쪽 끝 접기 버튼
-    const base = heading ?? (collapsible ? <SectionHeading /> : undefined);
-    const cardHeading =
-      base &&
-      cloneElement(base, {
-        className: clsx(base.props.className, styles.heading),
-        actions:
-          base.props.actions || toggle ? (
-            <>
-              {base.props.actions}
-              {toggle}
-            </>
-          ) : undefined,
-      });
+    const folded = collapsible && isCollapsed;
 
     const card = (
       <section
         {...rest}
         ref={ref}
+        id={sectionId}
         className={clsx(
           styles.section,
           tabs !== undefined && styles.tabbed,
@@ -105,12 +103,26 @@ export const FormSection = forwardRef<HTMLElement, FormSectionProps>(
         )}
         style={tabs === undefined ? style : undefined}
       >
-        {cardHeading}
-        {!isCollapsed && children !== undefined && (
-          <div id={bodyId} className={styles.sectionBody}>
-            {children}
-          </div>
-        )}
+        <CollapseContext.Provider
+          value={
+            collapsible
+              ? {
+                  collapsed: isCollapsed,
+                  toggle: () => setCollapsed(!isCollapsed),
+                  sectionId,
+                  labels: { collapse: '접기', expand: '열기', ...labels },
+                }
+              : null
+          }
+        >
+          {folded ? (
+            <HeadingOnlyContext.Provider value>
+              {Children.toArray(children)[0]}
+            </HeadingOnlyContext.Provider>
+          ) : (
+            children
+          )}
+        </CollapseContext.Provider>
       </section>
     );
 
@@ -130,4 +142,50 @@ export const FormSection = forwardRef<HTMLElement, FormSectionProps>(
     );
   },
 );
-FormSection.displayName = 'FormSection';
+FormSectionRoot.displayName = 'FormSection';
+
+/** 접기 · 열기 버튼 (13 Bold + ⌃⌄). collapsible 카드의 첫 제목 줄 actions 끝에 둔다. 아니면 그리지 않는다 */
+const FormSectionToggle = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
+  ({ className, onClick, ...rest }, ref) => {
+    const ctx = useContext(CollapseContext);
+    if (!ctx) return null;
+    return (
+      <button
+        {...rest}
+        ref={ref}
+        type="button"
+        className={clsx(styles.toggle, className)}
+        aria-expanded={!ctx.collapsed}
+        aria-controls={ctx.sectionId}
+        onClick={(event) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) ctx.toggle();
+        }}
+      >
+        {ctx.collapsed ? ctx.labels.expand : ctx.labels.collapse}
+        <Icon name={ctx.collapsed ? 'chevron-down' : 'chevron-up'} size={20} />
+      </button>
+    );
+  },
+);
+FormSectionToggle.displayName = 'FormSection.Toggle';
+
+export const FormSection = Object.assign(FormSectionRoot, { Toggle: FormSectionToggle });
+
+export type FormGroupProps = HTMLAttributes<HTMLDivElement>;
+
+/**
+ * "제목 + 폼" 묶음: SectionHeading 다음에 FormTable 등. 제목 줄 오른쪽 항목 사이 16.
+ * 카드 첫 묶음은 제목 ↔ 폼 16, 그 아래 묶음(담당자 정보)은 8 (Figma KWPC07010101)
+ */
+export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
+  ({ className, children, ...rest }, ref) => {
+    const headingOnly = useContext(HeadingOnlyContext);
+    return (
+      <div {...rest} ref={ref} className={clsx(styles.group, className)}>
+        {headingOnly ? Children.toArray(children)[0] : children}
+      </div>
+    );
+  },
+);
+FormGroup.displayName = 'FormGroup';

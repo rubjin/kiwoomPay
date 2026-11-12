@@ -2,6 +2,7 @@ import {
   Badge,
   Button,
   ContextChip,
+  FormGroup,
   FormSection,
   Icon,
   PageLayout,
@@ -146,17 +147,26 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
           </Tab>
         }
         tabActions={saveButtons}
-        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
-        {view === 'business' ? (
-          <>
+        <FormGroup>
+          <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+          {view === 'business' ? (
             <BasicInfoTable
               mode={mode}
               value={basic}
               onChange={(patch) => setRecord({ ...record, basic: { ...basic, ...patch } })}
               onAction={notReady}
             />
+          ) : (
+            <p>
+              (임의 작업) {view === 'customer' ? '고객 확인 정보' : '결제 오픈 현황'} 탭은 시안 확인
+              후 작업합니다.
+            </p>
+          )}
+        </FormGroup>
+        {view === 'business' && (
+          <FormGroup>
             <SectionHeading
               title="담당자 정보"
               description="자금세탁방지 공지용 담당자 정보"
@@ -187,12 +197,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               selected={selected}
               onSelectedChange={setSelected}
             />
-          </>
-        ) : (
-          <p>
-            (임의 작업) {view === 'customer' ? '고객 확인 정보' : '결제 오픈 현황'} 탭은 시안 확인
-            후 작업합니다.
-          </p>
+          </FormGroup>
         )}
       </FormSection>
 
@@ -228,20 +233,26 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
             saveButtons
           )
         }
-        heading={
+        collapsible
+        defaultCollapsed={mode === 'create'}
+      >
+        <FormGroup>
           <SectionHeading
             label="선택 CPID"
             title={
               record.cpid ? `${record.cpid.id} · ${record.cpid.name}` : '등록된 CPID가 없습니다'
             }
             actions={
-              <Tab size="sm" value={cpidTab} onChange={setCpidTab} aria-label="CPID 정보">
-                {CPID_TABS.map((t) => (
-                  <Tab.Item key={t} value={t}>
-                    {t}
-                  </Tab.Item>
-                ))}
-              </Tab>
+              <>
+                <Tab size="sm" value={cpidTab} onChange={setCpidTab} aria-label="CPID 정보">
+                  {CPID_TABS.map((t) => (
+                    <Tab.Item key={t} value={t}>
+                      {t}
+                    </Tab.Item>
+                  ))}
+                </Tab>
+                <FormSection.Toggle />
+              </>
             }
           >
             {record.cpid && (
@@ -263,11 +274,8 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               </>
             )}
           </SectionHeading>
-        }
-        collapsible
-        defaultCollapsed={mode === 'create'}
-      >
-        <p>(임의 작업) {cpidTab} 영역은 다음 단계에서 작업합니다.</p>
+          <p>(임의 작업) {cpidTab} 영역은 다음 단계에서 작업합니다.</p>
+        </FormGroup>
       </FormSection>
     </>
   );

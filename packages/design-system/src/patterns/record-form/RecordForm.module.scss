@@ -130,22 +130,19 @@ $rf-chip-gap: t.$space-4;
   }
 }
 
-.sectionBody {
+// "제목 + 폼" 묶음 (FormGroup): 제목 줄 오른쪽 항목 사이(이력조회 ↔ 버튼 묶음 · 접기) 16.
+// 제목 ↔ 폼: 본문 중간 묶음(담당자 정보) 8, 카드 첫 묶음 16
+.group {
+  --section-heading-actions-gap: #{$rf-title-actions-gap};
+
   display: flex;
   flex-direction: column;
-  gap: $rf-section-gap;
+  gap: $rf-title-gap-below;
   min-width: 0;
 }
 
-// 제목 줄 (SectionHeading): 오른쪽 항목 사이(이력조회 ↔ 버튼 묶음 · 접기) 16.
-// 카드 제목 줄(heading)은 본문과 16, 본문 중간 제목 줄(담당자 정보)은 아래 표와 8
-.heading,
-.sectionBody > [data-section-heading] {
-  --section-heading-actions-gap: #{$rf-title-actions-gap};
-}
-
-.sectionBody > [data-section-heading] {
-  margin-bottom: calc(#{$rf-title-gap-below} - #{$rf-section-gap});
+.section > .group:first-child {
+  gap: $rf-section-gap;
 }
 
 // 제목 탭 + 오른쪽 Action (버튼은 카드 위 8, 탭 밑줄은 카드 테두리에 겹침)

@@ -8,7 +8,7 @@ import { Checkbox, Radio, RadioGroup } from '../../components/selection';
 import { Tab } from '../../components/Tab';
 import { SectionHeading } from '../../components/SectionHeading';
 import { ContextChip } from './ContextChip';
-import { FormSection } from './FormSection';
+import { FormGroup, FormSection } from './FormSection';
 import { FormTable } from './FormTable';
 
 const meta = {
@@ -70,104 +70,111 @@ export const RecordForm: Story = {
             <Button>저장</Button>
           </>
         }
-        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
-        <FormTable>
-          <Row>
-            <Label required>사업자번호</Label>
-            <Cell>
-              <TextField fullWidth readOnly defaultValue="123-45-67890" />
-              <Button variant="neutral" appearance="line">
-                수정
-              </Button>
-            </Cell>
-            <Label required>사업자구분</Label>
-            <Cell>
-              <SelectBox
-                fullWidth
-                options={[{ value: 'c', label: '법인사업자' }]}
-                defaultValue="c"
-              />
-            </Cell>
-            <Label>영중소 구분</Label>
-            <Cell>중소2</Cell>
-            <Label required>신탁 구분</Label>
-            <Cell>
-              <RadioGroup direction="horizontal" defaultValue="y">
-                <Radio value="n" label="해당없음" />
-                <Radio value="y" label="해당있음" />
-              </RadioGroup>
-            </Cell>
-          </Row>
-          <Row>
-            <Label required>업종</Label>
-            <Cell colSpan={3}>
-              <TextField fullWidth defaultValue="전자상거래 및 온라인 플랫폼 운영" />
-            </Cell>
-            <Label required>업태</Label>
-            <Cell colSpan={3}>
-              <TextField fullWidth defaultValue="정보통신업" />
-            </Cell>
-          </Row>
-          <Row>
-            <Label required>사업장 주소</Label>
-            <Cell colSpan={7}>
-              <Checkbox label="사업장 주소와 동일" />
-              <InlineLabel>우편번호</InlineLabel>
-              <TextField style={{ width: 200 }} defaultValue="46757" />
-              <InlineLabel>주소</InlineLabel>
-              <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
-            </Cell>
-          </Row>
-        </FormTable>
-        <SectionHeading
-          title="담당자 정보"
-          description="자금세탁방지 공지용 담당자 정보"
-          actions={
-            <>
-              <TextButton>이력조회</TextButton>
-              <Button size="sm" variant="neutral" appearance="line">
-                추가
-              </Button>
-            </>
-          }
-        />
-        <FormTable template="36px repeat(3, minmax(0, 1fr))">
-          <Row>
-            <Head>
-              <Checkbox aria-label="전체 선택" />
-            </Head>
-            <Head>업무구분</Head>
-            <Head>담당자명</Head>
-            <Head>이메일</Head>
-          </Row>
-          <Row>
-            <Cell center>
-              <Checkbox aria-label="선택" />
-            </Cell>
-            <Cell>
-              <SelectBox
-                fullWidth
-                options={[{ value: '계약', label: '계약' }]}
-                defaultValue="계약"
-              />
-            </Cell>
-            <Cell>
-              <TextField fullWidth defaultValue="최계약" />
-            </Cell>
-            <Cell>
-              <TextField fullWidth defaultValue="choi@company.com" />
-            </Cell>
-          </Row>
-        </FormTable>
+        <FormGroup>
+          <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+          <FormTable>
+            <Row>
+              <Label required>사업자번호</Label>
+              <Cell>
+                <TextField fullWidth readOnly defaultValue="123-45-67890" />
+                <Button variant="neutral" appearance="line">
+                  수정
+                </Button>
+              </Cell>
+              <Label required>사업자구분</Label>
+              <Cell>
+                <SelectBox
+                  fullWidth
+                  options={[{ value: 'c', label: '법인사업자' }]}
+                  defaultValue="c"
+                />
+              </Cell>
+              <Label>영중소 구분</Label>
+              <Cell>중소2</Cell>
+              <Label required>신탁 구분</Label>
+              <Cell>
+                <RadioGroup direction="horizontal" defaultValue="y">
+                  <Radio value="n" label="해당없음" />
+                  <Radio value="y" label="해당있음" />
+                </RadioGroup>
+              </Cell>
+            </Row>
+            <Row>
+              <Label required>업종</Label>
+              <Cell colSpan={3}>
+                <TextField fullWidth defaultValue="전자상거래 및 온라인 플랫폼 운영" />
+              </Cell>
+              <Label required>업태</Label>
+              <Cell colSpan={3}>
+                <TextField fullWidth defaultValue="정보통신업" />
+              </Cell>
+            </Row>
+            <Row>
+              <Label required>사업장 주소</Label>
+              <Cell colSpan={7}>
+                <Checkbox label="사업장 주소와 동일" />
+                <InlineLabel>우편번호</InlineLabel>
+                <TextField style={{ width: 200 }} defaultValue="46757" />
+                <InlineLabel>주소</InlineLabel>
+                <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
+              </Cell>
+            </Row>
+          </FormTable>
+        </FormGroup>
+        <FormGroup>
+          <SectionHeading
+            title="담당자 정보"
+            description="자금세탁방지 공지용 담당자 정보"
+            actions={
+              <>
+                <TextButton>이력조회</TextButton>
+                <Button size="sm" variant="neutral" appearance="line">
+                  추가
+                </Button>
+              </>
+            }
+          />
+          <FormTable template="36px repeat(3, minmax(0, 1fr))">
+            <Row>
+              <Head>
+                <Checkbox aria-label="전체 선택" />
+              </Head>
+              <Head>업무구분</Head>
+              <Head>담당자명</Head>
+              <Head>이메일</Head>
+            </Row>
+            <Row>
+              <Cell center>
+                <Checkbox aria-label="선택" />
+              </Cell>
+              <Cell>
+                <SelectBox
+                  fullWidth
+                  options={[{ value: '계약', label: '계약' }]}
+                  defaultValue="계약"
+                />
+              </Cell>
+              <Cell>
+                <TextField fullWidth defaultValue="최계약" />
+              </Cell>
+              <Cell>
+                <TextField fullWidth defaultValue="choi@company.com" />
+              </Cell>
+            </Row>
+          </FormTable>
+        </FormGroup>
       </FormSection>
-      <FormSection
-        heading={<SectionHeading label="선택 CPID" title="등록된 CPID가 없습니다" />}
-        collapsible
-        defaultCollapsed
-      >
-        내용
+      <FormSection collapsible defaultCollapsed>
+        <FormGroup>
+          <SectionHeading
+            label="선택 CPID"
+            title="등록된 CPID가 없습니다"
+            actions={<FormSection.Toggle />}
+          />
+          내용
+        </FormGroup>
       </FormSection>
     </div>
   ),

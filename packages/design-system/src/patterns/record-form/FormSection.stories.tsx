@@ -5,7 +5,7 @@ import { Icon } from '../../components/Icon';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Tab } from '../../components/Tab';
 import { ContextChip } from './ContextChip';
-import { FormSection } from './FormSection';
+import { FormGroup, FormSection } from './FormSection';
 
 const meta = {
   title: 'Composites/Form/Record Form/FormSection',
@@ -21,12 +21,17 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const wrap = { padding: 12, background: 'var(--kp-color-bg-page)' };
+const table = { height: 40, background: 'var(--kp-color-bg-page)' };
 
+/** 박스(FormSection) + "제목 + 폼" 묶음(FormGroup). 접기 버튼은 첫 제목 줄 actions에 FormSection.Toggle */
 export const Playground: Story = {
   render: (args) => (
     <div style={wrap}>
-      <FormSection {...args} heading={<SectionHeading title="기본 정보" />}>
-        섹션 내용 (FormTable 등)
+      <FormSection {...args}>
+        <FormGroup>
+          <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+          <div style={table}>FormTable</div>
+        </FormGroup>
       </FormSection>
     </div>
   ),
@@ -57,65 +62,80 @@ export const Tabbed: Story = {
             <Button>등록</Button>
           </>
         }
-        heading={<SectionHeading title="기본 정보" />}
         collapsible
       >
-        내용
+        <FormGroup>
+          <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+          내용
+        </FormGroup>
       </FormSection>
     </div>
   ),
 };
 
-/** 본문 중간 제목 줄도 SectionHeading: 카드 제목과 같은 레벨 · 모양(18 Bold) + 설명 12 + 오른쪽 Action, 아래 표와 8 */
-export const SameLevelTitles: Story = {
+/**
+ * 한 카드에 묶음 여러 개: 제목은 같은 레벨 · 모양(18 Bold). 첫 묶음 제목 ↔ 폼 16, 아래 묶음 8, 묶음 사이 16.
+ * 접으면 첫 제목 줄만 남는다 (담당자 정보도 숨음)
+ */
+export const Groups: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={wrap}>
-      <FormSection heading={<SectionHeading title="기본 정보" />}>
-        <SectionHeading
-          title="담당자 정보"
-          description="자금세탁방지 공지용 담당자 정보"
-          actions={
-            <>
-              <TextButton>이력조회</TextButton>
-              <Button size="sm" variant="neutral" appearance="line">
-                추가
-              </Button>
-            </>
-          }
-        />
-        <div style={{ height: 40, background: 'var(--kp-color-bg-page)' }} />
+      <FormSection collapsible>
+        <FormGroup>
+          <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+          <div style={table}>FormTable</div>
+        </FormGroup>
+        <FormGroup>
+          <SectionHeading
+            title="담당자 정보"
+            description="자금세탁방지 공지용 담당자 정보"
+            actions={
+              <>
+                <TextButton>이력조회</TextButton>
+                <Button size="sm" variant="neutral" appearance="line">
+                  추가
+                </Button>
+              </>
+            }
+          />
+          <div style={table}>FormTable</div>
+        </FormGroup>
       </FormSection>
     </div>
   ),
 };
 
-/** 대상 표시 (label + title, 아래 줄 context) + 오른쪽 탭 · 접힘 (Figma 가맹점 정보관리) */
-export const Heading: Story = {
+/** 대상 표시 (SectionHeading label + title, 아래 줄 children) + 오른쪽 탭 · 접기 (Figma 가맹점 정보관리) */
+export const Target: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ ...wrap, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <FormSection
-        heading={
+      <FormSection collapsible defaultCollapsed>
+        <FormGroup>
           <SectionHeading
             label="선택 CPID"
             title="등록된 CPID가 없습니다"
             actions={
-              <Tab size="sm" defaultValue="a">
-                <Tab.Item value="a">CPID 기본 정보</Tab.Item>
-                <Tab.Item value="b">RM 관리</Tab.Item>
-              </Tab>
+              <>
+                <Tab size="sm" defaultValue="a">
+                  <Tab.Item value="a">CPID 기본 정보</Tab.Item>
+                  <Tab.Item value="b">RM 관리</Tab.Item>
+                </Tab>
+                <FormSection.Toggle />
+              </>
             }
           />
-        }
-        collapsible
-        defaultCollapsed
-      >
-        내용
+          내용
+        </FormGroup>
       </FormSection>
-      <FormSection
-        heading={
-          <SectionHeading label="선택 CPID" title="CTS123456 · ABC몰">
+      <FormSection collapsible>
+        <FormGroup>
+          <SectionHeading
+            label="선택 CPID"
+            title="CTS123456 · ABC몰"
+            actions={<FormSection.Toggle />}
+          >
             <ContextChip
               muted
               items={[
@@ -127,10 +147,8 @@ export const Heading: Story = {
               서비스 · 사용중
             </Badge>
           </SectionHeading>
-        }
-        collapsible
-      >
-        내용
+          내용
+        </FormGroup>
       </FormSection>
     </div>
   ),

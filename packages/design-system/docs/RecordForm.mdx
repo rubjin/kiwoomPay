@@ -10,12 +10,14 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 한 업무 대상(사업자 · CPID · 계정 등)을 **조회 · 등록 · 수정**하는 화면의 부품입니다 (페이지 패턴 P02).
 기준 시안: KWPC07010101 가맹점 기본/계약 정보 관리 (신규등록 · 조회수정).
 
-| 부품             | 용도                                                                                                     |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `FormTable`      | 회색 라벨 + 흰 값 칸 표. 라벨-값 4쌍(기본) 또는 직접 열 구성(목록형 표)                                  |
-| `FormSection`    | 정보 카드: 제목 줄(`heading` = `SectionHeading`) · 접기/열기 · 위에 붙는 제목 탭 + 오른쪽 Action         |
-| `SectionHeading` | 카드 제목 · 본문 중간 제목(담당자 정보 + 설명 + 이력조회 · 추가 · 삭제) · 대상 표시(선택 CPID) 모두 이것 |
-| `ContextChip`    | 현재 사업자 \| 사업자번호 \| … 한 줄 문맥 (제목 옆 흰색 · 카드 안 muted)                                 |
+| 부품                 | 용도                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------- |
+| `FormTable`          | 회색 라벨 + 흰 값 칸 표. 라벨-값 4쌍(기본) 또는 직접 열 구성(목록형 표)               |
+| `FormSection`        | 정보 카드(박스): 배경 · 테두리 · 여백 · 위에 붙는 제목 탭 + 오른쪽 Action · 접기 상태 |
+| `FormGroup`          | "제목 + 폼" 묶음: `SectionHeading` 다음 `FormTable` 등. 한 카드에 여러 개             |
+| `FormSection.Toggle` | 접기 · 열기 버튼. 첫 제목 줄 `actions` 끝에 둔다                                      |
+| `SectionHeading`     | 카드 제목 · 담당자 정보 · 대상 표시(선택 CPID) 모두 이것 (lg 18 Bold · h2)            |
+| `ContextChip`        | 현재 사업자 \| 사업자번호 \| … 한 줄 문맥 (제목 옆 흰색 · 카드 안 muted)              |
 
 ## 1. FormTable
 
@@ -32,16 +34,16 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 ## 2. FormSection
 
 - 카드 여백 16(테두리 포함), 접기/열기 13 Bold + ⌃⌄. 접으면 본문만 숨김
-- 제목 줄은 모두 **`SectionHeading`**(lg 18 Bold · h2)을 직접 씁니다. 카드 제목은 `heading={<SectionHeading title="기본 정보" />}` — 접기 버튼은 FormSection이 오른쪽 Action 끝에 붙이고, 접으면 카드 본문 전체(담당자 정보 포함)가 숨는다
-- 본문 중간 제목(담당자 정보)도 `<SectionHeading>`을 본문에 그대로 넣는다 — 아래 표와 8, 오른쪽 항목 사이 16은 FormSection이 맞춘다
+- **박스와 내용을 나눈다**: `FormSection`은 박스만, 내용은 "제목 + 폼" 묶음 `FormGroup`(`<SectionHeading>` + `FormTable`)으로 넣는다. 묶음 사이 16, 묶음 안 제목 ↔ 폼은 첫 묶음 16 · 그 아래 묶음 8, 제목 줄 오른쪽 항목 사이 16
+- **접기**: `collapsible` 카드는 첫 제목 줄 `actions` 끝에 `<FormSection.Toggle />`. 접으면 첫 제목 줄만 남고 나머지(담당자 정보 포함)는 숨는다 (Figma 기준)
 - 대상 표시(선택 CPID): `<SectionHeading label="선택 CPID" title=…>` + children(아래 줄 ContextChip · 상태 Badge) — 오른쪽 Action은 위에 맞춘다
 - `tabs`(Tab `variant="title"`) + `tabActions`: 탭 밑줄이 카드 테두리에 겹치고, 버튼은 카드 위 8. 카드 왼쪽 위 모서리는 각진다
 - 탭 묶음 위 간격은 컴포넌트가 맞춘다(화면에서 `marginTop`으로 보정하지 않음): 기본은 위 카드 ↔ 탭 줄 버튼 7, 화면명 바로 아래 첫 묶음은 **`underTitle`** — 버튼이 화면명 줄과 겹쳐 올라가고 화면명 ↔ 제목 탭 10 (Figma KWPC07010101)
 - 탭이 있으면 `className` · `style`은 탭 + 카드 묶음에 준다 (페이지에서 위치 조정)
 
 <Canvas of={SectionStories.Tabbed} />
-<Canvas of={SectionStories.SameLevelTitles} />
-<Canvas of={SectionStories.Heading} />
+<Canvas of={SectionStories.Groups} />
+<Canvas of={SectionStories.Target} />
 
 ## 3. ContextChip
 
@@ -50,34 +52,31 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 ## 사용 예
 
 ```tsx
-<FormSection
-  underTitle
-  tabs={<Tab variant="title">…</Tab>}
-  tabActions={saveButtons}
-  heading={<SectionHeading title="기본 정보" />}
-  collapsible
->
-  <FormTable>
-    <FormTable.Row>
-      <FormTable.Label required>사업자번호</FormTable.Label>
-      <FormTable.Cell><TextField fullWidth value={…} /></FormTable.Cell>
-      <FormTable.Label>업종</FormTable.Label>
-      <FormTable.Cell colSpan={5}><TextField fullWidth /></FormTable.Cell>
-    </FormTable.Row>
-  </FormTable>
-  <SectionHeading title="담당자 정보" description="…" actions={…} />
-  <FormTable template="36px repeat(5, minmax(0, 1fr))">…</FormTable>
+<FormSection underTitle tabs={<Tab variant="title">…</Tab>} tabActions={saveButtons} collapsible>
+  <FormGroup>
+    <SectionHeading title="기본 정보" actions={<FormSection.Toggle />} />
+    <FormTable>
+      <FormTable.Row>
+        <FormTable.Label required>사업자번호</FormTable.Label>
+        <FormTable.Cell><TextField fullWidth value={…} /></FormTable.Cell>
+        <FormTable.Label>업종</FormTable.Label>
+        <FormTable.Cell colSpan={5}><TextField fullWidth /></FormTable.Cell>
+      </FormTable.Row>
+    </FormTable>
+  </FormGroup>
+  <FormGroup>
+    <SectionHeading title="담당자 정보" description="…" actions={…} />
+    <FormTable template="36px repeat(5, minmax(0, 1fr))">…</FormTable>
+  </FormGroup>
 </FormSection>
 
-<FormSection
-  heading={
-    <SectionHeading label="선택 CPID" title="CTS123456 · ABC몰">
+<FormSection collapsible>
+  <FormGroup>
+    <SectionHeading label="선택 CPID" title="CTS123456 · ABC몰" actions={<FormSection.Toggle />}>
       <ContextChip muted items={…} />
     </SectionHeading>
-  }
-  collapsible
->
-  …
+    …
+  </FormGroup>
 </FormSection>
 ```
 
