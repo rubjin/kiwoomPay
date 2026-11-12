@@ -5,10 +5,14 @@ import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 // ── 선택지 ─────────────────────────────────────────────
 // TODO(코드) 거래구분 · 결제수단 · 거래상태 코드는 공통코드 API로 바꾼다
 const ALL = { value: 'all', label: '전체' };
-export const DATE_BASIS = [
+type DateBasis = IntegratedTransactionParams['dateBasis'];
+export const DATE_BASIS: { value: DateBasis; label: string }[] = [
   { value: 'pay', label: '결제일' },
   { value: 'cancel', label: '취소일' },
 ];
+/** RadioGroup onChange(string) → 조회기준일 값인지 확인 (타입 단언 대신) */
+export const isDateBasis = (value: string): value is DateBasis =>
+  DATE_BASIS.some((o) => o.value === value);
 export const TX_TYPES = [
   ALL,
   { value: 'approve', label: '승인' },

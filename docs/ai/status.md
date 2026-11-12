@@ -542,3 +542,12 @@
 - 글자: 둘 다 **18 Bold · 줄 높이 26** (사용자 결정. 시안의 기본 정보 18 SemiBold · 21과 다름 → 기본 정보 카드 793 → 798)
 - API 정리: `FormSection.Header` 삭제 → 본문 중간 제목 줄은 `FormSection.Heading`(title · description · actions). 대상 표시(선택 CPID)는 `FormSection`의 `label` + `title` + `context`(아래 줄 ContextChip · Badge) — 옛 `Heading value` 사용처(스토리 · 가이드 · 가맹점 기본/계약 정보 화면) 교체. 제목 줄은 label · description · context만 있어도 그린다
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 build(tsc 포함), Storybook 빌드 통과
+
+### KWPC04010100 통합 거래내역 코드 정리 — 2026-11-12
+- 화면 분리: `components/TransactionSearchPanel`(검색 조건 · 상세 검색 격자), `components/TransactionCancelBar`(취소사유 · 취소 구분 · 선택 취소, 상태와 처리 흐름을 직접 가짐). 페이지는 조합만(405 → 약 140줄)
+- 디자인 시스템 `useSearchResult.refresh()`: 마지막 조회 조건 · 현재 페이지로 재조회(Promise). 행이 빠져 현재 페이지가 비면 마지막 페이지로. 취소 후 `result.setPage(result.page)` 대신 사용하고, 완료 Alert는 재조회 뒤에 띄움(전에는 옛 목록 위에 Alert). P01 가이드에 한 줄 추가
+- 타입 단언 제거: 조회기준일 `v as …` → `isDateBasis` 타입 가드(`searchFields`), 라디오는 `DATE_BASIS`로 그림. 반복되는 `flex: '1 1 0'` · 폭만 상수로 묶음(화면 고유 폭은 다른 화면처럼 인라인 유지)
+- 동작 변경: 취소 처리 중에도 표시항목설정 · 엑셀 버튼은 활성(처리 중 비활성은 취소 바만). "선택 없음" Alert는 바가 비활성이라 도달할 수 없어 삭제
+- 검증: 디자인 시스템 typecheck · lint · build, 앱 build, 브라우저 테스트 13개 통과(조회 전 · 선택 전 비활성, 조회기준일 라디오, 사유 없음 Alert, Confirm, 처리 중 비활성, 완료 Alert 시점에 재조회 끝남, 사유 비움, 2페이지에서 취소 후 2페이지 유지, 콘솔 에러 없음)
+- 정산 실행 화면(`MerchantSettlementExecutePage`)도 처리 후 `refresh()` → 완료 Alert 순서로 변경
+
