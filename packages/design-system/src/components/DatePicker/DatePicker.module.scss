@@ -2,21 +2,23 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
-$date-picker-panel-width: 336px; // Panel 336 (높이는 줄 수에 따라: 6줄 340 — 시안 표기 380과 측정값 다름)
-$date-picker-padding: t.$space-16;
-$date-picker-header-height: 34px; // 측정값: 패널 340(테두리 포함) = 테두리 1·패딩 16·헤더 34·간격 12·날짜 260
+$date-picker-panel-width: 336px; // Figma Date Picker 336 × 344(6줄) — 테두리 포함
+$date-picker-padding: t.$space-16; // Figma 여백 16은 테두리 포함 → 테두리만큼 뺀다
+$date-picker-header-height: 40px; // Figma Calendar Header 40
+$date-picker-nav-size: 24px; // 이전 · 다음 아이콘 24 (Figma는 아이콘 폭에 맞춤)
+$date-picker-nav-radius: 4px;
 $date-picker-section-gap: t.$space-12; // Gap Section 12 (헤더 ↔ 날짜)
 $date-picker-cell-size: t.$control-height-md; // Cell 40×40
 $date-picker-day-gap: t.$space-4; // Gap Day 4
 $date-picker-cell-radius: 8px;
-$date-picker-panel-radius: t.$field-radius-md;
+$date-picker-panel-radius: 12px; // Figma 12
 
 .panel {
   display: flex;
   flex-direction: column;
   gap: $date-picker-section-gap;
   width: $date-picker-panel-width;
-  padding: $date-picker-padding;
+  padding: calc(#{$date-picker-padding} - #{t.$control-border-width});
   background-color: t.$color-date-picker-panel-bg;
   border: t.$control-border-width solid t.$color-date-picker-panel-border;
   border-radius: $date-picker-panel-radius;
@@ -40,14 +42,14 @@ $date-picker-panel-radius: t.$field-radius-md;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: $date-picker-header-height;
-  height: $date-picker-header-height;
+  width: $date-picker-nav-size;
+  height: $date-picker-nav-size;
   padding: 0;
   color: t.$color-date-picker-text;
   cursor: pointer;
   background: none;
   border: 0;
-  border-radius: $date-picker-cell-radius;
+  border-radius: $date-picker-nav-radius;
 
   &:hover {
     background-color: t.$color-date-picker-hover-bg;

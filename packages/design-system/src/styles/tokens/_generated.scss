@@ -264,7 +264,7 @@ $color-address-empty-text: var(--kp-color-address-empty-text);
 $color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
 $color-badge-neutral-text: var(--kp-color-badge-neutral-text);
 $color-badge-neutral-dot: var(--kp-color-badge-neutral-dot); // TODO(시안) Neutral은 상태 점이 시안에 없음
-$color-badge-neutral-border: var(--kp-color-badge-neutral-border); // TODO(시안)
+$color-badge-neutral-border: var(--kp-color-badge-neutral-border); // Figma Badge/Text Outline Neutral 테두리
 $color-badge-primary-bg: var(--kp-color-badge-primary-bg);
 $color-badge-primary-text: var(--kp-color-badge-primary-text);
 $color-badge-primary-dot: var(--kp-color-badge-primary-dot);
@@ -360,6 +360,7 @@ $color-text-button-primary-text-hover: var(--kp-color-text-button-primary-text-h
 $color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // TODO(시안) Neutral Text Action 색 확인
 $color-text-button-neutral-text-hover: var(--kp-color-text-button-neutral-text-hover); // TODO(시안)
 $color-text-button-text-disabled: var(--kp-color-text-button-text-disabled);
+$color-text-button-hover-bg: var(--kp-color-text-button-hover-bg); // Text Button Hover 배경 (Figma Text Button State=Hover)
 
 // ── custom · column-picker ──────────────────────────────────────
 $color-column-picker-description: var(--kp-color-column-picker-description);
@@ -522,8 +523,10 @@ $color-lnb-text: var(--kp-color-lnb-text); // 1·2Depth 메뉴명·아이콘 (#1
 $color-lnb-chevron: var(--kp-color-lnb-chevron);
 $color-lnb-hover-bg: var(--kp-color-lnb-hover-bg); // Hover · 접은 모드의 Current
 $color-lnb-sub-bg: var(--kp-color-lnb-sub-bg); // 2·3Depth 영역
+$color-lnb-depth2-text: var(--kp-color-lnb-depth2-text); // 2Depth 기본 (Current는 Text)
 $color-lnb-depth3-text: var(--kp-color-lnb-depth3-text);
-$color-lnb-depth3-hover: var(--kp-color-lnb-depth3-hover); // TODO(시안) 3Depth Hover 표현 (파란 글자 + ↗로 해석)
+$color-lnb-depth3-hover: var(--kp-color-lnb-depth3-hover); // 3Depth Hover 글자 (Figma LNB: 파란 글자 + ↗ + 흰 배경)
+$color-lnb-depth3-hover-bg: var(--kp-color-lnb-depth3-hover-bg); // 3Depth Hover 배경
 $color-lnb-active-bg: var(--kp-color-lnb-active-bg);
 $color-lnb-active-text: var(--kp-color-lnb-active-text);
 $color-lnb-tab-text: var(--kp-color-lnb-tab-text);
@@ -580,7 +583,7 @@ $color-selection-bg: var(--kp-color-selection-bg);
 $color-selection-border: var(--kp-color-selection-border);
 $color-selection-checked: var(--kp-color-selection-checked); // 체크 배경·테두리, 라디오 링·점
 $color-selection-glyph: var(--kp-color-selection-glyph); // 체크·가로선 아이콘
-$color-selection-bg-disabled: var(--kp-color-selection-bg-disabled); // TODO(시안) 비활성 미선택 배경은 시안에 없음 (라디오 비활성 선택 배경 기준)
+$color-selection-bg-disabled: var(--kp-color-selection-bg-disabled); // 비활성 미선택 배경 (Figma Checkbox Item Disabled)
 $color-selection-disabled-checked: var(--kp-color-selection-disabled-checked); // 비활성 선택: 체크박스 배경·라디오 점
 $color-selection-text: var(--kp-color-selection-text);
 $color-selection-text-disabled: var(--kp-color-selection-text-disabled); // TODO(시안) 비활성 라벨 색은 시안에 없음
@@ -639,13 +642,14 @@ $color-tab-count-disabled-text: var(--kp-color-tab-count-disabled-text); // TODO
 // ── custom · tooltip ────────────────────────────────────────────
 $tooltip-radius: var(--kp-tooltip-radius);
 $tooltip-arrow-width: var(--kp-tooltip-arrow-width); // 포인터 밑변 (측정)
-$tooltip-arrow-height: var(--kp-tooltip-arrow-height); // 포인터 높이 (측정). 아이콘 끝과 포인터 끝 간격 0
+$tooltip-arrow-height: var(--kp-tooltip-arrow-height); // 포인터 높이 (Figma Tooltip/Info Arrow 12 × 8)
 $tooltip-arrow-inset: var(--kp-tooltip-arrow-inset); // 위·아래 배치에서 몸체 왼쪽 끝 ↔ 포인터 (측정)
 $tooltip-viewport-margin: var(--kp-tooltip-viewport-margin); // TODO(시안) 화면 경계와 최소 간격
 $color-tooltip-bg: var(--kp-color-tooltip-bg);
 $color-tooltip-text: var(--kp-color-tooltip-text);
 $color-tooltip-info-icon: var(--kp-color-tooltip-info-icon); // Info 아이콘 (측정 Neutral 500)
 $color-tooltip-info-icon-disabled: var(--kp-color-tooltip-info-icon-disabled); // TODO(시안) 비활성 Info 아이콘 표현 없음
+$tooltip-offset: var(--kp-tooltip-offset); // 기준 요소(아이콘) ↔ 포인터 끝 간격 (Figma 설명: 아이콘 바깥 8px)
 
 // ── custom · work-tab ───────────────────────────────────────────
 $work-tab-z-index-active: var(--kp-work-tab-z-index-active); // Active 테두리를 이웃 Item(공유 테두리) 위로 올림 (Bar 안에서만 쓰는 쌓임 순서)
@@ -883,7 +887,7 @@ $css-variables: (
   "--kp-color-badge-neutral-bg": "var(--kp-color-neutral-100)",
   "--kp-color-badge-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-badge-neutral-dot": "var(--kp-color-neutral-500)",
-  "--kp-color-badge-neutral-border": "var(--kp-color-line-default)",
+  "--kp-color-badge-neutral-border": "var(--kp-color-neutral-100)",
   "--kp-color-badge-primary-bg": "var(--kp-color-primary-50)",
   "--kp-color-badge-primary-text": "var(--kp-color-primary-500)",
   "--kp-color-badge-primary-dot": "var(--kp-color-primary-500)",
@@ -975,6 +979,7 @@ $css-variables: (
   "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-neutral-text-hover": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-text-disabled": "var(--kp-color-neutral-300)",
+  "--kp-color-text-button-hover-bg": "var(--kp-color-primary-50)",
   "--kp-color-column-picker-description": "var(--kp-color-text-secondary)",
   "--kp-color-column-picker-item-bg": "var(--kp-color-bg-surface)",
   "--kp-color-column-picker-item-border": "var(--kp-color-line-default)",
@@ -1109,8 +1114,10 @@ $css-variables: (
   "--kp-color-lnb-chevron": "var(--kp-color-neutral-500)",
   "--kp-color-lnb-hover-bg": "var(--kp-color-neutral-200)",
   "--kp-color-lnb-sub-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-lnb-depth2-text": "var(--kp-color-text-secondary)",
   "--kp-color-lnb-depth3-text": "var(--kp-color-text-secondary)",
   "--kp-color-lnb-depth3-hover": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-depth3-hover-bg": "var(--kp-color-bg-surface)",
   "--kp-color-lnb-active-bg": "var(--kp-color-primary-100)",
   "--kp-color-lnb-active-text": "var(--kp-color-primary-700)",
   "--kp-color-lnb-tab-text": "var(--kp-color-neutral-700)",
@@ -1206,13 +1213,14 @@ $css-variables: (
   "--kp-color-tab-count-disabled-text": "var(--kp-color-neutral-400)",
   "--kp-tooltip-radius": "var(--kp-control-radius-lg)",
   "--kp-tooltip-arrow-width": "12px",
-  "--kp-tooltip-arrow-height": "6px",
+  "--kp-tooltip-arrow-height": "8px",
   "--kp-tooltip-arrow-inset": "var(--kp-space-20)",
   "--kp-tooltip-viewport-margin": "var(--kp-space-8)",
   "--kp-color-tooltip-bg": "var(--kp-color-neutral-800)",
   "--kp-color-tooltip-text": "var(--kp-color-text-inverse)",
   "--kp-color-tooltip-info-icon": "var(--kp-color-icon-muted)",
   "--kp-color-tooltip-info-icon-disabled": "var(--kp-color-text-disabled)",
+  "--kp-tooltip-offset": "var(--kp-space-8)",
   "--kp-typography-heading-xl-font-size": "var(--kp-typography-typo-24-bold-font-size)",
   "--kp-typography-heading-xl-font-weight": "var(--kp-typography-typo-24-bold-font-weight)",
   "--kp-typography-heading-xl-line-height": "var(--kp-typography-typo-24-bold-line-height)",

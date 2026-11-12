@@ -4,13 +4,14 @@
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $segmented-height: t.$control-height-sm;
 $segmented-radius: t.$field-radius-sm;
-$segmented-min-width: 96px; // TODO(시안) 시안의 옵션 폭이 모두 96 (고정인지 최소 폭인지 확인)
-$segmented-padding-x: t.$space-16; // TODO(시안)
-$segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)은 시안에 없음
+
+// Figma Segmented/Item: H32 · Item W60 기본 · 여백 12 · 옵션은 테두리를 겹쳐 붙인다(-1) · 바깥 끝만 반경 6
+$segmented-min-width: 60px;
+$segmented-padding-x: t.$space-12;
+$segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
 
 .root {
   display: inline-flex;
-  gap: $segmented-gap;
   max-width: 100%;
   vertical-align: middle;
 }
@@ -20,6 +21,16 @@ $segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)�
   display: inline-flex;
   min-width: 0;
   cursor: pointer;
+
+  & + & {
+    margin-left: calc(-1 * #{t.$control-border-width});
+  }
+
+  // 선택 · 포커스된 옵션의 테두리가 이웃 위로 보이게
+  &:has(.input:checked),
+  &:has(.input:focus-visible) {
+    z-index: $segmented-z-front;
+  }
 }
 
 .input {
@@ -46,7 +57,17 @@ $segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)�
   white-space: nowrap;
   background-color: t.$color-segmented-bg;
   border: t.$control-border-width solid t.$color-segmented-border;
-  border-radius: $segmented-radius;
+  border-radius: 0;
+}
+
+.item:first-child .text {
+  border-start-start-radius: $segmented-radius;
+  border-end-start-radius: $segmented-radius;
+}
+
+.item:last-child .text {
+  border-start-end-radius: $segmented-radius;
+  border-end-end-radius: $segmented-radius;
 }
 
 .label {
@@ -57,6 +78,8 @@ $segmented-gap: t.$space-8; // TODO(시안) 옵션 사이 간격(그룹 배치)�
 
 // ── 상태 ─────────────────────────────────────────────
 .input:checked + .text {
+  @include m.typography(typo-12-semi-bold);
+
   color: t.$color-segmented-selected-text;
   background-color: t.$color-segmented-selected-bg;
   border-color: t.$color-segmented-selected-border;

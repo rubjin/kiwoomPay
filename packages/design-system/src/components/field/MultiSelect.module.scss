@@ -9,6 +9,7 @@ $multi-status-height: 190px; // Loading · Empty 패널 높이
 $multi-gap: t.$space-4; // 검색 ↔ 목록 · 항목 사이
 $multi-item-height: 36px;
 $multi-item-padding-x: 10px;
+$multi-item-radius: 4px; // Figma Option 반경 4
 
 .root {
   position: relative;
@@ -117,7 +118,7 @@ $multi-item-padding-x: 10px;
   display: flex;
   flex: none;
   color: t.$color-select-item-text;
-  border-radius: t.$field-radius-sm;
+  border-radius: $multi-item-radius;
 
   &:hover:not(.optionDisabled, .optionSelected) {
     background-color: t.$color-select-item-hover;

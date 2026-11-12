@@ -87,7 +87,7 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
       <td>
         현재 선택된 View. <strong>한 그룹에 1개만</strong>
       </td>
-      <td>Primary 글자 + 밑줄 2px (Medium은 굵게)</td>
+      <td>Primary 글자 + 밑줄 2px (md 14 Bold · sm 12 SemiBold)</td>
     </tr>
     <tr>
       <td>Disabled</td>
@@ -116,7 +116,7 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
         <code>md</code> (기본)
       </td>
       <td>40</td>
-      <td>14 Medium · Active 14 SemiBold</td>
+      <td>14 Regular · Active 14 Bold · 좌우 12</td>
       <td>일반 콘텐츠 영역</td>
     </tr>
     <tr>
@@ -124,7 +124,7 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
         <code>sm</code>
       </td>
       <td>32</td>
-      <td>13 Medium</td>
+      <td>12 Regular · Active 12 SemiBold · 좌우 10</td>
       <td>LNB처럼 밀도가 높은 영역</td>
     </tr>
   </tbody>
@@ -195,7 +195,7 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
 
 ## 토큰 · 확인 필요
 
-- 색: `tab/*` (`tokens/custom/tab.json`, 모두 Figma 색 alias). 크기 · 간격은 `Tab.module.scss` 맨 위 SCSS 변수. 글자 `typo-14-medium`(md) · `typo-14-semi-bold`(md Active · Count) · `typo-13-medium`(sm)
+- 색: `tab/*` (`tokens/custom/tab.json`, 모두 Figma 색 alias). 크기 · 간격은 `Tab.module.scss` 맨 위 SCSS 변수. 글자 `typo-14-regular`(md) · `typo-14-bold`(md Active · Count) · `typo-12-regular`(sm) · `typo-12-semi-bold`(sm Active). Button Tab `typo-14-regular` · Active `typo-14-bold`, 좌우 md 26 · sm 12 (Figma Tab 2026-11-12)
 - Number Badge Soft 색 `badge/number/soft-*` (`tokens/custom/badge.json`)
-- 시안에 없어 **임시 값(TODO)** 인 것: Item 좌우 여백 4 · Item 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Badge 색, Hover 표현(미구현)
+- 시안에 없어 **임시 값(TODO)** 인 것: Line Tab Item 사이 간격(현재 0 — Figma는 Tab끼리 붙어 있음), Button Tab 간격 8, 비활성 Badge 색, Hover 표현(미구현)
 - Title Tab 사이 간격 8은 임시값(TODO, Figma에 나란히 놓인 예시 없음). Hover 표현 없음

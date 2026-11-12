@@ -117,7 +117,7 @@ const menu: LnbMenuItem[] = [
     <tr>
       <td>Hover</td>
       <td>탐색 대상 인지</td>
-      <td>회색 배경 (Neutral 200). 3Depth는 파란 글자 + ↗</td>
+      <td>회색 배경 (Neutral 200). 3Depth는 흰 배경 + 파란 글자 + ↗</td>
     </tr>
     <tr>
       <td>Current</td>
@@ -242,4 +242,5 @@ const menu: LnbMenuItem[] = [
 
 - 색: `lnb/*` (`tokens/custom/lnb.json`, 모두 Figma 색 alias), 글자 역할 `lnb-*`. 폭 · 행 높이 · 여백은 `Lnb.module.scss` 맨 위 SCSS 변수
 - 로고 이미지 파일이 필요합니다(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 컴포넌트가 생기기 전까지 기본 <code>title</code>을 씁니다.
-- 시안에 없어 **임시 값(TODO)** 인 것: 3Depth Hover 표현, Active 점 크기, 탭 아래 구분선, 즐겨찾기 개수 글자. 가맹점관리자 모바일(Compact Navigation)은 별도 시안이 필요합니다.
+- 2Depth는 `typo-12-medium` · 기본 `Text/Secondary` · Current(현재 화면이 속한 2Depth) `Text/Heading` (Figma Depth 2026-11-12)
+- 시안에 없어 **임시 값(TODO)** 인 것: Active 점 크기, 탭 아래 구분선, 즐겨찾기 개수 글자. 가맹점관리자 모바일(Compact Navigation)은 별도 시안이 필요합니다.

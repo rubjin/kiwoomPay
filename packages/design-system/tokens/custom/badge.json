@@ -16,8 +16,8 @@
       },
       "Border": {
         "$type": "color",
-        "$value": "{Line.Default}",
-        "$description": "TODO(시안)"
+        "$value": "{Neutral.100}",
+        "$description": "Figma Badge/Text Outline Neutral 테두리"
       }
     },
     "Primary": {

@@ -60,8 +60,8 @@ import { InfoTip, Tooltip } from '@kiwoompay/design-system';
     <tr>
       <td>01 Arrow</td>
       <td>
-        기준 요소를 가리키는 포인터(12 × 6). 위 · 아래 배치에서는 몸체 왼쪽에서 20 안쪽, 좌 · 우
-        배치에서는 세로 가운데. 기준 요소 가운데에 맞춘다
+        기준 요소를 가리키는 포인터(12 × 8). 포인터 끝은 기준 요소 바깥 8에 둡니다. 위 · 아래
+        배치에서는 몸체 왼쪽에서 20 안쪽, 좌 · 우 배치에서는 세로 가운데. 기준 요소 가운데에 맞춘다
       </td>
     </tr>
     <tr>
@@ -108,7 +108,7 @@ import { InfoTip, Tooltip } from '@kiwoompay/design-system';
         클릭해야 할 핵심 정보의 유일한 전달 수단으로 쓰지 않는다
       </td>
       <td>
-        아이콘 끝과 포인터 끝이 맞닿도록 간격 0
+        아이콘 끝 ↔ 포인터 끝 8 (기준 요소 ↔ 몸체 16)
         <br />
         기본 하단 배치, 공간이 모자라면 상단 → 왼쪽 → 오른쪽으로 전환
         <br />
@@ -134,7 +134,7 @@ import { InfoTip, Tooltip } from '@kiwoompay/design-system';
   <tbody>
     <tr>
       <td>Bottom (기본)</td>
-      <td>아이콘 하단 ↔ 포인터 끝 0 · Arrow Top</td>
+      <td>아이콘 하단 ↔ 포인터 끝 8 · Arrow Top</td>
     </tr>
     <tr>
       <td>Top (Fallback)</td>
@@ -241,5 +241,5 @@ import { InfoTip, Tooltip } from '@kiwoompay/design-system';
 
 - `tooltip/*` (`tokens/custom/tooltip.json`: 위치 계산에 JS가 읽는 크기 · 색), `z-index/tooltip`. 나머지 여백은 `Tooltip.module.scss` 맨 위 SCSS 변수. 색은 모두 alias (Neutral 800 · Text/Inverse · Icon/Muted)
 - **임시 값(TODO)**: 화면 경계 최소 간격 8, z-index 1200(모달 · 드롭다운 위), 비활성 Info 아이콘 색
-- 시안 표기는 "아이콘 ↔ 포인터 끝 0px"이고, 측정상 아이콘(20) 아래 1~2px 차이는 원 바깥 여백으로 판단해 0으로 구현했습니다
+- Figma Tooltip(2026-11-12): 포인터 높이 8 · 기준 요소 바깥 간격 8(`tooltip/offset`)
 - 표시 · 숨김 애니메이션은 motion 토큰이 없어 넣지 않았습니다

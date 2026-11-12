@@ -33,7 +33,7 @@
     "BgDisabled": {
       "$type": "color",
       "$value": "{Neutral.100}",
-      "$description": "TODO(시안) 비활성 미선택 배경은 시안에 없음 (라디오 비활성 선택 배경 기준)"
+      "$description": "비활성 미선택 배경 (Figma Checkbox Item Disabled)"
     },
     "DisabledChecked": {
       "$type": "color",

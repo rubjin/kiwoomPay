@@ -28,6 +28,11 @@
       "$value": "{Neutral.50}",
       "$description": "2·3Depth 영역"
     },
+    "Depth2Text": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "2Depth 기본 (Current는 Text)"
+    },
     "Depth3Text": {
       "$type": "color",
       "$value": "{Text.Secondary}"
@@ -35,7 +40,12 @@
     "Depth3Hover": {
       "$type": "color",
       "$value": "{Primary.500}",
-      "$description": "TODO(시안) 3Depth Hover 표현 (파란 글자 + ↗로 해석)"
+      "$description": "3Depth Hover 글자 (Figma LNB: 파란 글자 + ↗ + 흰 배경)"
+    },
+    "Depth3HoverBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}",
+      "$description": "3Depth Hover 배경"
     },
     "ActiveBg": {
       "$type": "color",

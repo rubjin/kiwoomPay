@@ -179,7 +179,11 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
 
       {opened &&
         createPortal(
-          <div ref={panelRef} className={styles.panel} style={panelPosition}>
+          <div
+            ref={panelRef}
+            className={clsx(styles.panel, field.size === 'sm' && styles.panelSm)}
+            style={panelPosition}
+          >
             {loading ? (
               <div className={styles.status} role="status">
                 <Spinner />

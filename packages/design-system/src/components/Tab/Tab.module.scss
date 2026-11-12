@@ -4,12 +4,13 @@
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $tab-height-md: t.$control-height-md; // Medium 40 · 일반 콘텐츠 영역 (Tab Guide)
 $tab-height-sm: t.$control-height-sm; // Small 32 · 밀도가 높은 영역 (Tab Guide)
-$tab-padding-x: t.$space-4; // TODO(시안) Content Width 예시에서 밑줄이 글자보다 양쪽 약 4px 넓음
-$tab-gap: t.$space-24; // TODO(시안) Line Tab Item 간격
+$tab-padding-x: t.$space-12; // Figma Tab/Line Medium 여백 12
+$tab-padding-x-sm: 10px; // Figma Tab/Line Small 여백 10
+$tab-gap: 0; // TODO(시안) Item 사이 간격 (Figma 예시는 Item 단독) — 여백 12가 간격 역할
 $tab-indicator-width: 2px; // Active 밑줄 두께
 $tab-count-gap: 6px; // Label ↔ Number Badge (측정)
-$tab-button-min-width: 76px; // TODO(시안) Button Tab 예시 폭
-$tab-button-padding-x: t.$space-16; // TODO(시안) 긴 Label일 때 좌우 여백
+$tab-button-padding-x: 26px; // Figma Tab/Button md: 여백 16 + Content 10
+$tab-button-padding-x-sm: t.$space-12; // Figma Tab/Button 설명 Small 여백 12
 $tab-button-radius: t.$control-radius-md;
 $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 $tab-title-height: 34px; // Title Tab: 글자 영역 30 + 밑줄 4 (Figma Tab/Title)
@@ -85,23 +86,28 @@ $tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 �
 }
 
 .md .item {
-  @include m.typography(typo-14-medium);
+  @include m.typography(typo-14-regular);
 
   height: $tab-height-md;
 }
 
 .md .active {
-  @include m.typography(typo-14-semi-bold);
+  @include m.typography(typo-14-bold);
 }
 
 .md .count {
-  @include m.typography(typo-14-semi-bold);
+  @include m.typography(typo-14-bold);
 }
 
 .sm .item {
-  @include m.typography(typo-13-medium);
+  @include m.typography(typo-12-regular);
 
   height: $tab-height-sm;
+  padding: 0 $tab-padding-x-sm;
+}
+
+.sm .active {
+  @include m.typography(typo-12-semi-bold);
 }
 
 // ── Title Tab ────────────────────────────────────────
@@ -129,10 +135,9 @@ $tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 �
 }
 
 .button .item {
-  @include m.typography(typo-14-medium);
+  @include m.typography(typo-14-regular);
 
   height: $tab-height-md; // md 40 (Figma Lookup 찾기 방식 Tab) · sm 32 (Tab/Button)
-  min-width: $tab-button-min-width;
   padding: 0 $tab-button-padding-x;
   background-color: t.$color-tab-button-bg;
   border: t.$control-border-width solid t.$color-tab-button-border;
@@ -141,10 +146,11 @@ $tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 �
 
 .buttonSm .item {
   height: $tab-height-sm;
+  padding: 0 $tab-button-padding-x-sm;
 }
 
 .button .active {
-  @include m.typography(typo-14-semi-bold);
+  @include m.typography(typo-14-bold);
 
   background-color: t.$color-tab-button-bg-active;
   border-color: t.$color-tab-button-border-active;

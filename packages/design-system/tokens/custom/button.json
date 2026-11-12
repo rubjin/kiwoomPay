@@ -276,6 +276,11 @@
     "TextDisabled": {
       "$type": "color",
       "$value": "{Neutral.300}"
+    },
+    "HoverBg": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "Text Button Hover 배경 (Figma Text Button State=Hover)"
     }
   }
 }

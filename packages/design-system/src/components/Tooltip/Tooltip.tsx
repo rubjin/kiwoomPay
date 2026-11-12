@@ -51,7 +51,8 @@ function computePosition(
   preferred: TooltipPlacement,
 ): Position {
   const arrowW = readPx('--kp-tooltip-arrow-width');
-  const arrowH = readPx('--kp-tooltip-arrow-height');
+  // 기준 요소 ↔ 포인터 끝 간격 + 포인터 높이 (Figma: 아이콘 바깥 8px)
+  const arrowH = readPx('--kp-tooltip-arrow-height') + readPx('--kp-tooltip-offset');
   const inset = readPx('--kp-tooltip-arrow-inset');
   const radius = readPx('--kp-tooltip-radius');
   const margin = readPx('--kp-tooltip-viewport-margin');

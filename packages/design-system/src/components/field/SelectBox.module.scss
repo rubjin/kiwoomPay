@@ -6,8 +6,8 @@ $select-panel-padding: t.$space-8;
 $select-item-padding-y: t.$space-8;
 $select-item-padding-x: t.$space-8;
 $select-item-gap: t.$space-8;
-$select-panel-max-height: 190px; // TODO(시안) 항목 4개 높이 기준. 초과 시 스크롤
-$select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 근사
+$select-panel-max-height: 190px; // Figma Dropdown Panel(Default · Scroll) 190. 초과 시 스크롤
+$select-status-min-height: 174px; // Figma Loading · Empty 패널 174
 
 .root {
   position: relative;
@@ -113,6 +113,10 @@ $select-status-min-height: 172px; // TODO(시안) Loading/Empty 패널 높이 �
   &:hover:not(.optionDisabled, .optionSelected) {
     background-color: t.$color-select-item-hover;
   }
+}
+
+.panelSm .option {
+  @include m.typography(typo-13-medium);
 }
 
 .optionSelected {

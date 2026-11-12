@@ -185,7 +185,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, re
           aria-label={prevMonthLabel}
           onClick={() => setView(addMonths(view, -1))}
         >
-          <Icon name="chevron-left" size={20} />
+          <Icon name="chevron-left" size={24} />
         </button>
         <span className={styles.title} aria-live="polite">
           {view.year}년 {view.month}월
@@ -196,7 +196,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, re
           aria-label={nextMonthLabel}
           onClick={() => setView(addMonths(view, 1))}
         >
-          <Icon name="chevron-right" size={20} />
+          <Icon name="chevron-right" size={24} />
         </button>
       </div>
       <div className={styles.grid}>{cells.map(renderCell)}</div>

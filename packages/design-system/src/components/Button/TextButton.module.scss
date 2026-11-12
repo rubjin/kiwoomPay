@@ -17,7 +17,7 @@
 }
 
 .md {
-  @include m.typography(typo-13-semi-bold);
+  @include m.typography(typo-13-bold);
 }
 
 .primary {
@@ -34,9 +34,9 @@
   cursor: not-allowed;
 }
 
-// TODO(시안): Text Action hover 표현 확인 (색 변화 없음 → 밑줄로 임시 처리)
+// Figma Text Button Hover: Primary 50 배경 (밑줄형은 글자색 Primary 600)
 .textButton:hover:not(:disabled, .link) {
-  text-decoration: underline;
+  background-color: t.$color-text-button-hover-bg;
 }
 
 .link {

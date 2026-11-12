@@ -11,8 +11,8 @@
     },
     "ArrowHeight": {
       "$type": "dimension",
-      "$value": "6px",
-      "$description": "포인터 높이 (측정). 아이콘 끝과 포인터 끝 간격 0"
+      "$value": "8px",
+      "$description": "포인터 높이 (Figma Tooltip/Info Arrow 12 × 8)"
     },
     "ArrowInset": {
       "$type": "dimension",
@@ -41,6 +41,11 @@
       "$type": "color",
       "$value": "{Text.Disabled}",
       "$description": "TODO(시안) 비활성 Info 아이콘 표현 없음"
+    },
+    "Offset": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "기준 요소(아이콘) ↔ 포인터 끝 간격 (Figma 설명: 아이콘 바깥 8px)"
     }
   }
 }

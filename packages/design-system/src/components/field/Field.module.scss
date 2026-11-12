@@ -45,7 +45,10 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   min-height: t.$control-height-lg;
 }
 
+// Figma Text Field: 필수 * 12 Bold Primary 500
 .required {
+  @include m.typography(typo-12-bold);
+
   margin-inline-start: t.$space-4;
   color: t.$color-field-required;
 }

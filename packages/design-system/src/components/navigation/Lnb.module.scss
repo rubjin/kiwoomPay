@@ -200,16 +200,22 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
 // ── 2Depth ───────────────────────────────────────────
 .depth2 {
-  @include m.typography(typo-13-medium);
+  @include m.typography(typo-12-medium);
 
   gap: t.$space-8;
   height: $lnb-depth2-height;
   padding-right: $lnb-padding-x;
   padding-left: $lnb-indent;
+  color: t.$color-lnb-depth2-text;
 
   &:hover {
     background-color: t.$color-lnb-hover-bg;
   }
+}
+
+// 현재 화면이 속한 2Depth만 진한 글자 (Figma Depth=2 State=Current)
+.depth2.current {
+  color: t.$color-lnb-text;
 }
 
 // ── 3Depth ───────────────────────────────────────────
@@ -227,6 +233,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
 
   &:hover {
     color: t.$color-lnb-depth3-hover;
+    background-color: t.$color-lnb-depth3-hover-bg;
 
     .go {
       visibility: visible;
