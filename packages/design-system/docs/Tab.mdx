@@ -52,6 +52,12 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
       <td>동일 영역의 동급 View를 버튼형으로 전환</td>
     </tr>
     <tr>
+      <td>
+        Title Tab (<code>variant="title"</code>)
+      </td>
+      <td>섹션 제목 자리에서 하위 View를 나눌 때 (제목처럼 보이는 Tab)</td>
+    </tr>
+    <tr>
       <td>Work Tab</td>
       <td>열려 있는 업무 화면의 관리 · 닫기 (별도 컴포넌트)</td>
     </tr>
@@ -141,6 +147,13 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
 
 - 높이 32 · Active는 Primary 50 배경 + Primary 테두리. Equal Width는 부모 Layout에서 제어합니다(`fullWidth`).
 
+### Title Tab
+
+<Canvas of={TabStories.TitleTab} />
+
+- Figma `Tab/Title`: 높이 34(글자 영역 30 + 밑줄 4) · 좌우 여백 10, 글자 `typo-14-regular` · Active `typo-14-bold` Primary 500 + 밑줄 4, 비활성 Neutral 400. 크기는 하나(`size` 무시), 아래 구분선 없음
+- Figma는 Active만 높이 34(밑줄 4) · 나머지 32(빈 밑줄 2)라 선택이 바뀌면 높이가 바뀝니다. 구현은 모두 34로 고정해 줄이 흔들리지 않게 했습니다.
+
 ## Interactive
 
 <Canvas of={TabStories.Interactive} />
@@ -185,4 +198,4 @@ Tab은 선택 값만 관리합니다. 선택에 따른 콘텐츠는 화면에서
 - 색: `tab/*` (`tokens/custom/tab.json`, 모두 Figma 색 alias). 크기 · 간격은 `Tab.module.scss` 맨 위 SCSS 변수. 글자 `typo-14-medium`(md) · `typo-14-semi-bold`(md Active · Count) · `typo-13-medium`(sm)
 - Number Badge Soft 색 `badge/number/soft-*` (`tokens/custom/badge.json`)
 - 시안에 없어 **임시 값(TODO)** 인 것: Item 좌우 여백 4 · Item 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Badge 색, Hover 표현(미구현)
-- Title Tab 변형은 시안이 없어 만들지 않았습니다.
+- Title Tab 사이 간격 8은 임시값(TODO, Figma에 나란히 놓인 예시 없음). Hover 표현 없음

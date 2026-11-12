@@ -12,6 +12,10 @@ $tab-button-min-width: 76px; // TODO(시안) Button Tab 예시 폭
 $tab-button-padding-x: t.$space-16; // TODO(시안) 긴 Label일 때 좌우 여백
 $tab-button-radius: t.$control-radius-md;
 $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
+$tab-title-height: 34px; // Title Tab: 글자 영역 30 + 밑줄 4 (Figma Tab/Title)
+$tab-title-padding-x: 10px; // Figma Tab/Title Content padding
+$tab-title-indicator: 4px;
+$tab-title-gap: t.$space-8; // TODO(시안) Title Tab 사이 간격 (Figma에 나란히 놓인 예시 없음)
 
 .tabs {
   display: flex;
@@ -98,6 +102,25 @@ $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
   @include m.typography(typo-13-medium);
 
   height: $tab-height-sm;
+}
+
+// ── Title Tab ────────────────────────────────────────
+// 높이를 34로 고정하고 Active 밑줄(4)을 안쪽에 그려 선택이 바뀌어도 줄이 흔들리지 않는다
+.title {
+  gap: $tab-title-gap;
+}
+
+.title .item {
+  @include m.typography(typo-14-regular);
+
+  height: $tab-title-height;
+  padding: 0 $tab-title-padding-x $tab-title-indicator;
+}
+
+.title .active {
+  @include m.typography(typo-14-bold);
+
+  box-shadow: inset 0 calc(-1 * #{$tab-title-indicator}) 0 t.$color-tab-indicator;
 }
 
 // ── Button Tab ───────────────────────────────────────

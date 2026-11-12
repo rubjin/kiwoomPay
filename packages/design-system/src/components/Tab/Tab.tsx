@@ -13,7 +13,7 @@ import { useControllableState } from '../../hooks';
 import { NumberBadge } from '../Badge';
 import styles from './Tab.module.scss';
 
-export type TabVariant = 'line' | 'button';
+export type TabVariant = 'line' | 'button' | 'title';
 export type TabSize = 'md' | 'sm';
 
 interface TabContextValue {
@@ -34,9 +34,9 @@ export interface TabProps extends Omit<
   /** 처음 선택할 Tab 값 (uncontrolled) */
   defaultValue?: string;
   onChange?: (value: string) => void;
-  /** line(기본): 밑줄 Tab / button: 동급 View를 버튼형으로 전환 */
+  /** line(기본): 밑줄 Tab / button: 동급 View를 버튼형으로 전환 / title: 섹션 제목처럼 쓰는 Tab(14 · Active Bold + 굵은 밑줄 4) */
   variant?: TabVariant;
-  /** md(기본) 40 · sm 32. Button Tab은 크기 하나(32) */
+  /** md(기본) 40 · sm 32. Button · Title Tab은 크기 하나(32 · 34) */
   size?: TabSize;
   /** Equal Width: 부모 폭을 Item 수만큼 같은 비율로 나눈다 */
   fullWidth?: boolean;

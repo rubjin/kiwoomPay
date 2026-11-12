@@ -7,7 +7,7 @@ const meta = {
   component: Tab,
   args: { defaultValue: 'a', children: null },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['line', 'button'] },
+    variant: { control: 'inline-radio', options: ['line', 'button', 'title'] },
     size: { control: 'inline-radio', options: ['md', 'sm'] },
   },
 } satisfies Meta<typeof Tab>;
@@ -125,6 +125,20 @@ export const ButtonTab: Story = {
         </Tab>
       </div>
     </div>
+  ),
+};
+
+/** Title Tab (Figma Tab/Title): 섹션 제목 자리에서 View를 나눈다. Default · Active · Disabled */
+export const TitleTab: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Tab variant="title" defaultValue="b">
+      <Tab.Item value="a">Tab</Tab.Item>
+      <Tab.Item value="b">Tab</Tab.Item>
+      <Tab.Item value="c" disabled>
+        Tab
+      </Tab.Item>
+    </Tab>
   ),
 };
 

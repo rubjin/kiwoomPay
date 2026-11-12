@@ -71,7 +71,7 @@
 - [Q31] Modal(테두리 없음 · 반경 12 · 그림자 0 8px 24px rgba(0,0,0,.12) 확정 2026-11-12) 임시값(TODO): z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
 - [Q32] LNB 임시값(TODO, `tokens/custom/lnb.json`): 3Depth Hover 표현(파란 글자 + ↗로 해석 — ↗가 "이동" 표시인지 외부 링크 표시인지 확인 필요, 외부 링크는 link-external 아이콘으로 구분), Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
 - [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal 내용(메뉴 트리 + 체크박스)은 시안이 없어 Storybook 예시로만 제공
-- [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab 변형 시안 없음(미구현). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
+- [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab은 Figma로 구현(2026-11-12, Tab 사이 간격 8 임시). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
 - [Q35] Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리). Search 가이드의 회색 박스는 다른 섹션과 같은 설명용 카드로 보고 SearchArea에 넣지 않음 — 검색 영역에 박스가 필요한지 확인 필요
 
 - [Q36] Work Tab 시안 확인 필요(`tokens/custom/work-tab.json` TODO): ① State 예시의 Default·Hover Tab은 내용보다 넓지만 Workspace Bar 예시는 내용 폭 → 내용 폭으로 구현, Hover 시 닫기(X)가 나타나며 Tab이 넓어짐 ② Active Tab의 •••와 "열린 화면 N ⌄" Trigger가 같은 Tab 관리 메뉴를 여는 것으로 해석(둘 다 Active Tab 대상) ③ 메뉴명 말줄임 폭 160, •••로 열 때 Tab ↔ 메뉴 4, 메뉴 항목 Hover·비활성, Trigger ↔ 메뉴 8은 임시값 ④ 고정 Tab 표시(아이콘 등) 시안 없음 → 닫기 숨김만. (Trigger 위치는 Page Layout GUI로 확인: Work Tab 줄 오른쪽 끝, 밑줄 없는 글자 + 화살표 → 반영함)
@@ -423,3 +423,8 @@
 ### Q41 · Q44 처리 — 2026-11-12
 - Compact Navigation: 전체가 1페이지 이하(`total <= 1`)면 컨트롤을 그리지 않음(Figma 설명 "one page hides control"). 가이드 반영
 - Q44(Infobox 두 줄 제목 열 · tone 이름) 확인 완료 → 현재 구현 유지
+
+### Component: Tab / Title — 2026-11-12
+- 만든 것: `Tab`에 `variant="title"` 추가(Figma `Tab/Title` 28300:5560) — 높이 34(글자 영역 30 + 밑줄 4) · 좌우 여백 10, 기본 14 Regular Neutral 700 · Active 14 Bold Primary 500 + 밑줄 4 · 비활성 Neutral 400. Figma는 Active만 34(나머지 32)라 선택 시 높이가 바뀜 → 모두 34 고정. TitleTab 스토리, Tab 가이드 1 · 4절
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 확인 6개(높이 · 여백, 상태별 글자 · 색 · 밑줄, 세로 가운데, 폭 = 글자 + 20(Figma 44 · 45), 클릭 이동). 기존 Tab 테스트 19개 재통과
+- 한 가정: Title Tab 사이 간격 8(TODO, Q34)
