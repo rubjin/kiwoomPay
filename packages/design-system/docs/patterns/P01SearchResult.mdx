@@ -22,6 +22,8 @@ import * as Stories from '../../src/patterns/search-result/SearchResult.stories'
 | 5    | `ResultPanel` + Grid(IBSheet8) | ●         | 제목 옆 표시항목설정 · 엑셀, 오른쪽 업무 Action(V05). 행이 없으면 `StatusView`   |
 | 6    | `ResultFooter` + `Pagination`  | ●         | 왼쪽 Total, 가운데 Pagination                                                    |
 
+- 제목 줄은 모두 **`SectionHeading`** 입니다 — 화면명 `xl`(24) · 검색 조건 `lg`(18) · 조회 결과 `md`(16) · 적용된 검색 조건 · 조회 요약 `md subtle`. 부품이 안에서 그리므로 화면에서 제목을 따로 만들지 않습니다. 카드 밖 영역 제목이 더 필요하면 `SectionHeading`을 직접 씁니다
+
 <Canvas of={Stories.Result} />
 
 ## 2. 흐름 — `useSearchResult`
