@@ -1,6 +1,6 @@
 # 페이지 패턴(P01~P08) 구조 설계안
 
-> 출처: Figma Pattern Library (`28263:4869`) — 00 개요 · P01~P08. 2026-11-12 작성 · P-1~P-5 확정(2026-11-12).
+> 출처: Figma Pattern Library (`28263:4869`) — 00 개요 · P01~P08. 2026-11-12 작성 · P-1~P-6 확정(2026-11-12).
 > 목표: 화면별 시안이 없어도 화면설계서(업무 조건)만으로 페이지를 만들 수 있게 한다.
 
 ## 0. 원칙 (Figma 00 문서 기준)
@@ -126,6 +126,4 @@ const sr = useSearchResult({ fetch: api.list, defaults, autoSearch: false });
 - [P-3] 최초 진입 시 **조회하지 않음**(결과 영역은 조회 전 상태). `useSearchResult` 기본 `autoSearch: false`
 - [P-4] 미저장 이탈 확인은 **Work Tab 닫기 · 브라우저 닫기(beforeunload)**. 문구 · 구성은 임의(TODO 시안)
 - [P-5] 조회 전용(read) 값은 **텍스트로 표시**(Figma P02 V01 "값 표현을 기본")
-
-## 6. 확인 필요
-- [P-6] 시안 없는 신규 UI(AppliedFilters 칩, FeedItem, DashboardModule, AuthLayout)는 기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값으로 진행해도 되는지
+- [P-6] 시안 없는 신규 UI(AppliedFilters 칩, FeedItem, DashboardModule, AuthLayout 등)는 **기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값**으로 진행
