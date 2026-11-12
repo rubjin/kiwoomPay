@@ -8,3 +8,5 @@ export { AddressResultRow } from './AddressResultRow';
 export type { AddressResultRowProps } from './AddressResultRow';
 export { AddressSearch } from './AddressSearch';
 export type { AddressItem, AddressSearchExample, AddressSearchProps } from './AddressSearch';
+export { LookupSearch } from './LookupSearch';
+export type { LookupSearchProps } from './LookupSearch';

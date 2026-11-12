@@ -1,0 +1,50 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (Figma Modal/Lookup · Select Box/Modal/Search Result (Lookup))
+$lookup-gap: t.$space-12; // 탭 · 검색 줄 · 결과 사이
+$lookup-bar-gap: t.$space-8; // 필드 · [조회] 사이
+$lookup-empty-height: 480px; // 결과 없음 영역 (그리드 자리)
+$lookup-empty-gap: 6px;
+
+.lookup {
+  display: flex;
+  flex-direction: column;
+  gap: $lookup-gap;
+  min-width: 0;
+}
+
+.bar {
+  display: flex;
+  gap: $lookup-bar-gap;
+  align-items: center;
+}
+
+.field {
+  flex: 1;
+  min-width: 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: $lookup-empty-gap;
+  align-items: center;
+  justify-content: center;
+  height: $lookup-empty-height;
+  text-align: center;
+}
+
+.emptyTitle {
+  @include m.typography(typo-14-bold);
+
+  margin: 0;
+  color: t.$color-lookup-empty-title;
+}
+
+.emptyText {
+  @include m.typography(typo-13-regular);
+
+  margin: 0;
+  color: t.$color-lookup-empty-text;
+}

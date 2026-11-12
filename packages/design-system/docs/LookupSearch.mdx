@@ -1,0 +1,59 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/components/display/LookupSearch.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Lookup Search
+
+사업자번호 · 원가정보 · 표준산업분류코드처럼 **검색해서 하나를 골라 호출 화면으로 넘기는** 조회형 팝업의 본문입니다.
+`Modal`(size lg · 800, 넓은 그리드는 `width`)의 `Modal.Body`에 넣고, 결과는 **IBSheet8 그리드**를 children으로 넘깁니다.
+
+```tsx
+<Modal open={open} onClose={close} size="lg">
+  <Modal.Header title="사업자번호 검색" closeButton />
+  <Modal.Body>
+    <LookupSearch label="업체명" loading={loading} onSearch={search} empty={rows?.length === 0}>
+      {rows && rows.length > 0 && <IBSheetReact options={options} data={rows} />}
+    </LookupSearch>
+  </Modal.Body>
+</Modal>
+```
+
+| Prop                                        | 설명                                             |
+| ------------------------------------------- | ------------------------------------------------ |
+| `label`                                     | 검색 필드 라벨(왼쪽, 13 Bold). 없으면 검색창만   |
+| `query` · `defaultQuery` · `onQueryChange`  | 검색어 (controlled / uncontrolled)               |
+| `onSearch` · `loading`                      | Enter 또는 [조회]. 조회 중이면 [조회] 로딩       |
+| `extraFields`                               | 검색어 앞의 추가 조건 (`Field` + `TextField` 등) |
+| `header`                                    | 검색 줄 위 영역 (찾기 방식 Button Tab 등)        |
+| `empty` · `emptyTitle` · `emptyDescription` | 결과 없음 안내 (그리드 자리 480 가운데)          |
+| children                                    | 결과 그리드 (IBSheet8). 조회 전이면 비워 둠      |
+
+## 1. 상태
+
+<Canvas of={Stories.Initial} />
+<Canvas of={Stories.Result} />
+<Canvas of={Stories.Empty} />
+
+- **조회 전**: 검색 줄만. **결과**: 검색 줄 아래 12에 그리드. **결과 없음**: 그리드 자리에 안내
+- 결과 행을 고르면 값을 호출 화면에 넘기고 Modal을 닫습니다(행 선택 · 더블클릭은 IBSheet 이벤트에서 처리).
+- Footer([닫기] · [확인])는 화면 정책에 따라 `Modal.Footer`로 붙입니다(Figma 설명은 "별도 Footer Action 없음", 결과 예시에는 있음).
+
+## 2. 동작 예시
+
+<Canvas of={Stories.Interactive} />
+
+## 3. Spec (Figma Modal/Lookup · Select Box/Modal/Search Result (Lookup))
+
+- Modal: 제목 `typo-20-semi-bold` + 닫기(X), 본문 좌우 20
+- 간격: 탭 · 검색 줄 · 결과 12, 라벨 ↔ 검색창 ↔ [조회] 8
+- 검색 줄: SearchField md(남는 폭) + [조회] Neutral Solid md, 라벨 `typo-13-bold` `Text/Label`
+- 결과 없음: 높이 480 가운데 · 두 줄 간격 6 · `typo-14-bold` `Text/Label` + `typo-13-regular` `Text/Placeholder`
+- 그리드: IBSheet8 (머리 행 Neutral 100 · 선 Neutral 200 · 14 Bold / 14 Regular — IBSheet 테마로 맞춤)
+- 색: `lookup/*` (`tokens/custom/lookup.json`). 크기 · 간격은 `LookupSearch.module.scss` 맨 위 SCSS 변수
+
+## Do / Don't
+
+- ✅ 검색 → 결과에서 1건 선택 → 호출 화면 필드에 반영하는 흐름
+- ✅ 주소 검색은 전용 `AddressSearch`를 씁니다(결과 줄 형식이 다름)
+- ❌ 그리드를 직접 표로 만들기 — 결과는 IBSheet8

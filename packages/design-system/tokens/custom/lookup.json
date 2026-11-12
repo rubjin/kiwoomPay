@@ -1,0 +1,6 @@
+{
+  "Lookup": {
+    "EmptyTitle": { "$type": "color", "$value": "{Text.Label}" },
+    "EmptyText": { "$type": "color", "$value": "{Text.Placeholder}" }
+  }
+}

@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result 완료. 남은 것: Lookup 모달 패턴, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. 남은 것: 엑셀 다운로드 · 즐겨찾기 편집 모달, 취소사유입력, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -84,6 +84,7 @@
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
+- [Q51] Lookup Search: ① Figma 설명은 "별도 Footer Action 없음"인데 결과 예시에는 [닫기] · [확인] — 화면 정책으로 Modal.Footer를 붙이게 둠 ② Initial 시안은 본문 아래 여백 0(높이 108) → Modal 기본 아래 여백 20 유지 ③ 표준산업분류 Empty의 찾기 방식 Button Tab은 높이 40 · 14 Regular/Bold — 현재 Button Tab은 32 · 14 Medium/SemiBold(Tab/Button 설명은 H32) → 크기 확인 필요 ④ 결과 행 선택(클릭 · 더블클릭)은 IBSheet 이벤트로 처리
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -428,3 +429,8 @@
 - 만든 것: `Tab`에 `variant="title"` 추가(Figma `Tab/Title` 28300:5560) — 높이 34(글자 영역 30 + 밑줄 4) · 좌우 여백 10, 기본 14 Regular Neutral 700 · Active 14 Bold Primary 500 + 밑줄 4 · 비활성 Neutral 400. Figma는 Active만 34(나머지 32)라 선택 시 높이가 바뀜 → 모두 34 고정. TitleTab 스토리, Tab 가이드 1 · 4절
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 확인 6개(높이 · 여백, 상태별 글자 · 색 · 밑줄, 세로 가운데, 폭 = 글자 + 20(Figma 44 · 45), 클릭 이동). 기존 Tab 테스트 19개 재통과
 - 한 가정: Title Tab 사이 간격 8(TODO, Q34)
+
+### Component: Lookup Search (Phase 4 display) — 2026-11-12
+- 만든 것: `display/LookupSearch` — 조회형 Lookup Modal 본문(Figma Modal/Lookup 사업자번호 · 원가정보, Select Box/Modal/Search Result (Lookup) · Empty). 검색 줄(`label` 왼쪽 + SearchField + [조회] Neutral Solid, `extraFields` · `header` 슬롯) + 결과(children = IBSheet8 그리드) · `empty`(높이 480 안내). query controlled/uncontrolled, `onSearch` · `loading`. 토큰 `tokens/custom/lookup.json`. stories(Initial · Result(예시 그리드 + Footer) · Empty(표준산업분류: Button Tab + 조건 2개, 폭 880) · Interactive), 가이드 `docs/LookupSearch.mdx`
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 11개 통과(Figma 값: 폭 800 · 제목 20 SemiBold · 닫기, 검색창 x 20 · y 68 · 40 · [조회] 오른쪽 20 · 간격 8, 라벨 13 Bold · 간격 8, 검색 ↔ 그리드 12, 결과 없음 480 · 글자 · 간격 6, Empty 폭 880 · Tab · 조건 2, Enter 조회 → 그리드 · 결과 없음 · 닫기). 렌더링 캡처가 Figma 스크린샷과 일치
+- 한 가정: Q51
