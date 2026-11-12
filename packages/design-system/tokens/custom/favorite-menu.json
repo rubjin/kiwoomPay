@@ -1,0 +1,58 @@
+{
+  "FavoriteMenu": {
+    "Description": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "GroupBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "1Depth 머리 (Neutral 50)"
+    },
+    "GroupBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "GroupText": {
+      "$type": "color",
+      "$value": "{Primary.900}"
+    },
+    "PanelBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "SubText": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "2Depth"
+    },
+    "ItemText": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "3Depth 체크박스 이름"
+    },
+    "Chevron": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "TODO(시안) 화살표 색 (Figma 아이콘 이미지)"
+    },
+    "CountBg": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
+    "CountLabel": {
+      "$type": "color",
+      "$value": "{Primary.500}"
+    },
+    "CountNumber": {
+      "$type": "color",
+      "$value": "{Chart.Category.02}",
+      "$description": "Figma secondary/500 #8B5CF6 (같은 값의 Chart 색 사용)"
+    },
+    "ItemDisabled": {
+      "$type": "color",
+      "$value": "{Text.Disabled}",
+      "$description": "최대 개수가 차서 고를 수 없는 메뉴"
+    }
+  }
+}

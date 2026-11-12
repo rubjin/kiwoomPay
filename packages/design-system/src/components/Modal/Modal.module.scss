@@ -12,6 +12,7 @@ $modal-message-gap: t.$space-20; // 설명만 있는 본문(Alert·Confirm)의 �
 $modal-footer-gap: t.$space-8; // 버튼 간격
 $modal-viewport-margin: t.$space-40; // 최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)
 $modal-close-size: 24px; // Header Close(X)
+$modal-header-gap: t.$space-12; // 제목 · addon · Close(X) 사이 (Figma 즐겨찾기 편집)
 $modal-info-radius: 8px; // 측정값
 $modal-info-padding: t.$space-12;
 $modal-info-row-gap: t.$space-8;
@@ -61,7 +62,7 @@ $modal-info-label-gap: t.$space-12;
 .header {
   display: flex;
   flex: none;
-  gap: t.$space-8;
+  gap: $modal-header-gap;
   align-items: center;
   padding: $modal-padding $modal-padding 0;
 }

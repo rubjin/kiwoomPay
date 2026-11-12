@@ -153,16 +153,19 @@ export interface ModalHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   /** Close(X) 표시. Information · Form · Lookup은 표시, Alert · Confirm은 숨김 */
   closeButton?: boolean;
   closeLabel?: string;
+  /** 제목 오른쪽 · 닫기(X) 왼쪽 요소 (예: 선택 개수 표시) */
+  addon?: ReactNode;
 }
 
 const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
-  ({ title, closeButton = false, closeLabel = '닫기', className, ...rest }, ref) => {
+  ({ title, closeButton = false, closeLabel = '닫기', addon, className, ...rest }, ref) => {
     const modal = useModal();
     return (
       <div {...rest} ref={ref} className={clsx(styles.header, className)}>
         <h2 id={modal?.titleId} className={styles.title}>
           {title}
         </h2>
+        {addon}
         {closeButton && (
           <button
             type="button"

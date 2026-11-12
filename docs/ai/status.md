@@ -5,7 +5,7 @@
 
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
-- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) 완료. 남은 것: 즐겨찾기 편집 모달, 취소사유입력, Grid(IBSheet 영역), chart&kpi
+- Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) 완료. 남은 것: 취소사유입력, Grid(IBSheet 영역), chart&kpi
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -70,7 +70,7 @@
 - [Q30] Badge 임시값(TODO): Neutral 상태 점 색(Neutral/500), Primary 외 tone의 Line 테두리(각 Status Border), Number 두 자리 이상 좌우 여백 6·글자(12 SemiBold). 3글자 이상 배지는 시안보다 2px 넓게 렌더링됨(글자 폭 반올림 차이로 판단, 2글자는 정확히 일치)
 - [Q31] Modal(테두리 없음 · 반경 12 · 그림자 0 8px 24px rgba(0,0,0,.12) 확정 2026-11-12) 임시값(TODO): z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
 - [Q32] LNB 임시값(TODO, `tokens/custom/lnb.json`): 3Depth Hover 표현(파란 글자 + ↗로 해석 — ↗가 "이동" 표시인지 외부 링크 표시인지 확인 필요, 외부 링크는 link-external 아이콘으로 구분), Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
-- [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal 내용(메뉴 트리 + 체크박스)은 시안이 없어 Storybook 예시로만 제공
+- [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal은 Figma로 FavoriteMenuPicker 구현(2026-11-12)
 - [Q34] Tab 임시값(TODO, `tokens/custom/tab.json`): Item 좌우 여백 4 · 간격 24, Button Tab 최소 폭 76 · 좌우 여백 16 · 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab은 Figma로 구현(2026-11-12, Tab 사이 간격 8 임시). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
 - [Q35] Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리). Search 가이드의 회색 박스는 다른 섹션과 같은 설명용 카드로 보고 SearchArea에 넣지 않음 — 검색 영역에 박스가 필요한지 확인 필요
 
@@ -85,6 +85,7 @@
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
 - [Q51] Lookup Search: ① Figma 설명은 "별도 Footer Action 없음"인데 결과 예시에는 [닫기] · [확인] — 화면 정책으로 Modal.Footer를 붙이게 둠 ② Initial 시안은 본문 아래 여백 0(높이 108) → Modal 기본 아래 여백 20 유지 ③ 표준산업분류 Empty의 찾기 방식 Button Tab은 높이 40 · 14 Regular/Bold — 현재 Button Tab은 32 · 14 Medium/SemiBold(Tab/Button 설명은 H32) → 크기 확인 필요 ④ 결과 행 선택(클릭 · 더블클릭)은 IBSheet 이벤트로 처리
+- [Q52] 즐겨찾기 편집: ① 검색창 높이 Figma 48 → 40(필드 크기에 lg 48 없음) — 필드에 lg 추가할지 ② 선택 개수 숫자 색 Figma secondary/500(#8B5CF6) → 같은 값의 Chart/Category/02로 연결, 별도 Secondary 색 필요 여부 ③ 화살표 색(Figma 아이콘 이미지) Text/Label로 임시 ④ 하위 없는 2Depth도 체크박스로 고를 수 있게 함
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -439,3 +440,8 @@
 - 만든 것: `display/ColumnPicker` — Figma Modal/Modal_Excel Download 본문. 안내 · 전체선택(일부 선택 표시) · 항목 칸(200 × 40, 이동 아이콘 · 이름 · 체크박스) 4열 그리드, 드래그로 순서 변경(브라우저 기본 Drag and Drop, 라이브러리 없음). `items` · `onItemsChange` · `value`(항목 순서대로) · `columns`. 토큰 `tokens/custom/column-picker.json`. 스토리 ExcelDownload(Modal 876 + Footer), 가이드 `docs/ColumnPicker.mdx`
 - 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 10개 통과(모달 876 × 418 = Figma, 안내 위치 · 글자, 항목 200 × 40 · 반경 8 · 테두리 · 4열 · 간격 12, 글자 · 아이콘 20, 전체선택 indeterminate · 전체 선택 · 해제, 항목 선택, 드래그 순서 변경). 렌더링이 Figma 스크린샷과 일치
 - 한 가정: 드래그 중 표시(반투명 · 놓을 칸 Primary 테두리)는 시안 없어 임시. 키보드 순서 변경 미지원
+
+### Component: Favorite Menu Picker (즐겨찾기 편집) — 2026-11-12
+- 만든 것: `navigation/FavoriteMenuPicker` — Figma Modal_Favorite Edit Modal 본문. 안내 · 메뉴 검색(일치 메뉴만 남기고 모두 펼침) · 1Depth 펼침 상자(접힘 62 · 펼침 머리 40) · 2Depth 펼침 · 3Depth 체크박스(최대 `max` 10, 다 차면 비활성). `FavoriteCount`("선택한 메뉴 N / 10"). `Modal.Header`에 `addon` 추가(제목 · addon · 닫기 간격 8 → 12). 토큰 `tokens/custom/favorite-menu.json`. 스토리(FavoriteEdit · Full), 가이드 `docs/FavoriteMenuPicker.mdx`. LNB Interactive 스토리의 임시 편집 Modal을 이 컴포넌트로 교체(Q33)
+- 검증: typecheck · lint · Storybook 빌드 통과. 브라우저 테스트 10개 통과(모달 620 · 개수 표시 글자 · 색, 안내, 1Depth 62 · 배경 · 16 Bold Primary 900, 펼침 머리 40, 2Depth 14 Bold · 3Depth 14 Medium, 선택 · 개수, 펼침, 검색 필터, 10개 차면 비활성). LNB 테스트 23개 재통과(편집 → 검색 → 선택 → 저장). 렌더링이 Figma 스크린샷과 일치(검색창 높이 제외)
+- 한 가정: Q52

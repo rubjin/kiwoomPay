@@ -1,0 +1,142 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (Figma Modal_Favorite Edit Modal)
+$favorite-gap: t.$space-12; // 안내 · 검색 · 1Depth 사이
+$favorite-group-height: 62px; // 접힌 1Depth
+$favorite-group-open-height: t.$control-height-md; // 펼친 1Depth 머리 40
+$favorite-padding: 14px; // 필드와 같은 여백
+$favorite-panel-gap: 14px; // 펼친 영역 줄 사이
+$favorite-leaf-indent: t.$space-4;
+$favorite-count-padding: t.$space-4;
+$favorite-count-gap: t.$space-4;
+$favorite-count-radius: 4px;
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: $favorite-gap;
+  min-width: 0;
+}
+
+.description {
+  @include m.typography(typo-14-regular);
+
+  margin: 0;
+  color: t.$color-favorite-menu-description;
+}
+
+// ── 1Depth ───────────────────────────────────────────
+.group {
+  border: t.$control-border-width solid t.$color-favorite-menu-group-border;
+  border-radius: t.$field-radius-md;
+}
+
+.groupHeader {
+  display: flex;
+  gap: t.$space-4;
+  align-items: center;
+  width: 100%;
+  height: calc(#{$favorite-group-height} - #{t.$control-border-width} * 2);
+  padding: 0 calc(#{$favorite-padding} - #{t.$control-border-width});
+  color: t.$color-favorite-menu-chevron;
+  text-align: left;
+  cursor: pointer;
+  background-color: t.$color-favorite-menu-group-bg;
+  border: 0;
+  border-radius: t.$field-radius-md;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.groupOpen .groupHeader {
+  height: calc(#{$favorite-group-open-height} - #{t.$control-border-width});
+  border-radius: t.$field-radius-md t.$field-radius-md 0 0;
+}
+
+.groupLabel {
+  @include m.typography(typo-16-bold);
+
+  flex: 1;
+  min-width: 0;
+  color: t.$color-favorite-menu-group-text;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $favorite-panel-gap;
+  padding: calc(#{$favorite-padding} - #{t.$control-border-width});
+  background-color: t.$color-favorite-menu-panel-bg;
+  border-radius: 0 0 t.$field-radius-md t.$field-radius-md;
+}
+
+// ── 2 · 3Depth ───────────────────────────────────────
+.subGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $favorite-panel-gap;
+}
+
+.sub {
+  display: flex;
+  gap: t.$space-4;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  color: t.$color-favorite-menu-chevron;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.subLabel {
+  @include m.typography(typo-14-bold);
+
+  flex: 1;
+  min-width: 0;
+  color: t.$color-favorite-menu-sub-text;
+}
+
+.leaf {
+  padding-left: $favorite-leaf-indent;
+}
+
+// Checkbox 기본 글자(14 Regular)를 Figma 3Depth 글자(14 Medium · Neutral 600)로
+.leaf .check {
+  @include m.typography(typo-14-medium);
+
+  color: t.$color-favorite-menu-item-text;
+}
+
+.leaf .checkDisabled {
+  color: t.$color-favorite-menu-item-disabled;
+}
+
+// ── 선택 개수 ────────────────────────────────────────
+.count {
+  @include m.typography(typo-12-semi-bold);
+
+  display: inline-flex;
+  flex: none;
+  gap: $favorite-count-gap;
+  align-items: center;
+  padding: $favorite-count-padding;
+  background-color: t.$color-favorite-menu-count-bg;
+  border-radius: $favorite-count-radius;
+}
+
+.countLabel {
+  color: t.$color-favorite-menu-count-label;
+}
+
+.countNumber {
+  color: t.$color-favorite-menu-count-number;
+}

@@ -415,6 +415,20 @@ $color-date-picker-range-text: var(--kp-color-date-picker-range-text);
 $focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
 $focus-ring-offset: var(--kp-focus-ring-offset); // TODO 시안 확인
 
+// ── custom · favorite-menu ──────────────────────────────────────
+$color-favorite-menu-description: var(--kp-color-favorite-menu-description);
+$color-favorite-menu-group-bg: var(--kp-color-favorite-menu-group-bg); // 1Depth 머리 (Neutral 50)
+$color-favorite-menu-group-border: var(--kp-color-favorite-menu-group-border);
+$color-favorite-menu-group-text: var(--kp-color-favorite-menu-group-text);
+$color-favorite-menu-panel-bg: var(--kp-color-favorite-menu-panel-bg);
+$color-favorite-menu-sub-text: var(--kp-color-favorite-menu-sub-text); // 2Depth
+$color-favorite-menu-item-text: var(--kp-color-favorite-menu-item-text); // 3Depth 체크박스 이름
+$color-favorite-menu-chevron: var(--kp-color-favorite-menu-chevron); // TODO(시안) 화살표 색 (Figma 아이콘 이미지)
+$color-favorite-menu-count-bg: var(--kp-color-favorite-menu-count-bg);
+$color-favorite-menu-count-label: var(--kp-color-favorite-menu-count-label);
+$color-favorite-menu-count-number: var(--kp-color-favorite-menu-count-number); // Figma secondary/500 #8B5CF6 (같은 값의 Chart 색 사용)
+$color-favorite-menu-item-disabled: var(--kp-color-favorite-menu-item-disabled); // 최대 개수가 차서 고를 수 없는 메뉴
+
 // ── custom · field ──────────────────────────────────────────────
 $field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
 $field-radius-sm: var(--kp-field-radius-sm);
@@ -1000,6 +1014,18 @@ $css-variables: (
   "--kp-color-date-picker-range-text": "var(--kp-color-text-accent)",
   "--kp-focus-ring-width": "2px",
   "--kp-focus-ring-offset": "2px",
+  "--kp-color-favorite-menu-description": "var(--kp-color-text-secondary)",
+  "--kp-color-favorite-menu-group-bg": "var(--kp-color-bg-page)",
+  "--kp-color-favorite-menu-group-border": "var(--kp-color-line-default)",
+  "--kp-color-favorite-menu-group-text": "var(--kp-color-primary-900)",
+  "--kp-color-favorite-menu-panel-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-favorite-menu-sub-text": "var(--kp-color-text-label)",
+  "--kp-color-favorite-menu-item-text": "var(--kp-color-text-secondary)",
+  "--kp-color-favorite-menu-chevron": "var(--kp-color-text-label)",
+  "--kp-color-favorite-menu-count-bg": "var(--kp-color-primary-50)",
+  "--kp-color-favorite-menu-count-label": "var(--kp-color-primary-500)",
+  "--kp-color-favorite-menu-count-number": "var(--kp-color-chart-category-02)",
+  "--kp-color-favorite-menu-item-disabled": "var(--kp-color-text-disabled)",
   "--kp-field-radius-md": "8px",
   "--kp-field-radius-sm": "6px",
   "--kp-field-gap": "var(--kp-space-8)",

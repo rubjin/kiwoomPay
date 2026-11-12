@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties, type MouseEvent } from 'react';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
-import { Checkbox } from '../selection/Checkbox';
+import { FavoriteCount, FavoriteMenuPicker } from './FavoriteMenuPicker';
 import { Lnb } from './Lnb';
 import type { LnbMenuItem } from './lnbUtils';
 
@@ -158,11 +158,6 @@ function InteractiveExample() {
     setEditing(true);
   };
 
-  // 즐겨찾기 편집: Modal + LNB 메뉴 트리 (3Depth·하위 없는 2Depth만 선택)
-  const leafGroups = menu.flatMap((d1) =>
-    (d1.children ?? []).map((d2) => ({ d1, d2, leaves: d2.children ?? [d2] })),
-  );
-
   return (
     <>
       <Lnb
@@ -179,32 +174,15 @@ function InteractiveExample() {
           메뉴를 누르면 Active가 바뀌고, 검색창에 &quot;정산&quot;을 입력하면 검색 결과가 나온다.
         </p>
       </main>
-      <Modal open={editing} onClose={() => setEditing(false)} width={400}>
-        <Modal.Header title="즐겨찾기 편집" closeButton />
+      {/* 즐겨찾기 편집: Figma Modal_Favorite Edit Modal (FavoriteMenuPicker) */}
+      <Modal open={editing} onClose={() => setEditing(false)} size="md">
+        <Modal.Header
+          title="즐겨찾기 편집"
+          closeButton
+          addon={<FavoriteCount count={draft.length} max={10} />}
+        />
         <Modal.Body>
-          {leafGroups.map(({ d1, d2, leaves }) => (
-            <fieldset key={d2.id} style={{ border: 0, padding: 0, margin: '0 0 16px' }}>
-              <legend style={{ fontWeight: 600, marginBottom: 8 }}>
-                {d1.label} &gt; {d2.label}
-              </legend>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {leaves.map((leaf) => (
-                  <Checkbox
-                    key={leaf.id}
-                    label={leaf.label}
-                    checked={draft.includes(leaf.id)}
-                    onChange={(e) =>
-                      setDraft(
-                        e.target.checked
-                          ? [...draft, leaf.id]
-                          : draft.filter((id) => id !== leaf.id),
-                      )
-                    }
-                  />
-                ))}
-              </div>
-            </fieldset>
-          ))}
+          <FavoriteMenuPicker items={menu} value={draft} onChange={setDraft} />
         </Modal.Body>
         <Modal.Footer>
           <Button size="lg" variant="neutral" appearance="line" onClick={() => setEditing(false)}>
@@ -217,7 +195,7 @@ function InteractiveExample() {
               setEditing(false);
             }}
           >
-            적용
+            저장
           </Button>
         </Modal.Footer>
       </Modal>
