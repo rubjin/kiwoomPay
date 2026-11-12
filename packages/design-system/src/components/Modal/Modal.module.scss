@@ -8,6 +8,7 @@ $modal-width-lg: 800px; // size lg: Form (Modal 패턴 측정)
 $modal-padding: t.$space-20; // 측정값
 $modal-radius: 12px;
 $modal-section-gap: t.$space-20; // Header ↔ Body ↔ Footer
+$modal-scroll-bleed: t.$space-4; // Body 위아래 안쪽 여백 → 필드 포커스 번짐이 잘리지 않음. 나머지 16은 Header · Footer 쪽(스크롤 밖)
 $modal-message-gap: t.$space-20; // 설명만 있는 본문(Alert·Confirm)의 추가 아래 여백 → Footer까지 40
 $modal-footer-gap: t.$space-8; // 버튼 간격
 $modal-viewport-margin: t.$space-40; // 최소 안전 여백 상·하·좌·우 40 → max-height calc(100vh - 80px)
@@ -64,7 +65,7 @@ $modal-info-label-gap: t.$space-12;
   flex: none;
   gap: $modal-header-gap;
   align-items: center;
-  padding: $modal-padding $modal-padding 0;
+  padding: $modal-padding $modal-padding calc(#{$modal-section-gap} - #{$modal-scroll-bleed});
 }
 
 .title {
@@ -91,14 +92,25 @@ $modal-info-label-gap: t.$space-12;
 }
 
 // ── Body (내용이 넘치면 여기만 스크롤) ────────────────
+// Header ↔ Body · Body ↔ Footer 간격 20 중 16은 Header · Footer 여백(스크롤 밖)에 둔다
+// → 스크롤해도 내용이 제목 · 버튼에 붙어 보이지 않는다. Body 위아래 4는 포커스 번짐 자리
 .body {
   @include m.typography(typo-14-regular);
 
   flex: 1 1 auto;
   min-height: 0;
-  padding: $modal-section-gap $modal-padding $modal-padding;
+  padding: $modal-scroll-bleed $modal-padding;
   overflow-y: auto;
   color: t.$color-modal-title;
+
+  // Header · Footer가 없으면 모달 가장자리까지 20
+  &:first-child {
+    padding-top: $modal-padding;
+  }
+
+  &:last-child {
+    padding-bottom: $modal-padding;
+  }
 }
 
 .description {
@@ -154,5 +166,5 @@ $modal-info-label-gap: t.$space-12;
   gap: $modal-footer-gap;
   align-items: center;
   justify-content: center;
-  padding: 0 $modal-padding $modal-padding;
+  padding: calc(#{$modal-section-gap} - #{$modal-scroll-bleed}) $modal-padding $modal-padding;
 }
