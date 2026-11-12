@@ -87,7 +87,7 @@
 - [Q47] IBSheet8 본체 · 라이선스(`ibleaders.js`, 도메인별) 파일 필요 — 상용이라 npm · 공개 다운로드 없음, 업체(IB Leaders)에서 받아야 함. 받으면 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영)에 두고 index.html · 셸 JSP 주석 해제. 캘린더 어댑터는 매뉴얼 API로 구현 완료(실제 IBSheet로는 미확인: 달력 위치 X · Y가 문서 좌표 기준인지, 최대 기간 초과 안내 방식). 라이선스 파일 커밋 여부는 사내 정책
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
 - [Q49] Address Search 확인 필요: (우편번호 13 SemiBold · 최소 폭 46, 도로명 14 Bold, 결과 줄 두 줄 간격 4 확정 2026-11-12) ① 글자 — 시안 폭 비교로 지번 13 Regular, 검색 예시 제목 14 Bold · 항목 이름 13 SemiBold · 예시 14 Regular, 검색결과 14 Bold, 결과 없음 14 SemiBold · 13 Regular로 판단 ② 측정값(Scale 밖): 검색 예시 줄 간격 10, 결과 없음 영역 180 ③ 결과가 많을 때 시안은 4건만 보임 → 목록 자체 스크롤이 아니라 Modal Body 스크롤로 구현. 목록 최대 높이 · 페이지 나눔(더 보기 · Pagination) 여부 확인 ④ 검색 필드는 값이 있으면 지우기(x) 표시(SearchField 기본, 시안 정지 화면에는 없음)
-- [Q50] LNB Search Result: 시안 두 번째 행의 Primary 50 배경을 Hover(+ 키보드 Focus)로 해석 — 현재 화면(Active) 표시인지 확인. 행 아래 여백 11(행 높이 60 맞춤, Scale 밖). Search Result Item · Pattern은 LNB 내부 구성으로 두고 별도 컴포넌트로 export하지 않음. Figma 링크(node 28078-1271)는 이 세션에서 Figma 연결 인증이 안 돼 PNG로 측정
+- [Q50] LNB Search Result: 시안 두 번째 행의 Primary 50 배경을 Hover(+ 키보드 Focus)로 해석 — 현재 화면(Active) 표시인지 확인. 행 높이 61 · 위아래 여백 12로 확정(2026-11-12, 시안 60과 1px 차이). Search Result Item · Pattern은 LNB 내부 구성으로 두고 별도 컴포넌트로 export하지 않음. Figma 링크(node 28078-1271)는 이 세션에서 Figma 연결 인증이 안 돼 PNG로 측정
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
