@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { SectionHeading } from '../../components/SectionHeading';
 import { StatusView, type StatusViewProps, type StatusViewStatus } from '../common/StatusView';
 import styles from './SearchResult.module.scss';
 
@@ -39,13 +40,14 @@ export const ResultPanel = forwardRef<HTMLElement, ResultPanelProps>(
     ref,
   ) => (
     <section {...rest} ref={ref} className={clsx(styles.resultPanel, className)}>
-      <div className={styles.resultHeader}>
-        <div className={styles.resultHeading}>
-          <h2 className={styles.resultTitle}>{title}</h2>
-          {titleActions && <div className={styles.actions}>{titleActions}</div>}
-        </div>
-        {actions && <div className={clsx(styles.actions, styles.resultActions)}>{actions}</div>}
-      </div>
+      <SectionHeading
+        className={styles.resultHeader}
+        size="md"
+        title={title}
+        addon={titleActions && <div className={styles.actions}>{titleActions}</div>}
+        actions={actions}
+        actionsGrow
+      />
       <div className={styles.resultBody}>
         {children}
         {status !== 'success' && <StatusView {...statusProps} status={status} />}

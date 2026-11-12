@@ -1,0 +1,20 @@
+{
+  "SectionHeading": {
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "Section · 검색 조건 · 조회 결과 · 폼 카드 제목"
+    },
+    "TitleSubtle": {
+      "$type": "color",
+      "$value": "{Text.Body}",
+      "$description": "한 줄 카드 제목 (적용된 검색 조건 · 조회 요약)"
+    },
+    "Label": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "제목 앞 작은 이름 (선택 CPID)"
+    },
+    "Description": { "$type": "color", "$value": "{Text.Secondary}" }
+  }
+}

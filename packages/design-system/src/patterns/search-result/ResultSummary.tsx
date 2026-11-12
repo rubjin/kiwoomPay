@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, Fragment, type HTMLAttributes, type ReactNode } from 'react';
+import { SectionHeading } from '../../components/SectionHeading';
 import styles from './SearchResult.module.scss';
 
 export interface ResultSummaryValue {
@@ -33,7 +34,7 @@ const formatValue = (value: ResultSummaryItem['value']) => {
 export const ResultSummary = forwardRef<HTMLElement, ResultSummaryProps>(
   ({ title = '조회 요약', items, className, ...rest }, ref) => (
     <section {...rest} ref={ref} className={clsx(styles.inlineCard, className)}>
-      <h2 className={styles.subTitle}>{title}</h2>
+      <SectionHeading className={styles.subTitle} size="md" subtle title={title} />
       <dl className={styles.summaryList}>
         {items.map((item, index) => (
           <div key={index} className={styles.summaryItem}>

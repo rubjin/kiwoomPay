@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { SectionHeading } from '../../components/SectionHeading';
 import styles from './SearchResult.module.scss';
 
 export interface AppliedFilter {
@@ -38,7 +39,7 @@ export const AppliedFilters = forwardRef<HTMLElement, AppliedFiltersProps>(
       ref={ref}
       className={clsx(styles.inlineCard, items.length === 0 && styles.inlineCardEmpty, className)}
     >
-      <h2 className={styles.subTitle}>{title}</h2>
+      <SectionHeading className={styles.subTitle} size="md" subtle title={title} />
       {items.length === 0 ? (
         <p className={styles.placeholder}>{emptyText}</p>
       ) : (

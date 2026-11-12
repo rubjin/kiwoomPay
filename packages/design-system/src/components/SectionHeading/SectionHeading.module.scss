@@ -1,0 +1,84 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 제목 묶음 ↔ 오른쪽 기본 16, 오른쪽 항목 사이 기본 8. 쓰는 곳이 CSS 변수로 바꾼다
+.heading {
+  display: flex;
+  gap: var(--section-heading-gap, #{t.$space-16});
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+// 아래 줄 문맥이 있으면 오른쪽은 위에 맞춘다 (Figma 선택 CPID)
+.top {
+  align-items: flex-start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-8;
+  min-width: 0;
+}
+
+.line {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  min-width: 0;
+}
+
+.label {
+  @include m.typography(typo-10-regular);
+
+  flex: none;
+  color: t.$color-section-heading-label;
+}
+
+.title {
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-section-heading-title;
+}
+
+.lg {
+  @include m.typography(typo-18-bold);
+}
+
+.md {
+  @include m.typography(typo-16-bold);
+}
+
+.subtle {
+  color: t.$color-section-heading-title-subtle;
+}
+
+// 제목 ↔ 설명 12 (줄 간격 8 + 4)
+.description {
+  @include m.typography(typo-12-regular);
+
+  flex: none;
+  margin: 0 0 0 calc(#{t.$space-12} - #{t.$space-8});
+  color: t.$color-section-heading-description;
+}
+
+.actions {
+  display: flex;
+  flex: none;
+  gap: var(--section-heading-actions-gap, #{t.$space-8});
+  align-items: center;
+  margin-left: auto;
+}
+
+.grow {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+// 오른쪽이 남는 폭을 채울 때 제목 묶음은 줄지 않는다
+.growing .main {
+  flex: none;
+}

@@ -9,8 +9,6 @@
     "Required": { "$type": "color", "$value": "{Status.Error.Border}", "$description": "필수 *" },
     "CellBg": { "$type": "color", "$value": "{Bg.Surface}" },
     "Border": { "$type": "color", "$value": "{Line.Subtle}" },
-    "Title": { "$type": "color", "$value": "{Text.Heading}" },
-    "Description": { "$type": "color", "$value": "{Text.Secondary}" },
     "Toggle": { "$type": "color", "$value": "{Text.Secondary}", "$description": "접기 · 열기" },
     "SectionBg": { "$type": "color", "$value": "{Bg.Surface}" },
     "ChipBg": { "$type": "color", "$value": "{Bg.Surface}", "$description": "현재 사업자 (제목 옆)" },

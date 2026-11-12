@@ -12,7 +12,6 @@ $rf-section-padding: t.$space-16;
 $rf-section-gap: t.$space-16; // 제목 줄 ↔ 본문, 본문 블록 사이
 $rf-section-radius: t.$control-radius-lg;
 $rf-title-gap-below: t.$space-8; // 본문 중간 제목 줄(담당자 정보) ↔ 아래 표
-$rf-title-desc-gap: t.$space-12; // 제목 ↔ 설명
 $rf-title-actions-gap: t.$space-16; // 이력조회 ↔ 버튼 묶음
 $rf-tab-actions-offset: t.$space-8; // 탭 줄 버튼 ↔ 카드 위
 $rf-chip-height: 20px;
@@ -129,69 +128,16 @@ $rf-chip-gap: t.$space-4;
   min-width: 0;
 }
 
-// 제목 줄 (FormSection.Heading): 카드 첫 제목 · 본문 중간 제목 · 대상 표시 모두 같은 레벨.
-// 본문 중간이면 아래 표와 8, 카드 첫 제목 줄은 본문과 16
+// 제목 줄 (FormSection.Heading = SectionHeading): 본문 중간이면 아래 표와 8, 카드 첫 제목 줄은 본문과 16.
+// 오른쪽 항목 사이(이력조회 ↔ 버튼 묶음) 16
 .heading {
-  display: flex;
-  gap: t.$space-16;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 0;
-  margin-bottom: calc(#{$rf-title-gap-below} - #{$rf-section-gap});
-}
+  --section-heading-actions-gap: #{$rf-title-actions-gap};
 
-// 아래 줄 문맥이 있으면 오른쪽 Action은 위에 맞춘다 (Figma 선택 CPID)
-.headingTop {
-  align-items: flex-start;
+  margin-bottom: calc(#{$rf-title-gap-below} - #{$rf-section-gap});
 }
 
 .cardHeading {
   margin-bottom: 0;
-}
-
-.headingMain {
-  display: flex;
-  flex-direction: column;
-  gap: t.$space-8;
-  min-width: 0;
-}
-
-.headingLine {
-  display: flex;
-  gap: t.$space-8;
-  align-items: center;
-  min-width: 0;
-}
-
-.headingLabel {
-  @include m.typography(typo-10-regular);
-
-  flex: none;
-  color: t.$color-record-form-description;
-}
-
-.headingTitle {
-  @include m.typography(typo-18-bold);
-  @include m.ellipsis;
-
-  margin: 0;
-  color: t.$color-record-form-title;
-}
-
-// 제목 ↔ 설명 12 (줄 간격 8 + 4)
-.headingDescription {
-  @include m.typography(typo-12-regular);
-
-  flex: none;
-  margin: 0 0 0 calc(#{$rf-title-desc-gap} - #{t.$space-8});
-  color: t.$color-record-form-description;
-}
-
-.headingActions {
-  display: flex;
-  flex: none;
-  gap: $rf-title-actions-gap;
-  align-items: center;
 }
 
 // 제목 탭 + 오른쪽 Action (버튼은 카드 위 8, 탭 밑줄은 카드 테두리에 겹침)

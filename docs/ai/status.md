@@ -572,3 +572,10 @@
 - 검증: 앱 build(tsc 포함), 브라우저 확인(결제수단 선택지 전체 + 4개, 라디오 선택지, 칩, 정산 칩, 가맹점 신규/수정 · 사업자구분 이름, 콘솔 에러 없음), 취소 흐름 테스트 13개 재통과
 - [Q40] 공통코드 API 스펙 필요: 주소, 응답 형식(code · name 필드명, 정렬 · 사용 여부), 그룹 ID, 다국어 여부. 받으면 `fetchCodes`만 바꾸면 됨
 
+### Component: Section Heading — 2026-11-12
+- 만든 것: `components/SectionHeading` — 영역 제목 줄 `[label] 제목 [description] [addon] ··· [actions]` + 아래 줄 문맥(children). `size` lg 18 Bold · md 16 Bold, `subtle`(한 줄 카드), `as` h2~h4, `actionsGrow`(ActionBar처럼 오른쪽이 남는 폭을 채움 — 제목 묶음은 줄지 않음), 긴 제목 말줄임. 간격은 쓰는 곳이 CSS 변수 `--section-heading-gap`(기본 16) · `--section-heading-actions-gap`(기본 8)로 지정. stories · 가이드 `docs/SectionHeading.mdx`
+- 내부 교체: `PageLayout.Section`(stack lg · inline md) · `SearchPanel` · `ResultPanel`(md · actionsGrow) · `AppliedFilters` · `ResultSummary`(md subtle) · `FormSection.Heading`(이제 SectionHeading 래퍼). 화면 코드 · props는 그대로
+- 토큰: `tokens/custom/section-heading.json`(title · title-subtle · label · description) 추가, 중복 삭제 — `page-layout/section/title`, `search-result/title` · `sub-title`, `record-form/title` · `description`
+- 검증: typecheck · lint · build(디자인 시스템 · 앱) · Storybook 빌드. **바꾸기 전/후 픽셀 비교 25장 모두 동일** — Storybook 20(Page Layout · FormSection · Result Parts · SearchPanel · P01 · P02, 정적 빌드 2개 비교)과 앱 5(통합 거래내역 · 정산 실행 조회 후, 가맹점 신규/수정, Placeholder). 새 스토리 5개 · 가이드 렌더, 긴 제목 말줄임 확인, 취소 흐름 테스트 13개 재통과
+- 참고: 이미 떠 있던 Storybook(6006)은 deps 캐시가 깨져 모든 스토리가 "Failed to fetch dynamically imported module" — 재시작 필요(`node_modules/.cache/storybook` 삭제 후 `pnpm storybook`)
+

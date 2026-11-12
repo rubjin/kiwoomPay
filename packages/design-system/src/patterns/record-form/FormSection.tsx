@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { forwardRef, useId, type HTMLAttributes, type ReactNode } from 'react';
 import { Icon } from '../../components/Icon';
+import { SectionHeading, type SectionHeadingProps } from '../../components/SectionHeading';
 import { useControllableState } from '../../hooks';
 import styles from './RecordForm.module.scss';
 
@@ -134,46 +135,15 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
 );
 FormSectionRoot.displayName = 'FormSection';
 
-export interface FormSectionHeadingProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** 제목 (18 Bold · 줄 높이 26 · h2) */
-  title?: ReactNode;
-  /** 제목 앞 작은 이름 (10 Regular, 예: 선택 CPID) */
-  label?: ReactNode;
-  /** 제목 옆 설명 (12 Regular, 예: 자금세탁방지 공지용 담당자 정보) */
-  description?: ReactNode;
-  /** 오른쪽 (이력조회 · 추가 · 삭제, 탭) */
-  actions?: ReactNode;
-  /** 제목 아래 줄 (ContextChip · 상태 Badge) */
-  children?: ReactNode;
-}
+export type FormSectionHeadingProps = SectionHeadingProps;
 
 /**
- * 제목 줄 (h2). 카드 제목(기본 정보) · 본문 중간 제목(담당자 정보) · 대상 표시(선택 CPID)를 모두 이것으로 그린다 —
- * 한 카드 안의 제목은 같은 레벨 · 같은 모양.
+ * 폼 카드 안 제목 줄 (SectionHeading lg). 카드 제목(기본 정보) · 본문 중간 제목(담당자 정보) · 대상 표시(선택 CPID)가
+ * 모두 이것 — 한 카드 안의 제목은 같은 레벨 · 같은 모양. 본문 중간이면 아래 표와 8
  */
 const FormSectionHeading = forwardRef<HTMLDivElement, FormSectionHeadingProps>(
-  ({ title, label, description, actions, className, children, ...rest }, ref) => (
-    <div
-      {...rest}
-      ref={ref}
-      className={clsx(
-        styles.heading,
-        children !== undefined && children !== null && styles.headingTop,
-        className,
-      )}
-    >
-      <div className={styles.headingMain}>
-        <div className={styles.headingLine}>
-          {label !== undefined && <span className={styles.headingLabel}>{label}</span>}
-          {title !== undefined && <h2 className={styles.headingTitle}>{title}</h2>}
-          {description && <p className={styles.headingDescription}>{description}</p>}
-        </div>
-        {children !== undefined && children !== null && (
-          <div className={styles.headingLine}>{children}</div>
-        )}
-      </div>
-      {actions && <div className={styles.headingActions}>{actions}</div>}
-    </div>
+  ({ className, ...rest }, ref) => (
+    <SectionHeading {...rest} ref={ref} className={clsx(styles.heading, className)} />
   ),
 );
 FormSectionHeading.displayName = 'FormSection.Heading';

@@ -152,11 +152,9 @@ $page-layout-section-radius: t.$control-radius-lg;
   align-items: center;
 }
 
+// 제목 줄 (SectionHeading): 제목 ↔ 오른쪽 Action 8
 .sectionHeader {
-  display: flex;
-  gap: $page-layout-section-header-gap;
-  align-items: center;
-  justify-content: space-between;
+  --section-heading-gap: #{$page-layout-section-header-gap};
 }
 
 // 제목 줄 아래 구분선: 줄과 본문 사이 간격(gap)만큼 아래에 선을 둔다
@@ -165,25 +163,9 @@ $page-layout-section-radius: t.$control-radius-lg;
   border-bottom: t.$control-border-width solid t.$color-page-layout-section-border;
 }
 
+// 한 줄 Section의 제목 (SectionHeading md)
 .sectionHeading {
-  display: flex;
   flex: none;
-  gap: $page-layout-section-header-gap;
-  align-items: center;
-  min-width: 0;
-}
-
-.sectionTitle {
-  @include m.typography(typo-18-bold); // Figma KWPC06010201 검색 조건 18 Bold
-
-  margin: 0;
-  color: t.$color-page-layout-section-title;
-  white-space: nowrap;
-}
-
-// 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (Figma 16 Bold)
-.inline .sectionTitle {
-  @include m.typography(typo-16-bold);
 }
 
 .sectionInlineBody {

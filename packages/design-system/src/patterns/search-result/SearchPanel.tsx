@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { forwardRef, useId, type FormEvent, type HTMLAttributes, type ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
+import { SectionHeading } from '../../components/SectionHeading';
 import { useControllableState } from '../../hooks';
 import styles from './SearchResult.module.scss';
 
@@ -96,9 +97,10 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
         onSubmit={handleSubmit}
       >
         <div className={clsx(styles.card, hasDetail && styles.cardTop)}>
-          <div className={styles.searchHeader}>
-            <div className={styles.searchHeading}>
-              <h2 className={styles.searchTitle}>{title}</h2>
+          <SectionHeading
+            className={styles.searchHeader}
+            title={title}
+            addon={
               <button
                 type="button"
                 className={styles.iconToggle}
@@ -109,24 +111,26 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
               >
                 <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={24} />
               </button>
-            </div>
-            <div className={styles.actions}>
-              {onReset && (
-                <Button
-                  variant="neutral"
-                  appearance="line"
-                  iconOnly
-                  icon={<Icon name="refresh" size={20} />}
-                  aria-label={text.reset}
-                  disabled={loading}
-                  onClick={onReset}
-                />
-              )}
-              <Button type="submit" variant="neutral" loading={loading}>
-                {text.search}
-              </Button>
-            </div>
-          </div>
+            }
+            actions={
+              <>
+                {onReset && (
+                  <Button
+                    variant="neutral"
+                    appearance="line"
+                    iconOnly
+                    icon={<Icon name="refresh" size={20} />}
+                    aria-label={text.reset}
+                    disabled={loading}
+                    onClick={onReset}
+                  />
+                )}
+                <Button type="submit" variant="neutral" loading={loading}>
+                  {text.search}
+                </Button>
+              </>
+            }
+          />
           {!isCollapsed && (
             <div id={bodyId} className={styles.searchBody}>
               <div className={styles.fieldRow}>{children}</div>

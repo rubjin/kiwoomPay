@@ -25,10 +25,6 @@
       "Border": {
         "$type": "color",
         "$value": "{Line.Subtle}"
-      },
-      "Title": {
-        "$type": "color",
-        "$value": "{Text.Heading}"
       }
     }
   }

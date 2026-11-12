@@ -69,26 +69,9 @@ $sr-grid-cell-padding-x: t.$space-12;
   background-color: t.$color-search-result-detail-bg;
 }
 
+// 검색 조건 제목 줄 (SectionHeading): 제목 ↔ 오른쪽 버튼 8
 .searchHeader {
-  display: flex;
-  gap: $sr-heading-gap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.searchHeading {
-  display: flex;
-  gap: $sr-heading-gap;
-  align-items: center;
-  min-width: 0;
-}
-
-.searchTitle {
-  @include m.typography(typo-18-bold);
-
-  margin: 0;
-  color: t.$color-search-result-title;
-  white-space: nowrap;
+  --section-heading-gap: #{$sr-heading-gap};
 }
 
 .iconToggle,
@@ -165,13 +148,9 @@ $sr-grid-cell-padding-x: t.$space-12;
   gap: $sr-inline-gap-empty;
 }
 
+// 한 줄 카드 제목 (SectionHeading md subtle)
 .subTitle {
-  @include m.typography(typo-16-bold);
-
   flex: none;
-  margin: 0;
-  color: t.$color-search-result-sub-title;
-  white-space: nowrap;
 }
 
 .placeholder {
@@ -262,33 +241,11 @@ $sr-grid-cell-padding-x: t.$space-12;
   overflow: hidden;
 }
 
+// 조회 결과 제목 줄 (SectionHeading md, 오른쪽 Action은 남는 폭을 채움)
 .resultHeader {
-  display: flex;
-  gap: $sr-result-header-gap;
-  align-items: center;
-  justify-content: space-between;
+  --section-heading-gap: #{$sr-result-header-gap};
+
   padding: $sr-padding;
-}
-
-.resultHeading {
-  display: flex;
-  flex: none;
-  gap: $sr-heading-gap;
-  align-items: center;
-}
-
-.resultTitle {
-  @include m.typography(typo-16-bold);
-
-  margin: 0;
-  color: t.$color-search-result-title;
-  white-space: nowrap;
-}
-
-.resultActions {
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 .resultBody {

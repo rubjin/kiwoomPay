@@ -8,6 +8,7 @@ export * from './components/Icon';
 export * from './components/Modal';
 export * from './components/Pagination';
 export * from './components/SearchArea';
+export * from './components/SectionHeading';
 export * from './components/Tab';
 export * from './components/Tooltip';
 export * from './components/display';

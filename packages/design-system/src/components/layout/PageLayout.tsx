@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { SectionHeading } from '../SectionHeading';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import styles from './PageLayout.module.scss';
 
@@ -105,12 +106,6 @@ const PageSection = forwardRef<HTMLElement, PageSectionProps>(
     ref,
   ) => {
     const hasHeader = title !== undefined || titleAddon !== undefined || actions !== undefined;
-    const heading = (title !== undefined || titleAddon !== undefined) && (
-      <div className={styles.sectionHeading}>
-        {title !== undefined && <h2 className={styles.sectionTitle}>{title}</h2>}
-        {titleAddon}
-      </div>
-    );
 
     return (
       <section
@@ -126,17 +121,27 @@ const PageSection = forwardRef<HTMLElement, PageSectionProps>(
       >
         {layout === 'inline' ? (
           <>
-            {heading}
+            {(title !== undefined || titleAddon !== undefined) && (
+              // 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (Figma 16 Bold)
+              <SectionHeading
+                className={styles.sectionHeading}
+                size="md"
+                title={title}
+                addon={titleAddon}
+              />
+            )}
             {children !== undefined && <div className={styles.sectionInlineBody}>{children}</div>}
             {actions && <div className={styles.sectionActions}>{actions}</div>}
           </>
         ) : (
           <>
             {hasHeader && (
-              <div className={clsx(styles.sectionHeader, divider && styles.divider)}>
-                {heading}
-                {actions && <div className={styles.sectionActions}>{actions}</div>}
-              </div>
+              <SectionHeading
+                className={clsx(styles.sectionHeader, divider && styles.divider)}
+                title={title}
+                addon={titleAddon}
+                actions={actions}
+              />
             )}
             {children}
           </>
