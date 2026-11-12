@@ -1,0 +1,108 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../../src/patterns/search-result/SearchResult.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# P01 Search → Result
+
+조건 검색부터 결과 확인 · 선택 처리까지 반복되는 조회 화면의 골격입니다 (Figma Pattern Library P01).
+화면 시안이 없어도 **이 순서와 부품**으로 만들고, 화면설계서의 필드 · 컬럼 · 버튼만 채웁니다.
+
+- 기준 화면: KWPC06010201 가맹점 정산 실행/처리 (최초진입 · 조회결과)
+- 업무 조건(필드 · 컬럼 · 집계 · 처리 가능 상태 · 권한)은 화면설계서를 따르고, 패턴은 정하지 않습니다.
+
+## 1. 구성 순서
+
+| 순서 | 부품                           | 필수      | 내용                                                                             |
+| ---- | ------------------------------ | --------- | -------------------------------------------------------------------------------- |
+| 1    | `PageLayout.Title`             | ●         | 화면명 + 오른쪽 내 검색조건 선택 · 관리(P07)                                     |
+| 2    | `SearchPanel`                  | ●         | 제목 줄 [초기화 ↻] · [조회], 구분선 아래 기본 조건, 아래 붙은 카드 [상세 검색 ⌄] |
+| 3    | `AppliedFilters`               | 옵션(V04) | 조회에 **사용한** 조건 칩. 조회 전 안내 문구                                     |
+| 4    | `ResultSummary`                | 옵션(V04) | 집계 건수. 조회 전 `-`                                                           |
+| 5    | `ResultPanel` + Grid(IBSheet8) | ●         | 제목 옆 표시항목설정 · 엑셀, 오른쪽 업무 Action(V05). 행이 없으면 `StatusView`   |
+| 6    | `ResultFooter` + `Pagination`  | ●         | 왼쪽 Total, 가운데 Pagination                                                    |
+
+<Canvas of={Stories.Result} />
+
+## 2. 흐름 — `useSearchResult`
+
+```tsx
+const result = useSearchResult({ initialParams, fetch: api.fetchList }); // autoSearch 기본 false
+
+<SearchPanel onSearch={result.search} onReset={result.reset} loading={result.loading}>
+  <Field label="CPID"><TextField value={result.params.cpid} onChange={(e) => result.setParam('cpid', e.target.value)} /></Field>
+</SearchPanel>
+<AppliedFilters items={toFilters(result.appliedParams)} />
+<ResultSummary items={toSummary(result.summary)} />
+<ResultPanel status={result.status} actions={…}>{grid}</ResultPanel>
+<ResultFooter total={result.total}>
+  <Pagination totalPages={result.totalPages} page={result.page} onChange={result.setPage} />
+</ResultFooter>
+```
+
+- **입력 조건(`params`)과 조회 조건(`appliedParams`)을 분리**합니다. 조건을 바꿔도 [조회] 전까지 결과 · 적용 조건 칩은 그대로입니다.
+- [초기화]는 입력 조건만 기본값으로 되돌립니다(결과는 유지).
+- 페이지 이동은 마지막으로 조회한 조건으로 다시 조회합니다. 늦게 온 이전 응답은 버립니다.
+- `status`: `idle`(조회 전) · `loading` · `success` · `empty`(0건) · `error` · `forbidden`(`isForbidden`으로 판별)
+
+## 3. 상태 (화면 체크리스트)
+
+| 상태      | 결과 영역                                 | Action                       |
+| --------- | ----------------------------------------- | ---------------------------- |
+| 최초 진입 | 조회 전(`idle`), 요약 `-`, 적용 조건 안내 | 결과 Action 비활성           |
+| 조회 중   | [조회] 로딩 · 중복 실행 차단              | —                            |
+| 결과      | Grid · Total · Pagination                 | 활성                         |
+| 0건       | `조회 결과가 없습니다`                    | 비활성                       |
+| 오류      | `조회 중 오류가 발생했습니다`             | 비활성. 필요하면 [다시 시도] |
+| 권한 없음 | `조회 권한이 없습니다`                    | 비활성                       |
+
+<Canvas of={Stories.States} />
+
+## 4. 선택 + 업무 Action (V05)
+
+Grid 체크박스로 대상을 고르고 오른쪽 업무 Action을 누릅니다. 처리 흐름은 P04(Action → Feedback)입니다.
+
+1. 선택이 없으면 `dialog.alert('처리할 … 선택해주세요.')`
+2. `dialog.confirm('선택한 … N건을 … 처리할까요?')`
+3. 처리 중 버튼 비활성 → 결과는 **Alert로 안내**(Toast 없음) → 같은 조건으로 다시 조회
+
+```tsx
+const dialog = useDialog(); // 앱 최상위에 <DialogProvider>
+```
+
+## 5. 기본값 (시안이 없을 때)
+
+- 검색 필드: `Field`(라벨 왼쪽 · 간격 8) + md 40. 필드 사이 16, 넘치면 줄바꿈. 한 칸을 `flex`로 늘려 줄을 채움
+- 기간 퀵 버튼: `Segmented size="md"`(1주일 · 1개월 · 2개월 · 3개월), 날짜를 직접 바꾸면 선택 해제
+- 결과 Action: Grid 공통(표시항목설정 · 엑셀)은 제목 옆 Neutral Line sm, 업무 Action은 오른쪽 — 보조 Neutral Line · 주의 Dark · 등록 Primary(+ 아이콘)
+- 숫자: 천 단위 쉼표, 빈 값 `-`
+
+## Do / Don't
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>적용된 검색 조건은 마지막으로 조회한 조건을 보여준다</td>
+      <td>입력 중인 값을 바로 칩에 반영한다</td>
+    </tr>
+    <tr>
+      <td>최초 진입은 조회 전 상태, [조회] 후 결과</td>
+      <td>조회 전과 0건을 같은 문구로 보여준다</td>
+    </tr>
+    <tr>
+      <td>Grid는 IBSheet8 (`GridPlaceholder`는 연결 전 미리보기 전용)</td>
+      <td>화면마다 표를 직접 만든다</td>
+    </tr>
+  </tbody>
+</table>
+
+## 확인 필요
+
+- Figma 최초진입은 0건과 같은 문구(`조회 결과가 없습니다`) → 패턴 문서 기준으로 조회 전 문구를 따로 둠(TODO 시안)
+- 상세 검색 펼침 내용 · 검색 조건 접힘 모양, 오류 · 권한 없음 문구, IBSheet 머리 · 행 높이는 시안 없음(TODO)

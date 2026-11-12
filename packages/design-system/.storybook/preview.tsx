@@ -49,7 +49,14 @@ const preview: Preview = {
     // 사이드바 순서: 소개 → Foundation → Components, 각 컴포넌트 안에서는 Guide를 먼저
     options: {
       storySort: {
-        order: ['Introduction', 'Foundation', 'Components', ['*', ['Guide', '*']]],
+        order: [
+          'Introduction',
+          'Foundation',
+          'Components',
+          ['*', ['Guide', '*']],
+          'Patterns',
+          ['*', ['Guide', '*']],
+        ],
       },
     },
   },

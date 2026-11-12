@@ -160,16 +160,16 @@ $page-layout-section-radius: t.$control-radius-lg;
 }
 
 .sectionTitle {
-  @include m.typography(typo-18-semi-bold);
+  @include m.typography(typo-18-bold); // Figma KWPC06010201 검색 조건 18 Bold
 
   margin: 0;
   color: t.$color-page-layout-section-title;
   white-space: nowrap;
 }
 
-// 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (측정)
+// 한 줄 Section(적용된 검색 조건 · 조회 요약)은 제목이 한 단계 작다 (Figma 16 Bold)
 .inline .sectionTitle {
-  @include m.typography(typo-16-semi-bold);
+  @include m.typography(typo-16-bold);
 }
 
 .sectionInlineBody {

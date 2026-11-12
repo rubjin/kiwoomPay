@@ -234,10 +234,12 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
   color: t.$color-field-text-disabled;
 }
 
-// 날짜 입력은 YYYY-MM-DD 10자 기준으로 폭이 정해진다 (고정 폭 variant 없음).
+// 날짜 입력은 글자(YYYY-MM-DD) 폭에 맞춘다 (Figma Date Range Field 253). fullWidth면 남는 폭을 채운다.
+// field-sizing 미지원 브라우저는 10ch
 .date {
-  flex: 1 1 11ch;
-  width: auto;
+  flex: 1 1 auto;
+  width: 10ch;
+  field-sizing: content;
 }
 
 .separator {

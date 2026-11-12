@@ -15,3 +15,4 @@ export * from './components/field';
 export * from './components/layout';
 export * from './components/navigation';
 export * from './components/selection';
+export * from './patterns';

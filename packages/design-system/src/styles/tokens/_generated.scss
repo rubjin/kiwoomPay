@@ -573,6 +573,31 @@ $color-pagination-active-bg: var(--kp-color-pagination-active-bg);
 $color-pagination-active-text: var(--kp-color-pagination-active-text);
 $color-pagination-disabled-text: var(--kp-color-pagination-disabled-text);
 
+// ── custom · search-result ──────────────────────────────────────
+$color-search-result-panel-bg: var(--kp-color-search-result-panel-bg); // 검색 조건 · 적용 조건 · 조회 요약 · 조회 결과 카드 배경
+$color-search-result-panel-border: var(--kp-color-search-result-panel-border);
+$color-search-result-title: var(--kp-color-search-result-title); // 검색 조건 · 조회 결과 제목 (Neutral 900)
+$color-search-result-sub-title: var(--kp-color-search-result-sub-title); // 적용된 검색 조건 · 조회 요약 제목
+$color-search-result-icon: var(--kp-color-search-result-icon); // 검색 조건 접기 화살표
+$color-search-result-detail-toggle: var(--kp-color-search-result-detail-toggle); // 상세 검색 토글 (Primary 500)
+$color-search-result-chip-bg: var(--kp-color-search-result-chip-bg); // 적용된 검색 조건 칩 (Primary 50)
+$color-search-result-chip-border: var(--kp-color-search-result-chip-border);
+$color-search-result-chip-text: var(--kp-color-search-result-chip-text);
+$color-search-result-placeholder: var(--kp-color-search-result-placeholder); // 조회 전 안내 문구 (Neutral 500)
+$color-search-result-summary-bg: var(--kp-color-search-result-summary-bg); // 조회 요약 항목 (Primary 50)
+$color-search-result-summary-border: var(--kp-color-search-result-summary-border);
+$color-search-result-summary-label: var(--kp-color-search-result-summary-label);
+$color-search-result-summary-value: var(--kp-color-search-result-summary-value);
+$color-search-result-total-label: var(--kp-color-search-result-total-label);
+$color-search-result-total-value: var(--kp-color-search-result-total-value);
+$color-search-result-grid-header-bg: var(--kp-color-search-result-grid-header-bg); // TODO(시안) IBSheet 연결 전 임시 미리보기 표 머리
+$color-search-result-grid-border: var(--kp-color-search-result-grid-border); // TODO(시안) IBSheet 연결 전 임시 미리보기 표 선
+$color-search-result-grid-text: var(--kp-color-search-result-grid-text);
+$color-search-result-grid-header-text: var(--kp-color-search-result-grid-header-text);
+$color-status-view-icon: var(--kp-color-status-view-icon);
+$color-status-view-title: var(--kp-color-status-view-title); // Figma Grid State / Empty: 18 SemiBold Neutral 800
+$color-status-view-description: var(--kp-color-status-view-description); // 14 Regular Neutral 700
+
 // ── custom · search ─────────────────────────────────────────────
 $color-search-area-divider: var(--kp-color-search-area-divider); // 상세 조건 구분선
 
@@ -1155,6 +1180,29 @@ $css-variables: (
   "--kp-color-pagination-active-bg": "var(--kp-color-primary-500)",
   "--kp-color-pagination-active-text": "var(--kp-color-text-inverse)",
   "--kp-color-pagination-disabled-text": "var(--kp-color-text-disabled)",
+  "--kp-color-search-result-panel-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-search-result-panel-border": "var(--kp-color-line-subtle)",
+  "--kp-color-search-result-title": "var(--kp-color-text-heading)",
+  "--kp-color-search-result-sub-title": "var(--kp-color-text-body)",
+  "--kp-color-search-result-icon": "var(--kp-color-text-label)",
+  "--kp-color-search-result-detail-toggle": "var(--kp-color-text-accent)",
+  "--kp-color-search-result-chip-bg": "var(--kp-color-bg-selected)",
+  "--kp-color-search-result-chip-border": "var(--kp-color-line-default)",
+  "--kp-color-search-result-chip-text": "var(--kp-color-text-body)",
+  "--kp-color-search-result-placeholder": "var(--kp-color-text-placeholder)",
+  "--kp-color-search-result-summary-bg": "var(--kp-color-bg-selected)",
+  "--kp-color-search-result-summary-border": "var(--kp-color-line-default)",
+  "--kp-color-search-result-summary-label": "var(--kp-color-text-label)",
+  "--kp-color-search-result-summary-value": "var(--kp-color-text-body)",
+  "--kp-color-search-result-total-label": "var(--kp-color-text-body)",
+  "--kp-color-search-result-total-value": "var(--kp-color-text-accent)",
+  "--kp-color-search-result-grid-header-bg": "var(--kp-color-bg-page)",
+  "--kp-color-search-result-grid-border": "var(--kp-color-line-subtle)",
+  "--kp-color-search-result-grid-text": "var(--kp-color-text-body)",
+  "--kp-color-search-result-grid-header-text": "var(--kp-color-text-label)",
+  "--kp-color-status-view-icon": "var(--kp-color-text-label)",
+  "--kp-color-status-view-title": "var(--kp-color-text-body)",
+  "--kp-color-status-view-description": "var(--kp-color-text-label)",
   "--kp-color-search-area-divider": "var(--kp-color-line-subtle)",
   "--kp-selection-size-md": "20px",
   "--kp-selection-size-sm": "16px",

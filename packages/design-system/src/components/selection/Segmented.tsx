@@ -13,6 +13,8 @@ import {
 import { useControllableState } from '../../hooks';
 import styles from './Segmented.module.scss';
 
+export type SegmentedSize = 'sm' | 'md';
+
 interface SegmentedContextValue {
   name: string;
   value?: string;
@@ -33,11 +35,16 @@ export interface SegmentedProps extends Omit<
   name?: string;
   /** 모든 옵션을 비활성화한다 */
   disabled?: boolean;
+  /** sm 32(기본) · md 40 (검색 조건 줄에서 필드 높이 40에 맞출 때) */
+  size?: SegmentedSize;
   children: ReactNode;
 }
 
 const SegmentedRoot = forwardRef<HTMLDivElement, SegmentedProps>(
-  ({ value, defaultValue, onChange, name, disabled, className, children, ...rest }, ref) => {
+  (
+    { value, defaultValue, onChange, name, disabled, size = 'sm', className, children, ...rest },
+    ref,
+  ) => {
     const autoName = useId();
     const [current, setCurrent] = useControllableState<string | undefined>(
       value,
@@ -52,7 +59,12 @@ const SegmentedRoot = forwardRef<HTMLDivElement, SegmentedProps>(
 
     return (
       <SegmentedContext.Provider value={context}>
-        <div {...rest} ref={ref} role="radiogroup" className={clsx(styles.root, className)}>
+        <div
+          {...rest}
+          ref={ref}
+          role="radiogroup"
+          className={clsx(styles.root, size === 'md' && styles.md, className)}
+        >
           {children}
         </div>
       </SegmentedContext.Provider>

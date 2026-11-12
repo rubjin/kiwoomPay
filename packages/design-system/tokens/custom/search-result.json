@@ -1,0 +1,73 @@
+{
+  "SearchResult": {
+    "PanelBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}",
+      "$description": "검색 조건 · 적용 조건 · 조회 요약 · 조회 결과 카드 배경"
+    },
+    "PanelBorder": { "$type": "color", "$value": "{Line.Subtle}" },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "검색 조건 · 조회 결과 제목 (Neutral 900)"
+    },
+    "SubTitle": {
+      "$type": "color",
+      "$value": "{Text.Body}",
+      "$description": "적용된 검색 조건 · 조회 요약 제목"
+    },
+    "Icon": { "$type": "color", "$value": "{Text.Label}", "$description": "검색 조건 접기 화살표" },
+    "DetailToggle": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "상세 검색 토글 (Primary 500)"
+    },
+    "ChipBg": {
+      "$type": "color",
+      "$value": "{Bg.Selected}",
+      "$description": "적용된 검색 조건 칩 (Primary 50)"
+    },
+    "ChipBorder": { "$type": "color", "$value": "{Line.Default}" },
+    "ChipText": { "$type": "color", "$value": "{Text.Body}" },
+    "Placeholder": {
+      "$type": "color",
+      "$value": "{Text.Placeholder}",
+      "$description": "조회 전 안내 문구 (Neutral 500)"
+    },
+    "SummaryBg": {
+      "$type": "color",
+      "$value": "{Bg.Selected}",
+      "$description": "조회 요약 항목 (Primary 50)"
+    },
+    "SummaryBorder": { "$type": "color", "$value": "{Line.Default}" },
+    "SummaryLabel": { "$type": "color", "$value": "{Text.Label}" },
+    "SummaryValue": { "$type": "color", "$value": "{Text.Body}" },
+    "TotalLabel": { "$type": "color", "$value": "{Text.Body}" },
+    "TotalValue": { "$type": "color", "$value": "{Text.Accent}" },
+    "GridHeaderBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "TODO(시안) IBSheet 연결 전 임시 미리보기 표 머리"
+    },
+    "GridBorder": {
+      "$type": "color",
+      "$value": "{Line.Subtle}",
+      "$description": "TODO(시안) IBSheet 연결 전 임시 미리보기 표 선"
+    },
+    "GridText": { "$type": "color", "$value": "{Text.Body}" },
+    "GridHeaderText": { "$type": "color", "$value": "{Text.Label}" }
+  },
+  "StatusView": {
+    "Icon": { "$type": "color", "$value": "{Text.Label}" },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Body}",
+      "$description": "Figma Grid State / Empty: 18 SemiBold Neutral 800"
+    },
+    "Description": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "14 Regular Neutral 700"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 (Figma Grid State / Empty)
+$status-view-height: 220px; // 결과 영역 높이
+$status-view-gap: t.$space-8; // 아이콘 · 제목 · 설명 사이
+
+.statusView {
+  display: flex;
+  flex-direction: column;
+  gap: $status-view-gap;
+  align-items: center;
+  justify-content: center;
+  min-height: $status-view-height;
+  padding: t.$space-16;
+  text-align: center;
+}
+
+.icon {
+  display: inline-flex;
+  color: t.$color-status-view-icon;
+}
+
+.title {
+  @include m.typography(typo-18-semi-bold);
+
+  margin: 0;
+  color: t.$color-status-view-title;
+}
+
+.description {
+  @include m.typography(typo-14-regular);
+
+  margin: 0;
+  color: t.$color-status-view-description;
+}
+
+.action {
+  display: flex;
+  gap: t.$space-8;
+  margin-top: t.$space-8;
+}

@@ -5,7 +5,7 @@ export type { RadioGroupProps, RadioProps } from './Radio';
 export { ToggleSwitch } from './ToggleSwitch';
 export type { ToggleSwitchProps } from './ToggleSwitch';
 export { Segmented } from './Segmented';
-export type { SegmentedItemProps, SegmentedProps } from './Segmented';
+export type { SegmentedItemProps, SegmentedProps, SegmentedSize } from './Segmented';
 export { SelectionGroup } from './SelectionGroup';
 export type { SelectionGroupProps } from './SelectionGroup';
 export type { SelectionSize } from './SelectionItem';

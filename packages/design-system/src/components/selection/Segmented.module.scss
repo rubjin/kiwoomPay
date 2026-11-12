@@ -8,6 +8,7 @@ $segmented-radius: t.$field-radius-sm;
 // Figma Segmented/Item: H32 · Item W60 기본 · 여백 12 · 옵션은 테두리를 겹쳐 붙인다(-1) · 바깥 끝만 반경 6
 $segmented-min-width: 60px;
 $segmented-padding-x: t.$space-12;
+$segmented-height-md: t.$control-height-md; // md: 검색 조건 줄 퀵 기간 (Figma KWPC06010201 H40, 폭은 글자 + 좌우 12)
 $segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
 
 .root {
@@ -58,6 +59,11 @@ $segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
   background-color: t.$color-segmented-bg;
   border: t.$control-border-width solid t.$color-segmented-border;
   border-radius: 0;
+}
+
+.md .text {
+  min-width: 0;
+  height: $segmented-height-md;
 }
 
 .item:first-child .text {
