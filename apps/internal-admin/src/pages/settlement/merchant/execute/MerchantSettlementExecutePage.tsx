@@ -110,13 +110,15 @@ export function MerchantSettlementExecutePage() {
     setProcessing(true);
     try {
       await requestLedgerAction(action, selected);
-      await dialog.alert(`${action} 처리가 완료되었습니다.`);
-      void result.setPage(result.page);
     } catch {
-      await dialog.alert(`${action} 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.`);
-    } finally {
       setProcessing(false);
+      await dialog.alert(`${action} 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.`);
+      return;
     }
+    // 갱신된 목록 위에 완료 Alert를 띄운다
+    await result.refresh();
+    setProcessing(false);
+    await dialog.alert(`${action} 처리가 완료되었습니다.`);
   };
 
   const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
