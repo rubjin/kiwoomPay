@@ -530,3 +530,9 @@
 - (임의 작업): 고객 확인 정보 · 결제 오픈 현황 탭 내용, CPID 상세 영역(9개 탭), 선택지 값, 필수 검증(사업자구분만), 찾기 · 주소 · 사업자번호 수정 팝업 연결, 예시 데이터
 - 화면 목록(`apps/screen-list`)에 신규등록 · 조회수정 추가 (작업중)
 - Storybook 정리(같은 날): 패턴 부품을 Components에도 스토리 · 가이드로 추가 — `Components/Search Result`(Guide · SearchPanel(Playground · Rows · DetailGrid · Collapsed) · Result Parts(AppliedFilters · ResultSummary · ResultPanel · 상태)), `Components/Record Form`(Guide · FormTable(Pairs · ColSpan · Matrix · ReadOnly) · FormSection(Playground · Tabbed · SubHeader · Heading) · ContextChip), `Components/Lookup Field` · `Components/Status View` · `Components/Dialog`(각 Guide), `Patterns/P02 Record Form` Guide. 기존 보강: Segmented Sizes · FullWidth(Selection 가이드), Page Layout TitleAddon(가이드). 새 스토리 · 가이드 33개 렌더링 확인
+
+### 개발 환경: 앱이 디자인 시스템 src를 바로 읽기 — 2026-11-12
+- `packages/design-system/vite.source.ts`(`designSystemSource()`): 앱 개발 서버(`vite`)에서만 `@kiwoompay/design-system` → `src/index.ts`, `style.css` → `src/styles/index.scss` 별칭 + 디자인 시스템과 같은 SCSS `loadPaths` · CSS Modules 이름 규칙. 운영 빌드(`vite build`)는 그대로 `dist`
+- 적용: `apps/internal-admin` · `apps/screen-list` vite.config (`mergeConfig`), 두 앱에 `sass` devDependency 추가
+- 효과: 컴포넌트 수정 → 앱 화면에 즉시 반영(HMR, `pnpm build` 불필요). 확인: FormSectionHeader 설명을 주석 처리하면 새로고침 없이 사라지고 되돌리면 다시 보임. 운영 빌드 app.js에 src 경로 없음
+- 참고: 앱 타입 검사(tsc)는 여전히 `dist/types`를 본다 — 디자인 시스템에 새 export를 추가하면 앱 typecheck 전에 `pnpm build` 필요
