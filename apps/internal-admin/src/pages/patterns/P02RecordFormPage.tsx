@@ -22,6 +22,7 @@ import {
   useDialog,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import { P02DetailModal } from './P02DetailModal';
 
 /**
  * 레이아웃 패턴 P02 Record → Form 템플릿 (화면 확인용, 임의 작업).
@@ -49,6 +50,7 @@ export function P02RecordFormPage() {
     { id: 1, name: '홍길동', email: 'hong@example.com' },
   ]);
   const [checked, setChecked] = useState<number[]>([]);
+  const [detailOpen, setDetailOpen] = useState(false);
 
   const save = async () => {
     if (!(await dialog.confirm('저장할까요?'))) return;
@@ -80,6 +82,11 @@ export function P02RecordFormPage() {
               정상
             </Badge>
           </>
+        }
+        actions={
+          <Button variant="neutral" appearance="line" onClick={() => setDetailOpen(true)}>
+            상세 팝업 (조회 전용)
+          </Button>
         }
       />
 
@@ -206,6 +213,8 @@ export function P02RecordFormPage() {
           </FormTable>
         </FormGroup>
       </FormSection>
+
+      <P02DetailModal open={detailOpen} onClose={() => setDetailOpen(false)} />
     </>
   );
 }
