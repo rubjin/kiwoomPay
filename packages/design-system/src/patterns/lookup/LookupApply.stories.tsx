@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '../../components/Button';
-import { LookupSearch, LookupSearchEmpty } from '../../components/display';
+import {
+  AddressSearch,
+  LookupSearch,
+  LookupSearchEmpty,
+  type AddressItem,
+} from '../../components/display';
 import { Field, SelectBox, TextField } from '../../components/field';
 import { PageLayout } from '../../components/layout';
 import { Modal } from '../../components/Modal';
@@ -167,7 +172,7 @@ function IndustryLookupModal({
   const byMid = byLarge.filter((r) => !criteria.mid || r.mid === criteria.mid);
 
   return (
-    <Modal open={open} onClose={onClose} inline={inline} width={880}>
+    <Modal open={open} onClose={onClose} inline={inline} size="xl">
       <Modal.Header title="표준산업 분류코드 조회" closeButton />
       <Modal.Body>
         <LookupSearch
@@ -331,6 +336,63 @@ function BizLookupModal({
   );
 }
 
+// ── 주소 검색 Lookup: 기존 AddressSearch 본문 + Modal lg 800 ──────
+const ADDRESSES: AddressItem[] = [
+  {
+    zipCode: '04155',
+    roadAddress: '서울특별시 마포구 독막로 314 (염리동)',
+    jibunAddress: '서울특별시 마포구 염리동 172-10',
+  },
+  {
+    zipCode: '04153',
+    roadAddress: '서울특별시 마포구 독막로 268 (대흥동)',
+    jibunAddress: '서울특별시 마포구 대흥동 660',
+  },
+  {
+    zipCode: '04096',
+    roadAddress: '서울특별시 마포구 독막로 47 (합정동)',
+    jibunAddress: '서울특별시 마포구 합정동 366-9',
+  },
+  {
+    zipCode: '46757',
+    roadAddress: '부산광역시 강서구 녹산산업중로 333',
+    jibunAddress: '부산광역시 강서구 송정동 1612',
+  },
+];
+
+/** 주소 검색 Lookup Modal (P03). 결과 줄 [선택] → onSelect */
+function AddressLookupModal({
+  open,
+  onSelect,
+  onClose,
+  inline,
+  initialQuery,
+}: {
+  open: boolean;
+  onSelect: (item: AddressItem) => void;
+  onClose: () => void;
+  inline?: boolean;
+  initialQuery?: string;
+}) {
+  const find = (q: string) => ADDRESSES.filter((a) => q && a.roadAddress.includes(q));
+  const [results, setResults] = useState<AddressItem[] | undefined>(
+    initialQuery ? find(initialQuery) : undefined,
+  );
+  return (
+    <Modal open={open} onClose={onClose} inline={inline} size="lg">
+      <Modal.Header title="주소 검색" closeButton />
+      <Modal.Body>
+        <AddressSearch
+          defaultQuery={initialQuery}
+          results={results}
+          onSearch={(q) => setResults(find(q))}
+          onSelect={onSelect}
+        />
+      </Modal.Body>
+    </Modal>
+  );
+}
+
 /** 호출 화면: 업종 필드 [찾기] → Lookup Modal → 행 [선택] → 값 반영. 닫으면 원래 값 유지 */
 export const LookupApply: Story = {
   parameters: {
@@ -346,6 +408,14 @@ export const LookupApply: Story = {
     const findBiz = async () => {
       const picked = await bizLookup.open();
       if (picked) setBiz(picked);
+    };
+    // 주소 검색 Lookup: 우편번호 · 도로명은 선택값, 상세주소는 직접 입력
+    const addressLookup = useLookup<AddressItem>();
+    const [address, setAddress] = useState<AddressItem | null>(null);
+    const [detail, setDetail] = useState('');
+    const findAddress = async () => {
+      const picked = await addressLookup.open();
+      if (picked) setAddress(picked);
     };
 
     const find = async () => {
@@ -399,6 +469,33 @@ export const LookupApply: Story = {
                 <FormTable.Label>업체명</FormTable.Label>
                 <FormTable.Cell colSpan={3}>{biz?.name ?? '-'}</FormTable.Cell>
               </FormTable.Row>
+              <FormTable.Row>
+                <FormTable.Label required>사업장 주소</FormTable.Label>
+                <FormTable.Cell colSpan={7}>
+                  <LookupField
+                    readOnly
+                    findLabel="주소 검색"
+                    inputWidth={200}
+                    placeholder="우편번호"
+                    value={address?.zipCode ?? ''}
+                    onFind={findAddress}
+                  />
+                  <TextField
+                    readOnly
+                    style={{ flex: '1 1 0' }}
+                    fullWidth
+                    placeholder="주소 검색으로 입력해주세요"
+                    value={address?.roadAddress ?? ''}
+                  />
+                  <TextField
+                    style={{ flex: '1 1 0' }}
+                    fullWidth
+                    placeholder="상세주소를 입력해주세요"
+                    value={detail}
+                    onChange={(e) => setDetail(e.target.value)}
+                  />
+                </FormTable.Cell>
+              </FormTable.Row>
             </FormTable>
           </FormGroup>
         </FormSection>
@@ -411,6 +508,11 @@ export const LookupApply: Story = {
           open={bizLookup.isOpen}
           onSelect={bizLookup.select}
           onClose={bizLookup.cancel}
+        />
+        <AddressLookupModal
+          open={addressLookup.isOpen}
+          onSelect={addressLookup.select}
+          onClose={addressLookup.cancel}
         />
       </div>
     );
@@ -471,5 +573,19 @@ export const NoTabResult: Story = {
   },
   render: () => (
     <BizLookupModal open inline initialQuery="ABC" onSelect={() => {}} onClose={() => {}} />
+  ),
+};
+
+/** 주소 검색 Lookup (lg 800): 기존 AddressSearch 본문 — 조회 전 검색 예시 */
+export const AddressInitial: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => <AddressLookupModal open inline onSelect={() => {}} onClose={() => {}} />,
+};
+
+/** 주소 검색 Lookup 결과: 줄마다 [선택] */
+export const AddressResult: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded', tempWork: '주소 예시 데이터' },
+  render: () => (
+    <AddressLookupModal open inline initialQuery="독막로" onSelect={() => {}} onClose={() => {}} />
   ),
 };

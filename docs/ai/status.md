@@ -656,3 +656,9 @@
 - 찾기 방식이 하나인 Lookup(사업자번호 검색 — 업체명 검색어 하나, Modal lg 800, Tab 없음)을 P03 예시에 추가. 호출 화면에 사업자번호 줄(LookupField) 추가, 스토리 NoTabInitial · NoTabResult, 가이드 "3. 탭 없는 Lookup"(규칙: 찾기 방식이 둘 이상일 때만 Tab), 앱 P03 페이지 동일 적용
 - 검증: typecheck · lint · build, 브라우저(Storybook · 앱): Modal 800 · 검색 줄 y68 · Tab 0, "ABC" → 2건 → [선택] → 사업자번호 반영 · 닫힘, 에러 없음
 - (임의 작업) 사업자 예시 데이터 · 열 구성(사업자번호 · 업체명 · 대표자명 · 선택)
+
+### Modal xl · P03 주소 검색 — 2026-11-13
+- Modal `size="xl"`(880, 결과 Grid가 넓은 Lookup — Figma 표준산업분류코드 조회 879.5) 추가. 기존 `width={880}` 3곳(Lookup Search Empty 스토리 · P03 표준산업분류 스토리 · 앱 P03)을 `size="xl"`로. Modal 가이드 폭 표기 갱신 (사용자 결정: 주소 검색은 lg, 880은 xl)
+- P03에 주소 검색 Lookup 추가: 기존 `AddressSearch` + Modal lg 800, 호출 화면 "사업장 주소"(우편번호 LookupField [주소 검색] + 도로명(읽기 전용) + 상세주소 직접 입력). 스토리 AddressInitial · AddressResult, 가이드 "4. 주소 검색", 앱 P03 동일
+- 검증: typecheck · lint · build, 브라우저(Storybook · 앱): xl 880 · lg 800 폭, "독막로" → 3건 → [선택] → 우편번호 04153 · 도로명 반영 · 닫힘, 상세주소 입력, 에러 없음
+- (임의 작업) 주소 예시 데이터, 호출 화면 주소 줄 구성
