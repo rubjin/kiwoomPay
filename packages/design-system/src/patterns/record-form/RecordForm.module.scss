@@ -81,6 +81,11 @@ $rf-chip-gap: t.$space-4;
   justify-content: center;
 }
 
+// 칸 사이 세로선 — 표 양 끝(첫 칸 왼쪽 · 마지막 칸 오른쪽)에는 두지 않는다
+.row > :not(:last-child) {
+  border-right: t.$control-border-width solid t.$color-record-form-border;
+}
+
 // 첫 줄 위 테두리도 줄 높이 안 (Figma 첫 줄 52 = 테두리 위 · 아래 포함)
 .row:first-child > * {
   padding-top: calc(6px - #{t.$control-border-width});

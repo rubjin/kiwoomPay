@@ -329,6 +329,12 @@ $sr-grid-cell-padding-x: t.$space-12;
   color: t.$color-search-result-grid-text;
 }
 
+// 칸 사이 세로선 — 표 양 끝에는 두지 않는다 (IBSheet 테마도 같은 규칙)
+.gridHead:not(:last-child),
+.gridCell:not(:last-child) {
+  border-right: t.$control-border-width solid t.$color-search-result-grid-border;
+}
+
 .gridCheck {
   width: $sr-grid-check-width;
   text-align: center;
