@@ -31,15 +31,15 @@ const find = async () => {
 
 ## 2. 구성
 
-| 순서 | 부품                                       | 내용                                                                                        |
-| ---- | ------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| 1    | `LookupField`                              | 호출 필드: 검색 아이콘 입력 + [찾기]. 코드만 고르는 값은 `readOnly`                         |
-| 2    | `useLookup<T>()`                           | `isOpen` · `open()`(Promise) · `select(value)` · `cancel()` — 조회 · API는 화면이 한다      |
-| 3    | `Modal` (`Modal.Header` 제목 + 닫기)       | 폭은 그리드에 맞춰 `size` lg 800 · xl 880(표준산업분류). **Footer 없음** — 행 [선택]이 확정 |
-| 4    | `LookupSearch` `header`                    | 찾기 방식이 여러 개면 Button Tab(`variant="button"` `fullWidth`)                            |
-| 5    | `LookupSearch` `keyword={false}` `onReset` | 분류로 찾기: 대 · 중 · 소분류 Select + 초기화(↻) + [전체조회]                               |
-| 6    | `LookupSearch` `extraFields` + `label`     | 키워드로 찾기: 코드 입력 + 검색어                                                           |
-| 7    | 결과 그리드 (IBSheet8)                     | 마지막 열 [선택] (Neutral Line sm). 결과 없음은 그리드 머리 아래 `LookupSearchEmpty`        |
+| 순서 | 부품                                       | 내용                                                                                           |
+| ---- | ------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| 1    | `LookupField`                              | 호출 필드: 검색 아이콘 입력 + [찾기]. 코드만 고르는 값은 `readOnly`                            |
+| 2    | `useLookup<T>()`                           | `isOpen` · `open()`(Promise) · `select(value)` · `cancel()` — 조회 · API는 화면이 한다         |
+| 3    | `Modal` (`Modal.Header` 제목 + 닫기)       | 폭은 `size` lg 880 (표준산업분류 · 사업자번호 · 주소 검색). **Footer 없음** — 행 [선택]이 확정 |
+| 4    | `LookupSearch` `header`                    | 찾기 방식이 여러 개면 Button Tab(`variant="button"` `fullWidth`)                               |
+| 5    | `LookupSearch` `keyword={false}` `onReset` | 분류로 찾기: 대 · 중 · 소분류 Select + 초기화(↻) + [전체조회]                                  |
+| 6    | `LookupSearch` `extraFields` + `label`     | 키워드로 찾기: 코드 입력 + 검색어                                                              |
+| 7    | 결과 그리드 (IBSheet8)                     | 마지막 열 [선택] (Neutral Line sm). 결과 없음은 그리드 머리 아래 `LookupSearchEmpty`           |
 
 <Canvas of={Stories.ModalInitial} />
 <Canvas of={Stories.ModalResult} />
@@ -57,7 +57,7 @@ const find = async () => {
 
 ## 4. 주소 검색
 
-본문은 기존 `AddressSearch`, Modal은 `size="lg"`(800). 결과 줄 [선택] → `lookup.select(item)` → 우편번호 · 도로명 반영, 상세주소는 호출 화면에서 직접 입력합니다.
+본문은 기존 `AddressSearch`, Modal은 `size="lg"`(880). 결과 줄 [선택] → `lookup.select(item)` → 우편번호 · 도로명 반영, 상세주소는 호출 화면에서 직접 입력합니다.
 
 ```tsx
 const addressLookup = useLookup<AddressItem>();
@@ -78,7 +78,7 @@ const picked = await addressLookup.open(); // AddressItem | null
 - 조회 전에도 Modal 높이가 바뀌지 않도록 결과 자리를 잡는다 (Figma 709)
 - 한 건만 고르는 Lookup은 Footer 없이 행 [선택]으로 확정. 여러 건을 고르는 Lookup(V02)은 체크 + Footer [적용]
 - 기존 Lookup 본문(`LookupSearch` · `AddressSearch`)을 그대로 쓴다 — 화면마다 새로 만들지 않는다
-- Modal 폭은 `size`로: 주소 검색 · 사업자번호 lg 800, 결과 Grid가 넓은 Lookup(표준산업분류) xl 880
+- Modal 폭은 `size`로: Lookup은 lg 880
 
 ## 확인 필요
 

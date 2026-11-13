@@ -37,7 +37,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Lookup Modal(lg 800) 안: 조회 전 · 결과 · 결과 없음 (시안) */
+/** Lookup Modal(lg 880) 안: 조회 전 · 결과 · 결과 없음 (시안) */
 export const States: Story = {
   parameters: { controls: { disable: true } },
   render: () => (

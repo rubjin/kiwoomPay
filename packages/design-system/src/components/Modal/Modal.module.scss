@@ -4,8 +4,9 @@
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $modal-width-sm: 400px; // size sm: Alert · Confirm (Modal 패턴 측정)
 $modal-width-md: 620px; // size md: Information (Modal 패턴 측정)
-$modal-width-lg: 800px; // size lg: Form (Modal 패턴 측정)
-$modal-width-xl: 880px; // size xl: 결과 Grid가 넓은 Lookup (Figma 표준산업분류코드 조회 879.5)
+$modal-width-lg: 880px; // size lg: Form · Lookup (Figma 표준산업분류코드 조회 879.5, 사용자 결정 2026-11-13: 800 → 880)
+$modal-width-xl: 1280px; // size xl: 넓은 입력 표 (카드번호별 매입사 결제한도 설정)
+$modal-width-xxl: 1680px; // size xxl: 본문 폭(1680)에 가까운 큰 표 · 화면형 팝업
 $modal-padding: t.$space-20; // 측정값
 $modal-radius: 12px;
 $modal-section-gap: t.$space-20; // Header ↔ Body ↔ Footer
@@ -51,7 +52,7 @@ $modal-info-label-gap: t.$space-12;
   }
 }
 
-// 폭: sm(기본) 400 · md 620 · lg 800 · xl 880. width prop을 주면 그 값이 우선한다(inline style)
+// 폭: sm(기본) 400 · md 620 · lg 880 · xl 1280 · xxl 1680 (화면이 좁으면 max-width 100%). width prop을 주면 그 값이 우선한다(inline style)
 .md {
   width: $modal-width-md;
 }
@@ -62,6 +63,10 @@ $modal-info-label-gap: t.$space-12;
 
 .xl {
   width: $modal-width-xl;
+}
+
+.xxl {
+  width: $modal-width-xxl;
 }
 
 // ── Header (고정) ────────────────────────────────────

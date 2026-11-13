@@ -172,7 +172,7 @@ function IndustryLookupModal({
   const byMid = byLarge.filter((r) => !criteria.mid || r.mid === criteria.mid);
 
   return (
-    <Modal open={open} onClose={onClose} inline={inline} size="xl">
+    <Modal open={open} onClose={onClose} inline={inline} size="lg">
       <Modal.Header title="표준산업 분류코드 조회" closeButton />
       <Modal.Body>
         <LookupSearch
@@ -336,7 +336,7 @@ function BizLookupModal({
   );
 }
 
-// ── 주소 검색 Lookup: 기존 AddressSearch 본문 + Modal lg 800 ──────
+// ── 주소 검색 Lookup: 기존 AddressSearch 본문 + Modal lg 880 ──────
 const ADDRESSES: AddressItem[] = [
   {
     zipCode: '04155',
@@ -576,7 +576,7 @@ export const NoTabResult: Story = {
   ),
 };
 
-/** 주소 검색 Lookup (lg 800): 기존 AddressSearch 본문 — 조회 전 검색 예시 */
+/** 주소 검색 Lookup (lg 880): 기존 AddressSearch 본문 — 조회 전 검색 예시 */
 export const AddressInitial: Story = {
   parameters: { controls: { disable: true }, layout: 'padded' },
   render: () => <AddressLookupModal open inline onSelect={() => {}} onClose={() => {}} />,

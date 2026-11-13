@@ -108,7 +108,7 @@ export const Result: Story = {
 export const Empty: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <Modal open inline size="xl">
+    <Modal open inline size="lg">
       <Modal.Header title="표준산업 분류코드 조회" closeButton />
       <Modal.Body>
         <LookupSearch

@@ -172,7 +172,7 @@ function IndustryLookupModal({
   const byMid = byLarge.filter((r) => !criteria.mid || r.mid === criteria.mid);
 
   return (
-    <Modal open={open} onClose={onClose} size="xl">
+    <Modal open={open} onClose={onClose} size="lg">
       <Modal.Header title="표준산업 분류코드 조회" closeButton />
       <Modal.Body>
         <LookupSearch
@@ -329,7 +329,7 @@ function BizLookupModal({
   );
 }
 
-// ── 주소 검색 Lookup: 기존 AddressSearch 본문 + Modal lg 800 ──────
+// ── 주소 검색 Lookup: 기존 AddressSearch 본문 + Modal lg 880 ──────
 const ADDRESSES: AddressItem[] = [
   {
     zipCode: '04155',

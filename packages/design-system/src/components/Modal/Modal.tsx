@@ -31,13 +31,13 @@ let savedOverflow = '';
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   open: boolean;
   /** Close(X) · 취소 · Esc가 호출한다. 미저장 이탈 정책은 여기서 처리한다 */
   onClose?: () => void;
-  /** 폭: sm 400(기본, Alert · Confirm) · md 620(Information) · lg 800(Form · 주소 검색) · xl 880(결과 Grid가 넓은 Lookup) */
+  /** 폭: sm 400(기본, Alert · Confirm) · md 620(Information) · lg 880(Form · Lookup) · xl 1280(넓은 입력 표) · xxl 1680(큰 표 · 화면형) */
   size?: ModalSize;
   /** 정해진 폭(size) 밖이 필요할 때만 직접 지정 (예: 결과 Grid가 있는 Lookup) */
   width?: number | string;

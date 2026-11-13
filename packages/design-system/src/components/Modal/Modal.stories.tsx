@@ -148,7 +148,7 @@ function FooterActions({ count, primary }: { count: ActionCount; primary: string
 
 /**
  * Pattern: Type × Action. Action(None · Double)은 Type과 따로 조합한다. 버튼 1개 예시는 싣지 않음
- * 폭은 Type별 size — Alert · Confirm sm 400 / Information md 620 / Form lg 800
+ * 폭은 Type별 size — Alert · Confirm sm 400 / Information md 620 / Form lg 880
  */
 export const Patterns: Story = {
   parameters: { controls: { disable: true } },
