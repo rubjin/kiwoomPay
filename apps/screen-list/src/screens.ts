@@ -182,7 +182,7 @@ export const SCREENS: ScreenInfo[] = [
     depth2: '즐겨찾기',
     depth3: '',
     name: 'LNB 즐겨찾기 편집 팝업 (LNB 즐겨찾기 탭 → [편집])',
-    path: '/main/download-center',
+    path: '/',
     type: '팝업',
     pattern: 'P07',
     status: '작업중',

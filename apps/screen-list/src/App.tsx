@@ -79,13 +79,23 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
   { key: 'updatedAt', header: '최종업데이트일', width: 120 },
 ];
 
+/** 레이아웃 · 패턴 템플릿 페이지 (팝업 유형이어도 화면 쪽 맨 위에 둔다) */
+const isTemplate = (s: ScreenInfo) => s.id === 'LAYOUT' || s.id.startsWith('PATTERN-');
+
+/** 줄 key — 같은 경로를 여는 줄이 있어 화면ID · 화면명까지 넣어 고유하게 */
+const rowKey = (s: ScreenInfo) => `${s.system}|${s.id}|${s.name}`;
+
 /** 화면 확인용 목록 (임의 작업 — 시안 없음). 시스템별 작업 현황과 화면 링크 */
 export function App() {
   const [system, setSystem] = useState<SystemId>('internal');
   const [status, setStatus] = useState<'all' | ScreenStatus>('all');
   const current = SYSTEMS.find((s) => s.id === system) ?? SYSTEMS[0]!;
   const ofSystem = SCREENS.filter((s) => s.system === system);
-  const rows = status === 'all' ? ofSystem : ofSystem.filter((s) => s.status === status);
+  const filtered = status === 'all' ? ofSystem : ofSystem.filter((s) => s.status === status);
+  // 팝업은 따로 모아 보여 준다 (레이아웃 · 패턴 템플릿 페이지는 화면 쪽에 둔다)
+  const isPopup = (s: ScreenInfo) => s.type === '팝업' && !isTemplate(s);
+  const rows = filtered.filter((s) => !isPopup(s));
+  const popups = filtered.filter(isPopup);
   const countOf = (st: ScreenStatus) => ofSystem.filter((s) => s.status === st).length;
 
   return (
@@ -127,14 +137,18 @@ export function App() {
           </Segmented>
         }
       >
-        <GridPlaceholder
-          columns={columnsOf(current.url)}
-          rows={rows}
-          rowKey={(s) => s.system + s.path}
-        />
+        <GridPlaceholder columns={columnsOf(current.url)} rows={rows} rowKey={rowKey} />
       </ResultPanel>
 
-      <ResultFooter total={rows.length} />
+      <ResultPanel
+        title={`${current.label} 팝업`}
+        status={popups.length === 0 ? 'empty' : 'success'}
+        statusProps={{ title: '해당하는 팝업이 없습니다', description: null }}
+      >
+        <GridPlaceholder columns={columnsOf(current.url)} rows={popups} rowKey={rowKey} />
+      </ResultPanel>
+
+      <ResultFooter total={filtered.length} />
     </PageLayout>
   );
 }
