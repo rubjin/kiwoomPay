@@ -150,3 +150,21 @@ export const InlineActions: Story = {
     </SearchPanel>
   ),
 };
+
+/** variant="box": 팝업 안 조회 조건 — 제목(md 16)은 상자 밖, 회색 상자 안 필드 한 줄 + [초기화] · [조회](Primary) (Figma 마이페이지 권한 신청 현황) */
+export const Box: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <SearchPanel variant="box" title="조회 조건" onSearch={() => {}} onReset={() => {}}>
+      <Field label="신청기간">
+        <DateRangeField defaultValue={{ start: '2026-08-15', end: '2026-09-15' }} />
+      </Field>
+      <Field label="구분" style={{ width: 300 }}>
+        <SelectBox fullWidth options={status} defaultValue="all" />
+      </Field>
+      <Field label="상태" style={{ width: 300 }}>
+        <SelectBox fullWidth options={status} defaultValue="all" />
+      </Field>
+    </SearchPanel>
+  ),
+};

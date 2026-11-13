@@ -674,6 +674,7 @@ $color-search-result-panel-border: var(--kp-color-search-result-panel-border);
 $color-search-result-icon: var(--kp-color-search-result-icon); // 검색 조건 접기 화살표
 $color-search-result-detail-toggle: var(--kp-color-search-result-detail-toggle); // 상세 검색 토글 (Primary 500)
 $color-search-result-detail-bg: var(--kp-color-search-result-detail-bg); // 상세 검색 펼침 영역 (Primary 50, Figma KWPC04010100 상세검색)
+$color-search-result-search-box-bg: var(--kp-color-search-result-search-box-bg); // 팝업 안 조회 조건 상자 (SearchPanel variant=box, Neutral 50)
 $color-search-result-chip-bg: var(--kp-color-search-result-chip-bg); // 적용된 검색 조건 칩 (Primary 50)
 $color-search-result-chip-border: var(--kp-color-search-result-chip-border);
 $color-search-result-chip-text: var(--kp-color-search-result-chip-text);
@@ -1370,6 +1371,7 @@ $css-variables: (
   "--kp-color-search-result-icon": "var(--kp-color-text-label)",
   "--kp-color-search-result-detail-toggle": "var(--kp-color-text-accent)",
   "--kp-color-search-result-detail-bg": "var(--kp-color-bg-selected)",
+  "--kp-color-search-result-search-box-bg": "var(--kp-color-bg-page)",
   "--kp-color-search-result-chip-bg": "var(--kp-color-bg-selected)",
   "--kp-color-search-result-chip-border": "var(--kp-color-line-default)",
   "--kp-color-search-result-chip-text": "var(--kp-color-text-body)",

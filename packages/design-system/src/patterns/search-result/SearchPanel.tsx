@@ -23,6 +23,12 @@ export interface SearchPanelProps extends Omit<
    * inline: 필드 줄 끝, 제목 16 · 접기 없음 (조건이 한 줄뿐인 화면 — 다운로드 센터)
    */
   actionsPlacement?: 'header' | 'inline';
+  /**
+   * card(기본): 흰 카드 안에 제목 줄 · 구분선 · 필드 (화면 검색 영역) /
+   * box: 제목(md 16)은 상자 밖 위에, 회색 상자(Neutral 50) 안에 필드 한 줄 + 끝에 [초기화] · [조회](Primary).
+   * 팝업 안 조회 조건용 (Figma 마이페이지 권한 신청 현황 팝업). box는 접기 · 상세 검색 없음
+   */
+  variant?: 'card' | 'box';
   /** 상세 검색 조건. 없으면 '상세 검색' 줄을 그리지 않는다 */
   detail?: ReactNode;
   /** 상세 검색 펼침 (controlled) */
@@ -51,6 +57,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       onReset,
       loading = false,
       actionsPlacement = 'header',
+      variant = 'card',
       detail,
       expanded,
       defaultExpanded = false,
@@ -107,11 +114,32 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
             onClick={onReset}
           />
         )}
-        <Button type="submit" variant="neutral" loading={loading}>
+        <Button type="submit" variant={variant === 'box' ? 'primary' : 'neutral'} loading={loading}>
           {text.search}
         </Button>
       </>
     );
+
+    if (variant === 'box') {
+      return (
+        <form
+          {...rest}
+          ref={ref}
+          role="search"
+          noValidate
+          className={clsx(styles.searchPanel, styles.searchBoxPanel, className)}
+          onSubmit={handleSubmit}
+        >
+          {title !== null && <SectionHeading size="md" as="h3" title={title} />}
+          <div className={styles.searchBox}>
+            <div className={styles.fieldRow}>
+              {children}
+              <div className={styles.inlineActions}>{actions}</div>
+            </div>
+          </div>
+        </form>
+      );
+    }
 
     return (
       <form

@@ -24,6 +24,11 @@
       "$value": "{Bg.Selected}",
       "$description": "상세 검색 펼침 영역 (Primary 50, Figma KWPC04010100 상세검색)"
     },
+    "SearchBoxBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "팝업 안 조회 조건 상자 (SearchPanel variant=box, Neutral 50)"
+    },
     "ChipBg": {
       "$type": "color",
       "$value": "{Bg.Selected}",

@@ -110,6 +110,18 @@ $sr-grid-cell-padding-x: t.$space-12;
   min-height: t.$control-height-sm;
 }
 
+// variant="box": 제목(상자 밖) ↔ 상자 16, 회색 상자 여백 16 (Figma 마이페이지 권한 신청 현황 팝업)
+.searchBoxPanel {
+  gap: $sr-gap;
+}
+
+.searchBox {
+  padding: calc(#{$sr-padding} - #{t.$control-border-width});
+  background-color: t.$color-search-result-search-box-bg;
+  border: t.$control-border-width solid t.$color-search-result-panel-border;
+  border-radius: $sr-radius;
+}
+
 // actionsPlacement="inline": 필드 줄 끝 [초기화] · [조회] (버튼 사이 8)
 .inlineActions {
   display: flex;
