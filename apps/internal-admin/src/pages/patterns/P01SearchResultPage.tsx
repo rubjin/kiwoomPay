@@ -141,7 +141,7 @@ async function fetchRows({
   };
 }
 
-export function SearchResultPatternPage() {
+export function P01SearchResultPage() {
   const dialog = useDialog();
   const [selected, setSelected] = useState<string[]>([]);
   const result = useSearchResult({ initialParams: createInitialParams(), fetch: fetchRows });

@@ -246,7 +246,7 @@ function IndustryLookupModal({
   );
 }
 
-export function LookupApplyPatternPage() {
+export function P03LookupApplyPage() {
   const lookup = useLookup<Industry>();
   const [industry, setIndustry] = useState<Industry | null>(INDUSTRIES[2]!);
 

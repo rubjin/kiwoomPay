@@ -619,7 +619,7 @@
 
 
 ### 레이아웃 패턴 템플릿 페이지 (임의 작업) — 2026-11-13
-- 내부관리자 앱 `pages/patterns/`: `SearchResultPatternPage`(`/patterns/search-result`, P01 — 검색 조건(조회기간 + 퀵 기간 · 상태 · 검색어) → 적용 조건 → 요약 → 결과(선택 처리 Confirm → 재조회 → Alert) → Total · Pagination, 예시 데이터 27건) · `RecordFormPatternPage`(`/patterns/record-form`, P02 — 화면명 + ContextChip · 제목 탭 · 저장, FormSection 안 FormGroup 2개(4쌍 표 · 담당자 추가/선택 삭제), 접힌 카드). 라우트 `router/modules/patterns.routes.tsx`, LNB 메뉴에는 없음
+- 내부관리자 앱 `pages/patterns/`: `P01SearchResultPage`(`/patterns/search-result`, P01 — 검색 조건(조회기간 + 퀵 기간 · 상태 · 검색어) → 적용 조건 → 요약 → 결과(선택 처리 Confirm → 재조회 → Alert) → Total · Pagination, 예시 데이터 27건) · `P02RecordFormPage`(`/patterns/record-form`, P02 — 화면명 + ContextChip · 제목 탭 · 저장, FormSection 안 FormGroup 2개(4쌍 표 · 담당자 추가/선택 삭제), 접힌 카드). 라우트 `router/modules/patterns.routes.tsx`, LNB 메뉴에는 없음
 - 화면 목록(`apps/screen-list/src/screens.ts`) 맨 위에 두 페이지 추가(1depth "레이아웃 패턴")
 - 검증: 디자인 시스템 build · 앱 typecheck · 화면 목록 typecheck, 브라우저 확인(목록 첫 두 링크, P01 조회 → 10행 · 요약 27, P02 담당자 추가, 페이지 에러 없음)
 
@@ -639,7 +639,7 @@
   - `useLookup<T>()`(`patterns/lookup`): `isOpen` · `open()` → 고른 값 / 취소 시 `null`(Promise) · `select(value)` · `cancel()`. 열린 상태에서 다시 열거나 화면이 닫히면 앞의 호출은 `null`
   - `LookupSearch`: `keyword={false}`(검색어 칸 없이 extraFields만 — 분류로 찾기), `onReset`(새로고침 아이콘 버튼, [조회] 앞)
   - Storybook `Patterns/P03 Lookup Apply`(Guide · LookupApply(호출 화면 → Modal → 선택 → 반영) · ModalInitial · ModalResult), 가이드 `docs/patterns/P03LookupApply.mdx`
-- 앱: `pages/patterns/LookupApplyPatternPage`(`/patterns/lookup-apply`, 개발 서버만), 탭 제목 P03, 화면 목록 맨 위 세 번째 줄
+- 앱: `pages/patterns/P03LookupApplyPage`(`/patterns/lookup-apply`, 개발 서버만), 탭 제목 P03, 화면 목록 맨 위 세 번째 줄
 - 검증: typecheck · lint · build(디자인 시스템 · 앱 · 화면 목록). Modal 880 × 709 · 탭 y68 · 검색 줄 y120 = Figma. 흐름(Storybook · 앱 동일): 대분류 선택 → [전체조회] 2건 → [선택] → 필드 반영 · Modal 닫힘, Esc → 원래 값 유지, 키워드로 찾기 '타이어' → 1건, 콘솔 에러 없음
 - 한 가정: Q56
 

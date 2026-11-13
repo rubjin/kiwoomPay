@@ -42,7 +42,7 @@ interface Contact {
   email: string;
 }
 
-export function RecordFormPatternPage() {
+export function P02RecordFormPage() {
   const dialog = useDialog();
   const [tab, setTab] = useState('basic');
   const [contacts, setContacts] = useState<Contact[]>([
