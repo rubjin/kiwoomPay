@@ -43,7 +43,7 @@ const etcOf = (work?: ScreenInfo, note?: string) =>
 const iaName = (r: IaRow) => r.depth4 || r.depth3 || r.depth2 || r.depth1;
 
 /**
- * 시스템 화면 목록: IA에 없는 작업 줄(레이아웃 · 패턴 템플릿 · 팝업 모음)을 맨 위에, 그 아래 IA 순서.
+ * 시스템 화면 목록: IA 순서. IA에 없는 작업 줄은 같은 1depth 안 화면ID 순서 자리에, 1depth도 없으면(레이아웃 · 패턴) 맨 위.
  * IA 줄에 같은 화면ID의 작업이 있으면 작업마다 한 줄(예시 케이스 포함), 없으면 미작업 한 줄
  */
 export function rowsOf(system: SystemId): ScreenRow[] {
@@ -106,5 +106,16 @@ export function rowsOf(system: SystemId): ScreenRow[] {
     }));
   });
 
-  return [...custom, ...fromIa];
+  // IA에 없는 작업 줄: 같은 1depth가 IA에 있으면 그 1depth 안 화면ID 순서 자리에 끼우고(예: KWPC02020000 권한관리),
+  // 1depth도 없으면(레이아웃 · 패턴 템플릿) 맨 위에 둔다
+  const iaDepth1 = new Set(ia.map((r) => r.depth1));
+  const top = custom.filter((c) => !iaDepth1.has(c.depth1));
+  const merged = [...fromIa];
+  for (const c of custom.filter((x) => iaDepth1.has(x.depth1))) {
+    const sameMenu = merged.map((r, i) => ({ r, i })).filter(({ r }) => r.depth1 === c.depth1);
+    const after = sameMenu.find(({ r }) => r.id > c.id);
+    const at = after ? after.i : (sameMenu[sameMenu.length - 1]?.i ?? merged.length - 1) + 1;
+    merged.splice(at, 0, c);
+  }
+  return [...top, ...merged];
 }
