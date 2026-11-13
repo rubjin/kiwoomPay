@@ -13,6 +13,7 @@ import {
   useSearchResult,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchIntegratedTransactions } from '@/api/transaction/integratedTransaction';
 import type { IntegratedTransactionSummary } from '@/types/transaction/integratedTransaction';
 import { ExcelDownloadModal } from './components/ExcelDownloadModal';
@@ -54,7 +55,11 @@ export function IntegratedTransactionPage() {
   const ready = result.status === 'success';
   const [modal, setModal] = useState<'excel' | 'saved' | null>(null);
   // TODO(API) 내 검색조건 목록 · 적용 중인 조건
-  const [savedSearches, setSavedSearches] = useState(EXAMPLE_SAVED_SEARCHES);
+  // (임의 작업) ?example=empty → 저장된 조건 없음 예시
+  const [searchParams] = useSearchParams();
+  const [savedSearches, setSavedSearches] = useState(() =>
+    searchParams.get('example') === 'empty' ? [] : EXAMPLE_SAVED_SEARCHES,
+  );
   const [appliedSearchId, setAppliedSearchId] = useState<string | null>(null);
 
   /** 저장된 조건을 검색 조건 입력에 넣는다 (조회는 사용자가 [조회]) */
