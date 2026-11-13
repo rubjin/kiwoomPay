@@ -93,6 +93,10 @@ $rd-label-width: 73px;
   color: t.$color-record-detail-value;
 }
 
+.valueError {
+  color: t.$color-record-detail-value-error;
+}
+
 .empty {
   @include m.typography(typo-12-regular);
 

@@ -652,6 +652,7 @@ $color-record-detail-card-border: var(--kp-color-record-detail-card-border);
 $color-record-detail-card-title: var(--kp-color-record-detail-card-title); // 카드 제목 14 Bold
 $color-record-detail-label: var(--kp-color-record-detail-label); // 항목 이름 12 SemiBold
 $color-record-detail-value: var(--kp-color-record-detail-value); // 값 · 빈 안내 12 Regular
+$color-record-detail-value-error: var(--kp-color-record-detail-value-error); // 오류 값 (결제상태 오류 · 에러코드 · 에러내용) — Figma chart/negative #EF4444
 
 // ── custom · record-form ────────────────────────────────────────
 $color-record-form-label-bg: var(--kp-color-record-form-label-bg); // 폼 표 라벨 칸 · 머리 행 (Figma KWPC07010101 label)
@@ -1351,6 +1352,7 @@ $css-variables: (
   "--kp-color-record-detail-card-title": "var(--kp-color-text-heading)",
   "--kp-color-record-detail-label": "var(--kp-color-text-label)",
   "--kp-color-record-detail-value": "var(--kp-color-text-label)",
+  "--kp-color-record-detail-value-error": "var(--kp-color-chart-negative)",
   "--kp-color-record-form-label-bg": "var(--kp-color-neutral-100)",
   "--kp-color-record-form-label-text": "var(--kp-color-text-heading)",
   "--kp-color-record-form-required": "var(--kp-color-status-error-border)",

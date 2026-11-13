@@ -184,8 +184,8 @@ export const RecordForm: Story = {
 };
 
 // ── V01 조회 전용 상세 팝업 (Figma KWPC04010101 거래 상세정보 · PG) ──
-// Modal md 620 · 높이 고정 (탭을 바꿔도 같은 크기 — 결제정보 탭 내용 높이 기준)
-const DETAIL_HEIGHT = 621;
+// Modal md 620 · 높이 고정 (탭 · 상태가 바뀌어도 같은 크기 — 가장 긴 결제 오류 · 결제정보 탭 기준)
+const DETAIL_HEIGHT = 655;
 
 const PAY_INFO = [
   { label: '결제서비스', value: '신용카드' },
@@ -218,8 +218,26 @@ const TX_INFO = [
   { label: '결제금액', value: '120,000원' },
 ];
 
-function TransactionDetailModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [tab, setTab] = useState('basic');
+// 결제 오류 (사용자 이미지): 결제상태 오류 · 에러코드 · 에러내용 빨간 글자
+const PAY_INFO_ERROR = PAY_INFO.map((item) =>
+  item.label === '결제상태'
+    ? { ...item, value: '오류', tone: 'error' as const }
+    : item.label === '매입상태'
+      ? { ...item, value: '승인' }
+      : item,
+);
+
+function TransactionDetailModal({
+  open,
+  onClose,
+  error = false,
+}: {
+  open: boolean;
+  onClose: () => void;
+  /** 결제 오류 거래 */
+  error?: boolean;
+}) {
+  const [tab, setTab] = useState(error ? 'pay' : 'basic');
   return (
     <Modal open={open} onClose={onClose} size="md" height={DETAIL_HEIGHT}>
       <Modal.Header title="거래 상세정보 · PG" closeButton />
@@ -234,14 +252,24 @@ function TransactionDetailModal({ open, onClose }: { open: boolean; onClose: () 
         {tab === 'pay' ? (
           <DetailSection
             title="결제정보"
-            description="선택한 PG 거래의 결제 관련 정보를 조회합니다."
+            description={
+              error
+                ? '선택한 PG 거래의 결제정보 및 오류정보를 조회합니다'
+                : '선택한 PG 거래의 결제 관련 정보를 조회합니다.'
+            }
           >
-            <DetailCard title="결제정보" items={PAY_INFO} />
+            <DetailCard title="결제정보" items={error ? PAY_INFO_ERROR : PAY_INFO} />
             <DetailCard
               title="결제 고객 정보"
               items={[
                 { label: '결제 고객 ID', value: 'user***23' },
                 { label: '고객명', value: '홍*동' },
+                ...(error
+                  ? [
+                      { label: '에러코드', value: '에러코드명', tone: 'error' as const },
+                      { label: '에러내용', value: '오류 메시지 내용', tone: 'error' as const },
+                    ]
+                  : []),
               ]}
             />
             <DetailCard title="부분취소 이력" emptyText="표시할 이력이 없습니다." />
@@ -266,7 +294,7 @@ export const TransactionDetail: Story = {
   parameters: {
     layout: 'padded',
     controls: { disable: true },
-    tempWork: '팝업 높이 621 고정(결제정보 탭 기준)',
+    tempWork: '팝업 높이 655 고정(결제 오류 · 결제정보 탭 기준)',
   },
   render: function Render() {
     const [open, setOpen] = useState(false);
@@ -276,6 +304,27 @@ export const TransactionDetail: Story = {
           거래 상세정보
         </Button>
         <TransactionDetailModal open={open} onClose={() => setOpen(false)} />
+      </>
+    );
+  },
+};
+
+/** 결제정보 · 결제 오류: 결제상태 오류, 결제 고객 정보에 에러코드 · 에러내용 (빨간 글자, DetailCard item tone="error") */
+export const TransactionDetailError: Story = {
+  name: 'Detail Popup · 결제 오류',
+  parameters: {
+    layout: 'padded',
+    controls: { disable: true },
+    tempWork: '팝업 높이 655 고정(결제 오류 · 결제정보 탭 기준) · 오류 예시 값',
+  },
+  render: function Render() {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
+          거래 상세정보 (결제 오류)
+        </Button>
+        <TransactionDetailModal open={open} onClose={() => setOpen(false)} error />
       </>
     );
   },

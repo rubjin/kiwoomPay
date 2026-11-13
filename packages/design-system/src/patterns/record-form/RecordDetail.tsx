@@ -53,6 +53,8 @@ export interface DetailCardItem {
   label: ReactNode;
   /** 값이 없으면 '-' */
   value?: ReactNode;
+  /** error: 값을 빨간 글자로 (결제 오류 · 에러코드 · 에러내용) */
+  tone?: 'error';
   /** 차지할 칸 수 (예: URL 한 줄 전체 = 2) */
   span?: number;
 }
@@ -97,7 +99,9 @@ export function DetailCard({
               style={item.span ? { gridColumn: `span ${item.span}` } : undefined}
             >
               <dt className={styles.label}>{item.label}</dt>
-              <dd className={styles.value}>{item.value ?? '-'}</dd>
+              <dd className={clsx(styles.value, item.tone === 'error' && styles.valueError)}>
+                {item.value ?? '-'}
+              </dd>
             </div>
           ))}
         </dl>
