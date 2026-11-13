@@ -269,7 +269,7 @@ function CardLimitModal({
       <Modal.Header title="카드번호별 매입사 결제한도 설정" closeButton />
       <Modal.Body>
         <div style={{ display: 'flex', flexDirection: 'column', gap: FIELD_ROW_GAP }}>
-          <Tab variant="button" size="sm" value={group} onChange={setGroup}>
+          <Tab variant="button" value={group} onChange={setGroup}>
             {BIZ_GROUPS.map((g) => (
               <Tab.Item key={g.value} value={g.value}>
                 {g.label}
