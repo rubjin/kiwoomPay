@@ -15,7 +15,10 @@ import {
 import { useState } from 'react';
 import { fetchIntegratedTransactions } from '@/api/transaction/integratedTransaction';
 import type { IntegratedTransactionSummary } from '@/types/transaction/integratedTransaction';
+import { ExcelDownloadModal } from './components/ExcelDownloadModal';
 import { createInitialParams } from './components/initialParams';
+import { EXAMPLE_SAVED_SEARCHES } from './components/savedSearches';
+import { SavedSearchModal } from './components/SavedSearchModal';
 import { SEARCH_FIELDS } from './components/searchFields';
 import { TransactionCancelBar } from './components/TransactionCancelBar';
 import { TransactionSearchPanel } from './components/TransactionSearchPanel';
@@ -49,6 +52,17 @@ export function IntegratedTransactionPage() {
     },
   });
   const ready = result.status === 'success';
+  const [modal, setModal] = useState<'excel' | 'saved' | null>(null);
+  // TODO(API) 내 검색조건 목록 · 적용 중인 조건
+  const [savedSearches, setSavedSearches] = useState(EXAMPLE_SAVED_SEARCHES);
+  const [appliedSearchId, setAppliedSearchId] = useState<string | null>(null);
+
+  /** 저장된 조건을 검색 조건 입력에 넣는다 (조회는 사용자가 [조회]) */
+  const applySavedSearch = (id: string | null) => {
+    setAppliedSearchId(id);
+    const found = savedSearches.find((s) => s.id === id);
+    if (found) result.setParams(found.params);
+  };
 
   const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
 
@@ -60,17 +74,14 @@ export function IntegratedTransactionPage() {
         title="통합 거래내역"
         actions={
           <>
-            {/* TODO(P07 V03) 내 검색조건 저장 · 불러오기 */}
             <SelectBox
-              options={[]}
+              options={savedSearches.map((s) => ({ value: s.id, label: s.name }))}
+              value={appliedSearchId ?? ''}
+              onChange={applySavedSearch}
               placeholder="내 검색조건 선택"
               emptyText="저장된 검색조건이 없습니다."
             />
-            <Button
-              variant="neutral"
-              appearance="line"
-              onClick={() => notReady('내 검색조건 관리')}
-            >
+            <Button variant="neutral" appearance="line" onClick={() => setModal('saved')}>
               내 검색조건 관리
             </Button>
           </>
@@ -95,11 +106,11 @@ export function IntegratedTransactionPage() {
         statusProps={result.status === 'idle' ? { title: '거래내역을 조회해주세요' } : undefined}
         titleActions={
           <>
-            {/* TODO(P07 V02) 표시항목설정 · 엑셀 다운로드 설정 (ColumnPicker) */}
+            {/* TODO 표시항목설정 (ColumnPicker) */}
             <Button {...line} onClick={() => notReady('표시항목설정')}>
               표시항목설정
             </Button>
-            <Button {...line} onClick={() => notReady('엑셀 다운로드')}>
+            <Button {...line} onClick={() => setModal('excel')}>
               엑셀 다운로드
             </Button>
           </>
@@ -131,6 +142,23 @@ export function IntegratedTransactionPage() {
           disabled={!ready}
         />
       </ResultFooter>
+
+      <ExcelDownloadModal open={modal === 'excel'} onClose={() => setModal(null)} />
+      <SavedSearchModal
+        open={modal === 'saved'}
+        saved={savedSearches}
+        appliedId={appliedSearchId}
+        currentParams={result.params}
+        onSave={(list, applied) => {
+          setSavedSearches(list);
+          if (applied !== appliedSearchId) {
+            setAppliedSearchId(applied);
+            const found = list.find((s) => s.id === applied);
+            if (found) result.setParams(found.params);
+          }
+        }}
+        onClose={() => setModal(null)}
+      />
     </>
   );
 }
