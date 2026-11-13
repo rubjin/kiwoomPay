@@ -621,3 +621,9 @@
 - 내부관리자 앱 `pages/patterns/`: `SearchResultPatternPage`(`/patterns/search-result`, P01 — 검색 조건(조회기간 + 퀵 기간 · 상태 · 검색어) → 적용 조건 → 요약 → 결과(선택 처리 Confirm → 재조회 → Alert) → Total · Pagination, 예시 데이터 27건) · `RecordFormPatternPage`(`/patterns/record-form`, P02 — 화면명 + ContextChip · 제목 탭 · 저장, FormSection 안 FormGroup 2개(4쌍 표 · 담당자 추가/선택 삭제), 접힌 카드). 라우트 `router/modules/patterns.routes.tsx`, LNB 메뉴에는 없음
 - 화면 목록(`apps/screen-list/src/screens.ts`) 맨 위에 두 페이지 추가(1depth "레이아웃 패턴")
 - 검증: 디자인 시스템 build · 앱 typecheck · 화면 목록 typecheck, 브라우저 확인(목록 첫 두 링크, P01 조회 → 10행 · 요약 27, P02 담당자 추가, 페이지 에러 없음)
+
+### 브라우저 탭 제목 = 화면명 — 2026-11-13
+- 내부관리자 앱 `constants/screens.ts`(경로 ↔ 화면명, 단일 출처) + `router/useDocumentTitle`(AppRoutes에서 현재 경로로 `document.title` 설정). 페이지 코드는 제목을 정하지 않음 — 경로만 보므로 Work Tab에 숨겨진 화면이 제목을 바꾸지 않음. Work Tab 라벨도 나중에 같은 목록을 쓴다
+- 규칙: 화면(3depth)을 만들면 `SCREENS`에 라우트와 같은 경로로 한 줄 추가. 없으면 2depth 메뉴 이름(준비 중 화면 · 로그인), 메뉴 밖 경로는 "페이지를 찾을 수 없습니다", 레이아웃 패턴은 `P01` · `P02`
+- 한계: 만든 메뉴 아래의 없는 경로(예: `/transaction/integrated/foo`)는 404 화면이지만 제목은 2depth 메뉴 이름
+- 검증: typecheck, 브라우저에서 경로 9개 제목 · SPA 이동 시 변경 확인

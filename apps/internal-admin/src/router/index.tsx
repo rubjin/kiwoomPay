@@ -3,6 +3,7 @@ import { MainLayout } from '@/layouts/MainLayout/MainLayout';
 import { NotFoundPage } from '@/pages/error/NotFoundPage';
 import { MENU } from '@/constants/menu';
 import { RequireAuth } from './RequireAuth';
+import { useDocumentTitle } from './useDocumentTitle';
 import { addonRoutes } from './modules/addon.routes';
 import { authRoutes } from './modules/auth.routes';
 import { mainRoutes } from './modules/main.routes';
@@ -17,6 +18,7 @@ import { transactionRoutes } from './modules/transaction.routes';
 
 /** 루트 Routes: 레이아웃 + 1depth 모듈 라우트 조립 */
 export function AppRoutes() {
+  useDocumentTitle();
   return (
     <Routes>
       {authRoutes}
