@@ -48,10 +48,17 @@ const find = async () => {
 
 <Canvas of={Stories.ModalEmpty} />
 
-## 3. 규칙
+## 3. 탭 없는 Lookup
+
+찾기 방식이 하나면 Tab 없이 검색 줄만 둡니다 (예: 사업자번호 검색 — 업체명 · 사업자번호 검색어 하나). `LookupSearch`에 `header`를 넘기지 않으면 됩니다. 흐름 · 행 [선택] · 결과 없음은 같습니다.
+
+<Canvas of={Stories.NoTabInitial} />
+<Canvas of={Stories.NoTabResult} />
+
+## 4. 규칙
 
 - 상위 분류를 바꾸면 하위 분류는 비운다 (대분류 → 중 · 소분류 초기화)
-- 찾기 방식 Tab을 바꾸면 결과를 비운다
+- 찾기 방식이 둘 이상일 때만 Tab을 둔다. Tab을 바꾸면 결과를 비운다
 - 조회 전에도 Modal 높이가 바뀌지 않도록 결과 자리를 잡는다 (Figma 709)
 - 한 건만 고르는 Lookup은 Footer 없이 행 [선택]으로 확정. 여러 건을 고르는 Lookup(V02)은 체크 + Footer [적용]
 - 기존 Lookup 본문(`LookupSearch` · `AddressSearch`)을 그대로 쓴다 — 화면마다 새로 만들지 않는다

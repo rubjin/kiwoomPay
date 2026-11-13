@@ -252,6 +252,85 @@ function IndustryLookupModal({
   );
 }
 
+// ── 탭 없는 Lookup: 찾기 방식이 하나 (Figma Modal/Lookup 사업자번호 검색) ──────
+interface Business {
+  bizNo: string;
+  name: string;
+  ceo: string;
+}
+
+const BUSINESSES: Business[] = (
+  [
+    ['123-45-67890', '(주)ABC커머스', '홍길동'],
+    ['123-45-67891', '(주)ABC네트웍스', '김철수'],
+    ['220-81-01733', '키움유통', '이영희'],
+    ['000-00-00004', '새봄리테일', '박민수'],
+    ['000-00-00005', '온누리마켓', '최지은'],
+  ] as const
+).map(([bizNo, name, ceo]) => ({ bizNo, name, ceo }));
+
+/** 사업자번호 검색 Lookup Modal (P03, 탭 없음). 검색어 하나 + 결과 행 [선택] */
+function BizLookupModal({
+  open,
+  onSelect,
+  onClose,
+  inline,
+  initialQuery = '',
+}: {
+  open: boolean;
+  onSelect: (row: Business) => void;
+  onClose: () => void;
+  inline?: boolean;
+  initialQuery?: string;
+}) {
+  const find = (q: string) =>
+    BUSINESSES.filter((b) => !q || b.name.includes(q) || b.bizNo.includes(q));
+  const [results, setResults] = useState<Business[] | null>(
+    initialQuery ? find(initialQuery) : null,
+  );
+
+  const columns: GridPlaceholderColumn<Business>[] = [
+    { key: 'bizNo', header: '사업자번호', width: 160 },
+    { key: 'name', header: '업체명' },
+    { key: 'ceo', header: '대표자명', width: 160 },
+    {
+      key: 'select',
+      header: '선택',
+      width: 61,
+      render: (row) => (
+        <Button size="sm" variant="neutral" appearance="line" onClick={() => onSelect(row)}>
+          선택
+        </Button>
+      ),
+    },
+  ];
+
+  return (
+    <Modal open={open} onClose={onClose} inline={inline} size="lg">
+      <Modal.Header title="사업자번호 검색" closeButton />
+      <Modal.Body>
+        <LookupSearch
+          label="업체명"
+          placeholder="업체명 또는 사업자번호를 입력해주세요"
+          defaultQuery={initialQuery}
+          onSearch={(q) => setResults(find(q))}
+        >
+          <div style={{ minHeight: RESULT_HEIGHT }}>
+            {results && (
+              <GridPlaceholder
+                columns={columns}
+                rows={results}
+                rowKey={(r) => r.bizNo}
+                empty={<LookupSearchEmpty style={{ height: EMPTY_HEIGHT }} />}
+              />
+            )}
+          </div>
+        </LookupSearch>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
 /** 호출 화면: 업종 필드 [찾기] → Lookup Modal → 행 [선택] → 값 반영. 닫으면 원래 값 유지 */
 export const LookupApply: Story = {
   parameters: {
@@ -261,6 +340,13 @@ export const LookupApply: Story = {
   render: function Render() {
     const lookup = useLookup<Industry>();
     const [industry, setIndustry] = useState<Industry | null>(INDUSTRIES[2]!);
+    // 탭 없는 Lookup (사업자번호)
+    const bizLookup = useLookup<Business>();
+    const [biz, setBiz] = useState<Business | null>(null);
+    const findBiz = async () => {
+      const picked = await bizLookup.open();
+      if (picked) setBiz(picked);
+    };
 
     const find = async () => {
       const picked = await lookup.open();
@@ -298,6 +384,21 @@ export const LookupApply: Story = {
                 <FormTable.Label>대분류</FormTable.Label>
                 <FormTable.Cell colSpan={3}>{industry?.large ?? '-'}</FormTable.Cell>
               </FormTable.Row>
+              <FormTable.Row>
+                <FormTable.Label required>사업자번호</FormTable.Label>
+                <FormTable.Cell colSpan={3}>
+                  <LookupField
+                    fullWidth
+                    style={{ flex: 1 }}
+                    readOnly
+                    placeholder="사업자번호를 찾아주세요"
+                    value={biz?.bizNo ?? ''}
+                    onFind={findBiz}
+                  />
+                </FormTable.Cell>
+                <FormTable.Label>업체명</FormTable.Label>
+                <FormTable.Cell colSpan={3}>{biz?.name ?? '-'}</FormTable.Cell>
+              </FormTable.Row>
             </FormTable>
           </FormGroup>
         </FormSection>
@@ -305,6 +406,11 @@ export const LookupApply: Story = {
           open={lookup.isOpen}
           onSelect={lookup.select}
           onClose={lookup.cancel}
+        />
+        <BizLookupModal
+          open={bizLookup.isOpen}
+          onSelect={bizLookup.select}
+          onClose={bizLookup.cancel}
         />
       </div>
     );
@@ -347,5 +453,23 @@ export const ModalEmpty: Story = {
       onSelect={() => {}}
       onClose={() => {}}
     />
+  ),
+};
+
+/** 탭 없는 Lookup 조회 전: 찾기 방식이 하나면 Tab 없이 검색 줄만 (사업자번호 검색) */
+export const NoTabInitial: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => <BizLookupModal open inline onSelect={() => {}} onClose={() => {}} />,
+};
+
+/** 탭 없는 Lookup 조회 결과 */
+export const NoTabResult: Story = {
+  parameters: {
+    controls: { disable: true },
+    layout: 'padded',
+    tempWork: '사업자 예시 데이터 · 그리드 미리보기(IBSheet 연결 전)',
+  },
+  render: () => (
+    <BizLookupModal open inline initialQuery="ABC" onSelect={() => {}} onClose={() => {}} />
   ),
 };

@@ -651,3 +651,8 @@
 - 결과가 없으면 그리드 머리는 남기고 그 아래에 안내(IBSheet 데이터 없음 메시지 자리). `GridPlaceholder` `empty` 슬롯 추가, Lookup 결과 없음 안내를 `LookupSearchEmpty`로 분리 export(`LookupSearch` `empty`는 그대로 — 안내만). 결과 자리 높이 517에 맞춰 Modal 709 유지
 - Storybook `Patterns/P03 Lookup Apply` ModalEmpty(키워드로 찾기) · 가이드, 앱 P03 페이지 동일 적용
 - 검증: typecheck · lint · build, 브라우저(Storybook · 앱): 머리 5열 + 안내 "검색 결과가 없습니다. / 검색어를 다시 확인해 주세요.", 다시 조회하면 결과 행 표시, 에러 없음
+
+### P03 탭 없는 Lookup — 2026-11-13
+- 찾기 방식이 하나인 Lookup(사업자번호 검색 — 업체명 검색어 하나, Modal lg 800, Tab 없음)을 P03 예시에 추가. 호출 화면에 사업자번호 줄(LookupField) 추가, 스토리 NoTabInitial · NoTabResult, 가이드 "3. 탭 없는 Lookup"(규칙: 찾기 방식이 둘 이상일 때만 Tab), 앱 P03 페이지 동일 적용
+- 검증: typecheck · lint · build, 브라우저(Storybook · 앱): Modal 800 · 검색 줄 y68 · Tab 0, "ABC" → 2건 → [선택] → 사업자번호 반영 · 닫힘, 에러 없음
+- (임의 작업) 사업자 예시 데이터 · 열 구성(사업자번호 · 업체명 · 대표자명 · 선택)
