@@ -89,6 +89,11 @@
     "GridHeaderText": {
       "$type": "color",
       "$value": "{Text.Label}"
+    },
+    "GridRowSelected": {
+      "$type": "color",
+      "$value": "{Bg.Selected}",
+      "$description": "단일 선택(라디오)한 줄 배경 (Primary 50, Figma 사업자 찾기 팝업)"
     }
   },
   "StatusView": {

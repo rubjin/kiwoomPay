@@ -379,3 +379,8 @@ $sr-grid-cell-padding-x: t.$space-12;
   width: $sr-grid-check-width;
   text-align: center;
 }
+
+// 단일 선택(라디오)한 줄
+.gridRowSelected > .gridCell {
+  background-color: t.$color-search-result-grid-row-selected;
+}

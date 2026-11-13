@@ -1,6 +1,7 @@
 import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import * as TextFieldStories from '../src/components/field/TextField.stories';
 import * as SelectBoxStories from '../src/components/field/SelectBox.stories';
+import * as TableMultiSelectStories from '../src/components/field/TableMultiSelect.stories';
 import * as MultiSelectStories from '../src/components/field/MultiSelect.stories';
 import * as SearchFieldStories from '../src/components/field/SearchField.stories';
 import * as TextAreaStories from '../src/components/field/TextArea.stories';
@@ -224,6 +225,16 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 <Canvas of={MultiSelectStories.Open} />
 <Canvas of={MultiSelectStories.Wide} />
 <Canvas of={MultiSelectStories.Controlled} />
+
+## 4-2. Table Multi-select (TableMultiSelect)
+
+- 표로 보며 여러 개를 고르는 드롭다운 (Figma 사업자 찾기 팝업 · CPID 조회 범위). `rows` · `rowKey` · `columns`(열 머리 · 폭 · 정렬 · render)
+- 패널: 제목(13 Bold) + `Total: N건 · M행 표시` → 검색(sm) → 전체(검색결과) → 표(머리 34 · 줄 37, `visibleRows` 6 넘으면 표 안 스크롤, 머리 고정) → `↓ 스크롤하여 나머지 N건 보기` · `선택 N개`
+- 트리거 요약: 전체 선택 `전체 N개` · 일부 `N개 선택` · 없음 placeholder. 패널 폭 `panelWidth`(트리거보다 넓으면 오른쪽 끝에 맞춤)
+- 선택은 바로 반영, 패널은 열린 채 · 바깥 클릭 · Esc로 닫힘 (MultiSelect와 같음)
+
+<Canvas of={TableMultiSelectStories.States} />
+<Canvas of={TableMultiSelectStories.Open} />
 
 ## 5. Search Field
 

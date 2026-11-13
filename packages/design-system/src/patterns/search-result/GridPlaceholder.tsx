@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import type { CSSProperties, ReactNode } from 'react';
-import { Checkbox } from '../../components/selection';
+import { useId, type CSSProperties, type ReactNode } from 'react';
+import { Checkbox, Radio } from '../../components/selection';
 import styles from './SearchResult.module.scss';
 
 export interface GridPlaceholderColumn<T> {
@@ -21,8 +21,13 @@ export interface GridPlaceholderProps<T> {
   columns: GridPlaceholderColumn<T>[];
   rows: T[];
   rowKey: (row: T) => string;
-  /** 앞에 선택 체크박스 열 */
-  selectable?: boolean;
+  /**
+   * 앞에 선택 열. true(또는 'multiple'): 체크박스 · 전체 선택 /
+   * 'single': 라디오 하나만 · 머리 '선택' · 선택한 줄 배경 Primary 50 (Figma 사업자 찾기 팝업)
+   */
+  selectable?: boolean | 'multiple' | 'single';
+  /** single 선택 열 머리 (기본 '선택') */
+  selectionHeader?: ReactNode;
   selectedKeys?: string[];
   onSelectionChange?: (keys: string[]) => void;
   /** 행이 없을 때. 글자면 행 높이 한 줄 가운데 안내, 요소면 그대로 (예: LookupSearchEmpty) */
@@ -40,12 +45,15 @@ export function GridPlaceholder<T>({
   rows,
   rowKey,
   selectable = false,
+  selectionHeader = '선택',
   selectedKeys = [],
   onSelectionChange,
   empty,
   className,
   style,
 }: GridPlaceholderProps<T>) {
+  const single = selectable === 'single';
+  const radioName = useId();
   const keys = rows.map(rowKey);
   const checkedCount = keys.filter((key) => selectedKeys.includes(key)).length;
   const allChecked = rows.length > 0 && checkedCount === rows.length;
@@ -81,7 +89,10 @@ export function GridPlaceholder<T>({
       <table className={styles.gridTable}>
         <thead>
           <tr>
-            {selectable && (
+            {single && (
+              <th className={clsx(styles.gridHead, styles.gridCheck)}>{selectionHeader}</th>
+            )}
+            {selectable && !single && (
               <th className={clsx(styles.gridHead, styles.gridCheck)}>
                 <Checkbox
                   size="sm"
@@ -118,8 +129,22 @@ export function GridPlaceholder<T>({
           {rows.map((row, rowIndex) => {
             const key = rowKey(row);
             return (
-              <tr key={key}>
-                {selectable && (
+              <tr
+                key={key}
+                className={clsx(single && selectedKeys.includes(key) && styles.gridRowSelected)}
+              >
+                {single && (
+                  <td className={clsx(styles.gridCell, styles.gridCheck)}>
+                    <Radio
+                      name={radioName}
+                      value={key}
+                      aria-label="행 선택"
+                      checked={selectedKeys.includes(key)}
+                      onChange={() => onSelectionChange?.([key])}
+                    />
+                  </td>
+                )}
+                {selectable && !single && (
                   <td className={clsx(styles.gridCell, styles.gridCheck)}>
                     <Checkbox
                       size="sm"

@@ -1,0 +1,188 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma 사업자 찾기 팝업 · CPID 선택 (PNG 측정)
+$tms-panel-padding: t.$space-16;
+$tms-gap: t.$space-12; // 제목 줄 ↔ 검색 ↔ 전체 ↔ 표 ↔ 안내
+$tms-head-height: 34px; // 표 머리
+$tms-row-height: 37px; // 표 줄 (테두리 포함)
+$tms-check-width: 36px;
+$tms-cell-padding-x: t.$space-8;
+
+.root {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+// ── 트리거 (MultiSelect와 같다) ──────────────────────
+.trigger {
+  display: flex;
+  flex: 1;
+  gap: t.$field-gap;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+}
+
+.value {
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.placeholder {
+  color: t.$color-field-text-placeholder;
+}
+
+.chevron {
+  display: inline-flex;
+  flex: none;
+  width: t.$field-icon-size-trailing;
+  height: t.$field-icon-size-trailing;
+  color: t.$color-field-icon;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.trigger:disabled .placeholder,
+.trigger:disabled .chevron {
+  color: t.$color-field-icon-disabled;
+}
+
+// ── 패널 ─────────────────────────────────────────────
+// 위치는 useFloatingPosition, 폭은 panelWidth
+.panel {
+  z-index: t.$z-index-dropdown;
+  display: flex;
+  flex-direction: column;
+  gap: $tms-gap;
+  min-width: 0;
+  padding: calc(#{$tms-panel-padding} - #{t.$control-border-width});
+  background-color: t.$color-field-bg;
+  border: t.$control-border-width solid t.$color-field-border;
+  border-radius: t.$field-radius-md;
+}
+
+.head {
+  display: flex;
+  gap: $tms-gap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  @include m.typography(typo-13-bold);
+
+  color: t.$color-text-heading;
+}
+
+.total {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-text-secondary;
+}
+
+.totalValue {
+  @include m.typography(typo-12-bold);
+
+  color: t.$color-text-accent;
+}
+
+.all {
+  @include m.typography(typo-13-regular);
+
+  padding-inline-start: $tms-cell-padding-x;
+  color: t.$color-text-body;
+}
+
+// 머리 + 보이는 줄 수만큼 높이, 넘치면 표 안에서 스크롤 (머리는 고정)
+.tableWrap {
+  max-height: calc(#{$tms-head-height} + #{$tms-row-height} * var(--tms-visible-rows, 6));
+  overflow-y: auto;
+  scrollbar-color: t.$color-select-scroll-thumb transparent;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.head1,
+.cell {
+  padding: 0 $tms-cell-padding-x;
+  white-space: nowrap;
+  border-bottom: t.$control-border-width solid t.$color-search-result-grid-border;
+}
+
+.head1 {
+  @include m.typography(typo-13-semi-bold);
+
+  position: sticky;
+  top: 0;
+  height: $tms-head-height;
+  color: t.$color-search-result-grid-header-text;
+  text-align: center;
+  background-color: t.$color-search-result-grid-header-bg;
+}
+
+.cell {
+  @include m.typography(typo-13-regular);
+
+  height: $tms-row-height;
+  color: t.$color-search-result-grid-text;
+}
+
+// 칸 사이 세로선 — 표 양 끝에는 두지 않는다 (표 테두리 규칙)
+.head1:not(:last-child),
+.cell:not(:last-child) {
+  border-right: t.$control-border-width solid t.$color-search-result-grid-border;
+}
+
+.check {
+  width: $tms-check-width;
+  text-align: center;
+}
+
+.foot {
+  @include m.typography(typo-12-regular);
+
+  display: flex;
+  justify-content: space-between;
+  color: t.$color-text-secondary;
+}
+
+.status {
+  @include m.typography(typo-13-regular);
+
+  padding: t.$space-24 0;
+  color: t.$color-select-status-text;
+  text-align: center;
+}
