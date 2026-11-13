@@ -58,7 +58,7 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: $field-helper-gap;
+  gap: var(--field-helper-gap, #{$field-helper-gap}); // 쓰는 곳에서 바꿀 수 있다 (예: 인증번호 4)
   align-items: flex-start;
   justify-content: center; // 라디오처럼 필드보다 낮은 컨트롤은 라벨 줄 가운데
   min-width: 0;

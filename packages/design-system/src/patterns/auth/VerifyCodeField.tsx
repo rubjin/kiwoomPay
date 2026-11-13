@@ -54,7 +54,7 @@ export const VerifyCodeField = forwardRef<HTMLInputElement, VerifyCodeFieldProps
     return (
       <Field
         label={label}
-        className={className}
+        className={clsx(styles.verifyField, className)}
         style={style}
         feedback={feedback}
         helperText={error}

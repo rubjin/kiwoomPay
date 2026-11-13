@@ -93,7 +93,7 @@
 - [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
 - [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
-- [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(현재 PNG 측정: 안내 ↔ 상자 12 · 상자 ↔ 인증번호 34 · 오류 문구 자리 23) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
+- [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(안내 ↔ 상자 12는 PNG 측정, 상자 ↔ 인증번호 12 · 입력 ↔ 오류 문구 4는 사용자 확정 2026-11-13) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -692,3 +692,8 @@
 - 앱: `pages/auth/login/LoginPage`(1단계 → SMS 인증 → 토큰 저장 → 원래 화면/메인), `components/SmsVerifyModal` · `loginMessages`, `api/auth/login`(예시, TODO(API)), `types/auth/login`, 자산 `assets/login/login-security.png` · `assets/logo/logo-header.png`(Figma 다운로드). 화면 목록에 KWPC3000 추가
 - 검증: tokens · typecheck · lint · build. 1920 × 1080에서 Figma와 1px 이내(Header 66, 로고 871/17 · 178.5 × 32, 그림 165 · 160, 제목 345 · 44.8 · 32/800, 아이디 430 · 74, 비밀번호 544 · 77, 버튼 679 · 48, 안내 747 · 130, Footer 1006 · 74), SMS Modal 400 × 352(PNG 351). 흐름(Storybook · 앱): 틀린 비밀번호 Alert(1/5) · 입력 유지, 비밀번호 보기, Enter 제출 → SMS, 카운트다운, 숫자만 6자리 · [완료] 활성, 틀린 인증번호 Alert, 성공 → 메인(대시보드) 이동, 에러 없음
 - 한 가정: Q57
+
+### P05 SMS 인증 간격 — 2026-11-13
+- 사용자 확정: 휴대전화번호 상자 ↔ 인증번호 34 → **12**, 인증번호 입력 ↔ 오류 문구 **4**(Field 기본 8). Field에 `--field-helper-gap` CSS 변수(기본 8) — `VerifyCodeField`만 4로. 오류 문구 자리(18 + 4)는 미리 잡아 문구가 나와도 Modal 높이 같음(329)
+- 검증: lint · typecheck, Storybook 측정(상자 ↔ 입력 12, 입력 ↔ 문구 4, 만료 · 기본 모두 Modal 329)
+- 인증번호 불일치 문구(사용자 확정): Alert 대신 입력 아래 "인증번호가 일치하지 않습니다. 다시 확인해 주세요." — 입력 수정 · 재발송 시 지움, 만료 문구가 우선. `useAction` `failure`가 null을 돌려주면 Alert 생략(옵션 추가). 스토리 SmsMismatch, 앱 SmsVerifyModal 동일. 검증: 틀린 번호 → Alert 없음 · 문구 표시 · Modal 329 유지, 입력 수정 → 문구 사라짐(Storybook · 앱)

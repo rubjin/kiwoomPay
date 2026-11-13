@@ -37,6 +37,7 @@ const NOTICES = [
 ];
 const CODE_SECONDS = 180; // 3분
 const CODE_LENGTH = 6;
+const CODE_MISMATCH_MESSAGE = '인증번호가 일치하지 않습니다. 다시 확인해 주세요.';
 
 class AuthError extends Error {
   constructor(
@@ -64,6 +65,8 @@ function SmsVerifyModal({
   onVerified,
   inline,
   initialRemaining = CODE_SECONDS,
+  initialCode = '',
+  initialMismatch = false,
 }: {
   open: boolean;
   phone: string;
@@ -71,8 +74,12 @@ function SmsVerifyModal({
   onVerified: () => void;
   inline?: boolean;
   initialRemaining?: number;
+  initialCode?: string;
+  initialMismatch?: boolean;
 }) {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(initialCode);
+  // 인증번호 불일치는 Alert 대신 입력 아래 문구 (입력을 고치거나 재발송하면 지움)
+  const [mismatch, setMismatch] = useState(initialMismatch);
   const [remaining, setRemaining] = useState(initialRemaining);
   const [failCount, setFailCount] = useState(0);
   const expired = remaining <= 0;
@@ -88,6 +95,7 @@ function SmsVerifyModal({
     run: () => wait(400), // TODO(API) 인증번호 재발송
     onSuccess: () => {
       setCode('');
+      setMismatch(false);
       setRemaining(CODE_SECONDS);
     },
     success: '인증번호를 다시 발송했습니다.',
@@ -102,7 +110,13 @@ function SmsVerifyModal({
       }
     },
     onSuccess: onVerified,
-    failure: authMessage,
+    failure: (error) => {
+      if (error instanceof AuthError && error.code === 'CODE_MISMATCH') {
+        setMismatch(true);
+        return null;
+      }
+      return authMessage(error);
+    },
   });
 
   return (
@@ -121,12 +135,21 @@ function SmsVerifyModal({
         >
           <VerifyCodeField
             value={code}
-            onChange={setCode}
+            onChange={(value) => {
+              setCode(value);
+              setMismatch(false);
+            }}
             remaining={remaining}
             length={CODE_LENGTH}
             onResend={() => resend.execute()}
             resending={resend.loading}
-            error={expired ? '인증 시간이 만료되었습니다. [재발송]을 눌러 주세요.' : undefined}
+            error={
+              expired
+                ? '인증 시간이 만료되었습니다. [재발송]을 눌러 주세요.'
+                : mismatch
+                  ? CODE_MISMATCH_MESSAGE
+                  : undefined
+            }
             autoFocus
           />
         </AuthVerifyBody>
@@ -275,6 +298,22 @@ export const SmsExpired: Story = {
       open
       inline
       initialRemaining={0}
+      phone="010-****-5678"
+      onClose={() => {}}
+      onVerified={() => {}}
+    />
+  ),
+};
+
+/** 인증번호 불일치: Alert 없이 입력 아래 문구. 입력을 고치거나 [재발송]하면 사라짐 */
+export const SmsMismatch: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => (
+    <SmsVerifyModal
+      open
+      inline
+      initialCode="000000"
+      initialMismatch
       phone="010-****-5678"
       onClose={() => {}}
       onVerified={() => {}}

@@ -27,8 +27,9 @@ $auth-info-radius: 8px; // TODO(시안) 측정 확인
 $auth-verify-gap: t.$space-8; // 인증번호 입력 ↔ [재발송]
 $auth-label-height: 20px; // 라벨 글자 상자 (Figma 13 · 1.5 = 19.5 → 20)
 $auth-verify-info-gap: t.$space-12; // 안내 ↔ 휴대전화번호 상자 (PNG 측정)
-$auth-verify-field-gap: 34px; // 휴대전화번호 상자 ↔ 인증번호 (PNG 측정, TODO(시안) Figma 확인)
-$auth-verify-area-height: 63px; // 인증번호 40 + 오류 문구 자리 23 (PNG: 입력 ↔ Footer 버튼 43)
+$auth-verify-field-gap: t.$space-12; // 휴대전화번호 상자 ↔ 인증번호 (사용자 확정)
+$auth-verify-error-gap: t.$space-4; // 인증번호 입력 ↔ 오류 문구 (사용자 확정)
+$auth-verify-area-height: 62px; // 인증번호 40 + 4 + 오류 문구 18 — 문구가 나와도 높이 같음
 
 // ── AuthLayout ───────────────────────────────────────
 .layout {
@@ -258,6 +259,10 @@ $auth-verify-area-height: 63px; // 인증번호 40 + 오류 문구 자리 23 (PN
   @include m.typography(typo-14-regular);
 
   color: t.$color-auth-text;
+}
+
+.verifyField {
+  --field-helper-gap: #{$auth-verify-error-gap};
 }
 
 .verify {

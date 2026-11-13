@@ -15,7 +15,7 @@ export interface UseActionOptions<A extends unknown[], R> {
   onSuccess?: (result: R, ...args: A) => void | Promise<void>;
   /** Result: 성공 안내 (Alert). 없으면 안내 없이 끝 */
   success?: ReactNode | ((result: R) => ReactNode);
-  /** Result: 실패 안내 (Alert). 입력과 Modal은 그대로 두어 다시 시도할 수 있게 한다 */
+  /** Result: 실패 안내 (Alert). 입력과 Modal은 그대로 두어 다시 시도할 수 있게 한다. null을 돌려주면 Alert 없이 끝 (필드 아래 문구로 알릴 때) */
   failure?: ReactNode | ((error: unknown) => ReactNode);
 }
 
@@ -79,13 +79,14 @@ export function useAction<A extends unknown[] = [], R = unknown>(
       } catch (error) {
         running.current = false;
         setLoading(false);
-        await dialog.alert(
+        const message =
           o.failure === undefined
             ? DEFAULT_FAILURE
             : typeof o.failure === 'function'
               ? o.failure(error)
-              : o.failure,
-        );
+              : o.failure;
+        // null이면 Alert 없이 끝 (화면이 필드 아래 문구로 알릴 때)
+        if (message !== null) await dialog.alert(message);
         return false;
       }
       running.current = false;

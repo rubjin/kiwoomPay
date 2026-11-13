@@ -12,6 +12,7 @@ import { LoginError, type LoginChallenge } from '@/types/auth/login';
 import { loginErrorMessage } from './loginMessages';
 
 const CODE_LENGTH = 6;
+const CODE_MISMATCH_MESSAGE = '인증번호가 일치하지 않습니다. 다시 확인해 주세요.';
 
 interface SmsVerifyModalProps {
   /** 1단계 결과. 바뀔 때마다 새로 그린다(key) */
@@ -23,6 +24,8 @@ interface SmsVerifyModalProps {
 /** SMS 인증 (P05, Modal sm 400): 안내 → 등록된 휴대전화번호 → 인증번호(남은 시간 · 재발송) → [취소][완료] */
 export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModalProps) {
   const [code, setCode] = useState('');
+  // 인증번호 불일치는 Alert 대신 입력 아래 문구 (입력을 고치거나 재발송하면 지움)
+  const [mismatch, setMismatch] = useState(false);
   const [remaining, setRemaining] = useState(challenge.expiresIn);
   const expired = remaining <= 0;
 
@@ -37,6 +40,7 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
     run: () => resendSmsCode(challenge.challengeId),
     onSuccess: ({ expiresIn }) => {
       setCode('');
+      setMismatch(false);
       setRemaining(expiresIn);
     },
     success: '인증번호를 다시 발송했습니다.',
@@ -46,7 +50,13 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
   const verify = useAction({
     run: () => verifySmsCode(challenge.challengeId, code),
     onSuccess: ({ accessToken }) => onVerified(accessToken),
-    failure: loginErrorMessage,
+    failure: (error) => {
+      if (error instanceof LoginError && error.code === 'CODE_MISMATCH') {
+        setMismatch(true);
+        return null;
+      }
+      return loginErrorMessage(error);
+    },
   });
 
   return (
@@ -65,12 +75,21 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
         >
           <VerifyCodeField
             value={code}
-            onChange={setCode}
+            onChange={(value) => {
+              setCode(value);
+              setMismatch(false);
+            }}
             remaining={remaining}
             length={CODE_LENGTH}
             onResend={() => resend.execute()}
             resending={resend.loading}
-            error={expired ? loginErrorMessage(new LoginError('CODE_EXPIRED')) : undefined}
+            error={
+              expired
+                ? loginErrorMessage(new LoginError('CODE_EXPIRED'))
+                : mismatch
+                  ? CODE_MISMATCH_MESSAGE
+                  : undefined
+            }
             autoFocus
           />
         </AuthVerifyBody>
