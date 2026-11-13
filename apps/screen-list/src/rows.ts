@@ -1,4 +1,6 @@
+import { IA_AGENCY } from './ia/agency.generated';
 import { IA_INTERNAL } from './ia/internal.generated';
+import { IA_MERCHANT } from './ia/merchant.generated';
 import { IA_KIND_LABEL, type IaRow } from './ia/types';
 import { SCREENS, type ScreenInfo, type ScreenStatus, type SystemId } from './screens';
 
@@ -23,7 +25,11 @@ export interface ScreenRow {
   etc: string;
 }
 
-const IA: Record<SystemId, IaRow[]> = { internal: IA_INTERNAL, merchant: [], agency: [] };
+const IA: Record<SystemId, IaRow[]> = {
+  internal: IA_INTERNAL,
+  merchant: IA_MERCHANT,
+  agency: IA_AGENCY,
+};
 
 const withPattern = (kind: string, pattern?: string) =>
   pattern ? `${kind || '-'} (${pattern})` : kind || '-';

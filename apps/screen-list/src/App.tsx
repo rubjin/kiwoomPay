@@ -69,16 +69,26 @@ const rowKey = (s: ScreenRow) => s.key;
 export function App() {
   const [system, setSystem] = useState<SystemId>('internal');
   const [status, setStatus] = useState<'all' | ScreenStatus>('all');
+  // 1depth 메뉴 탭 ('all' = 전체). 시스템을 바꾸면 전체로
+  const [menu, setMenu] = useState('all');
   const current = SYSTEMS.find((s) => s.id === system) ?? SYSTEMS[0]!;
   const ofSystem = rowsOf(system);
-  const rows = status === 'all' ? ofSystem : ofSystem.filter((s) => s.status === status);
+  const menus = [...new Set(ofSystem.map((s) => s.depth1))];
+  const ofMenu = menu === 'all' ? ofSystem : ofSystem.filter((s) => s.depth1 === menu);
+  const rows = status === 'all' ? ofMenu : ofMenu.filter((s) => s.status === status);
   const countOf = (st: ScreenStatus) => ofSystem.filter((s) => s.status === st).length;
 
   return (
     <PageLayout>
       <PageLayout.Title title="화면 목록 (임의 작업)" />
 
-      <Tab value={system} onChange={(v) => setSystem(v as SystemId)}>
+      <Tab
+        value={system}
+        onChange={(v) => {
+          setSystem(v as SystemId);
+          setMenu('all');
+        }}
+      >
         {SYSTEMS.map((s) => (
           <Tab.Item key={s.id} value={s.id} count={rowsOf(s.id).length}>
             {s.label}
@@ -94,8 +104,18 @@ export function App() {
         ]}
       />
 
+      {/* 1depth 메뉴로 이동 (건수는 숫자 배지 최대 99라 글자로) */}
+      <Tab variant="button" size="sm" value={menu} onChange={setMenu} aria-label="1depth 메뉴">
+        <Tab.Item value="all">전체 ({ofSystem.length})</Tab.Item>
+        {menus.map((m) => (
+          <Tab.Item key={m} value={m}>
+            {m} ({ofSystem.filter((s) => s.depth1 === m).length})
+          </Tab.Item>
+        ))}
+      </Tab>
+
       <ResultPanel
-        title={`${current.label} 화면`}
+        title={`${current.label} 화면${menu === 'all' ? '' : ` · ${menu}`}`}
         status={rows.length === 0 ? 'empty' : 'success'}
         statusProps={{ title: '해당하는 화면이 없습니다', description: null }}
         actions={

@@ -1,13 +1,18 @@
 // IA(구글 시트) → src/ia/<시스템>.generated.ts
 // 사용: pnpm --filter screen-list ia   (시트 공유: 링크가 있는 모든 사용자 – 뷰어)
-// 시트 열: NO · 위치(1~4depth) · … · 화면ID(12자리) · 화면유형(M/T/P/PT) · 신규구분 · … · 비고
+// 시트 열: NO · 위치(1~4depth) · … · 화면ID · 화면 유형(M/T/P/PT) · 신규 구분 · … · 비고
+// 탭마다 열 위치가 달라(가맹점관리자는 퍼블 예정일 없음, 영업대행파트너는 신규 구분 없음) 열 이름으로 찾는다
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SHEET_ID = '1UsTFZIQsprf0OieYVVkhEDGDXy3sxbFM';
-// 시스템별 탭(gid). 가맹점관리자 · 영업대행사 탭이 생기면 추가
-const TABS = [{ system: 'internal', gid: '1963685273', file: 'internal' }];
+// 시스템별 탭(gid). 전자계약(388644757)은 화면 목록 시스템이 없어 제외
+const TABS = [
+  { system: 'internal', gid: '1963685273', file: 'internal' },
+  { system: 'merchant', gid: '2077804602', file: 'merchant' },
+  { system: 'agency', gid: '1121402985', file: 'agency' },
+];
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -52,19 +57,32 @@ for (const tab of TABS) {
   if (!res.ok)
     throw new Error(`시트를 받지 못했습니다 (${res.status}). 공유 설정을 확인하세요: ${url}`);
   const rows = parseCsv(await res.text());
-  // 머리 2줄(제목 · 범례) + 열 이름 2줄 다음부터. NO가 숫자이고 화면ID가 있는 줄만
+  // 열 이름 줄(NO로 시작)에서 열 위치를 찾는다. 화면ID는 두 번 나오는데 뒤쪽이 전체 ID
+  const head = rows.find((r) => clean(r[0]) === 'NO');
+  if (!head) throw new Error(`[ia] ${tab.system}: 열 이름 줄(NO)을 찾지 못했습니다`);
+  const names = head.map((c) => c.replace(/\s+/g, ''));
+  const col = (name) => names.lastIndexOf(name);
+  const at = {
+    id: col('화면ID'),
+    kind: col('화면유형'),
+    change: col('신규구분'),
+    note: col('비고'),
+  };
+  if (at.id < 0) throw new Error(`[ia] ${tab.system}: 화면ID 열이 없습니다`);
+  const cell = (r, i) => (i < 0 ? '' : clean(r[i]));
+  // NO가 숫자이고 화면ID가 있는 줄만
   const items = rows
-    .filter((r) => /^\d+$/.test(clean(r[0])) && clean(r[17]))
+    .filter((r) => /^\d+$/.test(clean(r[0])) && cell(r, at.id))
     .map((r) => ({
       no: Number(clean(r[0])),
       depth1: clean(r[1]),
       depth2: clean(r[2]),
       depth3: clean(r[3]),
       depth4: clean(r[4]),
-      id: clean(r[17]),
-      kind: clean(r[18]),
-      change: clean(r[19]),
-      note: clean(r[22]),
+      id: cell(r, at.id),
+      kind: cell(r, at.kind),
+      change: cell(r, at.change),
+      note: cell(r, at.note),
     }));
   const out = resolve(root, `src/ia/${tab.file}.generated.ts`);
   mkdirSync(dirname(out), { recursive: true });

@@ -18,7 +18,7 @@ export const SYSTEMS: { id: SystemId; label: string; url: string }[] = [
   },
   {
     id: 'agency',
-    label: '영업대행사',
+    label: '영업대행파트너',
     url: import.meta.env.VITE_URL_AGENCY ?? 'http://localhost:5175',
   },
 ];
