@@ -1,4 +1,9 @@
-import { Badge, type BadgeTone, type GridPlaceholderColumn } from '@kiwoompay/design-system';
+import {
+  Badge,
+  TextLink,
+  type BadgeTone,
+  type GridPlaceholderColumn,
+} from '@kiwoompay/design-system';
 import type { LedgerStatus, SettlementLedger } from '@/types/settlement/merchantSettlement';
 
 const STATUS_TONE: Record<LedgerStatus, BadgeTone> = {
@@ -17,7 +22,9 @@ const dash = (value: string | number | null) =>
  * 정산원장 Grid 열 (Figma KWPC06010201 조회결과). IBSheet8 연결 시 같은 순서 · 폭으로 Cols를 만든다.
  * TODO(IBSheet) 원장 ID · CPID · 거래건수 링크 이동, 열 필터, 지급예정일 편집은 IBSheet 설정으로 처리
  */
-export const ledgerColumns: GridPlaceholderColumn<SettlementLedger>[] = [
+export const createLedgerColumns = (
+  onOpen: (row: SettlementLedger) => void,
+): GridPlaceholderColumn<SettlementLedger>[] => [
   {
     key: 'status',
     header: '정산상태',
@@ -29,7 +36,23 @@ export const ledgerColumns: GridPlaceholderColumn<SettlementLedger>[] = [
     ),
   },
   { key: 'type', header: '정산구분', width: 89 },
-  { key: 'ledgerId', header: '정산원장 ID', width: 140 },
+  {
+    key: 'ledgerId',
+    header: '정산원장 ID',
+    width: 140,
+    // 누르면 일반 원장 상세 팝업 (KWPC06010209~)
+    render: (row) => (
+      <TextLink
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          onOpen(row);
+        }}
+      >
+        {row.ledgerId}
+      </TextLink>
+    ),
+  },
   {
     key: 'sourceLedgerId',
     header: '원천원장 ID',

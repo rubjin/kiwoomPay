@@ -22,21 +22,28 @@ import {
   useLookup,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
-import { fetchSettlementLedgers, requestLedgerAction } from '@/api/settlement/merchantSettlement';
+import { fetchSettlementLedgers } from '@/api/settlement/merchantSettlement';
 import { BizFinderModal } from '@/components/popups/BizFinderModal';
 import type { BizLookupResult } from '@/types/common/bizLookup';
+import type { SettlementLedger } from '@/types/settlement/merchantSettlement';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 import type { MerchantSettlementSummary } from '@/types/settlement/merchantSettlement';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 import { createInitialParams } from './components/initialParams';
-import { ledgerColumns } from './components/ledgerColumns';
+import { createLedgerColumns } from './components/ledgerColumns';
+import { LedgerDetailModal, type LedgerDetailAction } from './components/detail/LedgerDetailModal';
 import { SEARCH_FIELDS } from './components/searchFields';
 import {
   HoldReleaseModal,
   PayDateChangeModal,
   PayHoldModal,
 } from './components/actions/LedgerActionModals';
-import { toActionRows } from './components/actions/ledgerActionRows';
+import { toActionRows, type LedgerActionRow } from './components/actions/ledgerActionRows';
+import {
+  PayConfirmModal,
+  PayDateSaveModal,
+  RecalcModal,
+} from './components/actions/LedgerConfirmModals';
 
 function toSummaryItems(summary?: MerchantSettlementSummary) {
   return [
@@ -50,12 +57,11 @@ function toSummaryItems(summary?: MerchantSettlementSummary) {
   ];
 }
 
-/** 선택한 원장에 대해 처리하는 업무 Action. 팝업이 있는 것은 팝업(정산원장 일괄 처리 틀), 나머지는 Confirm (P04) */
-type LedgerPopup = 'payDate' | 'hold' | 'release';
-const LEDGER_ACTIONS: { label: string; popup?: LedgerPopup }[] = [
+/** 선택한 원장에 대해 처리하는 업무 Action — 모두 정산원장 일괄 처리 팝업 (시안 처리_실행 팝업 · 팝업2) */
+type LedgerPopup = 'payDate' | 'recalc' | 'hold' | 'release' | 'confirm';
+const LEDGER_ACTIONS: { label: string; popup: LedgerPopup }[] = [
   { label: '지급예정일 일괄 변경', popup: 'payDate' },
-  // TODO(시안 처리_실행 팝업2.png) 선택 원장 재산출 · 지급확정 · 지급예정일 변경 저장·재산출 팝업 (같은 틀)
-  { label: '선택 원장 재산출' },
+  { label: '선택 원장 재산출', popup: 'recalc' },
   { label: '지급보류', popup: 'hold' },
   { label: '보류해제', popup: 'release' },
 ];
@@ -65,9 +71,15 @@ export function MerchantSettlementExecutePage() {
   const dialog = useDialog();
   const settlementCycles = useCodeOptions('SETTLEMENT_CYCLE');
   const [selected, setSelected] = useState<string[]>([]);
-  const [processing, setProcessing] = useState(false);
   const bizLookup = useLookup<BizLookupResult>();
   const [popup, setPopup] = useState<LedgerPopup | null>(null);
+  // 원장 상세 팝업 · 상세에서 연 처리 팝업의 대상(이 원장 하나). 없으면 선택한 원장
+  const [detailLedger, setDetailLedger] = useState<SettlementLedger | null>(null);
+  const [popupTarget, setPopupTarget] = useState<SettlementLedger[] | null>(null);
+  // 지급예정일 일괄 변경 → 저장·재산출: 재조회로 선택이 풀리므로 적용한 원장 · 날짜를 따로 둔다
+  const [payDateSave, setPayDateSave] = useState<{ rows: LedgerActionRow[]; date: string } | null>(
+    null,
+  );
   const result = useSearchResult({
     initialParams: createInitialParams(),
     fetch: async (request) => {
@@ -77,34 +89,7 @@ export function MerchantSettlementExecutePage() {
   });
   const { params, setParam, setParams } = result;
   const ready = result.status === 'success';
-  const disabled = !ready || processing;
-
-  const runLedgerAction = async (action: string) => {
-    if (selected.length === 0) {
-      await dialog.alert('처리할 정산원장을 선택해주세요.');
-      return;
-    }
-    // TODO(정책) 상태별 처리 가능 여부 · 금액 영향 미리보기(P04 V05)는 화면설계서 확인 후
-    const ok = await dialog.confirm(
-      `선택한 정산원장 ${selected.length}건을 ${action} 처리할까요?`,
-      {
-        confirmText: action,
-      },
-    );
-    if (!ok) return;
-    setProcessing(true);
-    try {
-      await requestLedgerAction(action, selected);
-    } catch {
-      setProcessing(false);
-      await dialog.alert(`${action} 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.`);
-      return;
-    }
-    // 갱신된 목록 위에 완료 Alert를 띄운다
-    await result.refresh();
-    setProcessing(false);
-    await dialog.alert(`${action} 처리가 완료되었습니다.`);
-  };
+  const disabled = !ready;
 
   // 전체 CPID면 CPID 조건은 비운다. TODO(정책) 여러 CPID를 조회 조건으로 넘기는 방식(지금은 쉼표로 이어 붙임)
   const findBiz = async () => {
@@ -121,10 +106,20 @@ export function MerchantSettlementExecutePage() {
     }
     setPopup(target);
   };
-  const popupRows = toActionRows(result.items.filter((l) => selected.includes(l.ledgerId)));
+  const popupRows = toActionRows(
+    popupTarget ?? result.items.filter((l) => selected.includes(l.ledgerId)),
+  );
+  // 상세 팝업 처리 버튼 → 같은 일괄 처리 팝업을 이 원장 하나로 (상세는 뒤에 열린 채)
+  const fromDetail = (action: LedgerDetailAction, ledger: SettlementLedger) => {
+    setPopupTarget([ledger]);
+    setPopup(action);
+  };
   const popupProps = {
     rows: popupRows,
-    onClose: () => setPopup(null),
+    onClose: () => {
+      setPopup(null);
+      setPopupTarget(null);
+    },
     onDone: () => result.refresh(),
   };
 
@@ -240,11 +235,7 @@ export function MerchantSettlementExecutePage() {
         actions={
           <>
             {LEDGER_ACTIONS.map(({ label, popup: target }) => (
-              <Button
-                key={label}
-                {...line}
-                onClick={() => (target ? void openPopup(target) : runLedgerAction(label))}
-              >
+              <Button key={label} {...line} onClick={() => void openPopup(target)}>
                 {label}
               </Button>
             ))}
@@ -252,7 +243,7 @@ export function MerchantSettlementExecutePage() {
               size="sm"
               variant="dark"
               disabled={disabled}
-              onClick={() => runLedgerAction('지급확정')}
+              onClick={() => void openPopup('confirm')}
             >
               지급확정
             </Button>
@@ -278,7 +269,7 @@ export function MerchantSettlementExecutePage() {
       >
         {/* TODO(IBSheet) IBSheet8 본체 · 라이선스를 받으면 GridPlaceholder를 IBSheet로 교체 */}
         <GridPlaceholder
-          columns={ledgerColumns}
+          columns={createLedgerColumns(setDetailLedger)}
           rows={ready ? result.items : []}
           rowKey={(row) => row.ledgerId}
           selectable
@@ -298,7 +289,25 @@ export function MerchantSettlementExecutePage() {
           disabled={!ready}
         />
       </ResultFooter>
-      <PayDateChangeModal open={popup === 'payDate'} {...popupProps} />
+      <PayDateChangeModal
+        open={popup === 'payDate'}
+        {...popupProps}
+        onApplied={(rows, date) => setPayDateSave({ rows, date })}
+      />
+      <PayDateSaveModal
+        open={payDateSave !== null}
+        rows={payDateSave?.rows ?? []}
+        newPayDate={payDateSave?.date ?? ''}
+        onClose={() => setPayDateSave(null)}
+        onDone={() => result.refresh()}
+      />
+      <LedgerDetailModal
+        ledger={detailLedger}
+        onClose={() => setDetailLedger(null)}
+        onAction={fromDetail}
+      />
+      <RecalcModal open={popup === 'recalc'} {...popupProps} />
+      <PayConfirmModal open={popup === 'confirm'} {...popupProps} />
       <PayHoldModal open={popup === 'hold'} {...popupProps} />
       <HoldReleaseModal open={popup === 'release'} {...popupProps} />
       <BizFinderModal

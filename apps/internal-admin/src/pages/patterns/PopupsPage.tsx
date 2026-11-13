@@ -7,6 +7,7 @@ import {
   useDialog,
 } from '@kiwoompay/design-system';
 import { useEffect, useState, type ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 // 실제 화면 팝업 — 화면이 쓰는 컴포넌트를 그대로 불러온다 (복사하지 않음)
 import { FavoriteEditModal } from '@/layouts/Lnb/FavoriteEditModal';
 import { lnbItems } from '@/layouts/Lnb/Lnb';
@@ -20,6 +21,12 @@ import {
   PayDateChangeModal,
   PayHoldModal,
 } from '@/pages/settlement/merchant/execute/components/actions/LedgerActionModals';
+import { LedgerDetailModal } from '@/pages/settlement/merchant/execute/components/detail/LedgerDetailModal';
+import {
+  PayConfirmModal,
+  PayDateSaveModal,
+  RecalcModal,
+} from '@/pages/settlement/merchant/execute/components/actions/LedgerConfirmModals';
 import {
   toActionRows,
   type LedgerActionRow,
@@ -49,6 +56,10 @@ type PopupKey =
   | 'ledgerPayDate'
   | 'ledgerHold'
   | 'ledgerRelease'
+  | 'ledgerConfirm'
+  | 'ledgerRecalc'
+  | 'ledgerPayDateSave'
+  | 'ledgerDetail'
   | `download-${DownloadStatus}`
   | 'excel'
   | 'savedSearch'
@@ -94,12 +105,16 @@ const GROUPS: PopupGroup[] = [
   {
     title: 'KWPC06010201 가맹점 정산 실행/처리',
     description:
-      '검색 조건 [사업자 찾기] (KWPC06010203, 공통 팝업) · 조회 결과 원장 선택 후 일괄 처리 (KWPC06010204~06)',
+      '검색 조건 [사업자 찾기] (KWPC06010203, 공통 팝업) · 조회 결과 원장 선택 후 일괄 처리 (KWPC06010204~08) · 정산원장 ID → 일반 원장 상세 (KWPC06010209~)',
     buttons: [
       { key: 'bizLookup', label: '사업자 찾기' },
       { key: 'ledgerPayDate', label: '지급예정일 일괄 변경' },
       { key: 'ledgerHold', label: '지급보류' },
       { key: 'ledgerRelease', label: '보류 해제' },
+      { key: 'ledgerConfirm', label: '원장 지급확정' },
+      { key: 'ledgerRecalc', label: '선택 원장 재산출' },
+      { key: 'ledgerPayDateSave', label: '지급예정일 변경 저장·재산출' },
+      { key: 'ledgerDetail', label: '일반 원장 상세' },
     ],
   },
   {
@@ -182,10 +197,15 @@ function useDownloadIds() {
  * 팝업 모음 (개발 서버 전용, 임의 작업) — 앱의 팝업을 화면별로 모아 버튼 하나로 연다.
  * 실제 화면이 쓰는 팝업 컴포넌트를 그대로 불러오므로 화면과 어긋나지 않는다. 결과(선택 · 저장)는 안내로만 보여 준다.
  * 새 팝업을 만들면 GROUPS에 버튼 한 줄 + 아래 렌더 한 줄을 추가한다.
+ * `?open=<버튼 키>`로 들어오면 그 팝업을 바로 연다 (화면 목록의 팝업 링크, 예: /patterns/popups?open=bizLookup)
  */
 export function PopupsPage() {
   const dialog = useDialog();
-  const [open, setOpen] = useState<PopupKey | null>(null);
+  const [searchParams] = useSearchParams();
+  const [open, setOpen] = useState<PopupKey | null>(() => {
+    const key = searchParams.get('open');
+    return GROUPS.some((g) => g.buttons.some((b) => b.key === key)) ? (key as PopupKey) : null;
+  });
   // 일괄 처리 팝업 예시 대상: 정산원장 조회 첫 3건
   const [ledgerRows, setLedgerRows] = useState<LedgerActionRow[]>([]);
   useEffect(() => {
@@ -250,20 +270,44 @@ export function PopupsPage() {
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
       <PayDateChangeModal
-        open={is('ledgerPayDate')}
+        open={is('ledgerPayDate') && ledgerRows.length > 0}
         rows={ledgerRows}
         onClose={close}
         onDone={async () => undefined}
       />
       <PayHoldModal
-        open={is('ledgerHold')}
+        open={is('ledgerHold') && ledgerRows.length > 0}
         rows={ledgerRows}
         onClose={close}
         onDone={async () => undefined}
       />
       <HoldReleaseModal
-        open={is('ledgerRelease')}
+        open={is('ledgerRelease') && ledgerRows.length > 0}
         rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <LedgerDetailModal
+        ledger={is('ledgerDetail') ? (ledgerRows[1] ?? ledgerRows[0] ?? null) : null}
+        onClose={close}
+        onAction={(action, ledger) => report('일반 원장 상세', `${ledger.ledgerId} · ${action}`)}
+      />
+      <PayConfirmModal
+        open={is('ledgerConfirm') && ledgerRows.length > 0}
+        rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <RecalcModal
+        open={is('ledgerRecalc') && ledgerRows.length > 0}
+        rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <PayDateSaveModal
+        open={is('ledgerPayDateSave') && ledgerRows.length > 0}
+        rows={ledgerRows}
+        newPayDate="2026-09-02"
         onClose={close}
         onDone={async () => undefined}
       />

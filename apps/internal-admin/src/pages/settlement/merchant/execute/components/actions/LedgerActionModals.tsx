@@ -1,5 +1,5 @@
 import { DateField, Field, SelectBox, TextArea } from '@kiwoompay/design-system';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { requestLedgerAction } from '@/api/settlement/merchantSettlement';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 import { LedgerActionModal } from './LedgerActionModal';
@@ -14,18 +14,34 @@ export interface LedgerActionProps {
   onDone: () => Promise<void>;
 }
 
-/** 지급예정일 일괄 변경 (시안 처리_실행 팝업.png 왼쪽) — 변경 예정만 반영, 저장·재산출은 별도 */
-export function PayDateChangeModal({ open, rows, onClose, onDone }: LedgerActionProps) {
+export interface PayDateChangeModalProps extends LedgerActionProps {
+  /** [변경 예정 적용] 후 — 적용한 원장 · 변경 지급일 (저장·재산출 팝업으로 이어짐) */
+  onApplied?: (rows: LedgerActionRow[], payDate: string) => void;
+}
+
+/** 지급예정일 일괄 변경 (시안 처리_실행 팝업.png 왼쪽) — 변경 예정만 반영, 저장·재산출은 다음 팝업 */
+export function PayDateChangeModal({
+  open,
+  rows,
+  onClose,
+  onDone,
+  onApplied,
+}: PayDateChangeModalProps) {
   const [date, setDate] = useState('');
   const [reason, setReason] = useState('');
+  const applied = useRef<LedgerActionRow[]>([]);
   return (
     <LedgerActionModal
       open={open}
       title="지급예정일 일괄 변경"
       rows={rows}
       onClose={onClose}
-      onDone={onDone}
+      onDone={async () => {
+        await onDone();
+        onApplied?.(applied.current, date);
+      }}
       submitLabel="변경 예정 적용"
+      successMessage="변경 예정이 적용되었습니다. 저장·재산출을 진행해주세요."
       columns={[
         LEDGER_ID_COLUMN('정산원장 ID'),
         MERCHANT_COLUMN,
@@ -59,12 +75,13 @@ export function PayDateChangeModal({ open, rows, onClose, onDone }: LedgerAction
             ? '변경사유를 입력해주세요.'
             : null
       }
-      run={(list) =>
-        requestLedgerAction(
+      run={async (list) => {
+        applied.current = list;
+        return requestLedgerAction(
           '지급예정일 일괄 변경',
           list.map((r) => r.ledgerId),
-        )
-      }
+        );
+      }}
     >
       <Field label="변경 지급예정일" required>
         <DateField value={date} onChange={setDate} />
