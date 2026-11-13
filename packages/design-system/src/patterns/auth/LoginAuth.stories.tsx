@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-// ── 예시 값 (임의 작업) — 비밀번호 password, 인증번호 123456, 잠긴 아이디 locked ──
+// ── 예시 값 (임의 작업) — 비밀번호 password, 인증번호 123456, 잠긴 아이디 locked, 휴대전화번호 없는 아이디 nophone ──
 const NOTICES = [
   '아이디 또는 비밀번호를 5회 연속 잘못 입력하면 계정이 잠깁니다.',
   'SMS 인증번호를 5회 연속 잘못 입력해도 계정이 잠깁니다.',
@@ -177,12 +177,47 @@ function SmsVerifyModal({
   );
 }
 
+/** SMS 인증 불가 (sm 400): 등록된 휴대전화번호가 없음 → 안내 + [확인]만 (닫기 X 없음) */
+function SmsUnavailableModal({
+  open,
+  onClose,
+  inline,
+}: {
+  open: boolean;
+  onClose: () => void;
+  inline?: boolean;
+}) {
+  return (
+    <Modal open={open} onClose={onClose} inline={inline}>
+      <Modal.Header title="SMS 인증" />
+      <Modal.Body>
+        <AuthVerifyBody
+          message={
+            <>
+              휴대전화번호가 등록되어 있지 않아 SMS 인증이 불가합니다.
+              <br />
+              마스터 관리자에게 문의해 주세요.
+            </>
+          }
+          info={<AuthInfoRow label="등록된 휴대전화번호" value="등록 정보 없음" empty />}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button size="lg" onClick={onClose}>
+          확인
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 /** 로그인 화면 (KWPC3000): 아이디 · 비밀번호 → [로그인 인증] → SMS 인증 → 완료 */
 function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [failCount, setFailCount] = useState(0);
   const [smsOpen, setSmsOpen] = useState(false);
+  const [noPhoneOpen, setNoPhoneOpen] = useState(false);
   const ready = id.trim() !== '' && password !== '';
 
   const login = useAction({
@@ -193,8 +228,9 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
         setFailCount((n) => n + 1);
         throw new AuthError('MISMATCH', failCount + 1);
       }
+      return id === 'nophone' ? null : '010-****-5678'; // 등록된 휴대전화번호 (없으면 SMS 인증 불가)
     },
-    onSuccess: () => setSmsOpen(true),
+    onSuccess: (phone) => (phone ? setSmsOpen(true) : setNoPhoneOpen(true)),
     failure: authMessage,
   });
 
@@ -242,6 +278,7 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </AuthForm>
+      <SmsUnavailableModal open={noPhoneOpen} onClose={() => setNoPhoneOpen(false)} />
       <SmsVerifyModal
         // 열 때마다 새로 그려 남은 시간 · 입력을 초기화
         key={smsOpen ? 'open' : 'closed'}
@@ -257,7 +294,7 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
   );
 }
 
-/** 로그인 흐름 (예시: 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked) */
+/** 로그인 흐름 (예시: 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked · 휴대전화번호 없는 아이디 nophone) */
 export const Login: Story = {
   parameters: {
     controls: { disable: true },
@@ -280,11 +317,7 @@ export const Login: Story = {
 
 /** SMS 인증 (sm 400): 남은 시간 · 재발송, 6자리를 입력해야 [완료] */
 export const SmsVerify: Story = {
-  parameters: {
-    controls: { disable: true },
-    layout: 'padded',
-    tempWork: '안내 ↔ 상자 ↔ 인증번호 간격(PNG 측정)',
-  },
+  parameters: { controls: { disable: true }, layout: 'padded' },
   render: () => (
     <SmsVerifyModal open inline phone="010-****-5678" onClose={() => {}} onVerified={() => {}} />
   ),
@@ -319,4 +352,10 @@ export const SmsMismatch: Story = {
       onVerified={() => {}}
     />
   ),
+};
+
+/** SMS 인증 불가: 등록된 휴대전화번호 없음 → 안내 + [확인] */
+export const SmsNoPhone: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => <SmsUnavailableModal open inline onClose={() => {}} />,
 };

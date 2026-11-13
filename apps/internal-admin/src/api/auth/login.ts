@@ -1,7 +1,7 @@
 import { LoginError, type LoginChallenge } from '@/types/auth/login';
 
 // TODO(API) 로그인 · SMS 인증 API가 정해지면 axios 호출로 바꾼다.
-// 지금은 화면 확인용 예시 (임의 작업): 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked
+// 지금은 화면 확인용 예시 (임의 작업): 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked · 휴대전화번호 없는 아이디 nophone
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 let passwordFails = 0;
 let codeFails = 0;
@@ -13,6 +13,7 @@ export async function requestLogin(id: string, password: string): Promise<LoginC
   if (password !== 'password') throw new LoginError('MISMATCH', ++passwordFails);
   passwordFails = 0;
   codeFails = 0;
+  if (id === 'nophone') return { challengeId: 'challenge-1', maskedPhone: null, expiresIn: 0 };
   return { challengeId: 'challenge-1', maskedPhone: '010-****-5678', expiresIn: 180 };
 }
 

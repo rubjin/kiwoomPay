@@ -15,6 +15,7 @@ import { Footer } from '@/layouts/Footer/Footer';
 import { useAuthStore } from '@/store/auth';
 import type { LoginChallenge } from '@/types/auth/login';
 import { LOGIN_NOTICES, loginErrorMessage } from './components/loginMessages';
+import { SmsUnavailableModal } from './components/SmsUnavailableModal';
 import { SmsVerifyModal } from './components/SmsVerifyModal';
 
 /**
@@ -75,7 +76,10 @@ export function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </AuthForm>
-      {challenge && (
+      {challenge && !challenge.maskedPhone && (
+        <SmsUnavailableModal onClose={() => setChallenge(null)} />
+      )}
+      {challenge?.maskedPhone && (
         <SmsVerifyModal
           key={challenge.challengeId + challenge.expiresIn}
           challenge={challenge}

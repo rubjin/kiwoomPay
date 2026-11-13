@@ -97,13 +97,13 @@ export interface AuthVerifyBodyProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
-/** 2차 인증 Modal 본문: 안내 → 확인용 정보(12) → 인증번호(34). 시안 KWPC3000 SMS 인증 */
+/** 2차 인증 Modal 본문: 안내 → 확인용 정보(12) → 인증번호(12). 인증번호가 없으면(SMS 인증 불가) 안내 · 정보만. 시안 KWPC3000 SMS 인증 */
 export const AuthVerifyBody = forwardRef<HTMLDivElement, AuthVerifyBodyProps>(
   ({ message, info, className, children, ...rest }, ref) => (
     <div {...rest} ref={ref} className={clsx(styles.verifyBody, className)}>
       {message && <p className={styles.verifyMessage}>{message}</p>}
       {info}
-      <div className={styles.verifyArea}>{children}</div>
+      {children && <div className={styles.verifyArea}>{children}</div>}
     </div>
   ),
 );
@@ -112,14 +112,16 @@ AuthVerifyBody.displayName = 'AuthVerifyBody';
 export interface AuthInfoRowProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
   value: ReactNode;
+  /** 값이 없음 (예: 등록 정보 없음) → 흐린 글자 */
+  empty?: boolean;
 }
 
 /** 확인용 정보 한 줄 (예: 등록된 휴대전화번호 010-****-5678). Neutral 50 상자, 높이 44 */
 export const AuthInfoRow = forwardRef<HTMLDivElement, AuthInfoRowProps>(
-  ({ label, value, className, ...rest }, ref) => (
+  ({ label, value, empty, className, ...rest }, ref) => (
     <div {...rest} ref={ref} className={clsx(styles.info, className)}>
       <span className={styles.infoLabel}>{label}</span>
-      <span className={styles.infoValue}>{value}</span>
+      <span className={clsx(styles.infoValue, empty && styles.infoValueEmpty)}>{value}</span>
     </div>
   ),
 );

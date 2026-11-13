@@ -31,12 +31,16 @@ import * as Stories from '../../src/patterns/auth/LoginAuth.stories';
 | `AuthField`              | 밑줄 입력: 라벨 13 SemiBold → 16 → 입력 14 → 16 → 밑줄 1. `type="password"`면 보기 아이콘 24                     |
 | `AuthNotice`             | Primary 50 상자 · 반경 8 · 여백 12 · 12 Regular N600 • 목록(사이 4)                                              |
 | `AuthVerifyBody`         | SMS Modal 본문: 안내(14) → 12 → `AuthInfoRow` → 12 → `VerifyCodeField` (입력 ↔ 오류 문구 4, 문구 자리 미리 확보) |
-| `AuthInfoRow`            | 확인용 정보 한 줄 (Neutral 50 상자 44, 라벨 13 Bold · 값 14)                                                     |
+| `AuthInfoRow`            | 확인용 정보 한 줄 (Neutral 50 상자 44, 라벨 13 Bold · 값 14). 값이 없으면 `empty`(흐린 글자)                     |
 | `VerifyCodeField`        | 라벨 왼쪽 + 입력 40(오른쪽 남은 시간 MM:SS 빨강) + [재발송] Neutral 40. 숫자만, 자리수 `length`                  |
 
 <Canvas of={Stories.SmsVerify} />
 <Canvas of={Stories.SmsExpired} />
 <Canvas of={Stories.SmsMismatch} />
+
+등록된 휴대전화번호가 없으면 SMS를 보내지 않고 **SMS 인증 불가** 안내만 띄웁니다: 닫기(X) 없음, `AuthInfoRow` `empty`("등록 정보 없음", 흐린 글자), [확인]만.
+
+<Canvas of={Stories.SmsNoPhone} />
 
 ```tsx
 <AuthLayout logo={<img src={logo} alt="KIWOOM PAY" />} illustration={<img src={security} alt="" />} title="로그인" footer={<Footer />}>

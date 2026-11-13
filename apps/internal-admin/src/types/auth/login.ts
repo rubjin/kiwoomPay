@@ -2,8 +2,8 @@
 export interface LoginChallenge {
   /** 2차 인증 요청 ID (인증번호 확인 · 재발송에 쓴다) */
   challengeId: string;
-  /** 마스킹된 등록 휴대전화번호 (예: 010-****-5678) */
-  maskedPhone: string;
+  /** 마스킹된 등록 휴대전화번호 (예: 010-****-5678). 없으면 null → SMS 인증 불가 안내 */
+  maskedPhone: string | null;
   /** 인증번호 유효 시간(초) */
   expiresIn: number;
 }

@@ -697,3 +697,4 @@
 - 사용자 확정: 휴대전화번호 상자 ↔ 인증번호 34 → **12**, 인증번호 입력 ↔ 오류 문구 **4**(Field 기본 8). Field에 `--field-helper-gap` CSS 변수(기본 8) — `VerifyCodeField`만 4로. 오류 문구 자리(18 + 4)는 미리 잡아 문구가 나와도 Modal 높이 같음(329)
 - 검증: lint · typecheck, Storybook 측정(상자 ↔ 입력 12, 입력 ↔ 문구 4, 만료 · 기본 모두 Modal 329)
 - 인증번호 불일치 문구(사용자 확정): Alert 대신 입력 아래 "인증번호가 일치하지 않습니다. 다시 확인해 주세요." — 입력 수정 · 재발송 시 지움, 만료 문구가 우선. `useAction` `failure`가 null을 돌려주면 Alert 생략(옵션 추가). 스토리 SmsMismatch, 앱 SmsVerifyModal 동일. 검증: 틀린 번호 → Alert 없음 · 문구 표시 · Modal 329 유지, 입력 수정 → 문구 사라짐(Storybook · 앱)
+- SMS 인증 불가 케이스(사용자 이미지): 등록된 휴대전화번호 없음 → 안내 2줄 + "등록 정보 없음"(`AuthInfoRow empty`, Text Placeholder) + [확인]만, 닫기 X 없음. `AuthVerifyBody`는 인증번호가 없으면 안내 · 정보만. 스토리 SmsNoPhone, 로그인 흐름 예시 아이디 nophone. 앱: `LoginChallenge.maskedPhone` null → `SmsUnavailableModal`. SmsVerify 스토리의 "(임의 작업: 간격)" 표시 삭제(간격 확인 완료). 검증: Storybook · 앱 nophone → 불가 안내(255 높이, 버튼 [확인]만) → 확인으로 닫힘

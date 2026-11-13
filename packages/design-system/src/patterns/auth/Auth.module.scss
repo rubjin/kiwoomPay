@@ -261,6 +261,10 @@ $auth-verify-area-height: 62px; // 인증번호 40 + 4 + 오류 문구 18 — �
   color: t.$color-auth-text;
 }
 
+.infoValueEmpty {
+  color: t.$color-auth-placeholder;
+}
+
 .verifyField {
   --field-helper-gap: #{$auth-verify-error-gap};
 }

@@ -71,7 +71,7 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
               문자로 받은 인증번호를 입력해 주세요.
             </>
           }
-          info={<AuthInfoRow label="등록된 휴대전화번호" value={challenge.maskedPhone} />}
+          info={<AuthInfoRow label="등록된 휴대전화번호" value={challenge.maskedPhone ?? ''} />}
         >
           <VerifyCodeField
             value={code}
