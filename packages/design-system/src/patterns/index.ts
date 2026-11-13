@@ -3,4 +3,5 @@ export * from './common';
 export * from './search-result';
 export * from './lookup';
 export * from './action';
+export * from './auth';
 export * from './record-form';

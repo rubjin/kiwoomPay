@@ -1,0 +1,60 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../../src/patterns/auth/LoginAuth.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# P05 Login → Auth
+
+로그인(아이디 · 비밀번호) → 2차 인증(SMS) → 원래 화면으로 이동하는 흐름입니다.
+기준 화면: Figma KWPC3000 로그인 최초진입(28701:69251), SMS 인증은 시안 PNG(`temp/페이지/로그인/로그인_sms인증.png`).
+
+## 1. 흐름
+
+1. 아이디 · 비밀번호를 모두 입력해야 [로그인 인증] 활성 (Enter도 제출)
+2. 1단계 확인 → 실패: Alert(일치하지 않음 n/5 · 잠김), 입력 유지 / 성공: SMS 인증 Modal
+3. SMS 인증: 남은 시간 3:00 카운트다운, 6자리를 입력해야 [완료] 활성, [재발송]은 시간 · 입력 초기화
+4. 만료(0:00): 입력 아래 안내 + [완료] 비활성 → [재발송]
+5. 성공 → 토큰 저장 → 원래 가려던 화면(없으면 메인)
+
+처리 · 안내는 P04 `useAction`(중복 실행 방지 · 결과 Alert)을 그대로 씁니다.
+
+<Canvas of={Stories.Login} />
+
+## 2. 구성
+
+| 부품                     | 내용                                                                                            |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| `AuthLayout`             | Header(66, 로고 32 가운데) · 내용(폭 360, 위 99) · Footer(74). LNB · Work Tab 없음              |
+| `illustration` · `title` | 그림 160 → 20 → 제목 32 ExtraBold(줄 높이 1.4) → 40                                             |
+| `AuthForm`               | 필드 사이 40 → [로그인 인증] lg(48, 필드 아래 58) → 안내(20)                                    |
+| `AuthField`              | 밑줄 입력: 라벨 13 SemiBold → 16 → 입력 14 → 16 → 밑줄 1. `type="password"`면 보기 아이콘 24    |
+| `AuthNotice`             | Primary 50 상자 · 반경 8 · 여백 12 · 12 Regular N600 • 목록(사이 4)                             |
+| `AuthVerifyBody`         | SMS Modal 본문: 안내(14) → 12 → `AuthInfoRow` → 34 → `VerifyCodeField` (아래 오류 문구 자리)    |
+| `AuthInfoRow`            | 확인용 정보 한 줄 (Neutral 50 상자 44, 라벨 13 Bold · 값 14)                                    |
+| `VerifyCodeField`        | 라벨 왼쪽 + 입력 40(오른쪽 남은 시간 MM:SS 빨강) + [재발송] Neutral 40. 숫자만, 자리수 `length` |
+
+<Canvas of={Stories.SmsVerify} />
+<Canvas of={Stories.SmsExpired} />
+
+```tsx
+<AuthLayout logo={<img src={logo} alt="KIWOOM PAY" />} illustration={<img src={security} alt="" />} title="로그인" footer={<Footer />}>
+  <AuthForm onSubmit={…} submit={<Button type="submit" size="lg" disabled={!ready}>로그인 인증</Button>} notice={<AuthNotice items={…} />}>
+    <AuthField label="아이디" … />
+    <AuthField label="비밀번호" type="password" … />
+  </AuthForm>
+</AuthLayout>
+```
+
+## 3. 규칙
+
+- 남은 시간 계산(카운트다운)은 화면이 한다 — `VerifyCodeField`는 `remaining`(초)만 받는다
+- 실패 · 잠김은 Alert, 만료는 입력 아래 문구(높이 변화 없음)
+- 실패해도 입력은 지우지 않는다 (비밀번호 · 인증번호 다시 확인)
+- 로고 · 그림 · Footer는 앱 자산을 넘긴다 (시스템별로 다를 수 있음)
+
+## 확인 필요
+
+- 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음 → 컴포넌트 SCSS 값으로 둠
+- (임의 작업) 입력 중 밑줄 색(Primary 500) · 오류 밑줄 · 오류 문구 위치, 실패 · 잠김 · 만료 문구, 예시 계정
+- SMS 인증 Modal은 Figma 노드가 없어 PNG 측정값 (안내 ↔ 상자 12, 상자 ↔ 인증번호 34, 오류 문구 자리 23)
+- 내용 ↔ Footer 최소 간격(40), 가맹점관리자 반응형(모바일 시안 없음)

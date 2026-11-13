@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -33,6 +33,7 @@
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
 | 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드도 IBSheet 캘린더(어댑터) | 2026-11-11 |
 | 페이지 패턴 | 디자인 시스템 `src/patterns/`에 패턴 템플릿 · 흐름 훅(fetch 없음). 성공/실패 안내는 Alert(Modal)로 통일, Toast 없음. 조회 화면은 최초 진입 시 조회하지 않음. 미저장 이탈 확인은 Work Tab 닫기 · 브라우저 닫기. 조회 전용 값은 텍스트. 시안 없는 신규 UI는 기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값. 상세는 `docs/ai/page-patterns-plan.md` | 2026-11-12 |
+| 표 테두리 | **칸 사이에는 세로선, 표 양 끝(첫 칸 왼쪽 · 마지막 칸 오른쪽)에는 선 없음** (사용자 결정). FormTable(라벨-값 표 · 목록형 표 모두) · GridPlaceholder 적용, IBSheet 테마도 같은 규칙 | 2026-11-13 |
 | Modal 크기 | **sm 400 · md 620 · lg 880 · xl 1280 · xxl 1680** (사용자 결정). lg는 800 → 880(기존 lg 사용처 모두 880), 기존 xl 880 사용처(표준산업분류 Lookup)는 lg로. xl은 넓은 입력 표(결제한도 설정), xxl은 본문 폭에 가까운 큰 표 · 화면형 팝업 | 2026-11-13 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
@@ -92,6 +93,7 @@
 - [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
 - [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
+- [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(현재 PNG 측정: 안내 ↔ 상자 12 · 상자 ↔ 인증번호 34 · 오류 문구 자리 23) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -676,5 +678,17 @@
 
 ### Modal 크기 재정의 · P04 xl 결제한도 설정 — 2026-11-13
 - Modal `size`: lg 800 → **880**, xl 880 → **1280**, **xxl 1680** 추가(화면이 좁으면 max-width 100%). 기존 `size="xl"` 3곳(Lookup Search Empty · P03 표준산업분류 스토리 · 앱 P03) → lg. Modal · LookupSearch · AddressSearch · P03 가이드와 주석의 폭 표기 갱신
-- P04에 xl 입력 표 팝업 "카드번호별 매입사 결제한도 설정"(사용자 이미지): 업종 Button Tab sm + FormTable(카드사 9 × 4 한도, 단위 회 · 원) + [취소][등록], 숫자만 · 쉼표 표시, Tab별 입력 유지, `useAction`(입력 없음 안내 → 등록 Confirm → 완료). 호출 화면 [결제한도 설정], 스토리 CardLimit, 가이드 "3. xl 입력 표 팝업", 앱 P04 동일
+- P04에 xl 입력 표 팝업 "카드번호별 매입사 결제한도 설정"(사용자 이미지): 업종 Button Tab md 40 + FormTable(카드사 9 × 4 한도, 단위 회 · 원) + [취소][등록], 숫자만 · 쉼표 표시, Tab별 입력 유지, `useAction`(입력 없음 안내 → 등록 Confirm → 완료). 호출 화면 [결제한도 설정], 스토리 CardLimit, 가이드 "3. xl 입력 표 팝업", 앱 P04 동일
 - 검증: typecheck · lint · build, 브라우저(Storybook · 앱): 폭 1280 · Lookup 880 · Modal Types 400/620/880, 빈 등록 안내, "1000000a" → "1,000,000", Tab 이동 후 값 유지, 등록 Confirm → 완료 안내, 에러 없음
+
+### 표 테두리 규칙 — 2026-11-13
+- FormTable(`.row > :not(:last-child)`) · GridPlaceholder(`.gridHead` · `.gridCell` `:not(:last-child)`)에 칸 사이 세로선. 양 끝은 선 없음. 적용 범위: P02 기본 정보 · 담당자 표, 가맹점 기본/계약 정보(앱), P04 결제한도 표, P01 · P03 · 앱 목록 화면의 그리드 미리보기
+- 검증: lint · typecheck, 브라우저(P04 결제한도 · P02 기본 정보 · P03 결과 · P01 결과): 행마다 마지막 칸 제외 오른쪽 선, 왼쪽 선 없음
+- 다음: IBSheet 테마 연결 시 같은 규칙(바깥 세로선 없음)으로
+
+### Pattern: P05 Login → Auth + KWPC3000 로그인 — 2026-11-13
+- 시안: Figma KWPC3000_로그인_최초진입(28701:69251), SMS 인증은 `temp/페이지/로그인/로그인_sms인증.png`(PNG 측정)
+- 디자인 시스템 `patterns/auth`: `AuthLayout`(Header 66 · 로고 32 · 내용 폭 360 · 위 99 · Footer 74) · `AuthForm`(필드 사이 40 · 버튼 위 58 · 안내 위 20) · `AuthField`(밑줄 입력, 라벨 20 · 16 · 입력 · 16 · 밑줄, 비밀번호 보기 아이콘) · `AuthNotice` · `AuthVerifyBody` · `AuthInfoRow` · `VerifyCodeField`(남은 시간 MM:SS · 재발송 · 숫자만). 토큰 `tokens/custom/auth.json`(색 모두 alias). Storybook `Patterns/P05 Login Auth`(Guide · Login · SmsVerify · SmsExpired), 가이드 `docs/patterns/P05LoginAuth.mdx`. 스토리 자산 `src/stories/assets`(로고 · 그림 · Footer 로고)
+- 앱: `pages/auth/login/LoginPage`(1단계 → SMS 인증 → 토큰 저장 → 원래 화면/메인), `components/SmsVerifyModal` · `loginMessages`, `api/auth/login`(예시, TODO(API)), `types/auth/login`, 자산 `assets/login/login-security.png` · `assets/logo/logo-header.png`(Figma 다운로드). 화면 목록에 KWPC3000 추가
+- 검증: tokens · typecheck · lint · build. 1920 × 1080에서 Figma와 1px 이내(Header 66, 로고 871/17 · 178.5 × 32, 그림 165 · 160, 제목 345 · 44.8 · 32/800, 아이디 430 · 74, 비밀번호 544 · 77, 버튼 679 · 48, 안내 747 · 130, Footer 1006 · 74), SMS Modal 400 × 352(PNG 351). 흐름(Storybook · 앱): 틀린 비밀번호 Alert(1/5) · 입력 유지, 비밀번호 보기, Enter 제출 → SMS, 카운트다운, 숫자만 6자리 · [완료] 활성, 틀린 인증번호 Alert, 성공 → 메인(대시보드) 이동, 에러 없음
+- 한 가정: Q57

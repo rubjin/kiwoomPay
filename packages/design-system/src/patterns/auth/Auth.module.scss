@@ -1,0 +1,280 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC3000_로그인_최초진입(28701:69251), SMS 인증은 시안 PNG 측정
+$auth-header-height: 66px; // 아래 테두리 포함
+$auth-logo-height: 32px; // 178.5 × 32
+$auth-footer-height: 74px; // Footer (Page Layout과 같은 높이)
+$auth-content-top: 99px; // Header ↔ 그림 (Figma 그림 y165)
+$auth-content-bottom: t.$space-40; // TODO(시안) 내용 ↔ Footer 최소 간격 (1080 화면에서는 128)
+$auth-content-width: 360px;
+$auth-illust-size: 160px;
+$auth-illust-gap: t.$space-20; // 그림 ↔ 제목
+$auth-title-size: 32px; // Figma 텍스트 스타일에 없음 (Pretendard ExtraBold 32 · 줄 높이 1.4)
+$auth-title-weight: 800;
+$auth-title-line-height: 1.4;
+$auth-form-gap: t.$space-40; // 제목 ↔ 아이디, 아이디 ↔ 비밀번호
+$auth-field-gap: t.$space-16; // 라벨 ↔ 입력 ↔ 밑줄
+$auth-field-icon: 24px;
+$auth-error-gap: t.$space-4; // TODO(시안) 밑줄 ↔ 오류 문구
+$auth-actions-gap: 58px; // 비밀번호 밑줄 ↔ [로그인 인증] (Figma y621 → 679)
+$auth-notice-gap: t.$space-20; // 버튼 ↔ 안내
+$auth-notice-padding: t.$space-12;
+$auth-notice-radius: 8px;
+$auth-notice-item-gap: t.$space-4;
+$auth-info-padding: t.$space-12; // 등록된 휴대전화번호 상자 (높이 44)
+$auth-info-radius: 8px; // TODO(시안) 측정 확인
+$auth-verify-gap: t.$space-8; // 인증번호 입력 ↔ [재발송]
+$auth-label-height: 20px; // 라벨 글자 상자 (Figma 13 · 1.5 = 19.5 → 20)
+$auth-verify-info-gap: t.$space-12; // 안내 ↔ 휴대전화번호 상자 (PNG 측정)
+$auth-verify-field-gap: 34px; // 휴대전화번호 상자 ↔ 인증번호 (PNG 측정, TODO(시안) Figma 확인)
+$auth-verify-area-height: 63px; // 인증번호 40 + 오류 문구 자리 23 (PNG: 입력 ↔ Footer 버튼 43)
+
+// ── AuthLayout ───────────────────────────────────────
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: t.$color-auth-bg;
+}
+
+.header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: $auth-header-height;
+  border-bottom: t.$control-border-width solid t.$color-auth-header-border;
+}
+
+.logo {
+  display: flex;
+  height: $auth-logo-height;
+
+  > * {
+    height: 100%;
+  }
+}
+
+.main {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  padding: $auth-content-top t.$space-16 $auth-content-bottom;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: $auth-content-width;
+}
+
+.illustration {
+  display: flex;
+  justify-content: center;
+  width: $auth-illust-size;
+  height: $auth-illust-size;
+  margin-bottom: $auth-illust-gap;
+
+  > * {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.title {
+  @include m.typography(typo-24-bold);
+
+  margin: 0 0 $auth-form-gap;
+  font-size: $auth-title-size;
+  font-weight: $auth-title-weight;
+  line-height: $auth-title-line-height;
+  color: t.$color-auth-title;
+  text-align: center;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer {
+  flex: none;
+  height: $auth-footer-height;
+}
+
+// ── AuthForm: 필드 묶음 + 버튼 + 안내 ────────────────
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $auth-form-gap;
+}
+
+.submit {
+  display: flex;
+  flex-direction: column;
+  margin-top: $auth-actions-gap;
+}
+
+// ── AuthField (밑줄 입력) ────────────────────────────
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $auth-field-gap;
+}
+
+.label {
+  @include m.typography(typo-13-semi-bold);
+
+  min-height: $auth-label-height;
+  color: t.$color-auth-label;
+}
+
+.inputRow {
+  display: flex;
+  gap: t.$space-8;
+  align-items: flex-start;
+  padding-bottom: $auth-field-gap;
+  border-bottom: t.$control-border-width solid t.$color-auth-underline;
+
+  &:focus-within {
+    border-bottom-color: t.$color-auth-underline-focus;
+  }
+}
+
+.invalid {
+  border-bottom-color: t.$color-auth-underline-error;
+
+  &:focus-within {
+    border-bottom-color: t.$color-auth-underline-error;
+  }
+}
+
+.input {
+  @include m.typography(typo-14-regular);
+
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  color: t.$color-auth-text;
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  &::placeholder {
+    color: t.$color-auth-placeholder;
+  }
+}
+
+.reveal {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: $auth-field-icon;
+  height: $auth-field-icon;
+  padding: 0;
+  color: t.$color-auth-icon;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.error {
+  @include m.typography(typo-12-regular);
+
+  margin: calc(#{$auth-error-gap} - #{$auth-field-gap}) 0 0;
+  color: t.$color-auth-error-text;
+}
+
+// ── AuthNotice ───────────────────────────────────────
+.notice {
+  @include m.typography(typo-12-regular);
+
+  display: flex;
+  flex-direction: column;
+  gap: $auth-notice-item-gap;
+  padding: $auth-notice-padding;
+  margin: $auth-notice-gap 0 0;
+  color: t.$color-auth-notice-text;
+  list-style: none;
+  background-color: t.$color-auth-notice-bg;
+  border-radius: $auth-notice-radius;
+}
+
+.noticeItem {
+  display: flex;
+  gap: $auth-notice-item-gap;
+
+  &::before {
+    content: '•';
+  }
+}
+
+// ── AuthVerifyBody · AuthInfoRow · VerifyCodeField (SMS 인증) ─────────
+.verifyBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.verifyMessage {
+  @include m.typography(typo-14-regular);
+
+  margin: 0 0 $auth-verify-info-gap;
+  color: t.$color-auth-text;
+}
+
+.verifyArea {
+  min-height: $auth-verify-area-height;
+  margin-top: $auth-verify-field-gap;
+}
+
+.info {
+  display: flex;
+  gap: t.$space-12;
+  align-items: center;
+  justify-content: space-between;
+  padding: $auth-info-padding;
+  background-color: t.$color-auth-info-bg;
+  border-radius: $auth-info-radius;
+}
+
+.infoLabel {
+  @include m.typography(typo-13-bold);
+
+  color: t.$color-auth-label;
+}
+
+.infoValue {
+  @include m.typography(typo-14-regular);
+
+  color: t.$color-auth-text;
+}
+
+.verify {
+  display: flex;
+  gap: $auth-verify-gap;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.verifyInput {
+  flex: 1;
+  min-width: 0;
+}
+
+.timer {
+  @include m.typography(typo-14-semi-bold);
+
+  color: t.$color-auth-timer;
+  font-variant-numeric: tabular-nums;
+}

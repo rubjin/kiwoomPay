@@ -260,6 +260,23 @@ $color-address-example-text: var(--kp-color-address-example-text);
 $color-address-empty-title: var(--kp-color-address-empty-title);
 $color-address-empty-text: var(--kp-color-address-empty-text);
 
+// ── custom · auth ───────────────────────────────────────────────
+$color-auth-bg: var(--kp-color-auth-bg); // 로그인 화면 배경 (Figma Base/White)
+$color-auth-header-border: var(--kp-color-auth-header-border);
+$color-auth-title: var(--kp-color-auth-title);
+$color-auth-label: var(--kp-color-auth-label);
+$color-auth-text: var(--kp-color-auth-text);
+$color-auth-placeholder: var(--kp-color-auth-placeholder);
+$color-auth-underline: var(--kp-color-auth-underline);
+$color-auth-underline-focus: var(--kp-color-auth-underline-focus); // TODO(시안) 입력 중 밑줄 — Figma에는 빈 상태만 있어 필드 포커스 색으로
+$color-auth-underline-error: var(--kp-color-auth-underline-error);
+$color-auth-error-text: var(--kp-color-auth-error-text);
+$color-auth-icon: var(--kp-color-auth-icon); // 비밀번호 보기 아이콘 (Neutral 500)
+$color-auth-notice-bg: var(--kp-color-auth-notice-bg);
+$color-auth-notice-text: var(--kp-color-auth-notice-text);
+$color-auth-info-bg: var(--kp-color-auth-info-bg); // SMS 인증 등록된 휴대전화번호 상자 (시안 #F8FAFC)
+$color-auth-timer: var(--kp-color-auth-timer); // 인증 남은 시간 (Header 세션 시간과 같은 색)
+
 // ── custom · badge ──────────────────────────────────────────────
 $color-badge-neutral-bg: var(--kp-color-badge-neutral-bg);
 $color-badge-neutral-text: var(--kp-color-badge-neutral-text);
@@ -926,6 +943,21 @@ $css-variables: (
   "--kp-color-address-example-text": "var(--kp-color-text-secondary)",
   "--kp-color-address-empty-title": "var(--kp-color-text-label)",
   "--kp-color-address-empty-text": "var(--kp-color-text-placeholder)",
+  "--kp-color-auth-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-auth-header-border": "var(--kp-color-line-subtle)",
+  "--kp-color-auth-title": "var(--kp-color-text-heading)",
+  "--kp-color-auth-label": "var(--kp-color-text-label)",
+  "--kp-color-auth-text": "var(--kp-color-text-body)",
+  "--kp-color-auth-placeholder": "var(--kp-color-text-placeholder)",
+  "--kp-color-auth-underline": "var(--kp-color-line-subtle)",
+  "--kp-color-auth-underline-focus": "var(--kp-color-primary-500)",
+  "--kp-color-auth-underline-error": "var(--kp-color-status-error-border)",
+  "--kp-color-auth-error-text": "var(--kp-color-status-error-text)",
+  "--kp-color-auth-icon": "var(--kp-color-text-placeholder)",
+  "--kp-color-auth-notice-bg": "var(--kp-color-primary-50)",
+  "--kp-color-auth-notice-text": "var(--kp-color-text-secondary)",
+  "--kp-color-auth-info-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-auth-timer": "var(--kp-color-status-error-border)",
   "--kp-color-badge-neutral-bg": "var(--kp-color-neutral-100)",
   "--kp-color-badge-neutral-text": "var(--kp-color-neutral-700)",
   "--kp-color-badge-neutral-dot": "var(--kp-color-neutral-500)",
