@@ -12,6 +12,7 @@ import {
   Modal,
   Tab,
   LookupSearch,
+  LookupSearchEmpty,
   Field,
   SelectBox,
   TextField,
@@ -130,6 +131,8 @@ const search = (mode: Mode, c: Criteria) =>
 
 // Figma 결과 그리드 높이 (머리 + 10행). 조회 전에도 Modal 높이가 바뀌지 않도록 자리를 잡는다 — IBSheet 연결 후 그리드 높이로
 const RESULT_HEIGHT = 517;
+// 결과 없음 안내는 그리드 머리(40 + 위 선 1) 아래 남은 높이
+const EMPTY_HEIGHT = RESULT_HEIGHT - 41;
 
 /** 표준산업 분류코드 조회 Lookup Modal (P03). 결과 행 [선택] → onSelect, Footer 없음 */
 function IndustryLookupModal({
@@ -235,10 +238,16 @@ function IndustryLookupModal({
               </Field>
             )
           }
-          empty={results !== null && results.length === 0}
         >
           <div style={{ minHeight: RESULT_HEIGHT }}>
-            {results && <GridPlaceholder columns={columns} rows={results} rowKey={(r) => r.code} />}
+            {results && (
+              <GridPlaceholder
+                columns={columns}
+                rows={results}
+                rowKey={(r) => r.code}
+                empty={<LookupSearchEmpty style={{ height: EMPTY_HEIGHT }} />}
+              />
+            )}
           </div>
         </LookupSearch>
       </Modal.Body>

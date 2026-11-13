@@ -1,5 +1,11 @@
 import clsx from 'clsx';
-import { forwardRef, type FormEvent, type HTMLAttributes, type ReactNode } from 'react';
+import {
+  forwardRef,
+  type CSSProperties,
+  type FormEvent,
+  type HTMLAttributes,
+  type ReactNode,
+} from 'react';
 import { useControllableState } from '../../hooks';
 import { Button } from '../Button';
 import { Field, SearchField } from '../field';
@@ -25,12 +31,38 @@ export interface LookupSearchProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   onReset?: () => void;
   /** 검색 줄 위 (예: 찾기 방식 Button Tab) */
   header?: ReactNode;
-  /** 결과 없음: children 대신 안내를 보여준다 */
+  /** 결과 없음: children 대신 안내만 보여준다. 그리드 머리를 남기려면 그리드 안에 `LookupSearchEmpty`를 넣는다 */
   empty?: boolean;
   emptyTitle?: ReactNode;
   emptyDescription?: ReactNode;
   /** 결과 영역 (IBSheet 그리드). 조회 전이면 비워 둔다 */
   children?: ReactNode;
+}
+
+export interface LookupSearchEmptyProps {
+  title?: ReactNode;
+  description?: ReactNode;
+  className?: string;
+  /** 그리드 안에 넣을 때 남은 높이에 맞춘다 (기본 480) */
+  style?: CSSProperties;
+}
+
+/**
+ * Lookup 결과 없음 안내 (높이 480). 그리드 머리를 남길 때는 그리드의 결과 없음 자리에 넣는다
+ *   <GridPlaceholder columns={…} rows={[]} empty={<LookupSearchEmpty />} />
+ */
+export function LookupSearchEmpty({
+  title = '검색 결과가 없습니다.',
+  description = '검색어를 다시 확인해 주세요.',
+  className,
+  style,
+}: LookupSearchEmptyProps) {
+  return (
+    <div className={clsx(styles.empty, className)} style={style} role="status">
+      <p className={styles.emptyTitle}>{title}</p>
+      {description && <p className={styles.emptyText}>{description}</p>}
+    </div>
+  );
 }
 
 /**
@@ -120,14 +152,7 @@ export const LookupSearch = forwardRef<HTMLDivElement, LookupSearchProps>(
             buttons
           )}
         </form>
-        {empty ? (
-          <div className={styles.empty} role="status">
-            <p className={styles.emptyTitle}>{emptyTitle}</p>
-            {emptyDescription && <p className={styles.emptyText}>{emptyDescription}</p>}
-          </div>
-        ) : (
-          children
-        )}
+        {empty ? <LookupSearchEmpty title={emptyTitle} description={emptyDescription} /> : children}
       </div>
     );
   },

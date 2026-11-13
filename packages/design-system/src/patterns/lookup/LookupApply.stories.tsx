@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '../../components/Button';
-import { LookupSearch } from '../../components/display';
+import { LookupSearch, LookupSearchEmpty } from '../../components/display';
 import { Field, SelectBox, TextField } from '../../components/field';
 import { PageLayout } from '../../components/layout';
 import { Modal } from '../../components/Modal';
@@ -122,6 +122,8 @@ const search = (mode: Mode, c: Criteria) =>
 
 // Figma 결과 그리드 높이 (머리 + 10행). 조회 전에도 Modal 높이가 바뀌지 않도록 자리를 잡는다 — IBSheet 연결 후 그리드 높이로
 const RESULT_HEIGHT = 517;
+// 결과 없음 안내는 그리드 머리(40 + 위 선 1) 아래 남은 높이
+const EMPTY_HEIGHT = RESULT_HEIGHT - 41;
 
 /** 표준산업 분류코드 조회 Lookup Modal (P03). 결과 행 [선택] → onSelect, Footer 없음 */
 function IndustryLookupModal({
@@ -130,14 +132,16 @@ function IndustryLookupModal({
   onClose,
   inline,
   initialResults,
+  initialMode = 'category',
 }: {
   open: boolean;
   onSelect: (row: Industry) => void;
   onClose: () => void;
   inline?: boolean;
   initialResults?: Industry[];
+  initialMode?: Mode;
 }) {
-  const [mode, setMode] = useState<Mode>('category');
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [criteria, setCriteria] = useState<Criteria>(EMPTY);
   const [results, setResults] = useState<Industry[] | null>(initialResults ?? null);
   const set = (patch: Partial<Criteria>) => setCriteria((c) => ({ ...c, ...patch }));
@@ -231,10 +235,16 @@ function IndustryLookupModal({
               </Field>
             )
           }
-          empty={results !== null && results.length === 0}
         >
           <div style={{ minHeight: RESULT_HEIGHT }}>
-            {results && <GridPlaceholder columns={columns} rows={results} rowKey={(r) => r.code} />}
+            {results && (
+              <GridPlaceholder
+                columns={columns}
+                rows={results}
+                rowKey={(r) => r.code}
+                empty={<LookupSearchEmpty style={{ height: EMPTY_HEIGHT }} />}
+              />
+            )}
           </div>
         </LookupSearch>
       </Modal.Body>
@@ -319,6 +329,21 @@ export const ModalResult: Story = {
       open
       inline
       initialResults={INDUSTRIES}
+      onSelect={() => {}}
+      onClose={() => {}}
+    />
+  ),
+};
+
+/** 조회 결과 없음: 그리드 머리는 남기고 그 아래에 안내 (IBSheet 데이터 없음 메시지 자리) */
+export const ModalEmpty: Story = {
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => (
+    <IndustryLookupModal
+      open
+      inline
+      initialMode="keyword"
+      initialResults={[]}
       onSelect={() => {}}
       onClose={() => {}}
     />

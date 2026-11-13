@@ -309,6 +309,10 @@ $sr-grid-cell-padding-x: t.$space-12;
   border-bottom: t.$control-border-width solid t.$color-search-result-grid-border;
 }
 
+.gridEmpty {
+  padding: 0;
+}
+
 .gridHead {
   @include m.typography(typo-13-semi-bold);
 

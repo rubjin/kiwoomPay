@@ -646,3 +646,8 @@
 ### P03 키워드로 찾기 반반 · 앱 개발 서버 폰트 — 2026-11-13
 - `LookupSearch`: 검색어 + 버튼([초기화] · [조회])을 한 묶음(`.keyword`, flex 1)으로 — `extraFields`의 Field에 `flex: 1`을 주면 반씩 나눔(키워드로 찾기 416 · 416, 위 Tab과 같은 선). 분류로 찾기 · 기존 Lookup 배치는 그대로
 - 폰트 미적용 원인: 앱 개발 서버가 폰트를 `packages/design-system/dist/fonts`에서 줬는데 `pnpm build`가 dist를 비웠다가 마지막에 다시 복사함 → 빌드 중에 연 화면은 폰트 404 → 대체 글꼴(맑은 고딕)로 남음. 수정: `designSystemSource()`에 개발 서버 전용 미들웨어(`/fonts/pretendard/*` → `pretendard` 패키지, Storybook staticDirs와 같은 폴더), 앱 두 곳의 `publicDir: dist` 제거. dist/fonts를 치워도 5173 · 5180 폰트 200 확인
+
+### P03 검색 결과 없음 — 2026-11-13
+- 결과가 없으면 그리드 머리는 남기고 그 아래에 안내(IBSheet 데이터 없음 메시지 자리). `GridPlaceholder` `empty` 슬롯 추가, Lookup 결과 없음 안내를 `LookupSearchEmpty`로 분리 export(`LookupSearch` `empty`는 그대로 — 안내만). 결과 자리 높이 517에 맞춰 Modal 709 유지
+- Storybook `Patterns/P03 Lookup Apply` ModalEmpty(키워드로 찾기) · 가이드, 앱 P03 페이지 동일 적용
+- 검증: typecheck · lint · build, 브라우저(Storybook · 앱): 머리 5열 + 안내 "검색 결과가 없습니다. / 검색어를 다시 확인해 주세요.", 다시 조회하면 결과 행 표시, 에러 없음

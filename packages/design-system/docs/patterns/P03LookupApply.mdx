@@ -39,10 +39,14 @@ const find = async () => {
 | 4    | `LookupSearch` `header`                    | 찾기 방식이 여러 개면 Button Tab(`variant="button"` `fullWidth`)                       |
 | 5    | `LookupSearch` `keyword={false}` `onReset` | 분류로 찾기: 대 · 중 · 소분류 Select + 초기화(↻) + [전체조회]                          |
 | 6    | `LookupSearch` `extraFields` + `label`     | 키워드로 찾기: 코드 입력 + 검색어                                                      |
-| 7    | 결과 그리드 (IBSheet8)                     | 마지막 열 [선택] (Neutral Line sm). 결과 없음은 `empty`                                |
+| 7    | 결과 그리드 (IBSheet8)                     | 마지막 열 [선택] (Neutral Line sm). 결과 없음은 그리드 머리 아래 `LookupSearchEmpty`   |
 
 <Canvas of={Stories.ModalInitial} />
 <Canvas of={Stories.ModalResult} />
+
+결과가 없으면 그리드 머리는 남기고 그 아래에 안내를 둡니다 — `GridPlaceholder`(실제는 IBSheet 데이터 없음 메시지)의 `empty`에 `<LookupSearchEmpty />`.
+
+<Canvas of={Stories.ModalEmpty} />
 
 ## 3. 규칙
 
