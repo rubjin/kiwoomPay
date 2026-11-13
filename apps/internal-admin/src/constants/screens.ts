@@ -34,6 +34,7 @@ export const SCREENS: readonly ScreenInfo[] = [
         { id: 'P02', name: 'P02', path: '/patterns/record-form' },
         { id: 'P03', name: 'P03', path: '/patterns/lookup-apply' },
         { id: 'P04', name: 'P04', path: '/patterns/action-feedback' },
+        { id: 'POPUPS', name: '팝업 모음', path: '/patterns/popups' },
       ]
     : []),
 ];

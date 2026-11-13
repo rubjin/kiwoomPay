@@ -7,6 +7,7 @@ import { lazyPage } from '../lazy';
 //   P02 Record → Form → pages/patterns/P02RecordFormPage
 //   P03 Lookup → Apply → pages/patterns/P03LookupApplyPage
 //   P04 Action → Feedback → pages/patterns/P04ActionFeedbackPage
+//   팝업 모음 (앱 팝업을 화면별 버튼으로) → pages/patterns/PopupsPage
 // 개발 서버에서만 등록한다 — 운영 빌드에서는 import.meta.env.DEV가 false라 라우트 · 페이지 chunk가 모두 빠진다
 
 function createPatternRoutes() {
@@ -28,6 +29,8 @@ function createPatternRoutes() {
     'P04ActionFeedbackPage',
   );
 
+  const PopupsPage = lazyPage(() => import('@/pages/patterns/PopupsPage'), 'PopupsPage');
+
   return (
     <Route path="patterns">
       <Route index element={<Navigate to="layout" replace />} />
@@ -36,6 +39,7 @@ function createPatternRoutes() {
       <Route path="record-form" element={<P02RecordFormPage />} />
       <Route path="lookup-apply" element={<P03LookupApplyPage />} />
       <Route path="action-feedback" element={<P04ActionFeedbackPage />} />
+      <Route path="popups" element={<PopupsPage />} />
     </Route>
   );
 }

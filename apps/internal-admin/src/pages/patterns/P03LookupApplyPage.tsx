@@ -137,7 +137,7 @@ const RESULT_HEIGHT = 517;
 const EMPTY_HEIGHT = RESULT_HEIGHT - 41;
 
 /** 표준산업 분류코드 조회 Lookup Modal (P03). 결과 행 [선택] → onSelect, Footer 없음 */
-function IndustryLookupModal({
+export function IndustryLookupModal({
   open,
   onSelect,
   onClose,
@@ -275,7 +275,7 @@ const BUSINESSES: Business[] = (
 ).map(([bizNo, name, ceo]) => ({ bizNo, name, ceo }));
 
 /** 사업자번호 검색 Lookup Modal (P03, 탭 없음). 검색어 하나 + 결과 행 [선택] */
-function BizLookupModal({
+export function BizLookupModal({
   open,
   onSelect,
   onClose,
@@ -354,7 +354,7 @@ const ADDRESSES: AddressItem[] = [
 ];
 
 /** 주소 검색 Lookup Modal (P03). 결과 줄 [선택] → onSelect */
-function AddressLookupModal({
+export function AddressLookupModal({
   open,
   onSelect,
   onClose,

@@ -39,7 +39,7 @@ const DOWNLOAD_REASONS = [
 ];
 
 /** 엑셀 다운로드 사유 입력 (sm). 확인 → 다운로드 요청 → 닫고 완료 안내 */
-function DownloadReasonModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function DownloadReasonModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [reason, setReason] = useState('');
   const [etc, setEtc] = useState('');
 
@@ -107,7 +107,7 @@ function DownloadReasonModal({ open, onClose }: { open: boolean; onClose: () => 
 const BIZ_NO = /^\d{3}-\d{2}-\d{5}$/;
 
 /** 사업자번호 변경 (sm). Check(형식 · 같은 번호 · 사유) → Confirm → 변경 → 닫고 완료 안내. 실패하면 입력 유지 */
-function BizNoChangeModal({
+export function BizNoChangeModal({
   open,
   current,
   onChanged,
@@ -220,7 +220,7 @@ type Limits = Record<string, Record<string, Partial<Record<LimitKey, string>>>>;
 const withComma = (digits: string) => (digits ? Number(digits).toLocaleString('ko-KR') : '');
 
 /** 카드번호별 매입사 결제한도 설정 (xl 1280). 업종 Tab마다 카드사 × 한도 입력 → [등록] */
-function CardLimitModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [group, setGroup] = useState(BIZ_GROUPS[0]!.value);
   const [limits, setLimits] = useState<Limits>({});
   const setLimit = (card: string, key: LimitKey, value: string) =>

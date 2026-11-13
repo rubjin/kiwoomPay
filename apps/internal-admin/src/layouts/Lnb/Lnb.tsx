@@ -8,7 +8,7 @@ import { FavoriteEditModal } from './FavoriteEditModal';
 
 // KWPC0103 LNB. TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
 // 지금은 constants/menu.ts로 1 · 2depth만 그린다. 메뉴즐겨찾기 팝업도 이 폴더에 둔다.
-const items: LnbMenuItem[] = Object.values(
+export const lnbItems: LnbMenuItem[] = Object.values(
   MENUS.filter((m) => m.path.split('/')[1] !== 'auth').reduce<Record<string, LnbMenuItem>>(
     (groups, m) => {
       const key = m.path.split('/')[1] ?? '';
@@ -35,7 +35,7 @@ export function Lnb() {
     <>
       <LnbBase
         logo={<img src={logoLnb} alt="키움페이" width={125} height={23} />}
-        items={items}
+        items={lnbItems}
         activeId={active?.id}
         onNavigate={(item, event) => {
           const menu = MENUS.find((m) => m.id === item.id);
@@ -52,7 +52,7 @@ export function Lnb() {
       <FavoriteEditModal
         key={editKey}
         open={editing}
-        items={items}
+        items={lnbItems}
         favoriteIds={favoriteIds}
         onClose={() => setEditing(false)}
         onSaved={setFavoriteIds}
