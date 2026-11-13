@@ -2,6 +2,7 @@ import { Navigate, Route } from 'react-router-dom';
 import { lazyPage } from '../lazy';
 
 // 레이아웃 패턴 템플릿 (화면 확인용, 임의 작업). 메뉴에는 없고 화면 목록(apps/screen-list)에서 연다
+//   P00 Layout (Header · LNB · Work Tab · 타이틀) → pages/patterns/P00LayoutPage
 //   P01 Search → Result → pages/patterns/P01SearchResultPage
 //   P02 Record → Form → pages/patterns/P02RecordFormPage
 //   P03 Lookup → Apply → pages/patterns/P03LookupApplyPage
@@ -9,6 +10,7 @@ import { lazyPage } from '../lazy';
 // 개발 서버에서만 등록한다 — 운영 빌드에서는 import.meta.env.DEV가 false라 라우트 · 페이지 chunk가 모두 빠진다
 
 function createPatternRoutes() {
+  const P00LayoutPage = lazyPage(() => import('@/pages/patterns/P00LayoutPage'), 'P00LayoutPage');
   const P01SearchResultPage = lazyPage(
     () => import('@/pages/patterns/P01SearchResultPage'),
     'P01SearchResultPage',
@@ -28,7 +30,8 @@ function createPatternRoutes() {
 
   return (
     <Route path="patterns">
-      <Route index element={<Navigate to="search-result" replace />} />
+      <Route index element={<Navigate to="layout" replace />} />
+      <Route path="layout" element={<P00LayoutPage />} />
       <Route path="search-result" element={<P01SearchResultPage />} />
       <Route path="record-form" element={<P02RecordFormPage />} />
       <Route path="lookup-apply" element={<P03LookupApplyPage />} />

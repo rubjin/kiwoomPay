@@ -52,6 +52,21 @@ export interface ScreenInfo {
 const PLAN = 'IA v0.7 (26-11-03) · GUI 26-11-10';
 
 export const SCREENS: ScreenInfo[] = [
+  // 기본 레이아웃 — 목록 맨 위
+  {
+    system: 'internal',
+    id: 'LAYOUT',
+    depth1: '레이아웃',
+    depth2: 'Layout',
+    depth3: '',
+    name: '기본 레이아웃 (Header · LNB · Work Tab · 타이틀)',
+    path: '/patterns/layout',
+    type: '기타',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: 'Work Tab 화면 상태 유지(keep-alive) 미구현 · 대시보드 고정 Tab',
+  },
   // 레이아웃 패턴 템플릿 — 목록 맨 위. 새 화면은 여기서 구성을 복사해 시작한다
   {
     system: 'internal',
