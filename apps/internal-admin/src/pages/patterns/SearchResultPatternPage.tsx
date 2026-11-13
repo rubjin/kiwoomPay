@@ -1,23 +1,31 @@
 import {
-  AppliedFilters,
-  Badge,
-  Button,
-  DateRangeField,
-  Field,
-  GridPlaceholder,
+  // 화면 틀
   PageLayout,
-  Pagination,
-  ResultFooter,
-  ResultPanel,
-  ResultSummary,
+  // 검색 조건 영역
   SearchPanel,
+  Field,
+  DateRangeField,
   Segmented,
   SelectBox,
   TextField,
+  // 적용 조건 · 요약
+  AppliedFilters,
+  ResultSummary,
+  // 결과 영역
+  ResultPanel,
+  GridPlaceholder,
+  ResultFooter,
+  Pagination,
+  // 공통 UI
+  Badge,
+  Button,
+  // 흐름 훅 · 확인/안내 창
+  useSearchResult,
+  useDialog,
+  // 검색 조건 → 칩 문구
   optionLabel,
   toAppliedFilters,
-  useDialog,
-  useSearchResult,
+  // 타입
   type DateRange,
   type GridPlaceholderColumn,
   type SearchFieldDef,

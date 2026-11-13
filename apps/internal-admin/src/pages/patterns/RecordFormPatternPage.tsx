@@ -1,19 +1,24 @@
 import {
-  Badge,
-  Button,
-  Checkbox,
-  ContextChip,
-  FormGroup,
-  FormSection,
-  FormTable,
-  Icon,
+  // 화면 틀 · 화면명 옆 대상 표시
   PageLayout,
+  ContextChip,
+  Badge,
+  // 카드 · 묶음 · 입력 표
+  FormSection,
+  FormGroup,
+  SectionHeading,
+  FormTable,
+  Tab,
+  // 입력 컨트롤
+  TextField,
+  SelectBox,
   Radio,
   RadioGroup,
-  SectionHeading,
-  SelectBox,
-  Tab,
-  TextField,
+  Checkbox,
+  // 버튼 · 아이콘
+  Button,
+  Icon,
+  // 확인/안내 창
   useDialog,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
