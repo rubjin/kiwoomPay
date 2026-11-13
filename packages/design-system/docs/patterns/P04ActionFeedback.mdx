@@ -72,7 +72,20 @@ const change = useAction({
 
 <Canvas of={Stories.PartialCancel} />
 
-## 5. 규칙
+## 5. 일괄 처리 팝업 (선택 원장 지급예정일 변경 · 보류 · 해제 …)
+
+선택한 대상을 한 번에 처리하는 팝업 (Figma 처리\_실행 팝업 · 실행 팝업2). 구성 순서:
+
+1. `ActionTargetBar` — 선택 대상 요약 줄 "선택한 일반 정산원장 **3**건 · 합계 **10,500,000**원" (숫자 Primary SemiBold)
+2. (옵션) `ActionStats` — 처리 가능 / 불가 건수 · 금액 상자 (보류 해제)
+3. 대상 표 + 줄마다 [제외] (이번 처리에서 빼기, 요약 · 상자가 바로 바뀜)
+4. 안내 — `Infobox tone="neutral"` + `Infobox.Item bullets`
+5. 입력 (변경일 · 사유 — 사유는 라벨 위 TextArea) → 처리 안내(`Infobox` info + bullets) → [취소] · [처리]
+6. 흐름은 `useAction`: 대상 0건 · 입력 · 처리 불가 대상 검사 → 처리 → 재조회 → 완료 안내
+
+<Canvas of={Stories.BatchParts} />
+
+## 6. 규칙
 
 - 결과 안내는 Alert (Toast 없음). 성공 안내는 팝업을 닫은 뒤, 실패 안내는 팝업 위에
 - 처리 중에는 [확인] loading · [취소] 비활성 · 닫기(X) · Esc 막음

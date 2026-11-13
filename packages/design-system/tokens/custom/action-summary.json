@@ -1,0 +1,22 @@
+{
+  "ActionSummary": {
+    "BarBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "일괄 처리 팝업 선택 대상 요약 줄 (Figma 처리_실행 팝업, PNG 측정)"
+    },
+    "Text": { "$type": "color", "$value": "{Text.Body}" },
+    "Accent": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "요약 줄 · 건수 상자 숫자"
+    },
+    "StatBg": {
+      "$type": "color",
+      "$value": "{Bg.Selected}",
+      "$description": "처리 가능 / 불가 건수 상자 (보류 해제)"
+    },
+    "StatLabel": { "$type": "color", "$value": "{Text.Secondary}" },
+    "StatValue": { "$type": "color", "$value": "{Text.Heading}" }
+  }
+}

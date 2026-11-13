@@ -41,16 +41,27 @@ export interface InfoboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   icon?: ReactNode;
   /** 설명 */
   children?: ReactNode;
+  /** 점 목록 안내 (12 Regular, • 앞). 있으면 아이콘은 첫 줄에 맞춰 위에 (Figma 처리_실행 팝업) */
+  bullets?: ReactNode[];
 }
 
 const InfoboxItem = forwardRef<HTMLDivElement, InfoboxItemProps>(
-  ({ title, actionLabel, action, icon, className, children, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.item, className)}>
+  ({ title, actionLabel, action, icon, bullets, className, children, ...rest }, ref) => (
+    <div {...rest} ref={ref} className={clsx(styles.item, bullets && styles.itemTop, className)}>
       <span className={styles.icon}>
         {icon === undefined ? <Icon name="info-box" size={20} /> : icon}
       </span>
       {title !== undefined && <strong className={styles.title}>{title}</strong>}
-      <span className={clsx(styles.text, title === undefined && styles.textWide)}>{children}</span>
+      <span className={clsx(styles.text, title === undefined && styles.textWide)}>
+        {children}
+        {bullets && (
+          <ul className={styles.bullets}>
+            {bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+        )}
+      </span>
       {(actionLabel !== undefined || action !== undefined) && (
         <span className={styles.action}>
           {actionLabel !== undefined && <span className={styles.label}>{actionLabel}</span>}

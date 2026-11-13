@@ -10,6 +10,8 @@ import { SectionHeading } from '../../components/SectionHeading';
 import { DialogProvider } from '../common';
 import { DetailCard, DetailSummary, FormGroup, FormSection, FormTable } from '../record-form';
 import { GridPlaceholder } from '../search-result';
+import { Infobox } from '../../components/display';
+import { ActionStats, ActionTargetBar } from './ActionSummary';
 import { useAction } from './useAction';
 
 const meta = {
@@ -622,4 +624,37 @@ export const PartialCancel: Story = {
       </>
     );
   },
+};
+
+/**
+ * 일괄 처리 팝업 부품 (Figma 처리_실행 팝업): 선택 대상 요약 줄(ActionTargetBar) · 처리 가능/불가 상자(ActionStats) ·
+ * 점 목록 안내(Infobox.Item bullets). 표 · [제외] · 입력은 화면 공통 틀(앱 LedgerActionModal)이 조합한다
+ */
+export const BatchParts: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 840 }}>
+      <ActionTargetBar
+        parts={[
+          { label: '선택한 보류 원장', value: 3 },
+          { label: '보류금액', value: 1230250, unit: '원' },
+        ]}
+      />
+      <ActionStats
+        items={[
+          { label: '해제 가능', values: [{ value: 2 }, { value: 1030250, unit: '원' }] },
+          { label: '해제 불가', values: [{ value: 1 }, { value: 200000, unit: '원' }] },
+        ]}
+      />
+      <Infobox tone="neutral">
+        <Infobox.Item
+          bullets={[
+            '해제 불가 원장은 보류사유를 먼저 해소해주세요.',
+            '표시 금액은 보류잔액이며 실제 지급금액은 재정산 후 결정됩니다.',
+            '[제외]를 누르면 해당 원장을 이번 처리 대상에서 뺍니다.',
+          ]}
+        />
+      </Infobox>
+    </div>
+  ),
 };

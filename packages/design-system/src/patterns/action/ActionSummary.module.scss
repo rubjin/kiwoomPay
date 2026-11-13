@@ -1,0 +1,74 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma 처리_실행 팝업 (PNG 측정)
+$as-bar-padding: t.$space-12 t.$space-16;
+$as-radius: 6px;
+$as-stat-padding: t.$space-12 t.$space-16;
+$as-stat-gap: t.$space-8; // 상자 사이 · 이름 ↔ 값
+$as-dot-gap: t.$space-4; // 값 ↔ 단위 · 가운뎃점 양옆
+
+// ── ActionTargetBar ──────────────────────────────────
+.bar {
+  @include m.typography(typo-13-regular);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: $as-dot-gap;
+  align-items: baseline;
+  padding: $as-bar-padding;
+  margin: 0;
+  color: t.$color-action-summary-text;
+  background-color: t.$color-action-summary-bar-bg;
+  border-radius: $as-radius;
+}
+
+.accent {
+  @include m.typography(typo-13-semi-bold);
+
+  color: t.$color-action-summary-accent;
+}
+
+.dot {
+  padding-inline: $as-dot-gap;
+}
+
+// ── ActionStats ──────────────────────────────────────
+.stats {
+  display: grid;
+  gap: $as-stat-gap;
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: $as-stat-gap;
+  min-width: 0;
+  padding: $as-stat-padding;
+  background-color: t.$color-action-summary-stat-bg;
+  border-radius: $as-radius;
+}
+
+.statLabel {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-action-summary-stat-label;
+}
+
+.statValue {
+  @include m.typography(typo-13-regular);
+
+  display: flex;
+  gap: $as-dot-gap;
+  align-items: baseline;
+  justify-content: flex-end;
+  margin: 0;
+  color: t.$color-action-summary-stat-value;
+}
+
+.statNumber {
+  @include m.typography(typo-24-bold);
+
+  font-variant-numeric: tabular-nums;
+}
