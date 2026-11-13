@@ -5,4 +5,5 @@ export * from './lookup';
 export * from './action';
 export * from './auth';
 export * from './feed';
+export * from './config';
 export * from './record-form';

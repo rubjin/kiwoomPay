@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed · P07 Selection & Configuration(V01 즐겨찾기 편집) 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -95,6 +95,7 @@
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
 - [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(안내 ↔ 상자 12는 PNG 측정, 상자 ↔ 인증번호 12 · 입력 ↔ 오류 문구 4는 사용자 확정 2026-11-13) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
 - [Q58] P06 마이페이지 확인 필요: ① 알림 선택 시 이동 대상(유형별 업무 화면 — 지금은 알림센터) ② 모두 읽음 확인 문구 · 빈 상태 문구 · 알림 행 Hover ③ 업무유형 칩 아이콘 규칙(Figma는 리스크/FDS만) ④ 계정관리 Badge 줄 라벨 ↔ 값 Figma 8(다른 줄 12) — 12로 통일 ⑤ 마이페이지 Hub는 메뉴(IA)에 없는 화면(KWPC2000) — 헤더 [내 정보]로 진입 ⑥ 권한 신청 현황 값 위치 — 기본 Figma 오른쪽 끝 ↔ 권한 없음 Figma 라벨 옆(오른쪽 끝으로 통일) ⑦ [특수권한 신청] 이동 대상(지금 권한관리)
+- [Q59] P07 즐겨찾기 편집 확인 필요: ① Figma Modal 폭 820 · 여백 24 ↔ 요청 lg 880 · Modal 공통 여백 20 ② ~~Footer 버튼~~ → lg 48 확정(사용자, 2026-11-13. Figma 40) ③ 검색 상태(이름 + 경로 목록)는 Figma 노드 없음 — 사용자 이미지 기준 ④ 바뀐 것이 없을 때 [저장] 비활성 · 닫기 확인 문구 · 저장 완료 문구 ⑤ V03 저장 조건(내 검색조건 관리) 시안
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -710,3 +711,11 @@
 - 권한 없음 · 알림 없음 케이스(Figma 28815:71127): `HubEmpty`(회색 상자 · 문구 12 Regular Text Secondary + [특수권한 신청] sm Neutral Line, 사이 2) — 특수권한이 없으면 권한 신청 현황 → 빈 상태 순서(Figma). `NotificationFeed` 빈 상태: 목록 자리 남은 높이 가운데 "최근 수신된 알림이 없습니다."(기본 문구), 칩은 0건 유지, [모두 읽음 처리] 숨김. 모두 읽음 처리 후에도 칩 0건 유지(스토리 · 앱). 스토리 `Mypage Hub · 권한 없음 / 알림 없음`, 앱 `/mypage?example=empty`(예시, 화면 목록 행 추가). 검증: Figma 위치 일치(권한 신청 현황 259 · 45, 빈 상자 320 · 76, 버튼 352, 알림 빈 영역 154 · 242, 카드 413), 앱 [특수권한 신청] → 권한관리, 에러 없음
 - 앱 Header 누락 반영(Figma 마이페이지 Header 28765:112928): [다운로드 센터] 건수 Badge(`count`, 예시 1) · 알림 아이콘 미확인 점(`dot` → bell-on, 예시 있음) — 디자인 시스템 Header는 이미 지원, 앱이 넘기지 않았음. 알림 아이콘 → 알림센터 이동. 값은 TODO(API). Figma의 "마스킹 해제 중 59:55" · 실명 표시는 마스킹 해제 후 상태(해제 사유 Modal 필요, Q46)라 미반영
 - 앱 Header 마스킹 해제 중 상태(사용자 요청): 처음부터 해제 중(60:00 카운트다운 · 실명 사용자 정보)으로 표시 — Figma Header와 같음. [연장] 60:00 · [마스킹 적용] → 마스킹(kw******* · 홍*동) · 0초가 되면 자동 마스킹, [마스킹 해제] → 바로 해제(TODO 사유 Modal Q46). 세션 시간도 카운트다운 · [연장]. 실제 상태 · 시간은 TODO(API)
+
+### Pattern: P07 Selection & Configuration (V01 즐겨찾기 편집) — 2026-11-13
+- 시안: Figma KWPC1301_LNB_즐겨찾기 편집 팝업(29348:37 — 접힘 528 · 펼침 751 두 Modal), 검색 상태는 사용자 이미지. 폭은 사용자 요청대로 lg 880
+- `FavoriteMenuPicker` 새 시안으로 다시 만듦: 검색(lg 48) → 즐겨찾기 메뉴 상자(N / 10 + 칩, x로 빼기, 넘치면 → 버튼) → 메뉴 트리(1Depth 44 Neutral 50 · 2Depth 40 Neutral 100 · 3Depth 체크박스 40, 최대 445 · 안에서 스크롤). 검색 중에는 일치 메뉴 목록(이름 강조 + 경로). `defaultQuery` 추가, `description` · `FavoriteCount` 삭제(개수는 상자 안으로). 토큰 `favorite-menu.json` 새로. 칩 지우기는 필드 지우기 아이콘 재사용
+- `useConfigDraft(saved)`(`patterns/config`): 초안 · `dirty` · `begin` · `reset`. Storybook `Patterns/P07 Selection Configuration`(Guide · FavoriteEdit 흐름), `Composites/Feedback/Favorite Menu Picker`(FavoriteEdit · Expanded · Search · Full · Playground), 가이드 2개. 예시 메뉴 `src/stories/favoriteMenuData.ts`(Figma IA, 하위가 안 보이는 2Depth는 "… 현황" 예시)
+- 앱: LNB 즐겨찾기 탭 [편집] → `layouts/Lnb/FavoriteEditModal`(lg 880, 초안 · 저장 Confirm 없이 바로 저장 → 완료 Alert, 변경 후 닫기 확인). 즐겨찾기는 화면 안 상태(TODO(API)). 화면 목록에 KWPC1301
+- 검증: tokens · typecheck · lint · build, Storybook: Modal 880, 본문 검색 0 · 48 / 상자 60 · 86 / 트리 158(접힘 7줄 310 · 펼침 445, 펼침 Modal 751 = Figma), 줄 44/40/40 · 배경 · 왼쪽 16/40/65 · 글자, 칩 32 · 13 Medium · N300 · 반경 6, Footer 40(→ 이후 사용자 확정으로 lg 48). 10/10이면 나머지 비활성, 칩 넘칠 때만 → 버튼 · 클릭 시 200 이동, 흐름(변경 전 [저장] 비활성, 변경 후 취소 → 확인, 저장 → 완료 Alert · 반영). 앱: 3 → 4개 선택 저장 → LNB 즐겨찾기에 반영, 에러 없음
+- 한 가정: Q59

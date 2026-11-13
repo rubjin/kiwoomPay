@@ -1,58 +1,47 @@
 {
   "FavoriteMenu": {
-    "Description": {
+    "SelectedBg": {
       "$type": "color",
-      "$value": "{Text.Secondary}"
+      "$value": "{Neutral.50}",
+      "$description": "즐겨찾기 메뉴(선택) 상자"
     },
-    "GroupBg": {
+    "SelectedBorder": { "$type": "color", "$value": "{Neutral.200}" },
+    "CountLabel": { "$type": "color", "$value": "{Text.Body}" },
+    "CountNumber": { "$type": "color", "$value": "{Text.Accent}" },
+    "ChipBg": { "$type": "color", "$value": "{Bg.Surface}" },
+    "ChipBorder": { "$type": "color", "$value": "{Neutral.300}" },
+    "ChipText": { "$type": "color", "$value": "{Neutral.800}" },
+    "ChipRemove": {
       "$type": "color",
-      "$value": "{Bg.Page}",
-      "$description": "1Depth 머리 (Neutral 50)"
+      "$value": "{Field.IconMuted}",
+      "$description": "칩 지우기(x) — 필드 지우기와 같은 아이콘 · 색"
     },
-    "GroupBorder": {
-      "$type": "color",
-      "$value": "{Line.Default}"
-    },
-    "GroupText": {
-      "$type": "color",
-      "$value": "{Primary.900}"
-    },
-    "PanelBg": {
-      "$type": "color",
-      "$value": "{Bg.Surface}"
-    },
-    "SubText": {
-      "$type": "color",
-      "$value": "{Text.Label}",
-      "$description": "2Depth"
-    },
-    "ItemText": {
+    "ScrollIcon": {
       "$type": "color",
       "$value": "{Text.Secondary}",
-      "$description": "3Depth 체크박스 이름"
+      "$description": "TODO(시안) 칩 줄 → 화살표 색"
     },
+    "TreeBorder": { "$type": "color", "$value": "{Neutral.200}" },
+    "TreeBg": { "$type": "color", "$value": "{Bg.Surface}" },
+    "RootBg": { "$type": "color", "$value": "{Neutral.50}", "$description": "1Depth 줄" },
+    "GroupBg": { "$type": "color", "$value": "{Neutral.100}", "$description": "2Depth 줄" },
+    "LeafBg": { "$type": "color", "$value": "{Bg.Surface}", "$description": "3Depth(체크박스) 줄" },
+    "RowText": { "$type": "color", "$value": "{Text.Body}" },
     "Chevron": {
       "$type": "color",
       "$value": "{Text.Label}",
       "$description": "TODO(시안) 화살표 색 (Figma 아이콘 이미지)"
     },
-    "CountBg": {
-      "$type": "color",
-      "$value": "{Primary.50}"
-    },
-    "CountLabel": {
-      "$type": "color",
-      "$value": "{Primary.500}"
-    },
-    "CountNumber": {
-      "$type": "color",
-      "$value": "{Chart.Category.02}",
-      "$description": "Figma secondary/500 #8B5CF6 (같은 값의 Chart 색 사용)"
-    },
     "ItemDisabled": {
       "$type": "color",
       "$value": "{Text.Disabled}",
       "$description": "최대 개수가 차서 고를 수 없는 메뉴"
-    }
+    },
+    "Match": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "검색어 강조 (LNB 검색과 같음)"
+    },
+    "Path": { "$type": "color", "$value": "{Text.Secondary}", "$description": "검색 결과 경로" }
   }
 }

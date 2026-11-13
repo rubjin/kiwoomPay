@@ -16,5 +16,5 @@ export type {
 } from './Header';
 export { Footer } from './Footer';
 export type { FooterProps } from './Footer';
-export { FavoriteMenuPicker, FavoriteCount } from './FavoriteMenuPicker';
-export type { FavoriteMenuPickerProps, FavoriteCountProps } from './FavoriteMenuPicker';
+export { FavoriteMenuPicker } from './FavoriteMenuPicker';
+export type { FavoriteMenuPickerProps } from './FavoriteMenuPicker';

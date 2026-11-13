@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type CSSProperties, type MouseEvent } from 'react';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
-import { FavoriteCount, FavoriteMenuPicker } from './FavoriteMenuPicker';
+import { FavoriteMenuPicker } from './FavoriteMenuPicker';
 import { Lnb } from './Lnb';
 import type { LnbMenuItem } from './lnbUtils';
 
@@ -174,13 +174,9 @@ function InteractiveExample() {
           메뉴를 누르면 Active가 바뀌고, 검색창에 &quot;정산&quot;을 입력하면 검색 결과가 나온다.
         </p>
       </main>
-      {/* 즐겨찾기 편집: Figma Modal_Favorite Edit Modal (FavoriteMenuPicker) */}
-      <Modal open={editing} onClose={() => setEditing(false)} size="md">
-        <Modal.Header
-          title="즐겨찾기 편집"
-          closeButton
-          addon={<FavoriteCount count={draft.length} max={10} />}
-        />
+      {/* 즐겨찾기 편집: Figma KWPC1301 즐겨찾기 편집 팝업 (FavoriteMenuPicker, P07) */}
+      <Modal open={editing} onClose={() => setEditing(false)} size="lg">
+        <Modal.Header title="즐겨찾기 편집" closeButton />
         <Modal.Body>
           <FavoriteMenuPicker items={menu} value={draft} onChange={setDraft} />
         </Modal.Body>

@@ -439,18 +439,25 @@ $focus-ring-width: var(--kp-focus-ring-width); // TODO 시안 확인
 $focus-ring-offset: var(--kp-focus-ring-offset); // TODO 시안 확인
 
 // ── custom · favorite-menu ──────────────────────────────────────
-$color-favorite-menu-description: var(--kp-color-favorite-menu-description);
-$color-favorite-menu-group-bg: var(--kp-color-favorite-menu-group-bg); // 1Depth 머리 (Neutral 50)
-$color-favorite-menu-group-border: var(--kp-color-favorite-menu-group-border);
-$color-favorite-menu-group-text: var(--kp-color-favorite-menu-group-text);
-$color-favorite-menu-panel-bg: var(--kp-color-favorite-menu-panel-bg);
-$color-favorite-menu-sub-text: var(--kp-color-favorite-menu-sub-text); // 2Depth
-$color-favorite-menu-item-text: var(--kp-color-favorite-menu-item-text); // 3Depth 체크박스 이름
-$color-favorite-menu-chevron: var(--kp-color-favorite-menu-chevron); // TODO(시안) 화살표 색 (Figma 아이콘 이미지)
-$color-favorite-menu-count-bg: var(--kp-color-favorite-menu-count-bg);
+$color-favorite-menu-selected-bg: var(--kp-color-favorite-menu-selected-bg); // 즐겨찾기 메뉴(선택) 상자
+$color-favorite-menu-selected-border: var(--kp-color-favorite-menu-selected-border);
 $color-favorite-menu-count-label: var(--kp-color-favorite-menu-count-label);
-$color-favorite-menu-count-number: var(--kp-color-favorite-menu-count-number); // Figma secondary/500 #8B5CF6 (같은 값의 Chart 색 사용)
+$color-favorite-menu-count-number: var(--kp-color-favorite-menu-count-number);
+$color-favorite-menu-chip-bg: var(--kp-color-favorite-menu-chip-bg);
+$color-favorite-menu-chip-border: var(--kp-color-favorite-menu-chip-border);
+$color-favorite-menu-chip-text: var(--kp-color-favorite-menu-chip-text);
+$color-favorite-menu-chip-remove: var(--kp-color-favorite-menu-chip-remove); // 칩 지우기(x) — 필드 지우기와 같은 아이콘 · 색
+$color-favorite-menu-scroll-icon: var(--kp-color-favorite-menu-scroll-icon); // TODO(시안) 칩 줄 → 화살표 색
+$color-favorite-menu-tree-border: var(--kp-color-favorite-menu-tree-border);
+$color-favorite-menu-tree-bg: var(--kp-color-favorite-menu-tree-bg);
+$color-favorite-menu-root-bg: var(--kp-color-favorite-menu-root-bg); // 1Depth 줄
+$color-favorite-menu-group-bg: var(--kp-color-favorite-menu-group-bg); // 2Depth 줄
+$color-favorite-menu-leaf-bg: var(--kp-color-favorite-menu-leaf-bg); // 3Depth(체크박스) 줄
+$color-favorite-menu-row-text: var(--kp-color-favorite-menu-row-text);
+$color-favorite-menu-chevron: var(--kp-color-favorite-menu-chevron); // TODO(시안) 화살표 색 (Figma 아이콘 이미지)
 $color-favorite-menu-item-disabled: var(--kp-color-favorite-menu-item-disabled); // 최대 개수가 차서 고를 수 없는 메뉴
+$color-favorite-menu-match: var(--kp-color-favorite-menu-match); // 검색어 강조 (LNB 검색과 같음)
+$color-favorite-menu-path: var(--kp-color-favorite-menu-path); // 검색 결과 경로
 
 // ── custom · feed ───────────────────────────────────────────────
 $color-hub-card-bg: var(--kp-color-hub-card-bg);
@@ -1124,18 +1131,25 @@ $css-variables: (
   "--kp-color-date-picker-range-text": "var(--kp-color-text-accent)",
   "--kp-focus-ring-width": "2px",
   "--kp-focus-ring-offset": "2px",
-  "--kp-color-favorite-menu-description": "var(--kp-color-text-secondary)",
-  "--kp-color-favorite-menu-group-bg": "var(--kp-color-bg-page)",
-  "--kp-color-favorite-menu-group-border": "var(--kp-color-line-default)",
-  "--kp-color-favorite-menu-group-text": "var(--kp-color-primary-900)",
-  "--kp-color-favorite-menu-panel-bg": "var(--kp-color-bg-surface)",
-  "--kp-color-favorite-menu-sub-text": "var(--kp-color-text-label)",
-  "--kp-color-favorite-menu-item-text": "var(--kp-color-text-secondary)",
+  "--kp-color-favorite-menu-selected-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-favorite-menu-selected-border": "var(--kp-color-neutral-200)",
+  "--kp-color-favorite-menu-count-label": "var(--kp-color-text-body)",
+  "--kp-color-favorite-menu-count-number": "var(--kp-color-text-accent)",
+  "--kp-color-favorite-menu-chip-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-favorite-menu-chip-border": "var(--kp-color-neutral-300)",
+  "--kp-color-favorite-menu-chip-text": "var(--kp-color-neutral-800)",
+  "--kp-color-favorite-menu-chip-remove": "var(--kp-color-field-icon-muted)",
+  "--kp-color-favorite-menu-scroll-icon": "var(--kp-color-text-secondary)",
+  "--kp-color-favorite-menu-tree-border": "var(--kp-color-neutral-200)",
+  "--kp-color-favorite-menu-tree-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-favorite-menu-root-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-favorite-menu-group-bg": "var(--kp-color-neutral-100)",
+  "--kp-color-favorite-menu-leaf-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-favorite-menu-row-text": "var(--kp-color-text-body)",
   "--kp-color-favorite-menu-chevron": "var(--kp-color-text-label)",
-  "--kp-color-favorite-menu-count-bg": "var(--kp-color-primary-50)",
-  "--kp-color-favorite-menu-count-label": "var(--kp-color-primary-500)",
-  "--kp-color-favorite-menu-count-number": "var(--kp-color-chart-category-02)",
   "--kp-color-favorite-menu-item-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-favorite-menu-match": "var(--kp-color-primary-500)",
+  "--kp-color-favorite-menu-path": "var(--kp-color-text-secondary)",
   "--kp-color-hub-card-bg": "var(--kp-color-bg-surface)",
   "--kp-color-hub-card-border": "var(--kp-color-line-subtle)",
   "--kp-color-hub-title": "var(--kp-color-text-heading)",

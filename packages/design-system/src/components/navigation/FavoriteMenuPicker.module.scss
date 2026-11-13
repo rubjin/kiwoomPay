@@ -1,16 +1,32 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
-// 컴포넌트 전용 크기 (Figma Modal_Favorite Edit Modal)
-$favorite-gap: t.$space-12; // 안내 · 검색 · 1Depth 사이
-$favorite-group-height: 62px; // 접힌 1Depth
-$favorite-group-open-height: t.$control-height-md; // 펼친 1Depth 머리 40
-$favorite-padding: 14px; // 필드와 같은 여백
-$favorite-panel-gap: 14px; // 펼친 영역 줄 사이
-$favorite-leaf-indent: t.$space-4;
-$favorite-count-padding: t.$space-4;
-$favorite-count-gap: t.$space-4;
-$favorite-count-radius: 4px;
+// 컴포넌트 전용 크기 — Figma KWPC1301_LNB_즐겨찾기 편집 팝업(29348:37)
+$favorite-gap: t.$space-12; // 검색 · 즐겨찾기 메뉴 · 메뉴 트리 사이
+$favorite-selected-padding: 11px; // 테두리 1 안쪽 (내용 12)
+$favorite-selected-radius: 8px;
+$favorite-selected-gap: t.$space-8; // 개수 줄 ↔ 칩 줄 (Figma 7.5)
+$favorite-count-height: 22px;
+$favorite-count-gap: 10px;
+$favorite-chip-gap: 6px;
+$favorite-chip-height: t.$control-height-sm; // 32
+$favorite-chip-padding-x: 11px; // 테두리 1 안쪽 12
+$favorite-chip-radius: 6px;
+$favorite-chip-inner-gap: t.$space-4;
+$favorite-chip-remove: 20px; // x 아이콘 칸 (원 16)
+$favorite-chip-remove-inset: 2px; // 20 칸 안 원 16
+$favorite-tree-radius: 8px;
+$favorite-tree-max-height: 445px; // 넘치면 트리 안에서 스크롤 (Figma 펼침 445)
+$favorite-row-gap: 10px; // 화살표 · 체크박스 ↔ 이름
+$favorite-row-padding-x: t.$space-16;
+$favorite-root-height: 44px;
+$favorite-row-height: t.$control-height-md; // 2 · 3Depth 40
+$favorite-indent-2: 40px; // 2Depth 왼쪽
+$favorite-indent-3: 65px; // 3Depth 왼쪽 (체크박스 위치)
+$favorite-root-icon: 20px;
+$favorite-group-icon: 16px;
+$favorite-result-padding-y: t.$space-8; // TODO(시안) 검색 결과 줄 (이름 + 경로)
+$favorite-empty-padding: t.$space-40; // TODO(시안) 검색 결과 없음
 
 .picker {
   display: flex;
@@ -19,75 +35,107 @@ $favorite-count-radius: 4px;
   min-width: 0;
 }
 
-.description {
-  @include m.typography(typo-14-regular);
-
-  margin: 0;
-  color: t.$color-favorite-menu-description;
-}
-
-// ── 1Depth ───────────────────────────────────────────
-.group {
-  border: t.$control-border-width solid t.$color-favorite-menu-group-border;
-  border-radius: t.$field-radius-md;
-}
-
-.groupHeader {
+// ── 즐겨찾기 메뉴 (선택) ────────────────────────────
+.selected {
   display: flex;
-  gap: t.$space-4;
+  flex-direction: column;
+  gap: $favorite-selected-gap;
+  min-width: 0;
+  padding: $favorite-selected-padding;
+  background-color: t.$color-favorite-menu-selected-bg;
+  border: t.$control-border-width solid t.$color-favorite-menu-selected-border;
+  border-radius: $favorite-selected-radius;
+}
+
+.count {
+  @include m.typography(typo-14-medium);
+
+  display: flex;
+  gap: $favorite-count-gap;
   align-items: center;
-  width: 100%;
-  height: calc(#{$favorite-group-height} - #{t.$control-border-width} * 2);
-  padding: 0 calc(#{$favorite-padding} - #{t.$control-border-width});
-  color: t.$color-favorite-menu-chevron;
-  text-align: left;
+  min-height: $favorite-count-height;
+  color: t.$color-favorite-menu-count-label;
+}
+
+.countNumber {
+  @include m.typography(typo-14-bold);
+
+  color: t.$color-favorite-menu-count-number;
+}
+
+.chipRow {
+  display: flex;
+  gap: $favorite-chip-gap;
+  align-items: center;
+  min-width: 0;
+  min-height: $favorite-chip-height;
+}
+
+.chips {
+  display: flex;
+  flex: 1;
+  gap: $favorite-chip-gap;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  list-style: none;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.chip {
+  @include m.typography(typo-13-medium);
+
+  display: inline-flex;
+  flex: none;
+  gap: $favorite-chip-inner-gap;
+  align-items: center;
+  height: $favorite-chip-height;
+  padding: 0 $favorite-chip-padding-x;
+  color: t.$color-favorite-menu-chip-text;
+  white-space: nowrap;
+  background-color: t.$color-favorite-menu-chip-bg;
+  border: t.$control-border-width solid t.$color-favorite-menu-chip-border;
+  border-radius: $favorite-chip-radius;
+}
+
+.chipRemove {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: $favorite-chip-remove;
+  height: $favorite-chip-remove;
+  padding: $favorite-chip-remove-inset;
+  color: t.$color-favorite-menu-chip-remove;
   cursor: pointer;
-  background-color: t.$color-favorite-menu-group-bg;
+  background: none;
   border: 0;
-  border-radius: t.$field-radius-md;
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
 
   &:focus-visible {
     @include m.focus-ring;
   }
 }
 
-.groupOpen .groupHeader {
-  height: calc(#{$favorite-group-open-height} - #{t.$control-border-width});
-  border-radius: t.$field-radius-md t.$field-radius-md 0 0;
-}
+.chipEmpty {
+  @include m.typography(typo-13-regular);
 
-.groupLabel {
-  @include m.typography(typo-16-bold);
-
-  flex: 1;
-  min-width: 0;
-  color: t.$color-favorite-menu-group-text;
-}
-
-.panel {
   display: flex;
-  flex-direction: column;
-  gap: $favorite-panel-gap;
-  padding: calc(#{$favorite-padding} - #{t.$control-border-width});
-  background-color: t.$color-favorite-menu-panel-bg;
-  border-radius: 0 0 t.$field-radius-md t.$field-radius-md;
-}
-
-// ── 2 · 3Depth ───────────────────────────────────────
-.subGroup {
-  display: flex;
-  flex-direction: column;
-  gap: $favorite-panel-gap;
-}
-
-.sub {
-  display: flex;
-  gap: t.$space-4;
   align-items: center;
-  width: 100%;
+  color: t.$color-favorite-menu-path;
+}
+
+.scrollRight {
+  display: inline-flex;
+  flex: none;
   padding: 0;
-  color: t.$color-favorite-menu-chevron;
-  text-align: left;
+  color: t.$color-favorite-menu-scroll-icon;
   cursor: pointer;
   background: none;
   border: 0;
@@ -97,46 +145,117 @@ $favorite-count-radius: 4px;
   }
 }
 
-.subLabel {
-  @include m.typography(typo-14-bold);
+// ── 메뉴 트리 ───────────────────────────────────────
+.tree {
+  max-height: $favorite-tree-max-height;
+  overflow-y: auto;
+  background-color: t.$color-favorite-menu-tree-bg;
+  border: t.$control-border-width solid t.$color-favorite-menu-tree-border;
+  border-radius: $favorite-tree-radius;
+}
 
-  flex: 1;
-  min-width: 0;
-  color: t.$color-favorite-menu-sub-text;
+.row {
+  display: flex;
+  gap: $favorite-row-gap;
+  align-items: center;
+  width: 100%;
+  min-height: $favorite-row-height;
+  padding: 0 $favorite-row-padding-x;
+  color: t.$color-favorite-menu-row-text;
+  text-align: left;
+  border: 0;
+}
+
+.toggle {
+  cursor: pointer;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.root {
+  @include m.typography(typo-16-medium);
+
+  min-height: $favorite-root-height;
+  background-color: t.$color-favorite-menu-root-bg;
+}
+
+.group {
+  @include m.typography(typo-14-medium);
+
+  padding-left: $favorite-indent-2;
+  background-color: t.$color-favorite-menu-group-bg;
 }
 
 .leaf {
-  padding-left: $favorite-leaf-indent;
+  padding-left: $favorite-indent-3;
+  background-color: t.$color-favorite-menu-leaf-bg;
 }
 
-// Checkbox 기본 글자(14 Regular)를 Figma 3Depth 글자(14 Medium · Neutral 600)로
-.leaf .check {
-  @include m.typography(typo-14-medium);
-
-  color: t.$color-favorite-menu-item-text;
+// 2Depth가 바로 메뉴(하위 없음)일 때
+.leafShallow {
+  padding-left: $favorite-indent-2;
 }
 
-.leaf .checkDisabled {
+.chevronRoot,
+.chevronGroup {
+  display: inline-flex;
+  flex: none;
+  color: t.$color-favorite-menu-chevron;
+}
+
+.chevronRoot {
+  width: $favorite-root-icon;
+  height: $favorite-root-icon;
+}
+
+.chevronGroup {
+  width: $favorite-group-icon;
+  height: $favorite-group-icon;
+}
+
+// Checkbox 기본 글자(14 Regular)를 그대로, 색만 본문
+.check {
+  color: t.$color-favorite-menu-row-text;
+}
+
+.checkDisabled {
   color: t.$color-favorite-menu-item-disabled;
 }
 
-// ── 선택 개수 ────────────────────────────────────────
-.count {
-  @include m.typography(typo-12-semi-bold);
-
-  display: inline-flex;
-  flex: none;
-  gap: $favorite-count-gap;
-  align-items: center;
-  padding: $favorite-count-padding;
-  background-color: t.$color-favorite-menu-count-bg;
-  border-radius: $favorite-count-radius;
+// ── 검색 결과 ───────────────────────────────────────
+.result {
+  align-items: flex-start;
+  padding-top: $favorite-result-padding-y;
+  padding-bottom: $favorite-result-padding-y;
+  background-color: t.$color-favorite-menu-leaf-bg;
 }
 
-.countLabel {
-  color: t.$color-favorite-menu-count-label;
+.resultText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-.countNumber {
-  color: t.$color-favorite-menu-count-number;
+.match {
+  font-weight: inherit;
+  color: t.$color-favorite-menu-match;
+  background: none;
+}
+
+.path {
+  @include m.typography(typo-12-regular);
+  @include m.ellipsis;
+
+  color: t.$color-favorite-menu-path;
+}
+
+.empty {
+  @include m.typography(typo-14-regular);
+
+  padding: $favorite-empty-padding $favorite-row-padding-x;
+  margin: 0;
+  color: t.$color-favorite-menu-path;
+  text-align: center;
 }
