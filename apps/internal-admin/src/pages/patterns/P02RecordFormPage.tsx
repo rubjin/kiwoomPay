@@ -22,6 +22,7 @@ import {
   useDialog,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import { COMPLAINT_HISTORY, P02ComplaintModal } from './P02ComplaintModal';
 import { P02DetailModal } from './P02DetailModal';
 
 /**
@@ -51,6 +52,7 @@ export function P02RecordFormPage() {
   ]);
   const [checked, setChecked] = useState<number[]>([]);
   const [detailOpen, setDetailOpen] = useState<'normal' | 'error' | null>(null);
+  const [complaintOpen, setComplaintOpen] = useState<'empty' | 'history' | null>(null);
 
   const save = async () => {
     if (!(await dialog.confirm('저장할까요?'))) return;
@@ -90,6 +92,12 @@ export function P02RecordFormPage() {
             </Button>
             <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('error')}>
               상세 팝업 (결제 오류)
+            </Button>
+            <Button variant="neutral" appearance="line" onClick={() => setComplaintOpen('empty')}>
+              민원 처리 팝업 (조회 + 입력)
+            </Button>
+            <Button variant="neutral" appearance="line" onClick={() => setComplaintOpen('history')}>
+              민원 처리 팝업 (접수정보 있음)
             </Button>
           </>
         }
@@ -224,6 +232,11 @@ export function P02RecordFormPage() {
         open={detailOpen !== null}
         error={detailOpen === 'error'}
         onClose={() => setDetailOpen(null)}
+      />
+      <P02ComplaintModal
+        open={complaintOpen !== null}
+        history={complaintOpen === 'history' ? COMPLAINT_HISTORY : []}
+        onClose={() => setComplaintOpen(null)}
       />
     </>
   );
