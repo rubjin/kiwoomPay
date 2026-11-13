@@ -9,17 +9,26 @@ import {
   Tab,
   TextLink,
   type BadgeTone,
+  type ResultSummaryTone,
   type GridPlaceholderColumn,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { rowsOf, type ScreenRow } from './rows';
 import { STATUSES, SYSTEMS, type ScreenStatus, type SystemId } from './screens';
 
+const SUMMARY_TONE: Record<ScreenStatus, ResultSummaryTone | undefined> = {
+  미작업: undefined,
+  작업중: 'info',
+  작업완료: 'success',
+  삭제: 'error',
+  보류: 'warning',
+};
+
 const STATUS_TONE: Record<ScreenStatus, BadgeTone> = {
   미작업: 'neutral',
   작업중: 'info',
   작업완료: 'success',
-  삭제: 'neutral',
+  삭제: 'error',
   보류: 'warning',
 };
 
@@ -100,7 +109,13 @@ export function App() {
         title="작업 현황"
         items={[
           { label: '총 본수', value: ofSystem.length, unit: '본' },
-          ...STATUSES.map((st) => ({ label: st, value: countOf(st), unit: '본' })),
+          // 숫자는 표 배지와 같은 상태 색 (미작업은 기본색)
+          ...STATUSES.map((st) => ({
+            label: st,
+            value: countOf(st),
+            unit: '본',
+            tone: SUMMARY_TONE[st],
+          })),
         ]}
       />
 
