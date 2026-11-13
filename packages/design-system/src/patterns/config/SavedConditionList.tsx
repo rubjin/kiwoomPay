@@ -26,7 +26,12 @@ export interface SavedConditionListProps {
   totalPages?: number;
   onPageChange?: (page: number) => void;
   title?: ReactNode;
+  /** 저장된 조건이 없을 때 제목 (14 SemiBold) */
   emptyText?: ReactNode;
+  /** 저장된 조건이 없을 때 설명 (12 Regular) */
+  emptyDescription?: ReactNode;
+  /** 검색 결과가 없을 때 */
+  noResultText?: ReactNode;
   className?: string;
 }
 
@@ -46,8 +51,17 @@ export function SavedConditionList({
   onPageChange,
   title = '저장된 검색조건',
   emptyText = '저장된 검색조건이 없습니다.',
+  emptyDescription = (
+    <>
+      현재 화면에서 설정한 검색조건을
+      <br />
+      오른쪽에서 새로 저장할 수 있습니다.
+    </>
+  ),
+  noResultText = '검색 결과가 없습니다.',
   className,
 }: SavedConditionListProps) {
+  const empty = items.length === 0;
   return (
     <div className={clsx(styles.saved, className)}>
       <div className={styles.panelHeader}>
@@ -56,7 +70,7 @@ export function SavedConditionList({
           총 {(total ?? items.length).toLocaleString('ko-KR')} 건
         </span>
       </div>
-      <div className={clsx(styles.panel, styles.savedPanel)}>
+      <div className={clsx(styles.panel, styles.savedPanel, empty && styles.savedPanelEmpty)}>
         {onQueryChange && (
           <SearchField
             fullWidth
@@ -67,8 +81,19 @@ export function SavedConditionList({
             aria-label="검색조건명 검색"
           />
         )}
-        {items.length === 0 ? (
-          <p className={styles.empty}>{emptyText}</p>
+        {empty ? (
+          <div className={styles.savedEmpty}>
+            {query.trim() ? (
+              <p className={styles.savedEmptyTitle}>{noResultText}</p>
+            ) : (
+              <>
+                <p className={styles.savedEmptyTitle}>{emptyText}</p>
+                {emptyDescription && (
+                  <p className={styles.savedEmptyDescription}>{emptyDescription}</p>
+                )}
+              </>
+            )}
+          </div>
         ) : (
           <ul className={styles.savedList}>
             {items.map((item) => (

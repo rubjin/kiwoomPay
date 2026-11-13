@@ -14,6 +14,7 @@ $transfer-row-height: 36px;
 $transfer-row-padding: t.$space-4 t.$space-8;
 $transfer-handle: 20px;
 $saved-panel-height: 485px; // 저장된 검색조건 패널 (Figma)
+$saved-empty-min-height: 354px; // 저장된 조건 없음 패널 (Figma)
 $saved-card-padding: t.$space-8 t.$space-12;
 $saved-card-gap: 2px;
 $saved-list-gap: t.$space-8;
@@ -157,6 +158,7 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
   display: flex;
   flex-direction: column;
   gap: t.$space-12;
+  flex: 1;
   min-width: 0;
 }
 
@@ -299,6 +301,8 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
 }
 
 .splitLeft {
+  display: flex;
+  flex-direction: column;
   flex: none;
   width: $split-left-width;
 }
@@ -373,4 +377,35 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
   --kp-color-button-primary-line-bg-pressed: #{t.$color-config-add-button-hover-bg};
   --kp-color-button-primary-line-text-disabled: #{t.$color-config-add-button-disabled};
   --kp-color-button-primary-line-border-disabled: #{t.$color-config-add-button-disabled};
+}
+
+// 저장된 조건 없음 (Figma 29509:94307): 패널은 오른쪽 높이에 맞춰 늘고, 안내는 남은 자리 가운데
+.savedPanelEmpty {
+  flex: 1;
+  height: auto;
+  min-height: $saved-empty-min-height;
+}
+
+.savedEmpty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.savedEmptyTitle {
+  @include m.typography(typo-14-semi-bold);
+
+  margin: 0;
+  color: t.$color-config-title;
+}
+
+.savedEmptyDescription {
+  @include m.typography(typo-12-regular);
+
+  margin: 0;
+  color: t.$color-config-description;
 }

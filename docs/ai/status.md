@@ -736,3 +736,4 @@
 - 앱(통합 거래내역): [엑셀 다운로드] → `ExcelDownloadModal`(출력 항목 = Grid 열), [내 검색조건 관리] → `SavedSearchModal`(초안 · 삭제 예정 · 적용 중 · 신규 등록 · 덮어쓰기, 요약은 `SEARCH_FIELDS` + `summarizeSearch`), 제목 옆 [내 검색조건 선택]으로 저장 조건을 검색 조건에 넣음. 저장 조건은 화면 안 상태(TODO(API)). 화면 목록에 KWPC04010107 · KWPC04010105
 - 검증: tokens · typecheck · lint · build(디자인 시스템) · 앱 tsc. Storybook 두 Modal 880 · Footer 48 · 배치가 Figma와 같음. 앱: 엑셀 — 선택 항목 모두 제거 후 다운로드 → 안내, 추가 → 요청 → 완료 안내 · 닫힘. 내 검색조건 — 변경 전 [저장] 비활성, 다른 조건 적용 → 저장 → 완료 안내 → 제목 옆 선택에 반영, 에러 없음
 - 한 가정: Q60
+- 저장조건 없음(Figma 29509:94307, 같은 날): `SavedConditionList` 빈 상태(검색창 유지 · 안내 가운데 · 패널은 오른쪽 높이까지, 최소 354, 검색어가 있으면 "검색 결과가 없습니다."). 오른쪽은 "신규 검색조건 등록"(검색조건명 · 저장할 조건 = 현재 화면 조건 · 안내), [저장] 처음부터 활성 · 이름 필수. 스토리 SavedConditionsEmpty, 앱 `/transaction/integrated/list?example=empty`(화면 목록 행 추가). 검증: Storybook 패널 318 × 354 · 안내 위치가 Figma와 같음, 이름 없이 저장 → 안내, 저장 → 1건 목록으로 전환(Storybook · 앱), 에러 없음

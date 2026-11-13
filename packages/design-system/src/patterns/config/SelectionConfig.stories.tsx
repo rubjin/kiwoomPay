@@ -233,19 +233,30 @@ interface ConditionDraft {
   appliedId: string | null;
 }
 
-function SavedConditionModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function SavedConditionModal({
+  open,
+  onClose,
+  initial = SAVED_CONDITIONS,
+}: {
+  open: boolean;
+  onClose: () => void;
+  initial?: DemoCondition[];
+}) {
   const dialog = useDialog();
   const [saved, setSaved] = useState<ConditionDraft>({
-    list: SAVED_CONDITIONS,
+    list: initial,
     deleted: [],
-    appliedId: 'c1',
+    appliedId: initial[0]?.id ?? null,
   });
   const config = useConfigDraft(saved);
   const { draft } = config;
-  const [selectedId, setSelectedId] = useState('c1');
+  const [selectedId, setSelectedId] = useState(initial[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [seq, setSeq] = useState(1);
+  /** 저장된 조건이 없으면 오른쪽은 신규 등록 (현재 화면 조건 + 이름) */
+  const creating = draft.list.length === 0;
+  const [newName, setNewName] = useState('');
 
   const filtered = useMemo(
     () => draft.list.filter((c) => c.name.includes(query.trim())),
@@ -261,14 +272,31 @@ function SavedConditionModal({ open, onClose }: { open: boolean; onClose: () => 
     update({ list: draft.list.map((c) => (c.id === selectedId ? { ...c, ...patch } : c)) });
 
   const save = useAction({
-    validate: () => (draft.list.some((c) => !c.name.trim()) ? '검색조건명을 입력해주세요.' : null),
+    validate: () =>
+      (creating ? !newName.trim() : draft.list.some((c) => !c.name.trim()))
+        ? '검색조건명을 입력해주세요.'
+        : null,
     run: () => wait(500), // TODO(API) 검색조건 저장
     onSuccess: () => {
-      setSaved({
-        ...draft,
-        list: draft.list.filter((c) => !draft.deleted.includes(c.id)),
-        deleted: [],
-      });
+      if (creating) {
+        const id = `new${seq}`;
+        setSeq(seq + 1);
+        const next = {
+          list: [{ id, name: newName.trim(), rows: CURRENT_SCREEN_ROWS }],
+          deleted: [],
+          appliedId: null,
+        };
+        setSaved(next);
+        config.setDraft(next);
+        setSelectedId(id);
+        setNewName('');
+      } else {
+        setSaved({
+          ...draft,
+          list: draft.list.filter((c) => !draft.deleted.includes(c.id)),
+          deleted: [],
+        });
+      }
       onClose();
     },
     success: '검색조건을 저장했습니다.',
@@ -289,7 +317,11 @@ function SavedConditionModal({ open, onClose }: { open: boolean; onClose: () => 
       <Modal.Header title="내 검색조건 관리" closeButton />
       <Modal.Body>
         <ConfigSplit
-          description="저장된 검색조건을 선택하여 적용하거나 이름과 조건을 수정할 수 있습니다."
+          description={
+            creating
+              ? '저장된 검색조건이 없습니다. 현재 화면의 검색조건을 새로 저장할 수 있습니다.'
+              : '저장된 검색조건을 선택하여 적용하거나 이름과 조건을 수정할 수 있습니다.'
+          }
           left={
             <SavedConditionList
               items={pageItems.map((c) => ({
@@ -316,93 +348,113 @@ function SavedConditionModal({ open, onClose }: { open: boolean; onClose: () => 
             />
           }
           right={
-            <>
-              <ConfigPanelHeader
-                title="선택한 검색조건 관리"
-                actions={
-                  <Button
-                    size="sm"
-                    variant="primary"
-                    appearance="line"
-                    onClick={() => {
-                      const id = `new${seq}`;
-                      setSeq(seq + 1);
-                      update({
-                        list: [
-                          { id, name: '새 검색조건', rows: CURRENT_SCREEN_ROWS },
-                          ...draft.list,
-                        ],
-                      });
-                      setSelectedId(id);
-                      setPage(1);
-                    }}
-                  >
-                    신규 등록
-                  </Button>
-                }
-              />
-              {selected && (
-                <>
-                  <Field label="검색조건명">
-                    <TextField
-                      fullWidth
-                      value={selected.name}
-                      disabled={isDeleted}
-                      onChange={(e) => patchSelected({ name: e.target.value })}
-                    />
-                  </Field>
-                  <Field label="저장된 조건" labelPosition="top">
-                    <ConditionSummary rows={selected.rows} />
-                  </Field>
-                  <ConfigField
-                    label={
-                      <Button
-                        variant="neutral"
-                        appearance="line"
-                        disabled={isDeleted}
-                        onClick={() => patchSelected({ rows: CURRENT_SCREEN_ROWS })}
-                      >
-                        현재 조건 덮어쓰기
-                      </Button>
-                    }
-                    align="between"
-                  >
-                    <ConfigHint>선택 조건을 현재 화면의 검색조건으로 변경합니다.</ConfigHint>
-                  </ConfigField>
-                  <ConfigDivider />
-                  <ConfigField label="선택 조건 작업" align="between">
+            creating ? (
+              <>
+                <ConfigPanelHeader title="신규 검색조건 등록" />
+                <Field label="검색조건명">
+                  <TextField
+                    fullWidth
+                    maxLength={30}
+                    placeholder="검색조건명을 입력해주세요"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                  />
+                </Field>
+                <Field label="저장할 조건" labelPosition="top">
+                  <ConditionSummary rows={CURRENT_SCREEN_ROWS} />
+                </Field>
+                <ConfigHint>현재 조회화면의 선택 조건으로 새 검색조건을 저장합니다.</ConfigHint>
+              </>
+            ) : (
+              <>
+                <ConfigPanelHeader
+                  title="선택한 검색조건 관리"
+                  actions={
                     <Button
-                      variant="danger"
-                      appearance="line"
-                      onClick={() =>
-                        update({
-                          deleted: isDeleted
-                            ? draft.deleted.filter((id) => id !== selected.id)
-                            : [...draft.deleted, selected.id],
-                        })
-                      }
-                    >
-                      {isDeleted ? '삭제 취소' : '삭제'}
-                    </Button>
-                    <Button
+                      size="sm"
                       variant="primary"
                       appearance="line"
-                      disabled={isDeleted}
-                      onClick={() => update({ appliedId: selected.id })}
+                      onClick={() => {
+                        const id = `new${seq}`;
+                        setSeq(seq + 1);
+                        update({
+                          list: [
+                            { id, name: '새 검색조건', rows: CURRENT_SCREEN_ROWS },
+                            ...draft.list,
+                          ],
+                        });
+                        setSelectedId(id);
+                        setPage(1);
+                      }}
                     >
-                      선택 조건 적용
+                      신규 등록
                     </Button>
-                  </ConfigField>
-                </>
-              )}
-              <Infobox>
-                <Infobox.Item>
-                  {draft.deleted.length > 0 ? `삭제 예정 ${draft.deleted.length}건을 포함한 ` : ''}
-                  변경사항은 [저장] 선택 시 최종 반영되며, [취소] 또는 [X]로 종료하면 반영되지
-                  않습니다.
-                </Infobox.Item>
-              </Infobox>
-            </>
+                  }
+                />
+                {selected && (
+                  <>
+                    <Field label="검색조건명">
+                      <TextField
+                        fullWidth
+                        value={selected.name}
+                        disabled={isDeleted}
+                        onChange={(e) => patchSelected({ name: e.target.value })}
+                      />
+                    </Field>
+                    <Field label="저장된 조건" labelPosition="top">
+                      <ConditionSummary rows={selected.rows} />
+                    </Field>
+                    <ConfigField
+                      label={
+                        <Button
+                          variant="neutral"
+                          appearance="line"
+                          disabled={isDeleted}
+                          onClick={() => patchSelected({ rows: CURRENT_SCREEN_ROWS })}
+                        >
+                          현재 조건 덮어쓰기
+                        </Button>
+                      }
+                      align="between"
+                    >
+                      <ConfigHint>선택 조건을 현재 화면의 검색조건으로 변경합니다.</ConfigHint>
+                    </ConfigField>
+                    <ConfigDivider />
+                    <ConfigField label="선택 조건 작업" align="between">
+                      <Button
+                        variant="danger"
+                        appearance="line"
+                        onClick={() =>
+                          update({
+                            deleted: isDeleted
+                              ? draft.deleted.filter((id) => id !== selected.id)
+                              : [...draft.deleted, selected.id],
+                          })
+                        }
+                      >
+                        {isDeleted ? '삭제 취소' : '삭제'}
+                      </Button>
+                      <Button
+                        variant="primary"
+                        appearance="line"
+                        disabled={isDeleted}
+                        onClick={() => update({ appliedId: selected.id })}
+                      >
+                        선택 조건 적용
+                      </Button>
+                    </ConfigField>
+                  </>
+                )}
+                <Infobox>
+                  <Infobox.Item>
+                    {draft.deleted.length > 0
+                      ? `삭제 예정 ${draft.deleted.length}건을 포함한 `
+                      : ''}
+                    삭제 예정 1건을 포함한 변경사항은 [저장] 선택 시 최종 반영되며, [취소] 또는 [X]로 종료하면 반영되지 않습니다.
+                  </Infobox.Item>
+                </Infobox>
+              </>
+            )
           }
         />
       </Modal.Body>
@@ -418,7 +470,7 @@ function SavedConditionModal({ open, onClose }: { open: boolean; onClose: () => 
         </Button>
         <Button
           size="lg"
-          disabled={!config.dirty}
+          disabled={!creating && !config.dirty}
           loading={save.loading}
           onClick={() => save.execute()}
         >
@@ -444,6 +496,26 @@ export const SavedConditions: Story = {
           내 검색조건 관리
         </Button>
         <SavedConditionModal open={open} onClose={() => setOpen(false)} />
+      </>
+    );
+  },
+};
+
+/** V03 저장된 조건 없음: 왼쪽 빈 안내, 오른쪽 신규 검색조건 등록(현재 화면 조건 + 이름) */
+export const SavedConditionsEmpty: Story = {
+  name: 'SavedConditions · 저장조건 없음',
+  parameters: {
+    controls: { disable: true },
+    tempWork: '예시 조건(저장할 조건 = 현재 화면 조건)',
+  },
+  render: function Render() {
+    const [open, setOpen] = useState(true);
+    return (
+      <>
+        <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
+          내 검색조건 관리
+        </Button>
+        <SavedConditionModal open={open} onClose={() => setOpen(false)} initial={[]} />
       </>
     );
   },
