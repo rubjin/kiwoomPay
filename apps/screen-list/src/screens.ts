@@ -191,6 +191,21 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC2000',
+    depth1: '마이페이지',
+    depth2: '',
+    depth3: '',
+    name: '권한 신청 현황 팝업 (마이페이지 → 권한관리 [권한 신청 현황])',
+    path: '/mypage',
+    type: '팝업',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork:
+      '예시 데이터 · 폭 시안 1380 → xl 1280 · 열면 바로 조회 · 기본 신청기간 최근 1개월 · 조건 사이 16(시안 약 20)',
+  },
+  {
+    system: 'internal',
     id: 'KWPC1301',
     depth1: 'LNB',
     depth2: '즐겨찾기',

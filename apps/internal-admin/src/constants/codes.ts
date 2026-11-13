@@ -17,7 +17,9 @@ export type CodeGroup =
   | 'CONTACT_ROLE'
   | 'DOWNLOAD_AREA'
   | 'DOWNLOAD_STATUS'
-  | 'DOWNLOAD_FILE_STATUS';
+  | 'DOWNLOAD_FILE_STATUS'
+  | 'PERMISSION_REQUEST_TYPE'
+  | 'PERMISSION_REQUEST_STATUS';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -90,5 +92,16 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
   DOWNLOAD_FILE_STATUS: [
     { value: 'AVAILABLE', label: '다운로드 가능' },
     { value: 'EXPIRED', label: '만료' },
+  ],
+  // 마이페이지 권한 신청 현황: 구분 · 상태
+  PERMISSION_REQUEST_TYPE: [
+    { value: 'MENU', label: '메뉴권한' },
+    { value: 'SPECIAL', label: '특수권한' },
+    { value: 'DATA_SCOPE', label: '데이터 접근 범위' },
+  ],
+  PERMISSION_REQUEST_STATUS: [
+    { value: 'PENDING', label: '승인대기' },
+    { value: 'APPROVED', label: '승인' },
+    { value: 'REJECTED', label: '반려' },
   ],
 };

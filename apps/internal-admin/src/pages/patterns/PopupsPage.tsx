@@ -12,6 +12,7 @@ import { FavoriteEditModal } from '@/layouts/Lnb/FavoriteEditModal';
 import { lnbItems } from '@/layouts/Lnb/Lnb';
 import { SmsUnavailableModal } from '@/pages/auth/login/components/SmsUnavailableModal';
 import { SmsVerifyModal } from '@/pages/auth/login/components/SmsVerifyModal';
+import { PermissionRequestModal } from '@/pages/mypage/hub/components/PermissionRequestModal';
 import { DownloadDetailModal } from '@/pages/main/download-center/components/DownloadDetailModal';
 import { fetchDownloadRequests } from '@/api/main/downloadCenter';
 import type { DownloadStatus } from '@/types/main/downloadCenter';
@@ -31,6 +32,7 @@ type PopupKey =
   | 'favorite'
   | 'sms'
   | 'smsUnavailable'
+  | 'permissionRequest'
   | `download-${DownloadStatus}`
   | 'excel'
   | 'savedSearch'
@@ -67,6 +69,11 @@ const GROUPS: PopupGroup[] = [
       { key: 'sms', label: 'SMS 인증' },
       { key: 'smsUnavailable', label: 'SMS 인증 불가 (휴대전화번호 없음)' },
     ],
+  },
+  {
+    title: 'KWPC2000 마이페이지',
+    description: '권한관리 카드 → [권한 신청 현황]',
+    buttons: [{ key: 'permissionRequest', label: '권한 신청 현황' }],
   },
   {
     title: 'KWPC0104 다운로드 센터',
@@ -207,6 +214,7 @@ export function PopupsPage() {
         />
       )}
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}
+      <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
       <DownloadDetailModal
         requestId={downloadId}
         onClose={close}

@@ -25,6 +25,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchMypageHub, markNotificationsRead } from '@/api/mypage/mypageHub';
 import { MENU } from '@/constants/menu';
 import type { MypageHub } from '@/types/mypage/mypageHub';
+import { PermissionRequestModal } from './components/PermissionRequestModal';
 
 // 카드 폭 비율 (Figma 1632 안 470 · 532 · 598)
 const CARD_COLUMNS = [470, 532, 598];
@@ -52,6 +53,7 @@ const HINT = {
 export function MypageHubPage() {
   const navigate = useNavigate();
   const [hub, setHub] = useState<MypageHub | null>(null);
+  const [requestOpen, setRequestOpen] = useState(false);
   // 화면 목록의 예시 보기 (?example=empty → 특수권한 없음 · 알림 없음). TODO(API) 연결 후 삭제
   const example = useSearchParams()[0].get('example');
 
@@ -106,7 +108,7 @@ export function MypageHubPage() {
     <HubLinkRow
       label="권한 신청 현황"
       value={`${permission.pendingRequests}건`}
-      onClick={() => navigate(MENU.KWPC0202)}
+      onClick={() => setRequestOpen(true)}
     />
   );
 
@@ -207,6 +209,7 @@ export function MypageHubPage() {
           />
         </HubCard>
       </HubGrid>
+      <PermissionRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
     </>
   );
 }
