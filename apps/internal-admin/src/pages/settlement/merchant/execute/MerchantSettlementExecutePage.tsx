@@ -19,15 +19,24 @@ import {
   useDialog,
   toAppliedFilters,
   useSearchResult,
+  useLookup,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { fetchSettlementLedgers, requestLedgerAction } from '@/api/settlement/merchantSettlement';
+import { BizFinderModal } from '@/components/popups/BizFinderModal';
+import type { BizLookupResult } from '@/types/common/bizLookup';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 import type { MerchantSettlementSummary } from '@/types/settlement/merchantSettlement';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 import { createInitialParams } from './components/initialParams';
 import { ledgerColumns } from './components/ledgerColumns';
 import { SEARCH_FIELDS } from './components/searchFields';
+import {
+  HoldReleaseModal,
+  PayDateChangeModal,
+  PayHoldModal,
+} from './components/actions/LedgerActionModals';
+import { toActionRows } from './components/actions/ledgerActionRows';
 
 function toSummaryItems(summary?: MerchantSettlementSummary) {
   return [
@@ -41,8 +50,15 @@ function toSummaryItems(summary?: MerchantSettlementSummary) {
   ];
 }
 
-/** 선택한 원장에 대해 처리하는 업무 Action (P04: 선택 확인 → Confirm → 처리 → Alert) */
-const LEDGER_ACTIONS = ['지급예정일 일괄 변경', '선택 원장 재산출', '지급보류', '보류해제'];
+/** 선택한 원장에 대해 처리하는 업무 Action. 팝업이 있는 것은 팝업(정산원장 일괄 처리 틀), 나머지는 Confirm (P04) */
+type LedgerPopup = 'payDate' | 'hold' | 'release';
+const LEDGER_ACTIONS: { label: string; popup?: LedgerPopup }[] = [
+  { label: '지급예정일 일괄 변경', popup: 'payDate' },
+  // TODO(시안 처리_실행 팝업2.png) 선택 원장 재산출 · 지급확정 · 지급예정일 변경 저장·재산출 팝업 (같은 틀)
+  { label: '선택 원장 재산출' },
+  { label: '지급보류', popup: 'hold' },
+  { label: '보류해제', popup: 'release' },
+];
 
 /** KWPC06010201 가맹점 정산 실행/처리 — 페이지 패턴 P01 Search → Result (V04 적용 조건 · 요약, V05 선택 Action) */
 export function MerchantSettlementExecutePage() {
@@ -50,6 +66,8 @@ export function MerchantSettlementExecutePage() {
   const settlementCycles = useCodeOptions('SETTLEMENT_CYCLE');
   const [selected, setSelected] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
+  const bizLookup = useLookup<BizLookupResult>();
+  const [popup, setPopup] = useState<LedgerPopup | null>(null);
   const result = useSearchResult({
     initialParams: createInitialParams(),
     fetch: async (request) => {
@@ -88,6 +106,28 @@ export function MerchantSettlementExecutePage() {
     await dialog.alert(`${action} 처리가 완료되었습니다.`);
   };
 
+  // 전체 CPID면 CPID 조건은 비운다. TODO(정책) 여러 CPID를 조회 조건으로 넘기는 방식(지금은 쉼표로 이어 붙임)
+  const findBiz = async () => {
+    const found = await bizLookup.open();
+    if (!found) return;
+    setParams({ bizNo: found.bizNo, cpid: found.allCpids ? '' : found.cpids.join(',') });
+  };
+
+  // 선택 확인 후 팝업. 팝업 안에서 [제외] · 입력 · 검증 → 처리 → 재조회 → 완료 안내
+  const openPopup = async (target: LedgerPopup) => {
+    if (selected.length === 0) {
+      await dialog.alert('처리할 정산원장을 선택해주세요.');
+      return;
+    }
+    setPopup(target);
+  };
+  const popupRows = toActionRows(result.items.filter((l) => selected.includes(l.ledgerId)));
+  const popupProps = {
+    rows: popupRows,
+    onClose: () => setPopup(null),
+    onDone: () => result.refresh(),
+  };
+
   const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line', disabled } as const;
 
@@ -120,8 +160,8 @@ export function MerchantSettlementExecutePage() {
         loading={result.loading}
         detail={<span>TODO(시안) 상세 검색 조건</span>}
       >
-        {/* TODO(P03) 사업자 찾기 Lookup → 사업자번호 반영 */}
-        <Button variant="neutral" appearance="line" onClick={() => notReady('사업자 찾기')}>
+        {/* 사업자 찾기 (P03) → 사업자번호 · CPID 조회 범위 반영 */}
+        <Button variant="neutral" appearance="line" onClick={() => void findBiz()}>
           사업자 찾기
         </Button>
         <Field label="CPID" style={{ width: 189 }}>
@@ -199,9 +239,13 @@ export function MerchantSettlementExecutePage() {
         }
         actions={
           <>
-            {LEDGER_ACTIONS.map((action) => (
-              <Button key={action} {...line} onClick={() => runLedgerAction(action)}>
-                {action}
+            {LEDGER_ACTIONS.map(({ label, popup: target }) => (
+              <Button
+                key={label}
+                {...line}
+                onClick={() => (target ? void openPopup(target) : runLedgerAction(label))}
+              >
+                {label}
               </Button>
             ))}
             <Button
@@ -254,6 +298,14 @@ export function MerchantSettlementExecutePage() {
           disabled={!ready}
         />
       </ResultFooter>
+      <PayDateChangeModal open={popup === 'payDate'} {...popupProps} />
+      <PayHoldModal open={popup === 'hold'} {...popupProps} />
+      <HoldReleaseModal open={popup === 'release'} {...popupProps} />
+      <BizFinderModal
+        open={bizLookup.isOpen}
+        onSelect={bizLookup.select}
+        onCancel={bizLookup.cancel}
+      />
     </>
   );
 }

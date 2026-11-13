@@ -14,6 +14,8 @@ export interface ScreenInfo {
 export const SCREENS: readonly ScreenInfo[] = [
   { id: 'KWPC0104', name: '다운로드 센터', path: '/main/download-center' },
   { id: 'KWPC2000', name: '마이페이지', path: '/mypage' },
+  { id: 'KWPC02010100', name: '계정관리', path: '/mypage/account' },
+  { id: 'KWPC02020000', name: '권한관리', path: '/mypage/permission' },
   { id: 'KWPC04010100', name: '통합 거래내역', path: '/transaction/integrated/list' },
   { id: 'KWPC06010201', name: '가맹점 정산 실행/처리', path: '/settlement/merchant/execute' },
   {

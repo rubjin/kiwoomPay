@@ -25,7 +25,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchMypageHub, markNotificationsRead } from '@/api/mypage/mypageHub';
 import { MENU } from '@/constants/menu';
 import type { MypageHub } from '@/types/mypage/mypageHub';
-import { PermissionRequestModal } from './components/PermissionRequestModal';
+import { PermissionRequestModal } from '../components/PermissionRequestModal';
+import { PERMISSION_HINT } from '../components/permissionHints';
 
 // 카드 폭 비율 (Figma 1632 안 470 · 532 · 598)
 const CARD_COLUMNS = [470, 532, 598];
@@ -34,17 +35,6 @@ const PERMISSION_LABEL_WIDTH = 152;
 const RECENT_LIMIT = 5;
 // 업무유형 칩 아이콘 (Figma: 리스크/FDS만) TODO(시안) 유형별 아이콘 규칙
 const TYPE_ICONS: Record<string, string | undefined> = { RISK: 'info-circle' };
-
-// 도움말 (Figma Tooltip / 보유 메뉴 권한 · 권한 템플릿 · 데이터 접근 범위 · 특수권한)
-const HINT = {
-  menu: '현재 사용자에게 부여된 메뉴 접근 권한을 기준으로 산정합니다. 메뉴 내 조회·등록·수정·다운로드 등 상세 기능 권한은 권한관리 화면에서 확인할 수 있습니다.',
-  template:
-    '사용자에게 적용된 기본 권한 묶음입니다. 템플릿에 정의된 메뉴·기능 권한을 기본으로 하며 별도로 부여된 예외 권한이 추가될 수 있습니다.',
-  scope:
-    '사용자가 조회·처리할 수 있는 데이터의 범위입니다. CPID 등 업무 데이터 접근 기준에 따라 제한될 수 있습니다.',
-  special:
-    '업무상 별도 승인이 필요한 한시적 권한입니다. 권한별 유효기간이 적용되며 기간 만료 시 사용할 수 없습니다.',
-};
 
 /**
  * KWPC2000 마이페이지 (Figma 28762:69925) — 계정관리 · 권한관리 · 알림센터 요약 Hub.
@@ -140,18 +130,30 @@ export function MypageHubPage() {
         </HubCard>
 
         <HubCard title="권한관리" onMore={() => navigate(MENU.KWPC0202)}>
-          <HubInfo label="보유 메뉴 권한" hint={HINT.menu} labelWidth={PERMISSION_LABEL_WIDTH}>
+          <HubInfo
+            label="보유 메뉴 권한"
+            hint={PERMISSION_HINT.menu}
+            labelWidth={PERMISSION_LABEL_WIDTH}
+          >
             {permission.menuCount}개 메뉴 접근 가능
           </HubInfo>
           <HubDivider />
-          <HubInfo label="권한 템플릿" hint={HINT.template} labelWidth={PERMISSION_LABEL_WIDTH}>
+          <HubInfo
+            label="권한 템플릿"
+            hint={PERMISSION_HINT.template}
+            labelWidth={PERMISSION_LABEL_WIDTH}
+          >
             {permission.template}
           </HubInfo>
-          <HubInfo label="데이터 접근범위" hint={HINT.scope} labelWidth={PERMISSION_LABEL_WIDTH}>
+          <HubInfo
+            label="데이터 접근범위"
+            hint={PERMISSION_HINT.scope}
+            labelWidth={PERMISSION_LABEL_WIDTH}
+          >
             {permission.dataScope}
           </HubInfo>
           <HubDivider />
-          <HubSubtitle hint={HINT.special}>특수권한</HubSubtitle>
+          <HubSubtitle hint={PERMISSION_HINT.special}>특수권한</HubSubtitle>
           {permission.specials.length > 0 ? (
             <>
               <HubPanel

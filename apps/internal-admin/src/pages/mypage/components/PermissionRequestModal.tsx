@@ -33,7 +33,7 @@ const STATUS_TONE: Record<PermissionRequestStatus, BadgeTone> = {
 const dash = (value: string | null) => value ?? '-';
 
 /** 권한 신청 이력 열 (시안 권한신청팝업.png). TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
-const COLUMNS: GridPlaceholderColumn<PermissionRequest>[] = [
+export const PERMISSION_REQUEST_COLUMNS: GridPlaceholderColumn<PermissionRequest>[] = [
   { key: 'requestedAt', header: '신청일시', width: 170 },
   {
     key: 'type',
@@ -123,7 +123,11 @@ function PermissionRequestBody() {
 
       <SectionHeading size="md" as="h3" title="권한 신청 이력" />
       {result.status === 'success' ? (
-        <GridPlaceholder columns={COLUMNS} rows={result.items} rowKey={(r) => r.id} />
+        <GridPlaceholder
+          columns={PERMISSION_REQUEST_COLUMNS}
+          rows={result.items}
+          rowKey={(r) => r.id}
+        />
       ) : (
         <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
       )}

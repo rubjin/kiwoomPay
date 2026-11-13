@@ -12,7 +12,19 @@ import { FavoriteEditModal } from '@/layouts/Lnb/FavoriteEditModal';
 import { lnbItems } from '@/layouts/Lnb/Lnb';
 import { SmsUnavailableModal } from '@/pages/auth/login/components/SmsUnavailableModal';
 import { SmsVerifyModal } from '@/pages/auth/login/components/SmsVerifyModal';
-import { PermissionRequestModal } from '@/pages/mypage/hub/components/PermissionRequestModal';
+import { PermissionRequestModal } from '@/pages/mypage/components/PermissionRequestModal';
+import { BizFinderModal } from '@/components/popups/BizFinderModal';
+import { fetchSettlementLedgers } from '@/api/settlement/merchantSettlement';
+import {
+  HoldReleaseModal,
+  PayDateChangeModal,
+  PayHoldModal,
+} from '@/pages/settlement/merchant/execute/components/actions/LedgerActionModals';
+import {
+  toActionRows,
+  type LedgerActionRow,
+} from '@/pages/settlement/merchant/execute/components/actions/ledgerActionRows';
+import { createInitialParams as createSettlementParams } from '@/pages/settlement/merchant/execute/components/initialParams';
 import { DownloadDetailModal } from '@/pages/main/download-center/components/DownloadDetailModal';
 import { fetchDownloadRequests } from '@/api/main/downloadCenter';
 import type { DownloadStatus } from '@/types/main/downloadCenter';
@@ -33,6 +45,10 @@ type PopupKey =
   | 'sms'
   | 'smsUnavailable'
   | 'permissionRequest'
+  | 'bizLookup'
+  | 'ledgerPayDate'
+  | 'ledgerHold'
+  | 'ledgerRelease'
   | `download-${DownloadStatus}`
   | 'excel'
   | 'savedSearch'
@@ -74,6 +90,17 @@ const GROUPS: PopupGroup[] = [
     title: 'KWPC2000 마이페이지',
     description: '권한관리 카드 → [권한 신청 현황]',
     buttons: [{ key: 'permissionRequest', label: '권한 신청 현황' }],
+  },
+  {
+    title: 'KWPC06010201 가맹점 정산 실행/처리',
+    description:
+      '검색 조건 [사업자 찾기] (KWPC06010203, 공통 팝업) · 조회 결과 원장 선택 후 일괄 처리 (KWPC06010204~06)',
+    buttons: [
+      { key: 'bizLookup', label: '사업자 찾기' },
+      { key: 'ledgerPayDate', label: '지급예정일 일괄 변경' },
+      { key: 'ledgerHold', label: '지급보류' },
+      { key: 'ledgerRelease', label: '보류 해제' },
+    ],
   },
   {
     title: 'KWPC0104 다운로드 센터',
@@ -159,6 +186,13 @@ function useDownloadIds() {
 export function PopupsPage() {
   const dialog = useDialog();
   const [open, setOpen] = useState<PopupKey | null>(null);
+  // 일괄 처리 팝업 예시 대상: 정산원장 조회 첫 3건
+  const [ledgerRows, setLedgerRows] = useState<LedgerActionRow[]>([]);
+  useEffect(() => {
+    void fetchSettlementLedgers({ params: createSettlementParams(), page: 1, pageSize: 3 }).then(
+      (r) => setLedgerRows(toActionRows(r.items)),
+    );
+  }, []);
   const [favoriteIds, setFavoriteIds] = useState(['KWPC0401', 'KWPC0601', 'KWPC0104']);
   const [saved, setSaved] = useState(EXAMPLE_SAVED_SEARCHES);
   const [bizNo, setBizNo] = useState('123-45-67890');
@@ -215,6 +249,34 @@ export function PopupsPage() {
       )}
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
+      <PayDateChangeModal
+        open={is('ledgerPayDate')}
+        rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <PayHoldModal
+        open={is('ledgerHold')}
+        rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <HoldReleaseModal
+        open={is('ledgerRelease')}
+        rows={ledgerRows}
+        onClose={close}
+        onDone={async () => undefined}
+      />
+      <BizFinderModal
+        open={is('bizLookup')}
+        onCancel={close}
+        onSelect={(r) =>
+          report(
+            '사업자 찾기',
+            `${r.name} (${r.bizNo}) · CPID ${r.allCpids ? '전체' : r.cpids.join(', ')}`,
+          )
+        }
+      />
       <DownloadDetailModal
         requestId={downloadId}
         onClose={close}

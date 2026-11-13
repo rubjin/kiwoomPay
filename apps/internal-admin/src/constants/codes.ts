@@ -19,7 +19,8 @@ export type CodeGroup =
   | 'DOWNLOAD_STATUS'
   | 'DOWNLOAD_FILE_STATUS'
   | 'PERMISSION_REQUEST_TYPE'
-  | 'PERMISSION_REQUEST_STATUS';
+  | 'PERMISSION_REQUEST_STATUS'
+  | 'PAY_HOLD_REASON';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -103,5 +104,12 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
     { value: 'PENDING', label: '승인대기' },
     { value: 'APPROVED', label: '승인' },
     { value: 'REJECTED', label: '반려' },
+  ],
+  // 정산 원장 지급보류 사유 (시안 기본값 '운영자 수동 지급 보류' 외는 예시)
+  PAY_HOLD_REASON: [
+    { value: 'MANUAL', label: '운영자 수동 지급 보류' },
+    { value: 'LIMIT', label: '한도 초과' },
+    { value: 'AML', label: 'AML 미이행' },
+    { value: 'ETC', label: '기타' },
   ],
 };
