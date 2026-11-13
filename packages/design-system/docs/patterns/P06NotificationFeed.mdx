@@ -1,0 +1,57 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../../src/patterns/feed/NotificationFeed.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# P06 Notification Feed
+
+업무 알림을 **미확인 요약 → 업무유형별 건수 → 최근 알림 목록**으로 보여 주고, 읽음 처리 · 관련 업무 이동을 하는 패턴입니다.
+기준 화면: Figma KWPC2000 마이페이지(28762:69925) — 계정관리 · 권한관리 · 알림센터 요약 Hub의 알림센터 카드(축약형).
+
+## 1. 마이페이지 Hub
+
+<Canvas of={Stories.MypageHubStory} />
+
+| 부품                         | 내용                                                                                          |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| `HubGrid`                    | 요약 카드 줄 (사이 16, 높이는 가장 긴 카드). `columns`로 폭 비율 (마이페이지 470 · 532 · 598) |
+| `HubCard`                    | 흰 카드 · 테두리 · 반경 8 · 여백 16 · 사이 16: 제목 20 Bold + [상세보기 >] → 구분선 → 내용    |
+| `HubInfoList` · `HubInfo`    | 라벨 13 Regular(폭 138, 도움말 있으면 152) · 값 14 Medium. 값에 Badge · `HubInfo.Sub`         |
+| `HubDivider` · `HubSubtitle` | 카드 안 묶음 구분선, 작은 제목 13 SemiBold (+ 도움말 InfoTip)                                 |
+| `HubPanel`                   | 회색 상자 목록 (Neutral 50 · 반경 6 · 여백 12): 이름 13 Medium · 오른쪽 12 Regular            |
+| `HubLinkRow`                 | 이동 줄 (회색 상자): 라벨 14 Medium · 값 + > (예: 권한 신청 현황 1건)                         |
+
+### 권한 없음 · 알림 없음 (Figma 28815:71127)
+
+- 특수권한 없음: 권한 신청 현황 줄 → `HubEmpty`("현재 보유 중인 특수권한이 없습니다." 12 Regular + [특수권한 신청] Button sm Neutral Line, 사이 2)
+- 알림 없음: 미확인 0건 · [모두 읽음 처리] 숨김 · 업무유형 칩은 **0건으로 유지** · 목록 자리(남은 높이) 가운데 "최근 수신된 알림이 없습니다."
+
+<Canvas of={Stories.MypageHubEmpty} />
+
+## 2. NotificationFeed
+
+| 영역        | 내용                                                                                                  |
+| ----------- | ----------------------------------------------------------------------------------------------------- |
+| 요약 (24)   | "미확인 알림" 13 Medium + 건수 16 Bold(Accent) · 오른쪽 [모두 읽음 처리] (미확인이 없으면 숨김)       |
+| 업무유형 칩 | Neutral 100 · 높이 20 · 반경 999: 유형 12 Medium + 건수 12 Bold, 아이콘 16(선택), 사이 6              |
+| 목록        | 줄 44 (여백 12 · 사이 8): N 자리 16 · 유형 72(12 SemiBold) · 제목(13, 말줄임) · 일시 100(11 Medium)   |
+| 미확인      | Primary 50 배경 + `UnreadIndicator`(N) + 제목 SemiBold. 확인한 알림은 흰 배경 · N 없음 · 제목 Regular |
+
+- `unreadCount`는 **전체** 미확인 건수 (목록은 `limit`만큼, Hub는 5건)
+- `onSelect(item)` → 화면이 읽음 처리 + 관련 업무 이동, `onReadAll` → Confirm 후 모두 읽음 (P04 `useAction`)
+
+<Canvas of={Stories.Feed} />
+<Canvas of={Stories.Empty} />
+
+## 3. 규칙
+
+- 알림 Toast · 팝업 없음 — Header 종 아이콘(미확인 표시) · 마이페이지 · 알림센터에서 확인
+- 읽음 처리는 낙관적으로 화면부터 바꾸고 API 호출 (실패 시 다시 조회)
+- 알림 전체 목록(알림센터)은 P01 Search → Result (검색 · 필터 · Pagination) + 이 목록 줄 모양
+
+## 확인 필요
+
+- (임의 작업) 알림 선택 시 이동 대상(유형별 업무 화면), [특수권한 신청] 이동 대상, 모두 읽음 확인 문구, 행 Hover 색
+- 권한 신청 현황 값 위치: 기본 Figma는 오른쪽 끝, 권한 없음 Figma는 라벨 바로 옆 — 오른쪽 끝으로 통일
+- 업무유형 칩 아이콘 규칙 (Figma는 리스크/FDS만 info 아이콘)
+- 계정관리 Badge 줄은 Figma에서 라벨 ↔ 값 8(다른 줄 12) — 지금은 12로 통일

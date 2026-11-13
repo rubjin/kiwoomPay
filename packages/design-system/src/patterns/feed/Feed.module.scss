@@ -1,0 +1,368 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC2000_마이페이지_GUI_최초진입(28762:69925)
+$hub-card-padding: t.$space-16; // 테두리 1 안쪽 (내용 x17)
+$hub-card-radius: 8px;
+$hub-card-gap: t.$space-16; // 제목 줄 · 구분선 · 내용 사이
+$hub-grid-gap: t.$space-16; // 카드 사이
+$hub-info-gap: t.$space-12; // 라벨 ↔ 값
+$hub-info-label-width: 138px; // 계정관리 라벨 칸 (권한관리는 152 — labelWidth)
+$hub-hint-gap: t.$space-4; // 라벨 ↔ 도움말 아이콘
+$hub-panel-padding: t.$space-12;
+$hub-panel-radius: 6px;
+$hub-panel-gap: t.$space-12;
+$hub-link-gap: t.$space-4; // 값 ↔ 화살표
+$hub-empty-gap: 2px; // 빈 상태 문구 ↔ 버튼 (Figma 특수권한 없음)
+$feed-summary-height: 24px;
+$feed-summary-gap: t.$space-8; // 미확인 알림 ↔ 건수
+$feed-chip-gap: 6px;
+$feed-chip-height: 20px;
+$feed-chip-padding-x: t.$space-8;
+$feed-chip-inner-gap: t.$space-4;
+$feed-item-padding: t.$space-12;
+$feed-item-gap: t.$space-8;
+$feed-indicator-width: 16px; // N 자리 (확인한 알림은 비움)
+$feed-indicator-height: 20px; // 줄 높이 44 = 12 + 20 + 12
+$feed-category-width: 72px;
+$feed-date-width: 100px;
+$feed-empty-min-height: 120px; // TODO(시안) 카드가 혼자일 때 최소 높이 (Hub에서는 남은 높이 242)
+
+// ── HubGrid · HubCard ───────────────────────────────
+.grid {
+  display: grid;
+  gap: $hub-grid-gap;
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $hub-card-gap;
+  min-width: 0;
+  padding: $hub-card-padding;
+  overflow: hidden;
+  background-color: t.$color-hub-card-bg;
+  border: t.$control-border-width solid t.$color-hub-card-border;
+  border-radius: $hub-card-radius;
+}
+
+.cardHeader {
+  display: flex;
+  gap: t.$space-12;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  @include m.typography(typo-20-bold);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-hub-title;
+}
+
+.more {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.divider {
+  flex: none;
+  align-self: stretch;
+  height: t.$control-border-width;
+  margin: 0;
+  background-color: t.$color-hub-divider;
+  border: 0;
+}
+
+// ── HubInfo (라벨 · 값 한 줄) ───────────────────────
+.infoList {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  gap: $hub-info-gap;
+  align-items: center;
+  min-width: 0;
+}
+
+.infoLabel {
+  @include m.typography(typo-13-regular);
+
+  display: inline-flex;
+  flex: none;
+  gap: $hub-hint-gap;
+  align-items: center;
+  width: $hub-info-label-width;
+  color: t.$color-hub-label;
+}
+
+.infoValue {
+  @include m.typography(typo-14-medium);
+
+  display: inline-flex;
+  gap: t.$space-4;
+  align-items: center;
+  min-width: 0;
+  color: t.$color-hub-value;
+}
+
+.infoSub {
+  @include m.typography(typo-14-regular);
+}
+
+// ── HubSubtitle · HubPanel · HubLinkRow ─────────────
+.subtitle {
+  @include m.typography(typo-13-semi-bold);
+
+  display: inline-flex;
+  gap: $hub-hint-gap;
+  align-items: center;
+  margin: 0;
+  color: t.$color-hub-title;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $hub-panel-gap;
+  padding: $hub-panel-padding;
+  background-color: t.$color-hub-panel-bg;
+  border-radius: $hub-panel-radius;
+}
+
+.panelRow {
+  display: flex;
+  gap: t.$space-12;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelLabel {
+  @include m.typography(typo-13-medium);
+
+  color: t.$color-hub-value;
+}
+
+.panelValue {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-hub-sub;
+}
+
+.empty {
+  @include m.typography(typo-12-regular);
+
+  display: flex;
+  flex-direction: column;
+  gap: $hub-empty-gap;
+  align-items: center;
+  padding: $hub-panel-padding;
+  margin: 0;
+  color: t.$color-hub-sub;
+  text-align: center;
+  background-color: t.$color-hub-panel-bg;
+  border-radius: $hub-panel-radius;
+}
+
+.emptyMessage {
+  margin: 0;
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $hub-panel-padding;
+  text-align: left;
+  cursor: pointer;
+  background-color: t.$color-hub-panel-bg;
+  border: 0;
+  border-radius: $hub-panel-radius;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.linkLabel {
+  @include m.typography(typo-14-medium);
+
+  color: t.$color-hub-label;
+}
+
+.linkValue {
+  @include m.typography(typo-14-medium);
+
+  display: inline-flex;
+  gap: $hub-link-gap;
+  align-items: center;
+  color: t.$color-hub-value;
+}
+
+.linkIcon {
+  display: inline-flex;
+  color: t.$color-hub-link-icon;
+}
+
+// ── NotificationFeed ────────────────────────────────
+.feed {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $hub-card-gap;
+  min-width: 0;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $feed-summary-height;
+}
+
+.summaryUnread {
+  display: inline-flex;
+  gap: $feed-summary-gap;
+  align-items: center;
+}
+
+.summaryLabel {
+  @include m.typography(typo-13-medium);
+
+  color: t.$color-hub-label;
+}
+
+.summaryCount {
+  @include m.typography(typo-16-bold);
+
+  color: t.$color-feed-count;
+}
+
+// 알림 없음: 목록 자리(카드 남은 높이) 가운데 문구 (Figma 알림 없음)
+.feedEmpty {
+  @include m.typography(typo-12-regular);
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: $feed-empty-min-height;
+  margin: 0;
+  color: t.$color-hub-sub;
+  text-align: center;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $feed-chip-gap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.chip {
+  @include m.typography(typo-12-medium);
+
+  display: inline-flex;
+  gap: $feed-chip-inner-gap;
+  align-items: center;
+  height: $feed-chip-height;
+  padding: 0 $feed-chip-padding-x;
+  color: t.$color-feed-chip-label;
+  white-space: nowrap;
+  background-color: t.$color-feed-chip-bg;
+  border-radius: 999px;
+}
+
+.chipIcon {
+  display: inline-flex;
+  color: t.$color-feed-chip-icon;
+}
+
+.chipCount {
+  @include m.typography(typo-12-bold);
+
+  color: t.$color-feed-chip-count;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.listItem + .listItem {
+  border-top: t.$control-border-width solid t.$color-feed-divider;
+}
+
+.item {
+  display: flex;
+  gap: $feed-item-gap;
+  align-items: center;
+  width: 100%;
+  padding: $feed-item-padding;
+  text-align: left;
+  cursor: pointer;
+  background-color: t.$color-feed-item-bg;
+  border: 0;
+
+  &:hover {
+    background-color: t.$color-feed-item-bg-hover;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.unread {
+  background-color: t.$color-feed-item-bg-unread;
+}
+
+.indicator {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: $feed-indicator-width;
+  height: $feed-indicator-height;
+}
+
+.category {
+  @include m.typography(typo-12-semi-bold);
+  @include m.ellipsis;
+
+  flex: none;
+  width: $feed-category-width;
+  color: t.$color-feed-item-category;
+}
+
+.itemTitle {
+  @include m.typography(typo-13-regular);
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+  color: t.$color-feed-item-title;
+}
+
+.itemTitleUnread {
+  @include m.typography(typo-13-semi-bold);
+}
+
+.date {
+  @include m.typography(typo-11-medium);
+
+  flex: none;
+  width: $feed-date-width;
+  color: t.$color-feed-item-date;
+  text-align: right;
+}

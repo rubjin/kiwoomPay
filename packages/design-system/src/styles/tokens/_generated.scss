@@ -374,7 +374,7 @@ $color-button-danger-line-bg-hover: var(--kp-color-button-danger-line-bg-hover);
 $color-button-danger-line-bg-pressed: var(--kp-color-button-danger-line-bg-pressed);
 $color-text-button-primary-text: var(--kp-color-text-button-primary-text);
 $color-text-button-primary-text-hover: var(--kp-color-text-button-primary-text-hover); // TextLink hover. Text Action hover는 색 변화 없음(시안)
-$color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // TODO(시안) Neutral Text Action 색 확인
+$color-text-button-neutral-text: var(--kp-color-text-button-neutral-text); // Figma 마이페이지(28762:69925) Text Button 상세보기 · 모두 읽음 처리 = Neutral 600 (2026-11-13)
 $color-text-button-neutral-text-hover: var(--kp-color-text-button-neutral-text-hover); // TODO(시안)
 $color-text-button-text-disabled: var(--kp-color-text-button-text-disabled);
 $color-text-button-hover-bg: var(--kp-color-text-button-hover-bg); // Text Button Hover 배경 (Figma Text Button State=Hover)
@@ -451,6 +451,29 @@ $color-favorite-menu-count-bg: var(--kp-color-favorite-menu-count-bg);
 $color-favorite-menu-count-label: var(--kp-color-favorite-menu-count-label);
 $color-favorite-menu-count-number: var(--kp-color-favorite-menu-count-number); // Figma secondary/500 #8B5CF6 (같은 값의 Chart 색 사용)
 $color-favorite-menu-item-disabled: var(--kp-color-favorite-menu-item-disabled); // 최대 개수가 차서 고를 수 없는 메뉴
+
+// ── custom · feed ───────────────────────────────────────────────
+$color-hub-card-bg: var(--kp-color-hub-card-bg);
+$color-hub-card-border: var(--kp-color-hub-card-border);
+$color-hub-title: var(--kp-color-hub-title);
+$color-hub-divider: var(--kp-color-hub-divider);
+$color-hub-label: var(--kp-color-hub-label);
+$color-hub-value: var(--kp-color-hub-value);
+$color-hub-sub: var(--kp-color-hub-sub); // 보조 값 (기간 · 일시)
+$color-hub-panel-bg: var(--kp-color-hub-panel-bg); // 특수권한 · 권한 신청 현황 회색 상자
+$color-hub-link-icon: var(--kp-color-hub-link-icon); // 상세 이동 화살표 (TODO(시안) 색 확인)
+$color-feed-count: var(--kp-color-feed-count); // 미확인 알림 건수
+$color-feed-chip-bg: var(--kp-color-feed-chip-bg);
+$color-feed-chip-label: var(--kp-color-feed-chip-label);
+$color-feed-chip-count: var(--kp-color-feed-chip-count);
+$color-feed-chip-icon: var(--kp-color-feed-chip-icon); // TODO(시안) 업무유형 아이콘 색 확인
+$color-feed-item-bg: var(--kp-color-feed-item-bg);
+$color-feed-item-bg-unread: var(--kp-color-feed-item-bg-unread);
+$color-feed-item-bg-hover: var(--kp-color-feed-item-bg-hover); // TODO(시안) 행 Hover — 시안 없음
+$color-feed-item-category: var(--kp-color-feed-item-category);
+$color-feed-item-title: var(--kp-color-feed-item-title);
+$color-feed-item-date: var(--kp-color-feed-item-date);
+$color-feed-divider: var(--kp-color-feed-divider);
 
 // ── custom · field ──────────────────────────────────────────────
 $field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
@@ -1050,7 +1073,7 @@ $css-variables: (
   "--kp-color-button-danger-line-bg-pressed": "var(--kp-color-status-error-background)",
   "--kp-color-text-button-primary-text": "var(--kp-color-primary-500)",
   "--kp-color-text-button-primary-text-hover": "var(--kp-color-primary-600)",
-  "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-700)",
+  "--kp-color-text-button-neutral-text": "var(--kp-color-neutral-600)",
   "--kp-color-text-button-neutral-text-hover": "var(--kp-color-neutral-700)",
   "--kp-color-text-button-text-disabled": "var(--kp-color-neutral-300)",
   "--kp-color-text-button-hover-bg": "var(--kp-color-primary-50)",
@@ -1113,6 +1136,27 @@ $css-variables: (
   "--kp-color-favorite-menu-count-label": "var(--kp-color-primary-500)",
   "--kp-color-favorite-menu-count-number": "var(--kp-color-chart-category-02)",
   "--kp-color-favorite-menu-item-disabled": "var(--kp-color-text-disabled)",
+  "--kp-color-hub-card-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-hub-card-border": "var(--kp-color-line-subtle)",
+  "--kp-color-hub-title": "var(--kp-color-text-heading)",
+  "--kp-color-hub-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-hub-label": "var(--kp-color-text-label)",
+  "--kp-color-hub-value": "var(--kp-color-text-body)",
+  "--kp-color-hub-sub": "var(--kp-color-text-secondary)",
+  "--kp-color-hub-panel-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-hub-link-icon": "var(--kp-color-text-secondary)",
+  "--kp-color-feed-count": "var(--kp-color-text-accent)",
+  "--kp-color-feed-chip-bg": "var(--kp-color-neutral-100)",
+  "--kp-color-feed-chip-label": "var(--kp-color-neutral-700)",
+  "--kp-color-feed-chip-count": "var(--kp-color-neutral-800)",
+  "--kp-color-feed-chip-icon": "var(--kp-color-neutral-500)",
+  "--kp-color-feed-item-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-feed-item-bg-unread": "var(--kp-color-primary-50)",
+  "--kp-color-feed-item-bg-hover": "var(--kp-color-bg-hover)",
+  "--kp-color-feed-item-category": "var(--kp-color-text-label)",
+  "--kp-color-feed-item-title": "var(--kp-color-text-body)",
+  "--kp-color-feed-item-date": "var(--kp-color-text-secondary)",
+  "--kp-color-feed-divider": "var(--kp-color-line-subtle)",
   "--kp-field-radius-md": "8px",
   "--kp-field-radius-sm": "6px",
   "--kp-field-gap": "var(--kp-space-8)",

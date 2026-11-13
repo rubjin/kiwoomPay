@@ -4,4 +4,5 @@ export * from './search-result';
 export * from './lookup';
 export * from './action';
 export * from './auth';
+export * from './feed';
 export * from './record-form';

@@ -264,8 +264,8 @@
     "Neutral": {
       "Text": {
         "$type": "color",
-        "$value": "{Neutral.700}",
-        "$description": "TODO(시안) Neutral Text Action 색 확인"
+        "$value": "{Neutral.600}",
+        "$description": "Figma 마이페이지(28762:69925) Text Button 상세보기 · 모두 읽음 처리 = Neutral 600 (2026-11-13)"
       },
       "TextHover": {
         "$type": "color",

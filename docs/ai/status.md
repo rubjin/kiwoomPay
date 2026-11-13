@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -58,7 +58,7 @@
 - [Q12] JSP 프로젝트의 실제 정적 폴더 경로 · 셸 JSP 위치 · 서버 forward 설정 (docs/jsp-integration.md는 `webapp/static/<앱>/` · Spring 컨트롤러 예시 가정. 컨텍스트 패스는 셸의 `data-basename`으로 받으므로 빌드와 무관)
 - [Q13] 모바일 시안 확인 후 `tokens/custom/breakpoint.json` 값 확정 (현재 TODO 임시값 tablet 1024 / mobile 768)
 - [Q14] 시안 확인 후 TODO 임시값 확정: `tokens/custom/semantic-color.json`(hover·selected·pressed·focus·overlay), `dimension.json`(focus ring). `Bg/Page`(Neutral 50)·`Bg/Surface`(흰색)는 Page Layout Guide로 확정
-- [Q15] Neutral Text Action은 Figma에 없음 → `Neutral/700` 임시값 유지(`tokens/custom/button.json`, TODO). Hover는 Figma대로 Primary 50 배경(밑줄 없음)으로 확정(2026-11-12)
+- [Q15] ~~Neutral Text Action 색~~ → Figma 마이페이지(28762:69925) Text Button = Neutral 600으로 반영(2026-11-13). Hover는 Primary 50 배경(밑줄 없음) 확정(2026-11-12)
 - [Q16] Header Utility Link(Semantic은 Link, 시각은 Primary Line M40) 구현 방식: `Button`에 `href` 지원을 추가할지, 별도 컴포넌트로 둘지
 - [Q17] 가이드(Hierarchy 설명)는 Hover를 "한 단계 어두운 배경"이라 쓰지만 시안 값은 Neutral Solid Hover가 더 밝은 회색(Neutral/500). 시안 값을 따름 — 디자인 확인 필요
 - [Q18] MultiSelect(시안 변경 반영 2026-11-11: 전체 행 배경 없음 · 항목 36 · 여러 개 선택 시 쉼표 나열 · 패널 최대 높이 md 276 / sm 210 · 항목 글자 md 14 / sm 13 확정) 확인 필요: ① 시안은 전부 선택해도 "전체"가 일부 선택(–)으로 그려짐 → 구현은 체크(✓) ② 열림 상태 트리거 글자가 회색인 예시가 있으나 다른 예시는 진한 색 → 진한 색
@@ -94,6 +94,7 @@
 - [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
 - [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(안내 ↔ 상자 12는 PNG 측정, 상자 ↔ 인증번호 12 · 입력 ↔ 오류 문구 4는 사용자 확정 2026-11-13) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
+- [Q58] P06 마이페이지 확인 필요: ① 알림 선택 시 이동 대상(유형별 업무 화면 — 지금은 알림센터) ② 모두 읽음 확인 문구 · 빈 상태 문구 · 알림 행 Hover ③ 업무유형 칩 아이콘 규칙(Figma는 리스크/FDS만) ④ 계정관리 Badge 줄 라벨 ↔ 값 Figma 8(다른 줄 12) — 12로 통일 ⑤ 마이페이지 Hub는 메뉴(IA)에 없는 화면(KWPC2000) — 헤더 [내 정보]로 진입 ⑥ 권한 신청 현황 값 위치 — 기본 Figma 오른쪽 끝 ↔ 권한 없음 Figma 라벨 옆(오른쪽 끝으로 통일) ⑦ [특수권한 신청] 이동 대상(지금 권한관리)
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -698,3 +699,14 @@
 - 검증: lint · typecheck, Storybook 측정(상자 ↔ 입력 12, 입력 ↔ 문구 4, 만료 · 기본 모두 Modal 329)
 - 인증번호 불일치 문구(사용자 확정): Alert 대신 입력 아래 "인증번호가 일치하지 않습니다. 다시 확인해 주세요." — 입력 수정 · 재발송 시 지움, 만료 문구가 우선. `useAction` `failure`가 null을 돌려주면 Alert 생략(옵션 추가). 스토리 SmsMismatch, 앱 SmsVerifyModal 동일. 검증: 틀린 번호 → Alert 없음 · 문구 표시 · Modal 329 유지, 입력 수정 → 문구 사라짐(Storybook · 앱)
 - SMS 인증 불가 케이스(사용자 이미지): 등록된 휴대전화번호 없음 → 안내 2줄 + "등록 정보 없음"(`AuthInfoRow empty`, Text Placeholder) + [확인]만, 닫기 X 없음. `AuthVerifyBody`는 인증번호가 없으면 안내 · 정보만. 스토리 SmsNoPhone, 로그인 흐름 예시 아이디 nophone. 앱: `LoginChallenge.maskedPhone` null → `SmsUnavailableModal`. SmsVerify 스토리의 "(임의 작업: 간격)" 표시 삭제(간격 확인 완료). 검증: Storybook · 앱 nophone → 불가 안내(255 높이, 버튼 [확인]만) → 확인으로 닫힘
+
+### Pattern: P06 Notification Feed + KWPC2000 마이페이지 — 2026-11-13
+- 시안: Figma KWPC2000_마이페이지_GUI_최초진입(28762:69925), 도움말 4종(Tooltip 노드 텍스트)
+- 디자인 시스템 `patterns/feed`: `NotificationFeed`(미확인 요약 · [모두 읽음 처리] · 업무유형 칩 · 목록 줄 44, 미확인 Primary 50 + N + SemiBold, `unreadCount` 전체 · `limit`), Hub 부품 `HubGrid`(폭 비율) · `HubCard`(제목 20 Bold + [상세보기 >]) · `HubInfoList` · `HubInfo`(+ `.Sub`, `hint` InfoTip, `labelWidth`) · `HubDivider` · `HubSubtitle` · `HubPanel` · `HubLinkRow`. 토큰 `tokens/custom/feed.json`(색 모두 alias). Storybook `Patterns/P06 Notification Feed`(Guide · Mypage Hub · Feed · Empty), 가이드 `docs/patterns/P06NotificationFeed.mdx`
+- TextButton neutral 글자색 Neutral 700 → 600 (Figma 근거, Q15 해소) — 모든 neutral TextButton에 적용
+- 앱: `pages/mypage/hub/MypageHubPage`(`/mypage` index, 헤더 [내 정보] → 이동), `api/mypage/mypageHub`(예시, TODO(API)) · `types/mypage/mypageHub`. [상세보기] → 계정관리 · 권한관리 · 알림센터, 알림 선택 → 읽음 + 알림센터, [모두 읽음 처리] → Confirm → 0건. 탭 제목 · 화면 목록에 KWPC2000
+- 검증: tokens · typecheck · lint · build, Storybook 1680에서 Figma와 일치(카드 x 24/510/1058 · y72 · 폭 470/532/598 · 높이 412(Figma 413), 계정 줄 78/119/160/201/241/281/322, 알림 요약 78 · 칩 118 · 목록 154부터 44씩, 미확인 배경 · 글자), 흐름(선택 → 읽음, 모두 읽음 Confirm → 0, 버튼 숨김) · 앱(헤더 이동, 상세보기 이동, 알림 → 알림센터), 에러 없음
+- 한 가정: Q58
+- 권한 없음 · 알림 없음 케이스(Figma 28815:71127): `HubEmpty`(회색 상자 · 문구 12 Regular Text Secondary + [특수권한 신청] sm Neutral Line, 사이 2) — 특수권한이 없으면 권한 신청 현황 → 빈 상태 순서(Figma). `NotificationFeed` 빈 상태: 목록 자리 남은 높이 가운데 "최근 수신된 알림이 없습니다."(기본 문구), 칩은 0건 유지, [모두 읽음 처리] 숨김. 모두 읽음 처리 후에도 칩 0건 유지(스토리 · 앱). 스토리 `Mypage Hub · 권한 없음 / 알림 없음`, 앱 `/mypage?example=empty`(예시, 화면 목록 행 추가). 검증: Figma 위치 일치(권한 신청 현황 259 · 45, 빈 상자 320 · 76, 버튼 352, 알림 빈 영역 154 · 242, 카드 413), 앱 [특수권한 신청] → 권한관리, 에러 없음
+- 앱 Header 누락 반영(Figma 마이페이지 Header 28765:112928): [다운로드 센터] 건수 Badge(`count`, 예시 1) · 알림 아이콘 미확인 점(`dot` → bell-on, 예시 있음) — 디자인 시스템 Header는 이미 지원, 앱이 넘기지 않았음. 알림 아이콘 → 알림센터 이동. 값은 TODO(API). Figma의 "마스킹 해제 중 59:55" · 실명 표시는 마스킹 해제 후 상태(해제 사유 Modal 필요, Q46)라 미반영
+- 앱 Header 마스킹 해제 중 상태(사용자 요청): 처음부터 해제 중(60:00 카운트다운 · 실명 사용자 정보)으로 표시 — Figma Header와 같음. [연장] 60:00 · [마스킹 적용] → 마스킹(kw******* · 홍*동) · 0초가 되면 자동 마스킹, [마스킹 해제] → 바로 해제(TODO 사유 Modal Q46). 세션 시간도 카운트다운 · [연장]. 실제 상태 · 시간은 TODO(API)
