@@ -210,7 +210,7 @@ export const ExcelDownload: Story = {
     tempWork: '템플릿 불러오기 · 저장 · 삭제 동작, 다운로드 결과 문구',
   },
   render: function Render() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     return (
       <>
         <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
@@ -492,7 +492,7 @@ export const SavedConditions: Story = {
       '적용 · 덮어쓰기 · 신규 등록 동작 해석, 예시 데이터, 화면 쪽 반영(적용 시 검색 조건 바꾸기)',
   },
   render: function Render() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     return (
       <>
         <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
@@ -512,7 +512,7 @@ export const SavedConditionsEmpty: Story = {
     tempWork: '예시 조건(저장할 조건 = 현재 화면 조건)',
   },
   render: function Render() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     return (
       <>
         <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>

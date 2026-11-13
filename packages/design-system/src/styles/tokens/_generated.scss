@@ -643,6 +643,16 @@ $color-pagination-active-bg: var(--kp-color-pagination-active-bg);
 $color-pagination-active-text: var(--kp-color-pagination-active-text);
 $color-pagination-disabled-text: var(--kp-color-pagination-disabled-text);
 
+// ── custom · record-detail ──────────────────────────────────────
+$color-record-detail-target-label: var(--kp-color-record-detail-target-label); // 선택한 거래 (12 Regular)
+$color-record-detail-target-value: var(--kp-color-record-detail-target-value); // 거래번호 (13 SemiBold)
+$color-record-detail-divider: var(--kp-color-record-detail-divider);
+$color-record-detail-card-bg: var(--kp-color-record-detail-card-bg);
+$color-record-detail-card-border: var(--kp-color-record-detail-card-border);
+$color-record-detail-card-title: var(--kp-color-record-detail-card-title); // 카드 제목 14 Bold
+$color-record-detail-label: var(--kp-color-record-detail-label); // 항목 이름 12 SemiBold
+$color-record-detail-value: var(--kp-color-record-detail-value); // 값 · 빈 안내 12 Regular
+
 // ── custom · record-form ────────────────────────────────────────
 $color-record-form-label-bg: var(--kp-color-record-form-label-bg); // 폼 표 라벨 칸 · 머리 행 (Figma KWPC07010101 label)
 $color-record-form-label-text: var(--kp-color-record-form-label-text);
@@ -1333,6 +1343,14 @@ $css-variables: (
   "--kp-color-pagination-active-bg": "var(--kp-color-primary-500)",
   "--kp-color-pagination-active-text": "var(--kp-color-text-inverse)",
   "--kp-color-pagination-disabled-text": "var(--kp-color-text-disabled)",
+  "--kp-color-record-detail-target-label": "var(--kp-color-text-secondary)",
+  "--kp-color-record-detail-target-value": "var(--kp-color-text-accent)",
+  "--kp-color-record-detail-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-record-detail-card-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-record-detail-card-border": "var(--kp-color-line-default)",
+  "--kp-color-record-detail-card-title": "var(--kp-color-text-heading)",
+  "--kp-color-record-detail-label": "var(--kp-color-text-label)",
+  "--kp-color-record-detail-value": "var(--kp-color-text-label)",
   "--kp-color-record-form-label-bg": "var(--kp-color-neutral-100)",
   "--kp-color-record-form-label-text": "var(--kp-color-text-heading)",
   "--kp-color-record-form-required": "var(--kp-color-status-error-border)",

@@ -1,0 +1,102 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC04010101 거래 상세정보 팝업(29443:107913)
+$rd-padding-x: t.$space-20; // Modal 여백
+$rd-target-gap: t.$space-16; // 선택한 거래 ↔ 값
+$rd-target-padding-bottom: 10px;
+$rd-tabs-padding-top: 10px;
+$rd-section-gap: t.$space-12; // 제목 ↔ 카드, 카드 사이
+$rd-card-padding: t.$space-12;
+$rd-card-radius: 6px;
+$rd-card-gap: t.$space-16; // 카드 제목 ↔ 줄, 줄 사이
+$rd-label-width: 73px;
+
+// Modal.Header 아래(스크롤 밖) — Header 아래 여백 16 + 4 = Figma 20
+.target {
+  display: flex;
+  flex: none;
+  gap: $rd-target-gap;
+  align-items: center;
+  padding: t.$space-4 $rd-padding-x $rd-target-padding-bottom;
+  border-bottom: t.$control-border-width solid t.$color-record-detail-divider;
+}
+
+.targetLabel {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-record-detail-target-label;
+}
+
+.targetValue {
+  @include m.typography(typo-13-semi-bold);
+
+  color: t.$color-record-detail-target-value;
+}
+
+// 탭 줄 — 아래 16 + Modal.Body 위 4 = Figma 본문 위 20
+.tabs {
+  flex: none;
+  padding: $rd-tabs-padding-top $rd-padding-x t.$space-16;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $rd-section-gap;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $rd-card-gap;
+  padding: $rd-card-padding; // Figma: 테두리 안쪽 12 (카드 217 = 테두리 2 + 12 × 2 + 내용 191)
+  background-color: t.$color-record-detail-card-bg;
+  border: t.$control-border-width solid t.$color-record-detail-card-border;
+  border-radius: $rd-card-radius;
+}
+
+.cardTitle {
+  @include m.typography(typo-14-bold);
+
+  margin: 0;
+  color: t.$color-record-detail-card-title;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(var(--detail-columns, 2), minmax(0, 1fr));
+  gap: $rd-card-gap 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+}
+
+.label {
+  @include m.typography(typo-12-semi-bold);
+
+  flex: none;
+  width: var(--detail-label-width, #{$rd-label-width});
+  color: t.$color-record-detail-label;
+}
+
+.value {
+  @include m.typography(typo-12-regular);
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: t.$color-record-detail-value;
+}
+
+.empty {
+  @include m.typography(typo-12-regular);
+
+  margin: 0;
+  color: t.$color-record-detail-value;
+  text-align: center;
+}

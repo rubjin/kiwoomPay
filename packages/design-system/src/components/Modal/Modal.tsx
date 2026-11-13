@@ -41,6 +41,8 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   size?: ModalSize;
   /** 정해진 폭(size) 밖이 필요할 때만 직접 지정 (예: 결과 Grid가 있는 Lookup) */
   width?: number | string;
+  /** 높이 고정 (탭마다 내용 높이가 달라도 같은 크기, 넘치면 Body 스크롤). 화면 최대 높이가 우선 */
+  height?: number | string;
   /** Esc로 닫기 (기본 true, onClose가 있을 때) */
   closeOnEsc?: boolean;
   /** 딤 영역 클릭으로 닫기 (기본 false: 입력 중 실수로 닫히지 않게) */
@@ -58,6 +60,7 @@ const ModalRoot = forwardRef<HTMLDivElement, ModalProps>(
       onClose,
       size = 'sm',
       width,
+      height,
       closeOnEsc = true,
       closeOnDimClick = false,
       initialFocusRef,
@@ -110,7 +113,11 @@ const ModalRoot = forwardRef<HTMLDivElement, ModalProps>(
 
     if (!open) return null;
 
-    const panelStyle: CSSProperties = { ...style, ...(width !== undefined ? { width } : null) };
+    const panelStyle: CSSProperties = {
+      ...style,
+      ...(width !== undefined ? { width } : null),
+      ...(height !== undefined ? { height } : null),
+    };
     const panel = (
       <div
         {...rest}
