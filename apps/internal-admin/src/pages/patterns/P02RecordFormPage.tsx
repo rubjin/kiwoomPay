@@ -50,7 +50,7 @@ export function P02RecordFormPage() {
     { id: 1, name: '홍길동', email: 'hong@example.com' },
   ]);
   const [checked, setChecked] = useState<number[]>([]);
-  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailOpen, setDetailOpen] = useState<'normal' | 'error' | null>(null);
 
   const save = async () => {
     if (!(await dialog.confirm('저장할까요?'))) return;
@@ -84,9 +84,14 @@ export function P02RecordFormPage() {
           </>
         }
         actions={
-          <Button variant="neutral" appearance="line" onClick={() => setDetailOpen(true)}>
-            상세 팝업 (조회 전용)
-          </Button>
+          <>
+            <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('normal')}>
+              상세 팝업 (조회 전용)
+            </Button>
+            <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('error')}>
+              상세 팝업 (결제 오류)
+            </Button>
+          </>
         }
       />
 
@@ -214,7 +219,12 @@ export function P02RecordFormPage() {
         </FormGroup>
       </FormSection>
 
-      <P02DetailModal open={detailOpen} onClose={() => setDetailOpen(false)} />
+      <P02DetailModal
+        key={detailOpen ?? 'closed'}
+        open={detailOpen !== null}
+        error={detailOpen === 'error'}
+        onClose={() => setDetailOpen(null)}
+      />
     </>
   );
 }
