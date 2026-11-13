@@ -16,6 +16,7 @@ import {
   useAction,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import { P04PartialCancelModal } from './P04PartialCancelModal';
 
 /**
  * 레이아웃 패턴 P04 Action → Feedback 템플릿 (화면 확인용, 임의 작업).
@@ -308,6 +309,7 @@ export function P04ActionFeedbackPage() {
   const [bizOpen, setBizOpen] = useState(false);
   const [bizNo, setBizNo] = useState('123-45-67890');
   const [limitOpen, setLimitOpen] = useState(false);
+  const [cancelOpen, setCancelOpen] = useState(false);
 
   return (
     <>
@@ -320,6 +322,9 @@ export function P04ActionFeedbackPage() {
             </Button>
             <Button variant="neutral" appearance="line" onClick={() => setLimitOpen(true)}>
               결제한도 설정
+            </Button>
+            <Button variant="neutral" appearance="line" onClick={() => setCancelOpen(true)}>
+              부분취소 요청
             </Button>
           </>
         }
@@ -350,6 +355,7 @@ export function P04ActionFeedbackPage() {
         onClose={() => setBizOpen(false)}
       />
       <CardLimitModal open={limitOpen} onClose={() => setLimitOpen(false)} />
+      <P04PartialCancelModal open={cancelOpen} onClose={() => setCancelOpen(false)} />
     </>
   );
 }
