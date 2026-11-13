@@ -1,0 +1,59 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../../src/patterns/lookup/LookupApply.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# P03 Lookup → Apply
+
+입력 화면에서 **코드 · 번호를 팝업으로 찾아 골라 넣는** 흐름입니다 (Figma Pattern Library P03).
+기준 화면: KWPC07010101 팝업 표준산업분류코드 조회 (분류로 찾기 · 키워드로 찾기).
+
+## 1. 흐름
+
+1. 호출 필드 `LookupField`의 [찾기] → `const picked = await lookup.open()`
+2. Lookup Modal에서 조건 → [조회] / [전체조회] → 결과 그리드(IBSheet8)
+3. 행 [선택] → `lookup.select(row)` → Modal 닫힘 → 화면이 값을 반영
+4. 닫기(X) · Esc → `lookup.cancel()` → `null` → **원래 값 유지**
+
+<Canvas of={Stories.LookupApply} />
+
+```tsx
+const lookup = useLookup<Industry>();
+
+const find = async () => {
+  const picked = await lookup.open();
+  if (picked) setIndustry(picked); // null(취소)이면 그대로
+};
+
+<LookupField readOnly value={industry ? `${industry.code} ${industry.detail}` : ''} onFind={find} />
+<IndustryLookupModal open={lookup.isOpen} onSelect={lookup.select} onClose={lookup.cancel} />
+```
+
+## 2. 구성
+
+| 순서 | 부품                                       | 내용                                                                                   |
+| ---- | ------------------------------------------ | -------------------------------------------------------------------------------------- |
+| 1    | `LookupField`                              | 호출 필드: 검색 아이콘 입력 + [찾기]. 코드만 고르는 값은 `readOnly`                    |
+| 2    | `useLookup<T>()`                           | `isOpen` · `open()`(Promise) · `select(value)` · `cancel()` — 조회 · API는 화면이 한다 |
+| 3    | `Modal` (`Modal.Header` 제목 + 닫기)       | 폭은 그리드에 맞춰(표준산업분류 880). **Footer 없음** — 행 [선택]이 확정               |
+| 4    | `LookupSearch` `header`                    | 찾기 방식이 여러 개면 Button Tab(`variant="button"` `fullWidth`)                       |
+| 5    | `LookupSearch` `keyword={false}` `onReset` | 분류로 찾기: 대 · 중 · 소분류 Select + 초기화(↻) + [전체조회]                          |
+| 6    | `LookupSearch` `extraFields` + `label`     | 키워드로 찾기: 코드 입력 + 검색어                                                      |
+| 7    | 결과 그리드 (IBSheet8)                     | 마지막 열 [선택] (Neutral Line sm). 결과 없음은 `empty`                                |
+
+<Canvas of={Stories.ModalInitial} />
+<Canvas of={Stories.ModalResult} />
+
+## 3. 규칙
+
+- 상위 분류를 바꾸면 하위 분류는 비운다 (대분류 → 중 · 소분류 초기화)
+- 찾기 방식 Tab을 바꾸면 결과를 비운다
+- 조회 전에도 Modal 높이가 바뀌지 않도록 결과 자리를 잡는다 (Figma 709)
+- 한 건만 고르는 Lookup은 Footer 없이 행 [선택]으로 확정. 여러 건을 고르는 Lookup(V02)은 체크 + Footer [적용]
+- 기존 Lookup 본문(`LookupSearch` · `AddressSearch`)을 그대로 쓴다 — 화면마다 새로 만들지 않는다
+
+## 확인 필요
+
+- (임의 작업) 호출 화면 구성(업종 칸), 중분류 예시 값, 그리드 미리보기(IBSheet 연결 전)
+- 읽기 전용 호출 필드의 지우기(x): `TextField`는 읽기 전용이면 지우기를 숨김 → 필요하면 별도 [지우기] 버튼 또는 TextField 정책 변경
+- 키워드로 찾기의 조회 결과 화면 · 0건 문구는 기존 Lookup Empty(Figma) 기준

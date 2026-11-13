@@ -20,6 +20,14 @@ $lookup-empty-gap: 6px;
   align-items: center;
 }
 
+.keyword {
+  display: flex;
+  flex: 1 1 0;
+  gap: $lookup-bar-gap;
+  align-items: center;
+  min-width: 0;
+}
+
 .field {
   flex: 1;
   min-width: 0;

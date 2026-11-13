@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). 다음: P04 `useAction` → P03 → P02 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply 완료**(2026-11-13). 다음: P04 `useAction` …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -90,6 +90,7 @@
 - [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
 - [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ Search 가이드의 SearchArea와 KWP GUI 검색 카드(SearchPanel)가 공존 — Q37 ①에서 GUI(SearchPanel)를 표준으로 볼지 확인
 - [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
+- [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -631,3 +632,17 @@
 ### 패턴 페이지는 개발 서버에서만 — 2026-11-13
 - `router/modules/patterns.routes.tsx`: `import.meta.env.DEV`일 때만 라우트 생성, `constants/screens.ts`의 P01 · P02 줄도 DEV에서만. 운영 빌드(JSP `app.js`)에는 패턴 라우트 · 페이지 chunk가 없음(빌드 결과에서 확인), 운영 서버에서 `/patterns/*`는 404
 - 화면 목록 앱(`apps/screen-list`)은 개발 도구 — 관리자 앱 빌드와 무관. 커밋은 화면 개발과 나눈다(`chore(screen-list)` 등)
+
+### Pattern: P03 Lookup → Apply — 2026-11-13
+- 시안: KWPC07010101 팝업 표준산업분류코드조회 · 분류로 찾기(28511:35220, 조회 전 28511:39777 · 결과 28517:66195)
+- 디자인 시스템
+  - `useLookup<T>()`(`patterns/lookup`): `isOpen` · `open()` → 고른 값 / 취소 시 `null`(Promise) · `select(value)` · `cancel()`. 열린 상태에서 다시 열거나 화면이 닫히면 앞의 호출은 `null`
+  - `LookupSearch`: `keyword={false}`(검색어 칸 없이 extraFields만 — 분류로 찾기), `onReset`(새로고침 아이콘 버튼, [조회] 앞)
+  - Storybook `Patterns/P03 Lookup Apply`(Guide · LookupApply(호출 화면 → Modal → 선택 → 반영) · ModalInitial · ModalResult), 가이드 `docs/patterns/P03LookupApply.mdx`
+- 앱: `pages/patterns/LookupApplyPatternPage`(`/patterns/lookup-apply`, 개발 서버만), 탭 제목 P03, 화면 목록 맨 위 세 번째 줄
+- 검증: typecheck · lint · build(디자인 시스템 · 앱 · 화면 목록). Modal 880 × 709 · 탭 y68 · 검색 줄 y120 = Figma. 흐름(Storybook · 앱 동일): 대분류 선택 → [전체조회] 2건 → [선택] → 필드 반영 · Modal 닫힘, Esc → 원래 값 유지, 키워드로 찾기 '타이어' → 1건, 콘솔 에러 없음
+- 한 가정: Q56
+
+### P03 키워드로 찾기 반반 · 앱 개발 서버 폰트 — 2026-11-13
+- `LookupSearch`: 검색어 + 버튼([초기화] · [조회])을 한 묶음(`.keyword`, flex 1)으로 — `extraFields`의 Field에 `flex: 1`을 주면 반씩 나눔(키워드로 찾기 416 · 416, 위 Tab과 같은 선). 분류로 찾기 · 기존 Lookup 배치는 그대로
+- 폰트 미적용 원인: 앱 개발 서버가 폰트를 `packages/design-system/dist/fonts`에서 줬는데 `pnpm build`가 dist를 비웠다가 마지막에 다시 복사함 → 빌드 중에 연 화면은 폰트 404 → 대체 글꼴(맑은 고딕)로 남음. 수정: `designSystemSource()`에 개발 서버 전용 미들웨어(`/fonts/pretendard/*` → `pretendard` 패키지, Storybook staticDirs와 같은 폴더), 앱 두 곳의 `publicDir: dist` 제거. dist/fonts를 치워도 5173 · 5180 폰트 200 확인

@@ -3,6 +3,7 @@ import { forwardRef, type FormEvent, type HTMLAttributes, type ReactNode } from 
 import { useControllableState } from '../../hooks';
 import { Button } from '../Button';
 import { Field, SearchField } from '../field';
+import { Icon } from '../Icon';
 import styles from './LookupSearch.module.scss';
 
 export interface LookupSearchProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSubmit'> {
@@ -16,8 +17,12 @@ export interface LookupSearchProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   loading?: boolean;
   placeholder?: string;
   searchLabel?: ReactNode;
-  /** 검색어 앞에 둘 추가 조건 (예: 코드 입력 TextField를 Field로 감싸서) */
+  /** 검색어 앞에 둘 추가 조건 (예: 코드 입력 TextField를 Field로 감싸서). Field에 `flex: 1`을 주면 검색어 묶음(검색어 + 버튼)과 반씩 나눈다 */
   extraFields?: ReactNode;
+  /** 검색어 입력칸. false면 extraFields만 (예: 분류로 찾기 — 대 · 중 · 소분류 Select). 기본 true */
+  keyword?: boolean;
+  /** 조건 초기화. 있으면 [조회] 앞에 새로고침 아이콘 버튼 */
+  onReset?: () => void;
   /** 검색 줄 위 (예: 찾기 방식 Button Tab) */
   header?: ReactNode;
   /** 결과 없음: children 대신 안내를 보여준다 */
@@ -45,6 +50,8 @@ export const LookupSearch = forwardRef<HTMLDivElement, LookupSearchProps>(
       placeholder = '검색어를 입력해주세요',
       searchLabel = '조회',
       extraFields,
+      keyword = true,
+      onReset,
       header,
       empty = false,
       emptyTitle = '검색 결과가 없습니다.',
@@ -73,21 +80,45 @@ export const LookupSearch = forwardRef<HTMLDivElement, LookupSearchProps>(
       />
     );
 
+    const buttons = (
+      <>
+        {onReset && (
+          <Button
+            variant="neutral"
+            appearance="line"
+            iconOnly
+            icon={<Icon name="refresh" size={20} />}
+            aria-label="조건 초기화"
+            disabled={loading}
+            onClick={onReset}
+          />
+        )}
+        <Button type="submit" variant="neutral" loading={loading}>
+          {searchLabel}
+        </Button>
+      </>
+    );
+
     return (
       <div {...rest} ref={ref} className={clsx(styles.lookup, className)}>
         {header}
         <form className={styles.bar} role="search" onSubmit={submit}>
           {extraFields}
-          {label !== undefined ? (
-            <Field label={label} className={styles.field}>
-              {searchField}
-            </Field>
+          {keyword ? (
+            // 검색어 + 버튼을 한 묶음으로: extraFields(flex 1)와 폭을 나눠 가진다 (키워드로 찾기 = 반반)
+            <div className={styles.keyword}>
+              {label !== undefined ? (
+                <Field label={label} className={styles.field}>
+                  {searchField}
+                </Field>
+              ) : (
+                <div className={styles.field}>{searchField}</div>
+              )}
+              {buttons}
+            </div>
           ) : (
-            <div className={styles.field}>{searchField}</div>
+            buttons
           )}
-          <Button type="submit" variant="neutral" loading={loading}>
-            {searchLabel}
-          </Button>
         </form>
         {empty ? (
           <div className={styles.empty} role="status">
