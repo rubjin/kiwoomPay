@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply 완료**(2026-11-13). 다음: P04 `useAction` …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -33,6 +33,7 @@
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
 | 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드도 IBSheet 캘린더(어댑터) | 2026-11-11 |
 | 페이지 패턴 | 디자인 시스템 `src/patterns/`에 패턴 템플릿 · 흐름 훅(fetch 없음). 성공/실패 안내는 Alert(Modal)로 통일, Toast 없음. 조회 화면은 최초 진입 시 조회하지 않음. 미저장 이탈 확인은 Work Tab 닫기 · 브라우저 닫기. 조회 전용 값은 텍스트. 시안 없는 신규 UI는 기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값. 상세는 `docs/ai/page-patterns-plan.md` | 2026-11-12 |
+| Modal 크기 | **sm 400 · md 620 · lg 880 · xl 1280 · xxl 1680** (사용자 결정). lg는 800 → 880(기존 lg 사용처 모두 880), 기존 xl 880 사용처(표준산업분류 Lookup)는 lg로. xl은 넓은 입력 표(결제한도 설정), xxl은 본문 폭에 가까운 큰 표 · 화면형 팝업 | 2026-11-13 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
 ### Typography 역할 이름 매핑안 (Figma description 기준, 시안 확인 시 조정)
@@ -662,3 +663,18 @@
 - P03에 주소 검색 Lookup 추가: 기존 `AddressSearch` + Modal lg 800, 호출 화면 "사업장 주소"(우편번호 LookupField [주소 검색] + 도로명(읽기 전용) + 상세주소 직접 입력). 스토리 AddressInitial · AddressResult, 가이드 "4. 주소 검색", 앱 P03 동일
 - 검증: typecheck · lint · build, 브라우저(Storybook · 앱): xl 880 · lg 800 폭, "독막로" → 3건 → [선택] → 우편번호 04153 · 도로명 반영 · 닫힘, 상세주소 입력, 에러 없음
 - (임의 작업) 주소 예시 데이터, 호출 화면 주소 줄 구성
+
+### Pattern: P04 Action → Feedback — 2026-11-13
+- 시안: 사용자 제공 이미지(엑셀 다운로드 사유 입력 · 사업자번호 변경, sm 팝업). Figma 노드 없음 → 값은 기존 Modal · Field 규칙
+- 디자인 시스템
+  - `useAction({ validate, confirm, confirmOptions, run, onSuccess, success, failure })`(`patterns/action`) → `{ execute, loading }`. Check(문구 → Alert 후 중단) → Confirm(옵션) → Process(loading · 중복 실행 무시) → Result(성공: onSuccess → 완료 Alert / 실패: 실패 Alert, 입력 유지). DialogProvider 필요
+  - Storybook `Patterns/P04 Action Feedback`(Guide · ActionFeedback(호출 화면) · DownloadReason · BizNoChange), 가이드 `docs/patterns/P04ActionFeedback.mdx`
+  - sm 입력 팝업 규칙: Modal sm 400 · Field 라벨 왼쪽(폭 통일, 120 임시) · 줄 간격 12 · 현재 값은 읽기 전용 입력 · Footer [취소][확인] lg · 처리 중 닫기 · Esc 막음
+- 앱: `pages/patterns/P04ActionFeedbackPage`(`/patterns/action-feedback`, 개발 서버만), 탭 제목 P04, 화면 목록 네 번째 줄
+- 검증: typecheck · lint · build(디자인 시스템 · 앱 · 화면 목록), 브라우저(Storybook · 앱 동일): 팝업 400, 사유 없이 확인 → 안내, 사유 선택 → loading → 닫힘 · 완료 안내, 사업자번호 형식 오류 안내, Confirm 문구 "현재 → 변경", 실패(000…) → 실패 안내 · 입력 유지, 성공 → 값 반영 · 닫힘, 에러 없음
+- (임의 작업) 다운로드 사유 선택지 · 기타 직접 입력, 검증 문구, 실패 예시, 라벨 폭 120 · 필수 표시
+
+### Modal 크기 재정의 · P04 xl 결제한도 설정 — 2026-11-13
+- Modal `size`: lg 800 → **880**, xl 880 → **1280**, **xxl 1680** 추가(화면이 좁으면 max-width 100%). 기존 `size="xl"` 3곳(Lookup Search Empty · P03 표준산업분류 스토리 · 앱 P03) → lg. Modal · LookupSearch · AddressSearch · P03 가이드와 주석의 폭 표기 갱신
+- P04에 xl 입력 표 팝업 "카드번호별 매입사 결제한도 설정"(사용자 이미지): 업종 Button Tab sm + FormTable(카드사 9 × 4 한도, 단위 회 · 원) + [취소][등록], 숫자만 · 쉼표 표시, Tab별 입력 유지, `useAction`(입력 없음 안내 → 등록 Confirm → 완료). 호출 화면 [결제한도 설정], 스토리 CardLimit, 가이드 "3. xl 입력 표 팝업", 앱 P04 동일
+- 검증: typecheck · lint · build, 브라우저(Storybook · 앱): 폭 1280 · Lookup 880 · Modal Types 400/620/880, 빈 등록 안내, "1000000a" → "1,000,000", Tab 이동 후 값 유지, 등록 Confirm → 완료 안내, 에러 없음

@@ -5,6 +5,7 @@ import { lazyPage } from '../lazy';
 //   P01 Search → Result → pages/patterns/P01SearchResultPage
 //   P02 Record → Form → pages/patterns/P02RecordFormPage
 //   P03 Lookup → Apply → pages/patterns/P03LookupApplyPage
+//   P04 Action → Feedback → pages/patterns/P04ActionFeedbackPage
 // 개발 서버에서만 등록한다 — 운영 빌드에서는 import.meta.env.DEV가 false라 라우트 · 페이지 chunk가 모두 빠진다
 
 function createPatternRoutes() {
@@ -20,6 +21,10 @@ function createPatternRoutes() {
     () => import('@/pages/patterns/P03LookupApplyPage'),
     'P03LookupApplyPage',
   );
+  const P04ActionFeedbackPage = lazyPage(
+    () => import('@/pages/patterns/P04ActionFeedbackPage'),
+    'P04ActionFeedbackPage',
+  );
 
   return (
     <Route path="patterns">
@@ -27,6 +32,7 @@ function createPatternRoutes() {
       <Route path="search-result" element={<P01SearchResultPage />} />
       <Route path="record-form" element={<P02RecordFormPage />} />
       <Route path="lookup-apply" element={<P03LookupApplyPage />} />
+      <Route path="action-feedback" element={<P04ActionFeedbackPage />} />
     </Route>
   );
 }
