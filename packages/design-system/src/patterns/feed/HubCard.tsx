@@ -187,3 +187,45 @@ export const HubLinkRow = forwardRef<HTMLButtonElement, HubLinkRowProps>(
   ),
 );
 HubLinkRow.displayName = 'HubLinkRow';
+
+export interface HubStatItem {
+  label: ReactNode;
+  value: ReactNode;
+  /** 있으면 값을 누를 수 있다 (Primary 글자, 예: 권한 신청 현황 → 팝업) */
+  onClick?: () => void;
+}
+
+export interface HubStatsProps extends HTMLAttributes<HTMLDListElement> {
+  items: HubStatItem[];
+}
+
+/**
+ * 요약 수치 줄: 이름(12 Regular) 위 · 값(20 Bold) 아래, 같은 폭 칸으로 나란히.
+ * 카드 남는 높이의 세로 가운데에 놓인다 (Figma 마이페이지 권한관리 · 나의 권한 현황)
+ */
+export const HubStats = forwardRef<HTMLDListElement, HubStatsProps>(
+  ({ items, className, style, ...rest }, ref) => (
+    <dl
+      {...rest}
+      ref={ref}
+      className={clsx(styles.stats, className)}
+      style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`, ...style }}
+    >
+      {items.map((item, index) => (
+        <div key={index} className={styles.stat}>
+          <dt className={styles.statLabel}>{item.label}</dt>
+          <dd className={styles.statValue}>
+            {item.onClick ? (
+              <button type="button" className={styles.statButton} onClick={item.onClick}>
+                {item.value}
+              </button>
+            ) : (
+              item.value
+            )}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  ),
+);
+HubStats.displayName = 'HubStats';

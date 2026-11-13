@@ -7,6 +7,7 @@ export {
   HubInfoList,
   HubLinkRow,
   HubPanel,
+  HubStats,
   HubSubtitle,
 } from './HubCard';
 export type {
@@ -17,6 +18,8 @@ export type {
   HubInfoProps,
   HubLinkRowProps,
   HubPanelItem,
+  HubStatItem,
+  HubStatsProps,
   HubSubtitleProps,
 } from './HubCard';
 export { NotificationFeed } from './NotificationFeed';

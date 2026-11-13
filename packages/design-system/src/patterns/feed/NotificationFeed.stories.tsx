@@ -15,6 +15,7 @@ import {
   HubInfoList,
   HubLinkRow,
   HubPanel,
+  HubStats,
   HubSubtitle,
 } from './HubCard';
 import { NotificationFeed, type NotificationItem } from './NotificationFeed';
@@ -255,5 +256,23 @@ export const Empty: Story = {
         onReadAll={() => {}}
       />
     </div>
+  ),
+};
+
+/** HubStats: 요약 수치 줄 (Figma 마이페이지 권한관리 · 나의 권한 현황). onClick이 있으면 값이 Primary · 누를 수 있음 */
+export const Stats: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <PageLayout.Section title="나의 권한 현황" divider>
+      <HubStats
+        items={[
+          { label: '권한 템플릿', value: '운영관리 기본형' },
+          { label: '접근 가능 메뉴', value: '12개' },
+          { label: '조회 CPID 범위', value: '전체 CPID' },
+          { label: '사용 중 특수권한', value: '2 / 2' },
+          { label: '권한 신청 현황', value: '1건', onClick: () => {} },
+        ]}
+      />
+    </PageLayout.Section>
   ),
 };

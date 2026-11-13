@@ -245,6 +245,14 @@ $color-action-bar-bg: var(--kp-color-action-bar-bg);
 $color-action-bar-border: var(--kp-color-action-bar-border);
 $color-action-bar-label: var(--kp-color-action-bar-label);
 
+// ── custom · action-summary ─────────────────────────────────────
+$color-action-summary-bar-bg: var(--kp-color-action-summary-bar-bg); // 일괄 처리 팝업 선택 대상 요약 줄 (Figma 처리_실행 팝업, PNG 측정)
+$color-action-summary-text: var(--kp-color-action-summary-text);
+$color-action-summary-accent: var(--kp-color-action-summary-accent); // 요약 줄 · 건수 상자 숫자
+$color-action-summary-stat-bg: var(--kp-color-action-summary-stat-bg); // 처리 가능 / 불가 건수 상자 (보류 해제)
+$color-action-summary-stat-label: var(--kp-color-action-summary-stat-label);
+$color-action-summary-stat-value: var(--kp-color-action-summary-stat-value);
+
 // ── custom · address ────────────────────────────────────────────
 $color-address-zip: var(--kp-color-address-zip);
 $color-address-road: var(--kp-color-address-road);
@@ -494,6 +502,8 @@ $color-hub-value: var(--kp-color-hub-value);
 $color-hub-sub: var(--kp-color-hub-sub); // 보조 값 (기간 · 일시)
 $color-hub-panel-bg: var(--kp-color-hub-panel-bg); // 특수권한 · 권한 신청 현황 회색 상자
 $color-hub-link-icon: var(--kp-color-hub-link-icon); // 상세 이동 화살표 (TODO(시안) 색 확인)
+$color-hub-stat-value: var(--kp-color-hub-stat-value); // 요약 수치 (HubStats, 20 Bold)
+$color-hub-stat-accent: var(--kp-color-hub-stat-accent); // 누를 수 있는 요약 수치 (예: 권한 신청 현황 1건)
 $color-feed-count: var(--kp-color-feed-count); // 미확인 알림 건수
 $color-feed-chip-bg: var(--kp-color-feed-chip-bg);
 $color-feed-chip-label: var(--kp-color-feed-chip-label);
@@ -689,6 +699,7 @@ $color-search-result-grid-header-bg: var(--kp-color-search-result-grid-header-bg
 $color-search-result-grid-border: var(--kp-color-search-result-grid-border); // TODO(시안) IBSheet 연결 전 임시 미리보기 표 선
 $color-search-result-grid-text: var(--kp-color-search-result-grid-text);
 $color-search-result-grid-header-text: var(--kp-color-search-result-grid-header-text);
+$color-search-result-grid-row-selected: var(--kp-color-search-result-grid-row-selected); // 단일 선택(라디오)한 줄 배경 (Primary 50, Figma 사업자 찾기 팝업)
 $color-status-view-icon: var(--kp-color-status-view-icon);
 $color-status-view-title: var(--kp-color-status-view-title); // Figma Grid State / Empty: 18 SemiBold Neutral 800
 $color-status-view-description: var(--kp-color-status-view-description); // 14 Regular Neutral 700
@@ -997,6 +1008,12 @@ $css-variables: (
   "--kp-color-action-bar-bg": "var(--kp-color-bg-page)",
   "--kp-color-action-bar-border": "var(--kp-color-line-subtle)",
   "--kp-color-action-bar-label": "var(--kp-color-text-label)",
+  "--kp-color-action-summary-bar-bg": "var(--kp-color-bg-page)",
+  "--kp-color-action-summary-text": "var(--kp-color-text-body)",
+  "--kp-color-action-summary-accent": "var(--kp-color-text-accent)",
+  "--kp-color-action-summary-stat-bg": "var(--kp-color-bg-selected)",
+  "--kp-color-action-summary-stat-label": "var(--kp-color-text-secondary)",
+  "--kp-color-action-summary-stat-value": "var(--kp-color-text-heading)",
   "--kp-color-address-zip": "var(--kp-color-text-secondary)",
   "--kp-color-address-road": "var(--kp-color-text-body)",
   "--kp-color-address-jibun": "var(--kp-color-text-placeholder)",
@@ -1219,6 +1236,8 @@ $css-variables: (
   "--kp-color-hub-sub": "var(--kp-color-text-secondary)",
   "--kp-color-hub-panel-bg": "var(--kp-color-neutral-50)",
   "--kp-color-hub-link-icon": "var(--kp-color-text-secondary)",
+  "--kp-color-hub-stat-value": "var(--kp-color-text-heading)",
+  "--kp-color-hub-stat-accent": "var(--kp-color-text-accent)",
   "--kp-color-feed-count": "var(--kp-color-text-accent)",
   "--kp-color-feed-chip-bg": "var(--kp-color-neutral-100)",
   "--kp-color-feed-chip-label": "var(--kp-color-neutral-700)",
@@ -1386,6 +1405,7 @@ $css-variables: (
   "--kp-color-search-result-grid-border": "var(--kp-color-line-subtle)",
   "--kp-color-search-result-grid-text": "var(--kp-color-text-body)",
   "--kp-color-search-result-grid-header-text": "var(--kp-color-text-label)",
+  "--kp-color-search-result-grid-row-selected": "var(--kp-color-bg-selected)",
   "--kp-color-status-view-icon": "var(--kp-color-text-label)",
   "--kp-color-status-view-title": "var(--kp-color-text-body)",
   "--kp-color-status-view-description": "var(--kp-color-text-label)",

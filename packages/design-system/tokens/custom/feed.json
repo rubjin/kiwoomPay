@@ -1,11 +1,29 @@
 {
   "Hub": {
-    "CardBg": { "$type": "color", "$value": "{Bg.Surface}" },
-    "CardBorder": { "$type": "color", "$value": "{Line.Subtle}" },
-    "Title": { "$type": "color", "$value": "{Text.Heading}" },
-    "Divider": { "$type": "color", "$value": "{Line.Subtle}" },
-    "Label": { "$type": "color", "$value": "{Text.Label}" },
-    "Value": { "$type": "color", "$value": "{Text.Body}" },
+    "CardBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "CardBorder": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "Title": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "Label": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "Value": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
     "Sub": {
       "$type": "color",
       "$value": "{Text.Secondary}",
@@ -20,28 +38,69 @@
       "$type": "color",
       "$value": "{Text.Secondary}",
       "$description": "상세 이동 화살표 (TODO(시안) 색 확인)"
+    },
+    "StatValue": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "요약 수치 (HubStats, 20 Bold)"
+    },
+    "StatAccent": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "누를 수 있는 요약 수치 (예: 권한 신청 현황 1건)"
     }
   },
   "Feed": {
-    "Count": { "$type": "color", "$value": "{Text.Accent}", "$description": "미확인 알림 건수" },
-    "ChipBg": { "$type": "color", "$value": "{Neutral.100}" },
-    "ChipLabel": { "$type": "color", "$value": "{Neutral.700}" },
-    "ChipCount": { "$type": "color", "$value": "{Neutral.800}" },
+    "Count": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "미확인 알림 건수"
+    },
+    "ChipBg": {
+      "$type": "color",
+      "$value": "{Neutral.100}"
+    },
+    "ChipLabel": {
+      "$type": "color",
+      "$value": "{Neutral.700}"
+    },
+    "ChipCount": {
+      "$type": "color",
+      "$value": "{Neutral.800}"
+    },
     "ChipIcon": {
       "$type": "color",
       "$value": "{Neutral.500}",
       "$description": "TODO(시안) 업무유형 아이콘 색 확인"
     },
-    "ItemBg": { "$type": "color", "$value": "{Bg.Surface}" },
-    "ItemBgUnread": { "$type": "color", "$value": "{Primary.50}" },
+    "ItemBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}"
+    },
+    "ItemBgUnread": {
+      "$type": "color",
+      "$value": "{Primary.50}"
+    },
     "ItemBgHover": {
       "$type": "color",
       "$value": "{Bg.Hover}",
       "$description": "TODO(시안) 행 Hover — 시안 없음"
     },
-    "ItemCategory": { "$type": "color", "$value": "{Text.Label}" },
-    "ItemTitle": { "$type": "color", "$value": "{Text.Body}" },
-    "ItemDate": { "$type": "color", "$value": "{Text.Secondary}" },
-    "Divider": { "$type": "color", "$value": "{Line.Subtle}" }
+    "ItemCategory": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "ItemTitle": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "ItemDate": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "Divider": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    }
   }
 }

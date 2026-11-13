@@ -14,6 +14,7 @@ $hub-panel-radius: 6px;
 $hub-panel-gap: t.$space-12;
 $hub-link-gap: t.$space-4; // 값 ↔ 화살표
 $hub-empty-gap: 2px; // 빈 상태 문구 ↔ 버튼 (Figma 특수권한 없음)
+$hub-stat-gap: t.$space-16; // 요약 수치 이름 ↔ 값 (Figma 권한관리 나의 권한 현황)
 $feed-summary-height: 24px;
 $feed-summary-gap: t.$space-8; // 미확인 알림 ↔ 건수
 $feed-chip-gap: 6px;
@@ -365,4 +366,50 @@ $feed-empty-min-height: 120px; // TODO(시안) 카드가 혼자일 때 최소 �
   width: $feed-date-width;
   color: t.$color-feed-item-date;
   text-align: right;
+}
+
+// ── HubStats ─────────────────────────────────────────
+.stats {
+  display: grid;
+  flex: 1 1 auto;
+  align-content: center;
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: $hub-stat-gap;
+  min-width: 0;
+}
+
+.statLabel {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-hub-label;
+}
+
+.statValue {
+  @include m.typography(typo-20-bold);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-hub-stat-value;
+}
+
+.statButton {
+  padding: 0;
+  font: inherit;
+  color: t.$color-hub-stat-accent;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
 }
