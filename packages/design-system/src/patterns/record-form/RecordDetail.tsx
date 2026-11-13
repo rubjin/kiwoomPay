@@ -81,6 +81,8 @@ export interface DetailCardProps {
    * 한 줄 전체 컨트롤은 항목 span
    */
   form?: boolean;
+  /** 상자 없이 제목 + 줄만 (팝업 본문의 입력 묶음 · 내역 묶음 — 제목 아래 · 줄 사이 12) */
+  plain?: boolean;
   /** 격자 대신 자유 내용 (예: 접수 내역 표). items보다 우선 */
   children?: ReactNode;
   /** items가 비었을 때 가운데 안내 */
@@ -96,6 +98,7 @@ export function DetailCard({
   labelWidth,
   labelGap,
   form = false,
+  plain = false,
   children,
   emptyText = '표시할 내용이 없습니다.',
   className,
@@ -106,7 +109,7 @@ export function DetailCard({
     ...(labelGap !== undefined ? { '--detail-label-gap': `${labelGap}px` } : {}),
   } as CSSProperties;
   return (
-    <div className={clsx(styles.card, className)}>
+    <div className={clsx(styles.card, plain && styles.cardPlain, className)}>
       <h4 className={styles.cardTitle}>{title}</h4>
       {children !== undefined ? (
         children
@@ -129,5 +132,33 @@ export function DetailCard({
         </dl>
       )}
     </div>
+  );
+}
+
+export interface DetailSummaryItem {
+  label: ReactNode;
+  value: ReactNode;
+}
+
+/**
+ * 금액 요약 상자: 항목(이름 12 Regular · 값 16 Bold, 오른쪽 정렬) 사이 세로선.
+ * Figma KWPC04010111 부분취소 요청 "누적 취소금액 | 잔여 취소가능금액"
+ */
+export function DetailSummary({
+  items,
+  className,
+}: {
+  items: DetailSummaryItem[];
+  className?: string;
+}) {
+  return (
+    <dl className={clsx(styles.summary, className)}>
+      {items.map((item, index) => (
+        <div key={index} className={styles.summaryItem}>
+          <dt className={styles.summaryLabel}>{item.label}</dt>
+          <dd className={styles.summaryValue}>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

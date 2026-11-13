@@ -4,10 +4,12 @@ import { Button } from '../../components/Button';
 import { Field, SelectBox, TextField } from '../../components/field';
 import { PageLayout } from '../../components/layout';
 import { Modal } from '../../components/Modal';
+import { Radio, RadioGroup } from '../../components/selection';
 import { Tab } from '../../components/Tab';
 import { SectionHeading } from '../../components/SectionHeading';
 import { DialogProvider } from '../common';
-import { FormGroup, FormSection, FormTable } from '../record-form';
+import { DetailCard, DetailSummary, FormGroup, FormSection, FormTable } from '../record-form';
+import { GridPlaceholder } from '../search-result';
 import { useAction } from './useAction';
 
 const meta = {
@@ -412,4 +414,212 @@ export const CardLimit: Story = {
     tempWork: '한도 입력 검증 · 등록 확인 문구 · 업종 · 카드사 목록(시안 값)',
   },
   render: () => <CardLimitModal open inline onClose={() => {}} />,
+};
+
+// ── 부분취소 요청 (Figma KWPC04010111 29486:132933) ─────────
+const CANCEL_TYPES = [
+  { value: 'normal', label: '일반취소' },
+  { value: 'offset', label: '상계취소' },
+  { value: 'force', label: '강제취소' },
+  { value: 'issuer', label: '카드사직권취소' },
+];
+
+interface CancelRow {
+  id: string;
+  canceledAt: string;
+  amount: number;
+  type: string;
+  status: string;
+}
+
+/** 내역 표 4칸 같은 폭 (본문 폭 580 ÷ 4) */
+const CANCEL_COLUMN_WIDTH = 145;
+
+const won = (n: number) => `${n.toLocaleString('ko-KR')}원`;
+const nowText = () => {
+  const d = new Date();
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+};
+
+function PartialCancelModal({
+  open,
+  onClose,
+  total = 100,
+}: {
+  open: boolean;
+  onClose: () => void;
+  /** 거래의 취소가능금액 */
+  total?: number;
+}) {
+  const [amount, setAmount] = useState('');
+  const [type, setType] = useState('normal');
+  const [reason, setReason] = useState('');
+  const [history, setHistory] = useState<CancelRow[]>([]);
+
+  const canceled = history.reduce((sum, row) => sum + row.amount, 0);
+  const remaining = total - canceled;
+  const value = Number(amount.replace(/,/g, '')) || 0;
+
+  const request = useAction({
+    validate: () =>
+      value <= 0
+        ? '취소요청금액을 입력해주세요.'
+        : value > remaining
+          ? `취소요청금액은 잔여 취소가능금액(${won(remaining)}) 이하로 입력해주세요.`
+          : !reason.trim()
+            ? '취소사유를 입력해주세요.'
+            : null,
+    confirm: () => `${won(value)}을 부분취소 요청할까요?`,
+    confirmOptions: { confirmText: '부분취소 요청' },
+    run: () => wait(500), // TODO(API) 부분취소 요청
+    onSuccess: () => {
+      // 결과는 팝업 안 취소내역에 반영 (다시 요청할 수 있게 닫지 않음)
+      setHistory((rows) => [
+        ...rows,
+        {
+          id: String(rows.length + 1),
+          canceledAt: nowText(),
+          amount: value,
+          type: CANCEL_TYPES.find((t) => t.value === type)?.label ?? type,
+          status: '요청',
+        },
+      ]);
+      setAmount('');
+      setReason('');
+    },
+    success: '부분취소를 요청했습니다.',
+  });
+
+  return (
+    <Modal open={open} onClose={request.loading ? undefined : onClose} size="md">
+      <Modal.Header title="부분취소 요청" closeButton />
+      <Modal.Body>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <DetailCard
+            title="거래정보"
+            labelGap={20}
+            items={[
+              { label: '거래번호', value: 'ATS26060114533091437' },
+              { label: '취소가능금액', value: won(total) },
+            ]}
+          />
+          <DetailCard
+            plain
+            form
+            columns={1}
+            title="취소 요청정보"
+            items={[
+              {
+                label: '취소요청금액',
+                value: (
+                  <TextField
+                    fullWidth
+                    inputMode="numeric"
+                    placeholder="취소요청금액 입력"
+                    value={amount}
+                    disabled={remaining <= 0}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, '');
+                      setAmount(digits ? Number(digits).toLocaleString('ko-KR') : '');
+                    }}
+                    aria-label="취소요청금액"
+                  />
+                ),
+              },
+              {
+                label: '취소유형',
+                value: (
+                  <RadioGroup direction="horizontal" value={type} onChange={setType}>
+                    {CANCEL_TYPES.map((t) => (
+                      <Radio key={t.value} value={t.value} label={t.label} />
+                    ))}
+                  </RadioGroup>
+                ),
+              },
+              {
+                label: '취소사유',
+                value: (
+                  <TextField
+                    fullWidth
+                    placeholder="취소사유 입력"
+                    value={reason}
+                    disabled={remaining <= 0}
+                    onChange={(e) => setReason(e.target.value)}
+                    aria-label="취소사유"
+                  />
+                ),
+              },
+            ]}
+          />
+          <DetailCard plain title="취소내역">
+            <DetailSummary
+              items={[
+                { label: '누적 취소금액', value: won(canceled) },
+                { label: '잔여 취소가능금액', value: won(remaining) },
+              ]}
+            />
+            {/* TODO(IBSheet) 취소 내역 그리드 */}
+            <GridPlaceholder<CancelRow>
+              columns={[
+                {
+                  key: 'canceledAt',
+                  header: '취소일시',
+                  align: 'center',
+                  width: CANCEL_COLUMN_WIDTH,
+                },
+                {
+                  key: 'amount',
+                  header: '취소금액',
+                  align: 'center',
+                  width: CANCEL_COLUMN_WIDTH,
+                  render: (row) => won(row.amount),
+                },
+                { key: 'type', header: '취소유형', align: 'center', width: CANCEL_COLUMN_WIDTH },
+                { key: 'status', header: '처리상태', align: 'center', width: CANCEL_COLUMN_WIDTH },
+              ]}
+              rows={history}
+              rowKey={(row) => row.id}
+              empty="취소 건이 없습니다."
+            />
+          </DetailCard>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          size="lg"
+          loading={request.loading}
+          disabled={remaining <= 0}
+          onClick={() => request.execute()}
+        >
+          부분취소 요청
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+/**
+ * 부분취소 요청 (md 620): 거래정보 → 취소 요청정보(금액 · 유형 · 사유) → 취소내역(누적 · 잔여 + 내역 표).
+ * Check(금액 · 사유) → Confirm → 요청 → 완료 안내 + 취소내역 반영(팝업 유지)
+ */
+export const PartialCancel: Story = {
+  name: 'PartialCancel · 부분취소 요청',
+  parameters: {
+    controls: { disable: true },
+    layout: 'padded',
+    tempWork:
+      '검증 · 확인 · 완료 문구, 요청 후 팝업 유지 · 처리상태 "요청", 팝업 폭 md 620(Figma 720)',
+  },
+  render: function Render() {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button variant="neutral" appearance="line" onClick={() => setOpen(true)}>
+          부분취소 요청
+        </Button>
+        <PartialCancelModal open={open} onClose={() => setOpen(false)} />
+      </>
+    );
+  },
 };

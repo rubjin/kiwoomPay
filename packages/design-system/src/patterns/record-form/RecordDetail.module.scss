@@ -12,6 +12,7 @@ $rd-card-radius: 6px;
 $rd-card-gap: t.$space-16; // 카드 제목 ↔ 줄, 줄 사이
 $rd-label-width: 73px;
 $rd-target-plain-gap: 6px;
+$rd-plain-gap: t.$space-12; // 상자 없는 묶음: 제목 ↔ 줄 · 줄 사이 (Figma 부분취소 요청)
 $rd-form-column-gap: t.$space-40; // 입력 폼 카드 열 사이 (Figma 고객문의·민원 처리)
 $rd-form-label-gap: t.$space-20;
 
@@ -126,4 +127,56 @@ $rd-form-label-gap: t.$space-20;
   margin: 0;
   color: t.$color-record-detail-value;
   text-align: center;
+}
+
+// 상자 없이 제목 + 줄 (팝업 본문 입력 · 내역 묶음)
+.cardPlain {
+  gap: $rd-plain-gap;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+
+  .items {
+    row-gap: $rd-plain-gap;
+  }
+}
+
+// 금액 요약 상자 — 항목 사이 세로선 (선 높이 48, 상자 높이와 별개)
+.summary {
+  display: flex;
+  gap: t.$space-16;
+  align-items: center;
+  padding: $rd-card-padding;
+  margin: 0;
+  background-color: t.$color-record-detail-card-bg;
+  border: t.$control-border-width solid t.$color-record-detail-card-border;
+  border-radius: $rd-card-radius;
+}
+
+.summaryItem {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: t.$space-8;
+  align-items: flex-end;
+  min-width: 0;
+
+  & + & {
+    padding-left: t.$space-16;
+    border-left: t.$control-border-width solid t.$color-record-detail-divider;
+  }
+}
+
+.summaryLabel {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-record-detail-label;
+}
+
+.summaryValue {
+  @include m.typography(typo-16-bold);
+
+  margin: 0;
+  color: t.$color-record-detail-card-title;
 }
