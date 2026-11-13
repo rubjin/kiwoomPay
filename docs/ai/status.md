@@ -616,3 +616,8 @@
 - 이어서(같은 날, 사용자 요청): 화면 코드에서도 `SectionHeading`이 보이도록 `FormSection` API 변경 — `title` · `label` · `context` · `description` · `actions` 대신 **`heading={<SectionHeading … />}`**(접기 버튼은 FormSection이 오른쪽 끝에 붙임), `FormSection.Heading` 삭제 → 본문 중간 제목도 `<SectionHeading>` 직접(아래 표 8 · 오른쪽 항목 사이 16은 FormSection 본문이 `data-section-heading`으로 맞춤). 스토리 · 가이드 · 가맹점 기본/계약 정보 화면 교체. 픽셀 비교 11장(FormSection 스토리 4 · P02 · 앱 6) 모두 동일
 - 이어서(같은 날, 사용자 결정): **박스와 "제목 + 폼" 묶음을 분리** — `FormSection`은 박스(배경 · 테두리 · 여백 · 위 제목 탭 · 접기 상태)만, 내용은 `FormGroup`(`<SectionHeading>` + `FormTable`)으로. `heading` prop · 접기 버튼 끼워 넣기(cloneElement) · `data-section-heading` 삭제. 접기는 **카드 전체**(Figma 그대로, 사용자 선택): 첫 제목 줄 `actions`에 `<FormSection.Toggle />`, 접으면 첫 묶음의 제목 줄만 그림. 간격: 묶음 사이 16, 묶음 안 제목 ↔ 폼 첫 묶음 16 · 아래 묶음 8, 제목 줄 오른쪽 항목 사이 16. FormSection 스토리 `SameLevelTitles` · `Heading` → `Groups` · `Target`. 픽셀 비교(P02 · Tabbed · 가맹점 신규/수정 · 거래내역) 동일, 앱에서 접기/열기 동작 확인
 
+
+### 레이아웃 패턴 템플릿 페이지 (임의 작업) — 2026-11-13
+- 내부관리자 앱 `pages/patterns/`: `SearchResultPatternPage`(`/patterns/search-result`, P01 — 검색 조건(조회기간 + 퀵 기간 · 상태 · 검색어) → 적용 조건 → 요약 → 결과(선택 처리 Confirm → 재조회 → Alert) → Total · Pagination, 예시 데이터 27건) · `RecordFormPatternPage`(`/patterns/record-form`, P02 — 화면명 + ContextChip · 제목 탭 · 저장, FormSection 안 FormGroup 2개(4쌍 표 · 담당자 추가/선택 삭제), 접힌 카드). 라우트 `router/modules/patterns.routes.tsx`, LNB 메뉴에는 없음
+- 화면 목록(`apps/screen-list/src/screens.ts`) 맨 위에 두 페이지 추가(1depth "레이아웃 패턴")
+- 검증: 디자인 시스템 build · 앱 typecheck · 화면 목록 typecheck, 브라우저 확인(목록 첫 두 링크, P01 조회 → 10행 · 요약 27, P02 담당자 추가, 페이지 에러 없음)

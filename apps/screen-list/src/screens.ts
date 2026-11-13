@@ -52,6 +52,37 @@ export interface ScreenInfo {
 const PLAN = 'IA v0.7 (26-11-03) · GUI 26-11-10';
 
 export const SCREENS: ScreenInfo[] = [
+  // 레이아웃 패턴 템플릿 — 목록 맨 위. 새 화면은 여기서 구성을 복사해 시작한다
+  {
+    system: 'internal',
+    id: 'PATTERN-P01',
+    depth1: '레이아웃 패턴',
+    depth2: 'P01',
+    depth3: '',
+    name: 'Search → Result (조회 화면 템플릿)',
+    path: '/patterns/search-result',
+    type: '목록',
+    pattern: 'P01',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: '검색 항목 · 예시 데이터 · 그리드 미리보기',
+  },
+  {
+    system: 'internal',
+    id: 'PATTERN-P02',
+    depth1: '레이아웃 패턴',
+    depth2: 'P02',
+    depth3: '',
+    name: 'Record → Form (등록 · 수정 화면 템플릿)',
+    path: '/patterns/record-form',
+    type: '등록 · 수정',
+    pattern: 'P02',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: '입력 항목 · 예시 값',
+  },
   {
     system: 'internal',
     id: 'KWPC0104',
