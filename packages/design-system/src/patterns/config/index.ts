@@ -6,7 +6,6 @@ export {
   ConditionSummary,
   ConfigDivider,
   ConfigHint,
-  ConfigPanelHeader,
   ConfigField,
   ConfigSplit,
   SavedConditionList,
@@ -14,7 +13,6 @@ export {
 export type {
   ConditionSummaryProps,
   ConfigFieldProps,
-  ConfigPanelHeaderProps,
   ConfigSplitProps,
   SavedCondition,
   SavedConditionListProps,

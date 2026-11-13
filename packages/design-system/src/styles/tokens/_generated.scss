@@ -394,7 +394,7 @@ $color-compact-nav-text: var(--kp-color-compact-nav-text); // 현재 · 전체 �
 $color-compact-nav-divider: var(--kp-color-compact-nav-divider); // 번호 사이 /
 
 // ── custom · config ─────────────────────────────────────────────
-$color-config-title: var(--kp-color-config-title); // 패널 제목 (16 Bold)
+$color-config-empty-title: var(--kp-color-config-empty-title); // 저장된 조건 없음 제목 (14 SemiBold)
 $color-config-description: var(--kp-color-config-description);
 $color-config-count: var(--kp-color-config-count); // 총 N 건 (Neutral 500)
 $color-config-divider: var(--kp-color-config-divider);
@@ -1119,7 +1119,7 @@ $css-variables: (
   "--kp-color-compact-nav-icon-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-compact-nav-text": "var(--kp-color-text-secondary)",
   "--kp-color-compact-nav-divider": "var(--kp-color-text-disabled)",
-  "--kp-color-config-title": "var(--kp-color-text-heading)",
+  "--kp-color-config-empty-title": "var(--kp-color-text-heading)",
   "--kp-color-config-description": "var(--kp-color-text-secondary)",
   "--kp-color-config-count": "var(--kp-color-text-placeholder)",
   "--kp-color-config-divider": "var(--kp-color-line-subtle)",

@@ -1,9 +1,9 @@
 {
   "Config": {
-    "Title": {
+    "EmptyTitle": {
       "$type": "color",
       "$value": "{Text.Heading}",
-      "$description": "패널 제목 (16 Bold)"
+      "$description": "저장된 조건 없음 제목 (14 SemiBold)"
     },
     "Description": {
       "$type": "color",

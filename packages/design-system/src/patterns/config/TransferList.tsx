@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
+import { SectionHeading } from '../../components/SectionHeading';
 import { Checkbox } from '../../components/selection';
 import styles from './Config.module.scss';
 
@@ -66,9 +67,7 @@ export function TransferList({
   return (
     <div className={clsx(styles.transfer, className)}>
       <div className={styles.transferSide}>
-        <div className={styles.panelHeader}>
-          <h3 className={styles.panelTitle}>{availableTitle}</h3>
-        </div>
+        <SectionHeading className={styles.panelHeading} size="md" as="h3" title={availableTitle} />
         <div className={clsx(styles.panel, styles.transferPanel)}>
           {available.length === 0 ? (
             <p className={styles.empty}>모든 항목을 선택했습니다.</p>
@@ -116,9 +115,7 @@ export function TransferList({
       </div>
 
       <div className={styles.transferSide}>
-        <div className={styles.panelHeader}>
-          <h3 className={styles.panelTitle}>{selectedTitle}</h3>
-        </div>
+        <SectionHeading className={styles.panelHeading} size="md" as="h3" title={selectedTitle} />
         <div className={clsx(styles.panel, styles.transferPanel)}>
           {selected.length === 0 ? (
             <p className={styles.empty}>왼쪽에서 항목을 추가해주세요.</p>

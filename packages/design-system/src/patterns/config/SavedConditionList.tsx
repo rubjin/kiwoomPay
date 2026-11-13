@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import type { ReactNode } from 'react';
 import { Badge, type BadgeTone } from '../../components/Badge';
 import { SearchField } from '../../components/field';
+import { SectionHeading } from '../../components/SectionHeading';
 import { Pagination } from '../../components/Pagination';
 import styles from './Config.module.scss';
 
@@ -64,12 +65,17 @@ export function SavedConditionList({
   const empty = items.length === 0;
   return (
     <div className={clsx(styles.saved, className)}>
-      <div className={styles.panelHeader}>
-        <h3 className={styles.panelTitle}>{title}</h3>
-        <span className={styles.count}>
-          총 {(total ?? items.length).toLocaleString('ko-KR')} 건
-        </span>
-      </div>
+      <SectionHeading
+        className={styles.panelHeading}
+        size="md"
+        as="h3"
+        title={title}
+        actions={
+          <span className={styles.count}>
+            총 {(total ?? items.length).toLocaleString('ko-KR')} 건
+          </span>
+        }
+      />
       <div className={clsx(styles.panel, styles.savedPanel, empty && styles.savedPanelEmpty)}>
         {onQueryChange && (
           <SearchField
@@ -194,23 +200,6 @@ export function ConfigField({
         {label}
       </span>
       <div className={styles.fieldContent}>{children}</div>
-    </div>
-  );
-}
-
-export interface ConfigPanelHeaderProps {
-  title: ReactNode;
-  /** 오른쪽 (총 N 건 · [신규 등록] 등) */
-  actions?: ReactNode;
-  className?: string;
-}
-
-/** 설정 Modal 패널 제목 줄: 제목 16 Bold · 높이 32 · 오른쪽 actions */
-export function ConfigPanelHeader({ title, actions, className }: ConfigPanelHeaderProps) {
-  return (
-    <div className={clsx(styles.panelHeader, className)}>
-      <h3 className={styles.panelTitle}>{title}</h3>
-      {actions}
     </div>
   );
 }

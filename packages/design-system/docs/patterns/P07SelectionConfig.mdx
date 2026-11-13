@@ -14,7 +14,7 @@ import * as Stories from '../../src/patterns/config/SelectionConfig.stories';
 | V02 선택 · 순서 | `TransferList` (전체 항목 ⇄ 선택 항목, 끌어서 순서)       | 엑셀 다운로드 설정 |
 | V03 저장 조건   | `SavedConditionList` + `ConditionSummary` (`ConfigSplit`) | 내 검색조건 관리   |
 
-설정 Modal 본문 조각: `ConfigField`(라벨 13 Bold + 내용, 라벨 ↔ 내용 30) · `ConfigPanelHeader`(패널 제목 16 Bold + 오른쪽 Action) · `ConfigHint` · `ConfigDivider`.
+설정 Modal 본문 조각: `ConfigField`(라벨 13 Bold + 내용, 라벨 ↔ 내용 30) · `ConfigHint` · `ConfigDivider`. 패널 제목(전체 항목 · 저장된 검색조건 · 선택한 검색조건 관리 등)은 다른 화면 영역 제목과 같은 `SectionHeading size="md" as="h3"`(16 Bold, 오른쪽 `actions`에 총 N 건 · [신규 등록]).
 표시항목 설정처럼 칸을 한 화면에 늘어놓고 고르는 경우는 기존 `ColumnPicker`.
 
 ## 1. 흐름

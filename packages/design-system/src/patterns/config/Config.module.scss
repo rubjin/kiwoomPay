@@ -30,19 +30,9 @@ $config-field-gap: 30px; // 라벨 ↔ 내용 (Figma 엑셀 다운로드 설정)
 $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma 안내 줄 위아래 24)
 
 // ── 패널 공통 ───────────────────────────────────────
-.panelHeader {
-  display: flex;
-  gap: t.$space-8;
-  align-items: center;
-  justify-content: space-between;
+// 패널 제목 줄(SectionHeading md)은 Figma 높이 32
+.panelHeading {
   min-height: $config-panel-title-height;
-}
-
-.panelTitle {
-  @include m.typography(typo-16-bold);
-
-  margin: 0;
-  color: t.$color-config-title;
 }
 
 .count {
@@ -321,6 +311,11 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
   min-width: 0;
 }
 
+// 오른쪽 첫 줄 = 패널 제목(SectionHeading) — 버튼이 없어도 Figma 높이 32
+.splitRight > :first-child {
+  min-height: $config-panel-title-height;
+}
+
 // ── ConfigField ─────────────────────────────────────
 .field {
   display: flex;
@@ -400,7 +395,7 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
   @include m.typography(typo-14-semi-bold);
 
   margin: 0;
-  color: t.$color-config-title;
+  color: t.$color-config-empty-title;
 }
 
 .savedEmptyDescription {

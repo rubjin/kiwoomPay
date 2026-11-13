@@ -4,12 +4,12 @@ import {
   ConfigDivider,
   ConfigField,
   ConfigHint,
-  ConfigPanelHeader,
   ConfigSplit,
   Field,
   Infobox,
   Modal,
   SavedConditionList,
+  SectionHeading,
   TextField,
   useAction,
   useConfigDraft,
@@ -164,7 +164,7 @@ export function SavedSearchModal({
           right={
             creating ? (
               <>
-                <ConfigPanelHeader title="신규 검색조건 등록" />
+                <SectionHeading size="md" as="h3" title="신규 검색조건 등록" />
                 <Field label="검색조건명">
                   <TextField
                     fullWidth
@@ -181,7 +181,9 @@ export function SavedSearchModal({
               </>
             ) : (
               <>
-                <ConfigPanelHeader
+                <SectionHeading
+                  size="md"
+                  as="h3"
                   title="선택한 검색조건 관리"
                   actions={
                     <Button size="sm" variant="primary" appearance="line" onClick={addNew}>
@@ -249,7 +251,8 @@ export function SavedSearchModal({
                     {draft.deleted.length > 0
                       ? `삭제 예정 ${draft.deleted.length}건을 포함한 `
                       : ''}
-                    삭제 예정 1건을 포함한 변경사항은 [저장] 선택 시 최종 반영되며, [취소] 또는 [X]로 종료하면 반영되지 않습니다.
+                    삭제 예정 1건을 포함한 변경사항은 [저장] 선택 시 최종 반영되며, [취소] 또는
+                    [X]로 종료하면 반영되지 않습니다.
                   </Infobox.Item>
                 </Infobox>
               </>
