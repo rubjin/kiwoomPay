@@ -103,7 +103,7 @@ const sr = useSearchResult({ fetch: api.list, defaults, autoSearch: false });
 - `compact` + `limit`: 마이페이지 Hub에 넣는 축약형.
 
 ### P07 Selection & Configuration
-- V01 메뉴 선택 = `FavoriteMenuPicker`(있음), V02 선택 · 순서 = `ColumnPicker`(있음), V03 저장 조건 = `SavedConditionList`(신규: 불러오기 · 이름 변경 · 삭제 · Empty).
+- V01 메뉴 선택 = `FavoriteMenuPicker`(있음), V02 선택 · 순서 = `TransferList`(엑셀 다운로드 설정, 표시항목은 `ColumnPicker`), V03 저장 조건 = `SavedConditionList`(완료 2026-11-13).
 - `ConfigModal` + `useConfigDraft`: 초안 ↔ 저장값, 변경 여부, 기본값 복원, 저장/적용 결과는 P04.
 
 ### P08 Overview & Dashboard

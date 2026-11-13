@@ -393,6 +393,31 @@ $color-compact-nav-icon-disabled: var(--kp-color-compact-nav-icon-disabled);
 $color-compact-nav-text: var(--kp-color-compact-nav-text); // 현재 · 전체 번호
 $color-compact-nav-divider: var(--kp-color-compact-nav-divider); // 번호 사이 /
 
+// ── custom · config ─────────────────────────────────────────────
+$color-config-title: var(--kp-color-config-title); // 패널 제목 (16 Bold)
+$color-config-description: var(--kp-color-config-description);
+$color-config-count: var(--kp-color-config-count); // 총 N 건 (Neutral 500)
+$color-config-divider: var(--kp-color-config-divider);
+$color-config-panel-bg: var(--kp-color-config-panel-bg);
+$color-config-panel-border: var(--kp-color-config-panel-border);
+$color-config-item-text: var(--kp-color-config-item-text);
+$color-config-row-bg: var(--kp-color-config-row-bg); // 선택 항목 줄
+$color-config-row-border: var(--kp-color-config-row-border);
+$color-config-row-drag-over: var(--kp-color-config-row-drag-over); // TODO(시안) 끌어서 놓을 자리 표시
+$color-config-handle: var(--kp-color-config-handle); // TODO(시안) 끌기 아이콘 색
+$color-config-card-bg: var(--kp-color-config-card-bg); // 저장된 검색조건 카드
+$color-config-card-border: var(--kp-color-config-card-border);
+$color-config-card-bg-selected: var(--kp-color-config-card-bg-selected);
+$color-config-card-border-selected: var(--kp-color-config-card-border-selected);
+$color-config-card-title: var(--kp-color-config-card-title);
+$color-config-card-summary: var(--kp-color-config-card-summary);
+$color-config-pagination-divider: var(--kp-color-config-pagination-divider);
+$color-config-summary-label: var(--kp-color-config-summary-label);
+$color-config-summary-value: var(--kp-color-config-summary-value);
+$color-config-add-button: var(--kp-color-config-add-button); // 엑셀 다운로드 설정 [추가] 글자 · 테두리 (Figma chart/positive)
+$color-config-add-button-hover-bg: var(--kp-color-config-add-button-hover-bg); // TODO(시안) [추가] Hover · Pressed 배경
+$color-config-add-button-disabled: var(--kp-color-config-add-button-disabled); // TODO(시안) [추가] 비활성 글자 · 테두리
+
 // ── custom · control ────────────────────────────────────────────
 $control-height-sm: var(--kp-control-height-sm); // Button Guide 02. Spec
 $control-height-md: var(--kp-control-height-md);
@@ -1094,6 +1119,29 @@ $css-variables: (
   "--kp-color-compact-nav-icon-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-compact-nav-text": "var(--kp-color-text-secondary)",
   "--kp-color-compact-nav-divider": "var(--kp-color-text-disabled)",
+  "--kp-color-config-title": "var(--kp-color-text-heading)",
+  "--kp-color-config-description": "var(--kp-color-text-secondary)",
+  "--kp-color-config-count": "var(--kp-color-text-placeholder)",
+  "--kp-color-config-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-config-panel-bg": "var(--kp-color-neutral-50)",
+  "--kp-color-config-panel-border": "var(--kp-color-line-default)",
+  "--kp-color-config-item-text": "var(--kp-color-neutral-800)",
+  "--kp-color-config-row-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-config-row-border": "var(--kp-color-line-subtle)",
+  "--kp-color-config-row-drag-over": "var(--kp-color-primary-500)",
+  "--kp-color-config-handle": "var(--kp-color-text-placeholder)",
+  "--kp-color-config-card-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-config-card-border": "var(--kp-color-neutral-200)",
+  "--kp-color-config-card-bg-selected": "var(--kp-color-primary-50)",
+  "--kp-color-config-card-border-selected": "var(--kp-color-primary-500)",
+  "--kp-color-config-card-title": "var(--kp-color-neutral-900)",
+  "--kp-color-config-card-summary": "var(--kp-color-neutral-700)",
+  "--kp-color-config-pagination-divider": "var(--kp-color-neutral-300)",
+  "--kp-color-config-summary-label": "var(--kp-color-text-label)",
+  "--kp-color-config-summary-value": "var(--kp-color-text-label)",
+  "--kp-color-config-add-button": "var(--kp-color-chart-positive)",
+  "--kp-color-config-add-button-hover-bg": "var(--kp-color-status-success-background)",
+  "--kp-color-config-add-button-disabled": "var(--kp-color-text-disabled)",
   "--kp-control-height-sm": "32px",
   "--kp-control-height-md": "40px",
   "--kp-control-height-lg": "48px",

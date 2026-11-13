@@ -1,0 +1,376 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC04010107 엑셀 다운로드 설정(29491:137741) · KWPC04010105 내 검색조건 관리(29509:93884)
+$config-panel-title-height: t.$control-height-sm; // 패널 제목 줄 32
+$config-panel-title-gap: t.$space-8; // 제목 ↔ 패널 (엑셀) / 12 (검색조건)
+$config-panel-radius: 8px;
+$config-panel-padding: t.$space-12;
+$transfer-gap: t.$space-12; // 왼쪽 패널 ↔ 버튼 ↔ 오른쪽 패널
+$transfer-panel-height: 386px; // 선택 항목 10줄(36) + 여백 (Figma)
+$transfer-item-gap: t.$space-8; // 전체 항목 줄 사이 (줄 32 + 8 = 40)
+$transfer-item-padding: 6px t.$space-4;
+$transfer-row-height: 36px;
+$transfer-row-padding: t.$space-4 t.$space-8;
+$transfer-handle: 20px;
+$saved-panel-height: 485px; // 저장된 검색조건 패널 (Figma)
+$saved-card-padding: t.$space-8 t.$space-12;
+$saved-card-gap: 2px;
+$saved-list-gap: t.$space-8;
+$saved-pagination-gap: t.$space-8;
+$saved-pagination-divider: 292px;
+$summary-radius: 6px;
+$summary-gap: t.$space-16; // 줄 사이
+$summary-label-gap: t.$space-20;
+$summary-label-width: 52px;
+$split-gap: t.$space-16; // 왼쪽 ↔ 구분선 ↔ 오른쪽
+$split-left-width: 318px;
+$config-field-gap: 30px; // 라벨 ↔ 내용 (Figma 엑셀 다운로드 설정)
+$split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma 안내 줄 위아래 24)
+
+// ── 패널 공통 ───────────────────────────────────────
+.panelHeader {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+  min-height: $config-panel-title-height;
+}
+
+.panelTitle {
+  @include m.typography(typo-16-bold);
+
+  margin: 0;
+  color: t.$color-config-title;
+}
+
+.count {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-config-count;
+}
+
+.panel {
+  min-width: 0;
+  background-color: t.$color-config-panel-bg;
+  border: t.$control-border-width solid t.$color-config-panel-border;
+  border-radius: $config-panel-radius;
+}
+
+// ── TransferList ────────────────────────────────────
+.transfer {
+  display: flex;
+  gap: $transfer-gap;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.transferSide {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: $config-panel-title-gap;
+  min-width: 0;
+}
+
+.transferPanel {
+  height: $transfer-panel-height;
+  padding: calc(#{$config-panel-padding} - #{t.$control-border-width});
+  overflow-y: auto;
+}
+
+.transferItems {
+  display: flex;
+  flex-direction: column;
+  gap: $transfer-item-gap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.transferItem {
+  padding: $transfer-item-padding;
+}
+
+.transferLabel {
+  @include m.typography(typo-13-medium);
+
+  color: t.$color-config-item-text;
+}
+
+.transferButtons {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: t.$space-8;
+  justify-content: center;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $transfer-row-height;
+  padding: $transfer-row-padding;
+  background-color: t.$color-config-row-bg;
+  border: t.$control-border-width solid t.$color-config-row-border;
+
+  & + & {
+    border-top: 0;
+  }
+}
+
+.rowDragging {
+  opacity: 0.5;
+}
+
+.rowOver {
+  box-shadow: inset 0 calc(#{t.$control-border-width} * 2) 0 t.$color-config-row-drag-over;
+}
+
+.handle {
+  display: inline-flex;
+  flex: none;
+  width: $transfer-handle;
+  height: $transfer-handle;
+  color: t.$color-config-handle;
+  cursor: grab;
+}
+
+.empty {
+  @include m.typography(typo-13-regular);
+
+  margin: 0;
+  color: t.$color-config-count;
+}
+
+// ── SavedConditionList ──────────────────────────────
+.saved {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-12;
+  min-width: 0;
+}
+
+.savedPanel {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-8;
+  height: $saved-panel-height;
+  padding: calc(#{$config-panel-padding} - #{t.$control-border-width});
+  overflow: hidden;
+}
+
+.savedList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $saved-list-gap;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $saved-card-gap;
+  width: 100%;
+  padding: $saved-card-padding;
+  text-align: left;
+  cursor: pointer;
+  background-color: t.$color-config-card-bg;
+  border: t.$control-border-width solid t.$color-config-card-border;
+  border-radius: $config-panel-radius;
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.cardSelected {
+  background-color: t.$color-config-card-bg-selected;
+  border-color: t.$color-config-card-border-selected;
+}
+
+.cardTop {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  @include m.typography(typo-13-semi-bold);
+  @include m.ellipsis;
+
+  min-width: 0;
+  color: t.$color-config-card-title;
+}
+
+.cardSummary {
+  @include m.typography(typo-12-regular);
+  @include m.ellipsis;
+
+  color: t.$color-config-card-summary;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: column;
+  gap: $saved-pagination-gap;
+  align-items: center;
+}
+
+.paginationDivider {
+  width: $saved-pagination-divider;
+  max-width: 100%;
+  height: t.$control-border-width;
+  margin: 0;
+  background-color: t.$color-config-pagination-divider;
+  border: 0;
+}
+
+// ── ConditionSummary ────────────────────────────────
+.summary {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $summary-gap;
+  padding: calc(#{$config-panel-padding} - #{t.$control-border-width});
+  margin: 0;
+  background-color: t.$color-config-panel-bg;
+  border: t.$control-border-width solid t.$color-config-panel-border;
+  border-radius: $summary-radius;
+}
+
+.summaryRow {
+  display: flex;
+  gap: $summary-label-gap;
+  align-items: flex-start;
+}
+
+.summaryLabel {
+  @include m.typography(typo-12-semi-bold);
+
+  flex: none;
+  min-width: $summary-label-width;
+  margin: 0;
+  color: t.$color-config-summary-label;
+}
+
+.summaryValue {
+  @include m.typography(typo-12-regular);
+
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: t.$color-config-summary-value;
+}
+
+// ── ConfigSplit ─────────────────────────────────────
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: $split-description-gap;
+}
+
+.splitDescription {
+  @include m.typography(typo-12-regular);
+
+  margin: 0;
+  color: t.$color-config-description;
+}
+
+.splitBody {
+  display: flex;
+  gap: $split-gap;
+  align-items: stretch;
+}
+
+.splitLeft {
+  flex: none;
+  width: $split-left-width;
+}
+
+.splitDivider {
+  flex: none;
+  width: t.$control-border-width;
+  background-color: t.$color-config-divider;
+}
+
+.splitRight {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: t.$space-12;
+  min-width: 0;
+}
+
+// ── ConfigField ─────────────────────────────────────
+.field {
+  display: flex;
+  gap: $config-field-gap;
+  align-items: center;
+  min-width: 0;
+}
+
+.fieldBetween {
+  justify-content: space-between;
+}
+
+.fieldLabel {
+  @include m.typography(typo-13-bold);
+
+  flex: none;
+  color: t.$color-config-summary-label;
+}
+
+.fieldContent {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  min-width: 0;
+}
+
+.fieldBetween .fieldContent {
+  flex: none;
+}
+
+.hint {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-config-description;
+}
+
+.hDivider {
+  width: 100%;
+  height: t.$control-border-width;
+  margin: 0;
+  background-color: t.$color-config-divider;
+  border: 0;
+}
+
+// [추가] 버튼: Primary Line 버튼의 색 변수만 Chart/Positive(초록)로 덮어씀 (Figma)
+.addButton {
+  --kp-color-button-primary-line-text: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-text-hover: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-text-pressed: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-border: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-border-hover: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-border-pressed: #{t.$color-config-add-button};
+  --kp-color-button-primary-line-bg-hover: #{t.$color-config-add-button-hover-bg};
+  --kp-color-button-primary-line-bg-pressed: #{t.$color-config-add-button-hover-bg};
+  --kp-color-button-primary-line-text-disabled: #{t.$color-config-add-button-disabled};
+  --kp-color-button-primary-line-border-disabled: #{t.$color-config-add-button-disabled};
+}

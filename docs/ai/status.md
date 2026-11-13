@@ -6,7 +6,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed · P07 Selection & Configuration(V01 즐겨찾기 편집) 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed · P07 Selection & Configuration(V01 즐겨찾기 편집 · V02 엑셀 다운로드 설정 · V03 내 검색조건 관리) 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -96,7 +96,8 @@
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
 - [Q57] P05 로그인 확인 필요: ① 제목 32 ExtraBold는 Figma 텍스트 스타일에 없음(컴포넌트 SCSS 값) ② 입력 중 · 오류 밑줄 색, 오류 문구 위치 · 문구(실패 n/5 · 잠김 · 만료) ③ SMS 인증 Modal Figma 노드(안내 ↔ 상자 12는 PNG 측정, 상자 ↔ 인증번호 12 · 입력 ↔ 오류 문구 4는 사용자 확정 2026-11-13) ④ 화면 ID — IA는 KWPC0300, Figma는 KWPC3000 ⑤ 내용 ↔ Footer 최소 간격 40(임시), 가맹점관리자 모바일 시안
 - [Q58] P06 마이페이지 확인 필요: ① 알림 선택 시 이동 대상(유형별 업무 화면 — 지금은 알림센터) ② 모두 읽음 확인 문구 · 빈 상태 문구 · 알림 행 Hover ③ 업무유형 칩 아이콘 규칙(Figma는 리스크/FDS만) ④ 계정관리 Badge 줄 라벨 ↔ 값 Figma 8(다른 줄 12) — 12로 통일 ⑤ 마이페이지 Hub는 메뉴(IA)에 없는 화면(KWPC2000) — 헤더 [내 정보]로 진입 ⑥ 권한 신청 현황 값 위치 — 기본 Figma 오른쪽 끝 ↔ 권한 없음 Figma 라벨 옆(오른쪽 끝으로 통일) ⑦ [특수권한 신청] 이동 대상(지금 권한관리)
-- [Q59] P07 즐겨찾기 편집 확인 필요: ① Figma Modal 폭 820 · 여백 24 ↔ 요청 lg 880 · Modal 공통 여백 20 ② ~~Footer 버튼~~ → 항상 lg 48 (확정 결정 "팝업 하단 버튼") ③ 검색 상태(이름 + 경로 목록)는 Figma 노드 없음 — 사용자 이미지 기준 ④ 바뀐 것이 없을 때 [저장] 비활성 · 닫기 확인 문구 · 저장 완료 문구 ⑤ V03 저장 조건(내 검색조건 관리) 시안
+- [Q59] P07 즐겨찾기 편집 확인 필요: ① Figma Modal 폭 820 · 여백 24 ↔ 요청 lg 880 · Modal 공통 여백 20 ② ~~Footer 버튼~~ → 항상 lg 48 (확정 결정 "팝업 하단 버튼") ③ 검색 상태(이름 + 경로 목록)는 Figma 노드 없음 — 사용자 이미지 기준 ④ 바뀐 것이 없을 때 [저장] 비활성 · 닫기 확인 문구 · 저장 완료 문구 ⑤ ~~V03 시안~~ → 반영(2026-11-13)
+- [Q60] P07 V02 · V03 확인 필요: ① ~~[추가] 버튼 색~~ → Chart/Positive 초록(사용자 확정, Hover 배경 · 비활성 색은 임시) ② 엑셀 템플릿 불러오기 · 저장 · 삭제 동작 · 다운로드 요청 후 안내 문구 ③ 엑셀 출력 항목 = Grid 열로 가정, 기본 선택 10개 ④ [선택 조건 적용]은 [저장] 때 화면 검색 조건에 넣음(조회는 사용자가) — 즉시 적용인지 ⑤ [신규 등록]은 현재 화면 조건 + 이름 "새 검색조건" ⑥ Figma Modal 820 ↔ lg 880, 안내 ↔ 본문 24 · 라벨 ↔ 내용 30은 Figma 값
 - [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 50~400·600~900은 기본 Primary 단계의 밝기·채도 관계(OKLCH)를 500에 적용해 계산한 임시값(TODO, `tokens/custom/themes/merchant.json`) → 디자인에서 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json` 추가)
 
 ## 단계별 요약
@@ -727,3 +728,11 @@
 - 기본 레이아웃 페이지 `/patterns/layout`(P00, 개발 서버만): Header · LNB · Work Tab · 화면 타이틀까지. 화면 목록 맨 위
 - Modal Footer 버튼 lg 48 (즐겨찾기 편집, 사용자 확정)
 - 검증: typecheck · lint, 브라우저: Tab 줄 y86 · 40, Trigger 오른쪽 끝 1896 · y86(Figma), 화면 3개 열기 → 5 Tab · "열린 화면 5", Tab 클릭 이동 · 탭 제목, 활성 Tab 닫기 → 이웃, 메뉴 5개 · 다른 탭 모두 닫기 → 대시보드(고정) + 현재, 에러 없음
+
+### Pattern: P07 V02 엑셀 다운로드 설정 · V03 내 검색조건 관리 — 2026-11-13
+- 확정 결정: 팝업 하단 버튼은 항상 lg 48 (Figma 40은 디자인 오류)
+- 시안: Figma KWPC04010107 엑셀 다운로드 설정(29495:87846) · KWPC04010105 내 검색조건 관리(29503:90470), 폭은 lg 880
+- 디자인 시스템 `patterns/config`: `TransferList`(전체 항목 ⇄ 선택 항목, 체크 → [추가]/[제거], 선택 항목 끌어서 순서, 패널 386 · 줄 36) · `SavedConditionList`(제목 · 총 N 건, 검색 · 카드(이름 13 SemiBold · 요약 12 · 상태 Badge sm) · Pagination, 패널 485) · `ConditionSummary`(Neutral 50 · 반경 6 · 이름 52 · 줄 16) · `ConfigSplit`(안내 → 왼쪽 318 | 구분선 | 오른쪽) · `ConfigField`(라벨 13 Bold ↔ 내용 30, between) · `ConfigPanelHeader` · `ConfigHint` · `ConfigDivider`. 토큰 `tokens/custom/config.json`(색 모두 alias). 스토리 ExcelDownload · SavedConditions(예시 `configDemoData`), P07 가이드 2 · 3절
+- 앱(통합 거래내역): [엑셀 다운로드] → `ExcelDownloadModal`(출력 항목 = Grid 열), [내 검색조건 관리] → `SavedSearchModal`(초안 · 삭제 예정 · 적용 중 · 신규 등록 · 덮어쓰기, 요약은 `SEARCH_FIELDS` + `summarizeSearch`), 제목 옆 [내 검색조건 선택]으로 저장 조건을 검색 조건에 넣음. 저장 조건은 화면 안 상태(TODO(API)). 화면 목록에 KWPC04010107 · KWPC04010105
+- 검증: tokens · typecheck · lint · build(디자인 시스템) · 앱 tsc. Storybook 두 Modal 880 · Footer 48 · 배치가 Figma와 같음. 앱: 엑셀 — 선택 항목 모두 제거 후 다운로드 → 안내, 추가 → 요청 → 완료 안내 · 닫힘. 내 검색조건 — 변경 전 [저장] 비활성, 다른 조건 적용 → 저장 → 완료 안내 → 제목 옆 선택에 반영, 에러 없음
+- 한 가정: Q60
