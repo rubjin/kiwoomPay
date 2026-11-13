@@ -260,6 +260,23 @@ $sr-grid-cell-padding-x: t.$space-12;
   font-variant-numeric: tabular-nums;
 }
 
+// 요약 숫자 색 (tone): 상태 글자색
+.toneInfo {
+  color: t.$color-status-info-text;
+}
+
+.toneSuccess {
+  color: t.$color-status-success-text;
+}
+
+.toneWarning {
+  color: t.$color-status-warning-text;
+}
+
+.toneError {
+  color: t.$color-status-error-text;
+}
+
 // ── 조회 결과 (ResultPanel) ──────────────────────────
 .resultPanel {
   display: flex;

@@ -14,7 +14,18 @@ export interface ResultSummaryItem extends ResultSummaryValue {
   label: ReactNode;
   /** 값이 여러 개일 때 (예: 건수 • 금액). 있으면 value · unit 대신 쓴다 */
   values?: ResultSummaryValue[];
+  /** 숫자 색 (상태 집계: 예 지급실패 error). 없으면 기본 글자색 */
+  tone?: ResultSummaryTone;
 }
+
+export type ResultSummaryTone = 'info' | 'success' | 'warning' | 'error';
+
+const TONE_CLASS: Record<ResultSummaryTone, string | undefined> = {
+  info: styles.toneInfo,
+  success: styles.toneSuccess,
+  warning: styles.toneWarning,
+  error: styles.toneError,
+};
 
 export interface ResultSummaryProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   /** 제목 (기본 '조회 요약') */
@@ -47,7 +58,11 @@ export const ResultSummary = forwardRef<HTMLElement, ResultSummaryProps>(
                       •
                     </span>
                   )}
-                  <strong className={styles.summaryNumber}>{formatValue(v.value)}</strong>
+                  <strong
+                    className={clsx(styles.summaryNumber, item.tone && TONE_CLASS[item.tone])}
+                  >
+                    {formatValue(v.value)}
+                  </strong>
                   <span>{v.unit ?? '건'}</span>
                 </Fragment>
               ))}

@@ -3,7 +3,12 @@ export type { SearchPanelGridProps, SearchPanelProps } from './SearchPanel';
 export { AppliedFilters } from './AppliedFilters';
 export type { AppliedFilter, AppliedFiltersProps } from './AppliedFilters';
 export { ResultSummary } from './ResultSummary';
-export type { ResultSummaryItem, ResultSummaryProps, ResultSummaryValue } from './ResultSummary';
+export type {
+  ResultSummaryItem,
+  ResultSummaryProps,
+  ResultSummaryTone,
+  ResultSummaryValue,
+} from './ResultSummary';
 export { ResultPanel } from './ResultPanel';
 export type { ResultPanelProps, SearchStatus } from './ResultPanel';
 export { ResultFooter } from './ResultFooter';
