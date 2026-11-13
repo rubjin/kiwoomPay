@@ -11,7 +11,7 @@ import { DialogProvider } from '../common';
 import { DetailCard, DetailSummary, FormGroup, FormSection, FormTable } from '../record-form';
 import { GridPlaceholder } from '../search-result';
 import { Infobox } from '../../components/display';
-import { ActionStats, ActionTargetBar } from './ActionSummary';
+import { ActionStats, ActionTargetBar, ActionTotal } from './ActionSummary';
 import { useAction } from './useAction';
 
 const meta = {
@@ -627,13 +627,18 @@ export const PartialCancel: Story = {
 };
 
 /**
- * 일괄 처리 팝업 부품 (Figma 처리_실행 팝업): 선택 대상 요약 줄(ActionTargetBar) · 처리 가능/불가 상자(ActionStats) ·
+ * 일괄 처리 팝업 부품 (Figma 처리_실행 팝업 · 팝업2): 질문 문장 · 요약 줄(ActionTargetBar question · bar) · 합계 줄(ActionTotal) · 처리 가능/불가 상자(ActionStats) ·
  * 점 목록 안내(Infobox.Item bullets). 표 · [제외] · 입력은 화면 공통 틀(앱 LedgerActionModal)이 조합한다
  */
 export const BatchParts: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 840 }}>
+      <ActionTargetBar
+        variant="question"
+        parts={[{ label: '선택한 일반 원장', value: 3, unit: '건의 지급을 확정하시겠습니까?' }]}
+      />
+      <ActionTotal label="지급확정 대상금액 합계" value={10500000} />
       <ActionTargetBar
         parts={[
           { label: '선택한 보류 원장', value: 3 },

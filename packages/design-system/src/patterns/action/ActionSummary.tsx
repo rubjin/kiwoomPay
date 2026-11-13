@@ -17,6 +17,11 @@ const format = (value: number | string) =>
 export interface ActionTargetBarProps extends HTMLAttributes<HTMLParagraphElement> {
   /** 가운뎃점(·)으로 이어 붙인다. 숫자는 Primary SemiBold */
   parts: ActionSummaryPart[];
+  /**
+   * bar(기본): 회색 상자 13 Regular (처리_실행 팝업) /
+   * question: 상자 없이 16 SemiBold 질문 문장 — 확인만 받는 팝업 (처리_실행 팝업2: "… 3건의 지급을 확정하시겠습니까?")
+   */
+  variant?: 'bar' | 'question';
 }
 
 /**
@@ -24,8 +29,12 @@ export interface ActionTargetBarProps extends HTMLAttributes<HTMLParagraphElemen
  * "선택한 일반 정산원장 3건 · 합계 10,500,000원" (Figma 처리_실행 팝업)
  */
 export const ActionTargetBar = forwardRef<HTMLParagraphElement, ActionTargetBarProps>(
-  ({ parts, className, ...rest }, ref) => (
-    <p {...rest} ref={ref} className={clsx(styles.bar, className)}>
+  ({ parts, variant = 'bar', className, ...rest }, ref) => (
+    <p
+      {...rest}
+      ref={ref}
+      className={clsx(styles.bar, variant === 'question' && styles.question, className)}
+    >
       {parts.map((part, index) => (
         <Fragment key={index}>
           {index > 0 && (
@@ -87,3 +96,25 @@ export const ActionStats = forwardRef<HTMLDListElement, ActionStatsProps>(
   ),
 );
 ActionStats.displayName = 'ActionStats';
+
+export interface ActionTotalProps extends HTMLAttributes<HTMLParagraphElement> {
+  /** 예: 지급확정 대상금액 합계 */
+  label: ReactNode;
+  value: number | string;
+  /** 단위 (기본 '원') */
+  unit?: ReactNode;
+}
+
+/** 대상 표 아래 합계 줄: 이름(13) 왼쪽 · 숫자(20 Bold Primary) + 단위 오른쪽 (Figma 처리_실행 팝업2) */
+export const ActionTotal = forwardRef<HTMLParagraphElement, ActionTotalProps>(
+  ({ label, value, unit = '원', className, ...rest }, ref) => (
+    <p {...rest} ref={ref} className={clsx(styles.total, className)}>
+      <span>{label}</span>
+      <span className={styles.totalValue}>
+        <strong className={styles.totalNumber}>{format(value)}</strong>
+        <span>{unit}</span>
+      </span>
+    </p>
+  ),
+);
+ActionTotal.displayName = 'ActionTotal';

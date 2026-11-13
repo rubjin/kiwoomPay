@@ -41,7 +41,7 @@ export interface InfoboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   icon?: ReactNode;
   /** 설명 */
   children?: ReactNode;
-  /** 점 목록 안내 (12 Regular, • 앞). 있으면 아이콘은 첫 줄에 맞춰 위에 (Figma 처리_실행 팝업) */
+  /** 점 목록 안내 (12 Regular, • 앞). 있으면 아이콘은 첫 줄에 맞춰 위에, 제목은 목록 위 줄에 (Figma 처리_실행 팝업) */
   bullets?: ReactNode[];
 }
 
@@ -51,8 +51,12 @@ const InfoboxItem = forwardRef<HTMLDivElement, InfoboxItemProps>(
       <span className={styles.icon}>
         {icon === undefined ? <Icon name="info-box" size={20} /> : icon}
       </span>
-      {title !== undefined && <strong className={styles.title}>{title}</strong>}
-      <span className={clsx(styles.text, title === undefined && styles.textWide)}>
+      {/* 점 목록이 있으면 제목은 목록 위 줄에 (Figma 처리_실행 팝업2 · 현재 설정값 기준 재계산) */}
+      {title !== undefined && !bullets && <strong className={styles.title}>{title}</strong>}
+      <span className={clsx(styles.text, (title === undefined || bullets) && styles.textWide)}>
+        {title !== undefined && bullets && (
+          <strong className={clsx(styles.title, styles.titleBlock)}>{title}</strong>
+        )}
         {children}
         {bullets && (
           <ul className={styles.bullets}>

@@ -33,6 +33,44 @@ $as-dot-gap: t.$space-4; // 값 ↔ 단위 · 가운뎃점 양옆
   padding-inline: $as-dot-gap;
 }
 
+// 질문형: 상자 없이 16 SemiBold (숫자도 같은 크기 · Primary)
+.question {
+  @include m.typography(typo-16-semi-bold);
+
+  padding: 0;
+  color: t.$color-action-summary-stat-value;
+  background: none;
+
+  .accent {
+    @include m.typography(typo-16-semi-bold);
+  }
+}
+
+// ── ActionTotal ──────────────────────────────────────
+.total {
+  @include m.typography(typo-13-regular);
+
+  display: flex;
+  gap: t.$space-12;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  color: t.$color-action-summary-text;
+}
+
+.totalValue {
+  display: inline-flex;
+  gap: $as-dot-gap;
+  align-items: baseline;
+}
+
+.totalNumber {
+  @include m.typography(typo-20-bold);
+
+  color: t.$color-action-summary-accent;
+  font-variant-numeric: tabular-nums;
+}
+
 // ── ActionStats ──────────────────────────────────────
 .stats {
   display: grid;
