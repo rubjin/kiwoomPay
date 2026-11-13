@@ -115,6 +115,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC3000',
+    depth1: '로그인',
+    depth2: '로그인',
+    depth3: '',
+    name: '로그인 · SMS 인증',
+    path: '/auth/login',
+    type: '로그인',
+    pattern: 'P05',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork:
+      '로그인 · SMS 인증 API 미연결(예시: 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked) · 오류 문구 · SMS Modal 간격(PNG 측정)',
+  },
+  {
+    system: 'internal',
     id: 'KWPC0104',
     depth1: '메인',
     depth2: '다운로드센터',
