@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, mergeConfig } from 'vite';
 import { designSystemSource } from '../../packages/design-system/vite.source';
 
-// 화면 확인용 목록 (임의 작업). 관리자 앱과 별도로 띄운다: pnpm --filter @kiwoompay/screen-list dev
+// 화면 확인용 목록 (임의 작업). 루트 pnpm dev(관리자 앱과 함께) 또는 pnpm screens(목록만)
 export default defineConfig(({ command }) =>
   mergeConfig(
     {
@@ -13,7 +13,8 @@ export default defineConfig(({ command }) =>
         command === 'serve'
           ? fileURLToPath(new URL('../../packages/design-system/dist', import.meta.url))
           : false,
-      server: { port: 5180 },
+      // pnpm dev · pnpm screens 실행 시 브라우저에서 화면 목록을 바로 연다
+      server: { port: 5180, strictPort: true, open: true },
       base: './',
     },
     command === 'serve' ? designSystemSource() : {},

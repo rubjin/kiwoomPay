@@ -6,6 +6,7 @@
 
 ```bash
 pnpm install          # pnpm 10 (corepack enable 또는 npm i -g pnpm@10)
+pnpm dev              # 내부관리자 앱(5173) + 화면 목록(5180) 함께 실행, 화면 목록이 브라우저에 자동으로 열림
 pnpm storybook        # 토큰 생성 + Storybook (http://localhost:6006)
 pnpm build            # 토큰 생성 + 라이브러리 빌드 (packages/design-system/dist)
 pnpm lint             # ESLint + Stylelint

@@ -12,6 +12,7 @@
     "build": "pnpm --filter @kiwoompay/design-system build",
     "lint": "pnpm -r lint",
     "format": "prettier --write .",
+    "dev": "pnpm --parallel --filter @kiwoompay/internal-admin --filter @kiwoompay/screen-list dev",
     "screens": "pnpm --filter @kiwoompay/screen-list dev"
   },
   "devDependencies": {
