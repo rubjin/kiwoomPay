@@ -29,32 +29,12 @@ const STATUS_TONE: Record<ScreenStatus, BadgeTone> = {
 };
 
 const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
-  {
-    key: 'status',
-    header: '상태',
-    width: 90,
-    render: (s) => (
-      <Badge size="sm" tone={STATUS_TONE[s.status]}>
-        {s.status}
-      </Badge>
-    ),
-  },
-  { key: 'depth1', header: '1depth', width: 110 },
-  { key: 'depth2', header: '2depth', width: 170 },
-  { key: 'depth3', header: '3depth', width: 150 },
+  // 위아래 줄의 이름이 같으면 합침 (앞 depth도 같을 때만)
+  { key: 'depth1', header: '1depth', width: 110, merge: true },
+  { key: 'depth2', header: '2depth', width: 170, merge: true },
+  { key: 'depth3', header: '3depth', width: 150, merge: true },
   { key: 'id', header: '화면ID', width: 120 },
-  {
-    key: 'name',
-    header: '화면명',
-    width: 330,
-    align: 'left',
-    render: (s) => (
-      <>
-        {s.name}
-        {s.tempWork && <> (임의 작업: {s.tempWork})</>}
-      </>
-    ),
-  },
+  { key: 'name', header: '화면명', width: 330, align: 'left' },
   {
     key: 'path',
     header: '경로',
@@ -75,8 +55,24 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
     width: 110,
     render: (s) => (s.pattern ? `${s.type} (${s.pattern})` : s.type),
   },
+  {
+    key: 'status',
+    header: '상태',
+    width: 90,
+    render: (s) => (
+      <Badge size="sm" tone={STATUS_TONE[s.status]}>
+        {s.status}
+      </Badge>
+    ),
+  },
   { key: 'planVersion', header: '기획반영버전', width: 200 },
   { key: 'updatedAt', header: '최종업데이트일', width: 120 },
+  {
+    key: 'tempWork',
+    header: '기타',
+    align: 'left',
+    render: (s) => (s.tempWork ? `임의 작업: ${s.tempWork}` : '-'),
+  },
 ];
 
 /** 줄 key — 같은 경로를 여는 줄이 있어 화면ID · 화면명까지 넣어 고유하게 */

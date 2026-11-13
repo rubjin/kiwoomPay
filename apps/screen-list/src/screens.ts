@@ -45,7 +45,7 @@ export interface ScreenInfo {
   planVersion: string;
   /** 최종 업데이트일 YYYY-MM-DD */
   updatedAt: string;
-  /** 시안 · 정책 없이 임시로 만든 부분 → 화면명 옆 "(임의 작업: …)" */
+  /** 시안 · 정책 없이 임시로 만든 부분 → "기타" 칸에 "임의 작업: …" */
   tempWork?: string;
 }
 
