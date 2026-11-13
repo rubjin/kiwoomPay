@@ -11,6 +11,9 @@ $rd-card-padding: t.$space-12;
 $rd-card-radius: 6px;
 $rd-card-gap: t.$space-16; // 카드 제목 ↔ 줄, 줄 사이
 $rd-label-width: 73px;
+$rd-target-plain-gap: 6px;
+$rd-form-column-gap: t.$space-40; // 입력 폼 카드 열 사이 (Figma 고객문의·민원 처리)
+$rd-form-label-gap: t.$space-20;
 
 // Modal.Header 아래(스크롤 밖) — Header 아래 여백 16 + 4 = Figma 20
 .target {
@@ -20,6 +23,12 @@ $rd-label-width: 73px;
   align-items: center;
   padding: t.$space-4 $rd-padding-x $rd-target-padding-bottom;
   border-bottom: t.$control-border-width solid t.$color-record-detail-divider;
+}
+
+// 구분선 없이 바로 카드: 아래 6 + Modal.Body 위 4 = Figma 10
+.targetPlain {
+  padding-bottom: $rd-target-plain-gap;
+  border-bottom: 0;
 }
 
 .targetLabel {
@@ -72,6 +81,8 @@ $rd-label-width: 73px;
 
 .item {
   display: flex;
+  gap: var(--detail-label-gap, 0);
+  align-items: center;
   min-width: 0;
 }
 
@@ -95,6 +106,18 @@ $rd-label-width: 73px;
 
 .valueError {
   color: t.$color-record-detail-value-error;
+}
+
+// 입력 폼 카드: 값 자리 = 컨트롤 (포커스 번짐이 잘리지 않게 말줄임 · overflow 없음)
+.itemsForm {
+  --detail-label-gap: #{$rd-form-label-gap};
+
+  column-gap: $rd-form-column-gap;
+}
+
+.itemsForm .value {
+  overflow: visible;
+  white-space: normal;
 }
 
 .empty {

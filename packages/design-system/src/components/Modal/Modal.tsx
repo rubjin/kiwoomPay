@@ -230,9 +230,27 @@ const ModalInfoList = forwardRef<HTMLDListElement, ModalInfoListProps>(
 ModalInfoList.displayName = 'Modal.InfoList';
 
 /** 처리 버튼 영역. 처리가 필요한 경우에만 둔다 (None이면 생략). 버튼은 size="lg", 최종 Action을 오른쪽에 둔다. */
-const ModalFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.footer, className)} />
+export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
+  /** 왼쪽 끝 보조 버튼 (예: 새로고침). 있으면 주요 버튼 묶음은 오른쪽 끝으로 */
+  start?: ReactNode;
+}
+
+const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
+  ({ start, className, children, ...rest }, ref) => (
+    <div
+      {...rest}
+      ref={ref}
+      className={clsx(styles.footer, start && styles.footerSplit, className)}
+    >
+      {start ? (
+        <>
+          {start}
+          <div className={styles.footerActions}>{children}</div>
+        </>
+      ) : (
+        children
+      )}
+    </div>
   ),
 );
 ModalFooter.displayName = 'Modal.Footer';

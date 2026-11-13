@@ -69,8 +69,8 @@
     },
     "GridHeaderBg": {
       "$type": "color",
-      "$value": "{Bg.Page}",
-      "$description": "TODO(시안) IBSheet 연결 전 임시 미리보기 표 머리"
+      "$value": "{Neutral.100}",
+      "$description": "표 머리 (IBSheet 연결 전 미리보기, 사용자 확정 Neutral 100)"
     },
     "GridBorder": {
       "$type": "color",

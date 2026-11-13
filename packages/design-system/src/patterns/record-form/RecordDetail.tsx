@@ -8,6 +8,8 @@ export interface DetailTargetProps {
   label?: ReactNode;
   /** 대상 값 (13 SemiBold Accent, 예: 거래번호) */
   value: ReactNode;
+  /** 아래 구분선 (기본 true — 탭이 이어질 때). 바로 카드가 오면 false */
+  divider?: boolean;
   className?: string;
 }
 
@@ -15,9 +17,14 @@ export interface DetailTargetProps {
  * 상세 팝업 대상 줄 (P02 V01 조회 전용): Modal.Header 바로 아래, 아래 구분선.
  * Figma KWPC04010101 거래 상세정보 "선택한 거래 T…"
  */
-export function DetailTarget({ label = '선택한 거래', value, className }: DetailTargetProps) {
+export function DetailTarget({
+  label = '선택한 거래',
+  value,
+  divider = true,
+  className,
+}: DetailTargetProps) {
   return (
-    <div className={clsx(styles.target, className)}>
+    <div className={clsx(styles.target, !divider && styles.targetPlain, className)}>
       <span className={styles.targetLabel}>{label}</span>
       <span className={styles.targetValue}>{value}</span>
     </div>
@@ -67,6 +74,15 @@ export interface DetailCardProps {
   columns?: number;
   /** 항목 이름 폭 (기본 73) */
   labelWidth?: number;
+  /** 항목 이름 ↔ 값 (기본 0 — 이름 폭 안에서 띄움, 이름이 길면 20) */
+  labelGap?: number;
+  /**
+   * 입력 폼 카드: 값 자리에 SelectBox · TextField 등 컨트롤 (열 사이 40 · 이름 ↔ 컨트롤 20, 말줄임 없음).
+   * 한 줄 전체 컨트롤은 항목 span
+   */
+  form?: boolean;
+  /** 격자 대신 자유 내용 (예: 접수 내역 표). items보다 우선 */
+  children?: ReactNode;
   /** items가 비었을 때 가운데 안내 */
   emptyText?: ReactNode;
   className?: string;
@@ -78,20 +94,26 @@ export function DetailCard({
   items = [],
   columns = 2,
   labelWidth,
+  labelGap,
+  form = false,
+  children,
   emptyText = '표시할 내용이 없습니다.',
   className,
 }: DetailCardProps) {
   const style = {
     '--detail-columns': columns,
     ...(labelWidth ? { '--detail-label-width': `${labelWidth}px` } : {}),
+    ...(labelGap !== undefined ? { '--detail-label-gap': `${labelGap}px` } : {}),
   } as CSSProperties;
   return (
     <div className={clsx(styles.card, className)}>
       <h4 className={styles.cardTitle}>{title}</h4>
-      {items.length === 0 ? (
+      {children !== undefined ? (
+        children
+      ) : items.length === 0 ? (
         <p className={styles.empty}>{emptyText}</p>
       ) : (
-        <dl className={styles.items} style={style}>
+        <dl className={clsx(styles.items, form && styles.itemsForm)} style={style}>
           {items.map((item, index) => (
             <div
               key={index}

@@ -684,7 +684,7 @@ $color-search-result-summary-label: var(--kp-color-search-result-summary-label);
 $color-search-result-summary-value: var(--kp-color-search-result-summary-value);
 $color-search-result-total-label: var(--kp-color-search-result-total-label);
 $color-search-result-total-value: var(--kp-color-search-result-total-value);
-$color-search-result-grid-header-bg: var(--kp-color-search-result-grid-header-bg); // TODO(시안) IBSheet 연결 전 임시 미리보기 표 머리
+$color-search-result-grid-header-bg: var(--kp-color-search-result-grid-header-bg); // 표 머리 (IBSheet 연결 전 미리보기, 사용자 확정 Neutral 100)
 $color-search-result-grid-border: var(--kp-color-search-result-grid-border); // TODO(시안) IBSheet 연결 전 임시 미리보기 표 선
 $color-search-result-grid-text: var(--kp-color-search-result-grid-text);
 $color-search-result-grid-header-text: var(--kp-color-search-result-grid-header-text);
@@ -1380,7 +1380,7 @@ $css-variables: (
   "--kp-color-search-result-summary-value": "var(--kp-color-text-body)",
   "--kp-color-search-result-total-label": "var(--kp-color-text-body)",
   "--kp-color-search-result-total-value": "var(--kp-color-text-accent)",
-  "--kp-color-search-result-grid-header-bg": "var(--kp-color-bg-page)",
+  "--kp-color-search-result-grid-header-bg": "var(--kp-color-neutral-100)",
   "--kp-color-search-result-grid-border": "var(--kp-color-line-subtle)",
   "--kp-color-search-result-grid-text": "var(--kp-color-text-body)",
   "--kp-color-search-result-grid-header-text": "var(--kp-color-text-label)",

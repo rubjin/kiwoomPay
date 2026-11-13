@@ -294,6 +294,7 @@ $sr-grid-cell-padding-x: t.$space-12;
 // ── IBSheet 연결 전 임시 미리보기 (GridPlaceholder) ──
 .grid {
   overflow-x: auto;
+  background-color: t.$color-bg-surface; // 회색 카드 안에서도 흰 표 (Figma)
   border-top: t.$control-border-width solid t.$color-search-result-grid-border;
 }
 
@@ -313,8 +314,18 @@ $sr-grid-cell-padding-x: t.$space-12;
   padding: 0;
 }
 
+// 글자 안내: 데이터 행 한 줄 높이 · 가운데 (Figma 고객문의·민원 처리 접수정보)
+.gridEmptyText {
+  @include m.typography(typo-12-regular);
+
+  height: $sr-grid-row-height;
+  color: t.$color-search-result-grid-text;
+  text-align: center;
+  border-bottom: t.$control-border-width solid t.$color-search-result-grid-border;
+}
+
 .gridHead {
-  @include m.typography(typo-13-semi-bold);
+  @include m.typography(typo-12-semi-bold); // Figma 고객문의·민원 처리 접수정보 (사용자 확정)
 
   height: $sr-grid-header-height;
   color: t.$color-search-result-grid-header-text;

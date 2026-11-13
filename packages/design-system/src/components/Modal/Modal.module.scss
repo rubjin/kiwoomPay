@@ -178,3 +178,14 @@ $modal-info-label-gap: t.$space-12;
   justify-content: center;
   padding: calc(#{$modal-section-gap} - #{$modal-scroll-bleed}) $modal-padding $modal-padding;
 }
+
+// 왼쪽 끝 보조 버튼(start)이 있으면 양끝 배치
+.footerSplit {
+  justify-content: space-between;
+}
+
+.footerActions {
+  display: flex;
+  gap: $modal-footer-gap;
+  align-items: center;
+}

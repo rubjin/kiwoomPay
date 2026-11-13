@@ -20,7 +20,7 @@ export interface GridPlaceholderProps<T> {
   selectable?: boolean;
   selectedKeys?: string[];
   onSelectionChange?: (keys: string[]) => void;
-  /** 행이 없을 때 머리 아래에 보여줄 내용 (예: 결과 없음 안내). IBSheet의 데이터 없음 메시지 자리 */
+  /** 행이 없을 때. 글자면 행 높이 한 줄 가운데 안내, 요소면 그대로 (예: LookupSearchEmpty) */
   empty?: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -81,7 +81,10 @@ export function GridPlaceholder<T>({
         <tbody>
           {rows.length === 0 && empty !== undefined && (
             <tr>
-              <td className={styles.gridEmpty} colSpan={columns.length + (selectable ? 1 : 0)}>
+              <td
+                className={typeof empty === 'string' ? styles.gridEmptyText : styles.gridEmpty}
+                colSpan={columns.length + (selectable ? 1 : 0)}
+              >
                 {empty}
               </td>
             </tr>
