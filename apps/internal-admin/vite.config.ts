@@ -15,8 +15,7 @@ export default defineConfig(({ command }) =>
       resolve: {
         alias: { '@': r('./src') },
       },
-      // 개발 서버에서만 디자인 시스템 빌드 폴더(fonts/)를 정적 파일로 쓴다. 운영은 JSP가 폰트를 로드
-      publicDir: command === 'serve' ? r('../../packages/design-system/dist') : false,
+      // 폰트: 개발 서버는 designSystemSource()가 pretendard 패키지에서 바로 준다. 운영은 JSP가 로드(빌드 후 copy-fonts)
       server: {
         // 화면 목록 앱(apps/screen-list)의 링크가 이 주소를 가리킨다 (VITE_URL_INTERNAL 기본값)
         port: 5173,

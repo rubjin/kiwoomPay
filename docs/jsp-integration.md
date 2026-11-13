@@ -41,7 +41,7 @@ const outDir = process.env.JSP_STATIC_DIR ?? 'dist';
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   resolve: { alias: { '@': r('./src') } },
-  publicDir: command === 'serve' ? r('../../packages/design-system/dist') : false, // 개발 서버 폰트
+  // 개발 서버 폰트(/fonts/pretendard)는 designSystemSource()가 pretendard 패키지에서 준다 (apps/internal-admin/vite.config.ts)
   server: { proxy: { '/api': 'http://localhost:8580' } },
   base: command === 'build' ? './' : '/',
   build: {

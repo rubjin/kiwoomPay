@@ -4,13 +4,44 @@
 //
 //   import { designSystemSource } from '../../packages/design-system/vite.source';
 //   export default defineConfig(({ command }) => mergeConfig({...}, command === 'serve' ? designSystemSource() : {}));
+import { createReadStream, existsSync, statSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { UserConfig } from 'vite';
+import type { Plugin, UserConfig } from 'vite';
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
+// Pretendard 웹폰트 원본 (Storybook staticDirs와 같은 폴더). dist/fonts는 pnpm build 중에 지워졌다 다시 생기므로 쓰지 않는다
+const FONT_URL = '/fonts/pretendard/';
+const fontDir = path.join(
+  path.dirname(createRequire(import.meta.url).resolve('pretendard/package.json')),
+  'dist/web/variable',
+);
+const FONT_TYPES: Record<string, string> = { '.css': 'text/css', '.woff2': 'font/woff2' };
+
+/** 개발 서버: /fonts/pretendard/* → pretendard 패키지 (index.html · 셸 JSP와 같은 주소) */
+function pretendardFonts(): Plugin {
+  return {
+    name: 'kp-pretendard-fonts',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = req.url?.split('?')[0] ?? '';
+        if (!url.startsWith(FONT_URL)) return next();
+        const file = path.join(fontDir, decodeURIComponent(url.slice(FONT_URL.length)));
+        if (!file.startsWith(fontDir) || !existsSync(file) || !statSync(file).isFile())
+          return next();
+        res.setHeader('Content-Type', FONT_TYPES[path.extname(file)] ?? 'application/octet-stream');
+        createReadStream(file).pipe(res);
+      });
+    },
+  };
+}
+
 export function designSystemSource(): UserConfig {
   return {
+    plugins: [pretendardFonts()],
     resolve: {
       alias: [
         // style.css(토큰 · reset · global)는 src/index.ts가 이미 불러오므로 같은 SCSS로 연결
