@@ -90,9 +90,19 @@ const FormTableCell = forwardRef<HTMLDivElement, FormTableCellProps>(
 FormTableCell.displayName = 'FormTable.Cell';
 
 /** 머리 칸 (목록형 표의 열 이름: 회색 · 가운데 · 높이 44) */
-const FormTableHead = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...rest }, ref) => (
-    <div {...rest} ref={ref} role="columnheader" className={clsx(styles.head, className)} />
+export interface FormTableHeadProps extends HTMLAttributes<HTMLDivElement> {
+  /** md 44(기본) · sm 36 (머리가 "항목" 한 칸뿐인 목록 — Figma CPID 담당자 정보) */
+  size?: 'md' | 'sm';
+}
+
+const FormTableHead = forwardRef<HTMLDivElement, FormTableHeadProps>(
+  ({ size = 'md', className, ...rest }, ref) => (
+    <div
+      {...rest}
+      ref={ref}
+      role="columnheader"
+      className={clsx(styles.head, size === 'sm' && styles.headSm, className)}
+    />
   ),
 );
 FormTableHead.displayName = 'FormTable.Head';

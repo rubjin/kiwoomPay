@@ -311,8 +311,8 @@ export const SCREENS: ScreenInfo[] = [
     pattern: 'P02',
     status: '작업중',
     planVersion: PLAN,
-    updatedAt: '2026-11-12',
+    updatedAt: '2026-11-13',
     tempWork:
-      'CPID 상세 영역(CPID 기본 정보 등 9개 탭) · 예시 데이터 · 사업자번호 수정/찾기 팝업 미연결',
+      '결제수단별 설정 영역(다음 단계) · CPID 선택지 · 예시 데이터 · 찾기/등록/이력조회 팝업 미연결',
   },
 ];

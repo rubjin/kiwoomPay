@@ -1,5 +1,6 @@
 import {
   Button,
+  ControlGroup,
   Checkbox,
   DateField,
   FormTable,
@@ -21,6 +22,9 @@ interface Props {
 }
 
 const { Row, Label, Cell, InlineLabel } = FormTable;
+
+/** 우편번호 입력 폭 (5자리, 사용자 확정) */
+const ZIP_WIDTH = 72;
 
 /** 주소 칸: 국가 · 우편번호 [찾기] · 주소 · 상세 주소 (Figma 사업장 주소) */
 function AddressCell({
@@ -53,10 +57,10 @@ function AddressCell({
         onChange={(country) => set({ country })}
       />
       <InlineLabel>우편번호</InlineLabel>
-      <span style={{ display: 'flex', gap: 8 }}>
+      <ControlGroup>
         <TextField
           aria-label="우편번호"
-          style={{ width: 200 }}
+          style={{ width: ZIP_WIDTH }}
           value={value.zipCode}
           disabled={disabled}
           onChange={(e) => set({ zipCode: e.target.value })}
@@ -64,7 +68,7 @@ function AddressCell({
         <Button variant="neutral" appearance="line" disabled={disabled} onClick={onFind}>
           찾기
         </Button>
-      </span>
+      </ControlGroup>
       <InlineLabel>주소</InlineLabel>
       <TextField
         aria-label="주소"
@@ -105,7 +109,7 @@ export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
         <Label required>사업자번호</Label>
         <Cell>
           {mode === 'edit' ? (
-            <>
+            <ControlGroup grow>
               {/* 조회수정: 사업자번호는 [수정] 팝업으로만 바꾼다 */}
               <TextField aria-label="사업자번호" fullWidth readOnly value={v.bizNo} />
               <Button
@@ -115,7 +119,7 @@ export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
               >
                 수정
               </Button>
-            </>
+            </ControlGroup>
           ) : (
             text('bizNo', '사업자번호')
           )}
@@ -150,15 +154,17 @@ export function BasicInfoTable({ value: v, onChange, mode, onAction }: Props) {
         <Label>법인등록번호</Label>
         <Cell>{text('corpRegNo', '법인등록번호')}</Cell>
         <Label required>표준산업 분류코드</Label>
-        <Cell style={{ gap: 8 }}>
-          {text('industryCode', '표준산업 분류코드')}
-          <Button
-            variant="neutral"
-            appearance="line"
-            onClick={() => onAction('표준산업분류코드 조회')}
-          >
-            찾기
-          </Button>
+        <Cell>
+          <ControlGroup grow>
+            {text('industryCode', '표준산업 분류코드')}
+            <Button
+              variant="neutral"
+              appearance="line"
+              onClick={() => onAction('표준산업분류코드 조회')}
+            >
+              찾기
+            </Button>
+          </ControlGroup>
         </Cell>
         <Label required>업체상태</Label>
         <Cell>

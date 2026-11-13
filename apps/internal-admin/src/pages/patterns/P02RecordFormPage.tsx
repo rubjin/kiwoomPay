@@ -17,6 +17,7 @@ import {
   Checkbox,
   // 버튼 · 아이콘
   Button,
+  ControlGroup,
   Icon,
   // 확인/안내 창
   useDialog,
@@ -161,7 +162,7 @@ export function P02RecordFormPage() {
             title="담당자 정보"
             description="여러 줄 입력 표 (추가 · 선택 삭제)"
             actions={
-              <>
+              <ControlGroup>
                 <Button size="sm" variant="neutral" appearance="line" onClick={addContact}>
                   추가
                 </Button>
@@ -174,7 +175,7 @@ export function P02RecordFormPage() {
                 >
                   선택 삭제
                 </Button>
-              </>
+              </ControlGroup>
             }
           />
           <FormTable template="36px repeat(2, minmax(0, 1fr))">

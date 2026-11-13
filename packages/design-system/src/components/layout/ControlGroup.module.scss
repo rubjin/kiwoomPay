@@ -1,0 +1,21 @@
+@use 'tokens' as t;
+
+// 같은 형태로 붙는 컨트롤 묶음 — 입력 + 버튼 · 버튼 + 버튼 8 (사용자 확정 간격 규칙)
+.group {
+  display: inline-flex;
+  flex: none;
+  gap: t.$space-8;
+  align-items: center;
+  min-width: 0;
+}
+
+// 세트끼리 (형태가 다른 묶음 사이 16)
+.lg {
+  gap: t.$space-16;
+}
+
+// 남는 폭을 채움 (fullWidth 입력 + 버튼)
+.grow {
+  display: flex;
+  flex: 1 1 0;
+}

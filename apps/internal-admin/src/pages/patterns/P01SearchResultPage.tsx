@@ -1,4 +1,5 @@
 import {
+  ControlGroup,
   // 화면 틀
   PageLayout,
   // 검색 조건 영역
@@ -161,7 +162,7 @@ export function P01SearchResultPage() {
       <PageLayout.Title title="P01 Search → Result (레이아웃 패턴)" />
 
       <SearchPanel onSearch={result.search} onReset={result.reset} loading={result.loading}>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <ControlGroup>
           <Field label="조회기간">
             <DateRangeField
               value={params.period}
@@ -180,7 +181,7 @@ export function P01SearchResultPage() {
               </Segmented.Item>
             ))}
           </Segmented>
-        </div>
+        </ControlGroup>
         <Field label="상태" style={{ width: 200 }}>
           <SelectBox
             fullWidth

@@ -1,4 +1,5 @@
 import {
+  ControlGroup,
   Checkbox,
   DateField,
   Field,
@@ -117,7 +118,7 @@ export function TransactionSearchPanel({
           />
         </Field>
         <Field label="조회기준일">
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center', whiteSpace: 'nowrap' }}>
+          <ControlGroup>
             <RadioGroup
               direction="horizontal"
               aria-label="조회기준일"
@@ -153,7 +154,7 @@ export function TransactionSearchPanel({
               value={params.endTime}
               onChange={(endTime) => setParam('endTime', endTime)}
             />
-          </div>
+          </ControlGroup>
         </Field>
         <Segmented
           size="md"

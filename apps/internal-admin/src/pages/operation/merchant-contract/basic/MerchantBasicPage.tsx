@@ -1,4 +1,5 @@
 import {
+  ControlGroup,
   Badge,
   Button,
   ContextChip,
@@ -16,20 +17,11 @@ import { emptyBasic, fetchMerchant, newContact, saveMerchant } from '@/api/opera
 import type { MerchantRecord } from '@/types/operation/merchantBasic';
 import { BasicInfoTable } from './components/BasicInfoTable';
 import { ContactTable } from './components/ContactTable';
+import { CPID_SECTIONS_ALL, CpidBasicPanel, cpidSectionId } from './components/CpidBasicPanel';
 import { codeLabel } from '@/utils/code';
 
-/** 선택 CPID 영역 탭 (이 화면 전용) */
-const CPID_TABS = [
-  'CPID 기본 정보',
-  'RM 관리',
-  '영업 정보',
-  '정산계좌 정보',
-  '담당자 정보',
-  '공지메일 발송정보',
-  '지급보류',
-  '공동 영업 수익 배분',
-  '결제수단별 설정',
-];
+/** 선택 CPID 영역 탭 = 섹션 바로가기 (Figma: 한 화면에 이어진 섹션) */
+const CPID_TABS = CPID_SECTIONS_ALL;
 
 type Mode = 'create' | 'edit';
 
@@ -96,7 +88,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
   };
 
   const saveButtons = (
-    <>
+    <ControlGroup>
       <Button
         variant="neutral"
         appearance="line"
@@ -108,7 +100,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
       <Button loading={saving} onClick={save}>
         {mode === 'create' ? '등록' : '저장'}
       </Button>
-    </>
+    </ControlGroup>
   );
 
   return (
@@ -173,7 +165,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               actions={
                 <>
                   <TextButton onClick={() => notReady('담당자 이력조회')}>이력조회</TextButton>
-                  <span style={{ display: 'flex', gap: 8 }}>
+                  <ControlGroup>
                     <Button
                       size="sm"
                       variant="neutral"
@@ -187,7 +179,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
                     <Button size="sm" variant="dark" appearance="line" onClick={removeContacts}>
                       삭제
                     </Button>
-                  </span>
+                  </ControlGroup>
                 </>
               }
             />
@@ -210,8 +202,8 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
         }
         tabActions={
           mode === 'edit' ? (
-            <>
-              <span style={{ display: 'flex', gap: 8, marginRight: 16 }}>
+            <ControlGroup spacing="lg">
+              <ControlGroup>
                 <Button
                   variant="neutral"
                   appearance="line"
@@ -226,9 +218,9 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
                 >
                   키움저축계좌통지
                 </Button>
-              </span>
+              </ControlGroup>
               {saveButtons}
-            </>
+            </ControlGroup>
           ) : (
             saveButtons
           )
@@ -244,7 +236,17 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
             }
             actions={
               <>
-                <Tab size="sm" value={cpidTab} onChange={setCpidTab} aria-label="CPID 정보">
+                <Tab
+                  size="sm"
+                  value={cpidTab}
+                  onChange={(name) => {
+                    setCpidTab(name);
+                    document
+                      .getElementById(cpidSectionId(name))
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  aria-label="CPID 정보 바로가기"
+                >
                   {CPID_TABS.map((t) => (
                     <Tab.Item key={t} value={t}>
                       {t}
@@ -274,7 +276,12 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
               </>
             )}
           </SectionHeading>
-          <p>(임의 작업) {cpidTab} 영역은 다음 단계에서 작업합니다.</p>
+        </FormGroup>
+        <CpidBasicPanel onAction={notReady} />
+        {/* TODO(시안) 결제수단별 설정 — 다음 단계 */}
+        <FormGroup id={cpidSectionId('결제수단별 설정')}>
+          <SectionHeading title="결제수단별 설정" />
+          <p>(임의 작업) 결제수단별 설정은 다음 단계에서 작업합니다.</p>
         </FormGroup>
       </FormSection>
     </>

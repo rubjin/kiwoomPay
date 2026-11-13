@@ -141,6 +141,36 @@ $search-area-item-gap: t.$space-16; // 검색 필드 간격
   </tbody>
 </table>
 
+## 3-1. 컨트롤 사이 간격 (사용자 확정)
+
+| 사이                                                    | 간격 | 만드는 방법                                                        |
+| ------------------------------------------------------- | ---- | ------------------------------------------------------------------ |
+| 입력 + 버튼 (예: 예금주 [예금주 조회], 우편번호 [찾기]) | 8    | `ControlGroup`으로 묶음 (`grow`: 입력이 남는 폭을 채움)            |
+| 버튼 + 버튼 (같은 형태, 예: [추가] [삭제])              | 8    | `ControlGroup`                                                     |
+| 칸 안 라벨 + 입력 (예: 휴대폰번호 [입력])               | 12   | FormTable 칸 기본 간격                                             |
+| 형태가 다른 묶음 사이 (예: 이력조회 ↔ [추가][삭제])     | 16   | 제목 줄 오른쪽 기본 간격(FormSection) · 묶음 안은 `ControlGroup` 8 |
+
+```tsx
+<SectionHeading
+  title="담당자 정보"
+  actions={
+    <>
+      <TextButton>이력조회</TextButton>
+      <ControlGroup>
+        <Button size="sm" variant="neutral" appearance="line">추가</Button>
+        <Button size="sm" variant="neutral" appearance="line">삭제</Button>
+      </ControlGroup>
+    </>
+  }
+/>
+<FormTable.Cell>
+  <ControlGroup grow>
+    <TextField fullWidth value={holder} />
+    <Button variant="neutral" appearance="line">예금주 조회</Button>
+  </ControlGroup>
+</FormTable.Cell>
+```
+
 ## 4. Scale 밖의 값 (시안 측정)
 
 컴포넌트 시안에서 Scale에 없는 값이 측정된 곳은 측정값을 그대로 둡니다. 새 컴포넌트에서는 Scale 값을 먼저 씁니다.

@@ -122,7 +122,7 @@ export const RecordForm: Story = {
               <Cell colSpan={7}>
                 <Checkbox label="사업장 주소와 동일" />
                 <InlineLabel>우편번호</InlineLabel>
-                <TextField style={{ width: 200 }} defaultValue="46757" />
+                <TextField style={{ width: 72 }} defaultValue="46757" />
                 <InlineLabel>주소</InlineLabel>
                 <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
               </Cell>

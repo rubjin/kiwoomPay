@@ -5,3 +5,5 @@ export type {
   PageSectionProps,
   PageTitleProps,
 } from './PageLayout';
+export { ControlGroup } from './ControlGroup';
+export type { ControlGroupProps } from './ControlGroup';

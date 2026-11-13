@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../../components/Button';
+import { ControlGroup } from '../../components/layout';
 import { DateField, SelectBox, TextField } from '../../components/field';
 import { Checkbox, Radio, RadioGroup } from '../../components/selection';
 import { FormTable } from './FormTable';
@@ -46,11 +47,13 @@ export const Pairs: Story = {
           <DateField defaultValue="2008-01-01" />
         </Cell>
         <Label required>표준산업 분류코드</Label>
-        <Cell style={{ gap: 8 }}>
-          <TextField fullWidth defaultValue="47911" />
-          <Button variant="neutral" appearance="line">
-            찾기
-          </Button>
+        <Cell>
+          <ControlGroup grow>
+            <TextField fullWidth defaultValue="47911" />
+            <Button variant="neutral" appearance="line">
+              찾기
+            </Button>
+          </ControlGroup>
         </Cell>
         <Label>회사 이메일</Label>
         <Cell colSpan={3}>
@@ -81,10 +84,12 @@ export const ColSpan: Story = {
         <Cell colSpan={7}>
           <Checkbox label="사업장 주소와 동일" />
           <InlineLabel>우편번호</InlineLabel>
-          <TextField style={{ width: 200 }} defaultValue="46757" />
-          <Button variant="neutral" appearance="line">
-            찾기
-          </Button>
+          <ControlGroup>
+            <TextField style={{ width: 72 }} defaultValue="46757" />
+            <Button variant="neutral" appearance="line">
+              찾기
+            </Button>
+          </ControlGroup>
           <InlineLabel>주소</InlineLabel>
           <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
         </Cell>

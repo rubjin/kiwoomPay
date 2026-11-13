@@ -1,4 +1,5 @@
 import {
+  ControlGroup,
   AppliedFilters,
   Button,
   DateRangeField,
@@ -147,7 +148,7 @@ export function MerchantSettlementExecutePage() {
             onChange={(e) => setParam('merchantName', e.target.value)}
           />
         </Field>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <ControlGroup>
           <Field label="지급예정일">
             <DateRangeField
               value={params.payDate}
@@ -168,7 +169,7 @@ export function MerchantSettlementExecutePage() {
               </Segmented.Item>
             ))}
           </Segmented>
-        </div>
+        </ControlGroup>
         <Field label="정산주기" style={{ width: 273 }}>
           <MultiSelect
             fullWidth
