@@ -627,3 +627,7 @@
 - 규칙: 화면(3depth)을 만들면 `SCREENS`에 라우트와 같은 경로로 한 줄 추가. 없으면 2depth 메뉴 이름(준비 중 화면 · 로그인), 메뉴 밖 경로는 "페이지를 찾을 수 없습니다", 레이아웃 패턴은 `P01` · `P02`
 - 한계: 만든 메뉴 아래의 없는 경로(예: `/transaction/integrated/foo`)는 404 화면이지만 제목은 2depth 메뉴 이름
 - 검증: typecheck, 브라우저에서 경로 9개 제목 · SPA 이동 시 변경 확인
+
+### 패턴 페이지는 개발 서버에서만 — 2026-11-13
+- `router/modules/patterns.routes.tsx`: `import.meta.env.DEV`일 때만 라우트 생성, `constants/screens.ts`의 P01 · P02 줄도 DEV에서만. 운영 빌드(JSP `app.js`)에는 패턴 라우트 · 페이지 chunk가 없음(빌드 결과에서 확인), 운영 서버에서 `/patterns/*`는 404
+- 화면 목록 앱(`apps/screen-list`)은 개발 도구 — 관리자 앱 빌드와 무관. 커밋은 화면 개발과 나눈다(`chore(screen-list)` 등)

@@ -25,9 +25,13 @@ export const SCREENS: readonly ScreenInfo[] = [
     name: '가맹점 기본/계약 정보 관리',
     path: '/operation/merchant-contract/basic/edit',
   },
-  // 레이아웃 패턴 템플릿 (화면 목록에서 연다)
-  { id: 'P01', name: 'P01', path: '/patterns/search-result' },
-  { id: 'P02', name: 'P02', path: '/patterns/record-form' },
+  // 레이아웃 패턴 템플릿 (화면 목록에서 연다). 개발 서버에서만 — router/modules/patterns.routes.tsx
+  ...(import.meta.env.DEV
+    ? [
+        { id: 'P01', name: 'P01', path: '/patterns/search-result' },
+        { id: 'P02', name: 'P02', path: '/patterns/record-form' },
+      ]
+    : []),
 ];
 
 export const DEFAULT_TITLE = '키움페이 내부관리자';
