@@ -12,36 +12,33 @@ import {
   type GridPlaceholderColumn,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
-import {
-  SCREENS,
-  STATUSES,
-  SYSTEMS,
-  type ScreenInfo,
-  type ScreenStatus,
-  type SystemId,
-} from './screens';
+import { rowsOf, type ScreenRow } from './rows';
+import { STATUSES, SYSTEMS, type ScreenStatus, type SystemId } from './screens';
 
 const STATUS_TONE: Record<ScreenStatus, BadgeTone> = {
+  미작업: 'neutral',
   작업중: 'info',
   작업완료: 'success',
   삭제: 'neutral',
   보류: 'warning',
 };
 
-const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
+const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenRow>[] => [
   // 위아래 줄의 이름이 같으면 합침 (앞 depth도 같을 때만)
   { key: 'depth1', header: '1depth', width: 110, merge: true },
   { key: 'depth2', header: '2depth', width: 170, merge: true },
-  { key: 'depth3', header: '3depth', width: 150, merge: true },
-  { key: 'id', header: '화면ID', width: 120 },
+  { key: 'depth3', header: '3depth', width: 170, merge: true },
   { key: 'name', header: '화면명', width: 330, align: 'left' },
+  { key: 'id', header: '화면ID', width: 130 },
   {
     key: 'path',
     header: '경로',
     width: 220,
     align: 'left',
     render: (s) =>
-      s.status === '삭제' ? (
+      !s.path ? (
+        '-'
+      ) : s.status === '삭제' ? (
         s.path
       ) : (
         <TextLink href={baseUrl + s.path} target="_blank" rel="noreferrer">
@@ -49,12 +46,8 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
         </TextLink>
       ),
   },
-  {
-    key: 'type',
-    header: '화면타입',
-    width: 110,
-    render: (s) => (s.pattern ? `${s.type} (${s.pattern})` : s.type),
-  },
+  { key: 'kind', header: '화면유형', width: 120 },
+  { key: 'change', header: '신규구분', width: 90 },
   {
     key: 'status',
     header: '상태',
@@ -65,25 +58,19 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenInfo>[] => [
       </Badge>
     ),
   },
-  { key: 'planVersion', header: '기획반영버전', width: 200 },
+  { key: 'planVersion', header: '기획반영버전', width: 140 },
   { key: 'updatedAt', header: '최종업데이트일', width: 120 },
-  {
-    key: 'tempWork',
-    header: '기타',
-    align: 'left',
-    render: (s) => (s.tempWork ? `임의 작업: ${s.tempWork}` : '-'),
-  },
+  { key: 'etc', header: '기타', align: 'left' },
 ];
 
-/** 줄 key — 같은 경로를 여는 줄이 있어 화면ID · 화면명까지 넣어 고유하게 */
-const rowKey = (s: ScreenInfo) => `${s.system}|${s.id}|${s.name}`;
+const rowKey = (s: ScreenRow) => s.key;
 
 /** 화면 확인용 목록 (임의 작업 — 시안 없음). 시스템별 작업 현황과 화면 링크 */
 export function App() {
   const [system, setSystem] = useState<SystemId>('internal');
   const [status, setStatus] = useState<'all' | ScreenStatus>('all');
   const current = SYSTEMS.find((s) => s.id === system) ?? SYSTEMS[0]!;
-  const ofSystem = SCREENS.filter((s) => s.system === system);
+  const ofSystem = rowsOf(system);
   const rows = status === 'all' ? ofSystem : ofSystem.filter((s) => s.status === status);
   const countOf = (st: ScreenStatus) => ofSystem.filter((s) => s.status === st).length;
 
@@ -93,7 +80,7 @@ export function App() {
 
       <Tab value={system} onChange={(v) => setSystem(v as SystemId)}>
         {SYSTEMS.map((s) => (
-          <Tab.Item key={s.id} value={s.id} count={SCREENS.filter((x) => x.system === s.id).length}>
+          <Tab.Item key={s.id} value={s.id} count={rowsOf(s.id).length}>
             {s.label}
           </Tab.Item>
         ))}

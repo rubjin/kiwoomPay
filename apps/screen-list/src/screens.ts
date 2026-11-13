@@ -1,5 +1,7 @@
-// 화면 목록 데이터. 화면을 만들거나 고치면 해당 시스템에 한 줄 추가 · 갱신한다.
-// 1 · 2depth는 IA(각 앱 constants/menu.ts), 3depth · 화면명은 Figma GUI 기준.
+// 작업 기록. 화면 목록의 줄 자체는 IA(구글 시트 → src/ia/*.generated.ts)에서 오고,
+// 여기 적은 작업(경로 · 상태 · 임의 작업 메모)이 같은 화면ID의 IA 줄에 붙는다 (rows.ts).
+// 화면을 만들거나 고치면 IA 화면ID(12자리)로 한 줄 추가 · 갱신한다.
+// IA에 없는 줄(레이아웃 · 패턴 템플릿 · 팝업 모음)은 depth · 화면타입을 여기 적은 값으로 목록 맨 위에 보인다.
 
 export type SystemId = 'internal' | 'merchant' | 'agency';
 
@@ -21,7 +23,7 @@ export const SYSTEMS: { id: SystemId; label: string; url: string }[] = [
   },
 ];
 
-export const STATUSES = ['작업중', '작업완료', '삭제', '보류'] as const;
+export const STATUSES = ['미작업', '작업중', '작업완료', '삭제', '보류'] as const;
 export type ScreenStatus = (typeof STATUSES)[number];
 
 export type ScreenType = '목록' | '상세' | '등록 · 수정' | '팝업' | '대시보드' | '로그인' | '기타';
@@ -41,7 +43,7 @@ export interface ScreenInfo {
   /** 적용한 페이지 패턴 (docs/ai/page-patterns-plan.md) */
   pattern?: string;
   status: ScreenStatus;
-  /** 기획 반영 버전 (IA · GUI) */
+  /** 기획 반영 버전 (IA) */
   planVersion: string;
   /** 최종 업데이트일 YYYY-MM-DD */
   updatedAt: string;
@@ -49,7 +51,7 @@ export interface ScreenInfo {
   tempWork?: string;
 }
 
-const PLAN = 'IA v0.7 (26-11-03) · GUI 26-11-10';
+const PLAN = 'IA v0.7 (26-11-03)';
 
 export const SCREENS: ScreenInfo[] = [
   // 기본 레이아웃 — 목록 맨 위
@@ -134,7 +136,7 @@ export const SCREENS: ScreenInfo[] = [
     depth1: '레이아웃 패턴',
     depth2: '팝업 모음',
     depth3: '',
-    name: '팝업 모음 (앱 팝업을 화면별 버튼으로 열기)',
+    name: '팝업 모음',
     path: '/patterns/popups',
     type: '기타',
     status: '작업중',
@@ -144,7 +146,7 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC3000',
+    id: 'KWPC03000000',
     depth1: '로그인',
     depth2: '로그인',
     depth3: '',
@@ -160,11 +162,11 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC2000',
+    id: 'KWPC02000000',
     depth1: '마이페이지',
     depth2: '',
     depth3: '',
-    name: '마이페이지 (계정 · 권한 · 알림센터 요약)',
+    name: '마이페이지',
     path: '/mypage',
     type: '대시보드',
     pattern: 'P06',
@@ -176,7 +178,7 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC2000',
+    id: 'KWPC02000000',
     depth1: '마이페이지',
     depth2: '',
     depth3: '',
@@ -191,11 +193,11 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC2000',
+    id: 'KWPC02020100',
     depth1: '마이페이지',
     depth2: '',
     depth3: '',
-    name: '권한 신청 현황 팝업 (마이페이지 → 권한관리 [권한 신청 현황])',
+    name: '권한 신청 현황 팝업',
     path: '/mypage',
     type: '팝업',
     status: '작업중',
@@ -206,11 +208,11 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC1301',
+    id: 'KWPC01030001',
     depth1: 'LNB',
     depth2: '즐겨찾기',
     depth3: '',
-    name: 'LNB 즐겨찾기 편집 팝업 (LNB 즐겨찾기 탭 → [편집])',
+    name: 'LNB 즐겨찾기 편집 팝업',
     path: '/',
     type: '팝업',
     pattern: 'P07',
@@ -222,7 +224,7 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
-    id: 'KWPC0104',
+    id: 'KWPC01040100',
     depth1: '메인',
     depth2: '다운로드센터',
     depth3: '',
@@ -257,7 +259,7 @@ export const SCREENS: ScreenInfo[] = [
     depth1: '거래내역',
     depth2: '통합 거래 및 예외 관리',
     depth3: '통합 거래내역',
-    name: '엑셀 다운로드 설정 팝업 (통합 거래내역 → [엑셀 다운로드])',
+    name: '엑셀 다운로드 설정 팝업',
     path: '/transaction/integrated/list',
     type: '팝업',
     pattern: 'P07',
@@ -272,7 +274,7 @@ export const SCREENS: ScreenInfo[] = [
     depth1: '거래내역',
     depth2: '통합 거래 및 예외 관리',
     depth3: '통합 거래내역',
-    name: '내 검색조건 관리 팝업 (통합 거래내역 → [내 검색조건 관리])',
+    name: '내 검색조건 관리 팝업',
     path: '/transaction/integrated/list',
     type: '팝업',
     pattern: 'P07',
@@ -288,7 +290,7 @@ export const SCREENS: ScreenInfo[] = [
     depth1: '거래내역',
     depth2: '통합 거래 및 예외 관리',
     depth3: '통합 거래내역',
-    name: '내 검색조건 관리 팝업 · 저장조건 없음 (통합 거래내역 → [내 검색조건 관리])',
+    name: '내 검색조건 관리 팝업 · 저장조건 없음',
     path: '/transaction/integrated/list?example=empty',
     type: '팝업',
     pattern: 'P07',
@@ -343,5 +345,81 @@ export const SCREENS: ScreenInfo[] = [
     updatedAt: '2026-11-13',
     tempWork:
       '결제수단별 설정 영역(다음 단계) · CPID 선택지 · 예시 데이터 · 찾기/등록/이력조회 팝업 미연결',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC03010000',
+    depth1: '로그인',
+    depth2: 'SMS 인증',
+    depth3: '',
+    name: 'SMS 인증 팝업',
+    path: '/auth/login',
+    type: '팝업',
+    pattern: 'P05',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: 'SMS 인증 API 미연결(인증번호 123456 · 휴대전화번호 없는 아이디 nophone)',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC01040101',
+    depth1: '메인',
+    depth2: '다운로드센터',
+    depth3: '목록',
+    name: '다운로드 요청 상세 팝업',
+    path: '/main/download-center',
+    type: '팝업',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: '예시 데이터 · 생성중 Footer [닫기] · 실패 · 만료 [재시도] · [재요청]',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC04010101',
+    depth1: '거래내역',
+    depth2: '통합 거래 및 예외 관리',
+    depth3: '통합 거래 내역',
+    name: '거래 상세정보 팝업',
+    path: '/patterns/popups',
+    type: '팝업',
+    pattern: 'P02',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork: '팝업 모음(패턴 P02 예시)으로만 확인 — 통합 거래내역 행 선택 연결 전(IBSheet)',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC04010104',
+    depth1: '거래내역',
+    depth2: '통합 거래 및 예외 관리',
+    depth3: '통합 거래 내역',
+    name: '고객문의·민원 처리 팝업',
+    path: '/patterns/popups',
+    type: '팝업',
+    pattern: 'P02',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork:
+      '팝업 모음(패턴 P02 예시)으로만 확인 — 통합 거래내역과 미연결 · 선택지 · 메일 발송 대상',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC04010111',
+    depth1: '거래내역',
+    depth2: '통합 거래 및 예외 관리',
+    depth3: '통합 거래 내역',
+    name: '부분취소 요청 팝업',
+    path: '/patterns/popups',
+    type: '팝업',
+    pattern: 'P04',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork:
+      '팝업 모음(패턴 P04 예시)으로만 확인 — 통합 거래내역과 미연결 · 요청 후 처리상태 문구',
   },
 ];
