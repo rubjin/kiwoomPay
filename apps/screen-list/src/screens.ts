@@ -162,6 +162,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC1301',
+    depth1: 'LNB',
+    depth2: '즐겨찾기',
+    depth3: '',
+    name: 'LNB 즐겨찾기 편집 팝업 (LNB 즐겨찾기 탭 → [편집])',
+    path: '/main/download-center',
+    type: '팝업',
+    pattern: 'P07',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-13',
+    tempWork:
+      '즐겨찾기 저장 API 미연결(화면 안에서만 유지) · 닫기 확인 · 저장 완료 문구 · 검색 결과 줄',
+  },
+  {
+    system: 'internal',
     id: 'KWPC0104',
     depth1: '메인',
     depth2: '다운로드센터',
