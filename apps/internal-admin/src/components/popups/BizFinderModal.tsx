@@ -12,13 +12,14 @@ import {
   useDialog,
   type GridPlaceholderColumn,
   type TableMultiSelectColumn,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { fetchBizCpids, searchBusinesses } from '@/api/common/bizLookup';
 import type { BizCpid, BizLookupResult, BizRow } from '@/types/common/bizLookup';
+import { formatCount } from '@/utils/format';
 
 const PAGE_SIZE = 10;
-const count = (n: number) => `${n.toLocaleString('ko-KR')}개`;
 
 // CPID 선택 패널 열 (시안: 체크 36 · CPID 103 · 나머지 같은 폭)
 const CPID_COLUMNS: TableMultiSelectColumn<BizCpid>[] = [
@@ -93,7 +94,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
       header: '하위 CPID',
       width: 110,
       align: 'right',
-      render: (r) => count(r.cpidCount),
+      render: (r) => formatCount(r.cpidCount, '개'),
     },
     {
       key: 'scope',
@@ -127,7 +128,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
         rows={[]}
         rowKey={(c: BizCpid) => c.cpid}
         columns={CPID_COLUMNS}
-        placeholder={`전체 ${count(r.cpidCount)}`}
+        placeholder={`전체 ${formatCount(r.cpidCount, '개')}`}
       />
     );
   }
@@ -164,7 +165,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
           }
         >
           {results && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-8)' }}>
+            <Stack gap={8}>
               <SectionHeading size="md" as="h3" title="조회 결과" />
               {/* TODO(IBSheet) 결과 표는 IBSheet로 (드롭다운 셀 포함) */}
               <GridPlaceholder
@@ -183,7 +184,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
                   onChange={setPage}
                 />
               </ResultFooter>
-            </div>
+            </Stack>
           )}
         </LookupSearch>
       </Modal.Body>

@@ -35,6 +35,7 @@ import {
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
+import { formatNumber } from '@/utils/format';
 
 /**
  * 레이아웃 패턴 P01 Search → Result 템플릿 (화면 확인용, 임의 작업).
@@ -105,7 +106,7 @@ const COLUMNS: GridPlaceholderColumn<Row>[] = [
     header: '금액',
     width: 140,
     align: 'right',
-    render: (r) => r.amount.toLocaleString('ko-KR'),
+    render: (r) => formatNumber(r.amount),
   },
 ];
 

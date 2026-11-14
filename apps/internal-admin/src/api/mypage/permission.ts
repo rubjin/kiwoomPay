@@ -1,4 +1,5 @@
 import type { PermissionOverview } from '@/types/mypage/permission';
+import { wait } from '@/api/mock';
 
 // TODO(API) 권한 현황 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 권한관리.png)
 const SAMPLE: PermissionOverview = {
@@ -24,8 +25,6 @@ const SAMPLE: PermissionOverview = {
     },
   ],
 };
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchPermissionOverview(): Promise<PermissionOverview> {
   await wait(200);

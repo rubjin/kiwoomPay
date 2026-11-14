@@ -8,6 +8,7 @@ import {
   SelectBox,
   TransferList,
   useAction,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { transactionColumns } from './transactionColumns';
@@ -43,7 +44,7 @@ export function ExcelDownloadModal({ open, onClose }: ExcelDownloadModalProps) {
     <Modal open={open} onClose={download.loading ? undefined : onClose} size="lg">
       <Modal.Header title="엑셀 다운로드 설정" closeButton />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <Stack gap={12}>
           <ConfigField label="다운로드 유형" labelWidth={LABEL_WIDTH}>
             <RadioGroup direction="horizontal" value={type} onChange={setType}>
               <Radio value="normal" label="일반 거래내역" />
@@ -70,7 +71,7 @@ export function ExcelDownloadModal({ open, onClose }: ExcelDownloadModalProps) {
               파일은 암호화되고 대용량 파일은 다운로드센터에서 생성 결과를 확인할 수 있습니다.
             </Infobox.Item>
           </Infobox>
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button

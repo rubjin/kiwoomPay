@@ -7,6 +7,7 @@ import {
   SectionHeading,
   StatusView,
   type GridPlaceholderColumn,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useEffect, useState, type ReactNode } from 'react';
 import { fetchDownloadRequestDetail } from '@/api/main/downloadCenter';
@@ -15,6 +16,7 @@ import { codeLabel } from '@/utils/code';
 import { ACTION_LABEL, actionOf, type DownloadAction } from './downloadActions';
 import { RequestConditions } from './RequestConditions';
 import { DownloadStatusBadge, FileStatusBadge } from './statusBadges';
+import { formatCount, orDash } from '@/utils/format';
 
 const { Row, Label, Cell } = FormTable;
 
@@ -25,14 +27,12 @@ const HISTORY_COLUMNS: GridPlaceholderColumn<DownloadHistory>[] = [
   { key: 'note', header: '비고/재요청 사유', align: 'left' },
 ];
 
-const dash = (value: ReactNode) => value ?? '-';
-
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-8)' }}>
+    <Stack as="section" gap={8}>
       <SectionHeading as="h3" title={title} />
       {children}
-    </section>
+    </Stack>
   );
 }
 
@@ -71,7 +71,7 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
         {!detail ? (
           <StatusView status={failed ? 'error' : 'loading'} />
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+          <Stack>
             <Infobox>
               <Infobox.Item>
                 다운로드 요청 정보와 파일 생성·다운로드 상태를 확인할 수 있으며, 파일은 요청 당시의
@@ -97,7 +97,7 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
                   <Label>원천 화면</Label>
                   <Cell>{detail.sourceScreen}</Cell>
                   <Label>대상 건수</Label>
-                  <Cell>{detail.targetCount.toLocaleString('ko-KR')}건</Cell>
+                  <Cell>{formatCount(detail.targetCount, '건')}</Cell>
                 </Row>
               </FormTable>
             </Section>
@@ -116,21 +116,21 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
                 </Row>
                 <Row>
                   <Label>생성 시작일시</Label>
-                  <Cell>{dash(detail.startedAt)}</Cell>
+                  <Cell>{orDash(detail.startedAt)}</Cell>
                   <Label>처리 완료일시</Label>
-                  <Cell>{dash(detail.completedAt)}</Cell>
+                  <Cell>{orDash(detail.completedAt)}</Cell>
                 </Row>
                 <Row>
                   <Label>파일명</Label>
                   <Cell>{detail.fileName}</Cell>
                   <Label>파일용량</Label>
-                  <Cell>{dash(detail.fileSize)}</Cell>
+                  <Cell>{orDash(detail.fileSize)}</Cell>
                 </Row>
                 <Row>
                   <Label>만료일시</Label>
-                  <Cell>{dash(detail.expiresAt)}</Cell>
+                  <Cell>{orDash(detail.expiresAt)}</Cell>
                   <Label>잔여기간</Label>
-                  <Cell>{dash(detail.remaining)}</Cell>
+                  <Cell>{orDash(detail.remaining)}</Cell>
                 </Row>
               </FormTable>
             </Section>
@@ -146,7 +146,7 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
                 rowKey={(h) => `${h.at}-${h.result}`}
               />
             </Section>
-          </div>
+          </Stack>
         )}
       </Modal.Body>
       <Modal.Footer>

@@ -97,9 +97,10 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  ├─ auth/', '로그인 · SMS 인증 (MainLayout 밖)'],
       ['│  └─ patterns/', '패턴 템플릿 · 팝업 모음 · 개발 컨벤션 (개발 서버 전용)'],
       ['├─ components/'],
-      ['│  ├─ common/', '앱 공통 화면 조각 (PlaceholderPage)'],
+      ['│  ├─ common/', '앱 공통 화면 조각 (PlaceholderPage · SelectAllCheckbox)'],
       ['│  └─ popups/', '여러 화면이 쓰는 업무 팝업 (BizFinderModal)'],
       ['├─ api/<1depth>/<이름>.ts', 'API 함수 (스펙 전에는 예시 데이터 + TODO(API))'],
+      ['├─ api/mock.ts', '예시 데이터 도구 — wait(응답 지연) · paginate(페이지 자르기)'],
       ['├─ types/<1depth>/<이름>.ts', 'API · 화면 데이터 타입'],
       ['├─ constants/'],
       ['│  ├─ menu.ts', '화면ID ↔ 경로 (라우트 · DB 메뉴 url과 같아야 함)'],
@@ -108,7 +109,10 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  └─ options/', '고정 선택지 (전체 · 시각 · 조회기준일)'],
       ['├─ hooks/useCodeOptions.ts', '공통코드 선택지 (받기 전에는 임시값)'],
       ['├─ store/', 'zustand — auth · code(공통코드 캐시) · workTabs'],
-      ['└─ utils/', 'code(코드 → 이름) · period(조회 기간)'],
+      [
+        '└─ utils/',
+        'format(금액 · 건수 · 빈 값 표기) · selection(toggleKey) · code(코드 → 이름) · period(조회 기간)',
+      ],
     ],
   },
   {

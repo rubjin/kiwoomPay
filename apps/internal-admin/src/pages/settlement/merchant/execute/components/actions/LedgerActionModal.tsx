@@ -10,6 +10,7 @@ import {
   type ActionStatItem,
   type ActionSummaryPart,
   type GridPlaceholderColumn,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useState, type ReactNode } from 'react';
 
@@ -100,7 +101,7 @@ function Body<R extends { ledgerId: string }>({
   return (
     <>
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-12)' }}>
+        <Stack gap={12}>
           <ActionTargetBar variant={summaryVariant} parts={summary(rows)} />
           {stats && <ActionStats items={stats(rows)} />}
           <GridPlaceholder
@@ -123,7 +124,7 @@ function Body<R extends { ledgerId: string }>({
               <Infobox.Item bullets={footerNotices} />
             </Infobox>
           )}
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button size="lg" variant="neutral" appearance="line" onClick={onClose}>

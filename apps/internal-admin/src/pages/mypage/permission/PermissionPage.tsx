@@ -14,6 +14,7 @@ import {
   Tab,
   TextButton,
   useDialog,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { fetchPermissionOverview } from '@/api/mypage/permission';
@@ -69,11 +70,11 @@ export function PermissionPage() {
     <>
       <PageLayout.Title title="마이페이지" />
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <Stack gap={0}>
         <MypageTabs current={MENU.KWPC0202} />
 
         {overview && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+          <Stack>
             <HubGrid columns={TOP_COLUMNS}>
               <PageLayout.Section
                 title="나의 권한 현황"
@@ -169,14 +170,12 @@ export function PermissionPage() {
                 <div
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
-                  <div
-                    style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-8)' }}
-                  >
+                  <Stack gap={8}>
                     <HubSubtitle>보유 기능 권한</HubSubtitle>
                     <p style={caption}>
                       현재 적용된 메뉴별 기능 권한 및 부여 구분을 팝업에서 확인할 수 있습니다.
                     </p>
-                  </div>
+                  </Stack>
                   <Button size="sm" variant="dark" onClick={() => notReady('보유 기능 권한')}>
                     보유 기능 권한 보기
                   </Button>
@@ -193,9 +192,7 @@ export function PermissionPage() {
                   </Button>
                 }
               >
-                <div
-                  style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-12)' }}
-                >
+                <Stack gap={12}>
                   {overview.specials.map((s) => (
                     <div
                       key={s.name}
@@ -216,12 +213,12 @@ export function PermissionPage() {
                       <span>{s.period}</span>
                     </div>
                   ))}
-                </div>
+                </Stack>
               </PageLayout.Section>
             </HubGrid>
-          </div>
+          </Stack>
         )}
-      </div>
+      </Stack>
 
       <PermissionRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
     </>

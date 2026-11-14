@@ -15,6 +15,8 @@ import {
   TextButton,
   TextField,
 } from '@kiwoompay/design-system';
+import { SelectAllCheckbox } from '@/components/common/SelectAllCheckbox';
+import { toggleKey } from '@/utils/selection';
 import { useState, type ReactNode } from 'react';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 
@@ -162,31 +164,6 @@ const SHRINK = { flex: '1 1 0', minWidth: 0 } as const;
 
 // 지급보류: 구분 Select 246 + 칸 여백 16 (Figma)
 const HOLD_COLUMNS = '138px 262px 138px minmax(0, 1fr)';
-
-/** 선택 체크 열 머리 · 칸 */
-function SelectAll<T extends { key: string }>({
-  rows,
-  selected,
-  onChange,
-}: {
-  rows: T[];
-  selected: string[];
-  onChange: (keys: string[]) => void;
-}) {
-  const all = rows.length > 0 && rows.every((r) => selected.includes(r.key));
-  return (
-    <Checkbox
-      aria-label="전체 선택"
-      checked={all}
-      indeterminate={!all && selected.length > 0}
-      onChange={() => onChange(all ? [] : rows.map((r) => r.key))}
-    />
-  );
-}
-
-function toggle(list: string[], key: string) {
-  return list.includes(key) ? list.filter((k) => k !== key) : [...list, key];
-}
 
 /** CPID 기본 정보 탭의 섹션 (오른쪽 탭 = 섹션 바로가기) */
 export const CPID_SECTIONS = [
@@ -506,7 +483,7 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
         <FormTable template={LIST_COLUMNS} aria-label="CPID 담당자 정보">
           <Row>
             <Head size="sm">
-              <SelectAll rows={contacts} selected={contactSel} onChange={setContactSel} />
+              <SelectAllCheckbox rows={contacts} selected={contactSel} onChange={setContactSel} />
             </Head>
             <Head size="sm">항목</Head>
           </Row>
@@ -516,7 +493,7 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
                 <Checkbox
                   aria-label="선택"
                   checked={contactSel.includes(row.key)}
-                  onChange={() => setContactSel((s) => toggle(s, row.key))}
+                  onChange={() => setContactSel((s) => toggleKey(s, row.key))}
                 />
               </Cell>
               <Cell style={LINE_CELL}>
@@ -605,7 +582,11 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
         <FormTable template={LIST_COLUMNS} aria-label="공지메일 발송정보">
           <Row>
             <Head size="sm">
-              <SelectAll rows={receivers} selected={receiverSel} onChange={setReceiverSel} />
+              <SelectAllCheckbox
+                rows={receivers}
+                selected={receiverSel}
+                onChange={setReceiverSel}
+              />
             </Head>
             <Head size="sm">항목</Head>
           </Row>
@@ -615,7 +596,7 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
                 <Checkbox
                   aria-label="선택"
                   checked={receiverSel.includes(row.key)}
-                  onChange={() => setReceiverSel((s) => toggle(s, row.key))}
+                  onChange={() => setReceiverSel((s) => toggleKey(s, row.key))}
                 />
               </Cell>
               <Cell style={LINE_CELL}>

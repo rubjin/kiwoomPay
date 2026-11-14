@@ -1,14 +1,15 @@
-import type { GridPlaceholderColumn } from '@kiwoompay/design-system';
+import { Stack, type GridPlaceholderColumn } from '@kiwoompay/design-system';
 import type { ReactNode } from 'react';
-import { won, type LedgerActionRow } from './ledgerActionRows';
+import { formatNumber } from '@/utils/format';
+import type { LedgerActionRow } from './ledgerActionRows';
 
 /** 두 줄 칸 (가맹점 / CPID · 결제수단 / 주기 · 사유 / 금액) */
 export function TwoLines({ top, bottom }: { top: ReactNode; bottom: ReactNode }) {
   return (
-    <span style={{ display: 'flex', flexDirection: 'column', paddingBlock: 'var(--kp-space-4)' }}>
+    <Stack as="span" gap={0} style={{ paddingBlock: 'var(--kp-space-4)' }}>
       <span>{top}</span>
       <span>{bottom}</span>
-    </span>
+    </Stack>
   );
 }
 
@@ -33,4 +34,4 @@ export const amountColumn = (
   key: string,
   header: string,
   pick: (r: LedgerActionRow) => number,
-): Column => ({ key, header, width: 104, align: 'right', render: (r) => won(pick(r)) });
+): Column => ({ key, header, width: 104, align: 'right', render: (r) => formatNumber(pick(r)) });

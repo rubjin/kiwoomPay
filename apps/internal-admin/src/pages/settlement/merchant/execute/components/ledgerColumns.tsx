@@ -1,22 +1,7 @@
-import {
-  Badge,
-  TextLink,
-  type BadgeTone,
-  type GridPlaceholderColumn,
-} from '@kiwoompay/design-system';
-import type { LedgerStatus, SettlementLedger } from '@/types/settlement/merchantSettlement';
-
-const STATUS_TONE: Record<LedgerStatus, BadgeTone> = {
-  '조치 필요': 'error',
-  검증대기: 'info',
-  지급대기: 'primary',
-  지급보류: 'warning',
-  지급완료: 'success',
-  지급실패: 'error',
-};
-
-const dash = (value: string | number | null) =>
-  value === null ? '-' : typeof value === 'number' ? value.toLocaleString('ko-KR') : value;
+import { Badge, TextLink, type GridPlaceholderColumn } from '@kiwoompay/design-system';
+import type { SettlementLedger } from '@/types/settlement/merchantSettlement';
+import { orDash } from '@/utils/format';
+import { LEDGER_STATUS_TONE } from './ledgerStatus';
 
 /**
  * 정산원장 Grid 열 (Figma KWPC06010201 조회결과). IBSheet8 연결 시 같은 순서 · 폭으로 Cols를 만든다.
@@ -30,7 +15,7 @@ export const createLedgerColumns = (
     header: '정산상태',
     width: 93,
     render: (row) => (
-      <Badge size="sm" tone={STATUS_TONE[row.status]}>
+      <Badge size="sm" tone={LEDGER_STATUS_TONE[row.status]}>
         {row.status}
       </Badge>
     ),
@@ -57,7 +42,7 @@ export const createLedgerColumns = (
     key: 'sourceLedgerId',
     header: '원천원장 ID',
     width: 140,
-    render: (row) => dash(row.sourceLedgerId),
+    render: (row) => orDash(row.sourceLedgerId),
   },
   { key: 'closedAt', header: '마감일시', width: 155 },
   { key: 'payDate', header: '지급예정일', width: 120 },
@@ -66,6 +51,6 @@ export const createLedgerColumns = (
   { key: 'bizNo', header: '사업자번호', width: 120 },
   { key: 'payMethod', header: '결제수단', width: 90 },
   { key: 'cycle', header: '정산주기', width: 90 },
-  { key: 'period', header: '정산기간', width: 180, render: (row) => dash(row.period) },
-  { key: 'txCount', header: '정산대상 거래건수', width: 118, render: (row) => dash(row.txCount) },
+  { key: 'period', header: '정산기간', width: 180, render: (row) => orDash(row.period) },
+  { key: 'txCount', header: '정산대상 거래건수', width: 118, render: (row) => orDash(row.txCount) },
 ];

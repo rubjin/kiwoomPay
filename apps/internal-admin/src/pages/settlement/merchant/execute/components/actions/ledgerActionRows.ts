@@ -36,5 +36,3 @@ export function toActionRows(ledgers: SettlementLedger[]): LedgerActionRow[] {
 
 export const sumOf = (rows: LedgerActionRow[], pick: (r: LedgerActionRow) => number) =>
   rows.reduce((total, r) => total + pick(r), 0);
-
-export const won = (n: number) => n.toLocaleString('ko-KR');

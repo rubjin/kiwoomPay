@@ -17,25 +17,18 @@ import {
   TextLink,
   useAction,
   useDialog,
-  type BadgeTone,
   type GridPlaceholderColumn,
+  Stack,
 } from '@kiwoompay/design-system';
 import { Fragment, useEffect, useState } from 'react';
 import { fetchLedgerDetail, fetchLedgerTxs, saveLedgerNotes } from '@/api/settlement/ledgerDetail';
 import type { LedgerBasisItem, LedgerDetail, LedgerTx } from '@/types/settlement/ledgerDetail';
 import type { LedgerStatus, SettlementLedger } from '@/types/settlement/merchantSettlement';
+import { formatWon } from '@/utils/format';
+import { LEDGER_STATUS_TONE } from '../ledgerStatus';
 
 const { Row, Label, Cell } = FormTable;
 const TX_PAGE_SIZE = 10;
-
-const STATUS_TONE: Record<LedgerStatus, BadgeTone> = {
-  '조치 필요': 'error',
-  검증대기: 'info',
-  지급대기: 'primary',
-  지급보류: 'warning',
-  지급완료: 'success',
-  지급실패: 'error',
-};
 
 /** 원장 처리 (상세 팝업 오른쪽 위 · 지급예정일 연필) — 화면의 일괄 처리 팝업을 이 원장 하나로 연다 */
 export type LedgerDetailAction = 'payDate' | 'hold' | 'release' | 'confirm';
@@ -49,9 +42,6 @@ const canDo = (status: LedgerStatus) => ({
   release: status === '지급보류',
   confirm: status === '지급대기',
 });
-
-const won = (n: number, signed = false) =>
-  `${signed && n > 0 ? '+' : ''}${n.toLocaleString('ko-KR')}원`;
 
 // 탭 안 칸 (드롭다운 · 입력이 있는 줄은 위아래 8 — 시안 줄 56)
 const padded = { paddingBlock: 'var(--kp-space-8)' } as const;
@@ -74,7 +64,7 @@ function BasisTab({
       header: '금액',
       width: 150,
       align: 'right',
-      render: (r) => won(r.amount, r.signed),
+      render: (r) => formatWon(r.amount, { signed: r.signed }),
     },
     {
       key: 'linkedIds',
@@ -210,9 +200,9 @@ function Body({
   return (
     <>
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-24)' }}>
+        <Stack gap={24}>
           {/* 원장 기본정보 */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+          <Stack as="section">
             <SectionHeading
               size="md"
               as="h3"
@@ -270,7 +260,7 @@ function Body({
                 <Cell>{ledger.cycle}</Cell>
                 <Label>지급상태</Label>
                 <Cell>
-                  <Badge size="sm" tone={STATUS_TONE[ledger.status]}>
+                  <Badge size="sm" tone={LEDGER_STATUS_TONE[ledger.status]}>
                     {ledger.status}
                   </Badge>
                 </Cell>
@@ -305,10 +295,10 @@ function Body({
                 </Cell>
               </Row>
             </FormTable>
-          </section>
+          </Stack>
 
           {/* 원장 요약 */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+          <Stack as="section">
             <SectionHeading size="md" as="h3" title="원장 요약" />
             <ActionStats
               items={[
@@ -322,10 +312,10 @@ function Body({
                 { label: '지급예정금액', values: [{ value: summary.payAmount, unit: '원' }] },
               ]}
             />
-          </section>
+          </Stack>
 
           {/* 원장 상세 내역 */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+          <Stack as="section">
             <SectionHeading size="md" as="h3" title="원장 상세 내역" />
             <Tab
               variant="button"
@@ -355,8 +345,8 @@ function Body({
                 description="시안 확인 후 작업합니다."
               />
             )}
-          </section>
-        </div>
+          </Stack>
+        </Stack>
       </Modal.Body>
       {/* 비고 저장은 원장 산출 근거 탭에서만 (시안) */}
       {tab === 'basis' && (

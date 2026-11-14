@@ -4,6 +4,7 @@ import type {
   MerchantSettlementSummary,
   SettlementLedger,
 } from '@/types/settlement/merchantSettlement';
+import { paginate, wait } from '@/api/mock';
 
 // TODO(API) 정산원장 조회 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
 const SAMPLE: SettlementLedger[] = [
@@ -200,8 +201,6 @@ const SUMMARY: MerchantSettlementSummary = {
   failed: 0,
 };
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 /** 정산원장 조회 (페이지 단위) */
 export async function fetchSettlementLedgers({
   params,
@@ -234,7 +233,7 @@ export async function fetchSettlementLedgers({
         { length: Math.min(pageSize, total - start) },
         (_, i) => SAMPLE[(start + i) % SAMPLE.length] as SettlementLedger,
       )
-    : rows.slice(start, start + pageSize);
+    : paginate(rows, { page, pageSize }).items;
   return { items, total, summary: filtered ? SUMMARY : { ...SUMMARY, target: total } };
 }
 

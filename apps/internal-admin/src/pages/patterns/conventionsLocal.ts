@@ -1,8 +1,11 @@
 // 개발 컨벤션 · "화면 전용 부품" 탭: 컴포넌트(디자인 시스템 · 앱 공통)로 만들지 않고 한 화면 안에서만 쓰는 것.
 // 2026-11-14 점검 기준. 화면을 만들다 같은 모양이 두 번째로 나오면 여기 판단을 보고 공통으로 올린다
 
-/** 유지: 그 화면 전용으로 둔다 · 후보: 두 번째 사용처가 생기면 올린다 · 필요: 이미 여러 곳에 같은 코드가 있다 */
-export type LocalVerdict = '유지' | '후보' | '필요';
+/**
+ * 유지: 그 화면 전용으로 둔다 · 후보: 두 번째 사용처가 생기면 올린다 · 필요: 이미 여러 곳에 같은 코드가 있다
+ * · 완료: 공통으로 올렸다 (plan에 새 위치)
+ */
+export type LocalVerdict = '유지' | '후보' | '필요' | '완료';
 
 export interface LocalPart {
   name: string;
@@ -10,7 +13,7 @@ export interface LocalPart {
   where: string;
   role: string;
   verdict: LocalVerdict;
-  /** 올린다면 어디로 · 어떻게 */
+  /** 올린다면 어디로 · 어떻게 (완료면 새 위치) */
   plan?: string;
 }
 
@@ -27,15 +30,15 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
         name: 'SelectAll · toggle',
         where: 'operation/merchant-contract/basic/components/CpidBasicPanel.tsx · ContactTable.tsx',
         role: '표 머리 전체 선택 체크박스(indeterminate 포함) + 한 줄 선택 토글',
-        verdict: '필요',
-        plan: '같은 계산이 두 파일에 있음 → 앱 hooks/useRowSelection(rows, key)로',
+        verdict: '완료',
+        plan: '앱 components/common/SelectAllCheckbox(전체 선택) + utils/selection toggleKey(줄 선택). 선택 상태는 화면이 가진다',
       },
       {
         name: 'Section',
         where: 'main/download-center/components/DownloadDetailModal.tsx',
         role: '팝업 본문 소제목(SectionHeading h3) + 내용 세로 묶음, 사이 8',
         verdict: '후보',
-        plan: '정산 원장 상세 팝업도 같은 묶음을 인라인으로 그림 → 디자인 시스템 FormGroup 사용 검토',
+        plan: '안은 이제 <Stack as="section" gap={8}> + SectionHeading — 다른 팝업은 래퍼 없이 Stack을 바로 쓴다',
       },
       {
         name: 'TwoLines',
@@ -112,39 +115,39 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
         name: 'wait(ms)',
         where: 'api/* 11개 파일',
         role: '예시 데이터 응답 지연',
-        verdict: '필요',
-        plan: 'api/mock.ts 하나로 (API 연결 시 함께 삭제)',
+        verdict: '완료',
+        plan: 'api/mock.ts wait (API 연결 시 함께 삭제)',
       },
       {
         name: '페이지 자르기',
         where:
           'api/main/downloadCenter.ts · api/mypage/permissionRequest.ts · api/settlement/merchantSettlement.ts',
         role: 'rows.slice(from, from + pageSize) → { items, total }',
-        verdict: '필요',
-        plan: 'api/mock.ts paginate(rows, request) — SearchResultPage를 돌려줌',
+        verdict: '완료',
+        plan: 'api/mock.ts paginate(rows, { page, pageSize }) → { items, total }',
       },
       {
         name: 'won · dash · count',
         where:
           'ledgerActionRows.ts · LedgerDetailModal.tsx · ledgerColumns.tsx · downloadColumns.tsx · DownloadDetailModal.tsx · PermissionRequestModal.tsx · BizFinderModal.tsx',
         role: "금액 천 단위(원 · 부호), 빈 값 '-', 건수 · 개수",
-        verdict: '필요',
-        plan: "utils/format.ts (formatAmount · formatCount · orDash) — 표기 규칙(원 붙임 · '-')을 한 곳에서",
+        verdict: '완료',
+        plan: "utils/format.ts — formatNumber(표 금액 칸) · formatWon(원 · signed) · formatCount(수 + 단위) · orDash(없으면 '-', 숫자는 쉼표)",
       },
       {
         name: 'STATUS_TONE (원장 상태 색)',
         where:
           'settlement/merchant/execute/components/ledgerColumns.tsx · detail/LedgerDetailModal.tsx',
         role: '원장 상태 → Badge 색, 두 파일에 같은 표',
-        verdict: '필요',
-        plan: '정산 화면 components/ledgerStatus.ts 하나로 (목록 · 상세가 같이 씀)',
+        verdict: '완료',
+        plan: 'settlement/merchant/execute/components/ledgerStatus.ts LEDGER_STATUS_TONE',
       },
       {
         name: '세로 묶음 인라인 스타일',
         where: '팝업 · 마이페이지 등 16곳',
         role: "style={{ display: 'flex', flexDirection: 'column', gap: … }}",
-        verdict: '필요',
-        plan: '가로 묶음(ControlGroup)처럼 세로 묶음 컴포넌트 필요 — 디자인 시스템 Stack(gap 8 · 16) 제안. 정해지기 전에는 FormGroup · PageLayout.Section 먼저',
+        verdict: '완료',
+        plan: '디자인 시스템 Stack (gap 0 · 4 · 8 · 12 · 16(기본) · 24, as div · section · span) — 16곳 교체',
       },
       {
         name: '화면 고유 폭 · 시안 측정값',

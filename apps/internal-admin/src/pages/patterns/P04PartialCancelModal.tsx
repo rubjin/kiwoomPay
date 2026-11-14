@@ -14,6 +14,7 @@ import {
   useAction,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import { formatNumber, formatWon } from '@/utils/format';
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -36,7 +37,6 @@ interface CancelRow {
 /** 내역 표 4칸 같은 폭 (본문 폭 580 ÷ 4) */
 const CANCEL_COLUMN_WIDTH = 145;
 
-const won = (n: number) => `${n.toLocaleString('ko-KR')}원`;
 const nowText = () => {
   const d = new Date();
   const p = (n: number) => String(n).padStart(2, '0');
@@ -71,11 +71,11 @@ export function P04PartialCancelModal({
       value <= 0
         ? '취소요청금액을 입력해주세요.'
         : value > remaining
-          ? `취소요청금액은 잔여 취소가능금액(${won(remaining)}) 이하로 입력해주세요.`
+          ? `취소요청금액은 잔여 취소가능금액(${formatWon(remaining)}) 이하로 입력해주세요.`
           : !reason.trim()
             ? '취소사유를 입력해주세요.'
             : null,
-    confirm: () => `${won(value)}을 부분취소 요청할까요?`,
+    confirm: () => `${formatWon(value)}을 부분취소 요청할까요?`,
     confirmOptions: { confirmText: '부분취소 요청' },
     run: () => wait(500), // TODO(API) 부분취소 요청
     onSuccess: () => {
@@ -106,7 +106,7 @@ export function P04PartialCancelModal({
             labelGap={20}
             items={[
               { label: '거래번호', value: 'ATS26060114533091437' },
-              { label: '취소가능금액', value: won(total) },
+              { label: '취소가능금액', value: formatWon(total) },
             ]}
           />
           <DetailCard
@@ -126,7 +126,7 @@ export function P04PartialCancelModal({
                     disabled={remaining <= 0}
                     onChange={(e) => {
                       const digits = e.target.value.replace(/\D/g, '');
-                      setAmount(digits ? Number(digits).toLocaleString('ko-KR') : '');
+                      setAmount(digits ? formatNumber(Number(digits)) : '');
                     }}
                     aria-label="취소요청금액"
                   />
@@ -160,8 +160,8 @@ export function P04PartialCancelModal({
           <DetailCard plain title="취소내역">
             <DetailSummary
               items={[
-                { label: '누적 취소금액', value: won(canceled) },
-                { label: '잔여 취소가능금액', value: won(remaining) },
+                { label: '누적 취소금액', value: formatWon(canceled) },
+                { label: '잔여 취소가능금액', value: formatWon(remaining) },
               ]}
             />
             {/* TODO(IBSheet) 취소 내역 그리드 */}
@@ -178,7 +178,7 @@ export function P04PartialCancelModal({
                   header: '취소금액',
                   align: 'center',
                   width: CANCEL_COLUMN_WIDTH,
-                  render: (row) => won(row.amount),
+                  render: (row) => formatWon(row.amount),
                 },
                 { key: 'type', header: '취소유형', align: 'center', width: CANCEL_COLUMN_WIDTH },
                 { key: 'status', header: '처리상태', align: 'center', width: CANCEL_COLUMN_WIDTH },

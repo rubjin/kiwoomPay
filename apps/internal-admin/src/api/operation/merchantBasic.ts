@@ -4,6 +4,7 @@ import type {
   MerchantContact,
   MerchantRecord,
 } from '@/types/operation/merchantBasic';
+import { wait } from '@/api/mock';
 
 // TODO(API) 가맹점 기본 정보 조회 · 저장 API가 정해지면 axios 호출로 바꾼다. 지금은 Figma 조회수정 예시 값
 
@@ -93,8 +94,6 @@ const SAMPLE: MerchantRecord = {
   })),
   cpid: { id: 'CTS123456', name: 'ABC몰', contract: '계약 · 완료', service: '서비스 · 사용중' },
 };
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /** 가맹점 조회 (조회수정) */
 export async function fetchMerchant(): Promise<MerchantRecord> {

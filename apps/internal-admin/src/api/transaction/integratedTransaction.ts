@@ -4,6 +4,7 @@ import type {
   IntegratedTransactionParams,
   IntegratedTransactionSummary,
 } from '@/types/transaction/integratedTransaction';
+import { wait } from '@/api/mock';
 
 // TODO(API) 통합 거래내역 조회 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
 const CP = [
@@ -34,7 +35,6 @@ const SAMPLE: IntegratedTransaction[] = Array.from({ length: 23 }, (_, i) => {
   };
 });
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const has = (text: string, keyword: string) => !keyword.trim() || text.includes(keyword.trim());
 
 /** 통합 거래내역 조회 (페이지 단위) */

@@ -864,3 +864,9 @@
 - 중복(공통화 필요): API 예시 지연 `wait` 11개 파일, 페이지 자르기 3곳, 금액 · 빈 값 · 건수 표기(`won` · `dash` · `count`) 7개 파일, 원장 상태 색 `STATUS_TONE` 2곳, 전체 선택 체크 로직 2곳(CpidBasicPanel · ContactTable), 세로 묶음 인라인 스타일(flex column + gap) 16곳 — 세로 묶음 컴포넌트 없음(디자인 시스템 Stack 제안)
 - 개별 confirm/alert 직접 호출 5곳(다운로드 센터 · 가맹점 기본정보 · 취소 바 · 내 검색조건 · 즐겨찾기) — `useAction` 이관 여부는 기존 열린 결정
 - 개발 컨벤션 페이지에 "화면 전용 부품" 탭 추가(`pages/patterns/conventionsLocal.ts`): 이름 · 위치 · 하는 일 · 판단(필요 · 후보 · 유지) · 올린다면. 코드는 아직 고치지 않음
+
+### 공통화 반영 — 2026-11-14
+- 디자인 시스템 `Stack`(`components/layout/Stack`): 세로 묶음, `gap` 0 · 4 · 8 · 12 · 16(기본) · 24, `as` div · section · span. 스토리 `Layout/Stack`(Playground · Nested), Spacing 가이드 3-1에 한 줄. 가로는 `ControlGroup`, 세로는 `Stack` — 인라인 flex column 금지
+- 앱: `api/mock.ts`(`wait` · `paginate`) — api 11개 파일의 `wait` · 페이지 자르기 3곳 교체 / `utils/format.ts`(`formatNumber` · `formatWon` · `formatCount` · `orDash`) — `won` · `dash` · `count` · `toLocaleString` 직접 사용 전부 교체(패턴 페이지 포함) / `ledgerStatus.ts` `LEDGER_STATUS_TONE`(정산 목록 · 상세 공용) / `components/common/SelectAllCheckbox` + `utils/selection` `toggleKey`(CpidBasicPanel · ContactTable) / 인라인 세로 묶음 16곳 → `Stack`(값 그대로)
+- 컨벤션 페이지: 판단 "완료" 추가(필요 6개 → 완료), 규칙 추가(세로 묶음 · 숫자 · 빈 값 표기 · 전체 선택 · api/mock), 폴더 트리 갱신
+- 검증: 디자인 시스템 typecheck · lint · build, 앱 typecheck · build, 개발 서버 모듈 반영 확인. 브라우저 픽셀 비교는 하지 않음(Stack은 같은 flex column + gap에 min-width 0만 추가)

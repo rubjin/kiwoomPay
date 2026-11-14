@@ -55,7 +55,7 @@ const CONVENTIONS: RuleGroup[] = [
       },
       {
         item: 'API · 타입',
-        rule: 'api/<1depth>/<이름>.ts · types/<1depth>/<이름>.ts. 스펙이 없으면 예시 데이터 + TODO(API)',
+        rule: 'api/<1depth>/<이름>.ts · types/<1depth>/<이름>.ts. 스펙이 없으면 예시 데이터 + TODO(API) — 지연 · 페이지 자르기는 api/mock.ts(wait · paginate). 목록 API는 SearchRequest → SearchResultPage',
         example: 'api/main/downloadCenter.ts',
       },
       {
@@ -121,6 +121,21 @@ const CONVENTIONS: RuleGroup[] = [
         item: '컨트롤 간격',
         rule: '입력 + 버튼 · 버튼 + 버튼 8, 칸 안 라벨 + 입력 12, 형태가 다른 묶음 사이 16. ControlGroup으로 묶고 인라인 스타일로 간격을 만들지 않는다',
         example: '<ControlGroup spacing="lg"><ControlGroup>…</ControlGroup>…</ControlGroup>',
+      },
+      {
+        item: '세로 묶음',
+        rule: "위아래로 쌓는 묶음(팝업 본문 영역 · 소제목 + 표 · 칸 안 두 줄)은 Stack. style={{ display: 'flex', flexDirection: 'column', gap }}로 만들지 않는다",
+        example: '<Stack gap={8} as="section">…</Stack>',
+      },
+      {
+        item: '숫자 · 빈 값 표기',
+        rule: "utils/format만 쓴다 — 표 금액 칸 formatNumber, 문구 금액 formatWon(원 · signed), 건수 formatCount, 없는 값 orDash('-'). toLocaleString을 화면에서 직접 쓰지 않는다",
+        example: "formatWon(1200, { signed: true }) → '+1,200원'",
+      },
+      {
+        item: '전체 선택',
+        rule: '목록형 표 머리 체크는 SelectAllCheckbox, 줄 체크는 toggleKey(utils/selection). 선택 상태(key 목록)는 화면이 가진다',
+        example: '<SelectAllCheckbox rows={rows} selected={sel} onChange={setSel} />',
       },
       {
         item: '표 테두리',
@@ -256,6 +271,7 @@ const VERDICT_TONE: Record<LocalVerdict, BadgeTone> = {
   필요: 'error',
   후보: 'warning',
   유지: 'neutral',
+  완료: 'success',
 };
 
 // 화면이 길어 라인 탭으로 한 묶음씩 보여 준다: 폴더 구조(트리 4개) + 규칙 묶음마다 한 탭 + 화면 전용 부품
@@ -328,8 +344,9 @@ export function ConventionsPage() {
           <Infobox>
             <Infobox.Item title="판단">
               필요 — 이미 여러 곳에 같은 코드가 있어 공통으로 올린다 · 후보 — 두 번째 사용처가
-              생기면 올린다 · 유지 — 그 화면 전용으로 둔다. 화면을 만들다 여기 있는 모양이 다시
-              나오면 새로 만들지 말고 공통으로 올린 뒤 쓴다.
+              생기면 올린다 · 유지 — 그 화면 전용으로 둔다 · 완료 — 공통으로 올렸다(올린다면 칸에 새
+              위치). 화면을 만들다 여기 있는 모양이 다시 나오면 새로 만들지 말고 공통으로 올린 뒤
+              쓴다.
             </Infobox.Item>
           </Infobox>
           {LOCAL_PARTS.map((g) => (

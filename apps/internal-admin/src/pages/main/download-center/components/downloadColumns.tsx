@@ -3,8 +3,7 @@ import type { DownloadRequest } from '@/types/main/downloadCenter';
 import { codeLabel } from '@/utils/code';
 import { ACTION_LABEL, actionOf, type DownloadAction } from './downloadActions';
 import { DownloadStatusBadge, FileStatusBadge } from './statusBadges';
-
-const dash = (value: string | null) => value ?? '-';
+import { orDash } from '@/utils/format';
 
 /**
  * 다운로드 요청 Grid 열 (시안 다운로드센터.png). IBSheet8 연결 시 같은 순서 · 폭으로 Cols를 만든다.
@@ -45,7 +44,7 @@ export function createDownloadColumns(handlers: {
       key: 'completedAt',
       header: '처리완료일',
       width: 180,
-      render: (row) => dash(row.completedAt),
+      render: (row) => orDash(row.completedAt),
     },
     {
       key: 'status',
@@ -59,7 +58,7 @@ export function createDownloadColumns(handlers: {
       width: 107,
       render: (row) => <FileStatusBadge status={row.fileStatus} />,
     },
-    { key: 'expiresAt', header: '만료일', width: 180, render: (row) => dash(row.expiresAt) },
+    { key: 'expiresAt', header: '만료일', width: 180, render: (row) => orDash(row.expiresAt) },
     {
       key: 'action',
       header: '작업요청',
@@ -84,6 +83,6 @@ export function createDownloadColumns(handlers: {
         );
       },
     },
-    { key: 'note', header: '비고', align: 'left', render: (row) => dash(row.note) },
+    { key: 'note', header: '비고', align: 'left', render: (row) => orDash(row.note) },
   ];
 }

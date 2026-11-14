@@ -1,4 +1,5 @@
 import type { BizCpid, BizRow } from '@/types/common/bizLookup';
+import { wait } from '@/api/mock';
 
 // TODO(API) 사업자 · 하위 CPID 조회 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
 // (시안 처리_사업자 찾기 팝업.png · CPID 선택 멀티셀렉트.png)
@@ -12,8 +13,6 @@ const BIZ: BizRow[] = [
 
 const SERVICES = ['신용카드', '계좌이체', '가상계좌'];
 const CYCLES = ['D+1', 'D+1', 'D+2', 'D+1', '주정산', '월 1회'];
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function searchBusinesses(name: string, bizNo: string): Promise<BizRow[]> {
   await wait(300);

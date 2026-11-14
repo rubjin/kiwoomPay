@@ -1,9 +1,8 @@
 import type { MypageHub } from '@/types/mypage/mypageHub';
+import { wait } from '@/api/mock';
 
 // TODO(API) 마이페이지 요약 · 알림 읽음 API가 정해지면 axios 호출로 바꾼다.
 // 지금은 화면 확인용 예시 (Figma KWPC2000_마이페이지_GUI_최초진입)
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 /** example: 'empty' → 특수권한 없음 · 알림 없음 예시 (Figma 28815:71127, 화면 목록에서 `?example=empty`) */
 export async function fetchMypageHub(example?: string | null): Promise<MypageHub> {
   await wait(200);

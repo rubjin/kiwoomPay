@@ -4,7 +4,8 @@ import { requestLedgerAction } from '@/api/settlement/merchantSettlement';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 import { LedgerActionModal } from './LedgerActionModal';
 import { amountColumn, LEDGER_ID_COLUMN, MERCHANT_COLUMN, TwoLines } from './ledgerActionColumns';
-import { sumOf, won, type LedgerActionRow } from './ledgerActionRows';
+import { formatNumber } from '@/utils/format';
+import { sumOf, type LedgerActionRow } from './ledgerActionRows';
 
 export interface LedgerActionProps {
   open: boolean;
@@ -183,7 +184,9 @@ export function HoldReleaseModal({ open, rows, onClose, onDone }: LedgerActionPr
           key: 'hold',
           header: '보류사유 / 보류금액(원)',
           align: 'left',
-          render: (r) => <TwoLines top={r.holdReason} bottom={won(r.heldAmount || r.amount)} />,
+          render: (r) => (
+            <TwoLines top={r.holdReason} bottom={formatNumber(r.heldAmount || r.amount)} />
+          ),
         },
         {
           key: 'judge',

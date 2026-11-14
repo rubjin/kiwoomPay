@@ -7,6 +7,7 @@ import {
   Infobox,
   PageLayout,
   useDialog,
+  Stack,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { fetchAccountInfo } from '@/api/mypage/account';
@@ -44,7 +45,7 @@ export function AccountPage() {
       <PageLayout.Title title="마이페이지" />
 
       {/* 탭 · 카드 · 안내를 붙여 둔다 (탭 밑줄이 카드 위 선에 닿음) */}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <Stack gap={0}>
         <MypageTabs current={MENU.KWPC0201} />
 
         {account && (
@@ -134,7 +135,7 @@ export function AccountPage() {
             </Infobox>
           </>
         )}
-      </div>
+      </Stack>
     </>
   );
 }

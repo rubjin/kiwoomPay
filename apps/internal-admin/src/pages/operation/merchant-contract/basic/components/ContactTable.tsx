@@ -1,6 +1,8 @@
 import { Checkbox, FormTable, SelectBox, TextField } from '@kiwoompay/design-system';
 import type { MerchantContact } from '@/types/operation/merchantBasic';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
+import { SelectAllCheckbox } from '@/components/common/SelectAllCheckbox';
+import { toggleKey } from '@/utils/selection';
 
 interface Props {
   rows: MerchantContact[];
@@ -20,7 +22,6 @@ const FIELDS: [keyof MerchantContact, string][] = [
 /** 담당자 정보 표 (Figma: 머리 44 + 행 52, 업무구분 Select + 입력 4칸) */
 export function ContactTable({ rows, onChange, selected, onSelectedChange }: Props) {
   const contactRoles = useCodeOptions('CONTACT_ROLE');
-  const all = rows.length > 0 && rows.every((r) => selected.includes(r.key));
   const set = (key: string, patch: Partial<MerchantContact>) =>
     onChange(rows.map((r) => (r.key === key ? { ...r, ...patch } : r)));
 
@@ -28,12 +29,7 @@ export function ContactTable({ rows, onChange, selected, onSelectedChange }: Pro
     <FormTable template={COLUMNS} aria-label="담당자 정보">
       <FormTable.Row>
         <FormTable.Head>
-          <Checkbox
-            aria-label="전체 선택"
-            checked={all}
-            indeterminate={!all && selected.length > 0}
-            onChange={() => onSelectedChange(all ? [] : rows.map((r) => r.key))}
-          />
+          <SelectAllCheckbox rows={rows} selected={selected} onChange={onSelectedChange} />
         </FormTable.Head>
         <FormTable.Head>업무구분</FormTable.Head>
         {FIELDS.map(([, label]) => (
@@ -46,13 +42,7 @@ export function ContactTable({ rows, onChange, selected, onSelectedChange }: Pro
             <Checkbox
               aria-label="선택"
               checked={selected.includes(row.key)}
-              onChange={() =>
-                onSelectedChange(
-                  selected.includes(row.key)
-                    ? selected.filter((k) => k !== row.key)
-                    : [...selected, row.key],
-                )
-              }
+              onChange={() => onSelectedChange(toggleKey(selected, row.key))}
             />
           </FormTable.Cell>
           <FormTable.Cell>

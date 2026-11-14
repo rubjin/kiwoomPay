@@ -4,6 +4,7 @@ import type {
   DownloadRequest,
   DownloadRequestDetail,
 } from '@/types/main/downloadCenter';
+import { paginate, wait } from '@/api/mock';
 
 // TODO(API) 다운로드 센터 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 다운로드센터.png)
 type Row = Omit<DownloadRequest, 'id' | 'no'>;
@@ -149,8 +150,6 @@ let SAMPLE: DownloadRequest[] = Array.from({ length: 24 }, (_, i) => {
   };
 });
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function fetchDownloadRequests({
   params,
   page,
@@ -168,8 +167,7 @@ export async function fetchDownloadRequests({
       (!end || r.requestedAt.slice(0, 10) <= end) &&
       (!keyword || r.fileName.includes(keyword)),
   );
-  const from = (page - 1) * pageSize;
-  return { items: rows.slice(from, from + pageSize), total: rows.length };
+  return paginate(rows, { page, pageSize });
 }
 
 export async function fetchDownloadRequestDetail(id: string): Promise<DownloadRequestDetail> {

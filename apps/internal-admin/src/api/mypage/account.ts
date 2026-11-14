@@ -1,4 +1,5 @@
 import type { AccountInfo } from '@/types/mypage/account';
+import { wait } from '@/api/mock';
 
 // TODO(API) 계정정보 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 계정관리.png)
 // TODO(정책) 마스킹 적용 중에는 휴대전화 · 이메일 · 이름을 마스킹 값으로 (서버가 내려줄지 화면에서 가릴지)
@@ -15,8 +16,6 @@ const SAMPLE: AccountInfo = {
   lastLoginIp: '123.456.78.90',
   adminEmail: 'pg-admin@daoudata.co.kr',
 };
-
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchAccountInfo(): Promise<AccountInfo> {
   await wait(200);

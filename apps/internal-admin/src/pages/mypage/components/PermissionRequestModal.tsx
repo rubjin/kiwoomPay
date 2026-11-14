@@ -13,6 +13,7 @@ import {
   useSearchResult,
   type BadgeTone,
   type GridPlaceholderColumn,
+  Stack,
 } from '@kiwoompay/design-system';
 import { fetchPermissionRequests } from '@/api/mypage/permissionRequest';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
@@ -23,14 +24,13 @@ import type {
 } from '@/types/mypage/permissionRequest';
 import { codeLabel } from '@/utils/code';
 import { rangeOfQuickPeriod } from '@/utils/period';
+import { orDash } from '@/utils/format';
 
 const STATUS_TONE: Record<PermissionRequestStatus, BadgeTone> = {
   PENDING: 'warning',
   APPROVED: 'success',
   REJECTED: 'error',
 };
-
-const dash = (value: string | null) => value ?? '-';
 
 /** 권한 신청 이력 열 (시안 권한신청팝업.png). TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
 export const PERMISSION_REQUEST_COLUMNS: GridPlaceholderColumn<PermissionRequest>[] = [
@@ -57,16 +57,16 @@ export const PERMISSION_REQUEST_COLUMNS: GridPlaceholderColumn<PermissionRequest
     header: '처리자',
     width: 112,
     align: 'left',
-    render: (r) => dash(r.processor),
+    render: (r) => orDash(r.processor),
   },
   {
     key: 'processedAt',
     header: '처리일시',
     width: 180,
     align: 'left',
-    render: (r) => dash(r.processedAt),
+    render: (r) => orDash(r.processedAt),
   },
-  { key: 'note', header: '비고', align: 'left', render: (r) => dash(r.note) },
+  { key: 'note', header: '비고', align: 'left', render: (r) => orDash(r.note) },
 ];
 
 /** 조회 조건 기본값: 신청기간 최근 1개월 (시안 08-15 ~ 09-15). TODO(정책) 기본 기간 확인 */
@@ -92,7 +92,7 @@ function PermissionRequestBody() {
   const ready = result.status === 'success';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--kp-space-16)' }}>
+    <Stack>
       <SearchPanel
         variant="box"
         title="조회 조건"
@@ -140,7 +140,7 @@ function PermissionRequestBody() {
           disabled={!ready}
         />
       </ResultFooter>
-    </div>
+    </Stack>
   );
 }
 

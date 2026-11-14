@@ -4,6 +4,7 @@ import type {
   PermissionRequestParams,
   PermissionRequestStatus,
 } from '@/types/mypage/permissionRequest';
+import { paginate, wait } from '@/api/mock';
 
 // TODO(API) 권한 신청 이력 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 권한신청팝업.png)
 type Row = [
@@ -106,8 +107,6 @@ const SAMPLE: PermissionRequest[] = [...MOCKUP, ...older].map((r, i) => ({
   note: r[6],
 }));
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function fetchPermissionRequests({
   params,
   page,
@@ -122,6 +121,5 @@ export async function fetchPermissionRequests({
       (!start || r.requestedAt.slice(0, 10) >= start) &&
       (!end || r.requestedAt.slice(0, 10) <= end),
   );
-  const from = (page - 1) * pageSize;
-  return { items: rows.slice(from, from + pageSize), total: rows.length };
+  return paginate(rows, { page, pageSize });
 }

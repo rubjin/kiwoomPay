@@ -17,6 +17,7 @@ import {
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { P04PartialCancelModal } from './P04PartialCancelModal';
+import { formatNumber } from '@/utils/format';
 
 /**
  * 레이아웃 패턴 P04 Action → Feedback 템플릿 (화면 확인용, 임의 작업).
@@ -217,7 +218,7 @@ type LimitKey = (typeof LIMIT_COLUMNS)[number]['key'];
 /** 업종 → 카드사 → 한도 (숫자만, 쉼표 없이 보관) */
 type Limits = Record<string, Record<string, Partial<Record<LimitKey, string>>>>;
 
-const withComma = (digits: string) => (digits ? Number(digits).toLocaleString('ko-KR') : '');
+const withComma = (digits: string) => (digits ? formatNumber(Number(digits)) : '');
 
 /** 카드번호별 매입사 결제한도 설정 (xl 1280). 업종 Tab마다 카드사 × 한도 입력 → [등록] */
 export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () => void }) {
