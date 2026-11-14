@@ -32,7 +32,6 @@ export const FOLDER_TREES: readonly FolderTree[] = [
         'IA 시트에서 생성 (scripts/import-ia.mjs) — 직접 고치지 않음',
       ],
       ['│  └─ src/rows.ts', 'IA 줄 + 작업 기록 → 목록 줄'],
-      ['├─ temp/', '시안 PNG (가이드 · 컴포넌트 · 페이지) — 측정용'],
       [
         '└─ pnpm-workspace.yaml · package.json',
         '루트 스크립트: pnpm dev · screens · storybook · build',
