@@ -38,9 +38,11 @@ packages/design-system/src/
   docs/patterns/*.mdx           ← 패턴별 가이드 (Storybook `Patterns/P01 Search → Result` …)
 
 apps/<앱>/src/
-  pages/<1depth>/<2depth>/      ← 화면 = 패턴 템플릿 조립 + API 연결
+  features/<1depth>/            ← 1depth별 기능 폴더 (2026-11-15 변경, 기존 pages · api · types 계층 분리 대체)
+    <1depth>.routes.tsx · <이름>.api.ts · <이름>.types.ts   ← 파일 = 1depth 공용
+    <2depth>/                   ← 화면 = 패턴 템플릿 조립 + API 연결
   components/popups/            ← 업무 Lookup · 설정 팝업 (예: BusinessLookupModal)
-  api/ · types/                 ← 화면별 API · 타입 (기존 구조 유지)
+  api/                          ← 여러 1depth가 같이 쓰는 API · 타입 (<이름>.api.ts · <이름>.types.ts)
 ```
 
 - 디자인 시스템 `patterns/`는 세 앱이 공유. 업무 문구 · API · 권한 판단은 앱에.

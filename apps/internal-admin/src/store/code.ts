@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { fetchCodes } from '@/api/common/code';
+import { fetchCodes } from '@/api/code.api';
 import { CODE_FALLBACK, type CodeGroup } from '@/constants/codes';
 import type { Option } from '@/constants/options';
 

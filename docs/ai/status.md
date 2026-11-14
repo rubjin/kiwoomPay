@@ -29,7 +29,7 @@
 | 아이콘 소스 포맷 | Figma에서 SVG 내보내기(`Name=<이름>, Size=<크기>.svg`) → `scripts/build-icons.mjs`가 React 데이터(`icons.generated.tsx`)로 변환. svgr 대신 자체 스크립트(의존성 없음). 선 아이콘은 `currentColor`, 상태 아이콘만 토큰 색 | 2026-11-10 |
 | Chart 라이브러리 | Recharts (React 친화·SVG·백오피스 차트 종류 충분). Phase 4에서 도입 | 2026-11-10 |
 | DatePicker 외부 라이브러리 | **캘린더는 IBSheet 캘린더**(그리드 셀 · 검색 영역 날짜 필드 모두). DateField · DateRangeField는 그대로 두고 `CalendarProvider`(어댑터)로 외부 달력을 연결. 어댑터가 없으면 직접 구현한 DatePicker로 동작(Storybook · IBSheet 연결 전). 기존 "사용 안 함" 대체 | 2026-11-11 |
-| 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`), 폴더는 `directory-structure.md`. **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
+| 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`). **폴더는 1depth 단위 기능별 구조**(`src/features/<1depth>/` 바로 아래 **폴더 = 화면(2depth), 파일 = 1depth 공용**(`<1depth>.routes.tsx` · `<이름>.api.ts` · `<이름>.types.ts` · `<1depth>.options.ts`), 공통은 `api`(여러 1depth 공용 `<이름>.api.ts` · `.types.ts`) · `components` · `constants` · `hooks` · `store` · `utils`; 기능 폴더끼리 가져다 쓰지 않음 — 2026-11-15 사용자 결정, 기존 `directory-structure.md` 계층 분리 대체). **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
 | 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. Table/Grid 컴포넌트는 만들지 않고 디자인 시스템은 영역 · 여백 · 테마(토큰 색 · 글자)만 다룸. 검색 영역 날짜 필드도 IBSheet 캘린더(어댑터) | 2026-11-11 |
 | 페이지 패턴 | 디자인 시스템 `src/patterns/`에 패턴 템플릿 · 흐름 훅(fetch 없음). 성공/실패 안내는 Alert(Modal)로 통일, Toast 없음. 조회 화면은 최초 진입 시 조회하지 않음. 미저장 이탈 확인은 Work Tab 닫기 · 브라우저 닫기. 조회 전용 값은 텍스트. 시안 없는 신규 UI는 기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값. 상세는 `docs/ai/page-patterns-plan.md` | 2026-11-12 |
@@ -871,3 +871,15 @@
 - 컨벤션 페이지: 판단 "완료" 추가(필요 6개 → 완료), 규칙 추가(세로 묶음 · 숫자 · 빈 값 표기 · 전체 선택 · api/mock), 폴더 트리 갱신
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 typecheck · build, 개발 서버 모듈 반영 확인. 브라우저 픽셀 비교는 하지 않음(Stack은 같은 flex column + gap에 min-width 0만 추가)
 - 이어서(같은 날, 사용자 요청): 컨벤션 폴더 구조 트리를 파일 단위 설명으로 — "내부관리자 앱 · 공통 파일"(pages 밖 파일 전부) · "내부관리자 앱 · 화면 파일"(만든 화면 6개 · patterns · error 파일 전부, 화면ID · 패턴 표시)로 교체(기존 앱 트리 · 화면 폴더 예시 대체), 디자인 시스템 트리 components 설명에 ControlGroup · Stack. 파일을 추가 · 이동하면 `conventionsTree.ts`도 같이 고친다
+
+### 앱 폴더 구조: 계층별 → 1depth 기능별 — 2026-11-15
+- 결정(사용자): `pages/<1depth>` · `api/<1depth>` · `types/<1depth>` · `router/modules/<1depth>.routes.tsx`를 `src/features/<1depth>/`(`<1depth>.routes.tsx` · `api/` · `types/` · `<2depth>/` 화면) 한 폴더로. `develop` 브랜치에서 작업
+- 이동은 `git mv`(이력 유지) · import 경로만 변경, 코드 내용 그대로. `pages/error` → `features/error`, `pages/patterns` → `features/patterns`(patterns.routes 포함)
+- 의존 방향: 기능 폴더끼리 import 없음, 공통 → 기능은 `router/index.tsx`(라우트 조립)만. 예외: 개발 전용 팝업 모음(PopupsPage). 공통 `constants/options/transaction.ts`(조회기준일)는 거래내역만 써서 `features/transaction/constants/options.ts`로 이동 — 한 1depth 전용 상수는 `features/<1depth>/constants/`
+- 백엔드 영향 없음: 빌드 산출물(app.js · app.css · chunks 이름) · 셸 JSP · 라우트 URL · API 주소 그대로. `jsp-integration.md` · `page-patterns-plan.md` 경로만 수정
+- 컨벤션 페이지: 기능 폴더 · 기능 폴더끼리 규칙 추가, 화면 · API · 라우트 · 선택지 규칙 경로 변경, 폴더 트리(공통 파일 · 기능 폴더) 다시 작성
+- 검증: 앱 typecheck · build(화면 chunk 이름 그대로), 개발 서버 새 경로 응답 200
+- 참고: Windows에서 개발 서버가 폴더를 잡고 있어 폴더째 이동이 실패하는 경우가 있음 → 파일 단위 `git mv`. 옛 `src/pages/` · `src/router/modules/` 빈 폴더가 디스크에 남을 수 있음(git에는 없음)
+- 이어서(같은 날, 사용자 요청 "폴더가 복잡하지 않게"): 기능 폴더 안 `api/` · `types/` · `constants/` 폴더 없앰 → `<이름>.api.ts` · `<이름>.types.ts` · `<1depth>.options.ts` 파일(21개 `git mv`, 빈 자리표시 `.gitkeep` 20개 삭제). 규칙: 기능 폴더 바로 아래 폴더 = 화면, 파일 = 1depth 공용. 공통 `api/common` · `types/common`은 그대로. 컨벤션 · 트리 · page-patterns-plan 반영. 검증: typecheck · build
+- `apps/` 폴더 없애기 검토(사용자 요청): 보류 — 루트가 앱 3개 + 화면 목록 + 디자인 시스템으로 붐비고, 줄어드는 깊이는 1단계뿐(실제 깊이는 src 안). 영향: `pnpm-workspace.yaml` · 두 앱 `vite.config.ts`의 `../../packages` 경로 · lockfile 재설치 · 문서 경로. 결정 대기
+- 이어서(같은 날): 폴더 정리 — 공통 `api/common/*` · `types/common/*` → `src/api/<이름>.api.ts` · `.types.ts`(기능 폴더와 같은 규칙, `src/types/` 없음), 파일이 있는 폴더의 `.gitkeep` 4개 · 빈 `components/search/` 삭제, 빈 폴더(`src/pages/` · `src/router/modules/` · `features/transaction/constants/`) 정리. src 바로 아래: app · router · layouts · features · api · components · constants · hooks · store · utils (+ assets). 컨벤션에 "공통 폴더" · "빈 폴더 · .gitkeep" 규칙 추가

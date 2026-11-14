@@ -15,8 +15,8 @@ import {
   Stack,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
-import { fetchBizCpids, searchBusinesses } from '@/api/common/bizLookup';
-import type { BizCpid, BizLookupResult, BizRow } from '@/types/common/bizLookup';
+import { fetchBizCpids, searchBusinesses } from '@/api/bizLookup.api';
+import type { BizCpid, BizLookupResult, BizRow } from '@/api/bizLookup.types';
 import { formatCount } from '@/utils/format';
 
 const PAGE_SIZE = 10;

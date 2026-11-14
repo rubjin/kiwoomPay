@@ -1,20 +1,20 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout/MainLayout';
-import { NotFoundPage } from '@/pages/error/NotFoundPage';
+import { NotFoundPage } from '@/features/error/NotFoundPage';
 import { MENU } from '@/constants/menu';
 import { RequireAuth } from './RequireAuth';
 import { useDocumentTitle } from './useDocumentTitle';
-import { addonRoutes } from './modules/addon.routes';
-import { authRoutes } from './modules/auth.routes';
-import { mainRoutes } from './modules/main.routes';
-import { mypageRoutes } from './modules/mypage.routes';
-import { operationRoutes } from './modules/operation.routes';
-import { conventionRoutes, patternRoutes } from './modules/patterns.routes';
-import { rmRoutes } from './modules/rm.routes';
-import { settlementRoutes } from './modules/settlement.routes';
-import { statisticsRoutes } from './modules/statistics.routes';
-import { systemRoutes } from './modules/system.routes';
-import { transactionRoutes } from './modules/transaction.routes';
+import { addonRoutes } from '@/features/addon/addon.routes';
+import { authRoutes } from '@/features/auth/auth.routes';
+import { mainRoutes } from '@/features/main/main.routes';
+import { mypageRoutes } from '@/features/mypage/mypage.routes';
+import { operationRoutes } from '@/features/operation/operation.routes';
+import { conventionRoutes, patternRoutes } from '@/features/patterns/patterns.routes';
+import { rmRoutes } from '@/features/rm/rm.routes';
+import { settlementRoutes } from '@/features/settlement/settlement.routes';
+import { statisticsRoutes } from '@/features/statistics/statistics.routes';
+import { systemRoutes } from '@/features/system/system.routes';
+import { transactionRoutes } from '@/features/transaction/transaction.routes';
 
 /** 루트 Routes: 레이아웃 + 1depth 모듈 라우트 조립 */
 export function AppRoutes() {

@@ -111,7 +111,7 @@ public class SpaController {
 ```
 
 - 정적 파일 핸들러(`/static/**`)와 API 컨트롤러(`/api/**`)가 먼저 매칭되도록 둔다.
-- 없는 화면 URL도 셸이 열리고, React가 404 화면(`pages/error/NotFoundPage`)을 그린다.
+- 없는 화면 URL도 셸이 열리고, React가 404 화면(`features/error/NotFoundPage`)을 그린다.
 - 로그인 여부는 React(`RequireAuth`)와 API(401)가 처리한다. 서버 세션 기반으로 바꾸면 이 컨트롤러에서 로그인 페이지로 redirect해도 된다.
 
 ## 5. React 진입 (`apps/internal-admin/src/app/main.tsx`)
@@ -124,7 +124,7 @@ import { App } from './App'; // <BrowserRouter basename={config.basename}> + App
 createRoot(document.getElementById('root')!).render(<App />);
 ```
 
-라우트 구조는 `directory-structure.md`(1depth별 `router/modules/*.routes.tsx`, `React.lazy` 코드 스플리팅)를 따른다.
+라우트 구조는 1depth별 기능 폴더의 `features/<1depth>/<1depth>.routes.tsx`(`React.lazy` 코드 스플리팅)를 `router/index.tsx`가 모아 조립한다. 폴더 구조를 바꿔도 빌드 산출물(`app.js` · `app.css` · `chunks/*`)과 셸 JSP는 그대로다.
 
 ## 6. 개발 중
 
