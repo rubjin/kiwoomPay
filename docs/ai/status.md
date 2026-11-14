@@ -850,3 +850,11 @@
 - 팝업 모음 · 화면 목록(KWPC06010209 · 10)
 - 검증: 앱 tsc, 브라우저: ID 클릭 → 상세 1280, 상태(검증대기)별 버튼(보류만 활성), 요약 5칸, 산출 근거 9줄 · 비고 입력 → 저장 안내, 거래 탭 10행 · Total 830 · 2페이지, [지급보류] → 지급보류 팝업 1건(상세 위), 연필 → 지급예정일 일괄 변경, 에러 없음
 - 한 가정: Q70
+
+### 개발 컨벤션 페이지 (개발 서버 전용, 임의 작업) — 2026-11-14
+- 내부관리자 앱 `pages/patterns/ConventionsPage`(`/patterns/conventions`, 탭 제목 "개발 컨벤션"): 확정 결정(status · brief · page-patterns-plan)에서 화면 개발 규칙만 모아 그룹별 표(항목 · 규칙 · 예시)로 — 폴더 · 파일 배치, 이름, 스타일 · 간격, 팝업, 화면 흐름, 임의 작업 · 기록, 커밋
+- 규칙: 확정 결정이 바뀌면 status.md를 먼저 고치고 `ConventionsPage.tsx`의 `CONVENTIONS`도 같이 고친다
+- 이어서(같은 날, 사용자 요청): Header · LNB · Work Tab 없이 단독 화면 — 라우트를 MainLayout 밖으로(`conventionRoutes`, `router/index.tsx`), 페이지가 슬롯 없는 `PageLayout`으로 감쌈. 폴더 구조 트리 4개(저장소 전체 · 디자인 시스템 · 내부관리자 앱 · 화면 폴더 예시, 줄마다 파일 · 폴더 설명) 추가 — 데이터 `pages/patterns/conventionsTree.ts`(폴더를 옮기면 같이 고친다)
+- 이어서(같은 날, 사용자 요청): 화면이 길어 Infobox 아래 라인 탭(`Tab`)으로 한 묶음씩 표시 — 폴더 구조(트리 4개) · 폴더 · 파일 배치 · 이름 · 스타일 · 간격 · 팝업 · 화면 흐름 · 임의 작업 · 기록 · 커밋(8탭, 첫 탭 폴더 구조)
+- 화면 목록(`apps/screen-list/src/screens.ts`) 맨 위 줄(1depth "컨벤션")
+- 검증: 앱 · 화면 목록 typecheck, 개발 서버 모듈 변환 확인

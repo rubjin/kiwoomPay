@@ -9,7 +9,7 @@ import { authRoutes } from './modules/auth.routes';
 import { mainRoutes } from './modules/main.routes';
 import { mypageRoutes } from './modules/mypage.routes';
 import { operationRoutes } from './modules/operation.routes';
-import { patternRoutes } from './modules/patterns.routes';
+import { conventionRoutes, patternRoutes } from './modules/patterns.routes';
 import { rmRoutes } from './modules/rm.routes';
 import { settlementRoutes } from './modules/settlement.routes';
 import { statisticsRoutes } from './modules/statistics.routes';
@@ -22,6 +22,7 @@ export function AppRoutes() {
   return (
     <Routes>
       {authRoutes}
+      {conventionRoutes}
       <Route
         element={
           <RequireAuth>

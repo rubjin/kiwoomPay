@@ -31,6 +31,7 @@ export const SCREENS: readonly ScreenInfo[] = [
   // 레이아웃 패턴 템플릿 (화면 목록에서 연다). 개발 서버에서만 — router/modules/patterns.routes.tsx
   ...(import.meta.env.DEV
     ? [
+        { id: 'CONVENTIONS', name: '개발 컨벤션', path: '/patterns/conventions' },
         { id: 'P00', name: 'Layout', path: '/patterns/layout' },
         { id: 'P01', name: 'P01', path: '/patterns/search-result' },
         { id: 'P02', name: 'P02', path: '/patterns/record-form' },

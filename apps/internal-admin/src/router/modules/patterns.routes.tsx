@@ -2,6 +2,7 @@ import { Navigate, Route } from 'react-router-dom';
 import { lazyPage } from '../lazy';
 
 // 레이아웃 패턴 템플릿 (화면 확인용, 임의 작업). 메뉴에는 없고 화면 목록(apps/screen-list)에서 연다
+//   개발 컨벤션 (폴더 구조 · 규칙) → pages/patterns/ConventionsPage — MainLayout 밖(Header · LNB · Work Tab 없음), conventionRoutes
 //   P00 Layout (Header · LNB · Work Tab · 타이틀) → pages/patterns/P00LayoutPage
 //   P01 Search → Result → pages/patterns/P01SearchResultPage
 //   P02 Record → Form → pages/patterns/P02RecordFormPage
@@ -45,3 +46,14 @@ function createPatternRoutes() {
 }
 
 export const patternRoutes = import.meta.env.DEV ? createPatternRoutes() : null;
+
+function createConventionRoutes() {
+  const ConventionsPage = lazyPage(
+    () => import('@/pages/patterns/ConventionsPage'),
+    'ConventionsPage',
+  );
+  return <Route path="patterns/conventions" element={<ConventionsPage />} />;
+}
+
+/** 개발 컨벤션: App Shell 없이 단독 화면이라 MainLayout 밖에 둔다 (router/index.tsx) */
+export const conventionRoutes = import.meta.env.DEV ? createConventionRoutes() : null;
