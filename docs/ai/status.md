@@ -870,3 +870,4 @@
 - 앱: `api/mock.ts`(`wait` · `paginate`) — api 11개 파일의 `wait` · 페이지 자르기 3곳 교체 / `utils/format.ts`(`formatNumber` · `formatWon` · `formatCount` · `orDash`) — `won` · `dash` · `count` · `toLocaleString` 직접 사용 전부 교체(패턴 페이지 포함) / `ledgerStatus.ts` `LEDGER_STATUS_TONE`(정산 목록 · 상세 공용) / `components/common/SelectAllCheckbox` + `utils/selection` `toggleKey`(CpidBasicPanel · ContactTable) / 인라인 세로 묶음 16곳 → `Stack`(값 그대로)
 - 컨벤션 페이지: 판단 "완료" 추가(필요 6개 → 완료), 규칙 추가(세로 묶음 · 숫자 · 빈 값 표기 · 전체 선택 · api/mock), 폴더 트리 갱신
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 typecheck · build, 개발 서버 모듈 반영 확인. 브라우저 픽셀 비교는 하지 않음(Stack은 같은 flex column + gap에 min-width 0만 추가)
+- 이어서(같은 날, 사용자 요청): 컨벤션 폴더 구조 트리를 파일 단위 설명으로 — "내부관리자 앱 · 공통 파일"(pages 밖 파일 전부) · "내부관리자 앱 · 화면 파일"(만든 화면 6개 · patterns · error 파일 전부, 화면ID · 패턴 표시)로 교체(기존 앱 트리 · 화면 폴더 예시 대체), 디자인 시스템 트리 components 설명에 ControlGroup · Stack. 파일을 추가 · 이동하면 `conventionsTree.ts`도 같이 고친다
