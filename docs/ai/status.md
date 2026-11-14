@@ -883,3 +883,8 @@
 - 이어서(같은 날, 사용자 요청 "폴더가 복잡하지 않게"): 기능 폴더 안 `api/` · `types/` · `constants/` 폴더 없앰 → `<이름>.api.ts` · `<이름>.types.ts` · `<1depth>.options.ts` 파일(21개 `git mv`, 빈 자리표시 `.gitkeep` 20개 삭제). 규칙: 기능 폴더 바로 아래 폴더 = 화면, 파일 = 1depth 공용. 공통 `api/common` · `types/common`은 그대로. 컨벤션 · 트리 · page-patterns-plan 반영. 검증: typecheck · build
 - `apps/` 폴더 없애기 검토(사용자 요청): 보류 — 루트가 앱 3개 + 화면 목록 + 디자인 시스템으로 붐비고, 줄어드는 깊이는 1단계뿐(실제 깊이는 src 안). 영향: `pnpm-workspace.yaml` · 두 앱 `vite.config.ts`의 `../../packages` 경로 · lockfile 재설치 · 문서 경로. 결정 대기
 - 이어서(같은 날): 폴더 정리 — 공통 `api/common/*` · `types/common/*` → `src/api/<이름>.api.ts` · `.types.ts`(기능 폴더와 같은 규칙, `src/types/` 없음), 파일이 있는 폴더의 `.gitkeep` 4개 · 빈 `components/search/` 삭제, 빈 폴더(`src/pages/` · `src/router/modules/` · `features/transaction/constants/`) 정리. src 바로 아래: app · router · layouts · features · api · components · constants · hooks · store · utils (+ assets). 컨벤션에 "공통 폴더" · "빈 폴더 · .gitkeep" 규칙 추가
+
+### Radio 선택 점 찌그러짐 수정 — 2026-11-15
+- 증상: 브라우저 창 폭을 바꿀 때 선택 점이 살짝 찌그러짐(통합 거래내역 취소 구분 등). 원인: 점을 `::after`로 따로 그려, 라디오가 소수점 좌표에 놓이면 바깥 원과 점이 따로 반올림됨
+- 수정: 점 요소 없이 원 하나에 선택색 배경 + 안쪽 링(`inset box-shadow`, 두께 = (원 − 테두리 × 2 − 점) / 2)으로 그림. 크기 · 색은 그대로(md 원 20 · 점 10 · 선택 테두리 2, sm 16 · 8, 비활성 선택 테두리 1). 크기는 CSS 변수 `--radio-size` · `--radio-dot` · `--radio-border`
+- 검증: stylelint · 디자인 시스템 build. 브라우저 확인은 사용자
