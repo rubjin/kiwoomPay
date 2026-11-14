@@ -1,5 +1,13 @@
-import { FormTable, Infobox, PageLayout, Tab } from '@kiwoompay/design-system';
+import {
+  Badge,
+  FormTable,
+  Infobox,
+  PageLayout,
+  Tab,
+  type BadgeTone,
+} from '@kiwoompay/design-system';
 import { useState, type CSSProperties } from 'react';
+import { LOCAL_PARTS, type LocalVerdict } from './conventionsLocal';
 import { FOLDER_TREES, treeText } from './conventionsTree';
 
 /** 규칙 한 줄: 항목 · 규칙 · 예시(파일 · 코드) */
@@ -243,14 +251,23 @@ const TREE_STYLE: CSSProperties = {
   border: '1px solid var(--kp-color-line-default)',
 };
 
+const LOCAL_COLUMNS = '200px minmax(0, 0.9fr) minmax(0, 0.8fr) 72px minmax(0, 1fr)';
+const VERDICT_TONE: Record<LocalVerdict, BadgeTone> = {
+  필요: 'error',
+  후보: 'warning',
+  유지: 'neutral',
+};
+
+// 화면이 길어 라인 탭으로 한 묶음씩 보여 준다: 폴더 구조(트리 4개) + 규칙 묶음마다 한 탭 + 화면 전용 부품
+const TREE_TAB = '폴더 구조';
+const LOCAL_TAB = '화면 전용 부품';
+
 /**
  * 개발 컨벤션 (화면 확인용, 임의 작업 — 시안 없음). 화면 목록 맨 위에서 연다.
  * Header · LNB · Work Tab 없이 단독 화면(router/index.tsx에서 MainLayout 밖).
  * 폴더 구조 트리 + 새 화면을 만들 때 지킬 파일 배치 · 이름 · 스타일 · 팝업 · 흐름 · 기록 · 커밋 규칙
+ * + 컴포넌트로 만들지 않고 한 화면에서만 쓰는 부품 목록
  */
-// 화면이 길어 라인 탭으로 한 묶음씩 보여 준다: 폴더 구조(트리 4개) + 규칙 묶음마다 한 탭
-const TREE_TAB = '폴더 구조';
-
 export function ConventionsPage() {
   const [tab, setTab] = useState(TREE_TAB);
   const group = CONVENTIONS.find((g) => g.title === tab);
@@ -274,6 +291,7 @@ export function ConventionsPage() {
             {g.title}
           </Tab.Item>
         ))}
+        <Tab.Item value={LOCAL_TAB}>{LOCAL_TAB}</Tab.Item>
       </Tab>
 
       {tab === TREE_TAB &&
@@ -303,6 +321,44 @@ export function ConventionsPage() {
             ))}
           </FormTable>
         </PageLayout.Section>
+      )}
+
+      {tab === LOCAL_TAB && (
+        <>
+          <Infobox>
+            <Infobox.Item title="판단">
+              필요 — 이미 여러 곳에 같은 코드가 있어 공통으로 올린다 · 후보 — 두 번째 사용처가
+              생기면 올린다 · 유지 — 그 화면 전용으로 둔다. 화면을 만들다 여기 있는 모양이 다시
+              나오면 새로 만들지 말고 공통으로 올린 뒤 쓴다.
+            </Infobox.Item>
+          </Infobox>
+          {LOCAL_PARTS.map((g) => (
+            <PageLayout.Section key={g.title} title={`${LOCAL_TAB} · ${g.title}`}>
+              <FormTable template={LOCAL_COLUMNS}>
+                <FormTable.Row>
+                  <FormTable.Head>이름</FormTable.Head>
+                  <FormTable.Head>위치 (pages/ 기준)</FormTable.Head>
+                  <FormTable.Head>하는 일</FormTable.Head>
+                  <FormTable.Head>판단</FormTable.Head>
+                  <FormTable.Head>올린다면</FormTable.Head>
+                </FormTable.Row>
+                {g.parts.map((p) => (
+                  <FormTable.Row key={p.name}>
+                    <FormTable.Label>{p.name}</FormTable.Label>
+                    <FormTable.Cell>{p.where}</FormTable.Cell>
+                    <FormTable.Cell>{p.role}</FormTable.Cell>
+                    <FormTable.Cell center>
+                      <Badge size="sm" tone={VERDICT_TONE[p.verdict]}>
+                        {p.verdict}
+                      </Badge>
+                    </FormTable.Cell>
+                    <FormTable.Cell>{p.plan ?? '-'}</FormTable.Cell>
+                  </FormTable.Row>
+                ))}
+              </FormTable>
+            </PageLayout.Section>
+          ))}
+        </>
       )}
     </PageLayout>
   );

@@ -858,3 +858,9 @@
 - 이어서(같은 날, 사용자 요청): 화면이 길어 Infobox 아래 라인 탭(`Tab`)으로 한 묶음씩 표시 — 폴더 구조(트리 4개) · 폴더 · 파일 배치 · 이름 · 스타일 · 간격 · 팝업 · 화면 흐름 · 임의 작업 · 기록 · 커밋(8탭, 첫 탭 폴더 구조)
 - 화면 목록(`apps/screen-list/src/screens.ts`) 맨 위 줄(1depth "컨벤션")
 - 검증: 앱 · 화면 목록 typecheck, 개발 서버 모듈 변환 확인
+
+### 공통화 점검 · 화면 전용 부품 목록 — 2026-11-14
+- 점검(내부관리자 앱, patterns 제외): 잘 된 것 — 목록 API는 디자인 시스템 `SearchRequest` · `SearchResultPage`, 조회 흐름 `useSearchResult`(4화면) · 찾기 `useLookup` · 처리 `useAction`(8곳), 선택지 `Option` + `useCodeOptions`, 화면 폴더 배치 규칙 일치
+- 중복(공통화 필요): API 예시 지연 `wait` 11개 파일, 페이지 자르기 3곳, 금액 · 빈 값 · 건수 표기(`won` · `dash` · `count`) 7개 파일, 원장 상태 색 `STATUS_TONE` 2곳, 전체 선택 체크 로직 2곳(CpidBasicPanel · ContactTable), 세로 묶음 인라인 스타일(flex column + gap) 16곳 — 세로 묶음 컴포넌트 없음(디자인 시스템 Stack 제안)
+- 개별 confirm/alert 직접 호출 5곳(다운로드 센터 · 가맹점 기본정보 · 취소 바 · 내 검색조건 · 즐겨찾기) — `useAction` 이관 여부는 기존 열린 결정
+- 개발 컨벤션 페이지에 "화면 전용 부품" 탭 추가(`pages/patterns/conventionsLocal.ts`): 이름 · 위치 · 하는 일 · 판단(필요 · 후보 · 유지) · 올린다면. 코드는 아직 고치지 않음
