@@ -151,7 +151,7 @@ $search-area-item-gap: t.$space-16; // 검색 필드 간격
 | 형태가 다른 묶음 사이 (예: 이력조회 ↔ [추가][삭제])                             | 16   | 제목 줄 오른쪽 기본 간격(FormSection) · 묶음 안은 `ControlGroup` 8 |
 | 버튼 세트 + 버튼 세트 (예: [정보일괄변경][키움저축계좌통지] ↔ [새로고침][저장]) | 16   | `<ControlGroup spacing="lg">` 안에 세트마다 `<ControlGroup>`       |
 
-간격을 인라인 스타일(`style={{ display: 'flex', gap }}`)로 만들지 않는다 — 세트는 항상 `ControlGroup`.
+간격을 인라인 스타일(`style={{ display: 'flex', gap }}`)로 만들지 않는다 — 가로 세트는 항상 `ControlGroup`, 위아래로 쌓는 묶음(팝업 본문 영역 · 소제목 + 표)은 `Stack`(`gap` 0 · 4 · 8 · 12 · 16(기본) · 24, `as` div · section · span).
 
 ```tsx
 <SectionHeading

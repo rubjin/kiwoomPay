@@ -1,0 +1,32 @@
+@use 'tokens' as t;
+
+// 세로 묶음 — 사이 간격은 Spacing Scale만 (Spacing 가이드 3-1)
+.stack {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.gap0 {
+  gap: 0;
+}
+
+.gap4 {
+  gap: t.$space-4;
+}
+
+.gap8 {
+  gap: t.$space-8;
+}
+
+.gap12 {
+  gap: t.$space-12;
+}
+
+.gap16 {
+  gap: t.$space-16;
+}
+
+.gap24 {
+  gap: t.$space-24;
+}
