@@ -1,7 +1,7 @@
 // 작업 기록. 화면 목록의 줄 자체는 IA(구글 시트 → src/ia/*.generated.ts)에서 오고,
 // 여기 적은 작업(경로 · 상태 · 임의 작업 메모)이 같은 화면ID의 IA 줄에 붙는다 (rows.ts).
 // 화면을 만들거나 고치면 IA 화면ID(12자리)로 한 줄 추가 · 갱신한다. 팝업은 팝업 모음 링크(/patterns/popups?open=<버튼 키>)로 둔다.
-// IA에 없는 줄(레이아웃 · 패턴 템플릿 · 팝업 모음)은 depth · 화면타입을 여기 적은 값으로 목록 맨 위에 보인다.
+// IA에 없는 줄(컨벤션 · 레이아웃 · 패턴 템플릿 · 팝업 모음)은 depth · 화면타입을 여기 적은 값으로 목록 맨 위에 보인다.
 
 export type SystemId = 'internal' | 'merchant' | 'agency';
 
@@ -54,7 +54,22 @@ export interface ScreenInfo {
 const PLAN = 'IA v0.7 (26-11-03)';
 
 export const SCREENS: ScreenInfo[] = [
-  // 기본 레이아웃 — 목록 맨 위
+  // 개발 컨벤션 — 목록 맨 위. 새 화면을 만들기 전에 먼저 본다
+  {
+    system: 'internal',
+    id: 'CONVENTIONS',
+    depth1: '컨벤션',
+    depth2: '개발 컨벤션',
+    depth3: '',
+    name: '개발 컨벤션 (파일 배치 · 이름 · 스타일 · 팝업 · 흐름 · 기록 · 커밋)',
+    path: '/patterns/conventions',
+    type: '기타',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-14',
+    tempWork: '개발 서버 전용 · 확정 결정(docs/ai/status.md)에서 화면 개발 규칙만 모은 페이지',
+  },
+  // 기본 레이아웃
   {
     system: 'internal',
     id: 'LAYOUT',
