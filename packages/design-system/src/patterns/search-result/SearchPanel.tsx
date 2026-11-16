@@ -12,6 +12,8 @@ export interface SearchPanelProps extends Omit<
 > {
   /** 제목 (기본 '검색 조건') */
   title?: ReactNode;
+  /** 제목 옆 설명 (12 Regular, 제목 ↔ 설명 12 — Figma 로그인 이력 "기본 조회기간은 …") */
+  description?: ReactNode;
   /** [조회] · Enter */
   onSearch?: () => void;
   /** 새로고침 아이콘 버튼 (초기화). 없으면 버튼을 그리지 않는다 */
@@ -53,6 +55,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
   (
     {
       title = '검색 조건',
+      description,
       onSearch,
       onReset,
       loading = false,
@@ -130,7 +133,9 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
           className={clsx(styles.searchPanel, styles.searchBoxPanel, className)}
           onSubmit={handleSubmit}
         >
-          {title !== null && <SectionHeading size="md" as="h3" title={title} />}
+          {title !== null && (
+            <SectionHeading size="md" as="h3" title={title} description={description} />
+          )}
           <div className={styles.searchBox}>
             <div className={styles.fieldRow}>
               {children}
@@ -155,6 +160,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
             className={clsx(styles.searchHeader, inline && styles.searchHeaderInline)}
             size={inline ? 'md' : 'lg'}
             title={title}
+            description={description}
             addon={
               inline ? undefined : (
                 <button

@@ -1,0 +1,21 @@
+{
+  "InfoStrip": {
+    "Bg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "현재 상태 요약 상자 (Figma 마이페이지 계정 상태 이력, Neutral 50)"
+    },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Subtle}"
+    },
+    "Label": {
+      "$type": "color",
+      "$value": "{Text.Label}"
+    },
+    "Value": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    }
+  }
+}

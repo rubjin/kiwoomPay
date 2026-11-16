@@ -1,0 +1,43 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma 마이페이지 계정 상태 이력 "현재 계정 상태"(28960:84316)
+$strip-padding: t.$space-16;
+$strip-item-gap: 60px; // 쌍 사이
+$strip-label-gap: t.$space-12; // 이름 ↔ 값
+$strip-row-height: 24px; // 줄 높이 (Badge 24 기준)
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $strip-label-gap $strip-item-gap;
+  align-items: center;
+  justify-content: center;
+  padding: $strip-padding; // 테두리 안쪽 16 (Figma 높이 58 = 16 + 24 + 16 + 테두리)
+  margin: 0;
+  background-color: t.$color-info-strip-bg;
+  border: t.$control-border-width solid t.$color-info-strip-border;
+  border-radius: t.$control-radius-lg;
+}
+
+.item {
+  display: flex;
+  gap: $strip-label-gap;
+  align-items: center;
+  min-height: $strip-row-height;
+}
+
+.label {
+  @include m.typography(typo-13-bold);
+
+  color: t.$color-info-strip-label;
+}
+
+.value {
+  @include m.typography(typo-14-regular);
+
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: t.$color-info-strip-value;
+}

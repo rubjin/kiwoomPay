@@ -18,3 +18,5 @@ export { NoticePanel } from './NoticePanel';
 export type { NoticePanelProps } from './NoticePanel';
 export { InlineFeedback } from './InlineFeedback';
 export type { InlineFeedbackProps, InlineFeedbackTone } from './InlineFeedback';
+export { InfoStrip } from './InfoStrip';
+export type { InfoStripItem, InfoStripProps } from './InfoStrip';
