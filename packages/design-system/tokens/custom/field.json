@@ -88,6 +88,11 @@
       "$type": "color",
       "$value": "{Text.Accent}"
     },
+    "RequiredText": {
+      "$type": "color",
+      "$value": "{Status.Error.Border}",
+      "$description": "필수 글자 표시 (required=\"text\")"
+    },
     "Helper": {
       "$type": "color",
       "$value": "{Text.Secondary}"

@@ -15,6 +15,8 @@ export interface SectionHeadingProps extends Omit<HTMLAttributes<HTMLDivElement>
   as?: 'h1' | 'h2' | 'h3' | 'h4';
   /** 제목 앞 작은 이름 (10 Regular, 예: 선택 CPID) */
   label?: ReactNode;
+  /** 제목 앞 단계 번호 (Primary 원 20 · 12 SemiBold, 제목과 4 — Figma 메뉴 권한 신청 ① ②) */
+  step?: ReactNode;
   /** 제목 옆 설명 (12 Regular, 제목과 12) */
   description?: ReactNode;
   /** 제목 바로 옆 (접기 아이콘 · 표시항목설정 버튼 · Badge) */
@@ -41,6 +43,7 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
       subtle = false,
       as: Tag = 'h2',
       label,
+      step,
       description,
       addon,
       actions,
@@ -66,10 +69,21 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
         <div className={styles.main}>
           <div className={styles.line}>
             {label !== undefined && <span className={styles.label}>{label}</span>}
-            {title !== undefined && (
-              <Tag className={clsx(styles.title, styles[size], subtle && styles.subtle)}>
-                {title}
-              </Tag>
+            {step !== undefined ? (
+              <span className={styles.stepGroup}>
+                <span className={styles.step} aria-hidden>
+                  {step}
+                </span>
+                <Tag className={clsx(styles.title, styles[size], subtle && styles.subtle)}>
+                  {title}
+                </Tag>
+              </span>
+            ) : (
+              title !== undefined && (
+                <Tag className={clsx(styles.title, styles[size], subtle && styles.subtle)}>
+                  {title}
+                </Tag>
+              )
             )}
             {description && <p className={styles.description}>{description}</p>}
             {addon}

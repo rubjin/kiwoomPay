@@ -28,6 +28,13 @@ import {
   type DemoCondition,
 } from './configDemoData';
 import { useConfigDraft } from './useConfigDraft';
+import { Badge } from '../../components/Badge';
+import {
+  SelectedOptionList,
+  TreeOptionTable,
+  treeGroupIds,
+  type TreeOptionNode,
+} from './TreeOptionTable';
 
 const meta = {
   title: 'Patterns/P07 Selection Configuration',
@@ -520,6 +527,92 @@ export const SavedConditionsEmpty: Story = {
         </Button>
         <SavedConditionModal open={open} onClose={() => setOpen(false)} initial={[]} />
       </>
+    );
+  },
+};
+
+const MENU_TREE: TreeOptionNode[] = [
+  {
+    id: 'settlement',
+    label: '정산내역',
+    children: [
+      {
+        id: 'merchant',
+        label: '가맹점 정산 관리',
+        children: [
+          {
+            id: 'total',
+            label: '통합 정산 내역',
+            current: ['조회'],
+            options: [
+              { value: 'PROCESS', label: '처리' },
+              { value: 'DOWNLOAD', label: '다운로드' },
+            ],
+          },
+          {
+            id: 'execute',
+            label: '가맹점 정산 실행/처리',
+            current: ['조회'],
+            options: [
+              {
+                value: 'PROCESS',
+                label: '처리',
+                disabled: true,
+                addon: (
+                  <Badge size="sm" tone="warning">
+                    승인대기
+                  </Badge>
+                ),
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+/** 메뉴 권한 신청 (Figma KWPC02020002): 트리 + 항목 선택(TreeOptionTable) · 고른 항목 확인(SelectedOptionList). 단계 번호는 SectionHeading step */
+export const MenuPermission: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [expanded, setExpanded] = useState(treeGroupIds(MENU_TREE));
+    const [value, setValue] = useState<Record<string, string[]>>({ total: ['PROCESS'] });
+    const count = Object.values(value).reduce((n, v) => n + v.length, 0);
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 436px', gap: 16, padding: 24 }}>
+        <div style={{ display: 'grid', gap: 16, alignContent: 'start' }}>
+          <SectionHeading size="md" as="h3" step={1} title="신청할 권한 선택" />
+          <TreeOptionTable
+            nodes={MENU_TREE}
+            expandedIds={expanded}
+            onExpandedChange={setExpanded}
+            value={value}
+            onChange={setValue}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: 16, alignContent: 'start' }}>
+          <SectionHeading size="md" as="h3" step={2} title="신청 예정 권한 확인" />
+          <SelectedOptionList
+            summary={`${Object.keys(value).length}개 메뉴 · ${count}개 권한`}
+            groups={Object.entries(value).map(([key, items]) => ({
+              key,
+              title: key === 'total' ? '정산내역 > 가맹점 정산 관리 > 통합 정산 내역' : key,
+              items: items.map((v) => ({ value: v, label: v === 'PROCESS' ? '처리' : '다운로드' })),
+            }))}
+            onRemove={(key, v) =>
+              setValue((prev) => {
+                const rest = (prev[key] ?? []).filter((x) => x !== v);
+                const next = { ...prev };
+                if (rest.length > 0) next[key] = rest;
+                else delete next[key];
+                return next;
+              })
+            }
+            emptyTitle="선택한 권한이 없습니다."
+          />
+        </div>
+      </div>
     );
   },
 };

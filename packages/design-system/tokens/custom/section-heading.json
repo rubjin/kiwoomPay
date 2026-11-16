@@ -15,6 +15,18 @@
       "$value": "{Text.Secondary}",
       "$description": "제목 앞 작은 이름 (선택 CPID)"
     },
-    "Description": { "$type": "color", "$value": "{Text.Secondary}" }
+    "Description": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "StepBg": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "단계 번호 원 (Figma 메뉴 권한 신청)"
+    },
+    "StepText": {
+      "$type": "color",
+      "$value": "{Base.White}"
+    }
   }
 }

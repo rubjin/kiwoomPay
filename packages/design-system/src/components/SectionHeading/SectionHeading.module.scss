@@ -1,6 +1,10 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
+$heading-step-size: 20px;
+$heading-step-padding: 6px;
+$heading-step-radius: 999px; // 둥근 원
+
 // 제목 묶음 ↔ 오른쪽 기본 16, 오른쪽 항목 사이 기본 8. 쓰는 곳이 CSS 변수로 바꾼다
 .heading {
   display: flex;
@@ -27,6 +31,29 @@
   gap: t.$space-8;
   align-items: center;
   min-width: 0;
+}
+
+// 단계 번호 + 제목 (사이 4)
+.stepGroup {
+  display: inline-flex;
+  gap: t.$space-4;
+  align-items: center;
+  min-width: 0;
+}
+
+.step {
+  @include m.typography(typo-12-semi-bold);
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: $heading-step-size;
+  height: $heading-step-size;
+  padding: 0 $heading-step-padding;
+  color: t.$color-section-heading-step-text;
+  background-color: t.$color-section-heading-step-bg;
+  border-radius: $heading-step-radius;
 }
 
 .label {

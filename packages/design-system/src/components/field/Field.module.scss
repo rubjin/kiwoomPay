@@ -53,6 +53,14 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   color: t.$color-field-required;
 }
 
+// "필수" 글자 (Figma 메뉴 · 특수권한 신청: 10 Regular Status Error Border, 라벨과 8)
+.requiredText {
+  @include m.typography(typo-10-regular);
+
+  margin-inline-start: t.$space-8;
+  color: t.$color-field-required-text;
+}
+
 // 라벨 옆 남은 폭을 차지한다. 컨트롤은 기본 내용 폭이고, fullWidth면 이 폭을 채운다
 .body {
   display: flex;

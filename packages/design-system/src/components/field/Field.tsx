@@ -15,8 +15,8 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   label?: ReactNode;
   /** left(기본): 필드 왼쪽에 가로 배치 / top: 필드 위 (검색 영역) */
   labelPosition?: 'left' | 'top';
-  /** 필수 표시(*) */
-  required?: boolean;
+  /** 필수 표시: true = * (12 Bold Primary) / 'text' = "필수" 글자(10 Regular 빨강, 라벨과 8 — Figma 권한 신청 팝업 신청 사유) */
+  required?: boolean | 'text';
   /** 필드 아래 안내 문구. feedback이 있으면 해당 색으로 표시된다 */
   helperText?: ReactNode;
   /** 안쪽 컨트롤(TextField 등)에 전달되는 검증 결과 */
@@ -87,10 +87,14 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
           {label && (
             <label htmlFor={id} className={clsx(styles.label, styles[size])} style={labelStyle}>
               {label}
-              {required && (
-                <span className={styles.required} aria-hidden="true">
-                  *
-                </span>
+              {required === 'text' ? (
+                <span className={styles.requiredText}>필수</span>
+              ) : (
+                required && (
+                  <span className={styles.required} aria-hidden="true">
+                    *
+                  </span>
+                )
               )}
             </label>
           )}

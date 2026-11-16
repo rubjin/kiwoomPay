@@ -1,0 +1,32 @@
+{
+  "TreeOption": {
+    "Bg": { "$type": "color", "$value": "{Bg.Surface}" },
+    "Border": {
+      "$type": "color",
+      "$value": "{Line.Subtle}",
+      "$description": "트리 표 테두리 · 묶음 구분선 (Neutral 200)"
+    },
+    "SelectedBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}",
+      "$description": "신청 예정 권한 확인 테두리"
+    },
+    "ToolbarBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "위 도구 줄 (Neutral 50)"
+    },
+    "HeadBg": { "$type": "color", "$value": "{Neutral.100}" },
+    "HeadText": { "$type": "color", "$value": "{Text.Label}" },
+    "Group1Bg": { "$type": "color", "$value": "{Neutral.200}", "$description": "1Depth 줄" },
+    "Group2Bg": { "$type": "color", "$value": "{Neutral.100}", "$description": "2Depth 줄" },
+    "Group1Text": { "$type": "color", "$value": "{Text.Heading}" },
+    "GroupText": { "$type": "color", "$value": "{Text.Body}" },
+    "Summary": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "N개 메뉴 · N개 권한"
+    },
+    "Muted": { "$type": "color", "$value": "{Text.Secondary}" }
+  }
+}
