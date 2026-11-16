@@ -10,7 +10,6 @@ import {
   HubSubtitle,
   InfoTip,
   PageLayout,
-  StatusView,
   Tab,
   TextButton,
   useDialog,
@@ -31,6 +30,13 @@ import {
 import { PERMISSION_HINT } from '../components/permissionHints';
 import { SpecialPermissionRequestModal } from './components/SpecialPermissionRequestModal';
 import { ExceptionPermissionModal } from './components/ExceptionPermissionModal';
+import { fetchPermissionChanges } from '@/features/mypage/permissionChange.api';
+import type { PermissionChange } from '@/features/mypage/permissionChange.types';
+import {
+  PERMISSION_CHANGE_COLUMNS,
+  PermissionChangeModal,
+  createPermissionChangeParams,
+} from '../components/PermissionChangeModal';
 
 // 첫 줄 카드 1083 : 532 · 셋째 줄 같은 폭 · 카드 줄 사이 16
 const TOP_COLUMNS = [1083, 532];
@@ -51,6 +57,11 @@ export function PermissionPage() {
   const dialog = useDialog();
   const [overview, setOverview] = useState<PermissionOverview | null>(null);
   const [recent, setRecent] = useState<{ items: PermissionRequest[]; total: number } | null>(null);
+  const [recentChanges, setRecentChanges] = useState<{
+    items: PermissionChange[];
+    total: number;
+  } | null>(null);
+  const [changeOpen, setChangeOpen] = useState(false);
   const [historyTab, setHistoryTab] = useState('request');
   const [requestOpen, setRequestOpen] = useState(false);
   const [specialOpen, setSpecialOpen] = useState(false);
@@ -64,6 +75,12 @@ export function PermissionPage() {
       page: 1,
       pageSize: RECENT_LIMIT,
     }).then(setRecent);
+    // 최근 변경 이력: 팝업 기본 조건(최근 1개월 · 전체)의 앞 3건
+    void fetchPermissionChanges({
+      params: createPermissionChangeParams(),
+      page: 1,
+      pageSize: RECENT_LIMIT,
+    }).then(setRecentChanges);
   }, []);
 
   // TODO(시안) 메뉴 권한 신청(KWPC02020002) 팝업
@@ -142,6 +159,14 @@ export function PermissionPage() {
                     </TextButton>
                   </ControlGroup>
                 )}
+                {historyTab === 'change' && recentChanges && (
+                  <ControlGroup spacing="lg">
+                    <span style={caption}>최근 변경 이력 · 총 {recentChanges.total}건</span>
+                    <TextButton size="sm" onClick={() => setChangeOpen(true)}>
+                      상세보기
+                    </TextButton>
+                  </ControlGroup>
+                )}
               </div>
               {historyTab === 'request' ? (
                 <GridPlaceholder
@@ -151,11 +176,12 @@ export function PermissionPage() {
                   empty="최근 신청 내역이 없습니다."
                 />
               ) : (
-                // TODO(시안) 권한 변경 이력 탭 내용 (IA KWPC02020200 권한 변경이력) — 임의 작업
-                <StatusView
-                  status="idle"
-                  title="권한 변경 이력"
-                  description="시안 확인 후 작업합니다."
+                // 최근 변경 이력 3건 (열은 권한 변경 이력 팝업과 같음, 임의 작업 — 탭 내용 시안 없음)
+                <GridPlaceholder
+                  columns={PERMISSION_CHANGE_COLUMNS}
+                  rows={recentChanges?.items ?? []}
+                  rowKey={(r) => r.id}
+                  empty="최근 변경 이력이 없습니다."
                 />
               )}
             </PageLayout.Section>
@@ -227,6 +253,7 @@ export function PermissionPage() {
       <PermissionRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
       <SpecialPermissionRequestModal open={specialOpen} onClose={() => setSpecialOpen(false)} />
       <ExceptionPermissionModal open={exceptionOpen} onClose={() => setExceptionOpen(false)} />
+      <PermissionChangeModal open={changeOpen} onClose={() => setChangeOpen(false)} />
     </>
   );
 }

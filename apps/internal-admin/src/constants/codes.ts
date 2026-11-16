@@ -23,7 +23,9 @@ export type CodeGroup =
   | 'PAY_HOLD_REASON'
   | 'LOGIN_RESULT'
   | 'LOGIN_STATE'
-  | 'ACCOUNT_STATUS';
+  | 'ACCOUNT_STATUS'
+  | 'PERMISSION_CHANGE_TYPE'
+  | 'PERMISSION_CHANGE_KIND';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -129,5 +131,20 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
     { value: 'TEMP', label: '임시' },
     { value: 'NORMAL', label: '정상' },
     { value: 'SUSPENDED', label: '사용중지' },
+  ],
+  // 마이페이지 권한 변경 이력 (Figma 권한 변경 이력 팝업, 회수 · 부여 · 제외 외는 시안 값)
+  PERMISSION_CHANGE_TYPE: [
+    { value: 'MENU', label: '메뉴권한' },
+    { value: 'TEMPLATE', label: '권한 템플릿' },
+    { value: 'SPECIAL', label: '특수권한' },
+    { value: 'DATA_SCOPE', label: '데이터 접근 범위' },
+  ],
+  PERMISSION_CHANGE_KIND: [
+    { value: 'ADD', label: '개별 권한 추가' },
+    { value: 'REMOVE', label: '개별 권한 제외' },
+    { value: 'TEMPLATE', label: '템플릿 변경' },
+    { value: 'GRANT', label: '권한 부여' },
+    { value: 'REVOKE', label: '권한 회수' },
+    { value: 'SCOPE', label: '범위 변경' },
   ],
 };

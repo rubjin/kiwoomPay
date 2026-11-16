@@ -470,6 +470,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC02020201',
+    depth1: '마이페이지',
+    depth2: '권한관리',
+    depth3: '권한 변경이력',
+    name: '권한 변경 이력 상세 팝업',
+    path: '/patterns/popups?open=permissionChange',
+    type: '팝업',
+    pattern: 'P01',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    tempWork:
+      '예시 데이터(시안 10건 + 5건) · 변경 유형 선택지 일부 · 팝업을 열면 바로 조회 · 폭 Figma 1380 → xl 1280 · 권한관리 변경 이력 탭(최근 3건)',
+  },
+  {
+    system: 'internal',
     id: 'KWPC02020004',
     depth1: '마이페이지',
     depth2: '권한관리',

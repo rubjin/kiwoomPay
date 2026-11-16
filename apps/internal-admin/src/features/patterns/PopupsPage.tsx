@@ -16,6 +16,7 @@ import { SmsVerifyModal } from '@/features/auth/login/components/SmsVerifyModal'
 import { PermissionRequestModal } from '@/features/mypage/components/PermissionRequestModal';
 import { SpecialPermissionRequestModal } from '@/features/mypage/permission/components/SpecialPermissionRequestModal';
 import { ExceptionPermissionModal } from '@/features/mypage/permission/components/ExceptionPermissionModal';
+import { PermissionChangeModal } from '@/features/mypage/components/PermissionChangeModal';
 import { PasswordChangeModal } from '@/features/mypage/account/components/PasswordChangeModal';
 import { LoginHistoryModal } from '@/features/mypage/account/components/LoginHistoryModal';
 import { AccountStatusHistoryModal } from '@/features/mypage/account/components/AccountStatusHistoryModal';
@@ -59,6 +60,7 @@ type PopupKey =
   | 'permissionRequest'
   | 'specialPermission'
   | 'exceptionPermission'
+  | 'permissionChange'
   | 'passwordChange'
   | 'loginHistory'
   | 'statusHistory'
@@ -110,11 +112,12 @@ const GROUPS: PopupGroup[] = [
   {
     title: 'KWPC2000 마이페이지',
     description:
-      '권한관리 카드 → [권한 신청 현황] · 권한관리 특수권한 카드 → [특수권한 신청] · 메뉴 및 기능 권한 카드 → [보유 기능 권한 보기]',
+      '권한관리 카드 → [권한 신청 현황] · 권한관리 특수권한 카드 → [특수권한 신청] · 메뉴 및 기능 권한 카드 → [보유 기능 권한 보기] · 권한 변경 이력 탭 → [상세보기]',
     buttons: [
       { key: 'permissionRequest', label: '권한 신청 현황' },
       { key: 'specialPermission', label: '특수권한 신청 (KWPC02020004)' },
       { key: 'exceptionPermission', label: '개별 예외 권한 (KWPC02020001)' },
+      { key: 'permissionChange', label: '권한 변경 이력 (KWPC02020201)' },
     ],
   },
   {
@@ -387,6 +390,7 @@ export function PopupsPage() {
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
       <SpecialPermissionRequestModal open={is('specialPermission')} onClose={close} />
       <ExceptionPermissionModal open={is('exceptionPermission')} onClose={close} />
+      <PermissionChangeModal open={is('permissionChange')} onClose={close} />
       <PasswordChangeModal
         open={is('passwordChange')}
         onClose={close}
