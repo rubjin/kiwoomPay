@@ -909,3 +909,11 @@
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 · 화면 목록 tsc. 앱: 팝업 620 · 라벨 96 · 입력 476 × 40 · 오류 문구 입력 아래 5 · Footer 48, 빈 값 3개 문구, 규칙별 문구(짧음 · 조합 · 같은 문자 · 연속 · 불일치), 현재 비밀번호 불일치 → 입력 아래(Alert 없음), 보기 전환, 성공 → 완료 안내 · 변경일 오늘, 에러 없음
 - 한 가정: Q65
 - 처리 실패 · 간격(Figma 28946:75197, 같은 날): 디자인 시스템 `InlineFeedback`(처리 결과 안내 상자: Status 배경 · 테두리 · 글자, 여백 12 · 반경 6 · 13 Regular, tone error · warning · success · info, error · warning은 role=alert) · Field `reserveHelper`(오류 문구 자리를 늘 잡아 둠 — 오류가 나와도 아래 줄이 밀리지 않음). 팝업: 입력 줄 높이 고정, 서버 처리 실패는 안내 상자 아래 12에 빨간 상자(Alert 없음, 입력하거나 다시 [변경]하면 사라짐). 예시: 새 비밀번호에 Fail이 들어가면 처리 실패. 측정: 줄 간격 75(Figma 71 — 오류 문구 줄 높이 18 ↔ 14, Q65 ②), 안내 상자 ↔ 실패 상자 12 · 실패 상자 44 · 색 #B91C1C / #FFF1F2 / #EF4444 · 반경 6, Footer 가운데, Alert 0, 에러 없음
+
+### KWPC02010102 로그인 이력 · KWPC02010103 계정 상태 이력 팝업 — 2026-11-16
+- 시안: Figma 28960:83084(로그인 이력) · 28960:84306(계정 상태 이력)
+- 디자인 시스템: `InfoStrip`(display — 회색 상자 안 [이름 값] 쌍 가운데 정렬, 쌍 사이 60 · 이름 13 Bold ↔ 값 14 Regular 12 · 여백 16 · 반경 8, 토큰 `tokens/custom/info-strip.json` 모두 alias, 스토리 `Components/Info Strip`), SearchPanel `description`(제목 옆 12 Regular 안내, 제목 ↔ 설명 12)
+- 앱 `features/mypage/account/components/`: `LoginHistoryModal`(Modal lg: 조회 조건 상자(조회기간 · 로그인 결과) + 안내 → 로그인 이력 표(결과 · 상태 Badge) → Total · Pagination, 기본 최근 30일, 열면 바로 조회) · `AccountStatusHistoryModal`(Modal lg: 현재 계정 상태 InfoStrip → 상태 변경 이력 표(변경 전 · 후 Badge, 계정 생성은 -) → Total · Pagination). `accountHistory.api.ts` · `.types.ts`(예시), 공통코드 `LOGIN_RESULT` · `LOGIN_STATE` · `ACCOUNT_STATUS`. 계정관리 [로그인 이력] · [계정 상태 이력] 연결(준비 중 안내 삭제), 팝업 모음 · 화면 목록 추가
+- 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 · 화면 목록 tsc, 브라우저: 두 팝업 880 · 닫기(X), 로그인 이력 조회 조건 설명 · 6열 · 10행 · Total 82, 계정 상태 이력 요약 상자 · 5열 · 6행 · Total 6, 계정관리 버튼으로 열고 X로 닫힘, 에러 없음(favicon 404 제외)
+- 한 가정(임의 작업): 폭 Figma 922 · 815 → lg 880, 예시 데이터, 로그인 이력도 열면 바로 조회, 표 글자 · 머리는 공통 미리보기(12) — IBSheet 테마로
+

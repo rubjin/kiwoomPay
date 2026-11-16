@@ -20,7 +20,10 @@ export type CodeGroup =
   | 'DOWNLOAD_FILE_STATUS'
   | 'PERMISSION_REQUEST_TYPE'
   | 'PERMISSION_REQUEST_STATUS'
-  | 'PAY_HOLD_REASON';
+  | 'PAY_HOLD_REASON'
+  | 'LOGIN_RESULT'
+  | 'LOGIN_STATE'
+  | 'ACCOUNT_STATUS';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -111,5 +114,20 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
     { value: 'LIMIT', label: '한도 초과' },
     { value: 'AML', label: 'AML 미이행' },
     { value: 'ETC', label: '기타' },
+  ],
+  // 마이페이지 로그인 이력 · 계정 상태 이력
+  LOGIN_RESULT: [
+    { value: 'SUCCESS', label: '성공' },
+    { value: 'FAIL', label: '실패' },
+    { value: 'UNLOCK', label: '해제' },
+  ],
+  LOGIN_STATE: [
+    { value: 'NORMAL', label: '정상' },
+    { value: 'LOCKED', label: '잠금' },
+  ],
+  ACCOUNT_STATUS: [
+    { value: 'TEMP', label: '임시' },
+    { value: 'NORMAL', label: '정상' },
+    { value: 'SUSPENDED', label: '사용중지' },
   ],
 };

@@ -6,7 +6,6 @@ import {
   HubInfoList,
   Infobox,
   PageLayout,
-  useDialog,
   Stack,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
@@ -15,6 +14,8 @@ import { MENU } from '@/constants/menu';
 import type { AccountInfo } from '@/features/mypage/account.types';
 import { MypageTabs } from '../components/MypageTabs';
 import { PasswordChangeModal } from './components/PasswordChangeModal';
+import { LoginHistoryModal } from './components/LoginHistoryModal';
+import { AccountStatusHistoryModal } from './components/AccountStatusHistoryModal';
 
 // 카드 폭 980 : 636 · 라벨 시작 ↔ 값 156 (라벨 칸 144 + HubInfo 간격 12)
 // · 줄 간격 왼쪽 39 · 오른쪽 56 (줄 높이 20 + 간격)
@@ -30,16 +31,15 @@ const INFO_COLUMNS = 'minmax(0, 489fr) minmax(0, 457fr)';
  * 기본 계정정보 · 비밀번호 및 로그인 보안 카드 + 계정정보 변경 안내. 정보는 조회만(직접 수정 불가)
  */
 export function AccountPage() {
-  const dialog = useDialog();
   const [account, setAccount] = useState<AccountInfo | null>(null);
-  const [passwordOpen, setPasswordOpen] = useState(false);
+  /** 열린 팝업: 비밀번호 변경(KWPC02010101) · 로그인 이력(KWPC02010102) · 계정 상태 이력(KWPC02010103) */
+  const [popup, setPopup] = useState<'password' | 'loginHistory' | 'statusHistory' | null>(null);
+  const closePopup = () => setPopup(null);
 
   useEffect(() => {
     void fetchAccountInfo().then(setAccount);
   }, []);
 
-  // TODO(시안) 계정 상태 이력(KWPC02010103) · 로그인 이력(KWPC02010102) 팝업
-  const notReady = (name: string) => dialog.alert(`${name} 팝업은 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line' } as const;
 
   return (
@@ -57,7 +57,7 @@ export function AccountPage() {
                 title="기본 계정정보"
                 divider
                 actions={
-                  <Button {...line} onClick={() => notReady('계정 상태 이력')}>
+                  <Button {...line} onClick={() => setPopup('statusHistory')}>
                     계정 상태 이력
                   </Button>
                 }
@@ -98,10 +98,10 @@ export function AccountPage() {
                 divider
                 actions={
                   <>
-                    <Button {...line} onClick={() => setPasswordOpen(true)}>
+                    <Button {...line} onClick={() => setPopup('password')}>
                       비밀번호 변경
                     </Button>
-                    <Button {...line} onClick={() => notReady('로그인 이력')}>
+                    <Button {...line} onClick={() => setPopup('loginHistory')}>
                       로그인 이력
                     </Button>
                   </>
@@ -139,12 +139,14 @@ export function AccountPage() {
         )}
       </Stack>
       <PasswordChangeModal
-        open={passwordOpen}
-        onClose={() => setPasswordOpen(false)}
+        open={popup === 'password'}
+        onClose={closePopup}
         onChanged={(passwordChangedAt) =>
           setAccount((prev) => (prev ? { ...prev, passwordChangedAt } : prev))
         }
       />
+      <LoginHistoryModal open={popup === 'loginHistory'} onClose={closePopup} />
+      <AccountStatusHistoryModal open={popup === 'statusHistory'} onClose={closePopup} />
     </>
   );
 }

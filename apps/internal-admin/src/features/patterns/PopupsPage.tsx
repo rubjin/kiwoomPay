@@ -15,6 +15,8 @@ import { SmsUnavailableModal } from '@/features/auth/login/components/SmsUnavail
 import { SmsVerifyModal } from '@/features/auth/login/components/SmsVerifyModal';
 import { PermissionRequestModal } from '@/features/mypage/components/PermissionRequestModal';
 import { PasswordChangeModal } from '@/features/mypage/account/components/PasswordChangeModal';
+import { LoginHistoryModal } from '@/features/mypage/account/components/LoginHistoryModal';
+import { AccountStatusHistoryModal } from '@/features/mypage/account/components/AccountStatusHistoryModal';
 import { BizFinderModal } from '@/components/popups/BizFinderModal';
 import { fetchSettlementLedgers } from '@/features/settlement/merchantSettlement.api';
 import {
@@ -54,6 +56,8 @@ type PopupKey =
   | 'smsUnavailable'
   | 'permissionRequest'
   | 'passwordChange'
+  | 'loginHistory'
+  | 'statusHistory'
   | 'bizLookup'
   | 'ledgerPayDate'
   | 'ledgerHold'
@@ -106,8 +110,13 @@ const GROUPS: PopupGroup[] = [
   },
   {
     title: 'KWPC02010100 계정관리',
-    description: '비밀번호 및 로그인 보안 → [비밀번호 변경] (현재 비밀번호 password)',
-    buttons: [{ key: 'passwordChange', label: '비밀번호 변경 (KWPC02010101)' }],
+    description:
+      '비밀번호 및 로그인 보안 → [비밀번호 변경] (현재 비밀번호 password) · [로그인 이력], 기본 계정정보 → [계정 상태 이력]',
+    buttons: [
+      { key: 'passwordChange', label: '비밀번호 변경 (KWPC02010101)' },
+      { key: 'loginHistory', label: '로그인 이력 (KWPC02010102)' },
+      { key: 'statusHistory', label: '계정 상태 이력 (KWPC02010103)' },
+    ],
   },
   {
     title: 'KWPC06010201 가맹점 정산 실행/처리',
@@ -171,6 +180,70 @@ const GROUPS: PopupGroup[] = [
   },
 ];
 
+/** 안내 · 확인 창 (useDialog alert · confirm) — 화면에서 쓰는 문구 그대로 */
+interface DialogExample {
+  label: string;
+  kind: 'alert' | 'confirm';
+  message: string;
+}
+
+const DIALOG_GROUPS: { title: string; description: string; items: DialogExample[] }[] = [
+  {
+    title: '완료 안내',
+    description: '처리 성공 후 (useAction success)',
+    items: [
+      { label: '비밀번호 변경', kind: 'alert', message: '비밀번호가 변경되었습니다.' },
+      { label: '저장', kind: 'alert', message: '저장되었습니다.' },
+      { label: '즐겨찾기 저장', kind: 'alert', message: '즐겨찾기를 저장했습니다.' },
+      { label: '부분취소 요청', kind: 'alert', message: '부분취소를 요청했습니다.' },
+      {
+        label: '엑셀 다운로드 요청',
+        kind: 'alert',
+        message: '엑셀 다운로드를 요청했습니다. 대용량 파일은 다운로드 센터에서 받을 수 있습니다.',
+      },
+    ],
+  },
+  {
+    title: '확인 (Confirm)',
+    description: '처리 전 [취소] · [확인]',
+    items: [
+      { label: '저장', kind: 'confirm', message: '저장할까요?' },
+      { label: '선택 건 처리', kind: 'confirm', message: '선택한 3건을 처리할까요?' },
+      { label: '결제한도 등록', kind: 'confirm', message: '입력한 결제한도를 등록할까요?' },
+      {
+        label: '닫기 (변경 내용 있음)',
+        kind: 'confirm',
+        message: '변경한 내용이 저장되지 않습니다. 닫을까요?',
+      },
+    ],
+  },
+  {
+    title: '입력 · 선택 확인',
+    description: '처리 전 검사에 걸렸을 때 (useAction validate)',
+    items: [
+      { label: '선택 없음', kind: 'alert', message: '처리할 정산원장을 선택해주세요.' },
+      { label: '필수 입력', kind: 'alert', message: '취소사유를 입력해주세요.' },
+      { label: '준비 중', kind: 'alert', message: '사업자 찾기 팝업은 준비 중입니다.' },
+    ],
+  },
+  {
+    title: '실패 안내',
+    description: '처리 실패 (useAction failure)',
+    items: [
+      {
+        label: '처리 오류',
+        kind: 'alert',
+        message: '취소 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      },
+      {
+        label: '중복 등록',
+        kind: 'alert',
+        message: '이미 등록된 사업자번호입니다. 번호를 확인해주세요.',
+      },
+    ],
+  },
+];
+
 const SMS_CHALLENGE = {
   challengeId: 'popup-gallery',
   maskedPhone: '010-****-5678',
@@ -204,6 +277,7 @@ function useDownloadIds() {
  * 팝업 모음 (개발 서버 전용, 임의 작업) — 앱의 팝업을 화면별로 모아 버튼 하나로 연다.
  * 실제 화면이 쓰는 팝업 컴포넌트를 그대로 불러오므로 화면과 어긋나지 않는다. 결과(선택 · 저장)는 안내로만 보여 준다.
  * 새 팝업을 만들면 GROUPS에 버튼 한 줄 + 아래 렌더 한 줄을 추가한다.
+ * 아래 "안내 · 확인 창" 묶음은 팝업 없이 안내(Alert) · 확인(Confirm) 창만 띄운다 — 문구를 바꾸면 DIALOG_GROUPS도 맞춘다.
  * `?open=<버튼 키>`로 들어오면 그 팝업을 바로 연다 (화면 목록의 팝업 링크, 예: /patterns/popups?open=bizLookup)
  */
 export function PopupsPage() {
@@ -259,6 +333,32 @@ export function PopupsPage() {
         </PageLayout.Section>
       ))}
 
+      {/* 안내 · 확인 창 (팝업 없이 창만) */}
+      {DIALOG_GROUPS.map((group) => (
+        <PageLayout.Section
+          key={group.title}
+          title={`안내 · 확인 창 — ${group.title}`}
+          titleAddon={group.description}
+        >
+          <ControlGroup>
+            {group.items.map((item) => (
+              <Button
+                key={item.label}
+                variant="neutral"
+                appearance="line"
+                onClick={() =>
+                  void (item.kind === 'confirm'
+                    ? dialog.confirm(item.message)
+                    : dialog.alert(item.message))
+                }
+              >
+                {item.label}
+              </Button>
+            ))}
+          </ControlGroup>
+        </PageLayout.Section>
+      ))}
+
       {/* 실제 화면 팝업 */}
       <FavoriteEditModal
         open={is('favorite')}
@@ -282,6 +382,8 @@ export function PopupsPage() {
         // 완료 안내("비밀번호가 변경되었습니다.")는 팝업이 띄운다
         onChanged={() => undefined}
       />
+      <LoginHistoryModal open={is('loginHistory')} onClose={close} />
+      <AccountStatusHistoryModal open={is('statusHistory')} onClose={close} />
       <PayDateChangeModal
         open={is('ledgerPayDate') && ledgerRows.length > 0}
         rows={ledgerRows}
