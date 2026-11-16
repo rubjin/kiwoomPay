@@ -413,3 +413,230 @@ $feed-empty-min-height: 120px; // TODO(시안) 카드가 혼자일 때 최소 �
     @include m.focus-ring;
   }
 }
+
+// ── 알림센터 (Figma KWPC02030000_알림센터_GUI_검색결과) ──
+$center-summary-gap: t.$space-24; // 미확인 알림 ↔ 칩
+$center-row-height: 56px;
+$center-row-padding-x: t.$space-20;
+$center-row-gap: t.$space-16;
+$center-dot-width: 8px;
+$center-category-width: 92px;
+$center-date-width: 164px;
+$center-detail-padding: t.$space-24;
+$center-detail-gap: t.$space-24;
+$center-box-padding: t.$space-8 t.$space-12;
+$center-box-radius: 6px;
+$center-related-text-gap: 5px; // 관련 업무 ↔ 경로
+$center-meta-padding: t.$space-8;
+$center-meta-label-width: 58px;
+
+// NotificationSummary: 미확인 알림 요약 한 줄
+.summaryRow {
+  display: flex;
+  flex: 1;
+  gap: $center-summary-gap;
+  align-items: center;
+  min-width: 0;
+}
+
+.summaryRowLabel {
+  @include m.typography(typo-14-semi-bold);
+
+  color: t.$color-feed-summary-label;
+}
+
+.summaryReadAll {
+  margin-inline-start: auto;
+}
+
+// NotificationAccordion: 알림 목록
+.accordion {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  list-style: none;
+  background-color: t.$color-feed-item-bg;
+  border: t.$control-border-width solid t.$color-feed-list-border;
+  border-radius: $hub-card-radius;
+}
+
+.accordionEmpty {
+  @include m.typography(typo-14-regular);
+
+  padding: $center-detail-padding;
+  color: t.$color-feed-item-date;
+  text-align: center;
+}
+
+.accordionItem + .accordionItem {
+  border-top: t.$control-border-width solid t.$color-feed-divider;
+}
+
+.accordionRow {
+  display: flex;
+  gap: $center-row-gap;
+  align-items: center;
+  width: 100%;
+  min-height: $center-row-height;
+  padding: 0 $center-row-padding-x;
+  text-align: start;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:hover {
+    background-color: t.$color-feed-item-bg-hover;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.accordionDot {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: $center-dot-width;
+}
+
+.accordionCategory {
+  @include m.typography(typo-12-medium);
+  @include m.ellipsis;
+
+  flex: none;
+  width: $center-category-width;
+  color: t.$color-feed-row-category;
+}
+
+.accordionTitle {
+  @include m.typography(typo-14-regular);
+  @include m.ellipsis;
+
+  flex: 1;
+  min-width: 0;
+  color: t.$color-feed-row-title-read;
+}
+
+.accordionTitleUnread {
+  @include m.typography(typo-14-bold);
+
+  color: t.$color-feed-row-title;
+}
+
+.accordionDate {
+  @include m.typography(typo-12-regular);
+
+  flex: none;
+  width: $center-date-width;
+  color: t.$color-feed-item-date;
+  text-align: end;
+}
+
+.accordionChevron {
+  display: inline-flex;
+  flex: none;
+  color: t.$color-feed-item-date;
+}
+
+// 펼친 줄 아래 상세 (위아래 선)
+.accordionPanel {
+  background-color: t.$color-feed-detail-bg;
+  border-top: t.$control-border-width solid t.$color-feed-detail-border;
+}
+
+.accordionOpen + .accordionItem {
+  border-top-color: t.$color-feed-detail-border;
+}
+
+// NotificationDetail
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: $center-detail-gap;
+  padding: $center-detail-padding;
+}
+
+.detailMessage {
+  @include m.typography(typo-14-regular);
+
+  color: t.$color-feed-detail-message;
+  white-space: pre-line;
+}
+
+.detailBox {
+  display: flex;
+  gap: $center-detail-gap;
+  align-items: center;
+  padding: $center-box-padding;
+  background-color: t.$color-feed-related-bg;
+  border: t.$control-border-width solid t.$color-feed-related-border;
+  border-radius: $center-box-radius;
+}
+
+.detailRelated {
+  display: flex;
+  flex: 1 1 0;
+  gap: $center-row-gap;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.detailRelatedText {
+  display: flex;
+  flex-direction: column;
+  gap: $center-related-text-gap;
+  min-width: 0;
+}
+
+.detailRelatedTitle {
+  @include m.typography(typo-12-semi-bold);
+
+  margin: 0;
+  color: t.$color-feed-related-title;
+}
+
+.detailRelatedPath {
+  @include m.typography(typo-12-medium);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-feed-related-path;
+}
+
+// 알림 정보 2×2 (줄 사이 4 · 칸 사이 12)
+.detailMeta {
+  display: grid;
+  flex: 1 1 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: t.$space-4 t.$space-12;
+  min-width: 0;
+  padding: $center-meta-padding;
+  margin: 0;
+  background-color: t.$color-feed-meta-bg;
+  border-radius: $center-box-radius;
+}
+
+.detailMetaItem {
+  display: flex;
+  gap: t.$space-8;
+  min-width: 0;
+}
+
+.detailMetaLabel {
+  @include m.typography(typo-12-regular);
+
+  flex: none;
+  width: $center-meta-label-width;
+  color: t.$color-feed-meta-label;
+}
+
+.detailMetaValue {
+  @include m.typography(typo-12-medium);
+  @include m.ellipsis;
+
+  margin: 0;
+  color: t.$color-feed-meta-value;
+}

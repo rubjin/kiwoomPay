@@ -101,6 +101,73 @@
     "Divider": {
       "$type": "color",
       "$value": "{Line.Subtle}"
+    },
+    "SummaryLabel": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "알림센터 미확인 알림 (14 SemiBold, Figma KWPC02030000)"
+    },
+    "ListBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}",
+      "$description": "알림 목록(아코디언) 카드 테두리"
+    },
+    "RowTitle": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "미확인 알림 제목 (14 Bold)"
+    },
+    "RowTitleRead": {
+      "$type": "color",
+      "$value": "{Neutral.400}",
+      "$description": "확인한 알림 제목 (14 Regular)"
+    },
+    "RowCategory": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "DetailBg": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "펼친 알림 상세 배경"
+    },
+    "DetailBorder": {
+      "$type": "color",
+      "$value": "{Line.Default}"
+    },
+    "DetailMessage": {
+      "$type": "color",
+      "$value": "{Text.Body}"
+    },
+    "RelatedBg": {
+      "$type": "color",
+      "$value": "{Bg.Surface}",
+      "$description": "관련 업무 · 알림 정보 상자"
+    },
+    "RelatedBorder": {
+      "$type": "color",
+      "$value": "{Primary.100}"
+    },
+    "RelatedTitle": {
+      "$type": "color",
+      "$value": "{Text.Heading}"
+    },
+    "RelatedPath": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "MetaBg": {
+      "$type": "color",
+      "$value": "{Bg.Page}",
+      "$description": "알림 정보 (Neutral 50)"
+    },
+    "MetaLabel": {
+      "$type": "color",
+      "$value": "{Text.Secondary}"
+    },
+    "MetaValue": {
+      "$type": "color",
+      "$value": "{Text.Body}"
     }
   }
 }

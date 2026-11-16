@@ -19,6 +19,9 @@ import {
   HubSubtitle,
 } from './HubCard';
 import { NotificationFeed, type NotificationItem } from './NotificationFeed';
+import { NotificationAccordion, NotificationDetail } from './NotificationAccordion';
+import { NotificationSummary } from './NotificationSummary';
+import { HighlightText } from '../../components/display';
 
 const meta = {
   title: 'Patterns/P06 Notification Feed',
@@ -275,4 +278,81 @@ export const Stats: Story = {
       />
     </PageLayout.Section>
   ),
+};
+
+const CENTER_ITEMS = [
+  {
+    id: 'a1',
+    category: '정산',
+    title: '자동정산 처리가 완료되었습니다.',
+    date: '2026-09-16 09:05',
+    unread: true,
+  },
+  {
+    id: 'a2',
+    category: '정산',
+    title: '자동정산 처리 중 예외 4건이 발생했습니다.',
+    date: '2026-09-05 13:42',
+    unread: true,
+  },
+  {
+    id: 'a3',
+    category: '지급',
+    title: '자동정산 지급 요청 1건이 실패했습니다.',
+    date: '2026-09-03 13:42',
+  },
+];
+
+/** 알림센터 (Figma KWPC02030000): 미확인 요약 줄 + 아코디언 목록 + 펼친 상세. 검색어 강조는 HighlightText */
+export const NotificationCenter: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [expanded, setExpanded] = useState<string | null>('a1');
+    return (
+      <div style={{ display: 'grid', gap: 16, padding: 24 }}>
+        <NotificationSummary
+          unreadCount={12}
+          counts={[
+            { key: 'settle', label: '정산', count: 4 },
+            {
+              key: 'risk',
+              label: '리스크/FDS',
+              count: 3,
+              icon: <Icon name="info-circle" size={16} />,
+            },
+            { key: 'pay', label: '지급', count: 2 },
+          ]}
+          onReadAll={() => undefined}
+        />
+        <NotificationAccordion
+          expandedId={expanded}
+          onToggle={(item, open) => setExpanded(open ? item.id : null)}
+          items={CENTER_ITEMS.map((n) => ({
+            ...n,
+            title: <HighlightText text={n.title} query="자동정산" />,
+            detail: (
+              <NotificationDetail
+                message={`2026-09-16 자동정산 대상 312건 중 308건이 정상 처리되었습니다.
+예외 4건은 처리 결과를 확인해 주세요.`}
+                related={{
+                  path: '정산내역 > 가맹점 정산 관리 > 자동정산 실행/처리',
+                  action: (
+                    <Button variant="neutral" appearance="line">
+                      자동정산 결과 조회
+                    </Button>
+                  ),
+                }}
+                meta={[
+                  { label: '알림유형', value: '자동정산 완료' },
+                  { label: '업무유형', value: n.category },
+                  { label: '발생일시', value: n.date },
+                  { label: '알림ID', value: 'ALM-20260916-00021' },
+                ]}
+              />
+            ),
+          }))}
+        />
+      </div>
+    );
+  },
 };

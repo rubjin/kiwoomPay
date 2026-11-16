@@ -3,6 +3,7 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { UnreadIndicator } from '../../components/Badge';
 import { TextButton } from '../../components/Button';
 import styles from './Feed.module.scss';
+import { NotificationCountChips, type NotificationCount } from './NotificationSummary';
 
 export interface NotificationItem {
   id: string;
@@ -14,13 +15,7 @@ export interface NotificationItem {
   unread?: boolean;
 }
 
-export interface NotificationCount {
-  key: string;
-  label: ReactNode;
-  count: number;
-  /** 업무유형 앞 아이콘 (16) */
-  icon?: ReactNode;
-}
+export type { NotificationCount };
 
 export interface NotificationFeedProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   items: NotificationItem[];
@@ -78,20 +73,7 @@ export const NotificationFeed = forwardRef<HTMLDivElement, NotificationFeedProps
             </TextButton>
           )}
         </div>
-        {counts && counts.length > 0 && (
-          <ul className={styles.chips} aria-label="업무유형별 미확인 알림">
-            {counts.map((c) => (
-              <li key={c.key} className={styles.chip}>
-                {c.icon && <span className={styles.chipIcon}>{c.icon}</span>}
-                {c.label}
-                <span className={styles.chipCount}>
-                  {c.count.toLocaleString('ko-KR')}
-                  {unit}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
+        {counts && counts.length > 0 && <NotificationCountChips counts={counts} unit={unit} />}
         {shown.length === 0 ? (
           <p className={styles.feedEmpty}>{empty}</p>
         ) : (

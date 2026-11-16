@@ -14,6 +14,11 @@ export interface SearchPanelProps extends Omit<
   title?: ReactNode;
   /** 제목 옆 설명 (12 Regular, 제목 ↔ 설명 12 — Figma 로그인 이력 "기본 조회기간은 …") */
   description?: ReactNode;
+  /**
+   * 제목 줄 대신 그릴 내용 (actionsPlacement="inline"일 때). 예: 알림센터 미확인 알림 요약 줄
+   * (Figma KWPC02030000 — 요약 줄 · 구분선 · 조회 조건 줄이 한 카드)
+   */
+  header?: ReactNode;
   /** [조회] · Enter */
   onSearch?: () => void;
   /** 새로고침 아이콘 버튼 (초기화). 없으면 버튼을 그리지 않는다 */
@@ -56,6 +61,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
     {
       title = '검색 조건',
       description,
+      header,
       onSearch,
       onReset,
       loading = false,
@@ -156,27 +162,39 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
         onSubmit={handleSubmit}
       >
         <div className={clsx(styles.card, hasDetail && styles.cardTop)}>
-          <SectionHeading
-            className={clsx(styles.searchHeader, inline && styles.searchHeaderInline)}
-            size={inline ? 'md' : 'lg'}
-            title={title}
-            description={description}
-            addon={
-              inline ? undefined : (
-                <button
-                  type="button"
-                  className={styles.iconToggle}
-                  aria-expanded={!isCollapsed}
-                  aria-controls={bodyId}
-                  aria-label={isCollapsed ? text.expand : text.collapse}
-                  onClick={() => setCollapsed(!isCollapsed)}
-                >
-                  <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={24} />
-                </button>
-              )
-            }
-            actions={inline ? undefined : actions}
-          />
+          {inline && header !== undefined ? (
+            <div
+              className={clsx(
+                styles.searchHeader,
+                styles.searchHeaderInline,
+                styles.searchHeaderCustom,
+              )}
+            >
+              {header}
+            </div>
+          ) : (
+            <SectionHeading
+              className={clsx(styles.searchHeader, inline && styles.searchHeaderInline)}
+              size={inline ? 'md' : 'lg'}
+              title={title}
+              description={description}
+              addon={
+                inline ? undefined : (
+                  <button
+                    type="button"
+                    className={styles.iconToggle}
+                    aria-expanded={!isCollapsed}
+                    aria-controls={bodyId}
+                    aria-label={isCollapsed ? text.expand : text.collapse}
+                    onClick={() => setCollapsed(!isCollapsed)}
+                  >
+                    <Icon name={isCollapsed ? 'chevron-down' : 'chevron-up'} size={24} />
+                  </button>
+                )
+              }
+              actions={inline ? undefined : actions}
+            />
+          )}
           {(inline || !isCollapsed) && (
             <div id={bodyId} className={styles.searchBody}>
               <div className={styles.fieldRow}>

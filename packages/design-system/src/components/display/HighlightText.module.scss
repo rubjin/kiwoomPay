@@ -1,0 +1,6 @@
+@use 'tokens' as t;
+
+.mark {
+  color: t.$color-text-accent;
+  background: none;
+}

@@ -516,6 +516,21 @@ $color-feed-item-category: var(--kp-color-feed-item-category);
 $color-feed-item-title: var(--kp-color-feed-item-title);
 $color-feed-item-date: var(--kp-color-feed-item-date);
 $color-feed-divider: var(--kp-color-feed-divider);
+$color-feed-summary-label: var(--kp-color-feed-summary-label); // 알림센터 미확인 알림 (14 SemiBold, Figma KWPC02030000)
+$color-feed-list-border: var(--kp-color-feed-list-border); // 알림 목록(아코디언) 카드 테두리
+$color-feed-row-title: var(--kp-color-feed-row-title); // 미확인 알림 제목 (14 Bold)
+$color-feed-row-title-read: var(--kp-color-feed-row-title-read); // 확인한 알림 제목 (14 Regular)
+$color-feed-row-category: var(--kp-color-feed-row-category);
+$color-feed-detail-bg: var(--kp-color-feed-detail-bg); // 펼친 알림 상세 배경
+$color-feed-detail-border: var(--kp-color-feed-detail-border);
+$color-feed-detail-message: var(--kp-color-feed-detail-message);
+$color-feed-related-bg: var(--kp-color-feed-related-bg); // 관련 업무 · 알림 정보 상자
+$color-feed-related-border: var(--kp-color-feed-related-border);
+$color-feed-related-title: var(--kp-color-feed-related-title);
+$color-feed-related-path: var(--kp-color-feed-related-path);
+$color-feed-meta-bg: var(--kp-color-feed-meta-bg); // 알림 정보 (Neutral 50)
+$color-feed-meta-label: var(--kp-color-feed-meta-label);
+$color-feed-meta-value: var(--kp-color-feed-meta-value);
 
 // ── custom · field ──────────────────────────────────────────────
 $field-radius-md: var(--kp-field-radius-md); // Field Components Size Spec
@@ -1255,6 +1270,21 @@ $css-variables: (
   "--kp-color-feed-item-title": "var(--kp-color-text-body)",
   "--kp-color-feed-item-date": "var(--kp-color-text-secondary)",
   "--kp-color-feed-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-feed-summary-label": "var(--kp-color-text-heading)",
+  "--kp-color-feed-list-border": "var(--kp-color-line-default)",
+  "--kp-color-feed-row-title": "var(--kp-color-text-heading)",
+  "--kp-color-feed-row-title-read": "var(--kp-color-neutral-400)",
+  "--kp-color-feed-row-category": "var(--kp-color-text-secondary)",
+  "--kp-color-feed-detail-bg": "var(--kp-color-primary-50)",
+  "--kp-color-feed-detail-border": "var(--kp-color-line-default)",
+  "--kp-color-feed-detail-message": "var(--kp-color-text-body)",
+  "--kp-color-feed-related-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-feed-related-border": "var(--kp-color-primary-100)",
+  "--kp-color-feed-related-title": "var(--kp-color-text-heading)",
+  "--kp-color-feed-related-path": "var(--kp-color-text-secondary)",
+  "--kp-color-feed-meta-bg": "var(--kp-color-bg-page)",
+  "--kp-color-feed-meta-label": "var(--kp-color-text-secondary)",
+  "--kp-color-feed-meta-value": "var(--kp-color-text-body)",
   "--kp-field-radius-md": "8px",
   "--kp-field-radius-sm": "6px",
   "--kp-field-gap": "var(--kp-space-8)",

@@ -28,3 +28,11 @@ export type {
   NotificationFeedProps,
   NotificationItem,
 } from './NotificationFeed';
+export { NotificationCountChips, NotificationSummary } from './NotificationSummary';
+export type { NotificationSummaryProps } from './NotificationSummary';
+export { NotificationAccordion, NotificationDetail } from './NotificationAccordion';
+export type {
+  NotificationAccordionItem,
+  NotificationAccordionProps,
+  NotificationDetailProps,
+} from './NotificationAccordion';

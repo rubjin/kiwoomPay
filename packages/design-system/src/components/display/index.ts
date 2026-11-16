@@ -20,3 +20,5 @@ export { InlineFeedback } from './InlineFeedback';
 export type { InlineFeedbackProps, InlineFeedbackTone } from './InlineFeedback';
 export { InfoStrip } from './InfoStrip';
 export type { InfoStripItem, InfoStripProps } from './InfoStrip';
+export { HighlightText } from './HighlightText';
+export type { HighlightTextProps } from './HighlightText';
