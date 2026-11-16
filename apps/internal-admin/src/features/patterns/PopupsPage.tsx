@@ -16,6 +16,7 @@ import { SmsVerifyModal } from '@/features/auth/login/components/SmsVerifyModal'
 import { PermissionRequestModal } from '@/features/mypage/components/PermissionRequestModal';
 import { SpecialPermissionRequestModal } from '@/features/mypage/permission/components/SpecialPermissionRequestModal';
 import { ExceptionPermissionModal } from '@/features/mypage/permission/components/ExceptionPermissionModal';
+import { MenuPermissionRequestModal } from '@/features/mypage/permission/components/MenuPermissionRequestModal';
 import { PermissionChangeModal } from '@/features/mypage/components/PermissionChangeModal';
 import { PasswordChangeModal } from '@/features/mypage/account/components/PasswordChangeModal';
 import { LoginHistoryModal } from '@/features/mypage/account/components/LoginHistoryModal';
@@ -60,6 +61,7 @@ type PopupKey =
   | 'permissionRequest'
   | 'specialPermission'
   | 'exceptionPermission'
+  | 'menuPermission'
   | 'permissionChange'
   | 'passwordChange'
   | 'loginHistory'
@@ -117,6 +119,7 @@ const GROUPS: PopupGroup[] = [
       { key: 'permissionRequest', label: '권한 신청 현황' },
       { key: 'specialPermission', label: '특수권한 신청 (KWPC02020004)' },
       { key: 'exceptionPermission', label: '개별 예외 권한 (KWPC02020001)' },
+      { key: 'menuPermission', label: '메뉴 권한 신청 (KWPC02020002)' },
       { key: 'permissionChange', label: '권한 변경 이력 (KWPC02020201)' },
     ],
   },
@@ -390,6 +393,7 @@ export function PopupsPage() {
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
       <SpecialPermissionRequestModal open={is('specialPermission')} onClose={close} />
       <ExceptionPermissionModal open={is('exceptionPermission')} onClose={close} />
+      <MenuPermissionRequestModal open={is('menuPermission')} onClose={close} />
       <PermissionChangeModal open={is('permissionChange')} onClose={close} />
       <PasswordChangeModal
         open={is('passwordChange')}

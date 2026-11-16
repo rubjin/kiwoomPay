@@ -181,7 +181,7 @@ export function SpecialPermissionRequestModal({
           <Field
             label="신청 사유"
             labelPosition="top"
-            required
+            required="text"
             feedback={errors.reason ? 'negative' : undefined}
             helperText={errors.reason}
           >

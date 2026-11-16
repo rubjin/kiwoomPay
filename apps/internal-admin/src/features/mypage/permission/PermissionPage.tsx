@@ -12,7 +12,6 @@ import {
   PageLayout,
   Tab,
   TextButton,
-  useDialog,
   Stack,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
@@ -30,6 +29,7 @@ import {
 import { PERMISSION_HINT } from '../components/permissionHints';
 import { SpecialPermissionRequestModal } from './components/SpecialPermissionRequestModal';
 import { ExceptionPermissionModal } from './components/ExceptionPermissionModal';
+import { MenuPermissionRequestModal } from './components/MenuPermissionRequestModal';
 import { fetchPermissionChanges } from '@/features/mypage/permissionChange.api';
 import type { PermissionChange } from '@/features/mypage/permissionChange.types';
 import {
@@ -54,7 +54,6 @@ const caption = { margin: 0, fontSize: 12, color: 'var(--kp-color-text-secondary
  * 나의 권한 현황 · 기본 권한 정보 → 권한 신청 현황(최근 3건) · 권한 변경 이력 탭 → 메뉴 및 기능 권한 · 특수권한
  */
 export function PermissionPage() {
-  const dialog = useDialog();
   const [overview, setOverview] = useState<PermissionOverview | null>(null);
   const [recent, setRecent] = useState<{ items: PermissionRequest[]; total: number } | null>(null);
   const [recentChanges, setRecentChanges] = useState<{
@@ -66,6 +65,7 @@ export function PermissionPage() {
   const [requestOpen, setRequestOpen] = useState(false);
   const [specialOpen, setSpecialOpen] = useState(false);
   const [exceptionOpen, setExceptionOpen] = useState(false);
+  const [menuRequestOpen, setMenuRequestOpen] = useState(false);
 
   useEffect(() => {
     void fetchPermissionOverview().then(setOverview);
@@ -83,8 +83,6 @@ export function PermissionPage() {
     }).then(setRecentChanges);
   }, []);
 
-  // TODO(시안) 메뉴 권한 신청(KWPC02020002) 팝업
-  const notReady = (name: string) => dialog.alert(`${name} 팝업은 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line' } as const;
 
   return (
@@ -192,7 +190,7 @@ export function PermissionPage() {
                 titleAddon={<InfoTip content={PERMISSION_HINT.menu} />}
                 divider
                 actions={
-                  <Button {...line} onClick={() => notReady('권한 신청')}>
+                  <Button {...line} onClick={() => setMenuRequestOpen(true)}>
                     권한 신청
                   </Button>
                 }
@@ -253,6 +251,10 @@ export function PermissionPage() {
       <PermissionRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
       <SpecialPermissionRequestModal open={specialOpen} onClose={() => setSpecialOpen(false)} />
       <ExceptionPermissionModal open={exceptionOpen} onClose={() => setExceptionOpen(false)} />
+      <MenuPermissionRequestModal
+        open={menuRequestOpen}
+        onClose={() => setMenuRequestOpen(false)}
+      />
       <PermissionChangeModal open={changeOpen} onClose={() => setChangeOpen(false)} />
     </>
   );

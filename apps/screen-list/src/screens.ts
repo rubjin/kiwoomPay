@@ -546,6 +546,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC02020002',
+    depth1: '마이페이지',
+    depth2: '권한관리',
+    depth3: '권한관리',
+    name: '메뉴 권한 신청 팝업',
+    path: '/patterns/popups?open=menuPermission',
+    type: '팝업',
+    pattern: 'P07',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    tempWork:
+      '예시 메뉴 트리 · 처음 접힌 묶음(정산자료관리) · 완료 문구 · 폭 Figma 1380 → xl 1280',
+  },
+  {
+    system: 'internal',
     id: 'KWPC02020004',
     depth1: '마이페이지',
     depth2: '권한관리',
