@@ -74,12 +74,40 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenRow>[] => [
 
 const rowKey = (s: ScreenRow) => s.key;
 
+/**
+ * 고른 탭 · 필터를 주소(?system=…&menu=…&status=…)에 둔다 — 새로고침해도 유지.
+ * 기본값이면 주소에서 뺀다
+ */
+function useQueryState<T extends string>(key: string, initial: T, isValid: (v: string) => boolean) {
+  const [value, setValue] = useState<T>(() => {
+    const v = new URLSearchParams(window.location.search).get(key);
+    return v !== null && isValid(v) ? (v as T) : initial;
+  });
+  const set = (next: T) => {
+    setValue(next);
+    const params = new URLSearchParams(window.location.search);
+    if (next === initial) params.delete(key);
+    else params.set(key, next);
+    const query = params.toString();
+    window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+  };
+  return [value, set] as const;
+}
+
 /** 화면 확인용 목록 (임의 작업 — 시안 없음). 시스템별 작업 현황과 화면 링크 */
 export function App() {
-  const [system, setSystem] = useState<SystemId>('internal');
-  const [status, setStatus] = useState<'all' | ScreenStatus>('all');
+  const [system, setSystem] = useQueryState<SystemId>('system', 'internal', (v) =>
+    SYSTEMS.some((s) => s.id === v),
+  );
+  const [status, setStatus] = useQueryState<'all' | ScreenStatus>(
+    'status',
+    'all',
+    (v) => v === 'all' || STATUSES.some((st) => st === v),
+  );
   // 1depth 메뉴 탭 ('all' = 전체). 시스템을 바꾸면 전체로
-  const [menu, setMenu] = useState('all');
+  const [menu, setMenu] = useQueryState<string>('menu', 'all', (v) =>
+    rowsOf(system).some((s) => s.depth1 === v),
+  );
   const current = SYSTEMS.find((s) => s.id === system) ?? SYSTEMS[0]!;
   const ofSystem = rowsOf(system);
   const menus = [...new Set(ofSystem.map((s) => s.depth1))];
