@@ -31,7 +31,12 @@ const STATE_BADGE: Record<SpecialPermissionState, { label: string; tone: BadgeTo
   IN_USE: { label: '사용 중', tone: 'success' },
   PENDING: { label: '승인대기', tone: 'warning' },
   NONE: { label: '미보유', tone: 'neutral' },
+  // (임의 작업) 만료 Badge 색 — 시안 없음
+  EXPIRED: { label: '만료', tone: 'error' },
 };
+
+/** 신청할 수 있는 상태 (미보유 · 만료) */
+const REQUESTABLE: SpecialPermissionState[] = ['NONE', 'EXPIRED'];
 
 /** 신청 대상 열 (Figma 선택 56 · 특수권한 160 · 설명 나머지 · 현재 상태 120 · 유효기간 192) */
 const COLUMNS: GridPlaceholderColumn<SpecialPermissionOption>[] = [
@@ -145,7 +150,7 @@ export function SpecialPermissionRequestModal({
               rows={options}
               rowKey={(r) => r.id}
               selectable="single"
-              isRowSelectable={(r) => r.state === 'NONE'}
+              isRowSelectable={(r) => REQUESTABLE.includes(r.state)}
               selectedKeys={form.permissionId ? [form.permissionId] : []}
               onSelectionChange={([id]) => set('permissionId', id ?? null)}
             />
@@ -154,12 +159,10 @@ export function SpecialPermissionRequestModal({
           <Field
             label="사용 희망 기간"
             labelPosition="top"
-            required
+            required="text"
             feedback={errors.period ? 'negative' : undefined}
-            helperText={
-              errors.period ??
-              '승인 결과에 따라 신청 희망기간과 실제 유효기간이 달라질 수 있습니다.'
-            }
+            helperText={errors.period}
+            aside="승인 결과에 따라 신청 희망기간과 실제 유효기간이 달라질 수 있습니다."
           >
             <ControlGroup>
               <DateField
