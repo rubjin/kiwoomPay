@@ -49,6 +49,8 @@ export interface ScreenInfo {
   updatedAt: string;
   /** 시안 · 정책 없이 임시로 만든 부분 → "기타" 칸에 "임의 작업: …" */
   tempWork?: string;
+  /** 그 밖의 메모 → "기타" 칸에 그대로 (예: 기획없음) */
+  memo?: string;
 }
 
 const PLAN = 'IA v0.7 (26-11-03)';
@@ -470,6 +472,48 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC02020101',
+    depth1: '마이페이지',
+    depth2: '권한관리',
+    depth3: '권한 신청현황',
+    name: '권한 신청 현황 상세 팝업',
+    path: '',
+    type: '팝업',
+    status: '삭제',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    memo: '기획없음',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC02020200',
+    depth1: '마이페이지',
+    depth2: '권한관리',
+    depth3: '권한 변경이력',
+    name: '권한 변경이력',
+    path: '',
+    type: '기타',
+    status: '삭제',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    memo: '기획없음',
+  },
+  {
+    system: 'internal',
+    id: 'KWPC02020003',
+    depth1: '마이페이지',
+    depth2: '권한관리',
+    depth3: '',
+    name: '조회 CPID 범위 변경 신청',
+    path: '',
+    type: '팝업',
+    status: '삭제',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    memo: '기획없음',
+  },
+  {
+    system: 'internal',
     id: 'KWPC02020201',
     depth1: '마이페이지',
     depth2: '권한관리',
@@ -542,8 +586,7 @@ export const SCREENS: ScreenInfo[] = [
     status: '작업중',
     planVersion: PLAN,
     updatedAt: '2026-11-16',
-    tempWork:
-      '예시 데이터 · 마스킹 적용 시 표시',
+    tempWork: '예시 데이터 · 마스킹 적용 시 표시',
   },
   {
     system: 'internal',

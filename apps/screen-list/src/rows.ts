@@ -35,7 +35,7 @@ const withPattern = (kind: string, pattern?: string) =>
   pattern ? `${kind || '-'} (${pattern})` : kind || '-';
 
 const etcOf = (work?: ScreenInfo, note?: string) =>
-  [work?.tempWork && `임의 작업: ${work.tempWork}`, note && `비고: ${note}`]
+  [work?.memo, work?.tempWork && `임의 작업: ${work.tempWork}`, note && `비고: ${note}`]
     .filter(Boolean)
     .join(' / ') || '-';
 
