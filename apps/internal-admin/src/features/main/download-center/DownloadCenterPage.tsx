@@ -27,11 +27,11 @@ import { ACTION_LABEL, type DownloadAction } from './components/downloadActions'
 import { createDownloadColumns } from './components/downloadColumns';
 import { createInitialParams } from './components/initialParams';
 
-// 라벨 + 8 + 셀렉트 130 (시안 다운로드센터.png)
+// 라벨 + 8 + 셀렉트 130
 const SELECT_FIELD = { width: 183 };
 
 /**
- * KWPC0104 다운로드 센터 — 페이지 패턴 P01 Search → Result (시안 다운로드센터.png · 다운로드요청상세.png).
+ * KWPC0104 다운로드 센터 — 페이지 패턴 P01 Search → Result.
  * 검색 조건이 한 줄이라 [초기화] · [조회]를 필드 줄 끝에 둔다 (SearchPanel actionsPlacement="inline").
  * 내 다운로드 요청 목록이라 들어오면 바로 조회한다 (조회 화면 기본 규칙의 예외, TODO(정책) 확인)
  */

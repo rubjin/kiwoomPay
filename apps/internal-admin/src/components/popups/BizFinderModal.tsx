@@ -204,7 +204,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
 }
 
 /**
- * 사업자 찾기 팝업 (시안 temp/페이지/처리_사업자 찾기 팝업.png · CPID 선택 멀티셀렉트.png) — 여러 화면 공통.
+ * 사업자 찾기 팝업 — 여러 화면 공통.
  * 사업자명 · 사업자번호로 조회 → 사업자 하나 선택(라디오) → 그 사업자의 CPID 조회 범위(TableMultiSelect) → [조회 조건 적용].
  * 폭: 시안 1056 → Modal lg 880 (표준 크기). 호출은 useLookup (P03)
  */

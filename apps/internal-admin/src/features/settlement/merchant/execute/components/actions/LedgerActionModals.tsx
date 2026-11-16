@@ -20,7 +20,7 @@ export interface PayDateChangeModalProps extends LedgerActionProps {
   onApplied?: (rows: LedgerActionRow[], payDate: string) => void;
 }
 
-/** 지급예정일 일괄 변경 (시안 처리_실행 팝업.png 왼쪽) — 변경 예정만 반영, 저장·재산출은 다음 팝업 */
+/** 지급예정일 일괄 변경 — 변경 예정만 반영, 저장·재산출은 다음 팝업 */
 export function PayDateChangeModal({
   open,
   rows,

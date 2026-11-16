@@ -6,7 +6,7 @@ import type {
 } from '@/features/mypage/permissionRequest.types';
 import { paginate, wait } from '@/api/mock';
 
-// TODO(API) 권한 신청 이력 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 권한신청팝업.png)
+// TODO(API) 권한 신청 이력 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
 type Row = [
   string, // 신청일시
   string, // 구분

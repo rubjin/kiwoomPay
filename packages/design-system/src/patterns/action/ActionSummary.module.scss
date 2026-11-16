@@ -1,7 +1,7 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
-// 컴포넌트 전용 크기 — Figma 처리_실행 팝업 (PNG 측정)
+// 컴포넌트 전용 크기 — Figma 처리_실행 팝업
 $as-bar-padding: t.$space-12 t.$space-16;
 $as-radius: 6px;
 $as-stat-padding: t.$space-12 t.$space-16;

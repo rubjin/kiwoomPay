@@ -30,7 +30,7 @@ import {
 } from '../components/PermissionRequestModal';
 import { PERMISSION_HINT } from '../components/permissionHints';
 
-// 시안 권한관리.png 측정: 첫 줄 카드 1083 : 532 · 셋째 줄 같은 폭 · 카드 줄 사이 16
+// 첫 줄 카드 1083 : 532 · 셋째 줄 같은 폭 · 카드 줄 사이 16
 const TOP_COLUMNS = [1083, 532];
 const BOTTOM_COLUMNS = [1, 1];
 const LABEL_WIDTH = 144; // 라벨 시작 ↔ 값 156 (+ HubInfo 간격 12)
@@ -42,7 +42,7 @@ const SPECIAL_COLUMNS = '345px 195px 1fr';
 const caption = { margin: 0, fontSize: 12, color: 'var(--kp-color-text-secondary)' } as const;
 
 /**
- * KWPC02020000 마이페이지 · 권한관리 (시안 temp/페이지/마이페이지/권한관리.png).
+ * KWPC02020000 마이페이지 · 권한관리.
  * 나의 권한 현황 · 기본 권한 정보 → 권한 신청 현황(최근 3건) · 권한 변경 이력 탭 → 메뉴 및 기능 권한 · 특수권한
  */
 export function PermissionPage() {

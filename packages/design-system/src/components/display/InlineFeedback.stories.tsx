@@ -32,9 +32,9 @@ export const Tones: Story = {
       <InlineFeedback tone="error">
         비밀번호 변경 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.
       </InlineFeedback>
-      <InlineFeedback tone="warning">일부 항목은 저장되지 않았습니다.</InlineFeedback>
+      {/* <InlineFeedback tone="warning">일부 항목은 저장되지 않았습니다.</InlineFeedback>
       <InlineFeedback tone="success">저장되었습니다.</InlineFeedback>
-      <InlineFeedback tone="info">처리 결과는 다운로드 센터에서 확인할 수 있습니다.</InlineFeedback>
+      <InlineFeedback tone="info">처리 결과는 다운로드 센터에서 확인할 수 있습니다.</InlineFeedback> */}
     </div>
   ),
 };

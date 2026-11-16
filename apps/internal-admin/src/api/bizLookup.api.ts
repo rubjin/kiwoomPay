@@ -2,7 +2,6 @@ import type { BizCpid, BizRow } from '@/api/bizLookup.types';
 import { wait } from '@/api/mock';
 
 // TODO(API) 사업자 · 하위 CPID 조회 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
-// (시안 처리_사업자 찾기 팝업.png · CPID 선택 멀티셀렉트.png)
 const BIZ: BizRow[] = [
   { bizNo: '000-00-00000', name: '테스트상사', cpidCount: 10000 },
   { bizNo: '000-00-00001', name: '테스트상사 리테일', cpidCount: 12 },

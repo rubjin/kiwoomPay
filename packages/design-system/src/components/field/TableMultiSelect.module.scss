@@ -1,7 +1,7 @@
 @use 'tokens' as t;
 @use 'mixins' as m;
 
-// 컴포넌트 전용 크기 — Figma 사업자 찾기 팝업 · CPID 선택 (PNG 측정)
+// 컴포넌트 전용 크기 — Figma 사업자 찾기 팝업 · CPID 선택
 $tms-panel-padding: t.$space-16;
 $tms-gap: t.$space-12; // 제목 줄 ↔ 검색 ↔ 전체 ↔ 표 ↔ 안내
 $tms-head-height: 34px; // 표 머리

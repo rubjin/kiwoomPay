@@ -44,7 +44,7 @@ export interface DownloadDetailModalProps {
   onAction: (detail: DownloadRequestDetail, action: DownloadAction) => void;
 }
 
-/** 다운로드 요청 상세 (시안 다운로드요청상세.png) — 파일명을 누르면 연다 */
+/** 다운로드 요청 상세 — 파일명을 누르면 연다 */
 export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDetailModalProps) {
   const [detail, setDetail] = useState<DownloadRequestDetail | null>(null);
   const [failed, setFailed] = useState(false);

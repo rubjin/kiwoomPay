@@ -1,6 +1,6 @@
 import { Fragment, type CSSProperties } from 'react';
 
-// 요청 조건 줄 (시안 다운로드요청상세.png 측정: 높이 48 · 왼쪽 16 · 항목 사이 구분선 1 × 20, 간격 20)
+// 요청 조건 줄 (높이 48 · 왼쪽 16 · 항목 사이 구분선 1 × 20, 간격 20)
 // TODO(시안) 같은 모양이 다른 화면에도 나오면 디자인 시스템 컴포넌트로 올린다
 const box: CSSProperties = {
   display: 'flex',

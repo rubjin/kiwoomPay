@@ -16,7 +16,7 @@ import type { AccountInfo } from '@/features/mypage/account.types';
 import { MypageTabs } from '../components/MypageTabs';
 import { PasswordChangeModal } from './components/PasswordChangeModal';
 
-// 시안 계정관리.png 측정: 카드 폭 980 : 636 · 라벨 시작 ↔ 값 156 (라벨 칸 144 + HubInfo 간격 12)
+// 카드 폭 980 : 636 · 라벨 시작 ↔ 값 156 (라벨 칸 144 + HubInfo 간격 12)
 // · 줄 간격 왼쪽 39 · 오른쪽 56 (줄 높이 20 + 간격)
 const CARD_COLUMNS = [980, 636];
 const LABEL_WIDTH = 144;
@@ -26,7 +26,7 @@ const RIGHT_ROW_GAP = 36;
 const INFO_COLUMNS = 'minmax(0, 489fr) minmax(0, 457fr)';
 
 /**
- * KWPC02010100 마이페이지 · 계정관리 (시안 temp/페이지/마이페이지/계정관리.png).
+ * KWPC02010100 마이페이지 · 계정관리.
  * 기본 계정정보 · 비밀번호 및 로그인 보안 카드 + 계정정보 변경 안내. 정보는 조회만(직접 수정 불가)
  */
 export function AccountPage() {

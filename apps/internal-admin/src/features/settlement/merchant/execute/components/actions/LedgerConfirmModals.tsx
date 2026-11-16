@@ -7,7 +7,7 @@ import type { LedgerActionProps } from './LedgerActionModals';
 
 const ids = (rows: { ledgerId: string }[]) => rows.map((r) => r.ledgerId);
 
-/** 원장 지급확정 (시안 처리_실행 팝업2.png 왼쪽, KWPC06010207) — 입력 없이 확인만 */
+/** 원장 지급확정 (KWPC06010207) — 입력 없이 확인만 */
 export function PayConfirmModal({ open, rows, onClose, onDone }: LedgerActionProps) {
   return (
     <LedgerActionModal

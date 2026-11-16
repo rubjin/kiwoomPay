@@ -32,7 +32,7 @@ const STATUS_TONE: Record<PermissionRequestStatus, BadgeTone> = {
   REJECTED: 'error',
 };
 
-/** 권한 신청 이력 열 (시안 권한신청팝업.png). TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
+/** 권한 신청 이력 열. TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
 export const PERMISSION_REQUEST_COLUMNS: GridPlaceholderColumn<PermissionRequest>[] = [
   { key: 'requestedAt', header: '신청일시', width: 170 },
   {
@@ -145,7 +145,7 @@ function PermissionRequestBody() {
 }
 
 /**
- * 마이페이지 권한 신청 현황 팝업 (시안 temp/페이지/마이페이지/권한신청팝업.png) — 권한관리 카드의 [권한 신청 현황]에서 연다.
+ * 마이페이지 권한 신청 현황 팝업 — 권한관리 카드의 [권한 신청 현황]에서 연다.
  * 조회 조건(상자형 SearchPanel) → 권한 신청 이력 → Total · Pagination. 처리 버튼 없음(Footer 없음).
  * 폭: 시안 1380 → Modal xl 1280 (표준 크기)
  */

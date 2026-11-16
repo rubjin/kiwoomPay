@@ -3,7 +3,7 @@
     "BarBg": {
       "$type": "color",
       "$value": "{Bg.Page}",
-      "$description": "일괄 처리 팝업 선택 대상 요약 줄 (Figma 처리_실행 팝업, PNG 측정)"
+      "$description": "일괄 처리 팝업 선택 대상 요약 줄 (Figma 처리_실행 팝업)"
     },
     "Text": { "$type": "color", "$value": "{Text.Body}" },
     "Accent": {

@@ -6,7 +6,7 @@ import { DownloadStatusBadge, FileStatusBadge } from './statusBadges';
 import { orDash } from '@/utils/format';
 
 /**
- * 다운로드 요청 Grid 열 (시안 다운로드센터.png). IBSheet8 연결 시 같은 순서 · 폭으로 Cols를 만든다.
+ * 다운로드 요청 Grid 열. IBSheet8 연결 시 같은 순서 · 폭으로 Cols를 만든다.
  * TODO(IBSheet) 파일명 링크 · 작업요청 버튼은 IBSheet 버튼/링크 셀로
  */
 export function createDownloadColumns(handlers: {

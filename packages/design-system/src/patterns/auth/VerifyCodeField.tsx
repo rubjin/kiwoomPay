@@ -28,7 +28,7 @@ export interface VerifyCodeFieldProps {
 
 /**
  * SMS 인증번호 입력: 라벨 왼쪽 + 입력(오른쪽에 남은 시간 MM:SS 빨강) + [재발송].
- * 시안 KWPC3000 로그인 SMS 인증 (PNG 측정): 입력 · 버튼 40, 사이 8.
+ * 시안 KWPC3000 로그인 SMS 인증: 입력 · 버튼 40, 사이 8.
  */
 export const VerifyCodeField = forwardRef<HTMLInputElement, VerifyCodeFieldProps>(
   (

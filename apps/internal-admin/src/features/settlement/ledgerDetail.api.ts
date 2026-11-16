@@ -4,7 +4,7 @@ import type { SettlementLedger } from '@/features/settlement/merchantSettlement.
 import { wait } from '@/api/mock';
 
 // TODO(API) 원장 상세 · 정산대상 거래 API가 정해지면 axios 호출로 바꾼다.
-// 지금은 화면 확인용 예시 데이터 (시안 처리_일반 원장 상세 팝업_원장 산출 근거.png · 정산대상 거래 건.png)
+// 지금은 화면 확인용 예시 데이터
 
 export async function fetchLedgerDetail(ledger: SettlementLedger): Promise<LedgerDetail> {
   await wait(200);

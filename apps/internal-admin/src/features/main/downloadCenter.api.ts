@@ -6,7 +6,7 @@ import type {
 } from '@/features/main/downloadCenter.types';
 import { paginate, wait } from '@/api/mock';
 
-// TODO(API) 다운로드 센터 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터 (시안 다운로드센터.png)
+// TODO(API) 다운로드 센터 API가 정해지면 axios 호출로 바꾼다. 지금은 화면 확인용 예시 데이터
 type Row = Omit<DownloadRequest, 'id' | 'no'>;
 const row = (
   area: string,
