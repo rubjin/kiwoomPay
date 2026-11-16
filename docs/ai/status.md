@@ -937,3 +937,15 @@
 - 검증: 앱 · 화면 목록 tsc, 브라우저: 탭 3행 · 총 15건, [상세보기] → 1280 · 8열 · 10행 · Total 15, 표 폭 1240(넘침 없음), 에러 없음
 - 시안과 다른 점(임의 작업): 폭 1380 → xl 1280(권한 대상 남는 폭 · 변경일시 164 → 150 · 변경 전 / 후 157 → 140), 변경 유형 선택지 중 개별 권한 제외 · 권한 부여는 예시, 탭의 최근 3건 표
 
+### KWPC02030000 알림센터 — 2026-11-16
+- 시안: Figma 29008:79135(검색결과)
+- 디자인 시스템
+  - `NotificationSummary`(feed): 미확인 요약 한 줄 [미확인 알림 N건(14 SemiBold · 16 Bold Primary)] · 업무유형 칩(사이 24) ··· [모두 읽음 처리]. 칩은 `NotificationCountChips`로 분리해 NotificationFeed(Hub)와 공용 — Hub 모양 그대로
+  - `NotificationAccordion` · `NotificationDetail`(feed): 알림 목록 카드(테두리 Line Default · 반경 8), 줄 56 · 좌우 20 · 사이 16([점 8] 업무유형 92 · 제목 · 일시 164 · 화살표 20), 미확인 14 Bold Heading + Primary 점(DotBadge) · 확인 14 Regular Neutral 400. 한 번에 하나 펼침(controlled/uncontrolled), 펼침 상세 Primary 50 · 여백 24 · 사이 24: 알림 내용 14 Regular(줄바꿈 유지) → 흰 상자(Primary 100 테두리 · 반경 6 · 여백 8/12) [관련 업무 + 경로 · 이동 버튼 | 알림 정보 2×2(Neutral 50 · 이름 58)]
+  - `HighlightText`(display): 검색어를 Primary 글자로 강조
+  - SearchPanel `header`(inline일 때 제목 줄 대신 쓸 내용 — 요약 줄 · 구분선 · 조회 조건 줄이 한 카드)
+  - 토큰 `Feed.*` 15개 추가(모두 alias), 스토리 P06 NotificationCenter
+- 앱 `features/mypage/notification/NotificationCenterPage`(`/mypage/notification`, placeholder 대체): 요약 + 조회 조건(수신기간 최근 3개월 · 업무유형 · 확인상태 · 검색어 500) 한 카드 → 알림 목록 → Total · Pagination. 진입 시 바로 조회, 검색어 강조, 펼치면 읽음 처리(요약 건수 바로 줄고, 펼친 동안은 미확인 모양 — 접으면 회색), [모두 읽음 처리] Confirm, 관련 업무 버튼 → 해당 화면 이동. `notification.api.ts` · `.types.ts`(예시 17건, 읽음 상태는 모듈 안), 공통코드 `NOTIFICATION_TYPE`. 탭 제목 · 화면 목록(KWPC02030000)
+- 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 · 화면 목록 tsc, 1920 브라우저: 카드 1632 × 139(Figma 139) · 줄 56 · 펼침 상세 189(Figma 190), 요약 12건 · 칩 5개, Total 17, "자동정산" 조회 → 6건 · 강조 6, 펼침 → 상세 · 요약 11건, 에러 없음
+- 시안과 다른 점(임의 작업): 업무유형 · 확인상태 셀렉트 폭 200(Figma 117 · 99 — 검색 조건 기본 폭 규칙), 조회 조건 필드 사이 16(Figma 20), 화면명 ↔ 카드 위치 6 아래(화면명 줄 40 공통), 펼침 시 읽음 처리 시점 · 모두 읽음 확인 문구 · 관련 업무 이동 대상(정산 화면) · 예시 알림
+

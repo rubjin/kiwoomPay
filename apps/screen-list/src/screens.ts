@@ -514,6 +514,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC02030000',
+    depth1: '마이페이지',
+    depth2: '알림센터',
+    depth3: '알림센터',
+    name: '알림센터',
+    path: '/mypage/notification',
+    type: '목록',
+    pattern: 'P01 · P06',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    tempWork:
+      '예시 알림 17건 · 진입 시 바로 조회 · 펼치면 읽음(접을 때 회색) · 관련 업무 이동(정산 화면) · 모두 읽음 확인 문구 · 업무유형 · 확인상태 셀렉트 폭 200(Figma 117 · 99, 검색 조건 기본 폭 규칙)',
+  },
+  {
+    system: 'internal',
     id: 'KWPC02020201',
     depth1: '마이페이지',
     depth2: '권한관리',

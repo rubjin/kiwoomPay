@@ -25,7 +25,8 @@ export type CodeGroup =
   | 'LOGIN_STATE'
   | 'ACCOUNT_STATUS'
   | 'PERMISSION_CHANGE_TYPE'
-  | 'PERMISSION_CHANGE_KIND';
+  | 'PERMISSION_CHANGE_KIND'
+  | 'NOTIFICATION_TYPE';
 
 /**
  * 공통코드 임시값 ("전체" 제외). API를 받기 전 · 실패했을 때 쓴다.
@@ -146,5 +147,13 @@ export const CODE_FALLBACK: Record<CodeGroup, Option[]> = {
     { value: 'GRANT', label: '권한 부여' },
     { value: 'REVOKE', label: '권한 회수' },
     { value: 'SCOPE', label: '범위 변경' },
+  ],
+  // 알림센터 업무유형 (Figma 알림센터 · 마이페이지 칩)
+  NOTIFICATION_TYPE: [
+    { value: 'SETTLEMENT', label: '정산' },
+    { value: 'RISK', label: '리스크/FDS' },
+    { value: 'PAYOUT', label: '지급' },
+    { value: 'REVIEW', label: '심사/계약' },
+    { value: 'CS', label: '문의/민원' },
   ],
 };
