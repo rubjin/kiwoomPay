@@ -131,7 +131,8 @@ $favorite-empty-padding: t.$space-40; // TODO(시안) 검색 결과 없음
   color: t.$color-favorite-menu-path;
 }
 
-.scrollRight {
+// 칩 줄 ← · → (넘칠 때, 그 방향으로 더 있을 때만)
+.scrollButton {
   display: inline-flex;
   flex: none;
   padding: 0;

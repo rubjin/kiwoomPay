@@ -78,19 +78,30 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
     const toggle = (id: string, checked: boolean) =>
       setSelected(checked ? [...selected, id] : selected.filter((v) => v !== id));
 
-    // 칩 줄: 넘치면 → 버튼으로 옆으로 넘긴다
+    // 칩 줄: 넘치면 ← · → 버튼으로 옆으로 넘긴다 (처음이면 ← 숨김, 끝이면 → 숨김)
     const chipsRef = useRef<HTMLUListElement>(null);
-    const [overflow, setOverflow] = useState(false);
+    const [scrollable, setScrollable] = useState({ left: false, right: false });
     useEffect(() => {
       const el = chipsRef.current;
-      if (!el) return;
-      const check = () => setOverflow(el.scrollWidth > el.clientWidth + 1);
+      if (!el) {
+        setScrollable({ left: false, right: false });
+        return;
+      }
+      const check = () =>
+        setScrollable({
+          left: el.scrollLeft > 1,
+          right: el.scrollLeft + el.clientWidth < el.scrollWidth - 1,
+        });
       check();
+      el.addEventListener('scroll', check, { passive: true });
       // 칩 폭은 웹폰트가 늦게 적용될 때도 바뀌므로 칩마다 지켜본다
       const observer = new ResizeObserver(check);
       observer.observe(el);
       for (const chip of Array.from(el.children)) observer.observe(chip);
-      return () => observer.disconnect();
+      return () => {
+        observer.disconnect();
+        el.removeEventListener('scroll', check);
+      };
     }, [selected]);
 
     const checkbox = (item: LnbMenuItem, label: ReactNode) => {
@@ -159,6 +170,16 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
             </span>
           </p>
           <div className={styles.chipRow}>
+            {scrollable.left && (
+              <button
+                type="button"
+                className={styles.scrollButton}
+                aria-label="앞 즐겨찾기 메뉴 보기"
+                onClick={() => chipsRef.current?.scrollBy({ left: -200 })}
+              >
+                <Icon name="chevron-left" size={20} />
+              </button>
+            )}
             {selected.length === 0 ? (
               <span className={styles.chipEmpty}>아래 메뉴에서 선택해주세요.</span>
             ) : (
@@ -178,10 +199,10 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
                 ))}
               </ul>
             )}
-            {overflow && (
+            {scrollable.right && (
               <button
                 type="button"
-                className={styles.scrollRight}
+                className={styles.scrollButton}
                 aria-label="즐겨찾기 메뉴 더 보기"
                 onClick={() => chipsRef.current?.scrollBy({ left: 200 })}
               >
