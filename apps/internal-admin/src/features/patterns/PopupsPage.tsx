@@ -116,7 +116,7 @@ const GROUPS: PopupGroup[] = [
     description:
       '권한관리 카드 → [권한 신청 현황] · 권한관리 특수권한 카드 → [특수권한 신청] · 메뉴 및 기능 권한 카드 → [보유 기능 권한 보기] · 권한 변경 이력 탭 → [상세보기]',
     buttons: [
-      { key: 'permissionRequest', label: '권한 신청 현황' },
+      { key: 'permissionRequest', label: '권한 신청 현황 상세 (KWPC02020101)' },
       { key: 'specialPermission', label: '특수권한 신청 (KWPC02020004)' },
       { key: 'exceptionPermission', label: '개별 예외 권한 (KWPC02020001)' },
       { key: 'menuPermission', label: '메뉴 권한 신청 (KWPC02020002)' },
