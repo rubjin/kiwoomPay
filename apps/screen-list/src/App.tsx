@@ -67,7 +67,7 @@ const columnsOf = (baseUrl: string): GridPlaceholderColumn<ScreenRow>[] => [
       </Badge>
     ),
   },
-  { key: 'planVersion', header: '기획반영버전', width: 140 },
+  // { key: 'planVersion', header: '기획반영버전', width: 140 },
   { key: 'updatedAt', header: '최종업데이트일', width: 120 },
   { key: 'etc', header: '기타', align: 'left' },
 ];
