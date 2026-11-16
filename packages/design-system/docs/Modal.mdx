@@ -42,7 +42,8 @@ import { Modal, Button } from '@kiwoompay/design-system';
       <td>
         딤 · 가운데 배치 · 스크롤 잠금 · 포커스 이동/복귀 · Esc. <code>open</code> ·{' '}
         <code>onClose</code> · <code>size</code>(sm 400 · md 620 · lg 880 · xl 1280 · xxl 1680) ·{' '}
-        <code>width</code>(예외 폭) · <code>height</code>(높이 고정 — 탭마다 내용이 달라도 같은 크기)
+        <code>width</code>(예외 폭) · <code>height</code>(높이 고정 — 탭마다 내용이 달라도 같은
+        크기)
       </td>
     </tr>
     <tr>
@@ -213,6 +214,33 @@ Type마다 폭(`size`)이 정해져 있고, Action(None · Single · Double)은 
   라벨은 위(`labelPosition="top"`) 또는 왼쪽 중 화면에 맞게 고릅니다.
 - 그 밖의 입력(금액 · 비고 등)은 라벨 왼쪽 + 입력 폭 200, 날짜는 DateField 기본 폭.
 - 버튼이 있으면 Footer 가운데 [취소(Neutral Line) + Primary], 버튼 크기 lg.
+
+### 본문 영역 (Modal.Section)
+
+본문을 여러 영역(현재 상태 · 이력 표 · 신청 대상 등)으로 나눌 때 씁니다. 영역 = 소제목 줄(`SectionHeading` h3) + 내용, 영역끼리는 `<Stack>`(16)으로 쌓습니다.
+매번 `<Stack as="section">` + `<SectionHeading size="md" as="h3">`를 조합하지 않습니다.
+
+| prop                                         | 내용                                                                              |
+| -------------------------------------------- | --------------------------------------------------------------------------------- |
+| `title`                                      | 소제목. 없으면 내용만                                                             |
+| `size`                                       | `md` 16 Bold(기본) · `lg` 18 Bold                                                 |
+| `description` · `step` · `addon` · `actions` | SectionHeading과 같음 (설명 · 단계 번호 · 옆 Badge · 오른쪽 버튼)                 |
+| `gap`                                        | 소제목 ↔ 내용 `16`(기본) · `8`(소제목 바로 아래 붙는 표 · 정보 상자) — TODO(시안) |
+
+```tsx
+<Modal.Body>
+  <Stack>
+    <Modal.Section title="현재 계정 상태">
+      <InfoStrip items={…} />
+    </Modal.Section>
+    <Modal.Section title="상태 변경 이력" gap={8}>
+      <GridPlaceholder … />
+    </Modal.Section>
+  </Stack>
+</Modal.Body>
+```
+
+<Canvas of={ModalStories.Sections} />
 
 ## 4. Spec
 

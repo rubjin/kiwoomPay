@@ -3,6 +3,7 @@ import * as CheckboxStories from '../src/components/selection/Checkbox.stories';
 import * as RadioStories from '../src/components/selection/Radio.stories';
 import * as ToggleSwitchStories from '../src/components/selection/ToggleSwitch.stories';
 import * as SegmentedStories from '../src/components/selection/Segmented.stories';
+import * as SelectAllStories from '../src/components/selection/SelectAllCheckbox.stories';
 
 <Meta title="Components/Selection/Guide" />
 
@@ -117,6 +118,19 @@ import { Checkbox, RadioGroup, Radio, ToggleSwitch, Segmented } from '@kiwoompay
 <Canvas of={CheckboxStories.States} />
 <Canvas of={CheckboxStories.Content} />
 <Canvas of={CheckboxStories.Group} />
+
+### 목록형 표 전체 선택 (SelectAllCheckbox)
+
+목록형 표(담당자 정보 등) 머리의 전체 선택입니다. 모두 고르면 체크, 일부만 고르면 indeterminate(–), 누르면 모두 선택 ↔ 모두 해제.
+선택 상태(key 목록)는 화면이 가지고, 줄 체크박스는 `toggleKey(목록, key)`로 넣고 뺍니다. 표 미리보기(GridPlaceholder)는 선택 열을 직접 그리므로 쓰지 않습니다.
+
+```tsx
+<SelectAllCheckbox rows={rows} selected={selected} onChange={setSelected} />
+<Checkbox checked={selected.includes(row.key)} onChange={() => setSelected((s) => toggleKey(s, row.key))} />
+```
+
+<Canvas of={SelectAllStories.ListTable} />
+<Canvas of={SelectAllStories.States} />
 
 ## 3. Radio
 

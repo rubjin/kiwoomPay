@@ -14,6 +14,8 @@ import {
 import { createPortal } from 'react-dom';
 import { mergeRefs } from '../../utils';
 import { Icon } from '../Icon';
+import { Stack } from '../layout/Stack';
+import { SectionHeading } from '../SectionHeading';
 import styles from './Modal.module.scss';
 
 interface ModalContextValue {
@@ -229,6 +231,51 @@ const ModalInfoList = forwardRef<HTMLDListElement, ModalInfoListProps>(
 );
 ModalInfoList.displayName = 'Modal.InfoList';
 
+export interface ModalSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+  /** 영역 소제목 (없으면 내용만) */
+  title?: ReactNode;
+  /** 소제목 크기: md 16 Bold(기본 — 조회 결과 · 표 위) · lg 18 Bold */
+  size?: 'md' | 'lg';
+  /** 소제목 옆 설명 (12 Regular) */
+  description?: ReactNode;
+  /** 소제목 앞 단계 번호 (① ②) */
+  step?: ReactNode;
+  /** 소제목 바로 옆 (Badge 등) */
+  addon?: ReactNode;
+  /** 소제목 줄 오른쪽 끝 (버튼) */
+  actions?: ReactNode;
+  /**
+   * 소제목 ↔ 내용 간격: 16(기본) · 8(소제목 바로 아래 붙는 표 · 정보 상자).
+   * TODO(시안) 팝업 본문 영역 간격 규칙 — 지금 화면 값(16 · 8) 기준
+   */
+  gap?: 8 | 16;
+  children?: ReactNode;
+}
+
+/**
+ * 팝업 본문 영역 = 소제목 줄(SectionHeading h3) + 내용. 영역끼리는 Body 안에서 `<Stack>`(16)으로 쌓는다.
+ * 매번 `<Stack as="section">` + `<SectionHeading size="md" as="h3">`를 조합하지 않고 이것을 쓴다.
+ */
+const ModalSection = forwardRef<HTMLElement, ModalSectionProps>(
+  ({ title, size = 'md', description, step, addon, actions, gap = 16, children, ...rest }, ref) => (
+    <Stack {...rest} ref={ref} as="section" gap={gap}>
+      {title !== undefined && (
+        <SectionHeading
+          as="h3"
+          size={size}
+          title={title}
+          description={description}
+          step={step}
+          addon={addon}
+          actions={actions}
+        />
+      )}
+      {children}
+    </Stack>
+  ),
+);
+ModalSection.displayName = 'Modal.Section';
+
 /** 처리 버튼 영역. 처리가 필요한 경우에만 둔다 (None이면 생략). 버튼은 size="lg", 최종 Action을 오른쪽에 둔다. */
 export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   /** 왼쪽 끝 보조 버튼 (예: 새로고침). 있으면 주요 버튼 묶음은 오른쪽 끝으로 */
@@ -264,5 +311,6 @@ export const Modal = Object.assign(ModalRoot, {
   Body: ModalBody,
   Description: ModalDescription,
   InfoList: ModalInfoList,
+  Section: ModalSection,
   Footer: ModalFooter,
 });

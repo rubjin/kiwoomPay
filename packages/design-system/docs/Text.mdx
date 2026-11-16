@@ -1,0 +1,32 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from '../src/components/Text/Text.stories';
+
+<Meta of={Stories} name="Guide" />
+
+# Text
+
+화면의 보조 설명 · 안내 글자입니다. 앱(`apps/*`)은 SCSS를 쓰지 않으므로, 글자 크기 · 색을 `style={{ fontSize, color }}`로 쓰지 않고 이 컴포넌트를 씁니다.
+글자 스타일은 Foundation/Typography의 **역할 이름**(앱 화면용)을 그대로 씁니다.
+
+```tsx
+import { Text } from '@kiwoompay/design-system';
+
+<Text as="p">현재 적용된 메뉴별 기능 권한 및 부여 구분을 팝업에서 확인할 수 있습니다.</Text>
+<Text variant="body-sm">요청 조건</Text>
+```
+
+| prop      | 내용                                                                                                                                    |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant` | `caption-md` 12 Regular(기본) · `caption-strong` 12 SemiBold · `body-sm` 13 Regular · `label-strong` 13 SemiBold · `body-md` 14 Regular |
+| `tone`    | `secondary` 보조(기본) · `body` 본문 · `heading` 진한 강조                                                                              |
+| `as`      | `span`(기본) · `p` · `div` · `dt` · `dd` — 바깥 여백은 없다                                                                             |
+
+- TODO(시안) 보조 설명 글자 규칙은 시안이 없다 — 지금 화면 값(권한관리 12 · 요청 조건 13, 회색) 기준
+
+<Canvas of={Stories.Variants} />
+<Canvas of={Stories.Tones} />
+
+## Do / Don't
+
+- Do: 카드 · 팝업 안 보조 설명, 표 위 안내 한 줄
+- Don't: 제목(→ `SectionHeading`), 입력 안내 · 오류 문구(→ `Field` `helperText`), 상자형 안내(→ `Infobox` · `NoticePanel`)

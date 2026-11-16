@@ -5,6 +5,7 @@ import { Field } from '../field/Field';
 import { DateField } from '../field/DateField';
 import { SearchField } from '../field/SearchField';
 import { TextField } from '../field/TextField';
+import { Stack } from '../layout/Stack';
 import { Modal } from './Modal';
 
 const row: CSSProperties = {
@@ -355,5 +356,34 @@ export const Interactive: Story = {
       <ScrollExample />
       <LookupExample />
     </div>
+  ),
+};
+
+/** 본문 영역 (Modal.Section): 소제목 줄 + 내용. 영역끼리는 Stack(16)으로 쌓는다. 소제목 ↔ 내용 기본 16 · 바로 붙는 표 8 */
+export const Sections: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Modal open inline size="md">
+      <Modal.Header title="계정 상태 이력" closeButton />
+      <Modal.Body>
+        <Stack>
+          <Modal.Section title="현재 계정 상태">
+            <Modal.InfoList items={infoItems} />
+          </Modal.Section>
+          <Modal.Section
+            title="상태 변경 이력"
+            description="최근 변경 순"
+            gap={8}
+            actions={
+              <Button size="sm" variant="neutral" appearance="line">
+                새로고침
+              </Button>
+            }
+          >
+            <Modal.Description>표(IBSheet) 자리 — 소제목 바로 아래 8</Modal.Description>
+          </Modal.Section>
+        </Stack>
+      </Modal.Body>
+    </Modal>
   ),
 };

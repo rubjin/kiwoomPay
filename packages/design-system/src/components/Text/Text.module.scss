@@ -1,0 +1,39 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 보조 설명 글자 — 역할 이름(앱 화면용 alias)으로 글자 스타일, 색은 Text 토큰
+.text {
+  margin: 0;
+}
+
+.bodyMd {
+  @include m.typography(body-md);
+}
+
+.bodySm {
+  @include m.typography(body-sm);
+}
+
+.captionMd {
+  @include m.typography(caption-md);
+}
+
+.captionStrong {
+  @include m.typography(caption-strong);
+}
+
+.labelStrong {
+  @include m.typography(label-strong);
+}
+
+.body {
+  color: t.$color-text-body;
+}
+
+.secondary {
+  color: t.$color-text-secondary;
+}
+
+.heading {
+  color: t.$color-text-heading;
+}

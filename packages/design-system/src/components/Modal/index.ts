@@ -5,5 +5,6 @@ export type {
   ModalInfoItem,
   ModalInfoListProps,
   ModalProps,
+  ModalSectionProps,
   ModalSize,
 } from './Modal';

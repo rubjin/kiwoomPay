@@ -9,3 +9,5 @@ export type { SegmentedItemProps, SegmentedProps, SegmentedSize } from './Segmen
 export { SelectionGroup } from './SelectionGroup';
 export type { SelectionGroupProps } from './SelectionGroup';
 export type { SelectionSize } from './SelectionItem';
+export { SelectAllCheckbox, toggleKey } from './SelectAllCheckbox';
+export type { SelectAllCheckboxProps } from './SelectAllCheckbox';
