@@ -279,7 +279,8 @@ export function PopupsPage() {
       <PasswordChangeModal
         open={is('passwordChange')}
         onClose={close}
-        onChanged={(changedAt) => report('비밀번호 변경일', changedAt)}
+        // 완료 안내("비밀번호가 변경되었습니다.")는 팝업이 띄운다
+        onChanged={() => undefined}
       />
       <PayDateChangeModal
         open={is('ledgerPayDate') && ledgerRows.length > 0}

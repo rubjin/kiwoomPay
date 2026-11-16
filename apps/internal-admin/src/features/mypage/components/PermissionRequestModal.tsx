@@ -146,13 +146,13 @@ function PermissionRequestBody() {
 
 /**
  * 마이페이지 권한 신청 현황 팝업 — 권한관리 카드의 [권한 신청 현황]에서 연다.
- * 조회 조건(상자형 SearchPanel) → 권한 신청 이력 → Total · Pagination. 처리 버튼 없음(Footer 없음).
+ * 조회 조건(상자형 SearchPanel) → 권한 신청 이력 → Total · Pagination. 처리 버튼 없음(Footer 없음) — 제목 줄 닫기(X)로 닫는다.
  * 폭: 시안 1380 → Modal xl 1280 (표준 크기)
  */
 export function PermissionRequestModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Modal open={open} onClose={onClose} size="xl">
-      <Modal.Header title="권한 신청 현황" />
+      <Modal.Header title="권한 신청 현황" closeButton />
       <Modal.Body>{open && <PermissionRequestBody />}</Modal.Body>
     </Modal>
   );
