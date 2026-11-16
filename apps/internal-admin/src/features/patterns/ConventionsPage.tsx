@@ -153,8 +153,13 @@ const CONVENTIONS: RuleGroup[] = [
         example: "formatWon(1200, { signed: true }) → '+1,200원'",
       },
       {
+        item: '보조 설명 글자',
+        rule: '카드 · 팝업 안 보조 설명 · 안내 한 줄은 디자인 시스템 Text(variant 역할 이름 · tone). style={{ fontSize, color }}로 쓰지 않는다',
+        example: '<Text as="p">현재 적용된 메뉴별 기능 권한 …</Text>',
+      },
+      {
         item: '전체 선택',
-        rule: '목록형 표 머리 체크는 SelectAllCheckbox, 줄 체크는 toggleKey(utils/selection). 선택 상태(key 목록)는 화면이 가진다',
+        rule: '목록형 표 머리 체크는 SelectAllCheckbox, 줄 체크는 toggleKey (둘 다 디자인 시스템). 선택 상태(key 목록)는 화면이 가진다',
         example: '<SelectAllCheckbox rows={rows} selected={sel} onChange={setSel} />',
       },
       {
@@ -178,6 +183,11 @@ const CONVENTIONS: RuleGroup[] = [
         item: 'Modal 크기',
         rule: 'sm 400 · md 620 · lg 880 · xl 1280 · xxl 1680. xl은 넓은 입력 표, xxl은 화면형 팝업',
         example: '<Modal size="lg">',
+      },
+      {
+        item: '본문 영역',
+        rule: '팝업 본문을 여러 영역으로 나눌 때 Modal.Section(소제목 h3 + 내용, 소제목 ↔ 내용 16 · 표가 바로 붙으면 8), 영역끼리는 Stack(16). Stack + SectionHeading을 매번 조합하지 않는다',
+        example: '<Modal.Section title="상태 변경 이력" gap={8}>…</Modal.Section>',
       },
       {
         item: '하단 버튼',

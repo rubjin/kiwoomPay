@@ -6,13 +6,11 @@ import {
   Modal,
   Pagination,
   ResultFooter,
-  SectionHeading,
   TableMultiSelect,
   TextField,
   useDialog,
   type GridPlaceholderColumn,
   type TableMultiSelectColumn,
-  Stack,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { fetchBizCpids, searchBusinesses } from '@/api/bizLookup.api';
@@ -165,8 +163,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
           }
         >
           {results && (
-            <Stack gap={8}>
-              <SectionHeading size="md" as="h3" title="조회 결과" />
+            <Modal.Section title="조회 결과" gap={8}>
               {/* TODO(IBSheet) 결과 표는 IBSheet로 (드롭다운 셀 포함) */}
               <GridPlaceholder
                 columns={columns}
@@ -184,7 +181,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
                   onChange={setPage}
                 />
               </ResultFooter>
-            </Stack>
+            </Modal.Section>
           )}
         </LookupSearch>
       </Modal.Body>

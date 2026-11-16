@@ -971,3 +971,14 @@
 - 특수권한 신청 사용 희망 기간(사용자 요청, 같은 날): 필수 "필수" 글자(사용자 수정), 안내 문구 "승인 결과에 따라 …"를 날짜 필드 오른쪽에(Figma) — Field `aside`(컨트롤 오른쪽, 사이 12). 글자 · 색은 helper와 같은 클래스(`.helper` + `.helperAside`)라 helper를 고치면 같이 바뀜(사용자 요청). 오류 문구는 그대로 아래
 - DateField 기본 폭 140 고정(사용자 지적, 같은 날): 검색 조건(SearchPanel) 밖에서는 내용 폭이라 날짜를 고르면 폭이 줄었음 → FieldBox `.defaultDate` 기본값 auto → 140(`$field-date-width`). `fullWidth` · 직접 준 폭은 그대로(가맹점 기본/계약 정보 저축파일 전송종료일 fullWidth 245 유지). 측정: 특수권한 신청 날짜 입력 전 · 후 140 · 140, 통합 거래내역 140, 설립일자 140, 에러 없음
 - 특수권한 상태 4종(사용자 요청, 같은 날): 만료(EXPIRED) 추가 — Badge 미보유 neutral · 승인대기 warning · 사용 중 success · 만료 error(만료 색은 임의 작업), 신청 가능은 미보유 · 만료(사용 중 · 승인대기는 선택 불가). 예시 데이터에 승인대기 · 만료 줄 추가(대량 조회 · 카드번호 전체 조회, 임의 작업) — 팝업 모음 [특수권한 신청]에서 4종 확인
+
+### 반복 UI 디자인 시스템으로 — Modal.Section · Text · SelectAllCheckbox — 2026-11-17
+- 점검(사용자 요청 "페이지에 반복되는 패턴 UI 중 Storybook 컴포넌트에 없는 것"): 디자인 시스템 공개 컴포넌트 88개는 스토리 · 가이드 모두 있음(상수 `WORK_TAB_LABEL_MAX` · 내부 훅 `useCalendarAdapter`만 스토리 없음). 화면에서 반복되는데 없던 것 4가지 중 3가지 반영. Codex 검토(읽기 전용) 의견 참고 — Text · SelectAll은 보류 의견이었으나 사용자가 진행 결정
+- 디자인 시스템
+  - `Modal.Section`: 팝업 본문 영역 = 소제목(SectionHeading h3, size md 기본 · lg) + 내용, `description` · `step` · `addon` · `actions`, 소제목 ↔ 내용 `gap` 16(기본) · 8. TODO(시안) 간격 — 지금 화면 값 기준. 스토리 Modal Sections, Modal 가이드 "본문 영역" 절
+  - `Text`(components/Text): 보조 설명 글자 — `variant` 역할 이름(caption-md 기본 · caption-strong · body-sm · label-strong · body-md) · `tone`(secondary 기본 · body · heading) · `as`. TODO(시안) 글자 규칙. 스토리 · 가이드 `docs/Text.mdx`
+  - `SelectAllCheckbox` · `toggleKey`(selection): 앱 `components/common` · `utils/selection`에서 옮김(동작 같음). 스토리 · Selection 가이드 절
+- 앱: 팝업 11개 중 10개 17곳 → `Modal.Section`(간격 값 그대로, 다운로드 상세의 `Section` 래퍼 삭제). 내 검색조건 관리는 `ConfigSplit` 오른쪽 칸 첫 줄 맞춤 때문에 그대로. 권한관리 보조 설명 3곳 · 요청 조건 이름 → `Text`(요청 조건 값 14 SemiBold는 역할 이름에 없어 측정값 유지). 담당자 표 · CPID 패널 → 디자인 시스템 `SelectAllCheckbox` · `toggleKey`
+- 보류: `Field grow`(검색 필드 남는 폭 채우기) — 확정 결정 "검색 조건 기본 폭"(필드는 흐름, flex로 늘리지 않음)과 반대 방향. 남은 flex(다운로드 센터 파일명 · 정산 가맹점명 · 사업자 찾기)를 지울지 결정 필요
+- 컨벤션: 규칙 추가(보조 설명 글자 · 본문 영역), 전체 선택 규칙 위치 변경, 화면 전용 부품에 완료 3 · 후보 4(검색 필드 폭 · 양 끝 정렬 줄 · 2열 그리드 · 표 칸 여백), 폴더 트리 갱신
+- 검증: 디자인 시스템 typecheck · lint · build · Storybook 빌드(새 스토리 · 가이드 색인 확인), 앱 typecheck · build. 브라우저 화면 비교는 하지 않음 — Modal.Section은 기존과 같은 flex column + gap, Text는 줄 높이가 역할 이름 값으로 바뀌어 권한관리 보조 문구 줄 높이가 1~2px 다를 수 있음

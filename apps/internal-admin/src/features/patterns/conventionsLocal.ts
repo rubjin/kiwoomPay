@@ -31,14 +31,14 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
         where: 'operation/merchant-contract/basic/components/CpidBasicPanel.tsx · ContactTable.tsx',
         role: '표 머리 전체 선택 체크박스(indeterminate 포함) + 한 줄 선택 토글',
         verdict: '완료',
-        plan: '앱 components/common/SelectAllCheckbox(전체 선택) + utils/selection toggleKey(줄 선택). 선택 상태는 화면이 가진다',
+        plan: '디자인 시스템 SelectAllCheckbox(전체 선택) + toggleKey(줄 선택) — 2026-11-17 앱 → 디자인 시스템. 선택 상태는 화면이 가진다',
       },
       {
-        name: 'Section',
-        where: 'main/download-center/components/DownloadDetailModal.tsx',
-        role: '팝업 본문 소제목(SectionHeading h3) + 내용 세로 묶음, 사이 8',
-        verdict: '후보',
-        plan: '안은 이제 <Stack as="section" gap={8}> + SectionHeading — 다른 팝업은 래퍼 없이 Stack을 바로 쓴다',
+        name: '팝업 본문 영역 (소제목 + 내용)',
+        where: '다운로드 상세 · 원장 상세 · 사업자 찾기 · 마이페이지 팝업 등 11개 팝업 17곳',
+        role: 'Stack + SectionHeading(md · h3) 조합, 소제목 ↔ 내용 16 · 8 혼재',
+        verdict: '완료',
+        plan: '디자인 시스템 Modal.Section(title · description · step · actions · gap 16 / 8) — 다운로드 상세의 Section 래퍼 삭제. 내 검색조건 관리(ConfigSplit 오른쪽 칸)는 틀이 첫 줄을 맞춰 그대로',
       },
       {
         name: 'TwoLines',
@@ -148,6 +148,44 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
         role: "style={{ display: 'flex', flexDirection: 'column', gap: … }}",
         verdict: '완료',
         plan: '디자인 시스템 Stack (gap 0 · 4 · 8 · 12 · 16(기본) · 24, as div · section · span) — 16곳 교체',
+      },
+      {
+        name: '보조 설명 글자 (12 · 13, 회색)',
+        where:
+          'mypage/permission/PermissionPage.tsx 3곳 · main/download-center/components/RequestConditions.tsx',
+        role: "style={{ fontSize: 12, color: 'var(--kp-color-text-secondary)' }} 인라인",
+        verdict: '완료',
+        plan: '디자인 시스템 Text(variant 역할 이름 · tone · as). 요청 조건 값 14 SemiBold는 역할 이름에 없어 측정값 그대로',
+      },
+      {
+        name: '검색 필드 남는 폭 채우기',
+        where:
+          'DownloadCenterPage 파일명 · MerchantSettlementExecutePage 가맹점명 · (공통) BizFinderModal',
+        role: 'Field style={{ flex: … }}',
+        verdict: '후보',
+        plan: 'Field grow 보류 — 확정 결정 "검색 조건 기본 폭"(필드는 흐름, flex로 늘리지 않음)과 반대. 남은 flex를 지울지 결정 필요',
+      },
+      {
+        name: '양 끝 정렬 줄',
+        where: 'mypage/permission/PermissionPage.tsx 2곳',
+        role: '왼쪽 탭 · 제목, 오른쪽 문구 · 버튼 (flex space-between 인라인)',
+        verdict: '후보',
+        plan: '다른 화면에도 나오면 SectionHeading actions 또는 디자인 시스템 줄 컴포넌트로',
+      },
+      {
+        name: '2열 그리드',
+        where:
+          'mypage/account/AccountPage.tsx · mypage/permission/PermissionPage.tsx · settlement …/LedgerConfirmModals.tsx',
+        role: 'display: grid + gridTemplateColumns 인라인 (쓰임이 제각각)',
+        verdict: '후보',
+        plan: '쓰임이 같아지면 HubGrid처럼 열 비율을 받는 레이아웃으로',
+      },
+      {
+        name: '표 칸 위아래 여백',
+        where: '(공통) BizFinderModal · settlement …/LedgerDetailModal.tsx · TwoLines',
+        role: '표 미리보기 칸 안 paddingBlock 인라인',
+        verdict: '후보',
+        plan: '결과 표가 IBSheet로 바뀌면 사라질 코드 — 지금은 만들지 않음',
       },
       {
         name: '화면 고유 폭 · 시안 측정값',

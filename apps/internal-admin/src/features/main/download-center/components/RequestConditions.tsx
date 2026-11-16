@@ -1,3 +1,4 @@
+import { Text } from '@kiwoompay/design-system';
 import { Fragment, type CSSProperties } from 'react';
 
 // 요청 조건 줄 (높이 48 · 왼쪽 16 · 항목 사이 구분선 1 × 20, 간격 20)
@@ -17,7 +18,7 @@ const item: CSSProperties = {
   alignItems: 'baseline',
   gap: 'var(--kp-space-8)',
 };
-const label: CSSProperties = { fontSize: 13, color: 'var(--kp-color-text-secondary)' };
+// 값 14 SemiBold는 글자 역할 이름에 없어 시안 측정값 그대로 (이름은 Text body-sm)
 const value: CSSProperties = {
   fontSize: 14,
   fontWeight: 600,
@@ -33,7 +34,9 @@ export function RequestConditions({ items }: { items: { label: string; value: st
         <Fragment key={c.label}>
           {i > 0 && <span aria-hidden style={divider} />}
           <div style={item}>
-            <dt style={label}>{c.label}</dt>
+            <Text as="dt" variant="body-sm">
+              {c.label}
+            </Text>
             <dd style={{ ...value, margin: 0 }}>{c.value}</dd>
           </div>
         </Fragment>

@@ -4,12 +4,11 @@ import {
   GridPlaceholder,
   Infobox,
   Modal,
-  SectionHeading,
   StatusView,
   type GridPlaceholderColumn,
   Stack,
 } from '@kiwoompay/design-system';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchDownloadRequestDetail } from '@/features/main/downloadCenter.api';
 import type { DownloadHistory, DownloadRequestDetail } from '@/features/main/downloadCenter.types';
 import { codeLabel } from '@/utils/code';
@@ -26,15 +25,6 @@ const HISTORY_COLUMNS: GridPlaceholderColumn<DownloadHistory>[] = [
   { key: 'result', header: '작업 결과', width: 155 },
   { key: 'note', header: '비고/재요청 사유', align: 'left' },
 ];
-
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <Stack as="section" gap={8}>
-      <SectionHeading as="h3" title={title} />
-      {children}
-    </Stack>
-  );
-}
 
 export interface DownloadDetailModalProps {
   /** 열 요청번호. null이면 닫힘 */
@@ -79,7 +69,7 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
               </Infobox.Item>
             </Infobox>
 
-            <Section title="요청 정보">
+            <Modal.Section size="lg" gap={8} title="요청 정보">
               <FormTable pairs={2}>
                 <Row>
                   <Label>요청번호</Label>
@@ -100,9 +90,9 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
                   <Cell>{formatCount(detail.targetCount, '건')}</Cell>
                 </Row>
               </FormTable>
-            </Section>
+            </Modal.Section>
 
-            <Section title="처리 및 파일 정보">
+            <Modal.Section size="lg" gap={8} title="처리 및 파일 정보">
               <FormTable pairs={2}>
                 <Row>
                   <Label>처리상태</Label>
@@ -133,19 +123,19 @@ export function DownloadDetailModal({ requestId, onClose, onAction }: DownloadDe
                   <Cell>{orDash(detail.remaining)}</Cell>
                 </Row>
               </FormTable>
-            </Section>
+            </Modal.Section>
 
-            <Section title="요청 조건">
+            <Modal.Section size="lg" gap={8} title="요청 조건">
               <RequestConditions items={detail.conditions} />
-            </Section>
+            </Modal.Section>
 
-            <Section title="이력">
+            <Modal.Section size="lg" gap={8} title="이력">
               <GridPlaceholder
                 columns={HISTORY_COLUMNS}
                 rows={detail.history}
                 rowKey={(h) => `${h.at}-${h.result}`}
               />
-            </Section>
+            </Modal.Section>
           </Stack>
         )}
       </Modal.Body>

@@ -2,7 +2,6 @@ import {
   // 팝업 틀 · 배치
   Modal,
   Stack,
-  SectionHeading,
   // 현재 상태 · 이력 표
   InfoStrip,
   GridPlaceholder,
@@ -69,21 +68,23 @@ function AccountStatusHistoryBody() {
 
   return (
     <Stack>
-      <SectionHeading size="md" as="h3" title="현재 계정 상태" />
-      <InfoStrip
-        items={[
-          { label: '현재 상태', value: summary ? <StatusBadge status={summary.status} /> : '-' },
-          { label: '최종 변경일시', value: summary?.changedAt ?? '-' },
-          { label: '최근 변경사유', value: summary?.reason ?? '-' },
-        ]}
-      />
+      <Modal.Section title="현재 계정 상태">
+        <InfoStrip
+          items={[
+            { label: '현재 상태', value: summary ? <StatusBadge status={summary.status} /> : '-' },
+            { label: '최종 변경일시', value: summary?.changedAt ?? '-' },
+            { label: '최근 변경사유', value: summary?.reason ?? '-' },
+          ]}
+        />
+      </Modal.Section>
 
-      <SectionHeading size="md" as="h3" title="상태 변경 이력" />
-      {result.status === 'success' ? (
-        <GridPlaceholder columns={COLUMNS} rows={result.items} rowKey={(r) => r.id} />
-      ) : (
-        <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
-      )}
+      <Modal.Section title="상태 변경 이력">
+        {result.status === 'success' ? (
+          <GridPlaceholder columns={COLUMNS} rows={result.items} rowKey={(r) => r.id} />
+        ) : (
+          <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
+        )}
+      </Modal.Section>
 
       <ResultFooter total={result.total}>
         <Pagination

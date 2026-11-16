@@ -4,7 +4,6 @@ import {
   Button,
   Stack,
   ControlGroup,
-  SectionHeading,
   // 대상 표 · 입력
   GridPlaceholder,
   Badge,
@@ -138,13 +137,11 @@ export function SpecialPermissionRequestModal({
       <Modal.Header title="특수권한 신청" closeButton />
       <Modal.Body>
         <Stack>
-          <Stack gap={8}>
-            <SectionHeading
-              size="md"
-              as="h3"
-              title="신청 대상 특수권한"
-              description="현재 사용 중이거나 승인대기 중인 권한은 중복 신청할 수 없습니다."
-            />
+          <Modal.Section
+            title="신청 대상 특수권한"
+            description="현재 사용 중이거나 승인대기 중인 권한은 중복 신청할 수 없습니다."
+            gap={8}
+          >
             <GridPlaceholder
               columns={COLUMNS}
               rows={options}
@@ -154,7 +151,7 @@ export function SpecialPermissionRequestModal({
               selectedKeys={form.permissionId ? [form.permissionId] : []}
               onSelectionChange={([id]) => set('permissionId', id ?? null)}
             />
-          </Stack>
+          </Modal.Section>
 
           <Field
             label="사용 희망 기간"

@@ -2,7 +2,6 @@ import {
   // 팝업 틀 · 배치
   Modal,
   Stack,
-  SectionHeading,
   // 조회 조건 · 결과 (P01)
   SearchPanel,
   Field,
@@ -107,12 +106,13 @@ function LoginHistoryBody() {
         </Field>
       </SearchPanel>
 
-      <SectionHeading size="md" as="h3" title="로그인 이력" />
-      {result.status === 'success' ? (
-        <GridPlaceholder columns={COLUMNS} rows={result.items} rowKey={(r) => r.id} />
-      ) : (
-        <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
-      )}
+      <Modal.Section title="로그인 이력">
+        {result.status === 'success' ? (
+          <GridPlaceholder columns={COLUMNS} rows={result.items} rowKey={(r) => r.id} />
+        ) : (
+          <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
+        )}
+      </Modal.Section>
 
       <ResultFooter total={result.total}>
         <Pagination

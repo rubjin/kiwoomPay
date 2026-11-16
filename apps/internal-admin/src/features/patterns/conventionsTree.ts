@@ -59,7 +59,7 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  │  └─ base/', 'reset · global · :root CSS 변수'],
       [
         '│  ├─ components/',
-        '단일 UI · 화면 틀 (Button · field · selection · Modal · Tab · layout(PageLayout · ControlGroup 가로 묶음 · Stack 세로 묶음) · navigation · display …)',
+        '단일 UI · 화면 틀 (Button · field · selection · Modal · Tab · layout(PageLayout · ControlGroup 가로 묶음 · Stack 세로 묶음) · Text(보조 설명 글자) · navigation · display …)',
       ],
       ['│  │  └─ Button/', 'Name.tsx · Name.module.scss · Name.stories.tsx · index.ts'],
       ['│  ├─ patterns/', '패턴 템플릿 + 흐름 훅 (fetch 없음, API 함수는 인자로)'],
@@ -112,7 +112,6 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  └─ Footer/Footer.tsx', '회사 정보'],
       ['├─ components/'],
       ['│  ├─ common/PlaceholderPage.tsx', '준비 중 화면'],
-      ['│  ├─ common/SelectAllCheckbox.tsx', '목록형 표 머리 전체 선택 체크 (indeterminate)'],
       ['│  └─ popups/BizFinderModal.tsx', '사업자 찾기 팝업 (여러 1depth 공용, useLookup)'],
       [
         '├─ api/',
@@ -142,7 +141,6 @@ export const FOLDER_TREES: readonly FolderTree[] = [
         '   ├─ format.ts',
         "formatNumber · formatWon · formatCount · orDash('-') — 숫자 · 빈 값 표기",
       ],
-      ['   ├─ selection.ts', 'toggleKey — 줄 선택 넣기 · 빼기'],
       ['   ├─ code.ts', 'codeLabel — 공통코드 값 → 이름 (칩 · 요약 문구)'],
       ['   └─ period.ts', 'QUICK_PERIODS · rangeOfQuickPeriod · toYmd — 조회 기간'],
     ],

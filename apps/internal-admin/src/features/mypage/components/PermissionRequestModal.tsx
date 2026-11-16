@@ -7,7 +7,6 @@ import {
   Pagination,
   ResultFooter,
   SearchPanel,
-  SectionHeading,
   SelectBox,
   StatusView,
   useSearchResult,
@@ -121,16 +120,17 @@ function PermissionRequestBody() {
         </Field>
       </SearchPanel>
 
-      <SectionHeading size="md" as="h3" title="권한 신청 이력" />
-      {result.status === 'success' ? (
-        <GridPlaceholder
-          columns={PERMISSION_REQUEST_COLUMNS}
-          rows={result.items}
-          rowKey={(r) => r.id}
-        />
-      ) : (
-        <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
-      )}
+      <Modal.Section title="권한 신청 이력">
+        {result.status === 'success' ? (
+          <GridPlaceholder
+            columns={PERMISSION_REQUEST_COLUMNS}
+            rows={result.items}
+            rowKey={(r) => r.id}
+          />
+        ) : (
+          <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
+        )}
+      </Modal.Section>
 
       <ResultFooter total={result.total}>
         <Pagination

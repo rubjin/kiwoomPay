@@ -2,7 +2,6 @@ import {
   // 팝업 틀 · 배치
   Modal,
   Stack,
-  SectionHeading,
   // 조회 조건 · 결과 (P01)
   SearchPanel,
   Field,
@@ -103,16 +102,17 @@ function PermissionChangeBody() {
         </Field>
       </SearchPanel>
 
-      <SectionHeading size="md" as="h3" title="권한 변경 이력" />
-      {result.status === 'success' ? (
-        <GridPlaceholder
-          columns={PERMISSION_CHANGE_COLUMNS}
-          rows={result.items}
-          rowKey={(r) => r.id}
-        />
-      ) : (
-        <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
-      )}
+      <Modal.Section title="권한 변경 이력">
+        {result.status === 'success' ? (
+          <GridPlaceholder
+            columns={PERMISSION_CHANGE_COLUMNS}
+            rows={result.items}
+            rowKey={(r) => r.id}
+          />
+        ) : (
+          <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
+        )}
+      </Modal.Section>
 
       <ResultFooter total={result.total}>
         <Pagination

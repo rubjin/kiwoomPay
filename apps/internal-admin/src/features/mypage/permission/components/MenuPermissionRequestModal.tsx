@@ -5,7 +5,6 @@ import {
   TextButton,
   Stack,
   HubGrid,
-  SectionHeading,
   Infobox,
   // 입력
   Field,
@@ -146,14 +145,11 @@ export function MenuPermissionRequestModal({
           </Infobox>
 
           <HubGrid columns={PANEL_COLUMNS}>
-            <Stack>
-              <SectionHeading
-                size="md"
-                as="h3"
-                step={1}
-                title="신청할 권한 선택"
-                description="메뉴에서 필요한 기능을 선택하세요"
-              />
+            <Modal.Section
+              step={1}
+              title="신청할 권한 선택"
+              description="메뉴에서 필요한 기능을 선택하세요"
+            >
               <TreeOptionTable
                 nodes={nodes}
                 expandedIds={shownExpanded}
@@ -186,15 +182,12 @@ export function MenuPermissionRequestModal({
                   </>
                 }
               />
-            </Stack>
-            <Stack>
-              <SectionHeading
-                size="md"
-                as="h3"
-                step={2}
-                title="신청 예정 권한 확인"
-                description="신청 전 선택 내역 확인·해제"
-              />
+            </Modal.Section>
+            <Modal.Section
+              step={2}
+              title="신청 예정 권한 확인"
+              description="신청 전 선택 내역 확인·해제"
+            >
               <SelectedOptionList
                 summary={`${groups.length}개 메뉴 · ${permissionCount}개 권한`}
                 groups={groups}
@@ -210,7 +203,7 @@ export function MenuPermissionRequestModal({
                 emptyTitle="선택한 권한이 없습니다."
                 emptyDescription="왼쪽 메뉴에서 신청할 권한을 선택해 주세요."
               />
-            </Stack>
+            </Modal.Section>
           </HubGrid>
 
           <Field label="신청 사유" labelPosition="top" required="text">

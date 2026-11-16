@@ -1,8 +1,13 @@
-import { Checkbox, FormTable, SelectBox, TextField } from '@kiwoompay/design-system';
+import {
+  Checkbox,
+  FormTable,
+  SelectBox,
+  TextField,
+  SelectAllCheckbox,
+  toggleKey,
+} from '@kiwoompay/design-system';
 import type { MerchantContact } from '@/features/operation/merchantBasic.types';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
-import { SelectAllCheckbox } from '@/components/common/SelectAllCheckbox';
-import { toggleKey } from '@/utils/selection';
 
 interface Props {
   rows: MerchantContact[];

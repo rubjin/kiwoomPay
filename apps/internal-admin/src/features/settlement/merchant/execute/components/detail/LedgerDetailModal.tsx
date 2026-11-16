@@ -9,7 +9,6 @@ import {
   Modal,
   Pagination,
   ResultFooter,
-  SectionHeading,
   StatusView,
   Tab,
   TextButton,
@@ -213,35 +212,32 @@ function Body({
       <Modal.Body>
         <Stack gap={24}>
           {/* 원장 기본정보 */}
-          <Stack as="section">
-            <SectionHeading
-              size="md"
-              as="h3"
-              title="원장 기본정보"
-              actions={
-                <ControlGroup>
-                  <Button
-                    variant="neutral"
-                    appearance="line"
-                    disabled={!can.hold}
-                    onClick={() => onAction('hold')}
-                  >
-                    지급보류
-                  </Button>
-                  <Button
-                    variant="neutral"
-                    appearance="line"
-                    disabled={!can.release}
-                    onClick={() => onAction('release')}
-                  >
-                    보류해제
-                  </Button>
-                  <Button disabled={!can.confirm} onClick={() => onAction('confirm')}>
-                    지급확정
-                  </Button>
-                </ControlGroup>
-              }
-            />
+          <Modal.Section
+            title="원장 기본정보"
+            actions={
+              <ControlGroup>
+                <Button
+                  variant="neutral"
+                  appearance="line"
+                  disabled={!can.hold}
+                  onClick={() => onAction('hold')}
+                >
+                  지급보류
+                </Button>
+                <Button
+                  variant="neutral"
+                  appearance="line"
+                  disabled={!can.release}
+                  onClick={() => onAction('release')}
+                >
+                  보류해제
+                </Button>
+                <Button disabled={!can.confirm} onClick={() => onAction('confirm')}>
+                  지급확정
+                </Button>
+              </ControlGroup>
+            }
+          >
             <FormTable>
               <Row>
                 <Label>정산원장 ID</Label>
@@ -306,11 +302,10 @@ function Body({
                 </Cell>
               </Row>
             </FormTable>
-          </Stack>
+          </Modal.Section>
 
           {/* 원장 요약 */}
-          <Stack as="section">
-            <SectionHeading size="md" as="h3" title="원장 요약" />
+          <Modal.Section title="원장 요약">
             <ActionStats
               items={[
                 { label: '정산대상 거래', values: [{ value: summary.txCount }] },
@@ -323,11 +318,10 @@ function Body({
                 { label: '지급예정금액', values: [{ value: summary.payAmount, unit: '원' }] },
               ]}
             />
-          </Stack>
+          </Modal.Section>
 
           {/* 원장 상세 내역 */}
-          <Stack as="section">
-            <SectionHeading size="md" as="h3" title="원장 상세 내역" />
+          <Modal.Section title="원장 상세 내역">
             <Tab
               variant="button"
               fullWidth
@@ -356,7 +350,7 @@ function Body({
                 description="시안 확인 후 작업합니다."
               />
             )}
-          </Stack>
+          </Modal.Section>
         </Stack>
       </Modal.Body>
       {/* 비고 저장은 원장 산출 근거 탭에서만 (시안) */}

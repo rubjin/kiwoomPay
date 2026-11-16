@@ -3,7 +3,6 @@ import {
   Modal,
   Stack,
   ControlGroup,
-  SectionHeading,
   // 요약 · 목록
   InfoStrip,
   Badge,
@@ -84,13 +83,10 @@ function ExceptionPermissionBody() {
 
   return (
     <Stack>
-      <Stack gap={16}>
-        <SectionHeading
-          size="md"
-          as="h3"
-          title="권한 적용 기준"
-          description="※ 현재 유효한 예외 권한만 표시하며, 과거 변경 이력은 권한 변경 이력에서 확인합니다."
-        />
+      <Modal.Section
+        title="권한 적용 기준"
+        description="※ 현재 유효한 예외 권한만 표시하며, 과거 변경 이력은 권한 변경 이력에서 확인합니다."
+      >
         <InfoStrip
           layout="stacked"
           columns={SUMMARY_COLUMNS}
@@ -121,19 +117,20 @@ function ExceptionPermissionBody() {
             },
           ]}
         />
-      </Stack>
+      </Modal.Section>
 
-      <SectionHeading size="md" as="h3" title="개별 예외 권한 목록" />
-      {result.status === 'success' ? (
-        <GridPlaceholder
-          columns={COLUMNS}
-          rows={result.items}
-          rowKey={(r) => r.id}
-          empty="개별 예외 권한이 없습니다."
-        />
-      ) : (
-        <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
-      )}
+      <Modal.Section title="개별 예외 권한 목록">
+        {result.status === 'success' ? (
+          <GridPlaceholder
+            columns={COLUMNS}
+            rows={result.items}
+            rowKey={(r) => r.id}
+            empty="개별 예외 권한이 없습니다."
+          />
+        ) : (
+          <StatusView status={result.status === 'idle' ? 'loading' : result.status} />
+        )}
+      </Modal.Section>
 
       <ResultFooter total={result.total}>
         <Pagination

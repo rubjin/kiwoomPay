@@ -13,6 +13,7 @@ import {
   Tab,
   TextButton,
   Stack,
+  Text,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { fetchPermissionOverview } from '@/features/mypage/permission.api';
@@ -46,8 +47,6 @@ const INFO_ROW_GAP = 13; // 줄 높이 20 + 13 = 33
 const RECENT_LIMIT = 3;
 // 특수권한 줄: 이름 ↔ 상태 ↔ 기간 (시안 345 · 195), 줄 간격 32
 const SPECIAL_COLUMNS = '345px 195px 1fr';
-
-const caption = { margin: 0, fontSize: 12, color: 'var(--kp-color-text-secondary)' } as const;
 
 /**
  * KWPC02020000 마이페이지 · 권한관리.
@@ -151,7 +150,7 @@ export function PermissionPage() {
                 </Tab>
                 {historyTab === 'request' && recent && (
                   <ControlGroup spacing="lg">
-                    <span style={caption}>최근 신청 내역 · 총 {recent.total}건</span>
+                    <Text>최근 신청 내역 · 총 {recent.total}건</Text>
                     <TextButton size="sm" onClick={() => setRequestOpen(true)}>
                       상세보기
                     </TextButton>
@@ -159,7 +158,7 @@ export function PermissionPage() {
                 )}
                 {historyTab === 'change' && recentChanges && (
                   <ControlGroup spacing="lg">
-                    <span style={caption}>최근 변경 이력 · 총 {recentChanges.total}건</span>
+                    <Text>최근 변경 이력 · 총 {recentChanges.total}건</Text>
                     <TextButton size="sm" onClick={() => setChangeOpen(true)}>
                       상세보기
                     </TextButton>
@@ -200,9 +199,9 @@ export function PermissionPage() {
                 >
                   <Stack gap={8}>
                     <HubSubtitle>보유 기능 권한</HubSubtitle>
-                    <p style={caption}>
+                    <Text as="p">
                       현재 적용된 메뉴별 기능 권한 및 부여 구분을 팝업에서 확인할 수 있습니다.
-                    </p>
+                    </Text>
                   </Stack>
                   <Button size="sm" variant="dark" onClick={() => setExceptionOpen(true)}>
                     보유 기능 권한 보기
@@ -222,14 +221,15 @@ export function PermissionPage() {
               >
                 <Stack gap={12}>
                   {overview.specials.map((s) => (
-                    <div
+                    <Text
                       key={s.name}
+                      as="div"
+                      variant="body-sm"
+                      tone="body"
                       style={{
                         display: 'grid',
                         gridTemplateColumns: SPECIAL_COLUMNS,
                         alignItems: 'center',
-                        fontSize: 13,
-                        color: 'var(--kp-color-text-body)',
                       }}
                     >
                       <span>{s.name}</span>
@@ -239,7 +239,7 @@ export function PermissionPage() {
                         </Badge>
                       </span>
                       <span>{s.period}</span>
-                    </div>
+                    </Text>
                   ))}
                 </Stack>
               </PageLayout.Section>
