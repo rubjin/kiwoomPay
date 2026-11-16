@@ -17,3 +17,13 @@ export interface AccountInfo {
   /** 계정정보 변경 요청 받는 곳 (시스템 관리자 메일) */
   adminEmail: string;
 }
+
+/** 비밀번호 변경 실패 사유 (서버 응답 코드 — TODO(API) 실제 코드명) */
+export type PasswordChangeErrorCode = 'CURRENT_MISMATCH' | 'RECENTLY_USED';
+
+export class PasswordChangeError extends Error {
+  constructor(public readonly code: PasswordChangeErrorCode) {
+    super(code);
+    this.name = 'PasswordChangeError';
+  }
+}

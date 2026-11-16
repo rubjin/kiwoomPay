@@ -14,6 +14,7 @@ import { fetchAccountInfo } from '@/features/mypage/account.api';
 import { MENU } from '@/constants/menu';
 import type { AccountInfo } from '@/features/mypage/account.types';
 import { MypageTabs } from '../components/MypageTabs';
+import { PasswordChangeModal } from './components/PasswordChangeModal';
 
 // 시안 계정관리.png 측정: 카드 폭 980 : 636 · 라벨 시작 ↔ 값 156 (라벨 칸 144 + HubInfo 간격 12)
 // · 줄 간격 왼쪽 39 · 오른쪽 56 (줄 높이 20 + 간격)
@@ -31,12 +32,13 @@ const INFO_COLUMNS = 'minmax(0, 489fr) minmax(0, 457fr)';
 export function AccountPage() {
   const dialog = useDialog();
   const [account, setAccount] = useState<AccountInfo | null>(null);
+  const [passwordOpen, setPasswordOpen] = useState(false);
 
   useEffect(() => {
     void fetchAccountInfo().then(setAccount);
   }, []);
 
-  // TODO(시안) 계정 상태 이력(KWPC02010103) · 비밀번호 변경(KWPC02010101) · 로그인 이력(KWPC02010102) 팝업
+  // TODO(시안) 계정 상태 이력(KWPC02010103) · 로그인 이력(KWPC02010102) 팝업
   const notReady = (name: string) => dialog.alert(`${name} 팝업은 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line' } as const;
 
@@ -96,7 +98,7 @@ export function AccountPage() {
                 divider
                 actions={
                   <>
-                    <Button {...line} onClick={() => notReady('비밀번호 변경')}>
+                    <Button {...line} onClick={() => setPasswordOpen(true)}>
                       비밀번호 변경
                     </Button>
                     <Button {...line} onClick={() => notReady('로그인 이력')}>
@@ -136,6 +138,13 @@ export function AccountPage() {
           </>
         )}
       </Stack>
+      <PasswordChangeModal
+        open={passwordOpen}
+        onClose={() => setPasswordOpen(false)}
+        onChanged={(passwordChangedAt) =>
+          setAccount((prev) => (prev ? { ...prev, passwordChangedAt } : prev))
+        }
+      />
     </>
   );
 }

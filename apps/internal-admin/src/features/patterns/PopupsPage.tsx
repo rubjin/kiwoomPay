@@ -14,6 +14,7 @@ import { lnbItems } from '@/layouts/Lnb/Lnb';
 import { SmsUnavailableModal } from '@/features/auth/login/components/SmsUnavailableModal';
 import { SmsVerifyModal } from '@/features/auth/login/components/SmsVerifyModal';
 import { PermissionRequestModal } from '@/features/mypage/components/PermissionRequestModal';
+import { PasswordChangeModal } from '@/features/mypage/account/components/PasswordChangeModal';
 import { BizFinderModal } from '@/components/popups/BizFinderModal';
 import { fetchSettlementLedgers } from '@/features/settlement/merchantSettlement.api';
 import {
@@ -52,6 +53,7 @@ type PopupKey =
   | 'sms'
   | 'smsUnavailable'
   | 'permissionRequest'
+  | 'passwordChange'
   | 'bizLookup'
   | 'ledgerPayDate'
   | 'ledgerHold'
@@ -101,6 +103,11 @@ const GROUPS: PopupGroup[] = [
     title: 'KWPC2000 마이페이지',
     description: '권한관리 카드 → [권한 신청 현황]',
     buttons: [{ key: 'permissionRequest', label: '권한 신청 현황' }],
+  },
+  {
+    title: 'KWPC02010100 계정관리',
+    description: '비밀번호 및 로그인 보안 → [비밀번호 변경] (현재 비밀번호 password)',
+    buttons: [{ key: 'passwordChange', label: '비밀번호 변경 (KWPC02010101)' }],
   },
   {
     title: 'KWPC06010201 가맹점 정산 실행/처리',
@@ -269,6 +276,11 @@ export function PopupsPage() {
       )}
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
+      <PasswordChangeModal
+        open={is('passwordChange')}
+        onClose={close}
+        onChanged={(changedAt) => report('비밀번호 변경일', changedAt)}
+      />
       <PayDateChangeModal
         open={is('ledgerPayDate') && ledgerRows.length > 0}
         rows={ledgerRows}

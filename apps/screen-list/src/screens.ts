@@ -35,7 +35,7 @@ export interface ScreenInfo {
   depth1: string;
   depth2: string;
   depth3: string;
-  /** 화면명 (Figma 화면 제목) */
+  /** 화면명 */
   name: string;
   /** 앱 안 경로 (시스템 url 뒤에 붙는다) */
   path: string;
@@ -439,6 +439,22 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC02010101',
+    depth1: '마이페이지',
+    depth2: '계정관리',
+    depth3: '계정정보',
+    name: '비밀번호 변경 팝업',
+    path: '/patterns/popups?open=passwordChange',
+    type: '팝업',
+    pattern: 'P04',
+    status: '작업중',
+    planVersion: PLAN,
+    updatedAt: '2026-11-16',
+    tempWork:
+      '규칙별 오류 문구(시안은 빈 값 3개만) · 변경 API 예시(현재 비밀번호 password) · 완료 문구 · 변경 후 재로그인 여부',
+  },
+  {
+    system: 'internal',
     id: 'KWPC02010100',
     depth1: '마이페이지',
     depth2: '계정관리',
@@ -450,7 +466,7 @@ export const SCREENS: ScreenInfo[] = [
     planVersion: PLAN,
     updatedAt: '2026-11-14',
     tempWork:
-      '예시 데이터 · 계정 상태 이력 · 비밀번호 변경 · 로그인 이력 팝업 미연결(준비 중 안내) · 마스킹 적용 시 표시',
+      '예시 데이터 · 계정 상태 이력 · 로그인 이력 팝업 미연결(준비 중 안내) · 마스킹 적용 시 표시',
   },
   {
     system: 'internal',
