@@ -16,6 +16,16 @@
     "Value": {
       "$type": "color",
       "$value": "{Text.Body}"
+    },
+    "StackedLabel": {
+      "$type": "color",
+      "$value": "{Text.Secondary}",
+      "$description": "stacked: 위 이름 (Figma 개별 예외 권한 · 권한 적용 기준, Neutral 600)"
+    },
+    "Link": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "stacked: 누를 수 있는 값 (Primary 500 + 밑줄)"
     }
   }
 }

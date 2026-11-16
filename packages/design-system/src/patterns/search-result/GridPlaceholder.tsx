@@ -30,6 +30,8 @@ export interface GridPlaceholderProps<T> {
   selectionHeader?: ReactNode;
   selectedKeys?: string[];
   onSelectionChange?: (keys: string[]) => void;
+  /** 고를 수 없는 줄은 false — 선택 칸이 비활성 (예: 이미 사용 중인 특수권한) */
+  isRowSelectable?: (row: T) => boolean;
   /** 행이 없을 때. 글자면 행 높이 한 줄 가운데 안내, 요소면 그대로 (예: LookupSearchEmpty) */
   empty?: ReactNode;
   className?: string;
@@ -48,15 +50,16 @@ export function GridPlaceholder<T>({
   selectionHeader = '선택',
   selectedKeys = [],
   onSelectionChange,
+  isRowSelectable,
   empty,
   className,
   style,
 }: GridPlaceholderProps<T>) {
   const single = selectable === 'single';
   const radioName = useId();
-  const keys = rows.map(rowKey);
+  const keys = rows.filter((row) => isRowSelectable?.(row) ?? true).map(rowKey);
   const checkedCount = keys.filter((key) => selectedKeys.includes(key)).length;
-  const allChecked = rows.length > 0 && checkedCount === rows.length;
+  const allChecked = keys.length > 0 && checkedCount === keys.length;
 
   // merge 열: 각 줄의 셀 높이(줄 수). 0이면 위 셀에 합쳐져 그리지 않는다
   const valueOf = (row: T, key: string) => String((row as Record<string, unknown>)[key] ?? '');
@@ -99,7 +102,7 @@ export function GridPlaceholder<T>({
                   aria-label="전체 선택"
                   checked={allChecked}
                   indeterminate={checkedCount > 0 && !allChecked}
-                  disabled={rows.length === 0}
+                  disabled={keys.length === 0}
                   onChange={() => onSelectionChange?.(allChecked ? [] : keys)}
                 />
               </th>
@@ -128,6 +131,7 @@ export function GridPlaceholder<T>({
           )}
           {rows.map((row, rowIndex) => {
             const key = rowKey(row);
+            const rowDisabled = isRowSelectable ? !isRowSelectable(row) : false;
             return (
               <tr
                 key={key}
@@ -140,6 +144,7 @@ export function GridPlaceholder<T>({
                       value={key}
                       aria-label="행 선택"
                       checked={selectedKeys.includes(key)}
+                      disabled={rowDisabled}
                       onChange={() => onSelectionChange?.([key])}
                     />
                   </td>
@@ -150,6 +155,7 @@ export function GridPlaceholder<T>({
                       size="sm"
                       aria-label="행 선택"
                       checked={selectedKeys.includes(key)}
+                      disabled={rowDisabled}
                       onChange={() => toggle(key)}
                     />
                   </td>

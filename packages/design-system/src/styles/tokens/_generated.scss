@@ -592,6 +592,8 @@ $color-info-strip-bg: var(--kp-color-info-strip-bg); // 현재 상태 요약 상
 $color-info-strip-border: var(--kp-color-info-strip-border);
 $color-info-strip-label: var(--kp-color-info-strip-label);
 $color-info-strip-value: var(--kp-color-info-strip-value);
+$color-info-strip-stacked-label: var(--kp-color-info-strip-stacked-label); // stacked: 위 이름 (Figma 개별 예외 권한 · 권한 적용 기준, Neutral 600)
+$color-info-strip-link: var(--kp-color-info-strip-link); // stacked: 누를 수 있는 값 (Primary 500 + 밑줄)
 
 // ── custom · infobox ────────────────────────────────────────────
 $color-infobox-info-bg: var(--kp-color-infobox-info-bg);
@@ -1317,6 +1319,8 @@ $css-variables: (
   "--kp-color-info-strip-border": "var(--kp-color-line-subtle)",
   "--kp-color-info-strip-label": "var(--kp-color-text-label)",
   "--kp-color-info-strip-value": "var(--kp-color-text-body)",
+  "--kp-color-info-strip-stacked-label": "var(--kp-color-text-secondary)",
+  "--kp-color-info-strip-link": "var(--kp-color-text-accent)",
   "--kp-color-infobox-info-bg": "var(--kp-color-primary-50)",
   "--kp-color-infobox-info-border": "var(--kp-color-primary-200)",
   "--kp-color-infobox-neutral-bg": "var(--kp-color-bg-page)",
