@@ -1,0 +1,51 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC02010101 비밀번호 변경 "비밀번호 설정 안내"(28946:73678)
+$notice-radius: t.$control-radius-lg;
+$notice-icon: 16px;
+$notice-list-indent: 19.5px; // 글머리표 ↔ 글자 (Figma ms 19.5)
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-8;
+  padding: calc(#{t.$space-12} - #{t.$control-border-width})
+    calc(#{t.$space-16} - #{t.$control-border-width});
+  background-color: t.$color-infobox-info-bg;
+  border: t.$control-border-width solid t.$color-infobox-info-border;
+  border-radius: $notice-radius;
+}
+
+.header {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: $notice-icon;
+  height: $notice-icon;
+  color: t.$color-infobox-icon;
+}
+
+.title {
+  @include m.typography(typo-13-semi-bold);
+
+  margin: 0;
+  color: t.$color-infobox-title;
+}
+
+.body {
+  @include m.typography(typo-13-regular);
+
+  color: t.$color-infobox-text;
+}
+
+.list {
+  padding-inline-start: $notice-list-indent;
+  margin: 0;
+  list-style: disc;
+}

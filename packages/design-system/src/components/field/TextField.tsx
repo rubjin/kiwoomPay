@@ -25,6 +25,8 @@ export interface TextFieldProps extends Omit<
   leadingIcon?: ReactNode;
   /** 입력 뒤 아이콘 */
   trailingIcon?: ReactNode;
+  /** 입력 뒤 누르는 버튼 (FieldIconButton — 예: 비밀번호 보기) */
+  trailingAction?: ReactNode;
   /** 입력 뒤 단위·접미사 (예: 원) */
   suffix?: ReactNode;
   /** 값이 있을 때 지우기 버튼 표시. controlled일 때는 onClear에서 값을 비운다 */
@@ -45,6 +47,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
     onChange,
     leadingIcon,
     trailingIcon,
+    trailingAction,
     suffix,
     clearable,
     onClear,
@@ -82,7 +85,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
 
   const showClear = clearable && !field.disabled && !readOnly && current.length > 0;
   const trailing =
-    showClear || trailingIcon ? (
+    showClear || trailingIcon || trailingAction ? (
       <>
         {showClear && (
           <FieldIconButton tone="muted" aria-label={clearLabel} onClick={handleClear}>
@@ -90,6 +93,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
           </FieldIconButton>
         )}
         {trailingIcon && <FieldIcon>{trailingIcon}</FieldIcon>}
+        {trailingAction}
       </>
     ) : undefined;
 

@@ -84,6 +84,11 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   color: t.$color-field-helper;
 }
 
+// 빈 자리: 글자 한 줄 높이
+.helperEmpty {
+  min-height: 1lh;
+}
+
 .positive {
   color: t.$color-field-helper-positive;
 }

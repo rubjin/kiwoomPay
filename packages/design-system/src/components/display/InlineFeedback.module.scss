@@ -1,0 +1,37 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// 컴포넌트 전용 크기 — Figma KWPC02010101 비밀번호 변경 "변경 처리 실패"(28949:75687)
+$feedback-padding: t.$space-12;
+
+.feedback {
+  @include m.typography(typo-13-regular);
+
+  padding: calc(#{$feedback-padding} - #{t.$control-border-width});
+  border: t.$control-border-width solid;
+  border-radius: t.$control-radius-md;
+}
+
+.error {
+  color: t.$color-status-error-text;
+  background-color: t.$color-status-error-background;
+  border-color: t.$color-status-error-border;
+}
+
+.warning {
+  color: t.$color-status-warning-text;
+  background-color: t.$color-status-warning-background;
+  border-color: t.$color-status-warning-border;
+}
+
+.success {
+  color: t.$color-status-success-text;
+  background-color: t.$color-status-success-background;
+  border-color: t.$color-status-success-border;
+}
+
+.info {
+  color: t.$color-status-info-text;
+  background-color: t.$color-status-info-background;
+  border-color: t.$color-status-info-border;
+}

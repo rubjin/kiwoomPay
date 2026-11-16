@@ -14,3 +14,7 @@ export { ColumnPicker } from './ColumnPicker';
 export type { ColumnPickerItem, ColumnPickerProps } from './ColumnPicker';
 export { ActionBar } from './ActionBar';
 export type { ActionBarProps } from './ActionBar';
+export { NoticePanel } from './NoticePanel';
+export type { NoticePanelProps } from './NoticePanel';
+export { InlineFeedback } from './InlineFeedback';
+export type { InlineFeedbackProps, InlineFeedbackTone } from './InlineFeedback';

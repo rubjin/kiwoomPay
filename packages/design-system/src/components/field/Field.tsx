@@ -26,6 +26,10 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   disabled?: boolean;
   /** 여러 필드의 라벨 폭을 맞출 때 (px 숫자 또는 CSS 길이) */
   labelWidth?: number | string;
+  /** 컨트롤 ↔ 안내 문구 간격 (기본 8, 예: 비밀번호 변경 5 · 인증번호 4) */
+  helperGap?: number;
+  /** 안내 문구 자리를 늘 잡아 둔다 — 오류가 나타나도 아래 줄이 밀리지 않는다 (Figma 비밀번호 변경: 줄 높이 고정) */
+  reserveHelper?: boolean;
   /** 컨트롤의 id. 생략하면 자동 생성되어 label과 연결된다 */
   htmlFor?: string;
   children: ReactNode;
@@ -46,6 +50,8 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
       size = 'md',
       disabled,
       labelWidth,
+      helperGap,
+      reserveHelper,
       htmlFor,
       className,
       style,
@@ -72,7 +78,11 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
           {...rest}
           ref={ref}
           className={clsx(styles.field, labelPosition === 'top' && styles.top, className)}
-          style={style}
+          style={
+            helperGap === undefined
+              ? style
+              : ({ ...style, '--field-helper-gap': `${helperGap}px` } as CSSProperties)
+          }
         >
           {label && (
             <label htmlFor={id} className={clsx(styles.label, styles[size])} style={labelStyle}>
@@ -86,10 +96,12 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
           )}
           <div className={styles.body}>
             {children}
-            {helperText && (
+            {helperText ? (
               <p id={helperId} className={clsx(styles.helper, feedback && styles[feedback])}>
                 {helperText}
               </p>
+            ) : (
+              reserveHelper && <p className={clsx(styles.helper, styles.helperEmpty)} aria-hidden />
             )}
           </div>
         </div>

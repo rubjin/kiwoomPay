@@ -3,6 +3,8 @@ export type { FieldProps } from './Field';
 export type { FieldFeedback, FieldSize } from './fieldContext';
 export { TextField } from './TextField';
 export type { TextFieldProps } from './TextField';
+export { PasswordField } from './PasswordField';
+export type { PasswordFieldProps } from './PasswordField';
 export { SearchField } from './SearchField';
 export type { SearchFieldProps } from './SearchField';
 export { TextArea } from './TextArea';
