@@ -2,6 +2,7 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$field-date-width: 148px; // 날짜(DateField) 기본 폭 — 어디서나 고정 (사용자 확정, 날짜를 골라도 줄지 않음)
 $field-padding-x-md: 14px;
 $field-padding-x-sm: t.$space-12;
 $field-feedback-border-width: 2px; // Positive / Negative 테두리
@@ -85,7 +86,7 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
   width: 100%;
 }
 
-// 감싸는 영역(SearchPanel 등)이 정한 기본 폭 — 값이 없으면 내용 폭
+// 감싸는 영역(SearchPanel 등)이 정한 기본 폭 — 값이 없으면 내용 폭 (날짜는 140 고정)
 .defaultText:not(.fullWidth) {
   width: var(--field-default-width, auto);
 }
@@ -95,7 +96,7 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
 }
 
 .defaultDate:not(.fullWidth) {
-  width: var(--date-field-default-width, auto);
+  width: var(--date-field-default-width, #{$field-date-width});
 }
 
 .md {

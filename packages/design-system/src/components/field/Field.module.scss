@@ -92,6 +92,21 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
   color: t.$color-field-helper;
 }
 
+// 컨트롤 + 오른쪽 안내 (aside)
+.withAside {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.$space-12;
+  align-items: center;
+  min-width: 0;
+}
+
+
+// 컨트롤 오른쪽에 놓인 helper (글자 · 색은 .helper 그대로)
+.helperAside {
+  flex: none;
+}
+
 // 빈 자리: 글자 한 줄 높이
 .helperEmpty {
   min-height: 1lh;

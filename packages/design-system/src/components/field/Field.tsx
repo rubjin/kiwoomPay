@@ -30,6 +30,8 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   helperGap?: number;
   /** 안내 문구 자리를 늘 잡아 둔다 — 오류가 나타나도 아래 줄이 밀리지 않는다 (Figma 비밀번호 변경: 줄 높이 고정) */
   reserveHelper?: boolean;
+  /** 컨트롤 오른쪽 안내 — 안내 문구(helper)와 같은 글자 · 색, 컨트롤과 12 (Figma 특수권한 신청 "승인 결과에 따라 …"). 오류 문구는 그대로 아래 */
+  aside?: ReactNode;
   /** 컨트롤의 id. 생략하면 자동 생성되어 label과 연결된다 */
   htmlFor?: string;
   children: ReactNode;
@@ -52,6 +54,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
       labelWidth,
       helperGap,
       reserveHelper,
+      aside,
       htmlFor,
       className,
       style,
@@ -99,7 +102,14 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
             </label>
           )}
           <div className={styles.body}>
-            {children}
+            {aside ? (
+              <div className={styles.withAside}>
+                {children}
+                <span className={clsx(styles.helper, styles.helperAside)}>{aside}</span>
+              </div>
+            ) : (
+              children
+            )}
             {helperText ? (
               <p id={helperId} className={clsx(styles.helper, feedback && styles[feedback])}>
                 {helperText}
