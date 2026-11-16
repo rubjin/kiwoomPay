@@ -29,6 +29,8 @@ import {
   PermissionRequestModal,
 } from '../components/PermissionRequestModal';
 import { PERMISSION_HINT } from '../components/permissionHints';
+import { SpecialPermissionRequestModal } from './components/SpecialPermissionRequestModal';
+import { ExceptionPermissionModal } from './components/ExceptionPermissionModal';
 
 // 첫 줄 카드 1083 : 532 · 셋째 줄 같은 폭 · 카드 줄 사이 16
 const TOP_COLUMNS = [1083, 532];
@@ -51,6 +53,8 @@ export function PermissionPage() {
   const [recent, setRecent] = useState<{ items: PermissionRequest[]; total: number } | null>(null);
   const [historyTab, setHistoryTab] = useState('request');
   const [requestOpen, setRequestOpen] = useState(false);
+  const [specialOpen, setSpecialOpen] = useState(false);
+  const [exceptionOpen, setExceptionOpen] = useState(false);
 
   useEffect(() => {
     void fetchPermissionOverview().then(setOverview);
@@ -62,7 +66,7 @@ export function PermissionPage() {
     }).then(setRecent);
   }, []);
 
-  // TODO(시안) 메뉴 권한 신청(KWPC02020002) · 특수권한 신청(KWPC02020004) · 개별 권한(KWPC02020001) 팝업
+  // TODO(시안) 메뉴 권한 신청(KWPC02020002) 팝업
   const notReady = (name: string) => dialog.alert(`${name} 팝업은 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line' } as const;
 
@@ -176,7 +180,7 @@ export function PermissionPage() {
                       현재 적용된 메뉴별 기능 권한 및 부여 구분을 팝업에서 확인할 수 있습니다.
                     </p>
                   </Stack>
-                  <Button size="sm" variant="dark" onClick={() => notReady('보유 기능 권한')}>
+                  <Button size="sm" variant="dark" onClick={() => setExceptionOpen(true)}>
                     보유 기능 권한 보기
                   </Button>
                 </div>
@@ -187,7 +191,7 @@ export function PermissionPage() {
                 titleAddon={<InfoTip content={PERMISSION_HINT.special} />}
                 divider
                 actions={
-                  <Button {...line} onClick={() => notReady('특수권한 신청')}>
+                  <Button {...line} onClick={() => setSpecialOpen(true)}>
                     특수권한 신청
                   </Button>
                 }
@@ -221,6 +225,8 @@ export function PermissionPage() {
       </Stack>
 
       <PermissionRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
+      <SpecialPermissionRequestModal open={specialOpen} onClose={() => setSpecialOpen(false)} />
+      <ExceptionPermissionModal open={exceptionOpen} onClose={() => setExceptionOpen(false)} />
     </>
   );
 }

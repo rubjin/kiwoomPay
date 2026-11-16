@@ -917,3 +917,17 @@
 - 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 · 화면 목록 tsc, 브라우저: 두 팝업 880 · 닫기(X), 로그인 이력 조회 조건 설명 · 6열 · 10행 · Total 82, 계정 상태 이력 요약 상자 · 5열 · 6행 · Total 6, 계정관리 버튼으로 열고 X로 닫힘, 에러 없음(favicon 404 제외)
 - 한 가정(임의 작업): 폭 Figma 922 · 815 → lg 880, 예시 데이터, 로그인 이력도 열면 바로 조회, 표 글자 · 머리는 공통 미리보기(12) — IBSheet 테마로
 
+### KWPC02020004 특수권한 신청 팝업 — 2026-11-16
+- 시안: Figma 29253:76688(Validation Error)
+- 디자인 시스템: GridPlaceholder `isRowSelectable`(고를 수 없는 줄은 선택 칸 비활성 — 사용 중 · 승인대기 특수권한)
+- 앱 `features/mypage/permission/components/SpecialPermissionRequestModal`(Modal lg): 신청 대상 특수권한 표(라디오 하나, 사용 중 · 승인대기 선택 불가, 현재 상태 Badge) → 사용 희망 기간(시작일 ~ 종료일, 라벨 위) → 신청 사유(TextArea 200자 · 카운터) → [취소][신청] lg. [신청]: 기간 · 사유 오류는 입력 아래(Alert 없음), 한 번 누른 뒤 입력마다 다시 검사, 권한 미선택은 안내 창, 성공 시 닫고 완료 안내. `specialPermission.api.ts` · `.types.ts`(예시). 권한관리 [특수권한 신청] 연결, 팝업 모음 · 화면 목록 추가
+- 검증: 디자인 시스템 typecheck · lint · build, 앱 · 화면 목록 tsc, 브라우저: 880 × 555, 마스킹 해제(사용 중) 라디오 비활성, 빈 값 → 기간 · 사유 문구, 종료일 < 시작일 → 순서 문구, 정상 입력 → 신청 → 팝업 닫힘 · 완료 안내, 에러 없음
+- 시안과 다른 점(임의 작업): 폭 1040 → lg 880, 필수 표시 "필수" 글자 → 공통 *, 기간 안내 문구 위치(필드 오른쪽 → 아래 헬퍼 자리, 오류가 나면 오류 문구로 바뀜), 표 행 높이 64 → 미리보기 40(IBSheet 테마), 표 안내 문구 위치(제목 줄 오른쪽 끝 → 제목 옆), Footer 버튼 40 → lg 48(확정 결정), 권한 미선택 · 기간 순서 · 완료 문구
+
+### KWPC02020001 개별 권한(개별 예외 권한) 팝업 — 2026-11-16
+- 시안: Figma 29175:76240 (화면 이름은 KWPC02020100, IA 기준 개별 권한 팝업 KWPC02020001로 연결)
+- 디자인 시스템: `InfoStrip layout="stacked"`(이름 12 Regular 위 · 값 18 Bold 아래 8, 칸 사이 16, `columns`로 칸 폭) · 항목 `onClick`(값이 Primary 밑줄 버튼, Badge는 색 그대로). 토큰 `InfoStrip.StackedLabel` · `Link` 추가, 스토리 Stacked
+- 앱 `features/mypage/permission/components/ExceptionPermissionModal`(Modal xl 1280): 권한 적용 기준(템플릿 · 전체 · 개별 추가 · 개별 제외 건수) → 개별 예외 권한 목록(추가 · 제외 건수 Badge, 메뉴 경로, 템플릿 · 추가 · 제외 권한, 최종 적용일, 처리자) → Total · Pagination. 건수를 누르면 목록 보기 전환(전체 · 추가 있는 메뉴 · 제외 있는 메뉴). `exceptionPermission.api.ts` · `.types.ts`(Figma 13건 예시). 권한관리 [보유 기능 권한 보기] 연결, 팝업 모음 · 화면 목록 추가
+- 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 · 화면 목록 tsc, 브라우저: 1280, 요약 33 = 21 + 12, 10행 · Total 13, 제외 → 11 · 추가 → 12 · 전체 → 13, 빈 권한 -, 에러 없음
+- 시안과 다른 점(임의 작업): 폭 1380 → xl 1280(표 열 메뉴 경로 남는 폭 · 최종 적용일 220 → 160 · 처리자 148 → 120), 요약 상자 높이 82(시안 78 — 이름 줄 높이 18 ↔ 14), 건수 눌러 보기 전환 동작, 안내 문구 위치(제목 줄 오른쪽 끝 → 제목 옆)
+

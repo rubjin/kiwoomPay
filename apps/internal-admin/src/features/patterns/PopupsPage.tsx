@@ -14,6 +14,8 @@ import { lnbItems } from '@/layouts/Lnb/Lnb';
 import { SmsUnavailableModal } from '@/features/auth/login/components/SmsUnavailableModal';
 import { SmsVerifyModal } from '@/features/auth/login/components/SmsVerifyModal';
 import { PermissionRequestModal } from '@/features/mypage/components/PermissionRequestModal';
+import { SpecialPermissionRequestModal } from '@/features/mypage/permission/components/SpecialPermissionRequestModal';
+import { ExceptionPermissionModal } from '@/features/mypage/permission/components/ExceptionPermissionModal';
 import { PasswordChangeModal } from '@/features/mypage/account/components/PasswordChangeModal';
 import { LoginHistoryModal } from '@/features/mypage/account/components/LoginHistoryModal';
 import { AccountStatusHistoryModal } from '@/features/mypage/account/components/AccountStatusHistoryModal';
@@ -55,6 +57,8 @@ type PopupKey =
   | 'sms'
   | 'smsUnavailable'
   | 'permissionRequest'
+  | 'specialPermission'
+  | 'exceptionPermission'
   | 'passwordChange'
   | 'loginHistory'
   | 'statusHistory'
@@ -105,8 +109,13 @@ const GROUPS: PopupGroup[] = [
   },
   {
     title: 'KWPC2000 마이페이지',
-    description: '권한관리 카드 → [권한 신청 현황]',
-    buttons: [{ key: 'permissionRequest', label: '권한 신청 현황' }],
+    description:
+      '권한관리 카드 → [권한 신청 현황] · 권한관리 특수권한 카드 → [특수권한 신청] · 메뉴 및 기능 권한 카드 → [보유 기능 권한 보기]',
+    buttons: [
+      { key: 'permissionRequest', label: '권한 신청 현황' },
+      { key: 'specialPermission', label: '특수권한 신청 (KWPC02020004)' },
+      { key: 'exceptionPermission', label: '개별 예외 권한 (KWPC02020001)' },
+    ],
   },
   {
     title: 'KWPC02010100 계정관리',
@@ -376,6 +385,8 @@ export function PopupsPage() {
       )}
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}
       <PermissionRequestModal open={is('permissionRequest')} onClose={close} />
+      <SpecialPermissionRequestModal open={is('specialPermission')} onClose={close} />
+      <ExceptionPermissionModal open={is('exceptionPermission')} onClose={close} />
       <PasswordChangeModal
         open={is('passwordChange')}
         onClose={close}
