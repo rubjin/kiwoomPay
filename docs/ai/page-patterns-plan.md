@@ -64,7 +64,7 @@ apps/<앱>/src/
 const sr = useSearchResult({ fetch: api.list, defaults, autoSearch: false });
 <PageLayout.Title title="…" actions={…} />
 <PageLayout.Section title="검색 조건">
-  <SearchArea {...sr.searchProps} detail={…}>{필드}</SearchArea>
+  <SearchPanel onSearch={sr.search} onReset={sr.reset} detail={…}>{필드}</SearchPanel>
 </PageLayout.Section>
 <SearchResult status={sr.status}>
   <SearchResult.Summary>{SummaryCard…}</SearchResult.Summary>      // 옵션
@@ -74,7 +74,7 @@ const sr = useSearchResult({ fetch: api.list, defaults, autoSearch: false });
 </SearchResult>
 ```
 - `useSearchResult`: 입력 조건(draft) ↔ 적용 조건(applied) 분리, 페이지 · 정렬, 조회 중 중복 요청 무시, 초기화, `status`.
-- Variant: V01 페이지 · V02 Modal 안(같은 부품을 `Modal.Body`에) · V03 상세조건(기존 SearchArea) · V04 적용 조건 요약 · V05 선택 + 상황별 Action.
+- Variant: V01 페이지 · V02 Modal 안(같은 부품을 `Modal.Body`에) · V03 상세조건(SearchPanel `detail`) · V04 적용 조건 요약 · V05 선택 + 상황별 Action.
 - 체크리스트: 조회 전 / 조회 중 / 0건 / 오류 / 권한 없음, 조회 후 조건 변경 시 결과 유지, 초기화.
 
 ### P02 Record → Form
@@ -101,7 +101,7 @@ const sr = useSearchResult({ fetch: api.list, defaults, autoSearch: false });
 - `AuthLayout`(LNB · Header 없음, 가운데 카드, 가맹점관리자 반응형 대상), 로그인 폼, `VerifyCodeField`(인증번호 + 남은 시간 · 재발송, 기존 `formatRemaining` 재사용). 실패 · 잠금 · 만료는 Field 오류 + Alert.
 
 ### P06 Notification Feed
-- `NotificationFeed` Compound: `.Summary`(미확인 건수 · 유형별 건수 · 모두 읽음) · 검색은 SearchArea · `.Item`(분류 Badge · 제목 · 일시 · UnreadIndicator, 펼치면 본문 + 관련 업무 이동) · 상태는 StatusView.
+- `NotificationFeed` Compound: `.Summary`(미확인 건수 · 유형별 건수 · 모두 읽음) · 검색은 SearchPanel · `.Item`(분류 Badge · 제목 · 일시 · UnreadIndicator, 펼치면 본문 + 관련 업무 이동) · 상태는 StatusView.
 - `compact` + `limit`: 마이페이지 Hub에 넣는 축약형.
 
 ### P07 Selection & Configuration

@@ -53,11 +53,11 @@ Gap(요소 사이 간격)과 Padding(요소 안쪽 여백)에 공통으로 쓰�
 SCSS 변수로 두고 Scale을 가리킵니다. 여러 컴포넌트가 함께 쓰는 값(`control/*` 등)만 토큰(`tokens/custom`)으로 둡니다.
 
 ```scss
-// SearchArea.module.scss
-$search-area-item-gap: t.$space-16; // 검색 필드 간격
+// SearchResult.module.scss (SearchPanel)
+$sr-gap: t.$space-16; // 검색 조건 필드 사이
 
 .row {
-  gap: $search-area-item-gap;
+  gap: $sr-gap;
 }
 ```
 
@@ -117,8 +117,8 @@ $search-area-item-gap: t.$space-16; // 검색 필드 간격
       <td>12 · 16</td>
       <td>Field group · Button group · Search 조건 항목 간격</td>
       <td>
-        <code>search-area/item-gap</code> 16 · <code>selection/group-gap-inline</code> 16 ·{' '}
-        <code>date-picker/section-gap</code> 12
+        <code>search-result/gap</code>(SearchPanel 필드) 16 ·{' '}
+        <code>selection/group-gap-inline</code> 16 · <code>date-picker/section-gap</code> 12
       </td>
     </tr>
     <tr>

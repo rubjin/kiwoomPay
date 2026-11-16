@@ -1,9 +1,0 @@
-{
-  "SearchArea": {
-    "Divider": {
-      "$type": "color",
-      "$value": "{Line.Subtle}",
-      "$description": "상세 조건 구분선"
-    }
-  }
-}

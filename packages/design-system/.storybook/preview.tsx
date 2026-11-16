@@ -91,7 +91,7 @@ const preview: Preview = {
           'Composites',
           [
             'Search',
-            ['Search Area', ['Guide', '*'], 'Search Panel', ['Guide', '*'], '*', ['Guide', '*']],
+            ['Guide', 'Search Panel', ['Guide', '*'], '*', ['Guide', '*']],
             'Result',
             ['Result Parts', ['Guide', '*'], 'Status View', ['Guide', '*'], '*', ['Guide', '*']],
             'Form',

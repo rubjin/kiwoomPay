@@ -4,7 +4,7 @@ import { Badge } from '../Badge';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Pagination } from '../Pagination';
-import { SearchArea } from '../SearchArea';
+import { SearchPanel } from '../../patterns/search-result';
 import { WorkTab } from '../Tab';
 import { DateRangeField, Field, SearchField, SelectBox } from '../field';
 import { Footer, Header, Lnb, type LnbMenuItem } from '../navigation';
@@ -201,44 +201,47 @@ function TradeListPage() {
           </>
         }
       />
-      <PageLayout.Section title="검색 조건" divider>
-        <SearchArea
-          expanded={expanded}
-          onExpandedChange={setExpanded}
-          detail={
-            <>
-              <Field label="결제수단">
-                <SelectBox
-                  options={[{ value: 'all', label: '전체' }]}
-                  defaultValue="all"
-                  style={{ width: 200 }}
-                />
-              </Field>
-              <Field label="처리상태">
-                <SelectBox
-                  options={[{ value: 'all', label: '전체' }]}
-                  defaultValue="all"
-                  style={{ width: 200 }}
-                />
-              </Field>
-            </>
-          }
-        >
-          <Field label="조회기간">
-            <DateRangeField />
-          </Field>
-          <Field label="상태">
-            <SelectBox
-              options={[{ value: 'all', label: '전체' }]}
-              defaultValue="all"
-              style={{ width: 200 }}
-            />
-          </Field>
-          <Field label="검색어">
-            <SearchField placeholder="가맹점명 또는 가맹점ID" style={{ width: 320 }} />
-          </Field>
-        </SearchArea>
-      </PageLayout.Section>
+      <SearchPanel
+        onSearch={() => {}}
+        onReset={() => {}}
+        expanded={expanded}
+        onExpandedChange={setExpanded}
+        detail={
+          <>
+            <Field label="결제수단">
+              <SelectBox
+                fullWidth
+                options={[{ value: 'all', label: '전체' }]}
+                defaultValue="all"
+                style={{ width: 200 }}
+              />
+            </Field>
+            <Field label="처리상태">
+              <SelectBox
+                fullWidth
+                options={[{ value: 'all', label: '전체' }]}
+                defaultValue="all"
+                style={{ width: 200 }}
+              />
+            </Field>
+          </>
+        }
+      >
+        <Field label="조회기간">
+          <DateRangeField />
+        </Field>
+        <Field label="상태">
+          <SelectBox
+            fullWidth
+            options={[{ value: 'all', label: '전체' }]}
+            defaultValue="all"
+            style={{ width: 200 }}
+          />
+        </Field>
+        <Field label="검색어">
+          <SearchField placeholder="가맹점명 또는 가맹점ID" style={{ width: 320 }} />
+        </Field>
+      </SearchPanel>
       <PageLayout.Section title="적용된 검색 조건" layout="inline" compact>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           <span style={chip}>조회기간 2026-08-25 00:00 ~ 2026-08-31 23:59</span>

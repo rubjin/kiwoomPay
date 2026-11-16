@@ -19,9 +19,7 @@ import { PageLayout, Lnb, WorkTab } from '@kiwoompay/design-system';
   footer={<AppFooter />}
 >
   <PageLayout.Title title="통합 거래내역" actions={<Button>내 검색조건 관리</Button>} />
-  <PageLayout.Section title="검색 조건" divider>
-    <SearchArea …>…</SearchArea>
-  </PageLayout.Section>
+  <SearchPanel onSearch={search} onReset={reset} detail={…}>…</SearchPanel>
   <PageLayout.Section title="적용된 검색 조건" layout="inline" compact>…</PageLayout.Section>
   <PageLayout.Section title="조회 결과" titleAddon={…} actions={…}>
     {/* IBSheet8 Grid */}

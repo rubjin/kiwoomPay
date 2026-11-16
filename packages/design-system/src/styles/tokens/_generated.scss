@@ -704,9 +704,6 @@ $color-status-view-icon: var(--kp-color-status-view-icon);
 $color-status-view-title: var(--kp-color-status-view-title); // Figma Grid State / Empty: 18 SemiBold Neutral 800
 $color-status-view-description: var(--kp-color-status-view-description); // 14 Regular Neutral 700
 
-// ── custom · search ─────────────────────────────────────────────
-$color-search-area-divider: var(--kp-color-search-area-divider); // 상세 조건 구분선
-
 // ── custom · section-heading ────────────────────────────────────
 $color-section-heading-title: var(--kp-color-section-heading-title); // Section · 검색 조건 · 조회 결과 · 폼 카드 제목
 $color-section-heading-title-subtle: var(--kp-color-section-heading-title-subtle); // 한 줄 카드 제목 (적용된 검색 조건 · 조회 요약)
@@ -1409,7 +1406,6 @@ $css-variables: (
   "--kp-color-status-view-icon": "var(--kp-color-text-label)",
   "--kp-color-status-view-title": "var(--kp-color-text-body)",
   "--kp-color-status-view-description": "var(--kp-color-text-label)",
-  "--kp-color-search-area-divider": "var(--kp-color-line-subtle)",
   "--kp-color-section-heading-title": "var(--kp-color-text-heading)",
   "--kp-color-section-heading-title-subtle": "var(--kp-color-text-body)",
   "--kp-color-section-heading-label": "var(--kp-color-text-secondary)",
