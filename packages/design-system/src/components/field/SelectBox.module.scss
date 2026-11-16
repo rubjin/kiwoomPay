@@ -21,6 +21,11 @@ $select-status-min-height: 174px; // Figma Loading · Empty 패널 174
   width: 100%;
 }
 
+// 감싸는 영역(SearchPanel 등)이 정한 기본 폭 — 값이 없으면 내용 폭
+.root:not(.fullWidth) {
+  width: var(--field-default-width, auto);
+}
+
 // ── 트리거 ───────────────────────────────────────────
 .trigger {
   display: flex;

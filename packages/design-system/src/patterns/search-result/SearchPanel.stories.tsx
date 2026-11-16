@@ -46,37 +46,33 @@ export const Playground: Story = {
   ),
 };
 
-/** 줄 나누기 (SearchPanel.Row): 한 줄 = 전체 폭, 줄 사이 16. 한 칸을 flex로 늘려 줄을 채운다 */
-export const Rows: Story = {
+/**
+ * 필드 흐름: 필드를 순서대로 나열하면 폭이 남을 때 다음 필드가 같은 줄로 올라오고, 모자라면 다음 줄로 내려간다(사이 16).
+ * 줄을 강제로 나누지 않는다. 캔버스 폭을 바꿔 확인
+ */
+export const Flow: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <SearchPanel onSearch={() => {}} onReset={() => {}}>
-      <SearchPanel.Row>
-        <Field label="사업자번호">
-          <LookupField placeholder="사업자번호를 입력해주세요" />
-        </Field>
-        <Field label="조회기간">
-          <DateRangeField />
-        </Field>
-        <Segmented
-          size="md"
-          fullWidth
-          style={{ flex: '1 1 0' }}
-          defaultValue="1w"
-          aria-label="기간"
-        >
-          <Segmented.Item value="1w">1주일</Segmented.Item>
-          <Segmented.Item value="1m">1개월</Segmented.Item>
-        </Segmented>
-      </SearchPanel.Row>
-      <SearchPanel.Row>
-        <Field label="거래구분" style={{ flex: '1 1 0' }}>
-          <SelectBox fullWidth options={status} defaultValue="all" />
-        </Field>
-        <Field label="결제수단" style={{ flex: '1 1 0' }}>
-          <SelectBox fullWidth options={status} defaultValue="all" />
-        </Field>
-      </SearchPanel.Row>
+      <Field label="사업자번호">
+        <LookupField placeholder="사업자번호를 입력해주세요" />
+      </Field>
+      <Field label="조회기간">
+        <DateRangeField />
+      </Field>
+      <Segmented size="md" defaultValue="1w" aria-label="기간">
+        <Segmented.Item value="1w">1주일</Segmented.Item>
+        <Segmented.Item value="1m">1개월</Segmented.Item>
+      </Segmented>
+      <Field label="거래구분">
+        <SelectBox options={status} defaultValue="all" />
+      </Field>
+      <Field label="결제수단">
+        <SelectBox options={status} defaultValue="all" />
+      </Field>
+      <Field label="거래번호">
+        <TextField placeholder="거래번호 입력" />
+      </Field>
     </SearchPanel>
   ),
 };

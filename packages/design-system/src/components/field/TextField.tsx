@@ -95,6 +95,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
 
   return (
     <FieldBox
+      defaultWidth="text"
       size={field.size}
       feedback={field.feedback}
       disabled={field.disabled}

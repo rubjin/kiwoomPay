@@ -24,6 +24,12 @@ export interface FieldBoxProps extends HTMLAttributes<HTMLDivElement> {
   strong?: boolean;
   /** 여러 줄 입력(TextArea). 높이가 내용에 따라 늘어난다 */
   multiline?: boolean;
+  /**
+   * 감싸는 영역이 정한 기본 폭을 따른다 (폭 · fullWidth를 주지 않았을 때). text: `--field-default-width`
+   * (앞 아이콘이 있으면 `--search-field-default-width`), date: `--date-field-default-width`.
+   * 값이 없는 곳에서는 내용 폭 (예: SearchPanel 안 입력 200 · 검색 아이콘 입력 228 · 날짜 140)
+   */
+  defaultWidth?: 'text' | 'date';
   leading?: ReactNode;
   trailing?: ReactNode;
 }
@@ -39,6 +45,7 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
       active,
       strong,
       multiline,
+      defaultWidth,
       leading,
       trailing,
       className,
@@ -60,6 +67,8 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
         active && styles.active,
         strong && styles.strong,
         multiline && styles.multiline,
+        defaultWidth === 'text' && (leading ? styles.defaultSearch : styles.defaultText),
+        defaultWidth === 'date' && styles.defaultDate,
         className,
       )}
     >

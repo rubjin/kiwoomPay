@@ -36,10 +36,8 @@ const DETAIL_FIELDS: [TextKey, string, string?][] = [
   ['payRequestCode', '결제요청코드'],
 ];
 
-/** 줄 안에서 남는 폭을 나눠 채운다 */
-const GROW = { flex: '1 1 0' };
+/** 시각 선택 폭 (그 밖의 입력 · 셀렉트 · 날짜 · 퀵 기간 폭은 SearchPanel 기본값) */
 const TIME_WIDTH = { width: 96 };
-const TEXT_WIDTH = { width: 200 };
 
 export interface TransactionSearchPanelProps {
   params: Params;
@@ -98,137 +96,124 @@ export function TransactionSearchPanel({
         </SearchPanel.Grid>
       }
     >
-      <SearchPanel.Row>
-        {/* TODO(P03) 사업자 · CPID 찾기 Lookup 팝업 연결 */}
-        <Field label="사업자번호">
-          <LookupField
-            placeholder="사업자번호를 입력해주세요"
-            inputWidth={210}
-            value={params.bizNo}
-            onChange={(bizNo) => setParam('bizNo', bizNo)}
-            onFind={() => onNotReady('사업자 찾기')}
-          />
-        </Field>
-        <Field label="CPID">
-          <LookupField
-            placeholder="CPID를 입력해주세요"
-            inputWidth={185}
-            value={params.cpid}
-            onChange={(cpid) => setParam('cpid', cpid)}
-            onFind={() => onNotReady('CPID 찾기')}
-          />
-        </Field>
-        <Field label="조회기준일">
-          <ControlGroup>
-            <RadioGroup
-              direction="horizontal"
-              aria-label="조회기준일"
-              value={params.dateBasis}
-              onChange={(v) => isDateBasis(v) && setParam('dateBasis', v)}
-            >
-              {DATE_BASIS.map((o) => (
-                <Radio key={o.value} value={o.value} label={o.label} />
-              ))}
-            </RadioGroup>
-            <DateField
-              aria-label="시작일"
-              value={params.startDate}
-              onChange={(startDate) => setParams({ startDate, quickPeriod: '' })}
-            />
-            <SelectBox
-              aria-label="시작 시각"
-              style={TIME_WIDTH}
-              options={START_TIMES}
-              value={params.startTime}
-              onChange={(startTime) => setParam('startTime', startTime)}
-            />
-            <span aria-hidden>~</span>
-            <DateField
-              aria-label="종료일"
-              value={params.endDate}
-              onChange={(endDate) => setParams({ endDate, quickPeriod: '' })}
-            />
-            <SelectBox
-              aria-label="종료 시각"
-              style={TIME_WIDTH}
-              options={END_TIMES}
-              value={params.endTime}
-              onChange={(endTime) => setParam('endTime', endTime)}
-            />
-          </ControlGroup>
-        </Field>
-        <Segmented
-          size="md"
-          fullWidth
-          style={GROW}
-          aria-label="조회 기간"
-          value={params.quickPeriod}
-          onChange={(quickPeriod) => {
-            const { start, end } = rangeOfQuickPeriod(quickPeriod);
-            setParams({ quickPeriod, startDate: start, endDate: end });
-          }}
-        >
-          {QUICK_PERIODS.map((p) => (
-            <Segmented.Item key={p.value} value={p.value}>
-              {p.label}
-            </Segmented.Item>
-          ))}
-        </Segmented>
-      </SearchPanel.Row>
-      <SearchPanel.Row>
-        <Field label="거래번호">
-          <TextField
-            placeholder="거래번호 입력"
-            style={TEXT_WIDTH}
-            value={params.txNo}
-            onChange={(e) => setParam('txNo', e.target.value)}
-          />
-        </Field>
-        <Field label="주문번호">
-          <TextField
-            placeholder="주문번호 입력"
-            style={TEXT_WIDTH}
-            value={params.orderNo}
-            onChange={(e) => setParam('orderNo', e.target.value)}
-          />
-        </Field>
-        <Field label="거래구분" style={GROW}>
-          <SelectBox
-            fullWidth
-            options={txTypes}
-            value={params.txType}
-            onChange={(v) => setParam('txType', v)}
-          />
-        </Field>
-        <Field label="결제수단" style={GROW}>
-          <SelectBox
-            fullWidth
-            options={payMethods}
-            value={params.payMethod}
-            onChange={(v) => setParam('payMethod', v)}
-          />
-        </Field>
-        <Field label="거래상태" style={GROW}>
-          <SelectBox
-            fullWidth
-            options={txStatuses}
-            value={params.txStatus}
-            onChange={(v) => setParam('txStatus', v)}
-          />
-        </Field>
-        <Field label="거래원천">
+      {/* TODO(P03) 사업자 · CPID 찾기 Lookup 팝업 연결 */}
+      <Field label="사업자번호">
+        <LookupField
+          placeholder="사업자번호를 입력해주세요"
+          value={params.bizNo}
+          onChange={(bizNo) => setParam('bizNo', bizNo)}
+          onFind={() => onNotReady('사업자 찾기')}
+        />
+      </Field>
+      <Field label="CPID">
+        <LookupField
+          placeholder="CPID를 입력해주세요"
+          value={params.cpid}
+          onChange={(cpid) => setParam('cpid', cpid)}
+          onFind={() => onNotReady('CPID 찾기')}
+        />
+      </Field>
+      <Field label="조회기준일">
+        <ControlGroup>
           <RadioGroup
             direction="horizontal"
-            aria-label="거래원천"
-            value={params.source}
-            onChange={(v) => setParam('source', v)}
+            aria-label="조회기준일"
+            value={params.dateBasis}
+            onChange={(v) => isDateBasis(v) && setParam('dateBasis', v)}
           >
-            {txSources.map((s) => (
-              <Radio key={s.value} value={s.value} label={s.label} />
+            {DATE_BASIS.map((o) => (
+              <Radio key={o.value} value={o.value} label={o.label} />
             ))}
           </RadioGroup>
-        </Field>
-      </SearchPanel.Row>
+          <DateField
+            aria-label="시작일"
+            value={params.startDate}
+            onChange={(startDate) => setParams({ startDate, quickPeriod: '' })}
+          />
+          <SelectBox
+            aria-label="시작 시각"
+            style={TIME_WIDTH}
+            options={START_TIMES}
+            value={params.startTime}
+            onChange={(startTime) => setParam('startTime', startTime)}
+          />
+          <span aria-hidden>~</span>
+          <DateField
+            aria-label="종료일"
+            value={params.endDate}
+            onChange={(endDate) => setParams({ endDate, quickPeriod: '' })}
+          />
+          <SelectBox
+            aria-label="종료 시각"
+            style={TIME_WIDTH}
+            options={END_TIMES}
+            value={params.endTime}
+            onChange={(endTime) => setParam('endTime', endTime)}
+          />
+        </ControlGroup>
+      </Field>
+      <Segmented
+        size="md"
+        aria-label="조회 기간"
+        value={params.quickPeriod}
+        onChange={(quickPeriod) => {
+          const { start, end } = rangeOfQuickPeriod(quickPeriod);
+          setParams({ quickPeriod, startDate: start, endDate: end });
+        }}
+      >
+        {QUICK_PERIODS.map((p) => (
+          <Segmented.Item key={p.value} value={p.value}>
+            {p.label}
+          </Segmented.Item>
+        ))}
+      </Segmented>
+      <Field label="거래번호">
+        <TextField
+          placeholder="거래번호 입력"
+          value={params.txNo}
+          onChange={(e) => setParam('txNo', e.target.value)}
+        />
+      </Field>
+      <Field label="주문번호">
+        <TextField
+          placeholder="주문번호 입력"
+          value={params.orderNo}
+          onChange={(e) => setParam('orderNo', e.target.value)}
+        />
+      </Field>
+      <Field label="거래구분">
+        <SelectBox
+          options={txTypes}
+          value={params.txType}
+          onChange={(v) => setParam('txType', v)}
+        />
+      </Field>
+      <Field label="결제수단">
+        <SelectBox
+          options={payMethods}
+          value={params.payMethod}
+          onChange={(v) => setParam('payMethod', v)}
+        />
+      </Field>
+      <Field label="거래상태">
+        <SelectBox
+          options={txStatuses}
+          value={params.txStatus}
+          onChange={(v) => setParam('txStatus', v)}
+        />
+      </Field>
+      <Field label="거래원천">
+        <RadioGroup
+          direction="horizontal"
+          aria-label="거래원천"
+          value={params.source}
+          onChange={(v) => setParam('source', v)}
+        >
+          {txSources.map((s) => (
+            <Radio key={s.value} value={s.value} label={s.label} />
+          ))}
+        </RadioGroup>
+      </Field>
     </SearchPanel>
   );
 }

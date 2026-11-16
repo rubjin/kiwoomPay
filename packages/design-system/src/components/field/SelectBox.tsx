@@ -148,7 +148,8 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
         size={field.size}
         feedback={field.feedback}
         disabled={field.disabled}
-        fullWidth={fullWidth}
+        // 폭은 루트가 정한다 (fullWidth · 직접 폭 · 검색 조건 기본 폭) — 상자는 루트를 채운다
+        fullWidth
         active={opened}
         strong={strong}
         onClick={() => !field.disabled && setOpen(!opened)}

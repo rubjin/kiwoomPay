@@ -85,6 +85,19 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
   width: 100%;
 }
 
+// 감싸는 영역(SearchPanel 등)이 정한 기본 폭 — 값이 없으면 내용 폭
+.defaultText:not(.fullWidth) {
+  width: var(--field-default-width, auto);
+}
+
+.defaultSearch:not(.fullWidth) {
+  width: var(--search-field-default-width, auto);
+}
+
+.defaultDate:not(.fullWidth) {
+  width: var(--date-field-default-width, auto);
+}
+
 .md {
   @include m.typography(typo-14-regular);
 

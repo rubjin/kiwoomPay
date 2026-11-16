@@ -135,6 +135,7 @@ export const DateField = forwardRef<HTMLInputElement, DateFieldProps>((props, re
       }
     >
       <FieldBox
+        defaultWidth="date"
         size={field.size}
         feedback={field.feedback}
         disabled={field.disabled}

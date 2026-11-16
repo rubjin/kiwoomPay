@@ -63,11 +63,13 @@ $segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
 
 .fullWidth {
   display: flex;
-  width: 100%;
+
+  // 감싸는 영역이 늘리지 않게 할 수 있다 (SearchPanel: 내용 폭 · 옵션 늘리지 않음)
+  width: var(--segmented-full-width, 100%);
 
   // 옵션(label)을 같은 폭으로
   > * {
-    flex: 1 1 0;
+    flex: var(--segmented-item-flex, 1 1 0);
   }
 
   .text {
@@ -76,7 +78,8 @@ $segmented-z-front: 1; // 선택 · 포커스 옵션을 이웃 위로
 }
 
 .md .text {
-  min-width: 0;
+  // 감싸는 영역이 정한 옵션 최소 폭 (SearchPanel 55) — 없으면 글자 폭
+  min-width: var(--segmented-item-min-width, 0);
   height: $segmented-height-md;
 }
 

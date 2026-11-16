@@ -5,6 +5,10 @@
 $sr-radius: t.$control-radius-lg; // 카드 반경 8
 $sr-padding: t.$space-16; // 검색 조건 · 조회 결과 카드 안쪽
 $sr-padding-compact: t.$space-12; // 적용된 검색 조건 · 조회 요약 카드 안쪽
+$sr-field-width: 200px; // 검색 조건 입력 · 셀렉트 기본 폭 (사용자 확정)
+$sr-search-field-width: 228px; // 검색 조건 앞 검색 아이콘 입력(SearchField · LookupField) 기본 폭 (사용자 확정)
+$sr-date-field-width: 140px;
+$sr-segmented-item-min-width: 55px; // 검색 조건 퀵 기간(Segmented md) 옵션 하나 최소 폭 (사용자 확정) // 검색 조건 날짜(DateField) 기본 폭 (사용자 확정)
 $sr-gap: t.$space-16; // 검색 조건 제목 줄 ↔ 구분선 ↔ 필드 줄, 필드 사이
 $sr-heading-gap: t.$space-8; // 제목 ↔ 옆 요소, 버튼 사이
 $sr-result-header-gap: t.$space-20; // 조회 결과 제목 묶음 ↔ 오른쪽 Action (Figma KWPC04010100: Action Bar 앞 20)
@@ -40,6 +44,16 @@ $sr-grid-cell-padding-x: t.$space-12;
 
 // ── 검색 조건 (SearchPanel) ──────────────────────────
 .searchPanel {
+  // 안의 TextField(앞 아이콘이 있으면 검색 폭) · SelectBox · MultiSelect · DateField가 폭을 정하지 않으면 이 폭 (fullWidth · 직접 준 폭이 우선)
+  --field-default-width: #{$sr-field-width};
+  --search-field-default-width: #{$sr-search-field-width};
+  --date-field-default-width: #{$sr-date-field-width};
+  --segmented-item-min-width: #{$sr-segmented-item-min-width};
+
+  // 검색 조건의 퀵 기간은 늘어나지 않는다 (fullWidth를 줘도 내용 폭)
+  --segmented-full-width: auto;
+  --segmented-item-flex: none;
+
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -92,7 +106,7 @@ $sr-grid-cell-padding-x: t.$space-12;
   color: t.$color-search-result-icon;
 }
 
-// 제목 줄 아래 구분선 + 필드 줄
+// 제목 줄 아래 구분선 + 필드 (폭이 남으면 다음 필드가 같은 줄로 올라오고, 모자라면 다음 줄로)
 .searchBody {
   padding-top: $sr-gap;
   border-top: t.$control-border-width solid t.$color-search-result-panel-border;
@@ -129,15 +143,6 @@ $sr-grid-cell-padding-x: t.$space-12;
   gap: $sr-heading-gap;
   align-items: center;
   margin-inline-start: auto;
-}
-
-// SearchPanel.Row: 한 줄 전체 폭
-.fieldLine {
-  display: flex;
-  flex: 1 1 100%;
-  gap: $sr-gap;
-  align-items: center;
-  min-width: 0;
 }
 
 // SearchPanel.Grid: 같은 폭 N칸 (칸 수는 inline grid-template-columns)
