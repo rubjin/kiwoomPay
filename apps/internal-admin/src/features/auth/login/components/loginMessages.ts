@@ -16,6 +16,10 @@ export function loginErrorMessage(error: unknown): string {
   }
 }
 
+/** 아이디 · 비밀번호 불일치 — 버튼 위 문구 (Figma KWPC3000 계정정보불일치 28732:76076) */
+export const LOGIN_MISMATCH_MESSAGE =
+  '아이디 또는 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.';
+
 /** 로그인 화면 아래 보안 안내 (Figma KWPC3000) */
 export const LOGIN_NOTICES = [
   '아이디 또는 비밀번호를 5회 연속 잘못 입력하면 계정이 잠깁니다.',

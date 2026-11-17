@@ -46,6 +46,9 @@ class AuthError extends Error {
   }
 }
 
+/** 아이디 · 비밀번호 불일치 — 버튼 위 문구 (Figma KWPC3000 계정정보불일치 28732:76076) */
+const MISMATCH_MESSAGE = '아이디 또는 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.';
+
 const authMessage = (error: unknown) => {
   if (!(error instanceof AuthError))
     return '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
@@ -210,9 +213,21 @@ function SmsUnavailableModal({
 }
 
 /** 로그인 화면 (KWPC3000): 아이디 · 비밀번호 → [로그인 인증] → SMS 인증 → 완료 */
-function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+function LoginScreen({
+  onLoggedIn,
+  defaultId = '',
+  defaultPassword = '',
+  defaultMismatch = false,
+}: {
+  onLoggedIn: () => void;
+  defaultId?: string;
+  defaultPassword?: string;
+  /** 처음부터 불일치 문구를 보여 준다 (스토리 예시) */
+  defaultMismatch?: boolean;
+}) {
+  const [id, setId] = useState(defaultId);
+  const [password, setPassword] = useState(defaultPassword);
+  const [mismatch, setMismatch] = useState(defaultMismatch);
   const [failCount, setFailCount] = useState(0);
   const [smsOpen, setSmsOpen] = useState(false);
   const [noPhoneOpen, setNoPhoneOpen] = useState(false);
@@ -228,8 +243,19 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
       }
       return id === 'nophone' ? null : '010-****-5678'; // 등록된 휴대전화번호 (없으면 SMS 인증 불가)
     },
-    onSuccess: (phone) => (phone ? setSmsOpen(true) : setNoPhoneOpen(true)),
-    failure: authMessage,
+    onSuccess: (phone) => {
+      setMismatch(false);
+      if (phone) setSmsOpen(true);
+      else setNoPhoneOpen(true);
+    },
+    // 불일치는 버튼 위 문구 (Alert 없음), 잠김 등은 Alert
+    failure: (error) => {
+      if (error instanceof AuthError && error.code === 'MISMATCH') {
+        setMismatch(true);
+        return null;
+      }
+      return authMessage(error);
+    },
   });
 
   return (
@@ -253,8 +279,10 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
     >
       <AuthForm
         onSubmit={() => ready && login.execute()}
+        error={mismatch ? MISMATCH_MESSAGE : undefined}
         submit={
-          <Button type="submit" size="lg" disabled={!ready} loading={login.loading}>
+          // 처리 중 표시 없음 — 중복 요청은 useAction이 막는다
+          <Button type="submit" size="lg" disabled={!ready}>
             로그인 인증
           </Button>
         }
@@ -265,7 +293,10 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
           placeholder="아이디를 입력해 주세요."
           autoComplete="username"
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => {
+            setId(e.target.value);
+            setMismatch(false);
+          }}
         />
         <AuthField
           label="비밀번호"
@@ -273,7 +304,10 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
           placeholder="비밀번호를 입력해 주세요."
           autoComplete="current-password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setMismatch(false);
+          }}
         />
       </AuthForm>
       <SmsUnavailableModal open={noPhoneOpen} onClose={() => setNoPhoneOpen(false)} />
@@ -296,7 +330,7 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
 export const Login: Story = {
   parameters: {
     controls: { disable: true },
-    tempWork: '예시 계정 · 오류 문구 · 입력 중 밑줄 색 · 내용 ↔ Footer 최소 간격',
+    tempWork: '예시 계정 · 잠김 등 Alert 문구 · 입력 중 밑줄 색 · 내용 ↔ Footer 최소 간격',
   },
   render: function Render() {
     const [done, setDone] = useState(false);
@@ -311,6 +345,20 @@ export const Login: Story = {
       <LoginScreen onLoggedIn={() => setDone(true)} />
     );
   },
+};
+
+/** 계정정보 불일치 (Figma 28732:76076): 비밀번호 아래 20 · 버튼 위 20에 문구(12 Regular · Chart/Negative), 버튼 위치는 그대로. 입력을 고치면 사라진다 */
+export const LoginMismatch: Story = {
+  name: 'Login · 계정정보 불일치',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <LoginScreen
+      onLoggedIn={() => {}}
+      defaultId="kwpay1234"
+      defaultPassword="wrongpass"
+      defaultMismatch
+    />
+  ),
 };
 
 /** SMS 인증 (sm 400): 남은 시간 · 재발송, 6자리를 입력해야 [완료] */

@@ -18,6 +18,7 @@ $auth-field-gap: t.$space-16; // 라벨 ↔ 입력 ↔ 밑줄
 $auth-field-icon: 24px;
 $auth-error-gap: t.$space-4; // TODO(시안) 밑줄 ↔ 오류 문구
 $auth-actions-gap: 58px; // 비밀번호 밑줄 ↔ [로그인 인증] (Figma y621 → 679)
+$auth-form-error-gap: t.$space-20; // 폼 오류 문구: 밑줄 ↔ 문구 20 · 문구 ↔ 버튼 20 (문구 18 → 합 58, Figma 계정정보불일치)
 $auth-notice-gap: t.$space-20; // 버튼 ↔ 안내
 $auth-notice-padding: t.$space-12;
 $auth-notice-radius: 8px;
@@ -120,6 +121,18 @@ $auth-verify-area-height: 62px; // 인증번호 40 + 4 + 오류 문구 18 — �
   display: flex;
   flex-direction: column;
   margin-top: $auth-actions-gap;
+}
+
+// 폼 오류 문구 (Figma 계정정보불일치: 12 Regular Chart/Negative)
+.formError {
+  @include m.typography(typo-12-regular);
+
+  margin: $auth-form-error-gap 0 0;
+  color: t.$color-auth-form-error;
+}
+
+.submitAfterError {
+  margin-top: $auth-form-error-gap;
 }
 
 // ── AuthField (밑줄 입력) ────────────────────────────

@@ -52,11 +52,16 @@ export interface AuthFormProps extends Omit<FormHTMLAttributes<HTMLFormElement>,
   submit?: ReactNode;
   /** 버튼 아래 안내 (AuthNotice) */
   notice?: ReactNode;
+  /**
+   * 폼 오류 문구 (예: 아이디 또는 비밀번호 불일치) — 필드 아래 20 · 버튼 위 20.
+   * 필드 ↔ 버튼 58 안에 들어가 버튼 위치가 바뀌지 않는다 (Figma 계정정보불일치)
+   */
+  error?: ReactNode;
 }
 
 /** 로그인 폼: 필드(사이 40) → 제출 버튼 → 안내 */
 export const AuthForm = forwardRef<HTMLFormElement, AuthFormProps>(
-  ({ onSubmit, submit, notice, className, children, ...rest }, ref) => (
+  ({ onSubmit, submit, notice, error, className, children, ...rest }, ref) => (
     <form
       {...rest}
       ref={ref}
@@ -68,7 +73,16 @@ export const AuthForm = forwardRef<HTMLFormElement, AuthFormProps>(
       }}
     >
       <div className={styles.form}>{children}</div>
-      {submit && <div className={styles.submit}>{submit}</div>}
+      {error && (
+        <p className={styles.formError} role="alert">
+          {error}
+        </p>
+      )}
+      {submit && (
+        <div className={clsx(styles.submit, Boolean(error) && styles.submitAfterError)}>
+          {submit}
+        </div>
+      )}
       {notice}
     </form>
   ),

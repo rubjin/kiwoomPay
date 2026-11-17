@@ -279,6 +279,7 @@ $color-auth-underline: var(--kp-color-auth-underline);
 $color-auth-underline-focus: var(--kp-color-auth-underline-focus); // TODO(시안) 입력 중 밑줄 — Figma에는 빈 상태만 있어 필드 포커스 색으로
 $color-auth-underline-error: var(--kp-color-auth-underline-error);
 $color-auth-error-text: var(--kp-color-auth-error-text);
+$color-auth-form-error: var(--kp-color-auth-form-error); // 로그인 폼 오류 문구 (Figma KWPC3000 계정정보불일치 28732:76076, #EF4444)
 $color-auth-icon: var(--kp-color-auth-icon); // 비밀번호 보기 아이콘 (Neutral 500)
 $color-auth-notice-bg: var(--kp-color-auth-notice-bg);
 $color-auth-notice-text: var(--kp-color-auth-notice-text);
@@ -1080,6 +1081,7 @@ $css-variables: (
   "--kp-color-auth-underline-focus": "var(--kp-color-primary-500)",
   "--kp-color-auth-underline-error": "var(--kp-color-status-error-border)",
   "--kp-color-auth-error-text": "var(--kp-color-status-error-text)",
+  "--kp-color-auth-form-error": "var(--kp-color-chart-negative)",
   "--kp-color-auth-icon": "var(--kp-color-text-placeholder)",
   "--kp-color-auth-notice-bg": "var(--kp-color-primary-50)",
   "--kp-color-auth-notice-text": "var(--kp-color-text-secondary)",

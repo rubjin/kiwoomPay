@@ -13,8 +13,12 @@ import loginSecurity from '@/assets/common/login-security.svg';
 import logoHeader from '@/assets/logo/logo-header.svg';
 import { Footer } from '@/layouts/Footer/Footer';
 import { useAuthStore } from '@/store/auth';
-import type { LoginChallenge } from '@/features/auth/login.types';
-import { LOGIN_NOTICES, loginErrorMessage } from './components/loginMessages';
+import { LoginError, type LoginChallenge } from '@/features/auth/login.types';
+import {
+  LOGIN_MISMATCH_MESSAGE,
+  LOGIN_NOTICES,
+  loginErrorMessage,
+} from './components/loginMessages';
 import { SmsUnavailableModal } from './components/SmsUnavailableModal';
 import { SmsVerifyModal } from './components/SmsVerifyModal';
 
@@ -30,12 +34,23 @@ export function LoginPage() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [challenge, setChallenge] = useState<LoginChallenge | null>(null);
+  // 아이디 · 비밀번호 불일치는 버튼 위 문구로 (Alert 없음). 입력을 고치면 지운다
+  const [mismatch, setMismatch] = useState(false);
   const ready = id.trim() !== '' && password !== '';
 
   const login = useAction({
     run: () => requestLogin(id.trim(), password),
-    onSuccess: setChallenge,
-    failure: loginErrorMessage,
+    onSuccess: (next) => {
+      setMismatch(false);
+      setChallenge(next);
+    },
+    failure: (error) => {
+      if (error instanceof LoginError && error.code === 'MISMATCH') {
+        setMismatch(true);
+        return null;
+      }
+      return loginErrorMessage(error); // 잠김 · 네트워크 오류 등은 Alert
+    },
   });
 
   const finish = (accessToken: string) => {
@@ -53,8 +68,10 @@ export function LoginPage() {
     >
       <AuthForm
         onSubmit={() => ready && login.execute()}
+        error={mismatch ? LOGIN_MISMATCH_MESSAGE : undefined}
         submit={
-          <Button type="submit" size="lg" disabled={!ready} loading={login.loading}>
+          // 처리 중 표시 없음 (사용자 결정) — 중복 요청은 useAction이 막는다
+          <Button type="submit" size="lg" disabled={!ready}>
             로그인 인증
           </Button>
         }
@@ -65,7 +82,10 @@ export function LoginPage() {
           placeholder="아이디를 입력해 주세요."
           autoComplete="username"
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => {
+            setId(e.target.value);
+            setMismatch(false);
+          }}
         />
         <AuthField
           label="비밀번호"
@@ -73,7 +93,10 @@ export function LoginPage() {
           placeholder="비밀번호를 입력해 주세요."
           autoComplete="current-password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setMismatch(false);
+          }}
         />
       </AuthForm>
       {challenge && !challenge.maskedPhone && (
