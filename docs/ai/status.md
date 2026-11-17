@@ -536,7 +536,7 @@
 - 다음: 내 검색조건 관리 Modal(P07 V03) — 저장된 조건 목록 · 선택한 조건 요약(summarizeSearch) · 현재 조건 덮어쓰기 · 삭제 · 적용 · 신규 등록
 
 ### 화면 목록 앱 · 임의 작업 표시 — 2026-11-12
-- 화면 목록 (임의 작업): 관리자 앱 밖의 별도 앱 `apps/screen-list` (`pnpm screens` → http://localhost:5180). 루트 `pnpm dev`는 내부관리자 앱(5173)과 화면 목록을 함께 띄우고 화면 목록을 브라우저에 자동으로 연다(2026-11-13). 시스템 탭(내부관리자 · 가맹점관리자 · 영업대행사, 탭에 본수) · 작업 현황(총 본수 · 작업중 · 작업완료 · 삭제 · 보류) · 상태 필터 · 목록(상태 · 1/2/3depth · 화면ID · 화면명 · 경로 링크(새 탭) · 화면타입 · 기획반영버전 · 최종업데이트일). 데이터는 `apps/screen-list/src/screens.ts` — 화면을 만들거나 고치면 한 줄 추가 · 갱신. 시스템별 주소는 `VITE_URL_INTERNAL` · `VITE_URL_MERCHANT` · `VITE_URL_AGENCY`(기본 5173 · 5174 · 5175)
+- 화면 목록 (임의 작업): 관리자 앱 밖의 별도 앱 `apps/screen-list` (`pnpm screens` → http://localhost:5180). 루트 `pnpm dev`는 내부관리자 앱(5173)과 화면 목록을 함께 띄우고 화면 목록을 브라우저에 자동으로 연다(2026-11-13). 시스템 탭(내부관리자 · 가맹점관리자 · 영업대행사, 탭에 본수) · 작업 현황(총 본수 · 작업중 · 완료 · 삭제 · 보류) · 상태 필터 · 목록(상태 · 1/2/3depth · 화면ID · 화면명 · 경로 링크(새 탭) · 화면타입 · 기획반영버전 · 최종업데이트일). 데이터는 `apps/screen-list/src/screens.ts` — 화면을 만들거나 고치면 한 줄 추가 · 갱신. 시스템별 주소는 `VITE_URL_INTERNAL` · `VITE_URL_MERCHANT` · `VITE_URL_AGENCY`(기본 5173 · 5174 · 5175)
 - 규칙: 시안 · 정책 없이 임시로 만든 부분은 "(임의 작업)"으로 표시. Storybook은 스토리 · meta `parameters.tempWork` → 캔버스 오른쪽 위 "(임의 작업: …)" 배지(`.storybook/preview.tsx` tempWorkBadge). 표시한 스토리: Badge · TextButton · Column Picker · CPID List Item · DatePicker · Favorite Menu Picker · Tooltip · LNB · Checkbox · Radio · Tab · Work Tab · Address Search · P01(Initial · Result · Empty · States)
 - 상태별 GUI(29426:102820) 확인: 조회 실패 아이콘 · 문구를 시안대로 수정. 확인 필요 — 조회 중 띄어쓰기(시안 "조회 중 입니다"), 검색 조건 접힘 높이(시안 72 ↔ 30056:104296은 74)
 - 참고: 배지 표시 스토리는 캔버스에 감싸는 div가 하나 생겨 `#storybook-root > div`를 재던 기존 테스트 일부(DatePicker 패널 · Tab 폭)가 감싸는 div를 잼 — 실제 크기는 같음(DatePicker 336 × 344 확인)
@@ -1001,5 +1001,5 @@
 ### LNB 3Depth 메뉴 · LNB · 즐겨찾기 편집 팝업 완료 — 2026-11-17
 - 앱 `constants/menu3.ts`: IA 3Depth 151개(화면 목록 앱 IA 데이터에서 옮김). LNB 2Depth 접힘 · 펼침, 현재 화면 3Depth 강조, 즐겨찾기 3Depth 선택. 없는 3Depth 화면은 2Depth 경로/번호(예: /transaction/integrated/02) → 준비 중 화면(제목 · 탭 제목 3Depth 이름)
 - 앱 LNB 구성: 대시보드(단독 1Depth) → 거래내역 · 통계내역 · 정산내역 · 운영관리 · 부가서비스 · RM관리. 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB 밖
-- 화면 목록: KWPC01030000 LNB · KWPC01030001 즐겨찾기 편집 팝업 작업완료 (남은 것: 메뉴 · 즐겨찾기 API 연결)
-
+- 화면 목록: KWPC01030000 LNB · KWPC01030001 즐겨찾기 편집 팝업 완료 (남은 것: 메뉴 · 즐겨찾기 API 연결)
+- 화면 목록: KWPC01020000 헤더 완료 (남은 것: 세션 · 마스킹 · 알림 · 다운로드 건수 API, 마스킹 해제 사유 팝업(Q46), 전역 검색 결과 패널(Q35))

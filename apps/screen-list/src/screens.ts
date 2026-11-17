@@ -23,7 +23,7 @@ export const SYSTEMS: { id: SystemId; label: string; url: string }[] = [
   },
 ];
 
-export const STATUSES = ['미작업', '작업중', '작업완료', '삭제', '보류'] as const;
+export const STATUSES = ['미작업', '작업중', '완료', '삭제', '보류'] as const;
 export type ScreenStatus = (typeof STATUSES)[number];
 
 export type ScreenType = '목록' | '상세' | '등록 · 수정' | '팝업' | '대시보드' | '로그인' | '기타';
@@ -239,6 +239,21 @@ export const SCREENS: ScreenInfo[] = [
   },
   {
     system: 'internal',
+    id: 'KWPC01020000',
+    depth1: '메인',
+    depth2: '헤더',
+    depth3: '',
+    name: '헤더',
+    path: '/',
+    type: '기타',
+    status: '완료',
+    planVersion: PLAN,
+    updatedAt: '2026-11-17',
+    tempWork:
+      '세션 · 마스킹 · 알림 · 다운로드 건수 API 미연결(예시 값) · 마스킹 해제 사유 팝업 · 전역 검색 결과 패널 없음',
+  },
+  {
+    system: 'internal',
     id: 'KWPC01030000',
     depth1: '메인',
     depth2: 'LNB',
@@ -246,7 +261,7 @@ export const SCREENS: ScreenInfo[] = [
     name: 'LNB',
     path: '/',
     type: '기타',
-    status: '작업완료',
+    status: '완료',
     planVersion: PLAN,
     updatedAt: '2026-11-17',
     tempWork: '메뉴 데이터는 IA 기준 상수(constants/menu · menu3) — 서버 메뉴 API 이관 전',
@@ -261,7 +276,7 @@ export const SCREENS: ScreenInfo[] = [
     path: '/patterns/popups?open=favorite',
     type: '팝업',
     pattern: 'P07',
-    status: '작업완료',
+    status: '완료',
     planVersion: PLAN,
     updatedAt: '2026-11-17',
     tempWork:

@@ -19,7 +19,7 @@ import { STATUSES, SYSTEMS, type ScreenStatus, type SystemId } from './screens';
 const SUMMARY_TONE: Record<ScreenStatus, ResultSummaryTone | undefined> = {
   미작업: undefined,
   작업중: 'info',
-  작업완료: 'success',
+  완료: 'success',
   삭제: 'error',
   보류: 'warning',
 };
@@ -27,7 +27,7 @@ const SUMMARY_TONE: Record<ScreenStatus, ResultSummaryTone | undefined> = {
 const STATUS_TONE: Record<ScreenStatus, BadgeTone> = {
   미작업: 'neutral',
   작업중: 'info',
-  작업완료: 'success',
+  완료: 'success',
   삭제: 'error',
   보류: 'warning',
 };
