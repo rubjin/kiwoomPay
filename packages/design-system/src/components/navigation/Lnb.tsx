@@ -284,9 +284,12 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
                 <span className={styles.label} title={item.label}>
                   {item.label}
                 </span>
-                <span className={clsx(styles.chevron, styles.muted)}>
-                  <Icon name={hasChildren && open ? 'chevron-down' : 'chevron-right'} size={12} />
-                </span>
+                {/* 하위 메뉴가 없는 1Depth(대시보드)는 화살표 없음 (Figma) */}
+                {hasChildren && (
+                  <span className={clsx(styles.chevron, styles.muted)}>
+                    <Icon name={open ? 'chevron-down' : 'chevron-right'} size={12} />
+                  </span>
+                )}
               </MenuLink>
               {hasChildren && open && (
                 <ul className={clsx(styles.list, styles.sub)}>
