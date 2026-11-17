@@ -30,7 +30,7 @@ const meta = {
   title: 'Components/Field/TableMultiSelect',
   parameters: {
     layout: 'padded',
-    tempWork: '열 구성 · 예시 CPID (Figma 사업자 찾기 팝업 PNG 측정)',
+    tempWork: '열 구성 · 예시 CPID ',
   },
 } satisfies Meta;
 export default meta;
