@@ -84,8 +84,15 @@ import { SearchPanel, Field, DateRangeField, SelectBox, TextField } from '@kiwoo
     </SearchPanel.Grid>
   }
 >
+  {/* 기간 + 퀵 기간은 ControlGroup으로 한 묶음 (사이 8) */}
   <Field label="조회기간">
-    <DateRangeField value={period} onChange={setPeriod} />
+    <ControlGroup>
+      <DateRangeField value={period} onChange={setPeriod} />
+      <Segmented size="md" value={quick} onChange={setQuick} aria-label="기간">
+        <Segmented.Item value="1w">1주일</Segmented.Item>
+        <Segmented.Item value="1m">1개월</Segmented.Item>
+      </Segmented>
+    </ControlGroup>
   </Field>
   <Field label="결제수단">
     <SelectBox options={payOptions} value={pay} onChange={setPay} />

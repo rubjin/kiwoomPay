@@ -69,9 +69,6 @@ function createInitialParams(): LoginHistoryParams {
   return { period: { start: toYmd(start), end: toYmd(end) }, result: 'all' };
 }
 
-// 로그인 결과 칸 (라벨 + 8 + 셀렉트 = Figma 301)
-const RESULT_FIELD = { width: 301 };
-
 function LoginHistoryBody() {
   const results = useCodeOptions('LOGIN_RESULT', { withAll: true });
   // 내 로그인 이력이라 팝업을 열면 바로 조회 (권한 신청 현황과 같은 예외, TODO(정책))
@@ -86,7 +83,7 @@ function LoginHistoryBody() {
   return (
     <Stack>
       <SearchPanel
-        variant="box"
+        variant="plain"
         title="조회 조건"
         description="기본 조회기간은 최근 30일이며, 로그인 일시 기준 최신순으로 정렬됩니다."
         onSearch={result.search}
@@ -96,9 +93,8 @@ function LoginHistoryBody() {
         <Field label="조회기간">
           <DateRangeField value={params.period} onChange={(period) => setParam('period', period)} />
         </Field>
-        <Field label="로그인 결과" style={RESULT_FIELD}>
+        <Field label="로그인 결과">
           <SelectBox
-            fullWidth
             options={results}
             value={params.result}
             onChange={(value) => setParam('result', value)}

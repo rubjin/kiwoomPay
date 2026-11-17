@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Checkbox, Segmented } from '../../components/selection';
 import { DateRangeField, Field, SelectBox, TextField } from '../../components/field';
+import { ControlGroup } from '../../components/layout';
 import { LookupField } from '../lookup';
 import { SearchPanel } from './SearchPanel';
 
@@ -57,13 +58,16 @@ export const Flow: Story = {
       <Field label="사업자번호">
         <LookupField placeholder="사업자번호를 입력해주세요" />
       </Field>
+      {/* 기간 + 퀵 기간은 한 묶음(ControlGroup, 사이 8) — 줄이 바뀌어도 떨어지지 않는다 */}
       <Field label="조회기간">
-        <DateRangeField />
+        <ControlGroup>
+          <DateRangeField />
+          <Segmented size="md" defaultValue="1w" aria-label="기간">
+            <Segmented.Item value="1w">1주일</Segmented.Item>
+            <Segmented.Item value="1m">1개월</Segmented.Item>
+          </Segmented>
+        </ControlGroup>
       </Field>
-      <Segmented size="md" defaultValue="1w" aria-label="기간">
-        <Segmented.Item value="1w">1주일</Segmented.Item>
-        <Segmented.Item value="1m">1개월</Segmented.Item>
-      </Segmented>
       <Field label="거래구분">
         <SelectBox options={status} defaultValue="all" />
       </Field>
@@ -147,19 +151,19 @@ export const InlineActions: Story = {
   ),
 };
 
-/** variant="box": 팝업 안 조회 조건 — 제목(md 16)은 상자 밖, 회색 상자 안 필드 한 줄 + [초기화] · [조회](Primary) (Figma 마이페이지 권한 신청 현황) */
-export const Box: Story = {
+/** variant="plain": 팝업 안 조회 조건 — 카드 · 상자 없이 제목(md 16) 아래 필드 한 줄 + [초기화] · [조회] */
+export const Plain: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <SearchPanel variant="box" title="조회 조건" onSearch={() => {}} onReset={() => {}}>
+    <SearchPanel variant="plain" title="조회 조건" onSearch={() => {}} onReset={() => {}}>
       <Field label="신청기간">
         <DateRangeField defaultValue={{ start: '2026-08-15', end: '2026-09-15' }} />
       </Field>
-      <Field label="구분" style={{ width: 300 }}>
-        <SelectBox fullWidth options={status} defaultValue="all" />
+      <Field label="구분">
+        <SelectBox options={status} defaultValue="all" />
       </Field>
-      <Field label="상태" style={{ width: 300 }}>
-        <SelectBox fullWidth options={status} defaultValue="all" />
+      <Field label="상태">
+        <SelectBox options={status} defaultValue="all" />
       </Field>
     </SearchPanel>
   ),

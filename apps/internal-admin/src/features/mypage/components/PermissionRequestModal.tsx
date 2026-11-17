@@ -75,9 +75,6 @@ const createInitialParams = (): PermissionRequestParams => ({
   status: 'all',
 });
 
-// 조회 조건 셀렉트 칸 (라벨 + 8 + 셀렉트, 시안 측정)
-const SELECT_FIELD = { width: 300 };
-
 function PermissionRequestBody() {
   const types = useCodeOptions('PERMISSION_REQUEST_TYPE', { withAll: true });
   const statuses = useCodeOptions('PERMISSION_REQUEST_STATUS', { withAll: true });
@@ -93,7 +90,7 @@ function PermissionRequestBody() {
   return (
     <Stack>
       <SearchPanel
-        variant="box"
+        variant="plain"
         title="조회 조건"
         onSearch={result.search}
         onReset={result.reset}
@@ -102,17 +99,15 @@ function PermissionRequestBody() {
         <Field label="신청기간">
           <DateRangeField value={params.period} onChange={(period) => setParam('period', period)} />
         </Field>
-        <Field label="구분" style={SELECT_FIELD}>
+        <Field label="구분">
           <SelectBox
-            fullWidth
             options={types}
             value={params.type}
             onChange={(type) => setParam('type', type)}
           />
         </Field>
-        <Field label="상태" style={SELECT_FIELD}>
+        <Field label="상태">
           <SelectBox
-            fullWidth
             options={statuses}
             value={params.status}
             onChange={(status) => setParam('status', status)}

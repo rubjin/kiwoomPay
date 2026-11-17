@@ -56,10 +56,6 @@ export const createPermissionChangeParams = (): PermissionChangeParams => ({
   kind: 'all',
 });
 
-// 조회 조건 셀렉트 칸 (라벨 + 8 + 셀렉트 = Figma 295 · 310)
-const TYPE_FIELD = { width: 295 };
-const KIND_FIELD = { width: 310 };
-
 function PermissionChangeBody() {
   const types = useCodeOptions('PERMISSION_CHANGE_TYPE', { withAll: true });
   const kinds = useCodeOptions('PERMISSION_CHANGE_KIND', { withAll: true });
@@ -75,7 +71,7 @@ function PermissionChangeBody() {
   return (
     <Stack>
       <SearchPanel
-        variant="box"
+        variant="plain"
         title="조회 조건"
         onSearch={result.search}
         onReset={result.reset}
@@ -84,17 +80,15 @@ function PermissionChangeBody() {
         <Field label="변경기간">
           <DateRangeField value={params.period} onChange={(period) => setParam('period', period)} />
         </Field>
-        <Field label="구분" style={TYPE_FIELD}>
+        <Field label="구분">
           <SelectBox
-            fullWidth
             options={types}
             value={params.type}
             onChange={(type) => setParam('type', type)}
           />
         </Field>
-        <Field label="변경 유형" style={KIND_FIELD}>
+        <Field label="변경 유형">
           <SelectBox
-            fullWidth
             options={kinds}
             value={params.kind}
             onChange={(kind) => setParam('kind', kind)}
