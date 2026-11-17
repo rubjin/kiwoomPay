@@ -93,7 +93,7 @@
 - [Q48] 로고는 **앱별로 둔다**(디자인 시스템은 logo prop만 받음): `apps/<앱>/src/assets/logo/`. 내부관리자 `logo-footer.svg`(110 × 16) · `logo-lnb.svg`(125 × 23) 적용 완료. 다른 시스템 앱은 만들 때 같은 위치. Footer 항목 ↔ 구분선 9 확정
 - [Q49] Address Search(Figma 반영 2026-11-12: 결과 줄 78 · 위아래 12 · 우편번호 ↔ 도로명 8, 예시 항목 13 Bold, 결과 없음 14 Bold · 간격 6, Modal 닫기(X) 표시) 남은 확인: 결과가 많을 때 목록 높이 · 페이지 나눔, 검색 필드 지우기(x)
 - [Q51] Lookup Search(찾기 방식 Button Tab 40 반영 2026-11-12) 남은 확인: ① Figma 설명 "별도 Footer Action 없음" ↔ 결과 예시의 [닫기] · [확인] — 화면 정책으로 Modal.Footer ② Initial 시안 본문 아래 여백 0 → Modal 기본 20 유지 ③ 결과 행 선택은 IBSheet 이벤트
-- [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결, 화살표 색 Text/Label 임시
+- [Q52] 즐겨찾기 편집(검색창 lg 48 반영 2026-11-12) 남은 확인: 개수 숫자 색 Figma secondary/500(#8B5CF6) → Chart/Category/02 연결. 트리 화살표 색은 Figma #123B59 = Primary 900으로 확정(2026-11-17)
 - [Q54] P01(KWPC06010201) 확인 필요: ① 조회 전 문구는 KWPC04010100 Figma("거래내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요")로 통일 — KWPC06010201 최초진입 시안은 0건 문구라 다름(확인 필요) ② 상세 검색 펼침 내용 · 검색 조건 접힘 모양 시안 없음 ③ 오류 · 권한 없음 문구(TODO) ④ 퀵 기간(1주일 등)의 기준일 · 종료일 포함 여부(오늘 기준 이전 N일/개월로 구현) ⑤ Grid 머리 · 행 높이는 IBSheet 테마로(임시 미리보기 56 · 40) ⑥ ~~SearchArea · SearchPanel 공존~~ → SearchPanel로 통일(2026-11-16)
 - [Q55] 다운로드 센터(KWPC0104) 확인 필요: ① 진입 시 바로 조회(조회 화면 기본 규칙 "최초 진입 시 조회하지 않음"의 예외로 둠 — 내 요청 목록이라) ② 기본 요청일 이번 달 1일 ~ 오늘(시안 08-01 ~ 08-31) ③ 생성중 요청의 상세 Footer는 [닫기]만, 실패 · 만료는 [재시도] · [재요청](시안은 다운로드 가능만 있음) ④ 재시도 · 재요청 횟수 제한 · 권한 ⑤ 잔여기간을 서버가 줄지 화면 계산인지 ⑥ 헤더 [다운로드 센터] 건수 기준(완료 후 받지 않은 파일 수로 가정)
 - [Q56] P03 Lookup 확인 필요: ① Figma 분류 Select의 "대분류 · 중분류 · 소분류"가 진한 글자(Neutral 800) — 현재 SelectBox placeholder(회색)로 표시. 선택 전 문구를 진하게 할지 ② 읽기 전용 호출 필드의 지우기(x) — TextField는 읽기 전용이면 지우기를 숨김 ③ 결과 그리드 행 48 · 세로선은 IBSheet 테마로(미리보기는 40) ④ 중분류 값은 Figma에 없어 예시 값
@@ -990,3 +990,16 @@
 - 검증: tokens · typecheck · lint 통과. Storybook에서 측정 — Tab 12px 400/600 · 32 · 아래 선 #D5DCE5 · 밑줄 2, 모두 접기 40, 행 45/42/33, 3Depth Active 글자 x53(Figma 44 + • + 4), 즐겨찾기 간격 51(35 + 16), 접은 모드 44 · 햄버거 (12, 20) · 선 y135 · 첫 아이콘 행 y136(Figma와 같음)
 - 확인 필요: Q32(1Depth 아이콘 간격 12 · 8), [편집] 글자 굵기(Figma 12 Medium ↔ TextButton sm SemiBold)
 - 이어서(같은 날, 사용자 확정): 3Depth Active 점(•) 크기 확인 완료, 탭 아래 선 Neutral 200 → Storybook LNB "(임의 작업)" 표시 삭제. 아이콘 `Chevron-up-double 12` 추가(모두 접기, Neutral 500). 남은 아이콘: Chevron-down-double 12 · Search 16 · Link-external(□↗) 12 — 지금은 큰 아이콘을 줄여 그림
+
+### 즐겨찾기 편집 팝업 Figma 재대조 (29348:37) — 2026-11-17
+- 대조: 검색 48 · 즐겨찾기 메뉴 상자(N50 · 테두리 N200 · 반경 8 · 개수 14 Medium/Bold Accent) · 칩 32 · 13 Medium · 트리 1Depth 44(N50 · 16 Medium) · 2Depth 40(N100 · 14 Medium) · 3Depth 40(체크박스 · 14 Regular) · 들여쓰기 40/65는 이미 일치
+- 반영: 트리 화살표 색 `favorite-menu/Chevron` Text/Label(TODO) → Primary 900(#123B59, Figma 아이콘). 앱 팝업 트리에서 하위 메뉴 없는 1Depth(대시보드) 제외 — Figma 트리는 업무 1Depth부터
+- 그대로 둔 것(확정 결정): Modal 폭 Figma 820 → lg 880, 여백 24 → 20, Footer 버튼 40 → lg 48
+- 남은 차이: 앱 메뉴(constants/menu.ts)는 2Depth까지라 2Depth가 체크박스 줄로 그려짐. Figma처럼 2Depth 묶음 + 3Depth 체크박스는 서버 메뉴(3Depth) 이관 후
+- 이어서(같은 날): 팝업 트리 화살표를 Figma 팝업 전용 아이콘으로 — 펼침 `chevron-expanded`(20 · 16), 접힘 `chevron-collapsed`(16, 1Depth는 20 칸 가운데). 기존 `chevron-down` 20(셀렉트 등)은 그대로
+
+### LNB 3Depth 메뉴 · LNB · 즐겨찾기 편집 팝업 완료 — 2026-11-17
+- 앱 `constants/menu3.ts`: IA 3Depth 151개(화면 목록 앱 IA 데이터에서 옮김). LNB 2Depth 접힘 · 펼침, 현재 화면 3Depth 강조, 즐겨찾기 3Depth 선택. 없는 3Depth 화면은 2Depth 경로/번호(예: /transaction/integrated/02) → 준비 중 화면(제목 · 탭 제목 3Depth 이름)
+- 앱 LNB 구성: 대시보드(단독 1Depth) → 거래내역 · 통계내역 · 정산내역 · 운영관리 · 부가서비스 · RM관리. 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB 밖
+- 화면 목록: KWPC01030000 LNB · KWPC01030001 즐겨찾기 편집 팝업 작업완료 (남은 것: 메뉴 · 즐겨찾기 API 연결)
+
