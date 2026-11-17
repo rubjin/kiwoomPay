@@ -235,6 +235,11 @@ $favorite-empty-padding: t.$space-40; // TODO(시안) 검색 결과 없음
   background-color: t.$color-favorite-menu-leaf-bg;
 }
 
+// 체크박스를 이름 + 경로 두 줄의 세로 가운데에 (기본 Checkbox는 첫 줄 가운데)
+.result .resultCheck {
+  align-items: center;
+}
+
 .resultText {
   display: flex;
   flex-direction: column;

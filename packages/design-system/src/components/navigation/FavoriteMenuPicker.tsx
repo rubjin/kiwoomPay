@@ -104,11 +104,11 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
       };
     }, [selected]);
 
-    const checkbox = (item: LnbMenuItem, label: ReactNode) => {
+    const checkbox = (item: LnbMenuItem, label: ReactNode, className?: string) => {
       const checked = selected.includes(item.id);
       return (
         <Checkbox
-          className={clsx(styles.check, !checked && full && styles.checkDisabled)}
+          className={clsx(styles.check, !checked && full && styles.checkDisabled, className)}
           label={label}
           checked={checked}
           disabled={!checked && full}
@@ -241,6 +241,7 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
                     </span>
                     <span className={styles.path}>{ancestors.map((a) => a.label).join(' > ')}</span>
                   </span>,
+                  styles.resultCheck,
                 )}
               </div>
             ))
