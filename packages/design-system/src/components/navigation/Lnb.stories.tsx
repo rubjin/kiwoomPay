@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type CSSProperties, type MouseEvent } from 'react';
+import { useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
 import { FavoriteMenuPicker } from './FavoriteMenuPicker';
@@ -132,30 +132,56 @@ export const Expanded: Story = {};
 /** 접은 모드: 폭 48, 1Depth 아이콘과 현재 위치(통계내역)만 유지. 아이콘을 누르면 펼치고 해당 메뉴를 연다 */
 export const Collapsed: Story = { args: { defaultCollapsed: true } };
 
-/** 즐겨찾기 List: 메뉴명 + 원래 메뉴 경로 */
-export const Favorites: Story = {
-  args: { defaultView: 'favorites', onFavoriteEdit: () => alert('즐겨찾기 편집 (Modal)') },
-};
+/** 즐겨찾기 편집 팝업: Figma KWPC1301 (FavoriteMenuPicker, P07). 앱은 layouts/Lnb/FavoriteEditModal */
+function FavoriteEditModal({
+  open,
+  value,
+  onClose,
+  onSave,
+}: {
+  open: boolean;
+  value: string[];
+  onClose: () => void;
+  onSave: (ids: string[]) => void;
+}) {
+  const [draft, setDraft] = useState(value);
+  return (
+    <Modal open={open} onClose={onClose} size="lg">
+      <Modal.Header title="즐겨찾기 편집" closeButton />
+      <Modal.Body>
+        <FavoriteMenuPicker items={menu} value={draft} onChange={setDraft} />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button size="lg" variant="neutral" appearance="line" onClick={onClose}>
+          취소
+        </Button>
+        <Button size="lg" onClick={() => onSave(draft)}>
+          저장
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
-/** 즐겨찾기 Empty: 편집 Action 제공 */
-export const FavoritesEmpty: Story = {
-  args: { defaultView: 'favorites', favoriteIds: [], onFavoriteEdit: () => alert('즐겨찾기 편집') },
-};
-
-function InteractiveExample() {
+/** LNB + 즐겨찾기 편집 팝업 연결 ([편집] · [즐겨찾기 편집]을 누르면 팝업) */
+function LnbExample({
+  initialFavorites,
+  defaultView,
+  children,
+}: {
+  initialFavorites: string[];
+  defaultView?: 'all' | 'favorites';
+  /** 오른쪽 본문 (현재 화면 id를 받아 그림) */
+  children?: (activeId: string) => ReactNode;
+}) {
   const [activeId, setActiveId] = useState('sales-total');
-  const [favoriteIds, setFavoriteIds] = useState(['sales-total', 'sales-payment']);
+  const [favoriteIds, setFavoriteIds] = useState(initialFavorites);
+  const [editKey, setEditKey] = useState(0);
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState<string[]>([]);
 
   const onNavigate = (item: LnbMenuItem, event: MouseEvent<HTMLElement>) => {
     if (!item.external) event.preventDefault(); // 예시: 실제로는 href로 페이지 이동
     setActiveId(item.id);
-  };
-
-  const openEdit = () => {
-    setDraft(favoriteIds);
-    setEditing(true);
   };
 
   return (
@@ -165,42 +191,58 @@ function InteractiveExample() {
         activeId={activeId}
         onNavigate={onNavigate}
         logo={<Logo />}
+        defaultView={defaultView}
         favoriteIds={favoriteIds}
-        onFavoriteEdit={openEdit}
+        onFavoriteEdit={() => {
+          setEditKey((k) => k + 1); // 열 때마다 초안을 저장값으로
+          setEditing(true);
+        }}
       />
-      <main style={{ padding: 24 }}>
-        <p>현재 화면: {activeId}</p>
-        <p>
-          메뉴를 누르면 Active가 바뀌고, 검색창에 &quot;정산&quot;을 입력하면 검색 결과가 나온다.
-        </p>
-      </main>
-      {/* 즐겨찾기 편집: Figma KWPC1301 즐겨찾기 편집 팝업 (FavoriteMenuPicker, P07) */}
-      <Modal open={editing} onClose={() => setEditing(false)} size="lg">
-        <Modal.Header title="즐겨찾기 편집" closeButton />
-        <Modal.Body>
-          <FavoriteMenuPicker items={menu} value={draft} onChange={setDraft} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button size="lg" variant="neutral" appearance="line" onClick={() => setEditing(false)}>
-            취소
-          </Button>
-          <Button
-            size="lg"
-            onClick={() => {
-              setFavoriteIds(draft);
-              setEditing(false);
-            }}
-          >
-            저장
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {children && <main style={{ padding: 24 }}>{children(activeId)}</main>}
+      <FavoriteEditModal
+        key={editKey}
+        open={editing}
+        value={favoriteIds}
+        onClose={() => setEditing(false)}
+        onSave={(ids) => {
+          setFavoriteIds(ids);
+          setEditing(false);
+        }}
+      />
     </>
   );
 }
 
+/** 즐겨찾기 List: 메뉴명 + 원래 메뉴 경로. [편집] → 즐겨찾기 편집 팝업 */
+export const Favorites: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <LnbExample
+      defaultView="favorites"
+      initialFavorites={['sales-total', 'sales-payment', 'settle-total']}
+    />
+  ),
+};
+
+/** 즐겨찾기 Empty: [즐겨찾기 편집] → 즐겨찾기 편집 팝업 */
+export const FavoritesEmpty: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => <LnbExample defaultView="favorites" initialFavorites={[]} />,
+};
+
 /** 실제 동작: 메뉴 선택 · 펼치기 · 접기 · 즐겨찾기 탭 · 검색 · 즐겨찾기 편집(Modal) */
 export const Interactive: Story = {
   parameters: { controls: { disable: true } },
-  render: () => <InteractiveExample />,
+  render: () => (
+    <LnbExample initialFavorites={['sales-total', 'sales-payment']}>
+      {(activeId) => (
+        <>
+          <p>현재 화면: {activeId}</p>
+          <p>
+            메뉴를 누르면 Active가 바뀌고, 검색창에 &quot;정산&quot;을 입력하면 검색 결과가 나온다.
+          </p>
+        </>
+      )}
+    </LnbExample>
+  ),
 };
