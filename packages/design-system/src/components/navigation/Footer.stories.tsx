@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import logoFooter from '../../stories/assets/logo-footer.svg';
 import { Footer } from './Footer';
+import { systemAssets } from '../../stories/systemAssets';
 
-// 로고는 앱마다 둔다 (apps/<앱>/src/assets/logo/logo-footer.svg). 예시는 같은 파일 복사본
-const logo = <img src={logoFooter} alt="DAOU DATA" width={110} height={16} />;
+// 로고는 앱마다 둔다 (apps/<앱>/src/assets/logo/logo-footer.svg). 스토리는 앱 이미지를 주소로 읽는다 (systemAssets)
+const logo = <img src={systemAssets.logoFooter} alt="DAOU DATA" width={110} height={16} />;
 
 const items = [
   '대표이사 : 김상준',

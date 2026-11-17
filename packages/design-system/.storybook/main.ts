@@ -12,7 +12,11 @@ const config: StorybookConfig = {
   ],
   framework: '@storybook/react-vite',
   // Pretendard 웹폰트(self-host). 라이브러리 빌드에서는 scripts/copy-fonts.mjs가 dist/fonts로 복사한다.
-  staticDirs: [{ from: '../node_modules/pretendard/dist/web/variable', to: '/fonts/pretendard' }],
+  staticDirs: [
+    { from: '../node_modules/pretendard/dist/web/variable', to: '/fonts/pretendard' },
+    // 로고 · 그림은 시스템(앱)마다 앱에 둔다(Q48). 스토리는 복사본 없이 앱 이미지를 주소로 읽는다 — src/stories/systemAssets.ts
+    { from: '../../../apps/internal-admin/src/assets', to: '/assets/internal' },
+  ],
 };
 
 export default config;

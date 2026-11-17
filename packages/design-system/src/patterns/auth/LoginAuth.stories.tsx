@@ -3,13 +3,11 @@ import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 import { Footer } from '../../components/navigation';
-import loginSecurity from '../../stories/assets/login-security.png';
-import logoFooter from '../../stories/assets/logo-footer.svg';
-import logoHeader from '../../stories/assets/logo-header.png';
 import { useAction } from '../action';
 import { DialogProvider } from '../common';
 import { AuthField, AuthForm, AuthLayout, AuthNotice } from './AuthLayout';
 import { AuthInfoRow, AuthVerifyBody, VerifyCodeField } from './VerifyCodeField';
+import { systemAssets } from '../../stories/systemAssets';
 
 const meta = {
   title: 'Patterns/P05 Login Auth',
@@ -236,12 +234,12 @@ function LoginScreen({ onLoggedIn }: { onLoggedIn: () => void }) {
 
   return (
     <AuthLayout
-      logo={<img src={logoHeader} alt="KIWOOM PAY" />}
-      illustration={<img src={loginSecurity} alt="" />}
+      logo={<img src={systemAssets.logoHeader} alt="KIWOOM PAY" />}
+      illustration={<img src={systemAssets.loginSecurity} alt="" />}
       title="로그인"
       footer={
         <Footer
-          logo={<img src={logoFooter} alt="DAOU DATA" width={110} height={16} />}
+          logo={<img src={systemAssets.logoFooter} alt="DAOU DATA" width={110} height={16} />}
           items={[
             '대표이사 : 김상준',
             '사업자등록번호 : 220-81-01733',
