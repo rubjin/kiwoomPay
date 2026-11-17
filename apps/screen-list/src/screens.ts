@@ -171,9 +171,9 @@ export const SCREENS: ScreenInfo[] = [
     path: '/auth/login',
     type: '로그인',
     pattern: 'P05',
-    status: '작업중',
+    status: '완료',
     planVersion: PLAN,
-    updatedAt: '2026-11-13',
+    updatedAt: '2026-11-17',
     tempWork:
       '로그인 · SMS 인증 API 미연결(예시: 비밀번호 password · 인증번호 123456 · 잠긴 아이디 locked · 휴대전화번호 없는 아이디 nophone) · 오류 문구',
   },
@@ -416,9 +416,9 @@ export const SCREENS: ScreenInfo[] = [
     path: '/patterns/popups?open=sms',
     type: '팝업',
     pattern: 'P05',
-    status: '작업중',
+    status: '완료',
     planVersion: PLAN,
-    updatedAt: '2026-11-13',
+    updatedAt: '2026-11-17',
     tempWork: 'SMS 인증 API 미연결(인증번호 123456 · 휴대전화번호 없는 아이디 nophone)',
   },
   {
