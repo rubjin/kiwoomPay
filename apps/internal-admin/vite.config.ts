@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig, mergeConfig } from 'vite';
 import { designSystemSource } from '../../packages/design-system/vite.source';
+import { ibsheet } from '../../packages/design-system/vite.ibsheet';
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
@@ -11,7 +12,8 @@ const outDir = process.env.JSP_STATIC_DIR ?? 'dist';
 export default defineConfig(({ command }) =>
   mergeConfig(
     {
-      plugins: [react()],
+      // ibsheet(): 개발 서버에서 vendor/ibsheet(IBSheet8, git 제외)를 로드. 운영은 셸 JSP (vendor/README.md)
+      plugins: [react(), ibsheet()],
       resolve: {
         alias: { '@': r('./src') },
       },

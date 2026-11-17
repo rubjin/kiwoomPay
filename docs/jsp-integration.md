@@ -148,6 +148,6 @@ npm으로는 공식 React 래퍼 `@ibsheet/react`(그리드)와 타입 `@ibsheet
 ```
 
 - `css` 폴더는 `ibsheet.js`와 같은 경로에 둔다(엑셀 · PDF 내보내기 스타일).
-- 개발 서버: 같은 파일을 `apps/<앱>/public/ibsheet/`에 두고 `index.html`의 주석을 푼다.
+- 개발 서버: 파일은 저장소 루트 `vendor/ibsheet/` 한 곳(세 시스템 공용, git 제외 — `vendor/README.md`). 앱 `vite.config.ts`의 `ibsheet()` 플러그인(`packages/design-system/vite.ibsheet.ts`)이 폴더가 있으면 `index.html`에 스크립트를 넣고 `/ibsheet/*`를 응답한다. 앱 빌드 결과에는 들어가지 않는다.
 - 캘린더: `src/app/providers/ibsheetCalendar.ts`가 `IBSheet.showCalendar`로 날짜 필드(DateField · DateRangeField)에 연결한다. `window.IBSheet`가 없으면 디자인 시스템 기본 Date Picker로 동작한다.
 - 라이선스 파일은 도메인(개발 · 운영)별로 발급되는 경우가 많다. 저장소에 커밋할지는 사내 정책에 따른다.

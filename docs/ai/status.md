@@ -93,3 +93,9 @@
 - 디자인 시스템 `GridPlaceholder maxHeight`: 주면 표 안에서 위아래 · 좌우 스크롤 + 머리(th) sticky 고정(이때만 테두리 separate — collapse 테두리는 sticky 칸에 안 붙음). 안 주면 기존과 같음
 - 화면 목록: `maxHeight="max(320px, calc(100vh - 420px))"`(420은 위 영역 · Total 줄 어림값)
 - 검증: stylelint · typecheck · eslint · 디자인 시스템 build · 화면 목록 tsc. 브라우저 확인은 하지 않음
+
+### IBSheet8 파일 배치 — 2026-11-17
+- 받은 전체 파일(463MB: IBSheet8 · IBCalendar · DashBuilder · 매뉴얼 · 샘플 · zip)에서 IBSheet8 실행 파일(`product/IBSheet8_package` 32MB)만 `vendor/ibsheet/`로, 오프라인 매뉴얼은 `vendor/ibsheet-docs/manual/`(참고용)로. 나머지(zip · 샘플 · doc zip · IBCalendar · DashBuilder · .DS_Store) 삭제. `apps/internal-admin/public/` 삭제
+- 세 시스템 공용: `packages/design-system/vite.ibsheet.ts` `ibsheet()` — 폴더가 있으면 index.html에 스크립트(라이선스 → 본체 → ko → plugins 3개) 주입 · `/ibsheet/*` 응답, 없으면 아무것도 안 함(기본 Date Picker). 내부관리자 vite.config에 적용, index.html 주석 블록 삭제. 새 앱은 `ibsheet()`만 추가
+- `.gitignore`: `vendor/ibsheet/` · `vendor/ibsheet-docs/` (**git 제외**). `vendor/README.md`만 git에 올림
+- 검증: 앱 tsc, 개발 서버(5173) index.html에 스크립트 6개 · `/ibsheet/*`(js · css · jszip) 200. 브라우저에서 `window.IBSheet` · 라이선스(localhost) · 달력 동작은 아직 확인하지 않음
