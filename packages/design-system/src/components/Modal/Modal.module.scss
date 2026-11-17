@@ -126,6 +126,7 @@ $modal-info-label-gap: t.$space-12;
 .description {
   margin: 0;
   color: t.$color-modal-description;
+  white-space: pre-line; // 문구 안 줄바꿈 문자를 그대로 (Alert · Confirm 두 줄 문구)
 
   // 설명만 있는 본문(Alert · Confirm)은 Footer까지 여유를 더 둔다
   &:last-child {

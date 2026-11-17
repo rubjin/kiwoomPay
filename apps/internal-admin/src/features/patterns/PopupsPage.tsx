@@ -387,6 +387,10 @@ export function PopupsPage() {
           challenge={SMS_CHALLENGE}
           onClose={close}
           onVerified={() => report('SMS 인증', '완료 (로그인 처리는 로그인 화면에서)')}
+          onLocked={(message) => {
+            close();
+            report('SMS 인증', message);
+          }}
         />
       )}
       {is('smsUnavailable') && <SmsUnavailableModal onClose={close} />}

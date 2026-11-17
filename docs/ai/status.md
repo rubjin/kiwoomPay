@@ -1002,3 +1002,13 @@
 - 적용: TextField(SearchField · PasswordField · LookupField 포함) · SelectBox · MultiSelect · TableMultiSelect. TableMultiSelect도 다른 셀렉트처럼 감싸는 영역 기본 폭을 따르고 상자가 루트를 채움. SearchPanel 기본 폭 200 · lg 270도 같은 토큰(앞 검색 아이콘 입력 +28)
 - 날짜(DateField) · 기간(DateRangeField)은 고정 폭이라 옵션 없음. Field 스토리 FieldWidth · Field 가이드 1절
 - 이어서(같은 날): SearchPanel plain에 버튼 위치 분기 — 기본 inline(필드 줄 끝), `actionsPlacement="header"`면 제목 줄 오른쪽(클래스 `.plainHeader`, 제목 줄 높이 40). 스토리 Plain · PlainHeaderActions를 Modal 안에 그려 팝업 전용임을 표시. Figma 차이: 칸 사이 20 · 줄 사이 12 · 제목 ↔ 필드 12 → 검색 조건 규칙 16 유지. xl 팝업 4칸이면 기간 칸이 264보다 좁아 빈 칸 안내(YYYY-MM-DD) 끝이 잘림(확인 필요)
+
+### 로그인 · SMS 인증 상태별 문구 (Figma 28721:69202) — 2026-11-17
+- 기준: LOGIN STATE & FEEDBACK RULE 표 — 문구 · 표시 위치를 그대로 적용. 문구는 `features/auth/login/components/loginMessages.ts`(`LOGIN_MESSAGES` · 공통 `COMMON_ERROR_MESSAGE`), 실패 사유는 `LoginError(code, retryAfter)`
+- 로그인: 불일치 → 비밀번호 아래 문구, 5회 실패 잠김 · 잠금 계정 · 사용 불가 · 시스템 오류 · 서버/통신 오류 → Alert(로그인 화면 유지)
+- SMS 인증: 미입력 → [완료] 비활성, 불일치 · 만료 · 발송 실패 → 인증번호 아래 빨간 문구(모달 유지, 발송 실패면 [완료] 비활성 · 재발송으로 재시도), 재발송 대기시간 · 횟수 초과 → 재발송 아래 빨간 문구 + [재발송] 비활성(대기는 시간이 지나면 다시 활성), 5회 실패 잠김 → 모달 닫고 로그인 화면 Alert, 세션 만료 → 모달 위 Alert → [확인] 후 로그인 화면, 서버/통신 오류 → Alert(모달 유지)
+- 디자인 시스템: `VerifyCodeField` `resendDisabled`(SMS 인증 문구는 모두 입력 아래 빨강 — 사용자 확정, 회색 안내 notice는 만들었다가 삭제), Modal 설명 문구 줄바꿈 문자 그대로(`white-space: pre-line` — 두 줄 Alert)
+- 예시 API(임의 작업): 아이디 locked · disabled · error · network · nophone · sendfail, 비밀번호 password(5회 틀리면 잠김), 인증번호 123456 · 재발송 30초 대기 · 3회까지 · 로그인 인증 세션 10분(전에는 999999 입력 시 세션 만료 → 인증 시간이 남았는데 만료로 보여 시간 기준으로 바꿈)
+- (임의 작업) 재발송 성공 안내 Alert "인증번호를 다시 발송했습니다."(표에 없음), 재발송 안내가 불일치 · 만료 문구보다 우선
+- Storybook `Patterns/P05 Login Auth`: 같은 규칙으로 다시 작성(문구 · 예시 계정 · 세션 10분), 스토리 SmsSendFailed · SmsResendWait · SmsResendLimit 추가, 가이드에 상태별 처리 표
+- 검증: 디자인 시스템 typecheck · lint · build, 앱 tsc · prettier, 브라우저에서 위 상태 전부 확인(문구 · 위치 · 버튼 비활성 · 대기 후 재활성), 에러 없음

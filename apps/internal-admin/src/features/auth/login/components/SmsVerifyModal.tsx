@@ -5,59 +5,124 @@ import {
   Modal,
   VerifyCodeField,
   useAction,
+  useDialog,
 } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { resendSmsCode, verifySmsCode } from '@/features/auth/login.api';
 import { LoginError, type LoginChallenge } from '@/features/auth/login.types';
-import { loginErrorMessage } from './loginMessages';
+import { LOGIN_MESSAGES, loginErrorCode, loginErrorMessage } from './loginMessages';
 
 const CODE_LENGTH = 6;
-const CODE_MISMATCH_MESSAGE = '인증번호가 일치하지 않습니다. 다시 확인해 주세요.';
 
 interface SmsVerifyModalProps {
   /** 1단계 결과. 바뀔 때마다 새로 그린다(key) */
   challenge: LoginChallenge;
   onClose: () => void;
   onVerified: (accessToken: string) => void;
+  /** SMS 인증 5회 실패로 계정이 잠김 → 화면이 모달을 닫고 로그인 화면에 Alert */
+  onLocked: (message: string) => void;
 }
 
-/** SMS 인증 (P05, Modal sm 400): 안내 → 등록된 휴대전화번호 → 인증번호(남은 시간 · 재발송) → [취소][완료] */
-export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModalProps) {
+/** 인증번호 입력 아래 빨간 문구 (불일치 · 발송 실패). 만료는 남은 시간으로 판단 */
+type CodeError = 'CODE_MISMATCH' | 'SEND_FAILED';
+/** 재발송 영역 하단 빨간 안내 + [재발송] 비활성 */
+type ResendBlock = 'RESEND_WAIT' | 'RESEND_LIMIT';
+
+/**
+ * SMS 인증 (P05, Modal sm 400): 안내 → 등록된 휴대전화번호 → 인증번호(남은 시간 · 재발송) → [취소][완료].
+ * 상태별 처리는 Figma LOGIN STATE & FEEDBACK RULE(28721:69202):
+ * - 인증번호 미입력: [완료] 비활성 · 불일치 · 만료 · 발송 실패: 인증번호 아래 문구, 모달 유지
+ * - 재발송 대기시간 · 횟수 초과: 재발송 영역 아래 안내 + [재발송] 비활성
+ * - 5회 실패 잠김: 모달 닫고 로그인 화면 Alert · 세션 만료: 모달 위 Alert → [확인] 후 모달 닫힘(로그인 화면)
+ * - 서버/통신 오류: Alert, 모달 유지
+ */
+export function SmsVerifyModal({ challenge, onClose, onVerified, onLocked }: SmsVerifyModalProps) {
+  const dialog = useDialog();
   const [code, setCode] = useState('');
-  // 인증번호 불일치는 Alert 대신 입력 아래 문구 (입력을 고치거나 재발송하면 지움)
-  const [mismatch, setMismatch] = useState(false);
+  const [codeError, setCodeError] = useState<CodeError | null>(
+    challenge.sendFailed ? 'SEND_FAILED' : null,
+  );
+  const [resendBlock, setResendBlock] = useState<ResendBlock | null>(null);
   const [remaining, setRemaining] = useState(challenge.expiresIn);
-  const expired = remaining <= 0;
+  const expired = remaining <= 0 && !challenge.sendFailed;
 
   // 1초마다 줄인다 (만료되면 멈춤)
   useEffect(() => {
-    if (expired) return;
+    if (remaining <= 0) return;
     const timer = setInterval(() => setRemaining((s) => s - 1), 1000);
     return () => clearInterval(timer);
-  }, [expired]);
+  }, [remaining]);
+
+  // 로그인 인증 세션 만료: Alert [확인] 후 모달을 닫고 로그인 화면으로
+  const sessionExpired = () => {
+    void dialog.alert(LOGIN_MESSAGES.SESSION_EXPIRED).then(onClose);
+  };
 
   const resend = useAction({
     run: () => resendSmsCode(challenge.challengeId),
     onSuccess: ({ expiresIn }) => {
       setCode('');
-      setMismatch(false);
+      setCodeError(null);
+      setResendBlock(null);
       setRemaining(expiresIn);
     },
-    success: '인증번호를 다시 발송했습니다.',
-    failure: loginErrorMessage,
+    success: '인증번호를 다시 발송했습니다.', // TODO(정책) 재발송 완료 안내 (임의 작업)
+    failure: (error) => {
+      switch (loginErrorCode(error)) {
+        case 'SEND_FAILED':
+          setCodeError('SEND_FAILED');
+          return null;
+        case 'RESEND_WAIT': {
+          setResendBlock('RESEND_WAIT');
+          // 대기시간이 지나면 다시 누를 수 있다
+          const seconds = error instanceof LoginError ? error.retryAfter : 0;
+          setTimeout(() => setResendBlock((b) => (b === 'RESEND_WAIT' ? null : b)), seconds * 1000);
+          return null;
+        }
+        case 'RESEND_LIMIT':
+          setResendBlock('RESEND_LIMIT');
+          return null;
+        case 'SESSION_EXPIRED':
+          sessionExpired();
+          return null;
+        default:
+          return loginErrorMessage(error); // 서버/통신 오류 Alert, 모달 유지
+      }
+    },
   });
 
   const verify = useAction({
     run: () => verifySmsCode(challenge.challengeId, code),
-    onSuccess: ({ accessToken }) => onVerified(accessToken),
+    onSuccess: ({ accessToken }) => onVerified(accessToken), // 별도 안내 없이 메인으로
     failure: (error) => {
-      if (error instanceof LoginError && error.code === 'CODE_MISMATCH') {
-        setMismatch(true);
-        return null;
+      switch (loginErrorCode(error)) {
+        case 'CODE_MISMATCH':
+          setCodeError('CODE_MISMATCH');
+          return null;
+        case 'CODE_EXPIRED':
+          setRemaining(0);
+          return null;
+        case 'CODE_LOCK_EXCEEDED':
+          onLocked(LOGIN_MESSAGES.CODE_LOCK_EXCEEDED);
+          return null;
+        case 'SESSION_EXPIRED':
+          sessionExpired();
+          return null;
+        default:
+          return loginErrorMessage(error);
       }
-      return loginErrorMessage(error);
     },
   });
+
+  // 인증번호 아래 문구: 재발송 안내(대기 · 횟수 초과) > 만료 > 발송 실패 · 불일치
+  // 재발송을 누른 직후에는 그 결과 안내가 먼저 보여야 한다
+  const error = resendBlock
+    ? LOGIN_MESSAGES[resendBlock]
+    : expired
+      ? LOGIN_MESSAGES.CODE_EXPIRED
+      : codeError
+        ? LOGIN_MESSAGES[codeError]
+        : undefined;
 
   return (
     <Modal open onClose={verify.loading ? undefined : onClose}>
@@ -77,19 +142,14 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
             value={code}
             onChange={(value) => {
               setCode(value);
-              setMismatch(false);
+              if (codeError === 'CODE_MISMATCH') setCodeError(null);
             }}
             remaining={remaining}
             length={CODE_LENGTH}
             onResend={() => resend.execute()}
             resending={resend.loading}
-            error={
-              expired
-                ? loginErrorMessage(new LoginError('CODE_EXPIRED'))
-                : mismatch
-                  ? CODE_MISMATCH_MESSAGE
-                  : undefined
-            }
+            resendDisabled={resendBlock !== null}
+            error={error}
             autoFocus
           />
         </AuthVerifyBody>
@@ -106,7 +166,7 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
         </Button>
         <Button
           size="lg"
-          disabled={expired || code.length < CODE_LENGTH}
+          disabled={expired || codeError === 'SEND_FAILED' || code.length < CODE_LENGTH}
           onClick={() => verify.execute()}
         >
           완료

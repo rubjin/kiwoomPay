@@ -15,10 +15,12 @@ export interface VerifyCodeFieldProps {
   resendLabel?: ReactNode;
   /** 재발송 처리 중 */
   resending?: boolean;
+  /** [재발송] 비활성 — 재발송 대기시간 미경과 · 재발송 가능 횟수 초과 */
+  resendDisabled?: boolean;
   /** 인증번호 자리수 (숫자만 받음, 기본 6) */
   length?: number;
   placeholder?: string;
-  /** 오류 문구 (불일치 · 만료) */
+  /** 입력 아래 문구 (불일치 · 만료 · 발송 실패 · 재발송 대기 · 재발송 횟수 초과) — 빨강, 입력 테두리도 오류 */
   error?: ReactNode;
   disabled?: boolean;
   className?: string;
@@ -40,6 +42,7 @@ export const VerifyCodeField = forwardRef<HTMLInputElement, VerifyCodeFieldProps
       onResend,
       resendLabel = '재발송',
       resending,
+      resendDisabled,
       length = 6,
       placeholder = '인증번호 입력',
       error,
@@ -78,7 +81,11 @@ export const VerifyCodeField = forwardRef<HTMLInputElement, VerifyCodeFieldProps
               </span>
             }
           />
-          <Button variant="neutral" disabled={disabled} onClick={resending ? undefined : onResend}>
+          <Button
+            variant="neutral"
+            disabled={disabled || resendDisabled}
+            onClick={resending ? undefined : onResend}
+          >
             {resendLabel}
           </Button>
         </div>
