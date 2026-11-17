@@ -239,7 +239,7 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 
 ## 5. Search Field
 
-`Enter`로 `onSearch(value)`가 호출됩니다 (한글 조합 중에는 호출하지 않음). 조회 버튼은 옆에 `Button`(Neutral Solid)을 같은 size로 두고 간격은 8px입니다.
+`Enter`로 `onSearch(value)`가 호출됩니다 (한글 조합 중에는 호출하지 않음). 조회 버튼이 필요하면 **`searchLabel="조회"`** — [검색 입력][버튼]이 한 묶음(사이 8, Neutral · 같은 size, 버튼 클릭도 `onSearch`)으로 그려집니다. 옆에 `Button`을 따로 두지 않습니다. `fullWidth`면 입력이 남는 폭을 채웁니다
 
 <Canvas of={SearchFieldStories.WithButton} />
 

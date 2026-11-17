@@ -2,7 +2,6 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
-$address-bar-gap: t.$space-8; // 검색 필드 ↔ [조회]
 $address-section-gap: t.$space-20; // 검색 ↔ 검색 예시
 $address-result-gap: t.$space-12; // 검색 ↔ 검색결과 N 건
 $address-list-gap: t.$space-12; // 검색결과 N 건 ↔ 목록 첫 선
@@ -25,12 +24,6 @@ $address-tag-radius: 4px;
   display: flex;
   flex-direction: column;
   min-width: 0;
-}
-
-.bar {
-  display: flex;
-  gap: $address-bar-gap;
-  align-items: center;
 }
 
 .heading {

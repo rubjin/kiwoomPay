@@ -1,7 +1,6 @@
 import clsx from 'clsx';
-import { forwardRef, type FormEvent, type HTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { useControllableState } from '../../hooks';
-import { Button } from '../Button';
 import { SearchField } from '../field';
 import { AddressResultRow } from './AddressResultRow';
 import styles from './AddressSearch.module.scss';
@@ -74,8 +73,7 @@ export const AddressSearch = forwardRef<HTMLDivElement, AddressSearchProps>(
   ) => {
     const [current, setCurrent] = useControllableState(query, defaultQuery, onQueryChange);
 
-    const submit = (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+    const submit = () => {
       if (!loading) onSearch?.(current.trim());
     };
 
@@ -126,19 +124,20 @@ export const AddressSearch = forwardRef<HTMLDivElement, AddressSearchProps>(
 
     return (
       <div {...rest} ref={ref} className={clsx(styles.search, className)}>
-        <form className={styles.bar} role="search" onSubmit={submit}>
+        {/* [검색 입력][조회] 한 묶음 — SearchField searchLabel */}
+        <div role="search">
           <SearchField
             fullWidth
+            searchLabel="조회"
+            loading={loading}
             placeholder={placeholder}
             value={current}
             onChange={(event) => setCurrent(event.target.value)}
             onClear={() => setCurrent('')}
+            onSearch={submit}
             aria-label="주소 검색어"
           />
-          <Button type="submit" variant="neutral" loading={loading}>
-            조회
-          </Button>
-        </form>
+        </div>
         {body}
       </div>
     );
