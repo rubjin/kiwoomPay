@@ -379,6 +379,16 @@ $sr-grid-cell-padding-x: t.$space-12;
 
   height: $sr-grid-row-height;
   color: t.$color-search-result-grid-text;
+  text-align: center;
+}
+
+// 열 정렬 (column.align) — 기본은 가운데
+.alignLeft {
+  text-align: left;
+}
+
+.alignRight {
+  text-align: right;
 }
 
 // 칸 사이 세로선 — 표 양 끝에는 두지 않는다 (IBSheet 테마도 같은 규칙)

@@ -302,8 +302,11 @@ export function TableMultiSelect<T>({
                               {columns.map((c) => (
                                 <td
                                   key={c.key}
-                                  className={styles.cell}
-                                  style={{ textAlign: c.align ?? 'center' }}
+                                  className={clsx(
+                                    styles.cell,
+                                    c.align === 'left' && styles.alignLeft,
+                                    c.align === 'right' && styles.alignRight,
+                                  )}
                                 >
                                   {c.render
                                     ? c.render(row)

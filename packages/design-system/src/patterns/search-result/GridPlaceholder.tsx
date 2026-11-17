@@ -167,8 +167,11 @@ export function GridPlaceholder<T>({
                     <td
                       key={column.key}
                       rowSpan={span > 1 ? span : undefined}
-                      className={styles.gridCell}
-                      style={{ textAlign: column.align ?? 'center' }}
+                      className={clsx(
+                        styles.gridCell,
+                        column.align === 'left' && styles.alignLeft,
+                        column.align === 'right' && styles.alignRight,
+                      )}
                     >
                       {column.render ? column.render(row) : valueOf(row, column.key)}
                     </td>
