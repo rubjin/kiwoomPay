@@ -1,0 +1,862 @@
+// KWP IBSheet 테마 — IBSheet8 기본 테마(css/default/main.css, Prefix IB) 위에 디자인 시스템 토큰 색 · 글자를 덮어쓴다.
+// 디자인 시스템 공통 CSS(index.scss)와 별도 파일: IBSheet를 쓰는 앱만 불러온다 (@kiwoompay/design-system/ibsheet.css).
+// 로드 순서: IBSheet css/default/main.css → 이 파일 (같은 우선순위면 뒤가 이김. 선택자는 .IBMain을 붙여 한 단계 높임)
+// 행 높이 · 머리 높이는 CSS가 아니라 IBSheet 옵션(Def.Row · Def.Header Height)으로 정한다 — 앱 ibsheetOptions
+// 셀 안 링크 · Badge · 입력 · 버튼 · 체크한 줄 클래스(kpIb*)는 앱 ibsheetCells.ts와 짝
+// 클래스 이름은 IBSheet가 정한 것이라 camelCase 규칙에서 빼고,
+// 순서는 IBSheet 영역(그리드 → 셀 → 달력)별로 묶어 선택자 우선순위 순서 규칙도 뺀다
+/* stylelint-disable selector-class-pattern, no-descending-specificity */
+@use '../tokens' as t;
+@use '../mixins' as m;
+
+// ══ 색 — 여기서만 바꾼다 (모두 디자인 시스템 토큰) ══════════════════
+// 표
+$ib-color-text: t.$color-search-result-grid-text; // 칸 글자
+$ib-color-border: t.$color-search-result-grid-border; // 칸 사이 · 아래 선
+$ib-color-header-bg: t.$color-search-result-grid-header-bg; // 머리 배경 (Neutral 100)
+$ib-color-header-text: t.$color-search-result-grid-header-text; // 머리 글자
+$ib-color-row-bg: t.$color-bg-surface; // 줄 배경 (줄무늬 없음)
+$ib-color-row-hover: t.$color-bg-hover; // 마우스를 올린 줄
+$ib-color-row-focus: t.$color-bg-hover; // 커서(클릭)가 있는 줄 — 체크한 줄과 구분되게 연한 색
+$ib-color-row-checked: t.$color-search-result-grid-row-selected; // 체크한 줄 (Primary 50, GridPlaceholder 선택 줄과 같음)
+$ib-color-row-readonly: t.$color-bg-surface; // 편집 안 되는 칸 (기본 테마는 회색 — 조회 표는 흰색)
+$ib-color-row-changed: t.$color-bg-surface; // 값을 바꾼 줄 · 칸 (기본 테마는 노랑 · 회색 — 표시 안 함)
+$ib-color-cell-focus: t.$color-primary-500; // 커서가 있는 칸 테두리
+$ib-color-scroll-bg: t.$color-bg-page; // 가로 스크롤 영역
+$ib-color-menu-border: t.$color-line-default; // 드롭다운 목록 테두리 (셀렉트 밖 메뉴)
+// 셀렉트 열린 목록 (SelectBox 패널)
+$ib-color-select-bg: t.$color-field-bg;
+$ib-color-select-border: t.$color-field-border;
+$ib-color-select-item-text: t.$color-select-item-text;
+$ib-color-select-item-hover: t.$color-select-item-hover; // 마우스를 올린 항목
+$ib-color-select-item-selected-bg: t.$color-select-item-selected; // 현재 값 · 키보드 커서 항목
+$ib-color-select-item-selected-text: t.$color-select-item-selected-text;
+$ib-color-select-scroll-thumb: t.$color-select-scroll-thumb;
+$ib-color-select-border-open: t.$color-field-border-focus; // 열린 칸 테두리 (SelectBox 열림)
+$ib-shadow-select-open: t.$shadow-focus; // 열린 칸 번짐
+
+// 체크박스 (Checkbox sm)
+$ib-color-check-bg: t.$color-selection-bg;
+$ib-color-check-border: t.$color-selection-border;
+$ib-color-check-checked: t.$color-selection-checked;
+$ib-color-check-glyph: t.$color-selection-glyph;
+$ib-color-check-bg-disabled: t.$color-selection-bg-disabled;
+$ib-color-check-checked-disabled: t.$color-selection-disabled-checked;
+
+// 셀 안 모양
+$ib-color-link: t.$color-text-button-primary-text; // 링크 (TextLink)
+$ib-color-link-hover: t.$color-text-button-primary-text-hover;
+$ib-color-input-border: t.$color-field-border; // 편집 칸 테두리 (Field)
+$ib-color-input-text: t.$color-field-text;
+$ib-color-input-icon: t.$color-field-icon; // 셀렉트 화살표 · 달력 아이콘 (Field 아이콘)
+$ib-color-input-caret: t.$color-field-caret;
+$ib-color-button-text: t.$color-button-neutral-line-text; // 버튼 (Button sm Neutral Line)
+$ib-color-button-bg: t.$color-bg-surface;
+$ib-color-button-border: t.$color-button-neutral-line-border;
+$ib-color-button-bg-hover: t.$color-button-neutral-line-bg-hover;
+$ib-color-button-border-hover: t.$color-button-neutral-line-border-hover;
+$ib-color-button-bg-pressed: t.$color-button-neutral-line-bg-pressed;
+
+// 달력 (Date Picker)
+$ib-color-pick-bg: t.$color-date-picker-panel-bg;
+$ib-color-pick-border: t.$color-date-picker-panel-border;
+$ib-color-pick-text: t.$color-date-picker-text;
+$ib-color-pick-saturday: t.$color-date-picker-saturday;
+$ib-color-pick-sunday: t.$color-date-picker-sunday;
+$ib-color-pick-outside: t.$color-date-picker-outside;
+$ib-color-pick-hover: t.$color-date-picker-hover-bg;
+$ib-color-pick-today: t.$color-date-picker-today;
+$ib-color-pick-selected-bg: t.$color-date-picker-selected-bg;
+$ib-color-pick-selected-text: t.$color-date-picker-selected-text;
+$ib-color-pick-range-bg: t.$color-date-picker-range-bg; // 기간 사이 날짜 (Date Picker inRange)
+$ib-color-pick-range-text: t.$color-date-picker-range-text;
+$ib-color-pick-nav: t.$color-date-picker-text; // 이전 · 다음 화살표 (Date Picker nav)
+$ib-color-pick-divider: t.$color-line-subtle; // 년 · 월 사이 구분선
+$ib-color-pick-button-text: t.$color-text-inverse; // 하단 버튼 (Button Primary)
+$ib-color-pick-button-bg: t.$color-button-primary-solid-bg;
+$ib-color-pick-button-bg-hover: t.$color-button-primary-solid-bg-hover;
+$ib-color-pick-button-bg-pressed: t.$color-button-primary-solid-bg-pressed;
+
+// ══ 크기 ══════════════════════════════════════════════════════════
+$ib-focus-border-width: 2px; // 커서 칸 테두리 두께 (IBSheet 기본)
+$ib-cell-padding-x: t.$space-12; // 글자 칸 좌우 (GridPlaceholder와 같음)
+$ib-check-size: t.$selection-size-sm; // 체크박스 16 (Checkbox sm)
+$ib-check-radius: 4px; // Checkbox 반경
+$ib-check-mark-width: 4px; // ✓ 짧은 획
+$ib-check-mark-height: 8px; // ✓ 긴 획
+$ib-check-mark-stroke: 2px;
+$ib-check-dash-width: 8px; // 일부 선택(–)
+$ib-input-inset: t.$space-4; // 편집 칸 필드 테두리 ↔ 칸 끝 (행 40 → 필드 32)
+$ib-input-radius: t.$field-radius-sm; // 편집 칸 반경 (Field sm)
+$ib-input-icon-size: t.$field-icon-size-trailing; // 화살표 · 달력 아이콘 20 (SelectBox · DateField)
+$ib-input-icon-gap: t.$space-8; // 아이콘 ↔ 필드 테두리
+// 아이콘 모양 (디자인 시스템 Icon chevron-down · calendar, 24 그리드) — mask로 쓰므로 선 색은 의미 없음, 색은 $ib-color-input-icon
+$ib-icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9L12 15L18 9'/%3E%3C/svg%3E");
+$ib-icon-chevron-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 15L12 9L18 15'/%3E%3C/svg%3E");
+$ib-icon-chevron-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18L9 12L15 6'/%3E%3C/svg%3E");
+$ib-icon-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18L15 12L9 6'/%3E%3C/svg%3E");
+$ib-icon-calendar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 10.2H4M15.5556 3V6.6M8.44444 3V6.6M16.25 15.75V15.755M12.25 15.75V15.755M8.25 15.75V15.755M8.26667 21H15.7333C17.2268 21 17.9735 21 18.544 20.7057C19.0457 20.4469 19.4537 20.0338 19.7094 19.5258C20 18.9482 20 18.1921 20 16.68V9.12C20 7.60786 20 6.85179 19.7094 6.27423C19.4537 5.76619 19.0457 5.35314 18.544 5.09428C17.9735 4.8 17.2268 4.8 15.7333 4.8H8.26667C6.77319 4.8 6.02646 4.8 5.45603 5.09428C4.95426 5.35314 4.54631 5.76619 4.29065 6.27423C4 6.85179 4 7.60786 4 9.12V16.68C4 18.1921 4 18.9482 4.29065 19.5258C4.54631 20.0338 4.95426 20.4469 5.45603 20.7057C6.02646 21 6.77319 21 8.26667 21Z'/%3E%3C/svg%3E");
+$ib-select-panel-padding: t.$space-8; // 셀렉트 목록 패널 여백 (SelectBox 8)
+$ib-select-item-padding: t.$space-8; // 항목 위아래 · 좌우 (SelectBox 8)
+$ib-select-item-gap: t.$space-8; // 항목 사이 (SelectBox 8)
+$ib-select-header-shift-start: 2px; // IBSheet 목록 머리 상자는 칸보다 위 · 왼쪽 2, 아래 · 오른쪽 1 크다 (측정)
+$ib-select-header-shift-end: 1px;
+$ib-select-panel-offset: 2px; // 목록 위치 — IBSheet 기준(칸 아래 2) + 2 = 필드 테두리(칸 안쪽 4) ↔ 목록 8 (SelectBox) (측정)
+$ib-badge-height: 20px; // Badge sm 20
+$ib-badge-padding-x: t.$space-8; // Badge sm 좌우
+$ib-pick-cell-size: t.$control-height-md; // 달력 날짜 칸 40 (Date Picker Cell 40)
+$ib-pick-radius: 12px; // 달력 패널 반경 (Date Picker 12)
+$ib-pick-day-radius: 8px; // 날짜 칸 반경 (Date Picker 8)
+$ib-pick-padding: t.$space-12;
+$ib-pick-button-radius: 4px; // 하단 버튼 (Button sm 반경)
+$ib-pick-nav-size: 24px; // 이전 · 다음 아이콘 (Date Picker nav 24)
+$ib-pick-ym-cell-height: 32px; // 년 · 월 선택 칸 (TODO(시안) Date Picker에 년 · 월 화면 시안 없음 — 날짜 칸과 같은 모양, 높이는 IBSheet 칸 31에 맞춤)
+
+// Badge tone → 클래스 이름 끝 (ibBadge(…, tone))
+$ib-badge-tones: (
+  neutral: 'Neutral',
+  primary: 'Primary',
+  info: 'Info',
+  success: 'Success',
+  warning: 'Warning',
+  error: 'Error',
+);
+
+// ── 공통 글꼴 ────────────────────────────────────────
+// IBSheet 기본은 .IBMain, .IBMain * 에 Noto Sans 13px — 디자인 시스템 글꼴 · 12px로
+.SheetMain.IBMain,
+.SheetMain.IBMain * {
+  @include m.typography(typo-12-regular);
+}
+
+// ── 표: 칸 · 선 ──────────────────────────────────────
+// 표 테두리 규칙(확정 결정): 칸 사이 세로선 · 아래선, 표 양 끝에는 세로선 없음
+.SheetMain.IBMain {
+  color: $ib-color-text;
+}
+
+.IBMain .IBCellBase {
+  color: $ib-color-text;
+  border-right: t.$control-border-width solid $ib-color-border;
+  border-bottom: t.$control-border-width solid $ib-color-border;
+}
+
+// 글자 칸 좌우 12 (GridPlaceholder와 같음). 드롭다운 · 달력 칸은 IBSheet가 아이콘 자리를 여백으로 잡아 그대로 둔다
+.IBMain .IBCellHeader,
+.IBMain .IBText,
+.IBMain .IBLines,
+.IBMain .IBInt,
+.IBMain .IBFloat {
+  padding-inline: $ib-cell-padding-x;
+}
+
+// 줄무늬(교대 행) 없음
+.IBMain .IBColorAlternate {
+  background-color: $ib-color-row-bg;
+}
+
+// 머리 위 · 아래 선 (기본 테마는 진한 남색)
+.IBMain .IBHeadLeft,
+.IBMain .IBHeadMid,
+.IBMain .IBHeadRight,
+.IBMain .IBVScrollHeadPadding {
+  border-top-color: $ib-color-border;
+  border-bottom-color: $ib-color-border;
+}
+
+// 머리 (Neutral 100 · 12 SemiBold)
+.IBMain .IBCellHeader,
+.IBMain .IBCellHeader * {
+  @include m.typography(typo-12-semi-bold);
+
+  color: $ib-color-header-text;
+}
+
+.IBMain .IBCellHeader {
+  background: $ib-color-header-bg;
+  border-right: t.$control-border-width solid $ib-color-border;
+  border-bottom: t.$control-border-width solid $ib-color-border;
+}
+
+// 표 아래 끝 — 기본 테마가 표 전체(IBMainTable) 아래 · 아래 빈 줄(IBSpaceRow) 위에 진한 선(#cfd1d6)을 더 그어,
+// 마지막 줄 선과 겹쳐 진하게 보였음 → 마지막 줄 선 하나만
+.IBMain .IBMainTable {
+  border-bottom: 0;
+}
+
+// 빈 줄 · 고정 줄(IBSolidRow): 기본 테마 선택자가 .IBRowSpace0.IBRowSpaceFirst .IBSolidRow(클래스 3개)라 같은 우선순위로 덮는다
+.IBMain [class*='IBRowSpace'] .IBSolidRow {
+  background: transparent; // 기본 테마 연한 청록(#e5f0f2) — 마지막 줄 아래 2px 띠가 선 하나 더처럼 보였음
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-bottom-color: $ib-color-border;
+}
+
+// 표 양 끝 세로선 없음 — 마지막 칸 · 세로 스크롤 영역, 그리고 기본 테마가 머리 · 본문 영역(IBHead* · IBBody*) 양옆에 긋는 선
+.IBMain .IBSection tr > td:last-child,
+.IBMain .IBVScroll {
+  border-right: 0;
+}
+
+.IBMain .IBHeadLeft,
+.IBMain .IBHeadMid,
+.IBMain .IBHeadRight,
+.IBMain .IBBodyLeft,
+.IBMain .IBBodyMid,
+.IBMain .IBBodyRight {
+  border-right: 0;
+  border-left: 0;
+}
+
+.IBMain .IBVScroll,
+.IBMain .IBXScroll {
+  border-top-color: $ib-color-border;
+}
+
+.IBMain .IBXScroll {
+  background: $ib-color-scroll-bg;
+}
+
+// ── 표: 마우스 · 커서 · 체크한 줄 ────────────────────
+// 줄 위에 덮는 판이라 불투명 토큰 색을 그대로 쓰면 글자가 가려진다 → multiply로 섞어 글자가 보이게
+.IBMain .IBHoverRowBackground {
+  background: $ib-color-row-hover;
+  mix-blend-mode: multiply;
+}
+
+.IBMain .IBFocusRowBackground {
+  background-color: $ib-color-row-focus;
+  mix-blend-mode: multiply;
+}
+
+.IBMain .IBHoverCellBorder,
+.IBMain .IBHoverRowBorder,
+.IBMain .IBFocusRowBorder {
+  border-color: transparent;
+}
+
+// 커서 칸 · 편집 중인 칸 테두리 (기본 테마는 편집 중이면 청록)
+.IBMain .IBFocusCellBorder,
+.IBMain .IBEditCellBorder {
+  border-color: $ib-color-cell-focus;
+}
+
+// 커서 칸 테두리는 위 · 아래 · 왼쪽 · 오른쪽 네 조각이고, 왼쪽 · 오른쪽 조각이 칸 선 바깥에 그려져
+// 첫 칸의 왼쪽 · 마지막 칸의 오른쪽 조각이 표 영역 밖으로 나가 잘린다 → 두 조각을 칸 안쪽으로 테두리 두께만큼 옮긴다
+.IBMain .IBFocusCellBorder.IBCursorBorderLeft,
+.IBMain .IBEditCellBorder.IBCursorBorderLeft {
+  transform: translateX($ib-focus-border-width);
+}
+
+.IBMain .IBFocusCellBorder.IBCursorBorderRight,
+.IBMain .IBEditCellBorder.IBCursorBorderRight {
+  transform: translateX(calc(#{$ib-focus-border-width} * -1));
+}
+
+// 칸 색 (IBSheet가 IBColor* 클래스 색을 읽어 칸에 칠한다)
+.IBMain .IBColorHoveredCell,
+.IBMain .IBColorHoveredCellReadOnly,
+.IBMain .IBColorHoveredCellNoFocus {
+  background-color: $ib-color-row-hover;
+}
+
+.IBMain .IBColorReadOnly {
+  background-color: $ib-color-row-readonly;
+}
+
+.IBMain .IBColorChanged,
+.IBMain .IBColorChangedCell {
+  background-color: $ib-color-row-changed;
+}
+
+.IBMain .IBColorSelectedCell {
+  background-color: $ib-color-row-checked;
+}
+
+.IBMain .IBColorHoveredCellHeader,
+.IBMain .IBColorFocusedCellHeader {
+  background-color: $ib-color-header-bg;
+}
+
+// 체크한 줄 — 앱 ibsheetOptions의 checkedRowClass(열 이름)가 줄 칸마다 붙인다.
+// IBSheet는 칸 배경을 인라인 스타일로 칠하므로(IBColor* 색 계산) 클래스 색이 이기려면 !important가 필요하다
+.IBMain .kpIbRowChecked {
+  background-color: $ib-color-row-checked !important;
+}
+
+// ── 표: 체크박스 — 디자인 시스템 Checkbox sm 모양 ────
+// IBSheet 기본은 배경 이미지(data URI)라 토큰 색을 못 쓴다 → 배경 이미지를 끄고 가상 요소로 그린다
+//   줄: u.IBBoolImage.IBBool0 / IBBool1 / IBBoolX (기본 14 × 29, 넘치면 잘림 → 16으로, 잘리지 않게)
+//   머리 전체선택: div.IBCheck0Left(해제) / IBCheck1Left(전체) / IBCheck2Left(일부)
+.IBMain .IBBoolImage {
+  width: $ib-check-size;
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.IBMain .IBBool0,
+.IBMain .IBBool1,
+.IBMain .IBBoolX,
+.IBMain .IBCheck0Left,
+.IBMain .IBCheck1Left,
+.IBMain .IBCheck2Left {
+  position: relative;
+  background-image: none;
+}
+
+.IBMain .IBBool0::before,
+.IBMain .IBBool1::before,
+.IBMain .IBBoolX::before,
+.IBMain .IBCheck0Left::before,
+.IBMain .IBCheck1Left::before,
+.IBMain .IBCheck2Left::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  width: $ib-check-size;
+  height: $ib-check-size;
+  content: '';
+  background-color: $ib-color-check-bg;
+  border: t.$control-border-width solid $ib-color-check-border;
+  border-radius: $ib-check-radius;
+  transform: translate(-50%, -50%);
+}
+
+.IBMain .IBBool1::before,
+.IBMain .IBBoolX::before,
+.IBMain .IBCheck1Left::before,
+.IBMain .IBCheck2Left::before {
+  background-color: $ib-color-check-checked;
+  border-color: $ib-color-check-checked;
+}
+
+// 머리 체크박스 칸: 글자 칸 여백(12)이 아이콘 머리(IBCellHeaderInnerIcon > IBHeaderIconInner · IBLines)에도 붙으면
+// 체크가 2 오른쪽으로 밀리고, IBSheet가 머리가 넘친다고 보고 열 크기 조절 자리 hover 때 말풍선(IBHintHeaderOuter)을 덮어 체크가 잘린다
+.IBMain .IBCellHeaderInnerIcon,
+.IBMain .IBHeaderIconInner {
+  padding-inline: 0;
+}
+
+.IBMain .IBHeaderIconInner {
+  width: 100%;
+}
+
+// 머리 일부 선택(–) — IBSheet는 전체(IBCheck1) · 그 외(IBCheck0)만 있어서, 앱 headerCheckEvents가 표 영역에 붙이는 상태로 그린다
+[data-kp-ib-check='partial'] .IBMain .IBCheck0Left::before {
+  background-color: $ib-color-check-checked;
+  border-color: $ib-color-check-checked;
+}
+
+[data-kp-ib-check='partial'] .IBMain .IBCheck0Left::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $ib-check-dash-width;
+  height: $ib-check-mark-stroke;
+  content: '';
+  background-color: $ib-color-check-glyph;
+  transform: translate(-50%, -50%);
+}
+
+// ✓
+.IBMain .IBBool1::after,
+.IBMain .IBCheck1Left::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  width: $ib-check-mark-width;
+  height: $ib-check-mark-height;
+  content: '';
+  border: solid $ib-color-check-glyph;
+  border-width: 0 $ib-check-mark-stroke $ib-check-mark-stroke 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+// – (일부 선택)
+.IBMain .IBBoolX::after,
+.IBMain .IBCheck2Left::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $ib-check-dash-width;
+  height: $ib-check-mark-stroke;
+  content: '';
+  background-color: $ib-color-check-glyph;
+  transform: translate(-50%, -50%);
+}
+
+// 읽기 전용(편집 불가) 체크박스
+.IBMain .IBBoolRO::before {
+  background-color: $ib-color-check-bg-disabled;
+  border-color: $ib-color-check-border;
+}
+
+.IBMain .IBBoolRO.IBBool1::before {
+  background-color: $ib-color-check-checked-disabled;
+  border-color: $ib-color-check-checked-disabled;
+}
+
+// ── 셀 안 디자인 시스템 모양 (앱 ibsheetCells.ts의 IB_CELL · ibBadge · ibButton과 짝) ──
+// 링크 — TextLink: Primary + 밑줄
+.IBMain .kpIbLink {
+  color: $ib-color-link;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: $ib-color-link-hover;
+  }
+}
+
+// Badge sm soft (Html 칸)
+.IBMain .kpIbBadge {
+  @include m.typography(typo-12-medium);
+
+  display: inline-flex;
+  align-items: center;
+  height: $ib-badge-height;
+  padding-inline: $ib-badge-padding-x;
+  vertical-align: middle;
+  border-radius: calc(#{$ib-badge-height} / 2);
+}
+
+@each $tone, $suffix in $ib-badge-tones {
+  .IBMain .kpIbBadge#{$suffix} {
+    color: var(--kp-color-badge-#{$tone}-text);
+    background-color: var(--kp-color-badge-#{$tone}-bg);
+  }
+}
+
+// 편집 칸 (입력 · 셀렉트 · 달력): 칸 안쪽 4에 필드 테두리.
+// 달력 칸은 IBSheet가 값 칸(IBNoRight) + 아이콘 칸(IBNoLeft) 두 개로 나눠 그린다 → 맞닿는 쪽 테두리 · 반경을 빼서 한 상자로
+.IBMain .kpIbInput {
+  position: relative;
+  text-align: left; // 편집 칸 글자는 왼쪽 (SelectBox · DateField · TextField와 같음)
+}
+
+.IBMain .kpIbInput::before {
+  position: absolute;
+  inset: $ib-input-inset;
+  pointer-events: none;
+  content: '';
+  border: t.$control-border-width solid $ib-color-input-border;
+  border-radius: $ib-input-radius;
+}
+
+.IBMain .kpIbInput.IBNoRight::before {
+  right: 0;
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.IBMain .kpIbInput.IBNoLeft::before {
+  left: 0;
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+// 셀렉트(Enum) — IBSheet 기본은 왼쪽 회색 화살표 이미지 → 오른쪽 chevron-down 20 (SelectBox와 같은 자리)
+.IBMain .kpIbInput.IBEnumLeft {
+  padding-right: calc(#{$ib-input-inset} + #{$ib-input-icon-gap} + #{$ib-input-icon-size} + #{t.$space-4});
+  padding-left: $ib-cell-padding-x;
+  background-image: none;
+}
+
+.IBMain .kpIbInput.IBEnumLeft::after {
+  position: absolute;
+  top: 50%;
+  right: calc(#{$ib-input-inset} + #{$ib-input-icon-gap});
+  width: $ib-input-icon-size;
+  height: $ib-input-icon-size;
+  pointer-events: none;
+  content: '';
+  background-color: $ib-color-input-icon;
+  mask: $ib-icon-chevron-down center / contain no-repeat;
+  transform: translateY(-50%);
+}
+
+// 달력(Date) — 아이콘 칸(IBDateRight)의 기본 이미지 → calendar 20 (DateField와 같은 아이콘)
+.IBMain .kpIbInput.IBDateRight {
+  background-image: none;
+}
+
+.IBMain .kpIbInput.IBDateRight::after {
+  position: absolute;
+  top: 50%;
+  right: calc(#{$ib-input-inset} + #{$ib-input-icon-gap});
+  width: $ib-input-icon-size;
+  height: $ib-input-icon-size;
+  pointer-events: none;
+  content: '';
+  background-color: $ib-color-input-icon;
+  mask: $ib-icon-calendar center / contain no-repeat;
+  transform: translateY(-50%);
+}
+
+// 편집 중 입력 상자
+.IBMain .IBEditCellInput {
+  @include m.typography(typo-12-regular);
+
+  color: $ib-color-input-text;
+  caret-color: $ib-color-input-caret;
+}
+
+// 버튼 — Button sm Neutral Line. 칸 위아래 여백(IBSheet 기본 6 · 5)을 빼야 32 버튼이 줄 40 안에 들어간다
+.IBMain .IBButton {
+  padding-block: 0;
+}
+
+// IBSheet 기본 테마가 .IBMain * 에 box-sizing: content-box !important → 높이에서 테두리를 뺀다
+.IBMain .kpIbButton {
+  @include m.typography(typo-12-semi-bold);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(#{t.$control-height-sm} - #{t.$control-border-width} * 2);
+  padding-inline: t.$control-padding-x-sm;
+  color: $ib-color-button-text;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: $ib-color-button-bg;
+  border: t.$control-border-width solid $ib-color-button-border;
+  border-radius: t.$control-radius-sm;
+
+  &:hover {
+    background-color: $ib-color-button-bg-hover;
+    border-color: $ib-color-button-border-hover;
+  }
+
+  &:active {
+    background-color: $ib-color-button-bg-pressed;
+  }
+}
+
+// 목록 · 메뉴 그림자 없음 (기본 테마 0 2px 5px — SelectBox 패널도 그림자 없음)
+.IBMain .IBMenuMain {
+  box-shadow: none;
+}
+
+// 드롭다운 목록 (그 밖의 IBSheet 메뉴)
+.IBMain .IBMenuOuter,
+.IBMain .IBMenuHeader,
+.IBMain .IBEnumMenuHeader {
+  border-color: $ib-color-menu-border;
+}
+
+// ── 셀렉트(Enum) 열린 목록 — SelectBox 패널 모양 ──────
+// 열린 칸: IBSheet가 칸 위에 목록 머리 상자(IBEnumMenuHeader)를 덮는다 → 칸의 필드와 같은 자리에 열린 SelectBox(포커스 테두리 + 위 화살표)
+.IBMain .IBEnumMenuHeader {
+  background: transparent;
+  border: 0;
+}
+
+.IBMain .IBEnumMenuHeader::before {
+  position: absolute;
+  inset: calc(#{$ib-input-inset} + #{$ib-select-header-shift-start})
+    calc(#{$ib-input-inset} + #{$ib-select-header-shift-end})
+    calc(#{$ib-input-inset} + #{$ib-select-header-shift-end})
+    calc(#{$ib-input-inset} + #{$ib-select-header-shift-start});
+  content: '';
+  background: $ib-color-select-bg;
+  border: t.$control-border-width solid $ib-color-select-border-open;
+  border-radius: $ib-input-radius;
+  box-shadow: $ib-shadow-select-open;
+}
+
+.IBMain .IBEnumMenuHeader::after {
+  position: absolute;
+  top: 50%;
+  right: calc(#{$ib-input-inset} + #{$ib-input-icon-gap} + #{$ib-select-header-shift-end});
+  width: $ib-input-icon-size;
+  height: $ib-input-icon-size;
+  pointer-events: none;
+  content: '';
+  background-color: $ib-color-input-icon;
+  mask: $ib-icon-chevron-up center / contain no-repeat;
+  transform: translateY(-50%);
+}
+
+// 머리 글자: 칸 글자와 같은 자리 · 크기 (기본 테마의 왼쪽 화살표 이미지 · 여백 제거)
+.IBMain .IBEnumHeaderLeft {
+  position: relative;
+  z-index: 1;
+  padding-left: $ib-cell-padding-x;
+  text-align: left;
+  background-image: none;
+}
+
+// IBEnumMenuMain(위치) > IBEnumMenuOuter(테두리 상자) > IBEnumMenuBody > IBEnumMenuItem > …ItemText
+// 현재 값 · 키보드 커서 = IBMenuFocus, 마우스 = IBMenuHover
+.IBMain .IBEnumMenuMainBottom {
+  margin-top: $ib-select-panel-offset;
+}
+
+.IBMain .IBEnumMenuOuter {
+  // 폭 · 왼쪽을 칸 안 필드에 맞춘다 (IBSheet 기본은 칸보다 왼쪽 2 · 오른쪽 1 넓음)
+  margin-right: calc(#{$ib-input-inset} + #{$ib-select-header-shift-end});
+  margin-left: calc(#{$ib-input-inset} + #{$ib-select-header-shift-start});
+  padding: $ib-select-panel-padding;
+  background: $ib-color-select-bg;
+  border: t.$control-border-width solid $ib-color-select-border;
+  border-radius: t.$field-radius-md;
+  scrollbar-color: $ib-color-select-scroll-thumb transparent;
+  scrollbar-width: thin;
+}
+
+.IBMain .IBEnumMenuItem,
+.IBMain .IBEnumMenuItem * {
+  @include m.typography(typo-14-regular);
+
+  color: $ib-color-select-item-text;
+}
+
+.IBMain .IBEnumMenuItem {
+  padding: $ib-select-item-padding;
+  cursor: pointer;
+  border-radius: t.$field-radius-sm;
+}
+
+.IBMain .IBEnumMenuItem + .IBEnumMenuItem {
+  margin-top: $ib-select-item-gap;
+}
+
+.IBMain .IBEnumMenuItem.IBMenuHover {
+  background: $ib-color-select-item-hover;
+}
+
+.IBMain .IBEnumMenuItem.IBMenuFocus,
+.IBMain .IBEnumMenuItem.IBMenuFocus.IBMenuHover {
+  background: $ib-color-select-item-selected-bg;
+}
+
+.IBMain .IBEnumMenuItem.IBMenuFocus,
+.IBMain .IBEnumMenuItem.IBMenuFocus * {
+  color: $ib-color-select-item-selected-text;
+}
+
+// ── 달력 (IBSheet.showCalendar · 날짜 셀) — 디자인 시스템 Date Picker 모양 ──
+.IBMain .IBPickMain {
+  z-index: t.$z-index-dropdown;
+}
+
+.IBMain .IBMenuOuter.IBPickOuter,
+.IBMain .IBPickOuter {
+  padding: $ib-pick-padding;
+  background: $ib-color-pick-bg;
+  border: t.$control-border-width solid $ib-color-pick-border;
+  border-radius: $ib-pick-radius;
+}
+
+// 년월 머리: 어두운 띠 → 흰 배경 + 16 Bold
+.IBMain .IBPickMY,
+.IBMain .IBPickMY * {
+  @include m.typography(typo-16-bold);
+
+  color: $ib-color-pick-text;
+}
+
+.IBMain .IBPickMY {
+  background: $ib-color-pick-bg;
+}
+
+// 날짜 표 양옆 선 (기본 테마는 진한 남색)
+.IBMain .IBPickTableParent {
+  border: 0;
+}
+
+// 요일 줄
+.IBMain .IBPickRowW {
+  background: $ib-color-pick-bg;
+}
+
+.IBMain .IBPickRowW .IBPickCell {
+  border-bottom: 0;
+}
+
+.IBMain .IBPickWDN {
+  @include m.typography(typo-14-semi-bold);
+
+  color: $ib-color-pick-text;
+}
+
+.IBMain .IBPickWDN.IBPickSa {
+  color: $ib-color-pick-saturday;
+}
+
+.IBMain .IBPickWDN.IBPickSu {
+  color: $ib-color-pick-sunday;
+}
+
+// 날짜 칸
+.IBMain .IBPickCell,
+.IBMain .IBPickCell * {
+  @include m.typography(typo-14-regular);
+}
+
+.IBMain .IBPickCell {
+  width: $ib-pick-cell-size;
+}
+
+.IBMain .IBPickWD,
+.IBMain .IBPickSa,
+.IBMain .IBPickSu,
+.IBMain .IBPickOM,
+.IBMain .IBPickNow,
+.IBMain .IBPickSel,
+.IBMain .IBPickHover,
+.IBMain .IBPickSelHover {
+  height: $ib-pick-cell-size;
+  line-height: $ib-pick-cell-size;
+  padding: 0;
+  border: t.$control-border-width solid transparent;
+  border-radius: $ib-pick-day-radius;
+}
+
+.IBMain .IBPickWD,
+.IBMain .IBPickWD button {
+  color: $ib-color-pick-text;
+}
+
+.IBMain .IBPickSa,
+.IBMain .IBPickSa button {
+  color: $ib-color-pick-saturday;
+}
+
+.IBMain .IBPickSu,
+.IBMain .IBPickSu button {
+  color: $ib-color-pick-sunday;
+}
+
+// 다른 달 날짜
+.IBMain .IBPickOM,
+.IBMain .IBPickOM button,
+.IBMain .IBPickOM.IBPickSa,
+.IBMain .IBPickOM.IBPickSu {
+  color: $ib-color-pick-outside;
+  background-color: transparent;
+}
+
+.IBMain .IBPickHover,
+.IBMain .IBPickSelHover {
+  background-color: $ib-color-pick-hover;
+}
+
+// 오늘: 테두리
+.IBMain .IBPickNow {
+  color: $ib-color-pick-today;
+  background-color: transparent;
+  border-color: $ib-color-pick-today;
+}
+
+// 선택 — Date Picker와 같게: 기간 사이 날짜는 연한 배경 · 모서리 없음, 시작 · 끝(단일 선택 포함)은 Primary · 반경 8.
+// IBSheet는 기간 안 모든 날짜에 IBPickSel만 붙인다 → 앞 · 뒤 날짜(주가 바뀌면 윗줄 끝 · 아랫줄 처음) 선택 여부로 시작 · 끝을 가린다
+.IBMain .IBPickSel,
+.IBMain .IBPickSel button {
+  color: $ib-color-pick-range-text;
+  background-color: $ib-color-pick-range-bg;
+  border-radius: 0;
+}
+
+// 칸(td.IBPickCell)마다 날짜 요소가 하나라 "선택 안 됨" = > :not(.IBPickSel). (:has 안에 :has는 CSS가 허용하지 않아 목록 전체가 무효가 된다)
+// 시작: 앞 칸이 선택 안 됨 / 주의 첫 칸이면 윗줄 마지막 칸이 선택 안 됨 (첫 주는 윗줄이 요일 줄)
+.IBMain .IBPickCell:has(> :not(.IBPickSel)) + .IBPickCell > .IBPickSel,
+.IBMain tr:has(> .IBPickCell:last-child > :not(.IBPickSel)) + tr > .IBPickCell:first-child > .IBPickSel,
+// 끝: 뒤 칸이 선택 안 됨 / 주의 마지막 칸이면 아랫줄 첫 칸이 선택 안 됨 · 마지막 줄
+.IBMain .IBPickCell:has(+ .IBPickCell > :not(.IBPickSel)) > .IBPickSel,
+.IBMain tr:has(+ tr > .IBPickCell:first-child > :not(.IBPickSel)) > .IBPickCell:last-child > .IBPickSel,
+.IBMain tr:last-child > .IBPickCell:last-child > .IBPickSel {
+  color: $ib-color-pick-selected-text;
+  background-color: $ib-color-pick-selected-bg;
+  border-radius: $ib-pick-day-radius;
+}
+
+// 이전 · 다음 달 / 년 화살표 — 기본 회색 작은 이미지 → chevron-left · right 24 (Date Picker nav)
+.IBMain .IBPickBL,
+.IBMain .IBPickBR,
+.IBMain .IBPick2BL,
+.IBMain .IBPick2BR {
+  background: $ib-color-pick-nav;
+  mask-position: center;
+  mask-size: $ib-pick-nav-size $ib-pick-nav-size;
+  mask-repeat: no-repeat;
+}
+
+.IBMain .IBPickBL,
+.IBMain .IBPick2BL {
+  mask-image: $ib-icon-chevron-left;
+}
+
+.IBMain .IBPickBR,
+.IBMain .IBPick2BR {
+  mask-image: $ib-icon-chevron-right;
+}
+
+// ── 달력 년 · 월 선택 (머리 "2026년 11월 ⌄"를 누르면) — 날짜 칸과 같은 모양 ──
+.IBMain .IBPick2TableParent {
+  border: 0;
+}
+
+.IBMain .IBPick2Sep {
+  background: $ib-color-pick-divider;
+}
+
+.IBMain .IBPick2CellM,
+.IBMain .IBPick2CellM *,
+.IBMain .IBPick2CellY,
+.IBMain .IBPick2CellY * {
+  @include m.typography(typo-14-regular);
+}
+
+.IBMain .IBPick2M,
+.IBMain .IBPick2Y {
+  height: $ib-pick-ym-cell-height;
+  line-height: $ib-pick-ym-cell-height;
+  color: $ib-color-pick-text;
+  border-radius: $ib-pick-day-radius;
+}
+
+.IBMain .IBPick2MHover,
+.IBMain .IBPick2YHover,
+.IBMain .IBPick2MSelHover,
+.IBMain .IBPick2YSelHover {
+  background-color: $ib-color-pick-hover;
+}
+
+.IBMain .IBPick2MSel,
+.IBMain .IBPick2YSel,
+.IBMain .IBPick2MSel button,
+.IBMain .IBPick2YSel button {
+  color: $ib-color-pick-selected-text;
+  background-color: $ib-color-pick-selected-bg;
+}
+
+// 하단 버튼 줄 (오늘 · 지우기 · 선택 / 이번달)
+.IBMain .IBPick2Footer,
+.IBMain .IBPickFooter {
+  padding-top: $ib-pick-padding;
+  background: $ib-color-pick-bg;
+  border: 0;
+}
+
+.IBMain .IBDialogButton {
+  @include m.typography(typo-12-semi-bold);
+
+  color: $ib-color-pick-button-text;
+  background: $ib-color-pick-button-bg;
+  border: 0;
+  border-radius: $ib-pick-button-radius;
+
+  &:hover {
+    background: $ib-color-pick-button-bg-hover;
+  }
+
+  &:active {
+    background: $ib-color-pick-button-bg-pressed;
+  }
+}

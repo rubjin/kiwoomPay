@@ -58,6 +58,11 @@ export function designSystemSource(): UserConfig {
           find: /^@kiwoompay\/design-system\/style\.css$/,
           replacement: r('./src/styles/index.scss'),
         },
+        // KWP IBSheet 테마 (공통 CSS와 별도 파일, 운영은 dist/ibsheet.css)
+        {
+          find: /^@kiwoompay\/design-system\/ibsheet\.css$/,
+          replacement: r('./src/styles/ibsheet/ibsheet-theme.scss'),
+        },
         { find: /^@kiwoompay\/design-system$/, replacement: r('./src/index.ts') },
       ],
     },

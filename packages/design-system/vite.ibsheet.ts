@@ -20,8 +20,8 @@ const SCRIPTS = [
   'plugins/ibsheet-excel.js',
 ];
 
-// 테마 CSS — 없으면 그리드 · 달력이 크기 0으로 그려진다. 기본 테마(Prefix IB).
-// TODO(IBSheet 테마): 토큰 색 · 글자를 입힌 KWP 테마로 바꾼다 (표 테두리 규칙: 칸 사이 세로선, 양 끝 없음)
+// 테마 CSS — 없으면 그리드 · 달력이 크기 0으로 그려진다. 기본 테마(Prefix IB) 하나만 쓴다(다른 테마 폴더는 삭제).
+// 토큰 색 · 글자는 디자인 시스템 KWP 테마(@kiwoompay/design-system/ibsheet.css)가 이 위에 덮어쓴다 — 앱 main.tsx
 const STYLES = ['css/default/main.css'];
 
 const TYPES: Record<string, string> = {

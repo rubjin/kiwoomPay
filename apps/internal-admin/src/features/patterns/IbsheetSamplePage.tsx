@@ -1,28 +1,37 @@
-import { Button, ControlGroup, PageLayout, Segmented, Stack, Text } from '@kiwoompay/design-system';
+import {
+  Button,
+  ControlGroup,
+  GridPlaceholder,
+  PageLayout,
+  Pagination,
+  ResultFooter,
+  Text,
+  type GridPlaceholderColumn,
+} from '@kiwoompay/design-system';
 import { useEffect, useRef, useState } from 'react';
+import {
+  IB_CELL,
+  IB_DATE_BUTTON_WIDTH,
+  ibBadge,
+  ibButton,
+  type IbBadgeTone,
+} from '@/app/providers/ibsheetCells';
+import { checkedRowClass, headerCheckEvents, ibsheetOptions } from '@/app/providers/ibsheetOptions';
 
 /**
- * IBSheet8 모양 확인 (개발 서버 전용, 임의 작업) — 기본 테마 8종의 그리드 · 달력을 바꿔 가며 본다.
- * KWP 테마(토큰 색 · 글자)를 만들기 전에 어느 테마를 바탕으로 할지 고르는 용도. vendor/ibsheet가 있어야 한다
+ * IBSheet8 모양 확인 (개발 서버 전용, 임의 작업) — KWP 테마(기본 테마 + 디자인 시스템 토큰)의 그리드 · 달력.
+ * 테마: packages/design-system/src/styles/ibsheet/ibsheet-theme.scss, 공통 옵션: app/providers/ibsheetOptions.
+ * vendor/ibsheet가 있어야 한다
  */
 
-// 테마 폴더 · Prefix (매뉴얼 props/cfg/style). default_img는 default와 Prefix가 같아 뺀다
-const THEMES = [
-  { folder: 'default', prefix: 'IB', label: '기본' },
-  { folder: 'grace', prefix: 'IBGR', label: 'grace' },
-  { folder: 'gray', prefix: 'IBGY', label: 'gray' },
-  { folder: 'material', prefix: 'IBMR', label: 'material' },
-  { folder: 'mint', prefix: 'IBMT', label: 'mint' },
-  { folder: 'simple', prefix: 'IBSP', label: 'simple' },
-  { folder: 'krds', prefix: 'IBKD', label: 'krds' },
-] as const;
-
-type ThemeFolder = (typeof THEMES)[number]['folder'];
+interface SheetLike {
+  dispose: () => void;
+  /** 데이터 바꿔 넣기 (기존 데이터 제거 후 로드 — 매뉴얼 funcs/core/load-search-data) */
+  loadSearchData: (data: object[]) => void;
+}
 
 interface IbsheetLike {
-  create: (args: { id: string; el: HTMLElement; options: object; data?: object[] }) => {
-    dispose: () => void;
-  };
+  create: (args: { id: string; el: HTMLElement; options: object; data?: object[] }) => SheetLike;
   showCalendar: (
     option: object,
     position: { X: number; Y: number },
@@ -33,23 +42,9 @@ interface IbsheetLike {
 
 const getIBSheet = () => (window as unknown as { IBSheet?: IbsheetLike }).IBSheet;
 
-/** 테마 CSS를 한 번만 붙이고, 다 읽으면 끝나는 Promise */
-function loadThemeCss(folder: ThemeFolder) {
-  const href = `/ibsheet/css/${folder}/main.css`;
-  const existing = document.querySelector<HTMLLinkElement>(`link[href="${href}"]`);
-  if (existing) return Promise.resolve();
-  return new Promise<void>((resolve) => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    link.onload = () => resolve();
-    link.onerror = () => resolve();
-    document.head.appendChild(link);
-  });
-}
-
 const PAY_METHODS = ['신용카드', '계좌이체', '가상계좌', '휴대폰'];
 const STATUSES = ['승인', '취소', '부분취소', '오류'];
+const STATUS_TONE: IbBadgeTone[] = ['success', 'neutral', 'warning', 'error'];
 
 const SAMPLE_ROWS = Array.from({ length: 30 }, (_, i) => ({
   check: i % 7 === 0 ? 1 : 0,
@@ -62,62 +57,138 @@ const SAMPLE_ROWS = Array.from({ length: 30 }, (_, i) => ({
   memo: i % 5 === 0 ? '긴 메모 예시입니다 — 칸보다 길면 말줄임으로 보이는지 확인' : '',
 }));
 
-const COLS = [
-  { Header: '선택', Name: 'check', Type: 'Bool', Width: 50 },
-  { Header: '거래번호', Name: 'txId', Type: 'Text', Width: 150, Align: 'Center' },
-  { Header: '가맹점명', Name: 'merchant', Type: 'Text', Width: 140 },
+// IBSheet 데이터: 거래상태는 Badge HTML로
+const SHEET_ROWS = SAMPLE_ROWS.map((r) => ({
+  ...r,
+  statusBadge: ibBadge(STATUSES[Number(r.status)] ?? '', STATUS_TONE[Number(r.status)]),
+}));
+
+const enumOf = (labels: string[]) => ({
+  Enum: `|${labels.join('|')}`,
+  EnumKeys: `|${labels.map((_, i) => i).join('|')}`,
+});
+
+interface IbClickEvent {
+  row: Record<string, unknown>;
+}
+
+/** 칸 종류별 예시 — 링크 · Badge · 금액(조회 전용) / 셀렉트 · 달력 · 입력(편집) / 버튼 */
+const createCols = (onPick: (text: string) => void) => [
+  // 머리는 전체선택 체크박스만 (공통 옵션 HeaderCheck)
+  // 빈 문자열이면 열 이름이 머리에 나온다. 정렬을 끄지 않으면 머리 전체선택을 눌렀을 때 정렬된다
+  { Header: ' ', Name: 'check', Type: 'Bool', Width: 44, CanSort: 0 },
   {
-    Header: '결제수단',
+    Header: '거래번호 (링크)',
+    Name: 'txId',
+    Type: 'Text',
+    Width: 150,
+    Class: IB_CELL.link,
+    CanEdit: 0,
+    OnClick: (e: IbClickEvent) => onPick(`링크: ${String(e.row.txId)}`),
+  },
+  { Header: '가맹점명', Name: 'merchant', Type: 'Text', Width: 120, Align: 'Left', CanEdit: 0 },
+  { Header: '거래상태 (Badge)', Name: 'statusBadge', Type: 'Html', Width: 120, CanEdit: 0 },
+  {
+    Header: '거래금액',
+    Name: 'amount',
+    Type: 'Int',
+    Width: 110,
+    Format: '#,##0',
+    Align: 'Right',
+    CanEdit: 0,
+  },
+  {
+    Header: '결제수단 (셀렉트)',
     Name: 'payMethod',
     Type: 'Enum',
-    Width: 110,
-    Enum: `|${PAY_METHODS.join('|')}`,
-    EnumKeys: `|${PAY_METHODS.map((_, i) => i).join('|')}`,
+    Width: 140,
+    Class: IB_CELL.input,
+    ...enumOf(PAY_METHODS),
+  },
+  // 셀을 누르면 IBSheet 달력 (그리드 셀 달력)
+  {
+    Header: '결제일 (달력)',
+    Name: 'payDate',
+    Type: 'Date',
+    Width: 150,
+    Class: IB_CELL.input,
+    WidthPad: IB_DATE_BUTTON_WIDTH,
+    Format: 'yyyy-MM-dd',
+    DataFormat: 'yyyy-MM-dd',
   },
   {
-    Header: '거래상태',
-    Name: 'status',
-    Type: 'Enum',
-    Width: 100,
-    Enum: `|${STATUSES.join('|')}`,
-    EnumKeys: `|${STATUSES.map((_, i) => i).join('|')}`,
+    Header: '메모 (입력)',
+    Name: 'memo',
+    Type: 'Text',
+    RelWidth: 1,
+    MinWidth: 200,
+    Align: 'Left',
+    Class: IB_CELL.input,
   },
-  { Header: '거래금액', Name: 'amount', Type: 'Int', Width: 120, Format: '#,##0' },
-  // 셀을 누르면 IBSheet 달력 (그리드 셀 달력)
-  { Header: '결제일', Name: 'payDate', Type: 'Date', Width: 120, Format: 'yyyy-MM-dd', DataFormat: 'yyyy-MM-dd' },
-  { Header: '메모', Name: 'memo', Type: 'Text', RelWidth: 1, MinWidth: 160 },
+  {
+    Header: '관리 (버튼)',
+    Name: 'action',
+    Type: 'Button',
+    Width: 90,
+    Button: 'Html',
+    ButtonText: ibButton('상세'),
+    OnClick: (e: IbClickEvent) => onPick(`버튼: ${String(e.row.txId)} 상세`),
+  },
 ];
 
+type SampleRow = (typeof SAMPLE_ROWS)[number];
+
+// 비교 기준: 디자인 시스템 표 미리보기 (Figma 기준 머리 · 행 · 글자 · 선)
+const PREVIEW_COLUMNS: GridPlaceholderColumn<SampleRow>[] = [
+  { key: 'txId', header: '거래번호', width: 150 },
+  { key: 'merchant', header: '가맹점명', width: 140, align: 'left' },
+  { key: 'payMethod', header: '결제수단', width: 110, render: (r) => PAY_METHODS[Number(r.payMethod)] },
+  { key: 'status', header: '거래상태', width: 100, render: (r) => STATUSES[Number(r.status)] },
+  { key: 'amount', header: '거래금액', width: 120, align: 'right', render: (r) => r.amount.toLocaleString() },
+  { key: 'payDate', header: '결제일', width: 130 },
+  { key: 'memo', header: '메모', align: 'left' },
+];
+const PREVIEW_ROWS = SAMPLE_ROWS.slice(0, 5);
+
+// 페이지 나눔 — 실제 화면은 서버가 페이지 단위로 주고(SearchResultPage), 여기서는 예시 데이터를 잘라 쓴다
+const PAGE_SIZE = 10;
+const TOTAL_PAGES = Math.ceil(SHEET_ROWS.length / PAGE_SIZE);
+const rowsOfPage = (page: number) => SHEET_ROWS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+// 표 높이 = 머리 40 + 줄 40 × 10 + 아래 선 (줄 · 머리 높이는 ibsheetOptions)
+const GRID_HEIGHT = 40 + 40 * PAGE_SIZE + 2;
+
 export function IbsheetSamplePage() {
-  const [theme, setTheme] = useState<ThemeFolder>('default');
   const [picked, setPicked] = useState('');
+  const [previewChecked, setPreviewChecked] = useState<string[]>(['TX20261110000']);
+  const [page, setPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<SheetLike | null>(null);
   const ibsheet = getIBSheet();
-  const prefix = THEMES.find((t) => t.folder === theme)?.prefix ?? 'IB';
 
   useEffect(() => {
     const el = gridRef.current;
     if (!ibsheet || !el) return;
-    let sheet: { dispose: () => void } | null = null;
-    let cancelled = false;
-    void loadThemeCss(theme).then(() => {
-      if (cancelled) return;
-      sheet = ibsheet.create({
-        id: 'ibsheetSample',
-        el,
-        options: {
-          Cfg: { Style: prefix, SearchMode: 0 },
-          Def: { Header: { Align: 'Center' } },
-          Cols: COLS,
-        },
-        data: SAMPLE_ROWS,
-      });
+    const sheet = ibsheet.create({
+      id: 'ibsheetSample',
+      el,
+      options: ibsheetOptions({
+        Def: { Row: checkedRowClass('check') }, // 체크한 줄 배경
+        Events: headerCheckEvents('check'), // 머리 일부 선택(–)
+        Cols: createCols(setPicked),
+      }),
+      data: rowsOfPage(1),
     });
+    sheetRef.current = sheet;
     return () => {
-      cancelled = true;
-      sheet?.dispose();
+      sheetRef.current = null;
+      sheet.dispose();
     };
-  }, [ibsheet, theme, prefix]);
+  }, [ibsheet]);
+
+  const changePage = (next: number) => {
+    setPage(next);
+    sheetRef.current?.loadSearchData(rowsOfPage(next));
+  };
 
   const openCalendar = (anchor: HTMLElement, range: boolean) => {
     if (!ibsheet) return;
@@ -127,7 +198,6 @@ export function IbsheetSamplePage() {
         Format: 'yyyy-MM-dd',
         Range: range ? 1 : 0,
         Buttons: range ? 7 : 3,
-        Class: `${prefix}Pick`,
         Texts: { Ok: '선택', Clear: '지우기', Today: '오늘' },
       },
       { X: rect.left + window.scrollX, Y: rect.bottom + window.scrollY + 8 },
@@ -151,46 +221,59 @@ export function IbsheetSamplePage() {
       <PageLayout.Title title="IBSheet 샘플 (임의 작업)" />
 
       <PageLayout.Section
-        title="테마"
-        titleAddon="IBSheet8 기본 테마 — KWP 테마(토큰 색 · 글자)의 바탕을 고르는 용도"
+        title="달력"
+        titleAddon="IBSheet.showCalendar — 날짜 필드(DateField · DateRangeField)가 여는 달력과 같다"
       >
         {!ibsheet ? (
           <Text>
             IBSheet가 로드되지 않았습니다. vendor/ibsheet 폴더를 확인하세요 (vendor/README.md).
           </Text>
         ) : (
-          <Stack gap={16}>
-            <Segmented value={theme} onChange={(v) => setTheme(v as ThemeFolder)} aria-label="테마">
-              {THEMES.map((t) => (
-                <Segmented.Item key={t.folder} value={t.folder}>
-                  {t.label}
-                </Segmented.Item>
-              ))}
-            </Segmented>
-            <ControlGroup>
-              <Button
-                variant="neutral"
-                appearance="line"
-                onClick={(e) => openCalendar(e.currentTarget, false)}
-              >
-                단일 날짜 달력
-              </Button>
-              <Button
-                variant="neutral"
-                appearance="line"
-                onClick={(e) => openCalendar(e.currentTarget, true)}
-              >
-                기간 달력 (드래그 → 선택)
-              </Button>
-              <Text>{picked ? `고른 값: ${picked}` : '달력에서 고른 값이 여기에 보입니다'}</Text>
-            </ControlGroup>
-          </Stack>
+          <ControlGroup>
+            <Button
+              variant="neutral"
+              appearance="line"
+              onClick={(e) => openCalendar(e.currentTarget, false)}
+            >
+              단일 날짜 달력
+            </Button>
+            <Button
+              variant="neutral"
+              appearance="line"
+              onClick={(e) => openCalendar(e.currentTarget, true)}
+            >
+              기간 달력 (드래그 → 선택)
+            </Button>
+            <Text>{picked ? `고른 값: ${picked}` : '달력에서 고른 값이 여기에 보입니다'}</Text>
+          </ControlGroup>
         )}
       </PageLayout.Section>
 
-      <PageLayout.Section title="그리드" titleAddon="결제일 셀을 누르면 그리드 셀 달력, 결제수단 · 거래상태는 드롭다운">
+      <PageLayout.Section
+        title="그리드 (IBSheet)"
+        titleAddon={`칸 종류별 예시 — 링크 · Badge · 셀렉트 · 달력 · 입력 · 버튼${picked ? ` · ${picked}` : ''}`}
+      >
         {/* IBSheet는 el의 인라인 크기로 그린다 (매뉴얼 static/create) */}
-        <div ref={gridRef} style={{ width: '100%', height: 480 }} />
+        <div ref={gridRef} style={{ width: '100%', height: GRID_HEIGHT }} />
+      </PageLayout.Section>
+
+      {/* 표 아래 Total · Pagination — 앱 조회 화면과 같은 디자인 시스템 ResultFooter (IBSheet 자체 페이지 줄은 쓰지 않음) */}
+      <ResultFooter total={SHEET_ROWS.length}>
+        <Pagination totalPages={TOTAL_PAGES} page={page} onChange={changePage} />
+      </ResultFooter>
+
+      <PageLayout.Section
+        title="비교 기준: 디자인 시스템 표 미리보기"
+        titleAddon="GridPlaceholder — IBSheet 그리드가 이 모양과 같아야 한다"
+      >
+        <GridPlaceholder
+          columns={PREVIEW_COLUMNS}
+          rows={PREVIEW_ROWS}
+          rowKey={(r) => r.txId}
+          selectable
+          selectedKeys={previewChecked}
+          onSelectionChange={setPreviewChecked}
+        />
       </PageLayout.Section>
     </>
   );

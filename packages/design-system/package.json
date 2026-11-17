@@ -16,6 +16,7 @@
       "import": "./dist/index.js"
     },
     "./style.css": "./dist/kiwoompay-ui.css",
+    "./ibsheet.css": "./dist/ibsheet.css",
     "./fonts/*": "./dist/fonts/*"
   },
   "files": [
@@ -27,7 +28,7 @@
     "dev": "pnpm storybook",
     "storybook": "pnpm tokens && pnpm icons && storybook dev -p 6006",
     "build-storybook": "pnpm tokens && pnpm icons && storybook build",
-    "build": "pnpm tokens && pnpm icons && vite build && tsc -p tsconfig.build.json && node scripts/copy-fonts.mjs",
+    "build": "pnpm tokens && pnpm icons && vite build && tsc -p tsconfig.build.json && node scripts/copy-fonts.mjs && node scripts/build-ibsheet-css.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm lint:script && pnpm lint:style",
     "lint:script": "eslint .",
