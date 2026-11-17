@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Checkbox, Segmented } from '../../components/selection';
-import { DateRangeField, Field, SelectBox, TextField } from '../../components/field';
+import { Checkbox, Radio, RadioGroup, Segmented, ToggleSwitch } from '../../components/selection';
+import {
+  DateField,
+  DateRangeField,
+  Field,
+  MultiSelect,
+  SearchField,
+  SelectBox,
+  TableMultiSelect,
+  TextField,
+} from '../../components/field';
 import { ControlGroup } from '../../components/layout';
 import { LookupField } from '../lookup';
 import { SearchPanel } from './SearchPanel';
@@ -77,6 +86,95 @@ export const Flow: Story = {
       <Field label="거래번호">
         <TextField placeholder="거래번호 입력" />
       </Field>
+    </SearchPanel>
+  ),
+};
+
+const payMethods = [
+  { value: 'card', label: '신용카드' },
+  { value: 'bank', label: '계좌이체' },
+  { value: 'vbank', label: '가상계좌' },
+  { value: 'phone', label: '휴대폰' },
+];
+
+const hours = Array.from({ length: 24 }, (_, h) => {
+  const v = String(h).padStart(2, '0');
+  return { value: v, label: `${v}시` };
+});
+
+const cpids = Array.from({ length: 12 }, (_, i) => ({
+  cpid: `CP${1001 + i}`,
+  name: `가맹점 ${i + 1}`,
+}));
+
+/**
+ * 검색 조건에 넣을 수 있는 폼 요소 모음 (폭을 주지 않으면 검색 조건 기본 폭).
+ * 입력 TextField · 검색 SearchField · 찾기 LookupField · 선택 SelectBox · 여러 개 MultiSelect · 표 선택 TableMultiSelect ·
+ * 날짜 DateField · 일시 DateField + 시각 SelectBox · 기간 DateRangeField + 퀵 기간 Segmented · 라디오 · 체크박스 · 토글
+ */
+export const AllControls: Story = {
+  name: '검색 조건 폼 요소 모음',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <SearchPanel onSearch={() => {}} onReset={() => {}}>
+      <Field label="거래번호">
+        <TextField placeholder="거래번호 입력" />
+      </Field>
+      <Field label="가맹점명">
+        <SearchField placeholder="가맹점명 검색" />
+      </Field>
+      <Field label="사업자번호">
+        <LookupField placeholder="사업자번호를 입력해주세요" />
+      </Field>
+      <Field label="거래구분">
+        <SelectBox options={status} defaultValue="all" />
+      </Field>
+      <Field label="결제수단">
+        <MultiSelect options={payMethods} defaultValue={['card', 'bank']} />
+      </Field>
+      <Field label="CPID">
+        <TableMultiSelect
+          rows={cpids}
+          rowKey={(row) => row.cpid}
+          columns={[
+            { key: 'cpid', header: 'CPID', width: 120 },
+            { key: 'name', header: '가맹점명', align: 'left' },
+          ]}
+          title="CPID 선택"
+        />
+      </Field>
+      <Field label="기준일">
+        <DateField defaultValue="2026-08-31" />
+      </Field>
+      {/* 일시: 날짜 + 시각 한 묶음 (ControlGroup, 사이 8) */}
+      <Field label="조회일시">
+        <ControlGroup>
+          <DateField defaultValue="2026-08-25" />
+          <SelectBox options={hours} defaultValue="00" aria-label="시작 시각" />
+          <span>~</span>
+          <DateField defaultValue="2026-08-31" />
+          <SelectBox options={hours} defaultValue="23" aria-label="종료 시각" />
+        </ControlGroup>
+      </Field>
+      {/* 기간 + 퀵 기간 한 묶음 */}
+      <Field label="조회기간">
+        <ControlGroup>
+          <DateRangeField />
+          <Segmented size="md" defaultValue="1w" aria-label="기간">
+            <Segmented.Item value="1w">1주일</Segmented.Item>
+            <Segmented.Item value="1m">1개월</Segmented.Item>
+            <Segmented.Item value="3m">3개월</Segmented.Item>
+          </Segmented>
+        </ControlGroup>
+      </Field>
+      <Field label="조회기준">
+        <RadioGroup defaultValue="pay" direction="horizontal" aria-label="조회기준">
+          <Radio value="pay" label="결제일" />
+          <Radio value="cancel" label="취소일" />
+        </RadioGroup>
+      </Field>
+      <Checkbox label="개인정보 포함 검색" />
+      <ToggleSwitch label="해지 가맹점 포함" />
     </SearchPanel>
   ),
 };
