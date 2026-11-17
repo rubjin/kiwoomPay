@@ -151,11 +151,17 @@ export const InlineActions: Story = {
   ),
 };
 
-/** variant="plain": 팝업 안 조회 조건 — 카드 · 상자 없이 제목(md 16) 아래 필드 한 줄 + [초기화] · [조회] */
+/** variant="plain": 팝업 안 조회 조건 — 카드 · 상자 없이 제목(md 16) 아래 필드 한 줄 + [초기화] · [조회], 셀렉트 270(fieldWidth="lg") */
 export const Plain: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <SearchPanel variant="plain" title="조회 조건" onSearch={() => {}} onReset={() => {}}>
+    <SearchPanel
+      variant="plain"
+      fieldWidth="lg"
+      title="조회 조건"
+      onSearch={() => {}}
+      onReset={() => {}}
+    >
       <Field label="신청기간">
         <DateRangeField defaultValue={{ start: '2026-08-15', end: '2026-09-15' }} />
       </Field>

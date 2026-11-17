@@ -84,6 +84,7 @@ function LoginHistoryBody() {
     <Stack>
       <SearchPanel
         variant="plain"
+        fieldWidth="lg"
         title="조회 조건"
         description="기본 조회기간은 최근 30일이며, 로그인 일시 기준 최신순으로 정렬됩니다."
         onSearch={result.search}

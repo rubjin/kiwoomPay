@@ -166,6 +166,7 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>((p
         disabled={field.disabled}
         readOnly={readOnly}
         fullWidth={fullWidth}
+        defaultWidth="range"
         active={open}
         className={className}
         trailing={

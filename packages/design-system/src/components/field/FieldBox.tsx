@@ -29,7 +29,7 @@ export interface FieldBoxProps extends HTMLAttributes<HTMLDivElement> {
    * (앞 아이콘이 있으면 `--search-field-default-width`), date: `--date-field-default-width`.
    * 값이 없는 곳에서는 내용 폭 (예: SearchPanel 안 입력 200 · 검색 아이콘 입력 228 · 날짜 140)
    */
-  defaultWidth?: 'text' | 'date';
+  defaultWidth?: 'text' | 'date' | 'range';
   leading?: ReactNode;
   trailing?: ReactNode;
 }
@@ -69,6 +69,7 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
         multiline && styles.multiline,
         defaultWidth === 'text' && (leading ? styles.defaultSearch : styles.defaultText),
         defaultWidth === 'date' && styles.defaultDate,
+        defaultWidth === 'range' && styles.defaultRange,
         className,
       )}
     >

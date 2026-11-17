@@ -36,6 +36,11 @@ export interface SearchPanelProps extends Omit<
    * 팝업 안 조회 조건용 (권한 신청 현황 · 로그인 이력 · 권한 변경 이력 팝업). 접기 · 상세 검색 없음
    */
   variant?: 'card' | 'plain';
+  /**
+   * 안의 입력 · 셀렉트 기본 폭 (폭 · fullWidth를 주지 않았을 때). md(기본) 200 · lg 270.
+   * 앞 검색 아이콘 입력은 +28(228 · 298). 날짜 · 기간(264)은 그대로
+   */
+  fieldWidth?: 'md' | 'lg';
   /** 상세 검색 조건. 없으면 '상세 검색' 줄을 그리지 않는다 */
   detail?: ReactNode;
   /** 상세 검색 펼침 (controlled) */
@@ -67,6 +72,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       loading = false,
       actionsPlacement = 'header',
       variant = 'card',
+      fieldWidth = 'md',
       detail,
       expanded,
       defaultExpanded = false,
@@ -136,7 +142,12 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
           ref={ref}
           role="search"
           noValidate
-          className={clsx(styles.searchPanel, styles.plainPanel, className)}
+          className={clsx(
+            styles.searchPanel,
+            styles.plainPanel,
+            fieldWidth === 'lg' && styles.fieldWidthLg,
+            className,
+          )}
           onSubmit={handleSubmit}
         >
           {title !== null && (
@@ -156,7 +167,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
         ref={ref}
         role="search"
         noValidate
-        className={clsx(styles.searchPanel, className)}
+        className={clsx(styles.searchPanel, fieldWidth === 'lg' && styles.fieldWidthLg, className)}
         onSubmit={handleSubmit}
       >
         <div className={clsx(styles.card, hasDetail && styles.cardTop)}>

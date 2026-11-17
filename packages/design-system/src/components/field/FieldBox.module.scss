@@ -2,6 +2,7 @@
 @use 'mixins' as m;
 
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
+$field-date-range-width: 264px; // 기간(DateRangeField) 기본 폭 — 어디서나 고정 (사용자 확정, 빈 칸 안내 YYYY-MM-DD가 다 보이는 폭)
 $field-date-width: 148px; // 날짜(DateField) 기본 폭 — 어디서나 고정 (사용자 확정, 날짜를 골라도 줄지 않음)
 $field-padding-x-md: 14px;
 $field-padding-x-sm: t.$space-12;
@@ -97,6 +98,11 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
 
 .defaultDate:not(.fullWidth) {
   width: var(--date-field-default-width, #{$field-date-width});
+}
+
+// 기간: 폭 264 고정 (날짜 배치는 아래 .date 뒤)
+.defaultRange:not(.fullWidth) {
+  width: $field-date-range-width;
 }
 
 .md {
@@ -268,6 +274,15 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
 
 .box:has(.date) .separator {
   margin-inline: $field-date-gap;
+}
+
+// 기간 폭 고정일 때: 날짜는 글자 폭 그대로, 남는 폭은 달력 아이콘 앞으로 (가운데가 벌어지지 않게)
+.defaultRange:not(.fullWidth) .date {
+  flex: 0 1 auto; // 늘어나지 않음. 빈 칸 안내가 폭보다 길면 줄어듦
+}
+
+.defaultRange:not(.fullWidth) .trailing {
+  margin-inline-start: auto;
 }
 
 .filled {

@@ -72,6 +72,7 @@ function PermissionChangeBody() {
     <Stack>
       <SearchPanel
         variant="plain"
+        fieldWidth="lg"
         title="조회 조건"
         onSearch={result.search}
         onReset={result.reset}
