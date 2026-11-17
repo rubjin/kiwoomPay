@@ -45,7 +45,7 @@
 - 그룹: Introduction → Foundation → Components(단일 UI, 이름순) → Composites(Search · Result · Form · Feedback) → Layout → Patterns. 혼자 쓰면 Components, 여러 컴포넌트를 묶은 업무 부품이면 Composites, 화면 틀이면 Layout
 - 단일 컴포넌트는 스토리 `title: 'Components/<이름>'` + MDX `<Meta of={Stories} name="Guide" />`, 묶음은 `Components/<그룹>/<컴포넌트>` + `<Meta title="…/Guide" />`. 정렬은 `.storybook/preview.tsx` storySort
 - 코드 복사는 `.storybook/sourceTransform.ts`(배치용 div 제거 · prettier). 임의 작업 표시는 `parameters.tempWork` → 캔버스 배지
-- 이미지(로고 등)는 앱 자산을 Storybook이 주소로 읽음 — 디자인 시스템에 두지 않음
+- 이미지(로고 등)는 디자인 시스템에 두지 않고 내부관리자 앱 이미지를 import(`src/stories/systemAssets.ts` → `apps/internal-admin/src/assets/`). staticDirs 주소 방식은 쓰지 않음(개발 서버에서 404)
 
 ## 열린 질문
 
