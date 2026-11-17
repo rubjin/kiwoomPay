@@ -9,12 +9,13 @@ import { FavoriteEditModal } from './FavoriteEditModal';
 // KWPC0103 LNB. TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
 // 지금은 constants/menu.ts로 1 · 2depth만 그린다. 메뉴즐겨찾기 팝업도 이 폴더에 둔다.
 // 구성은 가이드(Figma LNB)와 같게: 맨 위 대시보드(1Depth 단독) → 업무 1Depth.
-// 메인 · 마이페이지 · 로그인은 LNB에 두지 않는다 — 메인 = 대시보드, 마이페이지 · 다운로드센터는 헤더에서 진입
+// 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB에 두지 않는다 — 메인 = 대시보드,
+// 마이페이지 · 다운로드센터는 헤더에서 진입, 시스템관리는 Figma LNB에 없음
 
 const DASHBOARD_ID = 'KWPC0101';
-const NOT_IN_LNB = new Set(['main', 'mypage', 'auth']);
+const NOT_IN_LNB = new Set(['main', 'mypage', 'auth', 'system']);
 
-// 1Depth 아이콘 (경로 첫 단계 기준). 시스템관리는 Figma에 없어 임의로 정함 (임의 작업)
+// 1Depth 아이콘 (경로 첫 단계 기준, Figma LNB)
 const DEPTH1_ICONS: Record<string, IconName> = {
   transaction: 'card-check',
   statistics: 'bar-chart',
@@ -22,7 +23,6 @@ const DEPTH1_ICONS: Record<string, IconName> = {
   operation: 'building',
   addon: 'archive',
   rm: 'shield-check',
-  system: 'setting',
 };
 
 const firstSegment = (path: string) => path.split('/')[1] ?? '';
