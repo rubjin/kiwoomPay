@@ -4,7 +4,7 @@ import { Badge } from '../../components/Badge';
 import { Button, TextButton } from '../../components/Button';
 import { DateField, SelectBox, TextField } from '../../components/field';
 import { Icon } from '../../components/Icon';
-import { PageLayout } from '../../components/layout';
+import { ControlGroup, PageLayout } from '../../components/layout';
 import { Checkbox, Radio, RadioGroup } from '../../components/selection';
 import { Modal } from '../../components/Modal';
 import { Tab } from '../../components/Tab';
@@ -55,17 +55,9 @@ export const RecordForm: Story = {
             </Badge>
           </>
         }
-      />
-      <FormSection
-        underTitle
-        tabs={
-          <Tab variant="title" defaultValue="a">
-            <Tab.Item value="a">사업자 정보 관리</Tab.Item>
-            <Tab.Item value="b">고객 확인 정보</Tab.Item>
-          </Tab>
-        }
-        tabActions={
-          <>
+        // 새로고침 · 저장은 화면 타이틀 줄 오른쪽 (타이틀과 같이 위에 고정)
+        actions={
+          <ControlGroup>
             <Button
               variant="neutral"
               appearance="line"
@@ -74,7 +66,16 @@ export const RecordForm: Story = {
               aria-label="새로고침"
             />
             <Button>저장</Button>
-          </>
+          </ControlGroup>
+        }
+      />
+      <FormSection
+        underTitle
+        tabs={
+          <Tab variant="title" defaultValue="a">
+            <Tab.Item value="a">사업자 정보 관리</Tab.Item>
+            <Tab.Item value="b">고객 확인 정보</Tab.Item>
+          </Tab>
         }
         collapsible
       >

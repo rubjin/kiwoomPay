@@ -111,6 +111,8 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
     <>
       <PageLayout.Title
         title="가맹점 기본/계약 정보 관리"
+        // 새로고침 · 저장은 화면 타이틀 줄 오른쪽 (타이틀과 같이 위에 고정)
+        actions={saveButtons}
         titleAddon={
           mode === 'edit' && (
             <>
@@ -142,7 +144,6 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
             <Tab.Item value="open">결제 오픈 현황</Tab.Item>
           </Tab>
         }
-        tabActions={saveButtons}
         collapsible
       >
         <FormGroup>

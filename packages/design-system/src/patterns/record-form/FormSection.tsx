@@ -130,8 +130,14 @@ const FormSectionRoot = forwardRef<HTMLElement, FormSectionProps>(
     return (
       // 탭이 있으면 className · style은 탭 + 카드 묶음에 준다
       <div
-        className={clsx(styles.tabbedGroup, underTitle && styles.underTitle, className)}
+        className={clsx(
+          styles.tabbedGroup,
+          underTitle && (tabActions ? styles.underTitle : styles.underTitleTabsOnly),
+          className,
+        )}
         style={style}
+        // 화면 타이틀이 고정될 때 타이틀 아래 덮는 폭을 탭 간격(10)에 맞추는 표시 (PageLayout)
+        data-under-title={underTitle || undefined}
       >
         <div className={styles.tabRow}>
           <div className={styles.tabs}>{tabs}</div>

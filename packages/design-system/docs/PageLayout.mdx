@@ -49,7 +49,7 @@ import { PageLayout, Lnb, WorkTab } from '@kiwoompay/design-system';
     </tr>
     <tr>
       <td>LNB</td>
-      <td>W 240 (접힘 48). 화면 높이에 고정, 본문만 스크롤</td>
+      <td>W 240 (접힘 48). 화면 높이에 고정 — 스크롤 영역(LNB 오른쪽) 밖이라 움직이지 않음</td>
       <td>
         <code>lnb</code> 슬롯 ← <code>Lnb</code>
       </td>
@@ -226,7 +226,7 @@ import { PageLayout, Lnb, WorkTab } from '@kiwoompay/design-system';
         <br />
         상세검색 확장 시 이후 Section Push Down
         <br />
-        페이지 본문(문서 스크롤)과 IBSheet Grid 스크롤을 구분
+        본문 스크롤(LNB 오른쪽 영역)과 IBSheet Grid 스크롤을 구분
         <br />
         화면별 구성 차이는 해당 화면설계서 적용
       </td>
@@ -278,6 +278,8 @@ import { PageLayout, Lnb, WorkTab } from '@kiwoompay/design-system';
 - 색: `page-layout/*` (`tokens/custom/page-layout.json`, 모두 Semantic alias). 높이 · 여백은 `PageLayout.module.scss` 맨 위 SCSS 변수. (`Bg/Page` Neutral 50 · `Bg/Surface` 흰색 확정)
 - 반응형(가맹점관리자 모바일 · 태블릿)은 시안이 없어 적용하지 않았습니다
 - Header · Footer 내용은 각 컴포넌트(시안 대기)로 제공 예정이며, 이 예시는 자리 표시입니다
-- Header · Work Tab 스크롤 고정(sticky) 여부는 시안에 없어 본문과 함께 스크롤됩니다
+- **스크롤**(사용자 결정): 화면 높이에 고정하고 LNB 오른쪽 영역만 스크롤합니다. Header · Work Tab · 화면 타이틀(`PageLayout.Title`)은 위에 고정되고 타이틀 아래부터 스크롤됩니다. LNB는 스크롤 영역 밖이라 끝까지 내려도 움직이지 않습니다
+- 최소 폭은 `contentMinWidth`(LNB 오른쪽 영역, 내부관리자 1680 = 1920 − 240) — 창이 좁으면 그 영역 안에서만 가로 스크롤
+- 화면명 줄 버튼(새로고침 · 저장 등)은 `PageLayout.Title actions`로 — 타이틀과 같이 고정. 제목 탭 바로 위(`FormSection underTitle`)에 버튼을 올리지 않는다
 - 실제 GUI의 검색 조건 카드는 제목 줄 오른쪽에 [새로고침] · [조회], 아래에 [상세 검색 ⌄]가 있어 Search 가이드(필드 줄 끝 버튼)와 배치가 다릅니다 — 확인 필요
 - 적용된 검색 조건 칩 · 조회 요약 카드는 Data Display 가이드에서 만들 예정입니다(예시는 자리 표시)

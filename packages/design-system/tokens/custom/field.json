@@ -197,6 +197,11 @@
     }
   },
   "Z-Index": {
+    "Sticky": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "화면 위쪽 고정 영역(Header · Work Tab · 화면 타이틀). 본문 위 · 드롭다운(1100) · 모달(1000) 아래"
+    },
     "Dropdown": {
       "$type": "number",
       "$value": 1100,

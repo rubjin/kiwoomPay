@@ -87,20 +87,36 @@ export function P02RecordFormPage() {
           </>
         }
         actions={
-          <>
-            <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('normal')}>
-              상세 팝업 (조회 전용)
-            </Button>
-            <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('error')}>
-              상세 팝업 (결제 오류)
-            </Button>
-            <Button variant="neutral" appearance="line" onClick={() => setComplaintOpen('empty')}>
-              민원 처리 팝업 (조회 + 입력)
-            </Button>
-            <Button variant="neutral" appearance="line" onClick={() => setComplaintOpen('history')}>
-              민원 처리 팝업 (접수정보 있음)
-            </Button>
-          </>
+          <ControlGroup spacing="lg">
+            <ControlGroup>
+              <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('normal')}>
+                상세 팝업 (조회 전용)
+              </Button>
+              <Button variant="neutral" appearance="line" onClick={() => setDetailOpen('error')}>
+                상세 팝업 (결제 오류)
+              </Button>
+              <Button variant="neutral" appearance="line" onClick={() => setComplaintOpen('empty')}>
+                민원 처리 팝업 (조회 + 입력)
+              </Button>
+              <Button
+                variant="neutral"
+                appearance="line"
+                onClick={() => setComplaintOpen('history')}
+              >
+                민원 처리 팝업 (접수정보 있음)
+              </Button>
+            </ControlGroup>
+            <ControlGroup>
+              <Button
+                variant="neutral"
+                appearance="line"
+                iconOnly
+                icon={<Icon name="refresh" size={20} />}
+                aria-label="새로고침"
+              />
+              <Button onClick={save}>저장</Button>
+            </ControlGroup>
+          </ControlGroup>
         }
       />
 
@@ -112,18 +128,6 @@ export function P02RecordFormPage() {
             <Tab.Item value="basic">기본 정보 관리</Tab.Item>
             <Tab.Item value="extra">부가 정보</Tab.Item>
           </Tab>
-        }
-        tabActions={
-          <>
-            <Button
-              variant="neutral"
-              appearance="line"
-              iconOnly
-              icon={<Icon name="refresh" size={20} />}
-              aria-label="새로고침"
-            />
-            <Button onClick={save}>저장</Button>
-          </>
         }
       >
         <FormGroup>

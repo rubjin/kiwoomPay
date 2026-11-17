@@ -576,6 +576,7 @@ $color-select-status-text: var(--kp-color-select-status-text);
 $color-select-spinner-track: var(--kp-color-select-spinner-track);
 $color-select-spinner-arc: var(--kp-color-select-spinner-arc);
 $color-select-scroll-thumb: var(--kp-color-select-scroll-thumb);
+$z-index-sticky: var(--kp-z-index-sticky); // 화면 위쪽 고정 영역(Header · Work Tab · 화면 타이틀). 본문 위 · 드롭다운(1100) · 모달(1000) 아래
 $z-index-dropdown: var(--kp-z-index-dropdown); // TODO(시안) z-index 체계 확정 필요. 드롭다운·달력 팝업은 body에 띄우므로 모달(1000)보다 위
 $z-index-modal: var(--kp-z-index-modal); // TODO(시안) z-index 체계 확정 필요. 드롭다운(100)보다 위
 $z-index-tooltip: var(--kp-z-index-tooltip); // TODO(시안) z-index 체계 확정 필요. 모달·드롭다운 안의 Info 아이콘도 덮도록 가장 위
@@ -1352,6 +1353,7 @@ $css-variables: (
   "--kp-color-select-spinner-track": "var(--kp-color-neutral-200)",
   "--kp-color-select-spinner-arc": "var(--kp-color-neutral-500)",
   "--kp-color-select-scroll-thumb": "var(--kp-color-neutral-300)",
+  "--kp-z-index-sticky": "10",
   "--kp-z-index-dropdown": "1100",
   "--kp-z-index-modal": "1000",
   "--kp-z-index-tooltip": "1200",

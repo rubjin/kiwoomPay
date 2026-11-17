@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { SectionHeading } from '../SectionHeading';
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode, type CSSProperties } from 'react';
 import styles from './PageLayout.module.scss';
 
 // ── PageLayout (App Shell) ──────────────────────────────────
@@ -15,19 +15,59 @@ export interface PageLayoutProps extends HTMLAttributes<HTMLDivElement> {
   workTabActions?: ReactNode;
   /** Footer (회사 정보). 높이 74 */
   footer?: ReactNode;
+  /**
+   * LNB 오른쪽 영역의 최소 폭 (px 숫자 또는 CSS 길이). 창이 좁으면 이 영역 안에서만 가로 스크롤된다 —
+   * 화면 전체(LNB 포함)가 밀리지 않는다. 예: 내부관리자 1680 (= 화면 1920 − LNB 240)
+   */
+  contentMinWidth?: number | string;
   /** Page Content: PageLayout.Title · PageLayout.Section을 위에서 아래로 쌓는다 */
   children: ReactNode;
 }
 
 /**
  * 공통 App Shell. 영역 배치와 여백만 정하고, 각 영역의 내용(LNB · Header · Work Tab · Footer)은 슬롯으로 받는다.
- * 페이지 본문은 문서 스크롤, LNB는 화면 높이에 고정된다. Grid(IBSheet8)는 자체 스크롤을 쓴다.
+ * 화면 높이에 고정하고 LNB 오른쪽 영역만 스크롤한다. Header · Work Tab · 화면 타이틀(PageLayout.Title)은 그 안에서 위에 고정 —
+ * 타이틀 아래부터 스크롤된다. LNB는 스크롤 영역 밖이라 움직이지 않는다.
+ * Grid(IBSheet8)는 자체 스크롤을 쓴다.
  */
 const PageLayoutRoot = forwardRef<HTMLDivElement, PageLayoutProps>(
-  ({ lnb, header, workTab, workTabActions, footer, className, children, ...rest }, ref) => (
-    <div {...rest} ref={ref} className={clsx(styles.shell, className)}>
+  (
+    {
+      lnb,
+      header,
+      workTab,
+      workTabActions,
+      footer,
+      contentMinWidth,
+      className,
+      style,
+      children,
+      ...rest
+    },
+    ref,
+  ) => (
+    <div
+      {...rest}
+      ref={ref}
+      className={clsx(styles.shell, className)}
+      style={
+        contentMinWidth === undefined
+          ? style
+          : ({
+              ...style,
+              '--page-layout-content-min-width':
+                typeof contentMinWidth === 'number' ? `${contentMinWidth}px` : contentMinWidth,
+            } as CSSProperties)
+      }
+    >
       {lnb && <aside className={styles.lnb}>{lnb}</aside>}
-      <div className={styles.main}>
+      <div
+        className={clsx(
+          styles.main,
+          header && styles.withHeader,
+          (workTab || workTabActions) && styles.withWorkTab,
+        )}
+      >
         {header && <header className={styles.header}>{header}</header>}
         {(workTab || workTabActions) && (
           <div className={styles.workTab}>

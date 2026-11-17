@@ -175,6 +175,11 @@ $rf-chip-gap: t.$space-4;
   margin-top: calc(#{$rf-title-tab-gap} - #{$rf-page-section-gap} - #{$rf-tab-row-rise});
 }
 
+// 탭 줄 버튼이 없으면(버튼은 화면 타이틀 actions로) 탭만 화면명 아래 10
+.underTitleTabsOnly {
+  margin-top: calc(#{$rf-title-tab-gap} - #{$rf-page-section-gap});
+}
+
 .tabRow {
   display: flex;
   align-items: flex-end;

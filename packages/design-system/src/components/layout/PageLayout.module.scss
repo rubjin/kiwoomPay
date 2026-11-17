@@ -9,7 +9,9 @@ $page-layout-footer-height: 74px; // Footer 높이 (1920 Layout Spec)
 $page-layout-padding-x: t.$space-24; // Page Content · Work Tab 좌우 여백 (1920 기준 Content W 1632)
 $page-layout-padding-y: t.$space-20; // Page Content 상단 여백 · Work Tab 위 여백
 $page-layout-section-gap: t.$space-12; // Page Title · Section 사이 간격
+$page-layout-title-tab-gap: 10px; // 화면명 ↔ 바로 아래 제목 탭 (FormSection underTitle, Figma KWPC07010101)
 $page-layout-title-height: t.$control-height-md; // Page Title 줄 높이 40
+$page-layout-title-zone: 72px; // 고정 타이틀 영역 = 위 여백 20 + 타이틀 40 + 아래 간격 12
 $page-layout-title-action-gap: t.$space-8; // Page Title 오른쪽 Action 간격 (측정)
 $page-layout-section-padding: t.$space-16; // Section 카드 안쪽 여백 (검색 조건 · 조회 결과)
 $page-layout-section-padding-compact: t.$space-12; // 한 줄 Section 안쪽 여백 (적용된 검색 조건 · 조회 요약)
@@ -17,28 +19,54 @@ $page-layout-section-header-gap: t.$space-8; // Section 제목 ↔ 제목 옆 �
 $page-layout-section-radius: t.$control-radius-lg;
 
 // ── App Shell ────────────────────────────────────────
+// 화면 높이에 고정하고 LNB 오른쪽(.main)만 스크롤한다 — LNB는 스크롤 영역 밖이라 끝까지 내려도 움직이지 않는다
+// (문서 스크롤 + sticky LNB는 가로 스크롤바가 생기면 끝에서 LNB가 밀려 올라갔다)
 .shell {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background-color: t.$color-page-layout-bg;
 }
 
-// LNB는 화면 높이에 고정하고 본문만 문서 스크롤
 .lnb {
-  position: sticky;
-  top: 0;
   flex: none;
-  height: 100vh;
+  height: 100%;
 }
 
+// 고정 영역 위치: 있는 영역(Header · Work Tab) 높이만큼 아래 영역의 top을 내린다
 .main {
+  --page-layout-header-offset: 0px;
+  --page-layout-work-tab-offset: 0px;
+
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
   min-width: 0;
+  height: 100%;
+  overflow: auto;
+
+  // scrollIntoView · 앵커 이동 시 고정 영역(Header · Work Tab · 화면 타이틀) 아래에 맞춘다
+  scroll-padding-top: calc(var(--page-layout-header-offset) + var(--page-layout-work-tab-offset) + #{$page-layout-title-zone});
 }
 
+// 최소 폭(contentMinWidth)은 이 영역의 줄들에 준다 — 좁으면 .main 안에서 가로 스크롤
+.main > * {
+  min-width: var(--page-layout-content-min-width, 0);
+}
+
+.withHeader {
+  --page-layout-header-offset: #{$page-layout-header-height};
+}
+
+.withWorkTab {
+  --page-layout-work-tab-offset: #{$page-layout-work-tab-height};
+}
+
+// Header · Work Tab · 화면 타이틀은 스크롤해도 위에 고정 (본문만 그 아래로 스크롤)
 .header {
+  position: sticky;
+  top: 0;
+  z-index: t.$z-index-sticky;
   flex: none;
   height: $page-layout-header-height;
   background-color: t.$color-page-layout-header-bg;
@@ -47,7 +75,11 @@ $page-layout-section-radius: t.$control-radius-lg;
 
 // Work Tab: 영역 60 = 위 여백 20 + Tab 40. 아래 선은 좌우 여백 안쪽에만 그린다
 .workTab {
+  position: sticky;
+  top: var(--page-layout-header-offset);
+  z-index: t.$z-index-sticky;
   flex: none;
+  background-color: t.$color-page-layout-bg;
   height: $page-layout-work-tab-height;
   padding: $page-layout-padding-y $page-layout-padding-x 0;
 }
@@ -87,11 +119,25 @@ $page-layout-section-radius: t.$control-radius-lg;
 }
 
 // ── Page Title ───────────────────────────────────────
+// 화면 타이틀 고정: 위 여백 20 · 아래 간격 12까지 배경으로 덮어, 스크롤한 본문이 타이틀 위아래로 비치지 않게 한다
+// (여백은 padding으로 덮고 같은 만큼 margin을 빼서 배치는 그대로)
 .pageTitle {
   --section-heading-gap: #{$page-layout-title-action-gap};
   --section-heading-actions-gap: #{$page-layout-title-action-gap};
 
-  min-height: $page-layout-title-height;
+  position: sticky;
+  top: calc(var(--page-layout-header-offset, 0px) + var(--page-layout-work-tab-offset, 0px));
+  z-index: t.$z-index-sticky;
+  min-height: calc(#{$page-layout-title-height} + #{$page-layout-padding-y} + #{$page-layout-section-gap});
+  padding: $page-layout-padding-y 0 $page-layout-section-gap;
+  margin: calc(-1 * #{$page-layout-padding-y}) 0 calc(-1 * #{$page-layout-section-gap});
+  background-color: t.$color-page-layout-bg;
+}
+
+// 바로 아래가 제목 탭(FormSection underTitle, 화면명 아래 10)이면 탭을 덮지 않게 10까지만
+.pageTitle:has(+ [data-under-title]) {
+  padding-bottom: $page-layout-title-tab-gap;
+  margin-bottom: calc(-1 * #{$page-layout-title-tab-gap});
 }
 
 // 제목 ↔ addon 12 (SectionHeading 줄 간격 8 + 4). 넘치면 addon이 먼저 준다
