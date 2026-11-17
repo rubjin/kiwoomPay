@@ -127,6 +127,7 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  └─ bizLookup.types.ts', '사업자 찾기 결과 타입'],
       ['├─ constants/'],
       ['│  ├─ menu.ts', 'MENUS — 화면ID ↔ 1 · 2depth ↔ 경로 (라우트 · DB 메뉴 url과 같아야 함)'],
+      ['│  ├─ menu3.ts', 'MENU3 — 3depth 메뉴(IA) · 경로 (없는 화면은 2depth 경로/번호 → 준비 중)'],
       ['│  ├─ screens.ts', 'SCREENS — 경로 ↔ 화면명 (브라우저 탭 제목)'],
       ['│  ├─ codes.ts', '공통코드 그룹 · 임시값 CODE_FALLBACK'],
       ['│  ├─ options/common.ts', 'Option 타입 · 전체(ALL_OPTION) · 시각'],

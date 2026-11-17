@@ -1,4 +1,5 @@
 import { MENUS } from './menu';
+import { menu3OfPath } from './menu3';
 
 // 화면 경로 ↔ 화면명. 브라우저 탭 제목(나중에 Work Tab 라벨)의 단일 출처.
 // 화면(3depth)을 만들면 라우트와 같은 경로로 한 줄 추가한다. 없는 경로는 2depth 메뉴 이름을 쓴다.
@@ -51,6 +52,8 @@ export function screenNameOf(pathname: string): string | null {
   const path = pathname.replace(/\/+$/, '') || '/';
   const screen = SCREENS.find((s) => s.path === path);
   if (screen) return screen.name;
+  const menu3 = menu3OfPath(path);
+  if (menu3) return menu3.name;
   const menu = MENUS.find((m) => path === m.path || path.startsWith(m.path + '/'));
   return menu?.depth2 ?? null;
 }

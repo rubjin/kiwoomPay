@@ -4,10 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { config } from '@/app/config';
 import logoLnb from '@/assets/logo/logo-lnb.svg';
 import { MENUS } from '@/constants/menu';
+import { menu3Of, menu3OfPath, menu3Path, MENU3 } from '@/constants/menu3';
 import { FavoriteEditModal } from './FavoriteEditModal';
 
 // KWPC0103 LNB. TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
-// 지금은 constants/menu.ts로 1 · 2depth만 그린다. 메뉴즐겨찾기 팝업도 이 폴더에 둔다.
+// 지금은 constants/menu.ts(1 · 2depth) + menu3.ts(3depth, IA)로 그린다. 메뉴즐겨찾기 팝업도 이 폴더에 둔다.
 // 구성은 가이드(Figma LNB)와 같게: 맨 위 대시보드(1Depth 단독) → 업무 1Depth.
 // 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB에 두지 않는다 — 메인 = 대시보드,
 // 마이페이지 · 다운로드센터는 헤더에서 진입, 시스템관리는 Figma LNB에 없음
@@ -47,7 +48,17 @@ export const lnbItems: LnbMenuItem[] = [
       (groups, m) => {
         const key = firstSegment(m.path);
         groups[key] ??= { id: key, label: m.depth1, icon: DEPTH1_ICONS[key], children: [] };
-        groups[key].children?.push({ id: m.id, label: m.depth2, href: hrefOf(m.path) });
+        const children = menu3Of(m.id).map((m3) => ({
+          id: m3.id,
+          label: m3.name,
+          href: hrefOf(menu3Path(m3)),
+        }));
+        // 3depth가 있으면 2depth는 접고 펼치는 묶음, 없으면 2depth가 화면
+        groups[key].children?.push(
+          children.length > 0
+            ? { id: m.id, label: m.depth2, children }
+            : { id: m.id, label: m.depth2, href: hrefOf(m.path) },
+        );
         return groups;
       },
       {},
@@ -58,9 +69,14 @@ export const lnbItems: LnbMenuItem[] = [
 export function Lnb() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const active = MENUS.find((m) => pathname.startsWith(m.path));
+  // 현재 화면: 3depth가 맞으면 3depth, 아니면 2depth
+  const activeId = menu3OfPath(pathname)?.id ?? MENUS.find((m) => pathname.startsWith(m.path))?.id;
   // TODO(API) 사용자 즐겨찾기 메뉴 (지금은 예시 · 화면 안에서만 유지)
-  const [favoriteIds, setFavoriteIds] = useState<string[]>(['KWPC0401', 'KWPC0601', 'KWPC0501']);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([
+    'KWPC040101',
+    'KWPC060102',
+    'KWPC050101',
+  ]);
   // 열 때마다 새로 그려 초안을 저장값으로 맞춘다
   const [editKey, setEditKey] = useState(0);
   const [editing, setEditing] = useState(false);
@@ -70,12 +86,13 @@ export function Lnb() {
       <LnbBase
         logo={<img src={logoLnb} alt="키움페이" width={125} height={23} />}
         items={lnbItems}
-        activeId={active?.id}
+        activeId={activeId}
         onNavigate={(item, event) => {
-          const menu = MENUS.find((m) => m.id === item.id);
-          if (!menu) return;
+          const menu3 = MENU3.find((m) => m.id === item.id);
+          const path = menu3 ? menu3Path(menu3) : MENUS.find((m) => m.id === item.id)?.path;
+          if (!path) return;
           event.preventDefault(); // 링크는 그대로 두고(새 탭 열기 등) 이동만 SPA로
-          navigate(menu.path);
+          navigate(path);
         }}
         favoriteIds={favoriteIds}
         onFavoriteEdit={() => {

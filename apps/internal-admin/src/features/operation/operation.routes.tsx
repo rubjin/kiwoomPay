@@ -1,7 +1,7 @@
 import { Navigate, Route } from 'react-router-dom';
 import { MENU } from '@/constants/menu';
 import { lazyPage } from '@/router/lazy';
-import { menuPlaceholderRoutes } from '@/router/placeholder';
+import { menuPlaceholderRoutes, remainingPlaceholderRoute } from '@/router/placeholder';
 
 // 07 운영관리
 // 화면을 만들면 placeholder 대신 lazy 페이지로 바꾼다 (transaction.routes.tsx 참고)
@@ -26,6 +26,7 @@ export const operationRoutes = (
       {/* KWPC07010101 가맹점 기본/계약 정보 관리: 신규등록 · 조회수정 */}
       <Route path="basic/new" element={<MerchantCreatePage />} />
       <Route path="basic/edit" element={<MerchantEditPage />} />
+      {remainingPlaceholderRoute('KWPC0701')}
     </Route>
     {menuPlaceholderRoutes('operation', [MENU.KWPC0701])}
   </Route>

@@ -1,7 +1,7 @@
 import { Navigate, Route } from 'react-router-dom';
 import { MENU } from '@/constants/menu';
 import { lazyPage } from '@/router/lazy';
-import { menuPlaceholderRoutes } from '@/router/placeholder';
+import { menuPlaceholderRoutes, remainingPlaceholderRoute } from '@/router/placeholder';
 
 // 06 정산내역
 // 화면을 만들면 placeholder 대신 lazy 페이지로 바꾼다
@@ -27,6 +27,7 @@ export const settlementRoutes = (
       <Route index element={<Navigate to="execute" replace />} />
       {/* KWPC06010201 가맹점 정산 실행/처리 */}
       <Route path="execute" element={<MerchantSettlementExecutePage />} />
+      {remainingPlaceholderRoute('KWPC0601')}
     </Route>
     {menuPlaceholderRoutes('settlement', [MENU.KWPC0601])}
   </Route>

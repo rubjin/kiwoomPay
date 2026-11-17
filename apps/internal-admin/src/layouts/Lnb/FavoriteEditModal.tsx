@@ -32,6 +32,8 @@ export function FavoriteEditModal({
 }: FavoriteEditModalProps) {
   const dialog = useDialog();
   const config = useConfigDraft(favoriteIds);
+  // Figma 메뉴 트리는 업무 1Depth부터 — 하위 메뉴 없는 1Depth(대시보드)는 즐겨찾기 대상이 아님
+  const pickerItems = items.filter((item) => item.children?.length);
 
   const save = useAction({
     run: () => wait(400), // TODO(API) 즐겨찾기 저장
@@ -55,7 +57,7 @@ export function FavoriteEditModal({
     <Modal open={open} onClose={save.loading ? undefined : close} size="lg">
       <Modal.Header title="즐겨찾기 편집" closeButton />
       <Modal.Body>
-        <FavoriteMenuPicker items={items} value={config.draft} onChange={config.setDraft} />
+        <FavoriteMenuPicker items={pickerItems} value={config.draft} onChange={config.setDraft} />
       </Modal.Body>
       <Modal.Footer>
         <Button

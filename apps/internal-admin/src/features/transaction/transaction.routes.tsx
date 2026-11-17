@@ -1,7 +1,7 @@
 import { Navigate, Route } from 'react-router-dom';
 import { MENU } from '@/constants/menu';
 import { lazyPage } from '@/router/lazy';
-import { menuPlaceholderRoutes } from '@/router/placeholder';
+import { menuPlaceholderRoutes, remainingPlaceholderRoute } from '@/router/placeholder';
 
 // 04 거래내역
 //   0401 통합 거래 및 예외 관리 → features/transaction/integrated/
@@ -20,6 +20,7 @@ export const transactionRoutes = (
       <Route index element={<Navigate to="list" replace />} />
       {/* KWPC04010100 통합 거래 내역 */}
       <Route path="list" element={<IntegratedTransactionPage />} />
+      {remainingPlaceholderRoute('KWPC0401')}
     </Route>
     {menuPlaceholderRoutes('transaction', [MENU.KWPC0401])}
   </Route>
