@@ -1006,7 +1006,7 @@
 - 화면 목록: KWPC01020000 헤더 완료 (남은 것: 세션 · 마스킹 · 알림 · 다운로드 건수 API, 마스킹 해제 사유 팝업(Q46), 전역 검색 결과 패널(Q35))
 
 ### 입력 · 셀렉트 폭 옵션 fieldWidth — 2026-11-17
-- 사용자 요청: 셀렉트 · 입력 컴포넌트에 같은 폭 옵션. HTML input의 width 속성과 겹치지 않게 SearchPanel과 같은 이름 `fieldWidth`: md 200 · lg 270 (토큰 `field/width/md` · `lg`, fullWidth가 우선)
+- 사용자 요청: 셀렉트 · 입력 컴포넌트에 같은 폭 옵션. HTML input의 width 속성과 겹치지 않게 SearchPanel과 같은 이름 `fieldWidth`: auto 값에 맞는 폭(시각 셀렉트 00:00 · 23:00 → 95, 2026-11-17 추가) · md 200 · lg 270 (토큰 `field/width/md` · `lg`, fullWidth가 우선)
 - 적용: TextField(SearchField · PasswordField · LookupField 포함) · SelectBox · MultiSelect · TableMultiSelect. TableMultiSelect도 다른 셀렉트처럼 감싸는 영역 기본 폭을 따르고 상자가 루트를 채움. SearchPanel 기본 폭 200 · lg 270도 같은 토큰(앞 검색 아이콘 입력 +28)
 - 날짜(DateField) · 기간(DateRangeField)은 고정 폭이라 옵션 없음. Field 스토리 FieldWidth · Field 가이드 1절
 - 이어서(같은 날): SearchPanel plain에 버튼 위치 분기 — 기본 inline(필드 줄 끝), `actionsPlacement="header"`면 제목 줄 오른쪽(클래스 `.plainHeader`, 제목 줄 높이 40). 스토리 Plain · PlainHeaderActions를 Modal 안에 그려 팝업 전용임을 표시. Figma 차이: 칸 사이 20 · 줄 사이 12 · 제목 ↔ 필드 12 → 검색 조건 규칙 16 유지. xl 팝업 4칸이면 기간 칸이 264보다 좁아 빈 칸 안내(YYYY-MM-DD) 끝이 잘림(확인 필요)

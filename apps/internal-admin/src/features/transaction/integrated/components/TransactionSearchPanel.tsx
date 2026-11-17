@@ -37,7 +37,6 @@ const DETAIL_FIELDS: [TextKey, string, string?][] = [
 ];
 
 /** 시각 선택 폭 (그 밖의 입력 · 셀렉트 · 날짜 · 퀵 기간 폭은 SearchPanel 기본값) */
-const TIME_WIDTH = { width: 96 };
 
 export interface TransactionSearchPanelProps {
   params: Params;
@@ -132,7 +131,7 @@ export function TransactionSearchPanel({
           />
           <SelectBox
             aria-label="시작 시각"
-            style={TIME_WIDTH}
+            fieldWidth="auto"
             options={START_TIMES}
             value={params.startTime}
             onChange={(startTime) => setParam('startTime', startTime)}
@@ -145,7 +144,7 @@ export function TransactionSearchPanel({
           />
           <SelectBox
             aria-label="종료 시각"
-            style={TIME_WIDTH}
+            fieldWidth="auto"
             options={END_TIMES}
             value={params.endTime}
             onChange={(endTime) => setParam('endTime', endTime)}

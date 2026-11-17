@@ -68,7 +68,7 @@ export interface MultiSelectProps extends Omit<
   name?: string;
   id?: string;
   fullWidth?: boolean;
-  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  /** 폭: auto 내용 폭(값에 맞게, 검색 조건 기본 폭 무시) · md 200 · lg 270 (fullWidth가 우선, 없으면 감싸는 영역의 기본 폭 또는 내용 폭) */
   fieldWidth?: FieldWidth;
 }
 
@@ -283,6 +283,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
       className={clsx(
         styles.root,
         fullWidth && styles.fullWidth,
+        fieldWidth === 'auto' && styles.widthAuto,
         fieldWidth === 'md' && styles.widthMd,
         fieldWidth === 'lg' && styles.widthLg,
         className,

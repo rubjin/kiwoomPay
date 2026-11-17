@@ -89,7 +89,7 @@ import { Field, TextField, SelectBox, DateRangeField } from '@kiwoompay/design-s
 
 ## 1. Size · Spec
 
-- `size`: `md`(기본, Default 40) · `sm`(Small 32) · `lg`(48, md와 글자 · 여백 같음 — 즐겨찾기 편집 검색 등 넓은 Modal 상단 검색). 폭은 기본적으로 내용 기준이고, 고정 폭이 필요하면 **`fieldWidth`**: `md` 200 · `lg` 270 (입력 TextField · SearchField · PasswordField · LookupField와 셀렉트 SelectBox · MultiSelect · TableMultiSelect 모두 같은 옵션, 토큰 `field/width`). 부모 폭을 채우려면 `fullWidth`(가장 우선). 인라인 `style={{ width }}` 대신 이 옵션을 씁니다. 날짜(DateField 148) · 기간(DateRangeField 264)은 고정 폭이라 옵션 없음
+- `size`: `md`(기본, Default 40) · `sm`(Small 32) · `lg`(48, md와 글자 · 여백 같음 — 즐겨찾기 편집 검색 등 넓은 Modal 상단 검색). 폭은 기본적으로 내용 기준이고, 폭 옵션 **`fieldWidth`**: `auto` 값에 맞는 폭(시각 셀렉트 00:00 등, 검색 조건 기본 폭 무시) · `md` 200 · `lg` 270 (입력 TextField · SearchField · PasswordField · LookupField와 셀렉트 SelectBox · MultiSelect · TableMultiSelect 모두 같은 옵션, 토큰 `field/width`). 부모 폭을 채우려면 `fullWidth`(가장 우선). 인라인 `style={{ width }}` 대신 이 옵션을 씁니다. 날짜(DateField 148) · 기간(DateRangeField 264)은 고정 폭이라 옵션 없음
 - 같은 줄에 Button과 놓을 때는 같은 size를 맞춥니다 (높이 40 / 32).
 
 <table>

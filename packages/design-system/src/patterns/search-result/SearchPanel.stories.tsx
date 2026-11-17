@@ -98,9 +98,10 @@ const payMethods = [
   { value: 'phone', label: '휴대폰' },
 ];
 
+// 시각은 정시 00:00 ~ 23:00 (앱 constants/options START_TIMES와 같은 형식)
 const hours = Array.from({ length: 24 }, (_, h) => {
-  const v = String(h).padStart(2, '0');
-  return { value: v, label: `${v}시` };
+  const v = `${String(h).padStart(2, '0')}:00`;
+  return { value: v, label: v };
 });
 
 const cpids = Array.from({ length: 12 }, (_, i) => ({
@@ -147,14 +148,24 @@ export const AllControls: Story = {
       <Field label="기준일">
         <DateField defaultValue="2026-08-31" />
       </Field>
-      {/* 일시: 날짜 + 시각 한 묶음 (ControlGroup, 사이 8) */}
+      {/* 일시: 날짜 + 시각 한 묶음 (ControlGroup, 사이 8). 시각 셀렉트는 값에 맞는 폭(fieldWidth="auto") */}
       <Field label="조회일시">
         <ControlGroup>
           <DateField defaultValue="2026-08-25" />
-          <SelectBox options={hours} defaultValue="00" aria-label="시작 시각" />
+          <SelectBox
+            fieldWidth="auto"
+            options={hours}
+            defaultValue="00:00"
+            aria-label="시작 시각"
+          />
           <span>~</span>
           <DateField defaultValue="2026-08-31" />
-          <SelectBox options={hours} defaultValue="23" aria-label="종료 시각" />
+          <SelectBox
+            fieldWidth="auto"
+            options={hours}
+            defaultValue="23:00"
+            aria-label="종료 시각"
+          />
         </ControlGroup>
       </Field>
       {/* 기간 + 퀵 기간 한 묶음 */}
