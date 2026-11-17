@@ -34,7 +34,7 @@ const save = useAction({
     setFavoriteIds(config.draft);
     setOpen(false);
   },
-  success: '즐겨찾기를 저장했습니다.',
+  success: '즐겨찾기 메뉴가 저장되었습니다.',
 });
 const close = async () => {
   if (config.dirty && !(await dialog.confirm('변경한 내용이 저장되지 않습니다. 닫을까요?'))) return;

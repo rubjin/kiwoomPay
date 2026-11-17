@@ -209,7 +209,7 @@ const DIALOG_GROUPS: { title: string; description: string; items: DialogExample[
     items: [
       { label: '비밀번호 변경', kind: 'alert', message: '비밀번호가 변경되었습니다.' },
       { label: '저장', kind: 'alert', message: '저장되었습니다.' },
-      { label: '즐겨찾기 저장', kind: 'alert', message: '즐겨찾기를 저장했습니다.' },
+      { label: '즐겨찾기 저장', kind: 'alert', message: '즐겨찾기 메뉴가 저장되었습니다.' },
       { label: '부분취소 요청', kind: 'alert', message: '부분취소를 요청했습니다.' },
       {
         label: '엑셀 다운로드 요청',

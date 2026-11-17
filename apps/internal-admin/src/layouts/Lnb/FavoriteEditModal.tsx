@@ -41,7 +41,7 @@ export function FavoriteEditModal({
       onSaved(config.draft);
       onClose();
     },
-    success: '즐겨찾기를 저장했습니다.',
+    success: '즐겨찾기 메뉴가 저장되었습니다.',
   });
 
   const close = async () => {
