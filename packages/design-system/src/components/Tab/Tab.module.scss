@@ -9,12 +9,13 @@ $tab-padding-x-sm: 10px; // Figma Tab/Line Small 여백 10
 $tab-gap: 0; // TODO(시안) Item 사이 간격 (Figma 예시는 Item 단독) — 여백 12가 간격 역할
 $tab-indicator-width: 2px; // Active 밑줄 두께
 $tab-count-gap: 6px; // Label ↔ Number Badge (측정)
-$tab-button-padding-x: 26px; // Figma Tab/Button md: 여백 16 + Content 10
+$tab-button-padding-x: t.$space-16; // Button Tab md 좌우 (사용자 확정 16, Figma 26에서 변경)
 $tab-button-padding-x-sm: t.$space-12; // Figma Tab/Button 설명 Small 여백 12
 $tab-button-radius: t.$control-radius-md;
 $tab-button-gap: t.$space-8; // TODO(시안) Button Tab 간격
 $tab-title-height: 34px; // Title Tab: 글자 영역 30 + 밑줄 4 (Figma Tab/Title)
-$tab-title-padding-x: 10px; // Figma Tab/Title Content padding
+$tab-title-padding-x: t.$space-12; // Title Tab 좌우 (사용자 확정 12, Figma 10에서 변경)
+$tab-title-label-min-width: 72px; // Title Tab 글자 영역 최소 폭 (사용자 확정) — 짧은 이름도 탭 폭이 같게
 $tab-title-indicator: 4px;
 $tab-title-gap: 0; // Figma KWPC07010101: Title Tab은 붙어 있음 (사업자 정보 관리 · 고객 확인 정보 · 결제 오픈 현황)
 
@@ -121,6 +122,11 @@ $tab-title-gap: 0; // Figma KWPC07010101: Title Tab은 붙어 있음 (사업자 
 
   height: $tab-title-height;
   padding: 0 $tab-title-padding-x $tab-title-indicator;
+}
+
+.title .label {
+  min-width: $tab-title-label-min-width;
+  text-align: center;
 }
 
 .title .active {
