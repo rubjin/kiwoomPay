@@ -637,7 +637,7 @@ $color-lnb-active-bg: var(--kp-color-lnb-active-bg);
 $color-lnb-active-text: var(--kp-color-lnb-active-text);
 $color-lnb-tab-text: var(--kp-color-lnb-tab-text);
 $color-lnb-tab-active: var(--kp-color-lnb-tab-active);
-$color-lnb-tab-divider: var(--kp-color-lnb-tab-divider); // View Tab 아래 선 (Figma Neutral 300)
+$color-lnb-tab-divider: var(--kp-color-lnb-tab-divider); // View Tab 아래 선 (Neutral 200, 사용자 확정)
 $color-lnb-count-bg: var(--kp-color-lnb-count-bg);
 $color-lnb-count-text: var(--kp-color-lnb-count-text);
 $color-lnb-highlight: var(--kp-color-lnb-highlight); // 검색어 일치 문자열
@@ -1394,7 +1394,7 @@ $css-variables: (
   "--kp-color-lnb-active-text": "var(--kp-color-primary-700)",
   "--kp-color-lnb-tab-text": "var(--kp-color-neutral-700)",
   "--kp-color-lnb-tab-active": "var(--kp-color-primary-500)",
-  "--kp-color-lnb-tab-divider": "var(--kp-color-line-default)",
+  "--kp-color-lnb-tab-divider": "var(--kp-color-line-subtle)",
   "--kp-color-lnb-count-bg": "var(--kp-color-primary-100)",
   "--kp-color-lnb-count-text": "var(--kp-color-primary-500)",
   "--kp-color-lnb-highlight": "var(--kp-color-primary-500)",

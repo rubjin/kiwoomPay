@@ -98,7 +98,7 @@ $lnb-favorite-icon-size: 16px; // 즐겨찾기 하트
   display: flex;
 }
 
-// 기본: 아래 선 1 (Neutral 300) · 활성: 밑줄 2 (Primary)
+// 기본: 아래 선 1 (Neutral 200) · 활성: 밑줄 2 (Primary)
 .tab {
   @include m.typography(typo-12-regular);
 

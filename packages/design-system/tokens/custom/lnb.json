@@ -65,8 +65,8 @@
     },
     "TabDivider": {
       "$type": "color",
-      "$value": "{Line.Default}",
-      "$description": "View Tab 아래 선 (Figma Neutral 300)"
+      "$value": "{Line.Subtle}",
+      "$description": "View Tab 아래 선 (Neutral 200, 사용자 확정)"
     },
     "CountBg": {
       "$type": "color",

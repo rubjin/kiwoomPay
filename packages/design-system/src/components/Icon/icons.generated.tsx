@@ -206,6 +206,11 @@ export const iconSet = {
     ),
   },
   'chevron-up-double': {
+    12: () => (
+      <>
+        <path d="M10 11L6 6.83333L2 11M10 5.16667L6 1L2 5.16667" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+      </>
+    ),
     24: () => (
       <>
         <path d="M17 18L12 13L7 18M17 11L12 6L7 11" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
