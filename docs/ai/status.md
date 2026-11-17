@@ -1003,3 +1003,9 @@
 - 앱 LNB 구성: 대시보드(단독 1Depth) → 거래내역 · 통계내역 · 정산내역 · 운영관리 · 부가서비스 · RM관리. 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB 밖
 - 화면 목록: KWPC01030000 LNB · KWPC01030001 즐겨찾기 편집 팝업 완료 (남은 것: 메뉴 · 즐겨찾기 API 연결)
 - 화면 목록: KWPC01020000 헤더 완료 (남은 것: 세션 · 마스킹 · 알림 · 다운로드 건수 API, 마스킹 해제 사유 팝업(Q46), 전역 검색 결과 패널(Q35))
+
+### 입력 · 셀렉트 폭 옵션 fieldWidth — 2026-11-17
+- 사용자 요청: 셀렉트 · 입력 컴포넌트에 같은 폭 옵션. HTML input의 width 속성과 겹치지 않게 SearchPanel과 같은 이름 `fieldWidth`: md 200 · lg 270 (토큰 `field/width/md` · `lg`, fullWidth가 우선)
+- 적용: TextField(SearchField · PasswordField · LookupField 포함) · SelectBox · MultiSelect · TableMultiSelect. TableMultiSelect도 다른 셀렉트처럼 감싸는 영역 기본 폭을 따르고 상자가 루트를 채움. SearchPanel 기본 폭 200 · lg 270도 같은 토큰(앞 검색 아이콘 입력 +28)
+- 날짜(DateField) · 기간(DateRangeField)은 고정 폭이라 옵션 없음. Field 스토리 FieldWidth · Field 가이드 1절
+

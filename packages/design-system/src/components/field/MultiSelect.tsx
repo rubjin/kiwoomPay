@@ -17,7 +17,13 @@ import { useControllableState, useFloatingPosition, useOutsideClick } from '../.
 import { mergeRefs } from '../../utils';
 import { Icon } from '../Icon';
 import { Checkbox } from '../selection/Checkbox';
-import { FieldContext, useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
+import {
+  FieldContext,
+  useFieldControl,
+  type FieldFeedback,
+  type FieldSize,
+  type FieldWidth,
+} from './fieldContext';
 import { FieldBox } from './FieldBox';
 import styles from './MultiSelect.module.scss';
 import { SearchField } from './SearchField';
@@ -62,6 +68,8 @@ export interface MultiSelectProps extends Omit<
   name?: string;
   id?: string;
   fullWidth?: boolean;
+  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  fieldWidth?: FieldWidth;
 }
 
 const textOf = (option: MultiSelectOption) =>
@@ -96,6 +104,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
     name,
     id,
     fullWidth,
+    fieldWidth,
     className,
     'aria-describedby': ariaDescribedBy,
     ...rest
@@ -271,7 +280,13 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, 
     <div
       {...rest}
       ref={mergeRefs(ref, rootRef)}
-      className={clsx(styles.root, fullWidth && styles.fullWidth, className)}
+      className={clsx(
+        styles.root,
+        fullWidth && styles.fullWidth,
+        fieldWidth === 'md' && styles.widthMd,
+        fieldWidth === 'lg' && styles.widthLg,
+        className,
+      )}
     >
       <FieldBox
         size={field.size}

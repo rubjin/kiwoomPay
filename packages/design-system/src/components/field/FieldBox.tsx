@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react';
-import type { FieldFeedback, FieldSize } from './fieldContext';
+import type { FieldFeedback, FieldSize, FieldWidth } from './fieldContext';
 import styles from './FieldBox.module.scss';
 
 // 모든 입력 컴포넌트(TextField, SelectBox, DateField …)가 공유하는 박스. 패키지 내부용이다.
@@ -18,6 +18,8 @@ export interface FieldBoxProps extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   readOnly?: boolean;
   fullWidth?: boolean;
+  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  fieldWidth?: FieldWidth;
   /** 포커스 스타일을 강제로 표시 (SelectBox가 열려 있을 때) */
   active?: boolean;
   /** 열린 SelectBox에서 스크롤·로딩·빈 상태일 때: 테두리 2px, 번짐 없음 */
@@ -42,6 +44,7 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
       disabled,
       readOnly,
       fullWidth,
+      fieldWidth,
       active,
       strong,
       multiline,
@@ -64,6 +67,8 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
         disabled && styles.disabled,
         readOnly && styles.readOnly,
         fullWidth && styles.fullWidth,
+        fieldWidth === 'md' && styles.widthMd,
+        fieldWidth === 'lg' && styles.widthLg,
         active && styles.active,
         strong && styles.strong,
         multiline && styles.multiline,

@@ -7,7 +7,12 @@ import {
 } from 'react';
 import { useControllableState } from '../../hooks';
 import { mergeRefs } from '../../utils';
-import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
+import {
+  useFieldControl,
+  type FieldFeedback,
+  type FieldSize,
+  type FieldWidth,
+} from './fieldContext';
 import { FieldBox, FieldIcon, FieldIconButton, FieldInput, FieldSuffix } from './FieldBox';
 import { ClearIcon } from './icons';
 
@@ -35,6 +40,8 @@ export interface TextFieldProps extends Omit<
   clearLabel?: string;
   /** 부모 폭을 꽉 채운다. 기본은 내용(입력 길이) 기준 */
   fullWidth?: boolean;
+  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  fieldWidth?: FieldWidth;
 }
 
 /** className · style은 바깥 박스에 적용되고, 나머지 속성은 input에 전달된다. */
@@ -53,6 +60,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
     onClear,
     clearLabel = '지우기',
     fullWidth,
+    fieldWidth,
     className,
     style,
     disabled,
@@ -105,6 +113,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
       disabled={field.disabled}
       readOnly={readOnly}
       fullWidth={fullWidth}
+      fieldWidth={fieldWidth}
       leading={leadingIcon}
       trailing={trailing}
       className={className}

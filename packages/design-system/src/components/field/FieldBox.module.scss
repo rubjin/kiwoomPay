@@ -100,6 +100,15 @@ $field-date-gap: t.$space-4; // Figma Date Field · Date Range Field: 날짜 ↔
   width: var(--date-field-default-width, #{$field-date-width});
 }
 
+// fieldWidth: md 200 · lg 270 (fullWidth가 우선, 감싸는 영역의 기본 폭보다 우선)
+.box.widthMd:not(.fullWidth) {
+  width: t.$field-width-md;
+}
+
+.box.widthLg:not(.fullWidth) {
+  width: t.$field-width-lg;
+}
+
 // 기간: 폭 264 고정 (날짜 배치는 아래 .date 뒤)
 .defaultRange:not(.fullWidth) {
   width: $field-date-range-width;

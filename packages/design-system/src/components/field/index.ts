@@ -1,6 +1,6 @@
 export { Field } from './Field';
 export type { FieldProps } from './Field';
-export type { FieldFeedback, FieldSize } from './fieldContext';
+export type { FieldFeedback, FieldSize, FieldWidth } from './fieldContext';
 export { TextField } from './TextField';
 export type { TextFieldProps } from './TextField';
 export { PasswordField } from './PasswordField';

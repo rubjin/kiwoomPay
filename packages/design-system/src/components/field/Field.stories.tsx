@@ -3,6 +3,8 @@ import type { CSSProperties } from 'react';
 import { DateField } from './DateField';
 import { DateRangeField } from './DateRangeField';
 import { Field } from './Field';
+import { MultiSelect } from './MultiSelect';
+import { SearchField } from './SearchField';
 import { SelectBox } from './SelectBox';
 import { TextArea } from './TextArea';
 import { TextField } from './TextField';
@@ -96,5 +98,33 @@ export const Disabled: Story = {
     <Field label="Label Text" disabled>
       <TextField defaultValue="비활성화" />
     </Field>
+  ),
+};
+
+/**
+ * 폭 옵션 fieldWidth — 입력 · 셀렉트 모두 같은 값: md 200 · lg 270 (토큰 field/width).
+ * fullWidth가 우선하고, 주지 않으면 내용 폭(검색 조건 안에서는 검색 조건 기본 폭)
+ */
+export const FieldWidth: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={col}>
+      {(['md', 'lg'] as const).map((w) => (
+        <div key={w} style={col}>
+          <Field label={`TextField ${w}`} labelWidth={160}>
+            <TextField fieldWidth={w} placeholder="입력해주세요" />
+          </Field>
+          <Field label={`SearchField ${w}`} labelWidth={160}>
+            <SearchField fieldWidth={w} placeholder="검색어" />
+          </Field>
+          <Field label={`SelectBox ${w}`} labelWidth={160}>
+            <SelectBox fieldWidth={w} options={industries} defaultValue="food" />
+          </Field>
+          <Field label={`MultiSelect ${w}`} labelWidth={160}>
+            <MultiSelect fieldWidth={w} options={industries} defaultValue={['food']} />
+          </Field>
+        </div>
+      ))}
+    </div>
   ),
 };

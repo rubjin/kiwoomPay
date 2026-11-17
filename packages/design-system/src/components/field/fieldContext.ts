@@ -1,6 +1,9 @@
 import { createContext, useContext } from 'react';
 
 /** sm 32 · md 40 · lg 48 (lg는 md와 글자 · 여백이 같고 높이만 크다) */
+/** 입력 · 셀렉트 폭 옵션: md 200 · lg 270 (fullWidth가 우선) */
+export type FieldWidth = 'md' | 'lg';
+
 export type FieldSize = 'sm' | 'md' | 'lg';
 export type FieldFeedback = 'positive' | 'negative';
 

@@ -117,6 +117,18 @@
         "$value": "20px",
         "$description": "Chevron · Calendar · Clear (전 size 공통)"
       }
+    },
+    "Width": {
+      "MD": {
+        "$type": "dimension",
+        "$value": "200px",
+        "$description": "fieldWidth=\"md\" — 입력 · 셀렉트 폭 (검색 조건 기본 폭과 같음, 사용자 확정)"
+      },
+      "LG": {
+        "$type": "dimension",
+        "$value": "270px",
+        "$description": "fieldWidth=\"lg\" — 입력 · 셀렉트 폭 (팝업 조회 조건, 사용자 확정)"
+      }
     }
   },
   "Shadow": {

@@ -14,7 +14,12 @@ import { createPortal } from 'react-dom';
 import { useControllableState, useFloatingPosition, useOutsideClick } from '../../hooks';
 import { mergeRefs } from '../../utils';
 import { Icon } from '../Icon';
-import { useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
+import {
+  useFieldControl,
+  type FieldFeedback,
+  type FieldSize,
+  type FieldWidth,
+} from './fieldContext';
 import { FieldBox } from './FieldBox';
 import styles from './SelectBox.module.scss';
 import { Spinner } from './Spinner';
@@ -50,6 +55,8 @@ export interface SelectBoxProps extends Omit<
   /** 라벨 연결용 id (트리거 버튼에 붙는다) */
   id?: string;
   fullWidth?: boolean;
+  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  fieldWidth?: FieldWidth;
 }
 
 /**
@@ -75,6 +82,7 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
     name,
     id,
     fullWidth,
+    fieldWidth,
     className,
     'aria-describedby': ariaDescribedBy,
     ...rest
@@ -142,7 +150,13 @@ export const SelectBox = forwardRef<HTMLDivElement, SelectBoxProps>((props, ref)
     <div
       {...rest}
       ref={mergeRefs(ref, rootRef)}
-      className={clsx(styles.root, fullWidth && styles.fullWidth, className)}
+      className={clsx(
+        styles.root,
+        fullWidth && styles.fullWidth,
+        fieldWidth === 'md' && styles.widthMd,
+        fieldWidth === 'lg' && styles.widthLg,
+        className,
+      )}
     >
       <FieldBox
         size={field.size}

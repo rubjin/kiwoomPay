@@ -13,7 +13,13 @@ import { createPortal } from 'react-dom';
 import { useControllableState, useFloatingPosition, useOutsideClick } from '../../hooks';
 import { Icon } from '../Icon';
 import { Checkbox } from '../selection/Checkbox';
-import { FieldContext, useFieldControl, type FieldFeedback, type FieldSize } from './fieldContext';
+import {
+  FieldContext,
+  useFieldControl,
+  type FieldFeedback,
+  type FieldSize,
+  type FieldWidth,
+} from './fieldContext';
 import { FieldBox } from './FieldBox';
 import { SearchField } from './SearchField';
 import styles from './TableMultiSelect.module.scss';
@@ -53,6 +59,8 @@ export interface TableMultiSelectProps<T> {
   feedback?: FieldFeedback;
   disabled?: boolean;
   fullWidth?: boolean;
+  /** 폭: md 200 · lg 270 (fullWidth가 우선, 없으면 내용 폭 또는 감싸는 영역의 기본 폭) */
+  fieldWidth?: FieldWidth;
   /** 패널 폭 (트리거보다 넓으면 트리거 오른쪽 끝에 맞춘다) */
   panelWidth?: CSSProperties['width'];
   open?: boolean;
@@ -96,6 +104,7 @@ export function TableMultiSelect<T>({
   feedback,
   disabled,
   fullWidth,
+  fieldWidth,
   panelWidth,
   open,
   defaultOpen = false,
@@ -197,14 +206,21 @@ export function TableMultiSelect<T>({
   return (
     <div
       ref={rootRef}
-      className={clsx(styles.root, fullWidth && styles.fullWidth, className)}
+      className={clsx(
+        styles.root,
+        fullWidth && styles.fullWidth,
+        fieldWidth === 'md' && styles.widthMd,
+        fieldWidth === 'lg' && styles.widthLg,
+        className,
+      )}
       style={style}
     >
       <FieldBox
         size={field.size}
         feedback={field.feedback}
         disabled={field.disabled}
-        fullWidth={fullWidth}
+        // 폭은 루트가 정한다 (fullWidth · fieldWidth · 검색 조건 기본 폭) — 상자는 루트를 채운다 (SelectBox와 같음)
+        fullWidth
         active={opened}
         onClick={() => !field.disabled && setOpen(!opened)}
       >
