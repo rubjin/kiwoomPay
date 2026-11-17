@@ -9,6 +9,7 @@ import { lazyPage } from '@/router/lazy';
 //   P03 Lookup → Apply → features/patterns/P03LookupApplyPage
 //   P04 Action → Feedback → features/patterns/P04ActionFeedbackPage
 //   팝업 모음 (앱 팝업을 화면별 버튼으로) → features/patterns/PopupsPage
+//   IBSheet 샘플 (테마별 그리드 · 달력 모양) → features/patterns/IbsheetSamplePage
 // 개발 서버에서만 등록한다 — 운영 빌드에서는 import.meta.env.DEV가 false라 라우트 · 페이지 chunk가 모두 빠진다
 
 function createPatternRoutes() {
@@ -34,6 +35,10 @@ function createPatternRoutes() {
   );
 
   const PopupsPage = lazyPage(() => import('@/features/patterns/PopupsPage'), 'PopupsPage');
+  const IbsheetSamplePage = lazyPage(
+    () => import('@/features/patterns/IbsheetSamplePage'),
+    'IbsheetSamplePage',
+  );
 
   return (
     <Route path="patterns">
@@ -44,6 +49,7 @@ function createPatternRoutes() {
       <Route path="lookup-apply" element={<P03LookupApplyPage />} />
       <Route path="action-feedback" element={<P04ActionFeedbackPage />} />
       <Route path="popups" element={<PopupsPage />} />
+      <Route path="ibsheet" element={<IbsheetSamplePage />} />
     </Route>
   );
 }
