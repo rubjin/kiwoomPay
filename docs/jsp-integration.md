@@ -139,6 +139,7 @@ npm으로는 공식 React 래퍼 `@ibsheet/react`(그리드)와 타입 `@ibsheet
 ```jsp
 <%-- 셸 JSP <head> : app.js보다 먼저 --%>
 <c:set var="ibsheet" value="${ctx}/static/ibsheet" />
+<link rel="stylesheet" href="${ibsheet}/css/default/main.css" />  <%-- 테마 (없으면 그리드 · 달력 크기 0). TODO KWP 테마 --%>
 <script src="${ibsheet}/ibleaders.js"></script>          <%-- 라이선스 (도메인별 발급) --%>
 <script src="${ibsheet}/ibsheet.js"></script>
 <script src="${ibsheet}/locale/ko.js"></script>

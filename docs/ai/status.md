@@ -99,3 +99,7 @@
 - 세 시스템 공용: `packages/design-system/vite.ibsheet.ts` `ibsheet()` — 폴더가 있으면 index.html에 스크립트(라이선스 → 본체 → ko → plugins 3개) 주입 · `/ibsheet/*` 응답, 없으면 아무것도 안 함(기본 Date Picker). 내부관리자 vite.config에 적용, index.html 주석 블록 삭제. 새 앱은 `ibsheet()`만 추가
 - `.gitignore`: `vendor/ibsheet/` · `vendor/ibsheet-docs/` (**git 제외**). `vendor/README.md`만 git에 올림
 - 검증: 앱 tsc, 개발 서버(5173) index.html에 스크립트 6개 · `/ibsheet/*`(js · css · jszip) 200. 브라우저에서 `window.IBSheet` · 라이선스(localhost) · 달력 동작은 아직 확인하지 않음
+- 실제 IBSheet로 확인(같은 날, 헤드리스 Chrome 1920): `window.IBSheet` 로드 · 라이선스 경고 없음(localhost). 테마 CSS가 없으면 달력이 크기 0으로 그려져 `css/default/main.css`(기본 테마, Prefix IB)를 `ibsheet()`가 함께 넣음 — 셸 JSP 예시에도 추가, TODO KWP 테마(토큰 색 · 글자). 달력 위치는 필드 아래 8 · 왼쪽 맞춤(문서 좌표 기준 맞음)
+- 단일 날짜(통합 거래내역 시작일): 날짜를 누르면 바로 값 반영 · 닫힘
+- 기간(다운로드 센터 요청일): IBSheet Range는 **드래그로 고르고 [선택]**(날짜를 누르면 하나씩 추가되는 방식). 기존 기간을 미리 선택(Date)하면 새로 고른 기간과 섞여 첫 구간(옛 시작일)만 들어가던 문제 → 기간 모드는 미리 선택하지 않고, 돌려받은 날짜 전체의 가장 이른 날 ~ 가장 늦은 날을 기간으로(두 날짜를 각각 눌러도 그 사이). 드래그 4 → 13 · [선택] → 2026-11-04 ~ 2026-11-13 확인
+- 남은 확인: 기간 달력을 열 때 현재 기간이 표시되지 않음(이번 달로 열림), 기본 테마 모양이 디자인 시스템과 다름, 최대 기간 초과 안내 방식

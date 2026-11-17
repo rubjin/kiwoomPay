@@ -38,8 +38,8 @@ export function createIbsheetCalendarAdapter(): CalendarAdapter | null {
 
       const calOption: IBCalendar & Record<string, unknown> = {
         Format: FORMAT,
-        Date:
-          options.mode === 'single' ? options.value || undefined : options.value.start || undefined,
+        // 기간 모드는 미리 선택하지 않는다 — Date를 주면 그 날이 선택된 채로 남아 새로 고른 기간과 섞인다 (실제 IBSheet 확인)
+        Date: options.mode === 'single' ? options.value || undefined : undefined,
         Range: options.mode === 'range' ? 1 : 0,
         Texts: { Ok: '선택', Clear: '지우기', Today: '오늘', Yesterday: '어제' },
         // 선택 가능 기간 (min · max)
@@ -59,11 +59,16 @@ export function createIbsheetCalendarAdapter(): CalendarAdapter | null {
           options.onSelect(toDate(ibsheet, value));
           return;
         }
-        // Range: "시작ms~종료ms" (여러 구간이면 ';'로 이어짐 → 첫 구간만 사용)
-        const [first = ''] = String(value).split(';');
-        const [startMs, endMs = startMs] = first.split('~');
-        if (!startMs) return;
-        const range: DateRange = { start: toDate(ibsheet, startMs), end: toDate(ibsheet, endMs!) };
+        // Range: 드래그 · 클릭한 날짜들 "ms;시작ms~종료ms;…" → 가장 이른 날 ~ 가장 늦은 날
+        // (두 날짜를 각각 눌러도 그 사이가 기간이 된다)
+        const all = String(value)
+          .split(/[;~]/)
+          .map(Number)
+          .filter((n) => Number.isFinite(n) && n > 0);
+        if (all.length === 0) return;
+        const startMs = Math.min(...all);
+        const endMs = Math.max(...all);
+        const range: DateRange = { start: toDate(ibsheet, startMs), end: toDate(ibsheet, endMs) };
         if (options.maxRangeDays) {
           const days = Math.round((Number(endMs) - Number(startMs)) / DAY) + 1;
           // TODO(IBSheet): 최대 기간 초과 안내 방식(얼럿 · 필드 피드백)은 화면 정책으로 정함

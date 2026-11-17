@@ -20,6 +20,10 @@ const SCRIPTS = [
   'plugins/ibsheet-excel.js',
 ];
 
+// 테마 CSS — 없으면 그리드 · 달력이 크기 0으로 그려진다. 기본 테마(Prefix IB).
+// TODO(IBSheet 테마): 토큰 색 · 글자를 입힌 KWP 테마로 바꾼다 (표 테두리 규칙: 칸 사이 세로선, 양 끝 없음)
+const STYLES = ['css/default/main.css'];
+
 const TYPES: Record<string, string> = {
   '.js': 'text/javascript',
   '.css': 'text/css',
@@ -54,11 +58,18 @@ export function ibsheet(): Plugin {
     },
     transformIndexHtml() {
       if (!installed) return [];
-      return SCRIPTS.map((src) => ({
-        tag: 'script',
-        attrs: { src: URL_PREFIX + src },
-        injectTo: 'head' as const,
-      }));
+      return [
+        ...STYLES.map((href) => ({
+          tag: 'link',
+          attrs: { rel: 'stylesheet', href: URL_PREFIX + href },
+          injectTo: 'head' as const,
+        })),
+        ...SCRIPTS.map((src) => ({
+          tag: 'script',
+          attrs: { src: URL_PREFIX + src },
+          injectTo: 'head' as const,
+        })),
+      ];
     },
   };
 }
