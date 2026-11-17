@@ -19,7 +19,7 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['├─ docs/'],
       ['│  ├─ ai/brief.md', '작업 지시 원본 (기술 스택 · 설계 원칙 · 커밋 형식)'],
       ['│  ├─ ai/status.md', '현재 단계 · 확정 결정 · 문서 지도 — 매 세션 자동, brief보다 우선'],
-      ['│  ├─ ai/log/', '영역별 열린 질문 · 작업 기록 — 그 영역을 작업할 때만 읽는다'],
+      ['│  ├─ ai/log/', '영역별 참조 · 열린 질문 — 그 영역을 작업할 때만 읽는다(완료 내역 없음)'],
       ['│  ├─ ai/references/', '디자인 없이 기획서로 개발할 때 따르는 참조 기준 (이미지 + 설명)'],
       ['│  ├─ ai/page-patterns-plan.md', '페이지 패턴 P01 ~ P08 설계 · 확정 결정'],
       ['│  ├─ token-workflow.md', '토큰 변경 절차 (JSON → build-tokens)'],

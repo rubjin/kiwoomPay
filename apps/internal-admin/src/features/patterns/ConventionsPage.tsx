@@ -269,7 +269,7 @@ const CONVENTIONS: RuleGroup[] = [
       },
       {
         item: '결정 기록',
-        rule: '확정 결정 · 현재 단계는 docs/ai/status.md(status의 확정 결정이 brief보다 우선), 작업 기록 · 열린 질문은 영역별 docs/ai/log/<영역>.md',
+        rule: '확정 결정 · 현재 단계는 docs/ai/status.md(status의 확정 결정이 brief보다 우선), 참조(앞으로 필요한 기준 · 가정) · 열린 질문은 영역별 docs/ai/log/<영역>.md — 완료 내역은 남기지 않음(git log)',
       },
       {
         item: '개발 전용 페이지',

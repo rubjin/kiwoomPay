@@ -9,4 +9,4 @@ brief의 "7. 진행 방식 > Phase 4"를 수행한다. 대상: $ARGUMENTS (비�
 - Chart 라이브러리가 미정이면 이유·대안을 제시하고 확인받은 뒤 진행한다.
 - 반응형 대상(Header, LNB/CompactNavigation, PageLayout, Grid, Table류)은 `respond-to` mixin을 쓰고, 모바일 시안이 없으면 필요한 동작만 정리해 요청한다.
 
-끝나면 "만든 것 / 한 가정 / 다음 할 일"을 요약하고 `docs/ai/status.md` "기록 규칙"대로 갱신하고(작업 기록 · 열린 질문은 `docs/ai/log/<영역>.md`) 커밋 메시지를 작성(brief 8번, 커밋은 실행하지 않음)한 뒤 사용자 확인을 기다린다.
+끝나면 "만든 것 / 한 가정 / 다음 할 일"을 요약하고 `docs/ai/status.md` "기록 규칙"대로 갱신하고(참조 · 열린 질문은 `docs/ai/log/<영역>.md`, 앞으로 참조할 것만) 커밋 메시지를 작성(brief 8번, 커밋은 실행하지 않음)한 뒤 사용자 확인을 기다린다.
