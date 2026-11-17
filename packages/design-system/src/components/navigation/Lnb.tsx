@@ -463,8 +463,12 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
                 onClick={() => setOpenIds(anyOpen ? new Set() : new Set(branchIds))}
               >
                 {anyOpen ? '모두 접기' : '모두 펼침'}
-                <span className={clsx(styles.chevron, styles.muted)} aria-hidden="true">
-                  <Icon name={anyOpen ? 'chevron-up-double' : 'chevron-down-double'} size={12} />
+                {/* TODO(아이콘): Chevron-down-double 12가 없어 up-double 12를 뒤집어 씀 — 받으면 chevron-down-double로 */}
+                <span
+                  className={clsx(styles.chevron, styles.muted, !anyOpen && styles.flip)}
+                  aria-hidden="true"
+                >
+                  <Icon name="chevron-up-double" size={12} />
                 </span>
               </button>
             )}
