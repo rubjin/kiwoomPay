@@ -63,7 +63,7 @@ const find = async () => {
 const addressLookup = useLookup<AddressItem>();
 const picked = await addressLookup.open(); // AddressItem | null
 
-<LookupField readOnly findLabel="주소 검색" inputWidth={200} value={address?.zipCode ?? ''} onFind={findAddress} />
+<LookupField readOnly findLabel="주소 검색" fieldWidth="md" value={address?.zipCode ?? ''} onFind={findAddress} />
 <TextField readOnly value={address?.roadAddress ?? ''} />
 <TextField placeholder="상세주소를 입력해주세요" />
 ```

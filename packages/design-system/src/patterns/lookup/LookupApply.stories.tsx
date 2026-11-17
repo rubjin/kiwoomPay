@@ -475,7 +475,7 @@ export const LookupApply: Story = {
                   <LookupField
                     readOnly
                     findLabel="주소 검색"
-                    inputWidth={200}
+                    fieldWidth="md"
                     placeholder="우편번호"
                     value={address?.zipCode ?? ''}
                     onFind={findAddress}

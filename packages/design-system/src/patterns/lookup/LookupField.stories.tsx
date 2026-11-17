@@ -44,7 +44,7 @@ export const WithField: Story = {
       <Field label="사업자번호">
         <LookupField
           placeholder="사업자번호를 입력해주세요"
-          inputWidth={210}
+          fieldWidth="md"
           value={value}
           onChange={setValue}
           onFind={() => setValue('123-45-67890')}

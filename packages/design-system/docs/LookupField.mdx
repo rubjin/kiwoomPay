@@ -10,7 +10,7 @@ import * as Stories from '../src/patterns/lookup/LookupField.stories';
 
 - `onFind`: 팝업을 연다. 팝업에서 고른 값을 `value`에 넣는 것은 화면이 한다
 - 팝업을 **취소하거나 결과가 없으면 값은 그대로** 둔다
-- 크기 sm · md · lg — [찾기] 버튼이 같은 높이로 따라간다. `inputWidth`로 입력 폭 지정
+- 크기 sm · md · lg — [찾기] 버튼이 같은 높이로 따라간다. 입력 폭은 `fieldWidth`(`auto` 값에 맞게 · `md` 200 · `lg` 270, 인라인 폭 금지)
 
 <Canvas of={Stories.Sizes} />
 <Canvas of={Stories.WithField} />

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, type ChangeEvent, type CSSProperties, type ReactNode } from 'react';
+import { forwardRef, type ChangeEvent, type ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { TextField, type TextFieldProps } from '../../components/field';
 import { Icon } from '../../components/Icon';
@@ -12,12 +12,11 @@ export interface LookupFieldProps extends Omit<TextFieldProps, 'leadingIcon' | '
   findLabel?: ReactNode;
   /** 직접 입력 */
   onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
-  /** 입력 박스 폭 (기본: 글자 폭) */
-  inputWidth?: CSSProperties['width'];
 }
 
 /**
  * P03 Lookup → Apply의 호출 필드: 검색 아이콘 입력 + [찾기].
+ * 입력 폭은 fieldWidth(auto · md 200 · lg 270) — 인라인 폭을 주지 않는다.
  * 직접 입력도 되고, [찾기]로 팝업에서 골라 채울 수도 있다. 팝업을 취소하면 값은 그대로 둔다.
  *
  * ```tsx
@@ -27,10 +26,7 @@ export interface LookupFieldProps extends Omit<TextFieldProps, 'leadingIcon' | '
  * ```
  */
 export const LookupField = forwardRef<HTMLInputElement, LookupFieldProps>(
-  (
-    { onFind, findLabel = '찾기', onChange, inputWidth, size, disabled, className, style, ...rest },
-    ref,
-  ) => (
+  ({ onFind, findLabel = '찾기', onChange, size, disabled, className, style, ...rest }, ref) => (
     <span className={clsx(styles.lookupField, className)} style={style}>
       <TextField
         {...rest}
@@ -38,7 +34,6 @@ export const LookupField = forwardRef<HTMLInputElement, LookupFieldProps>(
         size={size}
         disabled={disabled}
         leadingIcon={<Icon name="search" size={size === 'sm' ? 16 : 20} />}
-        style={{ width: inputWidth }}
         onChange={(event) => onChange?.(event.target.value, event)}
       />
       <Button
