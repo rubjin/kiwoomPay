@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import { devScopedName } from './vite.source_bak';
+import { devScopedName } from './vite.source';
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
