@@ -85,7 +85,7 @@ export const ColSpan: Story = {
           <Checkbox label="사업장 주소와 동일" />
           <InlineLabel>우편번호</InlineLabel>
           <ControlGroup>
-            <TextField style={{ width: 72 }} defaultValue="46757" />
+            <TextField fieldWidth="xs" defaultValue="46757" />
             <Button variant="neutral" appearance="line">
               찾기
             </Button>

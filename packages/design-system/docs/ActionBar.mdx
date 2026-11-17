@@ -9,7 +9,7 @@ import * as Stories from '../src/components/display/ActionBar.stories';
 
 ```tsx
 <ActionBar label="취소사유">
-  <TextField size="sm" placeholder="취소사유 입력" style={{ width: 200 }} />
+  <TextField size="sm" placeholder="취소사유 입력" fieldWidth="md" />
   <RadioGroup size="sm" direction="horizontal" value={type} onChange={setType}>
     <Radio value="normal" label="일반취소" />
     <Radio value="offset" label="상계취소" />

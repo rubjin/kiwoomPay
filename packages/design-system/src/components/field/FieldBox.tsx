@@ -18,7 +18,7 @@ export interface FieldBoxProps extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   readOnly?: boolean;
   fullWidth?: boolean;
-  /** 폭: auto 내용 폭(값에 맞게, 검색 조건 기본 폭 무시) · md 200 · lg 270 (fullWidth가 우선, 없으면 감싸는 영역의 기본 폭 또는 내용 폭) */
+  /** 폭: auto 내용 폭(값에 맞게, 검색 조건 기본 폭 무시) · xs 72(우편번호) · md 200 · lg 270 (fullWidth가 우선, 없으면 감싸는 영역의 기본 폭 또는 내용 폭) */
   fieldWidth?: FieldWidth;
   /** 포커스 스타일을 강제로 표시 (SelectBox가 열려 있을 때) */
   active?: boolean;
@@ -68,6 +68,7 @@ export const FieldBox = forwardRef<HTMLDivElement, FieldBoxProps>(
         readOnly && styles.readOnly,
         fullWidth && styles.fullWidth,
         fieldWidth === 'auto' && styles.widthAuto,
+        fieldWidth === 'xs' && styles.widthXs,
         fieldWidth === 'md' && styles.widthMd,
         fieldWidth === 'lg' && styles.widthLg,
         active && styles.active,

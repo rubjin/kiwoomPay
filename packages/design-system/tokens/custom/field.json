@@ -119,6 +119,11 @@
       }
     },
     "Width": {
+      "XS": {
+        "$type": "dimension",
+        "$value": "72px",
+        "$description": "fieldWidth=\"xs\" — 우편번호(5자리) 등 짧은 값 (사용자 확정 72)"
+      },
       "MD": {
         "$type": "dimension",
         "$value": "200px",

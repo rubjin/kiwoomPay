@@ -59,7 +59,7 @@ export interface TableMultiSelectProps<T> {
   feedback?: FieldFeedback;
   disabled?: boolean;
   fullWidth?: boolean;
-  /** 폭: auto 내용 폭(값에 맞게, 검색 조건 기본 폭 무시) · md 200 · lg 270 (fullWidth가 우선, 없으면 감싸는 영역의 기본 폭 또는 내용 폭) */
+  /** 폭: auto 내용 폭(값에 맞게, 검색 조건 기본 폭 무시) · xs 72(우편번호) · md 200 · lg 270 (fullWidth가 우선, 없으면 감싸는 영역의 기본 폭 또는 내용 폭) */
   fieldWidth?: FieldWidth;
   /** 패널 폭 (트리거보다 넓으면 트리거 오른쪽 끝에 맞춘다) */
   panelWidth?: CSSProperties['width'];
@@ -210,6 +210,7 @@ export function TableMultiSelect<T>({
         styles.root,
         fullWidth && styles.fullWidth,
         fieldWidth === 'auto' && styles.widthAuto,
+        fieldWidth === 'xs' && styles.widthXs,
         fieldWidth === 'md' && styles.widthMd,
         fieldWidth === 'lg' && styles.widthLg,
         className,

@@ -26,9 +26,13 @@ $select-status-min-height: 174px; // Figma Loading · Empty 패널 174
   width: var(--field-default-width, auto);
 }
 
-// fieldWidth: auto 내용 폭 · md 200 · lg 270 (fullWidth가 우선, 감싸는 영역의 기본 폭보다 우선)
+// fieldWidth: auto 내용 폭 · xs 72 · md 200 · lg 270 (fullWidth가 우선, 감싸는 영역의 기본 폭보다 우선)
 .root.widthAuto:not(.fullWidth) {
   width: auto;
+}
+
+.root.widthXs:not(.fullWidth) {
+  width: t.$field-width-xs;
 }
 
 .root.widthMd:not(.fullWidth) {

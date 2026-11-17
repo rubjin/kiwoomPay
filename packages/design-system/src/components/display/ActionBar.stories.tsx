@@ -29,7 +29,7 @@ export const CancelReason: Story = {
             placeholder="취소사유 입력"
             value={reason}
             onChange={(event) => setReason(event.target.value)}
-            style={{ width: 200 }}
+            fieldWidth="md"
             aria-label="취소사유"
           />
           <RadioGroup
