@@ -190,6 +190,12 @@ const CONVENTIONS: RuleGroup[] = [
         example: '<Modal.Section title="상태 변경 이력" gap={8}>…</Modal.Section>',
       },
       {
+        item: '조회 조건',
+        rule: '팝업 안 조회 조건은 박스 없는 스타일: SearchPanel variant="plain" fieldWidth="lg" (카드 · 회색 상자 없음, [조회] Neutral, 입력 · 셀렉트 270). 화면 본문 검색은 기본 카드. 필드에 style 폭을 주지 않는다',
+        example:
+          '<SearchPanel variant="plain" fieldWidth="lg" title="조회 조건" onSearch={…} onReset={…}>',
+      },
+      {
         item: '하단 버튼',
         rule: 'Modal Footer 버튼은 항상 lg 48 (Figma에 40으로 그려져 있어도 48)',
       },
