@@ -418,3 +418,20 @@ $sr-grid-cell-padding-x: t.$space-12;
 .gridRowSelected > .gridCell {
   background-color: t.$color-search-result-grid-row-selected;
 }
+
+// maxHeight: 표 안에서 스크롤 · 머리 고정. collapse 테두리는 sticky 칸에 붙어 가지 않아 separate로
+// (칸마다 아래 · 오른쪽 선만 있어 겹치는 선이 없다)
+.gridScroll {
+  overflow: auto;
+}
+
+.gridScroll .gridTable {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.gridScroll .gridHead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

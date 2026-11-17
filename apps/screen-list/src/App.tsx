@@ -176,7 +176,13 @@ export function App() {
           </Segmented>
         }
       >
-        <GridPlaceholder columns={columnsOf(current.url)} rows={rows} rowKey={rowKey} />
+        {/* 표 안에서 스크롤 · 머리 고정 — 화면 높이에서 위 영역 · Total 줄을 뺀 만큼 */}
+        <GridPlaceholder
+          columns={columnsOf(current.url)}
+          rows={rows}
+          rowKey={rowKey}
+          maxHeight="max(320px, calc(100vh - 420px))"
+        />
       </ResultPanel>
 
       <ResultFooter total={rows.length} />

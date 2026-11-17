@@ -34,6 +34,11 @@ export interface GridPlaceholderProps<T> {
   isRowSelectable?: (row: T) => boolean;
   /** 행이 없을 때. 글자면 행 높이 한 줄 가운데 안내, 요소면 그대로 (예: LookupSearchEmpty) */
   empty?: ReactNode;
+  /**
+   * 최대 높이(px 또는 CSS 값, 예: 'calc(100vh - 400px)'). 주면 표 안에서 위아래 · 좌우 스크롤하고 머리(th)가 고정된다
+   * — 없으면 행 수만큼 늘어나고 가로 스크롤만
+   */
+  maxHeight?: number | string;
   className?: string;
   style?: CSSProperties;
 }
@@ -52,6 +57,7 @@ export function GridPlaceholder<T>({
   onSelectionChange,
   isRowSelectable,
   empty,
+  maxHeight,
   className,
   style,
 }: GridPlaceholderProps<T>) {
@@ -88,7 +94,10 @@ export function GridPlaceholder<T>({
     );
 
   return (
-    <div className={clsx(styles.grid, className)} style={style}>
+    <div
+      className={clsx(styles.grid, maxHeight !== undefined && styles.gridScroll, className)}
+      style={maxHeight !== undefined ? { maxHeight, ...style } : style}
+    >
       <table className={styles.gridTable}>
         <thead>
           <tr>
