@@ -5,6 +5,7 @@ import {
   DateRangeField,
   Field,
   GridPlaceholder,
+  Stack,
   Icon,
   MultiSelect,
   PageLayout,
@@ -21,6 +22,7 @@ import {
   useSearchResult,
   useLookup,
 } from '@kiwoompay/design-system';
+import { IbsheetGrid } from '@kiwoompay/design-system/ibsheet';
 import { useState } from 'react';
 import { fetchSettlementLedgers } from '@/features/settlement/merchantSettlement.api';
 import { BizFinderModal } from '@/components/popups/BizFinderModal';
@@ -268,14 +270,25 @@ export function MerchantSettlementExecutePage() {
         }
       >
         {/* TODO(IBSheet) IBSheet8 본체 · 라이선스를 받으면 GridPlaceholder를 IBSheet로 교체 */}
-        <GridPlaceholder
-          columns={createLedgerColumns(setDetailLedger)}
-          rows={ready ? result.items : []}
-          rowKey={(row) => row.ledgerId}
-          selectable
-          selectedKeys={selected}
-          onSelectionChange={setSelected}
-        />
+        <Stack gap={24}>
+          <GridPlaceholder
+            columns={createLedgerColumns(setDetailLedger)}
+            rows={ready ? result.items : []}
+            rowKey={(row) => row.ledgerId}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
+          <IbsheetGrid
+            columns={createLedgerColumns(setDetailLedger)}
+            rows={ready ? result.items : []}
+            rowKey={(row) => row.ledgerId}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+        </Stack>
       </ResultPanel>
 
       <ResultFooter total={result.total}>

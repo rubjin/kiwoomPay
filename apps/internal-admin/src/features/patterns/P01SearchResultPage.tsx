@@ -15,6 +15,7 @@ import {
   // 결과 영역
   ResultPanel,
   GridPlaceholder,
+  Stack,
   ResultFooter,
   Pagination,
   // 공통 UI
@@ -33,6 +34,7 @@ import {
   type SearchRequest,
   type SearchResultPage,
 } from '@kiwoompay/design-system';
+import { IbsheetGrid } from '@kiwoompay/design-system/ibsheet';
 import { useState } from 'react';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 import { formatNumber } from '@/utils/format';
@@ -230,14 +232,25 @@ export function P01SearchResultPage() {
           </Button>
         }
       >
-        <GridPlaceholder
-          columns={COLUMNS}
-          rows={ready ? result.items : []}
-          rowKey={(r) => r.id}
-          selectable
-          selectedKeys={selected}
-          onSelectionChange={setSelected}
-        />
+        <Stack gap={24}>
+          <GridPlaceholder
+            columns={COLUMNS}
+            rows={ready ? result.items : []}
+            rowKey={(r) => r.id}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
+          <IbsheetGrid
+            columns={COLUMNS}
+            rows={ready ? result.items : []}
+            rowKey={(r) => r.id}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+        </Stack>
       </ResultPanel>
 
       <ResultFooter total={result.total}>

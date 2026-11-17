@@ -1,6 +1,7 @@
 import type { Decorator, Preview } from '@storybook/react-vite';
 import { Fragment } from 'react';
 import '../src/styles/index.scss';
+import '../src/styles/ibsheet/ibsheet-theme.scss'; // KWP IBSheet 테마 (vendor/ibsheet가 없으면 쓰이지 않음)
 import { cleanStorySource } from './sourceTransform';
 
 // defaultValue · defaultOpen 같은 초기값은 처음 그릴 때만 반영된다.

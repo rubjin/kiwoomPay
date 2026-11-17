@@ -25,8 +25,7 @@ export const IB_DATE_BUTTON_WIDTH = 36;
 
 export type IbBadgeTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'error';
 
-const escapeHtml = (text: string) =>
-  text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+const escapeHtml = (text: string) => text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
 const TONE_CLASS: Record<IbBadgeTone, string> = {
   neutral: 'kpIbBadgeNeutral',

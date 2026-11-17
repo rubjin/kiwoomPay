@@ -15,6 +15,10 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./ibsheet": {
+      "types": "./dist/types/ibsheet/index.d.ts",
+      "import": "./dist/ibsheet.js"
+    },
     "./style.css": "./dist/kiwoompay-ui.css",
     "./ibsheet.css": "./dist/ibsheet.css",
     "./fonts/*": "./dist/fonts/*"

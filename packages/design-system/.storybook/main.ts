@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
+import { ibsheetDir, ibsheetHeadHtml, ibsheetInstalled } from '../vite.ibsheet.ts';
 
 const config: StorybookConfig = {
   stories: ['../docs/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
@@ -15,7 +16,11 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: '../node_modules/pretendard/dist/web/variable', to: '/fonts/pretendard' },
     // 로고 · 그림은 시스템(앱)마다 앱에 둔다(Q48). 스토리는 앱 이미지를 import 한다 — src/stories/systemAssets.ts
+    // IBSheet8 (저장소 루트 vendor/ibsheet, git 제외 — 없으면 IBSheet 표는 그리지 않음)
+    ...(ibsheetInstalled ? [{ from: ibsheetDir, to: '/ibsheet' }] : []),
   ],
+  // IBSheet 스타일(layer) · 스크립트 — 앱 개발 서버(vite.ibsheet.ts)와 같은 순서
+  previewHead: (head) => [head, ibsheetHeadHtml()].join('\n'),
 };
 
 export default config;

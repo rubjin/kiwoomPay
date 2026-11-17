@@ -37,14 +37,37 @@ const TYPES: Record<string, string> = {
   '.html': 'text/html',
 };
 
+/** vendor/ibsheet가 있는지 (git 제외 — 없으면 IBSheet 없이 동작) */
+export const ibsheetInstalled = existsSync(path.join(dir, 'ibsheet.js'));
+/** IBSheet 파일 폴더 (Storybook staticDirs에서도 씀) */
+export const ibsheetDir = dir;
+
+// 기본 테마를 cascade layer(ibsheet)로 — 레이어 밖 스타일(KWP 테마 · 디자인 시스템 컴포넌트)이 선택자 우선순위와 상관없이 이긴다.
+// kp-ib-fix는 ibsheet보다 앞 레이어: 기본 테마의 !important(box-sizing)를 셀 안 컴포넌트에서만 되돌린다 (테마 파일)
+const layerCss = [
+  '@layer kp-ib-fix, ibsheet;',
+  ...STYLES.map((href) => `@import url('${URL_PREFIX}${href}') layer(ibsheet);`),
+].join('\n');
+
+/** <head>에 넣을 IBSheet 스타일 · 스크립트 (Storybook previewHead용 문자열) */
+export const ibsheetHeadHtml = () =>
+  ibsheetInstalled
+    ? [
+        `<style>${layerCss}</style>`,
+        ...SCRIPTS.map((src) => `<script src="${URL_PREFIX}${src}"></script>`),
+      ].join('\n')
+    : '';
+
 export function ibsheet(): Plugin {
-  const installed = existsSync(path.join(dir, 'ibsheet.js'));
+  const installed = ibsheetInstalled;
   return {
     name: 'kp-ibsheet',
     apply: 'serve',
     configureServer(server) {
       if (!installed) {
-        server.config.logger.info('[ibsheet] vendor/ibsheet 없음 — 기본 Date Picker로 동작 (vendor/README.md)');
+        server.config.logger.info(
+          '[ibsheet] vendor/ibsheet 없음 — 기본 Date Picker로 동작 (vendor/README.md)',
+        );
         return;
       }
       server.middlewares.use((req, res, next) => {
@@ -52,18 +75,17 @@ export function ibsheet(): Plugin {
         if (!url.startsWith(URL_PREFIX)) return next();
         const file = path.join(dir, decodeURIComponent(url.slice(URL_PREFIX.length)));
         if (!file.startsWith(dir) || !existsSync(file) || !statSync(file).isFile()) return next();
-        res.setHeader('Content-Type', TYPES[path.extname(file).toLowerCase()] ?? 'application/octet-stream');
+        res.setHeader(
+          'Content-Type',
+          TYPES[path.extname(file).toLowerCase()] ?? 'application/octet-stream',
+        );
         createReadStream(file).pipe(res);
       });
     },
     transformIndexHtml() {
       if (!installed) return [];
       return [
-        ...STYLES.map((href) => ({
-          tag: 'link',
-          attrs: { rel: 'stylesheet', href: URL_PREFIX + href },
-          injectTo: 'head' as const,
-        })),
+        { tag: 'style', children: layerCss, injectTo: 'head' as const },
         ...SCRIPTS.map((src) => ({
           tag: 'script',
           attrs: { src: URL_PREFIX + src },

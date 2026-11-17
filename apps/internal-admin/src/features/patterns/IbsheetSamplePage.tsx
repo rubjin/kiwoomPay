@@ -12,15 +12,17 @@ import { useEffect, useRef, useState } from 'react';
 import {
   IB_CELL,
   IB_DATE_BUTTON_WIDTH,
+  checkedRowClass,
+  headerCheckEvents,
   ibBadge,
   ibButton,
+  ibsheetOptions,
   type IbBadgeTone,
-} from '@/app/providers/ibsheetCells';
-import { checkedRowClass, headerCheckEvents, ibsheetOptions } from '@/app/providers/ibsheetOptions';
+} from '@kiwoompay/design-system/ibsheet';
 
 /**
  * IBSheet8 모양 확인 (개발 서버 전용, 임의 작업) — KWP 테마(기본 테마 + 디자인 시스템 토큰)의 그리드 · 달력.
- * 테마: packages/design-system/src/styles/ibsheet/ibsheet-theme.scss, 공통 옵션: app/providers/ibsheetOptions.
+ * 테마: packages/design-system/src/styles/ibsheet/ibsheet-theme.scss, 공통 옵션 · 셀 도우미: @kiwoompay/design-system/ibsheet.
  * vendor/ibsheet가 있어야 한다
  */
 

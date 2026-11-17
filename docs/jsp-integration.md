@@ -139,7 +139,12 @@ npm으로는 공식 React 래퍼 `@ibsheet/react`(그리드)와 타입 `@ibsheet
 ```jsp
 <%-- 셸 JSP <head> : app.js보다 먼저 --%>
 <c:set var="ibsheet" value="${ctx}/static/ibsheet" />
-<link rel="stylesheet" href="${ibsheet}/css/default/main.css" />  <%-- 기본 테마 (없으면 그리드 · 달력 크기 0). app.css보다 먼저 — app.css 안 KWP 테마가 덮어쓴다 --%>
+<%-- 기본 테마 (없으면 그리드 · 달력 크기 0). cascade layer로 불러온다 — app.css 안 KWP 테마 · 디자인 시스템 컴포넌트가 선택자 우선순위와 상관없이 이긴다.
+     kp-ib-fix는 ibsheet보다 앞 레이어(기본 테마의 box-sizing !important를 셀 안 컴포넌트에서 되돌림). <link>로 바꾸지 않는다 --%>
+<style>
+  @layer kp-ib-fix, ibsheet;
+  @import url('${ibsheet}/css/default/main.css') layer(ibsheet);
+</style>
 <script src="${ibsheet}/ibleaders.js"></script>          <%-- 라이선스 (도메인별 발급) --%>
 <script src="${ibsheet}/ibsheet.js"></script>
 <script src="${ibsheet}/locale/ko.js"></script>

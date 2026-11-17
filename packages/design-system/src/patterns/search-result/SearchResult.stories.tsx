@@ -5,7 +5,8 @@ import { Button } from '../../components/Button';
 import { DateRangeField, Field, MultiSelect, SelectBox, TextField } from '../../components/field';
 import type { DateRange } from '../../components/DatePicker';
 import { Icon } from '../../components/Icon';
-import { PageLayout } from '../../components/layout';
+import { PageLayout, Stack } from '../../components/layout';
+import { IbsheetGrid } from '../../ibsheet';
 import { Pagination } from '../../components/Pagination';
 import { Segmented } from '../../components/selection';
 import { DialogProvider, StatusView, useDialog } from '../common';
@@ -519,14 +520,25 @@ function SettlementScreen({
           </>
         }
       >
-        <GridPlaceholder
-          columns={COLUMNS}
-          rows={sr.status === 'success' ? sr.items : []}
-          rowKey={(r) => r.id}
-          selectable
-          selectedKeys={selected}
-          onSelectionChange={setSelected}
-        />
+        <Stack gap={24}>
+          <GridPlaceholder
+            columns={COLUMNS}
+            rows={sr.status === 'success' ? sr.items : []}
+            rowKey={(r) => r.id}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+          {/* IBSheet 적용 (기존 표 아래 — 같은 열 · 행 · 선택, vendor/ibsheet가 없으면 그리지 않음) */}
+          <IbsheetGrid
+            columns={COLUMNS}
+            rows={sr.status === 'success' ? sr.items : []}
+            rowKey={(r) => r.id}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+        </Stack>
       </ResultPanel>
       <ResultFooter total={sr.total}>
         <Pagination

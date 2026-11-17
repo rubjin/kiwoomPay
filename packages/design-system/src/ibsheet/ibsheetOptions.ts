@@ -1,7 +1,7 @@
 import { IB_CELL } from './ibsheetCells';
 
 // IBSheet8 그리드 공통 옵션 — 화면은 Cols · 화면별 Cfg만 더한다.
-// 색 · 글자 · 선은 디자인 시스템 KWP 테마(@kiwoompay/design-system/ibsheet.css, main.tsx에서 로드),
+// 색 · 글자 · 선은 KWP 테마(@kiwoompay/design-system/ibsheet.css — 앱 main.tsx에서 로드),
 // 높이는 CSS로 바꿀 수 없어 여기서 정한다 (매뉴얼 props/cfg/size: Def.Row · Def.Header Height)
 
 // TODO(시안) 행 · 머리 높이 40 — GridPlaceholder 미리보기와 같은 임시값 (Lookup 결과 48 등 시안별 확인)

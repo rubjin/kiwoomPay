@@ -2,6 +2,7 @@ import {
   AppliedFilters,
   Button,
   GridPlaceholder,
+  Stack,
   PageLayout,
   Pagination,
   ResultFooter,
@@ -12,6 +13,7 @@ import {
   useDialog,
   useSearchResult,
 } from '@kiwoompay/design-system';
+import { IbsheetGrid } from '@kiwoompay/design-system/ibsheet';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchIntegratedTransactions } from '@/features/transaction/integratedTransaction.api';
@@ -129,14 +131,25 @@ export function IntegratedTransactionPage() {
         }
       >
         {/* TODO(IBSheet) IBSheet8 본체 · 라이선스를 받으면 GridPlaceholder를 IBSheet로 교체 */}
-        <GridPlaceholder
-          columns={transactionColumns}
-          rows={ready ? result.items : []}
-          rowKey={(row) => row.txNo}
-          selectable
-          selectedKeys={selected}
-          onSelectionChange={setSelected}
-        />
+        <Stack gap={24}>
+          <GridPlaceholder
+            columns={transactionColumns}
+            rows={ready ? result.items : []}
+            rowKey={(row) => row.txNo}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
+          <IbsheetGrid
+            columns={transactionColumns}
+            rows={ready ? result.items : []}
+            rowKey={(row) => row.txNo}
+            selectable
+            selectedKeys={selected}
+            onSelectionChange={setSelected}
+          />
+        </Stack>
       </ResultPanel>
 
       <ResultFooter total={result.total}>

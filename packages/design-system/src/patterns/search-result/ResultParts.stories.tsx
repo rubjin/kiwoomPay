@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../../components/Button';
+import { Stack } from '../../components/layout';
 import { Pagination } from '../../components/Pagination';
+import { IbsheetGrid } from '../../ibsheet';
 import { AppliedFilters } from './AppliedFilters';
-import { GridPlaceholder } from './GridPlaceholder';
+import { GridPlaceholder, type GridPlaceholderColumn } from './GridPlaceholder';
 import { ResultFooter } from './ResultFooter';
 import { ResultPanel } from './ResultPanel';
 import { ResultSummary } from './ResultSummary';
@@ -64,12 +66,21 @@ export const Summary: Story = {
   ),
 };
 
+const PANEL_COLUMNS: GridPlaceholderColumn<{ id: string; name: string }>[] = [
+  { key: 'id', header: '거래번호', width: 200 },
+  { key: 'name', header: '가맹점명', width: 200 },
+];
+const PANEL_ROWS = [
+  { id: 'T001', name: '키움쇼핑' },
+  { id: 'T002', name: '다우커머스' },
+];
+
 /** 조회 결과 카드 + Total · Pagination. Grid는 IBSheet8 (여기서는 GridPlaceholder 미리보기) */
 export const Panel: Story = {
   name: 'ResultPanel · ResultFooter',
   parameters: {
     controls: { disable: true },
-    tempWork: 'GridPlaceholder (IBSheet 연결 전 미리보기)',
+    tempWork: 'GridPlaceholder 미리보기 + 아래 IBSheet 적용 (비교)',
   },
   render: () => (
     <div style={bg}>
@@ -81,18 +92,16 @@ export const Panel: Story = {
         }
         actions={<Button size="sm">등록</Button>}
       >
-        <GridPlaceholder
-          columns={[
-            { key: 'id', header: '거래번호', width: 200 },
-            { key: 'name', header: '가맹점명', width: 200 },
-          ]}
-          rows={[
-            { id: 'T001', name: '키움쇼핑' },
-            { id: 'T002', name: '다우커머스' },
-          ]}
-          rowKey={(r) => r.id}
-          selectable
-        />
+        <Stack gap={24}>
+          <GridPlaceholder
+            columns={PANEL_COLUMNS}
+            rows={PANEL_ROWS}
+            rowKey={(r) => r.id}
+            selectable
+          />
+          {/* IBSheet 적용 (기존 표 아래, vendor/ibsheet가 없으면 그리지 않음) */}
+          <IbsheetGrid columns={PANEL_COLUMNS} rows={PANEL_ROWS} rowKey={(r) => r.id} selectable />
+        </Stack>
       </ResultPanel>
       <ResultFooter total={2}>
         <Pagination totalPages={1} page={1} />

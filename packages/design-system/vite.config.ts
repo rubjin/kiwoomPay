@@ -27,9 +27,10 @@ export default defineConfig(({ command }) => ({
     sourcemap: true,
     cssCodeSplit: false,
     lib: {
-      entry: r('./src/index.ts'),
+      // index.js(컴포넌트) · ibsheet.js(IBSheet 연결, @kiwoompay/design-system/ibsheet)
+      entry: { index: r('./src/index.ts'), ibsheet: r('./src/ibsheet/index.ts') },
       formats: ['es'],
-      fileName: () => 'index.js',
+      fileName: (_format, name) => `${name}.js`,
       cssFileName: 'kiwoompay-ui',
     },
     rollupOptions: {

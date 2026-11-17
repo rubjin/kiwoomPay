@@ -1,13 +1,35 @@
 // KWP IBSheet 테마 — IBSheet8 기본 테마(css/default/main.css, Prefix IB) 위에 디자인 시스템 토큰 색 · 글자를 덮어쓴다.
 // 디자인 시스템 공통 CSS(index.scss)와 별도 파일: IBSheet를 쓰는 앱만 불러온다 (@kiwoompay/design-system/ibsheet.css).
-// 로드 순서: IBSheet css/default/main.css → 이 파일 (같은 우선순위면 뒤가 이김. 선택자는 .IBMain을 붙여 한 단계 높임)
-// 행 높이 · 머리 높이는 CSS가 아니라 IBSheet 옵션(Def.Row · Def.Header Height)으로 정한다 — 앱 ibsheetOptions
-// 셀 안 링크 · Badge · 입력 · 버튼 · 체크한 줄 클래스(kpIb*)는 앱 ibsheetCells.ts와 짝
+// 기본 테마는 layer(ibsheet)로 불러와 이 파일(레이어 밖)이 항상 이긴다 — 아래 @layer 설명
+// 행 높이 · 머리 높이는 CSS가 아니라 IBSheet 옵션(Def.Row · Def.Header Height)으로 정한다 — src/ibsheet/ibsheetOptions
+// 셀 안 링크 · Badge · 입력 · 버튼 · 체크한 줄 클래스(kpIb*)는 src/ibsheet/ibsheetCells.ts와 짝
 // 클래스 이름은 IBSheet가 정한 것이라 camelCase 규칙에서 빼고,
 // 순서는 IBSheet 영역(그리드 → 셀 → 달력)별로 묶어 선택자 우선순위 순서 규칙도 뺀다
 /* stylelint-disable selector-class-pattern, no-descending-specificity */
 @use '../tokens' as t;
 @use '../mixins' as m;
+
+// 기본 테마(main.css)는 layer(ibsheet)로 불러온다 (개발 서버 vite.ibsheet.ts · 운영 셸 JSP) — 레이어 밖인 이 파일과
+// 디자인 시스템 컴포넌트가 항상 이긴다. 레이어 순서는 불러오는 쪽과 같게 여기서도 선언
+@layer kp-ib-fix, ibsheet;
+
+// 기본 테마의 .IBMain * { box-sizing: content-box !important } — 레이어 안 !important는 레이어 밖보다 강해서,
+// 더 앞 레이어(kp-ib-fix)의 !important로 셀 안 디자인 시스템 컴포넌트(IbsheetGrid가 .kpIbHtml로 감쌈)만 되돌린다
+// 기본 테마의 태그 규칙(.IBMain span · b · i · em { color · font-weight · font-style })은 레이어로 낮춰도,
+// 컴포넌트가 색을 직접 정하지 않고 물려받는 요소(Badge 안 글자 span 등)에는 그대로 칠해진다 → 셀 안 컴포넌트 영역에서만 물려받게.
+// :where로 우선순위를 낮춰 컴포넌트가 직접 정한 값은 그대로 이긴다
+:where(.IBMain .kpIbHtml) :is(span, b, i, em) {
+  font-style: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+@layer kp-ib-fix {
+  .IBMain .kpIbHtml,
+  .IBMain .kpIbHtml * {
+    box-sizing: border-box !important;
+  }
+}
 
 // ══ 색 — 여기서만 바꾼다 (모두 디자인 시스템 토큰) ══════════════════
 // 표
@@ -123,9 +145,10 @@ $ib-badge-tones: (
 );
 
 // ── 공통 글꼴 ────────────────────────────────────────
-// IBSheet 기본은 .IBMain, .IBMain * 에 Noto Sans 13px — 디자인 시스템 글꼴 · 12px로
-.SheetMain.IBMain,
-.SheetMain.IBMain * {
+// IBSheet 기본은 .IBMain, .IBMain * 에 Noto Sans 13px — 디자인 시스템 글꼴 · 12px로.
+// :where로 우선순위 0 — 기본 테마(레이어)는 이기고, 셀 안 디자인 시스템 컴포넌트의 글자(Badge Medium 등)는 덮지 않는다
+:where(.SheetMain.IBMain),
+:where(.SheetMain.IBMain) * {
   @include m.typography(typo-12-regular);
 }
 
@@ -279,7 +302,7 @@ $ib-badge-tones: (
   background-color: $ib-color-header-bg;
 }
 
-// 체크한 줄 — 앱 ibsheetOptions의 checkedRowClass(열 이름)가 줄 칸마다 붙인다.
+// 체크한 줄 — src/ibsheet/ibsheetOptions의 checkedRowClass(열 이름)가 줄 칸마다 붙인다.
 // IBSheet는 칸 배경을 인라인 스타일로 칠하므로(IBColor* 색 계산) 클래스 색이 이기려면 !important가 필요하다
 .IBMain .kpIbRowChecked {
   background-color: $ib-color-row-checked !important;
@@ -399,7 +422,7 @@ $ib-badge-tones: (
   border-color: $ib-color-check-checked-disabled;
 }
 
-// ── 셀 안 디자인 시스템 모양 (앱 ibsheetCells.ts의 IB_CELL · ibBadge · ibButton과 짝) ──
+// ── 셀 안 디자인 시스템 모양 (src/ibsheet/ibsheetCells.ts의 IB_CELL · ibBadge · ibButton과 짝) ──
 // 링크 — TextLink: Primary + 밑줄
 .IBMain .kpIbLink {
   color: $ib-color-link;
