@@ -9,6 +9,7 @@ import { WorkTab } from '../Tab';
 import { DateRangeField, Field, SearchField, SelectBox } from '../field';
 import { Footer, Header, Lnb, type LnbMenuItem } from '../navigation';
 import { PageLayout } from './PageLayout';
+import logoFooter from '../../stories/assets/logo-footer.svg';
 
 const meta = {
   title: 'Layout/Page Layout',
@@ -36,7 +37,7 @@ function Slot({ children, style }: { children: ReactNode; style?: CSSProperties 
 
 const footerSlot = (
   <Footer
-    logo={<strong>DAOU DATA</strong>}
+    logo={<img src={logoFooter} alt="DAOU DATA" width={110} height={16} />}
     items={[
       '대표이사 : 김상준',
       '사업자등록번호 : 220-81-01733',

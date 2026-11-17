@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import logoFooter from '../../stories/assets/logo-footer.svg';
 import { Footer } from './Footer';
 
-// 로고 이미지가 아직 없어 글자로 대신한다 (TODO: 로고 SVG 파일)
-const logo = (
-  <span style={{ font: '700 16px/16px var(--kp-font-family-base)', letterSpacing: 2 }}>
-    DAOU <span style={{ fontWeight: 400 }}>DATA</span>
-  </span>
-);
+// 로고는 앱마다 둔다 (apps/<앱>/src/assets/logo/logo-footer.svg). 예시는 같은 파일 복사본
+const logo = <img src={logoFooter} alt="DAOU DATA" width={110} height={16} />;
 
 const items = [
   '대표이사 : 김상준',
