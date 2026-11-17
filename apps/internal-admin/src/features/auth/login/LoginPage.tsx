@@ -9,8 +9,8 @@ import {
 import { useState } from 'react';
 import { useLocation, useNavigate, type Location } from 'react-router-dom';
 import { requestLogin } from '@/features/auth/login.api';
-import loginSecurity from '@/assets/login/login-security.png';
-import logoHeader from '@/assets/logo/logo-header.png';
+import loginSecurity from '@/assets/common/login-security.svg';
+import logoHeader from '@/assets/logo/logo-header.svg';
 import { Footer } from '@/layouts/Footer/Footer';
 import { useAuthStore } from '@/store/auth';
 import type { LoginChallenge } from '@/features/auth/login.types';
