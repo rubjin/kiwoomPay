@@ -65,8 +65,8 @@
     },
     "TabDivider": {
       "$type": "color",
-      "$value": "{Line.Subtle}",
-      "$description": "TODO(시안) 탭 아래 구분선"
+      "$value": "{Line.Default}",
+      "$description": "View Tab 아래 선 (Figma Neutral 300)"
     },
     "CountBg": {
       "$type": "color",
@@ -89,7 +89,7 @@
     "Divider": {
       "$type": "color",
       "$value": "{Line.Subtle}",
-      "$description": "검색 결과 구분선"
+      "$description": "검색 결과 구분선 · 모두 접기 줄 아래 선 · 접은 모드 로고 아래 선"
     },
     "ScrollThumb": {
       "$type": "color",
@@ -99,6 +99,16 @@
       "$type": "color",
       "$value": "{Primary.50}",
       "$description": "메뉴 검색 결과 Hover (Search Result Item 시안)"
+    },
+    "Bullet": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "3Depth Active 앞 점"
+    },
+    "EmptyTitle": {
+      "$type": "color",
+      "$value": "{Text.Body}",
+      "$description": "즐겨찾기 없음 제목 (Neutral 800)"
     }
   }
 }

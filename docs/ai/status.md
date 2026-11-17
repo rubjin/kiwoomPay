@@ -77,7 +77,7 @@
 - [Q29] Date Picker: Figma로 336 × 344 · 반경 12 · 헤더 40 확정(2026-11-12). 필드 ↔ 패널 간격 8은 임시값(TODO). 기간 선택 중 마우스 위치까지 미리 보여주는 표시는 시안에 없어 미구현
 - [Q30] Badge 임시값(TODO): Neutral 상태 점 색(Neutral/500, Figma는 이미지라 값 확인 불가), Primary · Neutral 외 tone의 Line 테두리(각 Status Border, Neutral은 Neutral 100 확정), Number 두 자리 이상 좌우 여백 6·글자(12 SemiBold). 3글자 이상 배지는 시안보다 2px 넓게 렌더링됨(글자 폭 반올림 차이로 판단, 2글자는 정확히 일치)
 - [Q31] Modal(테두리 없음 · 반경 12 · 그림자 0 8px 24px rgba(0,0,0,.12) 확정 2026-11-12) 임시값(TODO): z-index 체계(모달 1000 · 팝업 1100). 시안의 제목→본문 간격이 19(측정)라 높이가 시안보다 1~2px 큼. Tab 키 포커스 가두기(focus trap)는 a11y 범위 밖이라 미구현
-- [Q32] LNB: 3Depth Hover(흰 배경 + 파란 글자 + ↗) · 2Depth 12 Medium · Current 진한 글자 Figma 확정(2026-11-12). 확인 필요: Figma Depth=2 Hover는 Default와 같음(구현은 Neutral 200 배경 유지), Figma Depth=3 Active는 배경 없음 ↔ 전체 LNB 예시는 Primary 100 배경(예시 따름), 전체 LNB 예시의 "모두 펼침" 줄은 미구현. 남은 임시값(TODO): Active 점 크기 3, 탭 아래 구분선. 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
+- [Q32] LNB: 3Depth Hover(흰 배경 + 파란 글자 + ↗) · 2Depth 12 Medium · Current 진한 글자 Figma 확정(2026-11-12). 확인 필요: Figma Depth=2 Hover는 Default와 같음(구현은 Neutral 200 배경 유지), Figma Depth=3 Active는 배경 없음 ↔ 전체 LNB 예시는 Primary 100 배경(예시 따름), "모두 접기 · 모두 펼침" 줄 · Active 점(•) · 탭 아래 선(Neutral 300)은 Figma 28042:3258로 반영(2026-11-17). Figma 1Depth 아이콘 ↔ 메뉴명 간격이 하위 없는 행 12 · 있는 행 8로 다름 → 12로 통일(확인 필요). 로고 이미지 파일 필요(예시는 임시 텍스트). 긴 메뉴명 툴팁은 Tooltip 전까지 기본 title 사용
 - [Q33] 가맹점관리자 모바일 LNB 시안 없음(Compact Navigation은 모바일 LNB가 아니라 `< 1/3 >` 이동 컨트롤로 확인됨) → 반응형 미적용. 즐겨찾기 편집 Modal은 Figma로 FavoriteMenuPicker 구현(2026-11-12)
 - [Q34] Tab(Figma 반영 2026-11-12: Line md 14 Regular/Active 14 Bold · 좌우 12, sm 12 Regular/Active 12 SemiBold · 좌우 10, Button Tab 14 Regular/Active 14 Bold · 좌우 md 26 · sm 12) 임시값(TODO): Line Tab 사이 간격 0, Button Tab 간격 8, 비활성 Tab Badge 색. Hover 표현 시안 없음(미구현). Title Tab은 Figma로 구현(2026-11-12, Tab 사이 간격 8 임시). Tab Guide는 "Small 32 = LNB처럼 밀도 높은 영역"인데 LNB 시안의 탭 높이는 40 → LNB는 기존 40 유지, 확인 필요
 - [Q35] Header Global Search는 "상세 UI 확인 필요"라 컴포넌트 미제작(가이드에만 정리). Search 가이드의 회색 박스는 다른 섹션과 같은 설명용 카드로 보고 SearchArea에 넣지 않음 — 검색 영역에 박스가 필요한지 확인 필요
@@ -982,3 +982,11 @@
 - 보류: `Field grow`(검색 필드 남는 폭 채우기) — 확정 결정 "검색 조건 기본 폭"(필드는 흐름, flex로 늘리지 않음)과 반대 방향. 남은 flex(다운로드 센터 파일명 · 정산 가맹점명 · 사업자 찾기)를 지울지 결정 필요
 - 컨벤션: 규칙 추가(보조 설명 글자 · 본문 영역), 전체 선택 규칙 위치 변경, 화면 전용 부품에 완료 3 · 후보 4(검색 필드 폭 · 양 끝 정렬 줄 · 2열 그리드 · 표 칸 여백), 폴더 트리 갱신
 - 검증: 디자인 시스템 typecheck · lint · build · Storybook 빌드(새 스토리 · 가이드 색인 확인), 앱 typecheck · build. 브라우저 화면 비교는 하지 않음 — Modal.Section은 기존과 같은 flex column + gap, Text는 줄 높이가 역할 이름 값으로 바뀌어 권한관리 보조 문구 줄 높이가 1~2px 다를 수 있음
+
+### LNB Figma 재대조 (28042:3258) — 2026-11-17
+- 사용자 지적: View Tab 글자가 12가 아니었음(13 Medium)
+- 반영: View Tab 높이 40 → 32 · 12 Regular / Active 12 SemiBold · 탭마다 아래 선 Neutral 300(`Line/Default`) · Active 밑줄 2 · 폭 216(좌우 여백 안) · 개수 좌우 6 · 이름 ↔ 개수 6. 위 여백 20 · 로고 줄(햄버거 ↔ 로고 10) ↔ 검색 20 · 검색 ↔ Tab 8. **모두 접기 · 모두 펼침 줄 추가**(전체 메뉴 View, 높이 40 · 11 Medium · 아래 선, 펼친 메뉴가 있으면 모두 접기). 1 · 2Depth 화살표 · 3Depth 이동 아이콘 16 → 12. 3Depth 앞 점을 글자 •(11 Medium · Primary 500, Active만 보임) + 간격 4로. 즐겨찾기 항목 사이 12 → 16 · 메뉴명 ↔ 경로 2, 비어 있음 상자 여백 16 → 12 · 제목 Neutral 800. 접은 모드 폭 48 → 44 · 햄버거 왼쪽 12 · 검색 · Tab 자리(115) 비우고 아래 선 32
+- 토큰: `lnb/TabDivider` → Line/Default(TODO 해제), `lnb/Bullet` · `lnb/EmptyTitle` 추가
+- 검증: tokens · typecheck · lint 통과. Storybook에서 측정 — Tab 12px 400/600 · 32 · 아래 선 #D5DCE5 · 밑줄 2, 모두 접기 40, 행 45/42/33, 3Depth Active 글자 x53(Figma 44 + • + 4), 즐겨찾기 간격 51(35 + 16), 접은 모드 44 · 햄버거 (12, 20) · 선 y135 · 첫 아이콘 행 y136(Figma와 같음)
+- 확인 필요: Q32(1Depth 아이콘 간격 12 · 8), [편집] 글자 굵기(Figma 12 Medium ↔ TextButton sm SemiBold)
+

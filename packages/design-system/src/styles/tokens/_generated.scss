@@ -637,14 +637,16 @@ $color-lnb-active-bg: var(--kp-color-lnb-active-bg);
 $color-lnb-active-text: var(--kp-color-lnb-active-text);
 $color-lnb-tab-text: var(--kp-color-lnb-tab-text);
 $color-lnb-tab-active: var(--kp-color-lnb-tab-active);
-$color-lnb-tab-divider: var(--kp-color-lnb-tab-divider); // TODO(시안) 탭 아래 구분선
+$color-lnb-tab-divider: var(--kp-color-lnb-tab-divider); // View Tab 아래 선 (Figma Neutral 300)
 $color-lnb-count-bg: var(--kp-color-lnb-count-bg);
 $color-lnb-count-text: var(--kp-color-lnb-count-text);
 $color-lnb-highlight: var(--kp-color-lnb-highlight); // 검색어 일치 문자열
 $color-lnb-path: var(--kp-color-lnb-path); // 검색 결과·즐겨찾기 경로
-$color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선
+$color-lnb-divider: var(--kp-color-lnb-divider); // 검색 결과 구분선 · 모두 접기 줄 아래 선 · 접은 모드 로고 아래 선
 $color-lnb-scroll-thumb: var(--kp-color-lnb-scroll-thumb);
 $color-lnb-result-hover: var(--kp-color-lnb-result-hover); // 메뉴 검색 결과 Hover (Search Result Item 시안)
+$color-lnb-bullet: var(--kp-color-lnb-bullet); // 3Depth Active 앞 점
+$color-lnb-empty-title: var(--kp-color-lnb-empty-title); // 즐겨찾기 없음 제목 (Neutral 800)
 
 // ── custom · lookup ─────────────────────────────────────────────
 $color-lookup-empty-title: var(--kp-color-lookup-empty-title);
@@ -1392,7 +1394,7 @@ $css-variables: (
   "--kp-color-lnb-active-text": "var(--kp-color-primary-700)",
   "--kp-color-lnb-tab-text": "var(--kp-color-neutral-700)",
   "--kp-color-lnb-tab-active": "var(--kp-color-primary-500)",
-  "--kp-color-lnb-tab-divider": "var(--kp-color-line-subtle)",
+  "--kp-color-lnb-tab-divider": "var(--kp-color-line-default)",
   "--kp-color-lnb-count-bg": "var(--kp-color-primary-100)",
   "--kp-color-lnb-count-text": "var(--kp-color-primary-500)",
   "--kp-color-lnb-highlight": "var(--kp-color-primary-500)",
@@ -1400,6 +1402,8 @@ $css-variables: (
   "--kp-color-lnb-divider": "var(--kp-color-line-subtle)",
   "--kp-color-lnb-scroll-thumb": "var(--kp-color-neutral-300)",
   "--kp-color-lnb-result-hover": "var(--kp-color-primary-50)",
+  "--kp-color-lnb-bullet": "var(--kp-color-primary-500)",
+  "--kp-color-lnb-empty-title": "var(--kp-color-text-body)",
   "--kp-color-lookup-empty-title": "var(--kp-color-text-label)",
   "--kp-color-lookup-empty-text": "var(--kp-color-text-placeholder)",
   "--kp-modal-shadow": "0 8px 24px 0 rgba(0, 0, 0, 0.12)",

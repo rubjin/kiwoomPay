@@ -180,6 +180,7 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
               <Icon name="menu" size={24} />
             </button>
           </div>
+          <div className={styles.collapsedDivider} />
           <ul className={clsx(styles.list, styles.scroll)}>
             {items.map((item) => (
               <li key={item.id}>
@@ -216,12 +217,14 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
           current={item.id === activeId}
           onSelect={(event) => navigate(item, event)}
         >
-          <span className={styles.bullet} aria-hidden="true" />
+          <span className={styles.bullet} aria-hidden="true">
+            •
+          </span>
           <span className={styles.label} title={item.label}>
             {item.label}
           </span>
           <span className={styles.go} aria-hidden="true">
-            <Icon name={item.external ? 'link-external' : 'arrow-up-right'} size={16} />
+            <Icon name={item.external ? 'link-external' : 'arrow-up-right'} size={12} />
           </span>
         </MenuLink>
       </li>
@@ -247,7 +250,7 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
               {item.label}
             </span>
             <span className={styles.chevron}>
-              <Icon name={hasChildren && open ? 'chevron-down' : 'chevron-right'} size={16} />
+              <Icon name={hasChildren && open ? 'chevron-down' : 'chevron-right'} size={12} />
             </span>
           </MenuLink>
           {hasChildren && open && (
@@ -282,7 +285,7 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
                   {item.label}
                 </span>
                 <span className={clsx(styles.chevron, styles.muted)}>
-                  <Icon name={hasChildren && open ? 'chevron-down' : 'chevron-right'} size={16} />
+                  <Icon name={hasChildren && open ? 'chevron-down' : 'chevron-right'} size={12} />
                 </span>
               </MenuLink>
               {hasChildren && open && (
@@ -360,7 +363,20 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
       </div>
     );
 
+    // ── 모두 접기 · 모두 펼침: 하위 메뉴가 있는 메뉴 전체 ──
+    const branchIds: string[] = [];
+    const collectBranches = (list: LnbMenuItem[]) =>
+      list.forEach((item) => {
+        if (item.children?.length) {
+          branchIds.push(item.id);
+          collectBranches(item.children);
+        }
+      });
+    collectBranches(items);
+    const anyOpen = branchIds.some((id) => openIds.has(id));
+
     // ── 검색 결과 ───────────────────────────────────
+    const searching = query.trim() !== '';
     const results = searchMenu(items, query);
     const searchView =
       results.length === 0 ? (
@@ -408,7 +424,7 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
           {logo && <div className={styles.logo}>{logo}</div>}
         </div>
 
-        <div className={styles.search}>
+        <div className={styles.tools}>
           <SearchField
             size="sm"
             fullWidth
@@ -417,12 +433,7 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
             onChange={(event) => setQuery(event.target.value)}
             onClear={() => setQuery('')}
           />
-        </div>
-
-        {query.trim() ? (
-          <div className={styles.scroll}>{searchView}</div>
-        ) : (
-          <>
+          {!searching && (
             <div className={styles.tabs} role="tablist" aria-label="메뉴 보기">
               {(['all', 'favorites'] as const).map((key) => (
                 <button
@@ -438,6 +449,25 @@ export const Lnb = forwardRef<HTMLElement, LnbProps>(
                 </button>
               ))}
             </div>
+          )}
+        </div>
+
+        {searching ? (
+          <div className={styles.scroll}>{searchView}</div>
+        ) : (
+          <>
+            {currentView === 'all' && branchIds.length > 0 && (
+              <button
+                type="button"
+                className={styles.expandAll}
+                onClick={() => setOpenIds(anyOpen ? new Set() : new Set(branchIds))}
+              >
+                {anyOpen ? '모두 접기' : '모두 펼침'}
+                <span className={styles.chevron} aria-hidden="true">
+                  <Icon name={anyOpen ? 'chevron-up-double' : 'chevron-down-double'} size={12} />
+                </span>
+              </button>
+            )}
             <div className={styles.scroll} role="tabpanel">
               {currentView === 'all' ? tree : favoriteView}
             </div>
