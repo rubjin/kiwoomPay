@@ -1,5 +1,5 @@
 {
-  "name": "@kiwoompay/internal-admin",
+  "name": "@kiwoompay/kwp2-center-admin-fe",
   "version": "0.1.0",
   "private": true,
   "type": "module",

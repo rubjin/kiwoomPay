@@ -70,9 +70,9 @@ kiwoompay-ui/
 │     ├─ vite.config.ts
 │     └─ tsconfig.json
 └─ apps/                           # 나중에 추가
-   ├─ merchant-admin/              # 가맹점관리자 (반응형)
-   ├─ internal-admin/              # 내부관리자
-   └─ agency-admin/                # 영업대행사
+   ├─ kwp2-manage-admin-fe/        # 가맹점관리자 (반응형)
+   ├─ kwp2-center-admin-fe/        # 내부관리자
+   └─ kwp2-agent-admin-fe/         # 영업대행사
 ```
 - 컴포넌트 폴더 단위: Name.tsx · Name.module.scss · Name.stories.tsx · index.ts
 - `_generated.scss`는 자동 생성 파일. 직접 수정 금지. `_index.scss`가 이를 묶어 컴포넌트에 제공한다.

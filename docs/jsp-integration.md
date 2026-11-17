@@ -11,7 +11,7 @@
 
 - 화면이 바뀌어도 페이지를 다시 로드하지 않으므로 LNB · Header · Work Tab(열린 화면의 검색 조건 · 결과)이 유지된다.
 - 화면 URL은 셸만 내려준다. 권한은 메뉴 트리 API와 각 API 호출에서 확인한다.
-- 시스템 3개는 앱도 3개다(`apps/internal-admin` · `merchant-admin` · `agency-admin`). 각 앱이 자기 셸 JSP와 정적 폴더를 가진다.
+- 시스템 3개는 앱도 3개다(`apps/kwp2-center-admin-fe` · `kwp2-manage-admin-fe` · `kwp2-agent-admin-fe`). 각 앱이 자기 셸 JSP와 정적 폴더를 가진다.
 
 ## 1. 빌드 산출물
 
@@ -30,10 +30,10 @@ JSP 프로젝트 기준 위치:
 └─ fonts/pretendard/
 ```
 
-빌드: `JSP_STATIC_DIR=<위 폴더> pnpm --filter @kiwoompay/internal-admin build` (기본값은 `apps/<앱>/dist`).
+빌드: `JSP_STATIC_DIR=<위 폴더> pnpm --filter @kiwoompay/kwp2-center-admin-fe build` (기본값은 `apps/<앱>/dist`).
 `base: './'`(상대 경로)로 빌드하므로 컨텍스트 패스가 바뀌어도 다시 빌드하지 않는다.
 
-## 2. 앱 Vite 설정 (`apps/internal-admin/vite.config.ts`)
+## 2. 앱 Vite 설정 (`apps/kwp2-center-admin-fe/vite.config.ts`)
 
 ```ts
 const outDir = process.env.JSP_STATIC_DIR ?? 'dist';
@@ -41,7 +41,7 @@ const outDir = process.env.JSP_STATIC_DIR ?? 'dist';
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   resolve: { alias: { '@': r('./src') } },
-  // 개발 서버 폰트(/fonts/pretendard)는 designSystemSource()가 pretendard 패키지에서 준다 (apps/internal-admin/vite.config.ts)
+  // 개발 서버 폰트(/fonts/pretendard)는 designSystemSource()가 pretendard 패키지에서 준다 (apps/kwp2-center-admin-fe/vite.config.ts)
   server: { proxy: { '/api': 'http://localhost:8580' } },
   base: command === 'build' ? './' : '/',
   build: {
@@ -63,13 +63,13 @@ export default defineConfig(({ command }) => ({
 
 폰트는 빌드 후 `scripts/copy-fonts.mjs`가 `<outDir>/fonts`로 복사한다.
 
-## 3. 셸 JSP (`/WEB-INF/views/internal-admin/app.jsp`)
+## 3. 셸 JSP (`/WEB-INF/views/kwp2-center-admin-fe/app.jsp`)
 
 ```jsp
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<c:set var="assets" value="${ctx}/static/internal-admin" />
+<c:set var="assets" value="${ctx}/static/kwp2-center-admin-fe" />
 <!DOCTYPE html>
 <%-- 시스템별 키컬러: 가맹점관리자 data-system="merchant" · 영업대행사 "agency" · 내부관리자는 생략 (docs/token-workflow.md C) --%>
 <html lang="ko">
@@ -105,7 +105,7 @@ public class SpaController {
     @GetMapping({ "/", "/{path:^(?!api$|static$)[^.]*}", "/{path:^(?!api$|static$)[^.]*}/**" })
     public String app(HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-store");
-        return "internal-admin/app"; // → /WEB-INF/views/internal-admin/app.jsp
+        return "kwp2-center-admin-fe/app"; // → /WEB-INF/views/kwp2-center-admin-fe/app.jsp
     }
 }
 ```
@@ -114,7 +114,7 @@ public class SpaController {
 - 없는 화면 URL도 셸이 열리고, React가 404 화면(`features/error/NotFoundPage`)을 그린다.
 - 로그인 여부는 React(`RequireAuth`)와 API(401)가 처리한다. 서버 세션 기반으로 바꾸면 이 컨트롤러에서 로그인 페이지로 redirect해도 된다.
 
-## 5. React 진입 (`apps/internal-admin/src/app/main.tsx`)
+## 5. React 진입 (`apps/kwp2-center-admin-fe/src/app/main.tsx`)
 
 ```tsx
 import '@kiwoompay/design-system/style.css'; // 토큰(:root 변수) + reset + global. 앱에서 한 번만
@@ -128,7 +128,7 @@ createRoot(document.getElementById('root')!).render(<App />);
 
 ## 6. 개발 중
 
-`pnpm --filter @kiwoompay/internal-admin dev` → `http://localhost:5173`. Vite 개발 서버가 `index.html`로 셸 역할을 하고, `/api`는 `localhost:8580`으로 프록시한다. JSP 서버를 띄우지 않아도 화면을 개발할 수 있다.
+`pnpm --filter @kiwoompay/kwp2-center-admin-fe dev` → `http://localhost:5173`. Vite 개발 서버가 `index.html`로 셸 역할을 하고, `/api`는 `localhost:8580`으로 프록시한다. JSP 서버를 띄우지 않아도 화면을 개발할 수 있다.
 디자인 시스템을 고친 뒤에는 `pnpm build`(디자인 시스템 `dist` 갱신)를 먼저 실행한다.
 
 ## 7. IBSheet8 (그리드 · 캘린더)

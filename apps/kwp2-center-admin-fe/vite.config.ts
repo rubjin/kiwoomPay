@@ -6,7 +6,7 @@ import { ibsheet } from '../../packages/design-system/vite.ibsheet';
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
-// JSP 프로젝트의 정적 폴더 (docs/jsp-integration.md). 예: <JSP>/src/main/webapp/static/internal-admin
+// JSP 프로젝트의 정적 폴더 (docs/jsp-integration.md). 예: <JSP>/src/main/webapp/static/kwp2-center-admin-fe
 const outDir = process.env.JSP_STATIC_DIR ?? 'dist';
 
 export default defineConfig(({ command }) =>

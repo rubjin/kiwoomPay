@@ -8,7 +8,7 @@
 ## 현재 단계
 - Phase 2 완료(MultiSelect 포함). Phase 3 완료 — Pagination · Date Picker · Badge · Modal · Tab · Tooltip. Search 가이드(SearchArea) 완료
 - Phase 4 진행 중 — LNB · Work Tab · Page Layout · Compact Navigation · Header · Footer · display(CPID List Item · Infobox · Summary Card · Address Search) · LNB Search Result · Tab Title · Lookup Search 완료. · Column Picker(엑셀 다운로드) · Favorite Menu Picker(즐겨찾기 편집) · Action Bar(취소사유입력) 완료. 남은 것: Grid(IBSheet 영역), chart&kpi
-- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/internal-admin`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed · P07 Selection & Configuration(V01 즐겨찾기 편집 · V02 엑셀 다운로드 설정 · V03 내 검색조건 관리) 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
+- 페이지 패턴: 설계안 확정(`docs/ai/page-patterns-plan.md`, P-1~P-6). **P01 Search → Result 완료** + 적용 화면 KWPC06010201 가맹점 정산 실행/처리 · KWPC04010100 통합 거래내역 · KWPC0104 다운로드 센터(`apps/kwp2-center-admin-fe`). P02 Record → Form · **P03 Lookup → Apply · P04 Action → Feedback · P05 Login → Auth · P06 Notification Feed · P07 Selection & Configuration(V01 즐겨찾기 편집 · V02 엑셀 다운로드 설정 · V03 내 검색조건 관리) 완료**(2026-11-13). 다음: 기존 화면(정산 실행 · 통합 거래내역 · 다운로드 센터 · 가맹점 기본정보)의 직접 쓴 confirm/alert 흐름을 `useAction`으로 옮길지 결정 → P05 …
 - Phase 1 완료·커밋됨 (Storybook 빌드 확인 완료)
 
 ## 확정 결정
@@ -31,7 +31,7 @@
 | 아이콘 소스 포맷 | Figma에서 SVG 내보내기(`Name=<이름>, Size=<크기>.svg`) → `scripts/build-icons.mjs`가 React 데이터(`icons.generated.tsx`)로 변환. svgr 대신 자체 스크립트(의존성 없음). 선 아이콘은 `currentColor`, 상태 아이콘만 토큰 색 | 2026-11-10 |
 | Chart 라이브러리 | Recharts (React 친화·SVG·백오피스 차트 종류 충분). Phase 4에서 도입 | 2026-11-10 |
 | DatePicker 외부 라이브러리 | **캘린더는 IBSheet 캘린더**(그리드 셀 · 검색 영역 날짜 필드 모두). DateField · DateRangeField는 그대로 두고 `CalendarProvider`(어댑터)로 외부 달력을 연결. 어댑터가 없으면 직접 구현한 DatePicker로 동작(Storybook · IBSheet 연결 전). 기존 "사용 안 함" 대체 | 2026-11-11 |
-| 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/internal-admin` · `merchant-admin` · `agency-admin`). **폴더는 1depth 단위 기능별 구조**(`src/features/<1depth>/` 바로 아래 **폴더 = 화면(2depth), 파일 = 1depth 공용**(`<1depth>.routes.tsx` · `<이름>.api.ts` · `<이름>.types.ts` · `<1depth>.options.ts`), 공통은 `api`(여러 1depth 공용 `<이름>.api.ts` · `.types.ts`) · `components` · `constants` · `hooks` · `store` · `utils`; 기능 폴더끼리 가져다 쓰지 않음 — 2026-11-15 사용자 결정, 기존 `directory-structure.md` 계층 분리 대체). **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
+| 앱 구조 · 라우팅 | 시스템별 앱 3개(`apps/kwp2-center-admin-fe` · `kwp2-manage-admin-fe` · `kwp2-agent-admin-fe`). **폴더는 1depth 단위 기능별 구조**(`src/features/<1depth>/` 바로 아래 **폴더 = 화면(2depth), 파일 = 1depth 공용**(`<1depth>.routes.tsx` · `<이름>.api.ts` · `<이름>.types.ts` · `<1depth>.options.ts`), 공통은 `api`(여러 1depth 공용 `<이름>.api.ts` · `.types.ts`) · `components` · `constants` · `hooks` · `store` · `utils`; 기능 폴더끼리 가져다 쓰지 않음 — 2026-11-15 사용자 결정, 기존 `directory-structure.md` 계층 분리 대체). **SPA**: react-router-dom(코드 기반 라우트, 1depth별 모듈 + lazy) + 앱마다 셸 JSP 1개. 서버는 `/api` · `/static` 외 GET을 셸 JSP로 forward. 이유: Work Tab(열린 화면 상태 유지) · LNB 유지 · 기존 프로젝트가 SPA. `docs/jsp-integration.md` | 2026-11-11 |
 | React 버전 | **React 19** (기존 내부관리자 프로젝트와 맞춤). 디자인 시스템 peer `^18.3.1 || ^19.0.0`, 개발 · 앱은 19. Phase 1의 "React 18.3" 가정 대체 | 2026-11-11 |
 | 그리드 · 캘린더 | **IBSheet(IBSheet8)** 사용. 표 그리기는 IBSheet가 하고, 디자인 시스템은 테마(`ibsheet.css`)와 **IBSheet 연결 도우미**(`@kiwoompay/design-system/ibsheet` — `IbsheetGrid`(GridPlaceholder와 같은 props) · 공통 옵션 · 셀 도우미, 2026-11-17 사용자 결정으로 앱에서 옮김 — 세 시스템 앱 · Storybook 공용)만 둔다. 팝업 안 표는 일반 표(GridPlaceholder) 유지. 검색 영역 날짜 필드도 IBSheet 캘린더(어댑터) | 2026-11-11 · 2026-11-17 |
 | 페이지 패턴 | 디자인 시스템 `src/patterns/`에 패턴 템플릿 · 흐름 훅(fetch 없음). 성공/실패 안내는 Alert(Modal)로 통일, Toast 없음. 조회 화면은 최초 진입 시 조회하지 않음. 미저장 이탈 확인은 Work Tab 닫기 · 브라우저 닫기. 조회 전용 값은 텍스트. 시안 없는 신규 UI는 기존 토큰 · 컴포넌트 조합 + `TODO(시안)` 임시값. 상세는 `docs/ai/page-patterns-plan.md` | 2026-11-12 |
@@ -46,6 +46,7 @@
 | 조회 결과 Action 배치 | **디자인 없이 기획서로 개발할 때도 이 기준** (사용자 참조 이미지, `docs/ai/references/result-panel-actions.md`): 제목 옆 왼쪽 `titleActions` = Grid 기능(표시항목설정 · 엑셀 등, sm Neutral Line) · 오른쪽 `actions` = Data 업무(화면별) — 처리 Line → 상태 변경 Dark → 등록 Primary + plus 아이콘(맨 끝, Primary는 등록 하나). 조회 전 · 0건이면 비활성 | 2026-11-17 |
 | 표 테두리 | **칸 사이에는 세로선, 표 양 끝(첫 칸 왼쪽 · 마지막 칸 오른쪽)에는 선 없음** (사용자 결정). FormTable(라벨-값 표 · 목록형 표 모두) · GridPlaceholder 적용, IBSheet 테마도 같은 규칙 | 2026-11-13 |
 | Modal 크기 | **sm 400 · md 620 · lg 880 · xl 1280 · xxl 1680** (사용자 결정). lg는 800 → 880(기존 lg 사용처 모두 880), 기존 xl 880 사용처(표준산업분류 Lookup)는 lg로. xl은 넓은 입력 표(결제한도 설정), xxl은 본문 폭에 가까운 큰 표 · 화면형 팝업 | 2026-11-13 |
+| 시스템 앱 이름 | 폴더 · 패키지 이름: 내부관리자 **`kwp2-center-admin-fe`** · 가맹점관리자 **`kwp2-manage-admin-fe`** · 영업대행사 **`kwp2-agent-admin-fe`** (`apps/<이름>`, 패키지 `@kiwoompay/<이름>`). 기존 `internal-admin` · `merchant-admin` · `agency-admin` 대체. 시스템 구분값(`data-system`, 화면 목록 `internal` 등)은 그대로 | 2026-11-18 |
 | 브레이크포인트 구조 | `tokens/custom`의 별도 그룹 `breakpoint/*` (space와 섞지 않음). 값은 모바일 시안 확인 후 | 2026-11-10 |
 
 ## 문서 지도 (필요한 것만 읽는다)
@@ -154,3 +155,9 @@
 - 조회 중 "조회된 데이터가 없습니다." 깜빡임(같은 날, 사용자 지적): IBSheet 자체 안내(Cfg NoDataMessage 기본 2 — 조회 시 데이터가 비면 표시, 문구는 locale ko.js NoSearchData)가 조회 중 행을 비울 때 떴다 사라졌음 → 공통 옵션 `NoDataMessage: 0`(빈 상태 안내는 ResultPanel StatusView). 확인: 네 화면 [조회] 후 2.5초 동안 DOM 감시 — 문구 0회
 - IBSheet 샘플 페이지: 비교용 GridPlaceholder 섹션 삭제(사용자 요청)
 - 조회 중 · 조회 전 안내 세로 가운데(같은 날, 사용자 요청): 행이 없을 때 스크롤바 높이(23)를 열이 넘칠 때만 더함(hasHScroll) — 열이 안 넘치는 화면은 안내 아래가 23 더 길었음. 확인: 조회 중 문구 위아래 여백 통합 거래내역 66 · 67, P01 66 · 66
+
+### 시스템 앱 이름 변경 — 2026-11-18
+- 사용자 결정: 내부관리자 `apps/internal-admin` → **`apps/kwp2-center-admin-fe`**(패키지 `@kiwoompay/kwp2-center-admin-fe`). 예정 앱 이름: 가맹점관리자 `kwp2-manage-admin-fe` · 영업대행사 `kwp2-agent-admin-fe`(agent = 영업대행으로 대응 — 반대면 수정). 확정 결정 표 "시스템 앱 이름"
+- 이동: VS Code · OneDrive가 폴더를 잡고 있어 폴더째 git mv가 Permission denied → git 파일 198개를 파일 단위 `git mv`(이력 유지), 옛 폴더의 dist · node_modules는 삭제 후 `pnpm install`로 다시 링크(lockfile importer 경로 갱신)
+- 참조 수정: 루트 `pnpm dev` 필터, 앱 vite.config 출력 예시(`static/kwp2-center-admin-fe`), 컨벤션 트리, 디자인 시스템 `src/stories/systemAssets.ts`(앱 이미지 import) · DatePicker 가이드, `jsp-integration.md`(빌드 명령 · 셸 JSP `views/kwp2-center-admin-fe/app.jsp` · `static/kwp2-center-admin-fe` 예시), `brief.md` 폴더 구조. 지난 작업 기록의 옛 이름은 그대로
+- 검증: 디자인 시스템 tsc · build, 앱 tsc · build, 화면 목록 tsc, 새 이름으로 개발 서버 실행(5173) — 네 조회 화면 IBSheet 10줄 · 선택 정상

@@ -12,7 +12,7 @@ importers:
         specifier: ^3.9.10
         version: 3.9.10
 
-  apps/internal-admin:
+  apps/kwp2-center-admin-fe:
     dependencies:
       '@ibsheet/interface':
         specifier: 1.0.4

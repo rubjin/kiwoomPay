@@ -26,7 +26,7 @@ export const FOLDER_TREES: readonly FolderTree[] = [
       ['│  ├─ icon-workflow.md', '아이콘 추가 절차 (SVG → build-icons)'],
       ['│  └─ jsp-integration.md', 'JSP 셸 · 빌드 산출물 연결 (SPA)'],
       ['├─ packages/design-system/', '세 앱이 공유하는 디자인 시스템 (아래 트리)'],
-      ['├─ apps/internal-admin/', '내부관리자 앱 (아래 트리)'],
+      ['├─ apps/kwp2-center-admin-fe/', '내부관리자 앱 (아래 트리)'],
       ['├─ apps/screen-list/', '화면 목록 — 개발 도구 (pnpm screens, 5180)'],
       ['│  ├─ src/screens.ts', '작업 기록: 화면을 만들거나 고치면 한 줄 추가 · 갱신'],
       [
@@ -81,11 +81,11 @@ export const FOLDER_TREES: readonly FolderTree[] = [
     ],
   },
   {
-    title: '내부관리자 앱 · 공통 파일 (apps/internal-admin/src)',
+    title: '내부관리자 앱 · 공통 파일 (apps/kwp2-center-admin-fe/src)',
     description:
       '기능 폴더(features) 밖 파일 전부 — 여러 1depth가 같이 쓰는 것만 둔다. 공통 폴더는 기능 폴더를 가져다 쓰지 않는다(예외: router/index.tsx)',
     lines: [
-      ['apps/internal-admin/src/'],
+      ['apps/kwp2-center-admin-fe/src/'],
       ['├─ features/', '1depth별 기능 폴더 (아래 "기능 폴더" 트리)'],
       ['├─ assets/', '앱 이미지 (login · logo)'],
       ['├─ app/'],
