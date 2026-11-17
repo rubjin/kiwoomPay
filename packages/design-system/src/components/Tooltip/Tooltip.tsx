@@ -93,6 +93,23 @@ function computePosition(
   return { placement, top, left, arrow };
 }
 
+/**
+ * 기준 요소가 화면 · 스크롤 영역 안에 보이는지. 스크롤로 밖에 나가면 툴팁을 숨긴다
+ * (화면 안으로 밀어 넣으면 열린 툴팁들이 화면 끝에 쌓인다)
+ */
+function isAnchorVisible(el: HTMLElement, rect: DOMRect): boolean {
+  if (rect.bottom <= 0 || rect.top >= window.innerHeight) return false;
+  if (rect.right <= 0 || rect.left >= document.documentElement.clientWidth) return false;
+  for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+    const { overflowX, overflowY } = getComputedStyle(p);
+    if (overflowX === 'visible' && overflowY === 'visible') continue;
+    const box = p.getBoundingClientRect();
+    if (rect.bottom <= box.top || rect.top >= box.bottom) return false;
+    if (rect.right <= box.left || rect.left >= box.right) return false;
+  }
+  return true;
+}
+
 type TriggerProps = {
   ref?: Ref<HTMLElement>;
   onMouseEnter?: (event: MouseEvent<HTMLElement>) => void;
@@ -148,6 +165,8 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const timer = useRef<number | undefined>(undefined);
     const [isOpen, setOpen] = useControllableState(open, defaultOpen, onOpenChange);
     const [position, setPosition] = useState<Position | null>(null);
+    // 기준 요소가 스크롤로 화면 · 스크롤 영역 밖에 있으면 숨긴다(열림 상태는 유지)
+    const [outOfView, setOutOfView] = useState(false);
     const shown = isOpen && !disabled;
 
     const clearTimer = () => window.clearTimeout(timer.current);
@@ -170,14 +189,18 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     useLayoutEffect(() => {
       if (!shown) {
         setPosition(null);
+        setOutOfView(false);
         return;
       }
       const update = () => {
-        const anchor = anchorRef.current?.getBoundingClientRect();
+        const el = anchorRef.current;
+        const anchor = el?.getBoundingClientRect();
         // offsetWidth는 정수로 반올림되어 왼쪽 배치에서 포인터가 아이콘과 어긋나므로 실제 크기를 쓴다
         const bubble = bubbleRef.current?.getBoundingClientRect();
-        if (!anchor || !bubble) return;
-        setPosition(computePosition(anchor, bubble.width, bubble.height, placement));
+        if (!el || !anchor || !bubble) return;
+        const visible = isAnchorVisible(el, anchor);
+        setOutOfView(!visible);
+        if (visible) setPosition(computePosition(anchor, bubble.width, bubble.height, placement));
       };
       update();
       window.addEventListener('scroll', update, true);
@@ -230,9 +253,10 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     });
 
     const placed = position?.placement ?? placement;
-    const bubbleStyle: CSSProperties = position
-      ? { ...style, top: position.top, left: position.left }
-      : { ...style, top: 0, left: 0, visibility: 'hidden' };
+    const bubbleStyle: CSSProperties =
+      position && !outOfView
+        ? { ...style, top: position.top, left: position.left }
+        : { ...style, top: position?.top ?? 0, left: position?.left ?? 0, visibility: 'hidden' };
     const vertical = placed === 'bottom' || placed === 'top';
 
     return (

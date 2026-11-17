@@ -51,7 +51,7 @@
 ### Tab · Tooltip · Text
 
 - Tab: line md 40(14 Regular / Active 14 Bold · 좌우 12) · sm 32(12 / 12 SemiBold · 좌우 10), button md 40(좌우 16) · sm 32(좌우 12), title 34(14 / Active 14 Bold + 밑줄 4 · 좌우 12, Tab 사이 0). `count` Badge
-- Tooltip: Hover 200ms · Focus 즉시, 자동 위치 전환(bottom → top → left → right), 몸체 Neutral 800 · 반경 8 · 최대 320, 포인터 높이 8 · 기준 요소 바깥 8. `InfoTip`(Info 아이콘 20)
+- Tooltip: Hover 200ms · Focus 즉시, 자동 위치 전환(bottom → top → left → right), 몸체 Neutral 800 · 반경 8 · 최대 320, 포인터 높이 8 · 기준 요소 바깥 8. `InfoTip`(Info 아이콘 20). 기준 요소가 스크롤로 화면 · 스크롤 영역 밖에 나가면 숨김(열림 상태 유지 — 화면 끝으로 밀어 넣지 않음)
 - `Text`: 보조 설명 글자(역할 이름 variant · tone secondary 기본) — TODO(시안) 글자 규칙
 - 표 테두리: 칸 사이 세로선, 양 끝 선 없음(FormTable · GridPlaceholder · IBSheet 테마)
 
