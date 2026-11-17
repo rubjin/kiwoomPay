@@ -14,7 +14,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const { Row, Label, Cell, Head, InlineLabel } = FormTable;
+const { Row, Label, Cell, Head, InlineField } = FormTable;
 const opts = [{ value: 'a', label: '법인사업자' }];
 
 /** 라벨-값 4쌍 (기본): 라벨 138 · 값 같은 폭 · 줄 52. 필수는 required */
@@ -83,15 +83,17 @@ export const ColSpan: Story = {
         <Label required>사업장 주소</Label>
         <Cell colSpan={7}>
           <Checkbox label="사업장 주소와 동일" />
-          <InlineLabel>우편번호</InlineLabel>
-          <ControlGroup>
-            <TextField fieldWidth="xs" defaultValue="46757" />
-            <Button variant="neutral" appearance="line">
-              찾기
-            </Button>
-          </ControlGroup>
-          <InlineLabel>주소</InlineLabel>
-          <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
+          <InlineField label="우편번호">
+            <ControlGroup>
+              <TextField fieldWidth="xs" defaultValue="46757" />
+              <Button variant="neutral" appearance="line">
+                찾기
+              </Button>
+            </ControlGroup>
+          </InlineField>
+          <InlineField label="주소" grow>
+            <TextField fullWidth defaultValue="부산광역시 강서구" />
+          </InlineField>
         </Cell>
       </Row>
     </FormTable>

@@ -21,10 +21,7 @@ interface Props {
   onAction: (name: string) => void;
 }
 
-const { Row, Label, Cell, InlineLabel } = FormTable;
-
-/** 우편번호 입력 폭 (5자리, 사용자 확정) */
-const ZIP_WIDTH = 72;
+const { Row, Label, Cell, InlineField } = FormTable;
 
 /** 주소 칸: 국가 · 우편번호 [찾기] · 주소 · 상세 주소 (Figma 사업장 주소) */
 function AddressCell({
@@ -45,47 +42,48 @@ function AddressCell({
   return (
     <Cell colSpan={7}>
       {before}
-      <InlineLabel>국가</InlineLabel>
-      <SelectBox
-        aria-label="국가"
-        placeholder="선택"
-        fullWidth
-        style={{ width: 192, flex: 'none' }}
-        options={countries}
-        value={value.country}
-        disabled={disabled}
-        onChange={(country) => set({ country })}
-      />
-      <InlineLabel>우편번호</InlineLabel>
-      <ControlGroup>
-        <TextField
-          aria-label="우편번호"
-          style={{ width: ZIP_WIDTH }}
-          value={value.zipCode}
+      <InlineField label="국가">
+        <SelectBox
+          aria-label="국가"
+          placeholder="선택"
+          fullWidth
+          style={{ width: 192, flex: 'none' }}
+          options={countries}
+          value={value.country}
           disabled={disabled}
-          onChange={(e) => set({ zipCode: e.target.value })}
+          onChange={(country) => set({ country })}
         />
-        <Button variant="neutral" appearance="line" disabled={disabled} onClick={onFind}>
-          찾기
-        </Button>
-      </ControlGroup>
-      <InlineLabel>주소</InlineLabel>
-      <TextField
-        aria-label="주소"
-        fullWidth
-        style={{ flex: '1 1 0' }}
-        value={value.address1}
-        disabled={disabled}
-        onChange={(e) => set({ address1: e.target.value })}
-      />
-      <TextField
-        aria-label="상세 주소"
-        fullWidth
-        style={{ flex: '1 1 0' }}
-        value={value.address2}
-        disabled={disabled}
-        onChange={(e) => set({ address2: e.target.value })}
-      />
+      </InlineField>
+      <InlineField label="우편번호">
+        <ControlGroup>
+          <TextField
+            aria-label="우편번호"
+            fieldWidth="xs"
+            value={value.zipCode}
+            disabled={disabled}
+            onChange={(e) => set({ zipCode: e.target.value })}
+          />
+          <Button variant="neutral" appearance="line" disabled={disabled} onClick={onFind}>
+            찾기
+          </Button>
+        </ControlGroup>
+      </InlineField>
+      <InlineField label="주소" grow>
+        <TextField
+          aria-label="주소"
+          fullWidth
+          value={value.address1}
+          disabled={disabled}
+          onChange={(e) => set({ address1: e.target.value })}
+        />
+        <TextField
+          aria-label="상세 주소"
+          fullWidth
+          value={value.address2}
+          disabled={disabled}
+          onChange={(e) => set({ address2: e.target.value })}
+        />
+      </InlineField>
     </Cell>
   );
 }

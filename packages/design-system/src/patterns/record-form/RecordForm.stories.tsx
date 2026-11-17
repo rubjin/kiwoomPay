@@ -24,7 +24,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const { Row, Label, Cell, InlineLabel, Head } = FormTable;
+const { Row, Label, Cell, InlineField, Head } = FormTable;
 
 /** KWPC07010101 가맹점 기본/계약 정보 관리 (기본 정보 · 담당자 정보 일부) */
 export const RecordForm: Story = {
@@ -121,10 +121,12 @@ export const RecordForm: Story = {
               <Label required>사업장 주소</Label>
               <Cell colSpan={7}>
                 <Checkbox label="사업장 주소와 동일" />
-                <InlineLabel>우편번호</InlineLabel>
-                <TextField fieldWidth="xs" defaultValue="46757" />
-                <InlineLabel>주소</InlineLabel>
-                <TextField fullWidth style={{ flex: '1 1 0' }} defaultValue="부산광역시 강서구" />
+                <InlineField label="우편번호">
+                  <TextField fieldWidth="xs" defaultValue="46757" />
+                </InlineField>
+                <InlineField label="주소" grow>
+                  <TextField fullWidth defaultValue="부산광역시 강서구" />
+                </InlineField>
               </Cell>
             </Row>
           </FormTable>
