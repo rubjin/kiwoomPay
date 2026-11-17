@@ -69,12 +69,7 @@ export function FavoriteEditModal({
         >
           취소
         </Button>
-        <Button
-          size="lg"
-          disabled={!config.dirty}
-          loading={save.loading}
-          onClick={() => save.execute()}
-        >
+        <Button size="lg" disabled={!config.dirty} onClick={() => save.execute()}>
           저장
         </Button>
       </Modal.Footer>

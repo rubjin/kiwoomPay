@@ -15,7 +15,7 @@ export interface SearchFieldProps extends Omit<
    * 버튼은 Neutral · 필드와 같은 size. fullWidth면 입력이 남는 폭을 채운다. className · style은 묶음에 적용
    */
   searchLabel?: ReactNode;
-  /** 조회 중: 버튼 로딩 · 중복 실행 차단 */
+  /** 조회 중: 다시 조회하지 않음 (중복 실행 차단 — 버튼 모양은 그대로) */
   loading?: boolean;
 }
 
@@ -73,7 +73,6 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
         size={rest.size}
         fullWidth={rest.fullWidth}
         disabled={rest.disabled}
-        loading={loading}
         className={className}
         style={style}
       >

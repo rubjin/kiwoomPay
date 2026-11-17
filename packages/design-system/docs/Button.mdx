@@ -221,6 +221,7 @@ import { Button, TextButton, TextLink } from '@kiwoompay/design-system';
 </table>
 
 - Focus는 공통 포커스 스타일(`:focus-visible`)을 따릅니다. 버튼에서 따로 정의하지 않습니다.
+- **앱 화면에서는 `loading`을 쓰지 않습니다**(사용자 결정 — 처리 중 표시 노출 안 함). 중복 요청은 `useAction`이 막고, 검색 조건 · 찾기 묶음은 `loading` 중 제출을 무시합니다(버튼 모양 그대로). 아래 모양은 Storybook 참고용입니다.
 - `loading` 중에는 내용이 `loading` 아이콘과 **"처리 중"** 으로 바뀌고, 폭은 그 내용에 맞춰집니다. 문구는 `loadingText`로 바꿀 수 있고, 아이콘 전용 버튼은 아이콘만 바뀝니다.
 - `onClick`이 호출되지 않고 `aria-busy`가 설정됩니다. `disabled`가 아니므로 색은 Default 그대로입니다. 로딩 아이콘은 회전하지 않습니다(애니메이션 없음).
 
@@ -320,7 +321,8 @@ import { Button, TextButton, TextLink } from '@kiwoompay/design-system';
     </tr>
     <tr>
       <td>
-        처리 중에는 <code>loading</code>으로 재클릭을 막는다
+        처리 중 재클릭은 <code>useAction</code>(또는 처리 중이면 무시)로 막는다 — 버튼에 처리 중
+        표시는 하지 않는다
       </td>
       <td>처리 중 버튼을 그대로 두어 중복 요청을 허용한다</td>
     </tr>

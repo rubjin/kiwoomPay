@@ -191,12 +191,7 @@ export function P04PartialCancelModal({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          size="lg"
-          loading={request.loading}
-          disabled={remaining <= 0}
-          onClick={() => request.execute()}
-        >
+        <Button size="lg" disabled={remaining <= 0} onClick={() => request.execute()}>
           부분취소 요청
         </Button>
       </Modal.Footer>

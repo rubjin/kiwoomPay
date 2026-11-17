@@ -200,6 +200,11 @@ const CONVENTIONS: RuleGroup[] = [
         rule: 'Modal Footer 버튼은 항상 lg 48 (Figma에 40으로 그려져 있어도 48)',
       },
       {
+        item: '처리 중',
+        rule: '버튼에 처리 중 표시(Button loading · "처리 중")를 하지 않는다. 중복 요청은 useAction이 막고, 직접 만든 처리는 처리 중이면 무시(if (saving) return)',
+        example: '<Button size="lg" onClick={() => save.execute()}>저장</Button>',
+      },
+      {
         item: '결과 안내',
         rule: '성공 · 실패 안내는 Alert(Modal sm)로 통일, Toast 없음. 처리 후에는 재조회(refresh()) 다음에 완료 Alert',
         example: "await result.refresh(); dialog.alert('처리되었습니다.')",

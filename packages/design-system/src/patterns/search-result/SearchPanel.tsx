@@ -132,7 +132,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
             onClick={onReset}
           />
         )}
-        <Button type="submit" variant="neutral" loading={loading}>
+        <Button type="submit" variant="neutral">
           {text.search}
         </Button>
       </>

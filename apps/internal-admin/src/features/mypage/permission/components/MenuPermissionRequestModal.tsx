@@ -231,7 +231,6 @@ export function MenuPermissionRequestModal({
         </Button>
         <Button
           size="lg"
-          loading={apply.loading}
           disabled={permissionCount === 0 || !reason.trim()}
           onClick={() => void apply.execute()}
         >

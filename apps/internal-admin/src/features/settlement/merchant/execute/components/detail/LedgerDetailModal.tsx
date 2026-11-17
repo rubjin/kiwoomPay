@@ -359,7 +359,7 @@ function Body({
           <Button size="lg" variant="neutral" appearance="line" onClick={onClose}>
             취소
           </Button>
-          <Button size="lg" loading={save.loading} onClick={() => void save.execute()}>
+          <Button size="lg" onClick={() => void save.execute()}>
             비고 저장
           </Button>
         </Modal.Footer>

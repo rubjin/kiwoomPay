@@ -16,7 +16,6 @@ export interface FieldButtonGroupProps {
   /** 입력이 남는 폭을 채움 → 묶음도 부모 폭을 채운다 */
   fullWidth?: boolean;
   disabled?: boolean;
-  loading?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -33,7 +32,6 @@ export function FieldButtonGroup({
   size,
   fullWidth,
   disabled,
-  loading,
   className,
   style,
 }: FieldButtonGroupProps) {
@@ -45,7 +43,6 @@ export function FieldButtonGroup({
         variant="neutral"
         appearance={buttonAppearance}
         size={size ?? field?.size ?? 'md'}
-        loading={loading}
         disabled={disabled ?? field?.disabled}
         onClick={onButtonClick}
       >

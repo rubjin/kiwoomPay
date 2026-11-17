@@ -60,6 +60,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
   const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
 
   const save = async () => {
+    if (saving) return; // 처리 중 다시 누르면 무시 (버튼에 처리 중 표시는 하지 않음)
     const label = mode === 'create' ? '등록' : '저장';
     // TODO(정책) 필수 입력 검증 · 변경 항목 확인은 화면설계서 확인 후 (임의 작업: 사업자구분만 확인)
     if (!basic.bizType) {
@@ -102,9 +103,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
         aria-label="새로고침"
         onClick={reload}
       />
-      <Button loading={saving} onClick={save}>
-        {mode === 'create' ? '등록' : '저장'}
-      </Button>
+      <Button onClick={save}>{mode === 'create' ? '등록' : '저장'}</Button>
     </ControlGroup>
   );
 

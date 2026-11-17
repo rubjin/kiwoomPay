@@ -146,7 +146,7 @@ export function PasswordChangeModal({ open, onClose, onChanged }: PasswordChange
         >
           취소
         </Button>
-        <Button size="lg" loading={change.loading} onClick={submit}>
+        <Button size="lg" onClick={submit}>
           변경
         </Button>
       </Modal.Footer>

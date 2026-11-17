@@ -270,12 +270,7 @@ export function SavedSearchModal({
         >
           취소
         </Button>
-        <Button
-          size="lg"
-          disabled={!creating && !config.dirty}
-          loading={save.loading}
-          onClick={() => save.execute()}
-        >
+        <Button size="lg" disabled={!creating && !config.dirty} onClick={() => save.execute()}>
           저장
         </Button>
       </Modal.Footer>

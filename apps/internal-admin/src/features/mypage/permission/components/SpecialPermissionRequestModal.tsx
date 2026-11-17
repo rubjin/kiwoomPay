@@ -207,7 +207,7 @@ export function SpecialPermissionRequestModal({
         >
           취소
         </Button>
-        <Button size="lg" loading={apply.loading} onClick={submit}>
+        <Button size="lg" onClick={submit}>
           신청
         </Button>
       </Modal.Footer>

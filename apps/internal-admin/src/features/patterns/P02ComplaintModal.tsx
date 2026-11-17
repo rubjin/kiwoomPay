@@ -308,18 +308,12 @@ export function P02ComplaintModal({
           size="lg"
           variant="primary"
           appearance="line"
-          loading={saveMail.loading}
           disabled={save.loading}
           onClick={() => saveMail.execute()}
         >
           등록 후 메일 발송
         </Button>
-        <Button
-          size="lg"
-          loading={save.loading}
-          disabled={saveMail.loading}
-          onClick={() => save.execute()}
-        >
+        <Button size="lg" disabled={saveMail.loading} onClick={() => save.execute()}>
           등록
         </Button>
       </Modal.Footer>

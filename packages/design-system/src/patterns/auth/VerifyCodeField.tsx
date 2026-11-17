@@ -78,7 +78,7 @@ export const VerifyCodeField = forwardRef<HTMLInputElement, VerifyCodeFieldProps
               </span>
             }
           />
-          <Button variant="neutral" disabled={disabled} loading={resending} onClick={onResend}>
+          <Button variant="neutral" disabled={disabled} onClick={resending ? undefined : onResend}>
             {resendLabel}
           </Button>
         </div>

@@ -130,7 +130,7 @@ function Body<R extends { ledgerId: string }>({
         <Button size="lg" variant="neutral" appearance="line" onClick={onClose}>
           취소
         </Button>
-        <Button size="lg" loading={action.loading} onClick={() => void action.execute()}>
+        <Button size="lg" onClick={() => void action.execute()}>
           {submitLabel}
         </Button>
       </Modal.Footer>

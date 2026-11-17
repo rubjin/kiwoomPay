@@ -125,7 +125,7 @@ export const LookupSearch = forwardRef<HTMLDivElement, LookupSearchProps>(
             onClick={onReset}
           />
         )}
-        <Button type="submit" variant="neutral" loading={loading}>
+        <Button type="submit" variant="neutral">
           {searchLabel}
         </Button>
       </>

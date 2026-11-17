@@ -107,7 +107,6 @@ export function SmsVerifyModal({ challenge, onClose, onVerified }: SmsVerifyModa
         <Button
           size="lg"
           disabled={expired || code.length < CODE_LENGTH}
-          loading={verify.loading}
           onClick={() => verify.execute()}
         >
           완료

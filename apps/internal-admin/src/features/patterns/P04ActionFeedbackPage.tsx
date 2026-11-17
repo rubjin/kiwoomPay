@@ -96,7 +96,7 @@ export function DownloadReasonModal({ open, onClose }: { open: boolean; onClose:
         >
           취소
         </Button>
-        <Button size="lg" loading={request.loading} onClick={() => request.execute()}>
+        <Button size="lg" onClick={() => request.execute()}>
           확인
         </Button>
       </Modal.Footer>
@@ -183,7 +183,7 @@ export function BizNoChangeModal({
         >
           취소
         </Button>
-        <Button size="lg" loading={change.loading} onClick={() => change.execute()}>
+        <Button size="lg" onClick={() => change.execute()}>
           확인
         </Button>
       </Modal.Footer>
@@ -297,7 +297,7 @@ export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () =
         >
           취소
         </Button>
-        <Button size="lg" loading={register.loading} onClick={() => register.execute()}>
+        <Button size="lg" onClick={() => register.execute()}>
           등록
         </Button>
       </Modal.Footer>

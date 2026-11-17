@@ -83,7 +83,7 @@ export function ExcelDownloadModal({ open, onClose }: ExcelDownloadModalProps) {
         >
           취소
         </Button>
-        <Button size="lg" loading={download.loading} onClick={() => download.execute()}>
+        <Button size="lg" onClick={() => download.execute()}>
           엑셀 다운로드
         </Button>
       </Modal.Footer>
