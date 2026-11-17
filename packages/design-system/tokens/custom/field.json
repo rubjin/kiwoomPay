@@ -84,6 +84,11 @@
       "$type": "color",
       "$value": "{Text.Label}"
     },
+    "LabelInline": {
+      "$type": "color",
+      "$value": "{Text.Heading}",
+      "$description": "variant=\"inline\" 라벨 (표 칸 안 — Record Form 라벨과 같은 색)"
+    },
     "Required": {
       "$type": "color",
       "$value": "{Text.Accent}"

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { createContext, forwardRef, useContext, type HTMLAttributes, type ReactNode } from 'react';
+import { Field, type FieldProps } from '../../components/field';
 import styles from './RecordForm.module.scss';
 
 const LABEL_WIDTH = 138; // Figma KWPC07010101 label 칸
@@ -130,27 +131,16 @@ const FormTableInlineLabel = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpan
 );
 FormTableInlineLabel.displayName = 'FormTable.InlineLabel';
 
-export interface FormTableInlineFieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** 칸 안 라벨 (InlineLabel로 그린다) */
-  label: ReactNode;
-  /** 남는 폭을 채움 — 안의 입력들이 폭을 나눠 갖는다 (주소 · 상세 주소) */
-  grow?: boolean;
-}
+export type FormTableInlineFieldProps = Omit<FieldProps, 'variant'>;
 
 /**
  * 값 칸 안의 [라벨 + 입력] 묶음 (예: 주소 칸의 국가 · 우편번호 · 주소).
- * 묶음 안 라벨 ↔ 입력 12, 묶음끼리 16 (컨트롤 간격 규칙) — 칸 안에 InlineLabel을 따로 두지 않는다
+ * = `<Field variant="inline">` (라벨이 컨트롤과 연결 · 필수 표시 가능). 묶음 안 라벨 ↔ 입력 12, 묶음끼리 16
+ * (컨트롤 간격 규칙) — 칸 안에 InlineLabel을 따로 두지 않는다
  */
 const FormTableInlineField = forwardRef<HTMLDivElement, FormTableInlineFieldProps>(
-  ({ label, grow, className, children, ...rest }, ref) => (
-    <div
-      {...rest}
-      ref={ref}
-      className={clsx(styles.inlineField, grow && styles.inlineFieldGrow, className)}
-    >
-      <span className={styles.inlineLabel}>{label}</span>
-      {children}
-    </div>
+  ({ className, ...rest }, ref) => (
+    <Field {...rest} ref={ref} variant="inline" className={clsx(styles.inlineField, className)} />
   ),
 );
 FormTableInlineField.displayName = 'FormTable.InlineField';

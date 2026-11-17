@@ -107,24 +107,7 @@ $rf-chip-gap: t.$space-4;
   white-space: nowrap;
 }
 
-// InlineField: [라벨 + 입력] 묶음. 묶음 안 12, 묶음이 있는 칸은 묶음끼리 16
-.inlineField {
-  display: flex;
-  flex: none;
-  gap: $rf-cell-gap;
-  align-items: center;
-  min-width: 0;
-}
-
-.inlineFieldGrow {
-  flex: 1 1 0;
-}
-
-.inlineFieldGrow > :not(.inlineLabel) {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
+// InlineField(= Field variant="inline")가 있는 칸은 묶음끼리 16 (묶음 안 12는 Field가 그림)
 .cell:has(> .inlineField) {
   gap: $rf-inline-field-gap;
 }

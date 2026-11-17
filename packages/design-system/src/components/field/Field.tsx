@@ -3,6 +3,7 @@ import {
   forwardRef,
   useId,
   useMemo,
+  useRef,
   type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
@@ -13,6 +14,13 @@ import { FieldContext, type FieldFeedback, type FieldSize } from './fieldContext
 export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** 라벨 텍스트 */
   label?: ReactNode;
+  /**
+   * default: 라벨 13 Bold · 라벨 ↔ 컨트롤 8, 안내 문구 · 오류 (폼 · 검색 조건) /
+   * inline: 표 칸 안 묶음 — 라벨 12 Bold · 라벨 ↔ 컨트롤 12, 컨트롤 여럿은 가로로 12 (FormTable.InlineField)
+   */
+  variant?: 'default' | 'inline';
+  /** 남는 폭을 채움 — 안의 컨트롤들이 폭을 나눠 갖는다 (inline 주소 · 상세 주소) */
+  grow?: boolean;
   /** left(기본): 필드 왼쪽에 가로 배치 / top: 필드 위 (검색 영역) */
   labelPosition?: 'left' | 'top';
   /** 필수 표시: true = * (12 Bold Primary) / 'text' = "필수" 글자(10 Regular 빨강, 라벨과 8 — Figma 권한 신청 팝업 신청 사유) */
@@ -45,6 +53,8 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
   (
     {
       label,
+      variant = 'default',
+      grow = false,
       labelPosition = 'left',
       required,
       helperText,
@@ -66,9 +76,10 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
     const autoId = useId();
     const id = htmlFor ?? autoId;
     const helperId = helperText ? `${id}-helper` : undefined;
+    const owner = useRef<string | undefined>(undefined);
 
     const context = useMemo(
-      () => ({ id, describedBy: helperId, size, feedback, disabled }),
+      () => ({ id, owner, describedBy: helperId, size, feedback, disabled }),
       [id, helperId, size, feedback, disabled],
     );
 
@@ -80,7 +91,13 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
         <div
           {...rest}
           ref={ref}
-          className={clsx(styles.field, labelPosition === 'top' && styles.top, className)}
+          className={clsx(
+            styles.field,
+            labelPosition === 'top' && styles.top,
+            variant === 'inline' && styles.inline,
+            grow && styles.grow,
+            className,
+          )}
           style={
             helperGap === undefined
               ? style

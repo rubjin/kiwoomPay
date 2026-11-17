@@ -4,6 +4,7 @@
 // 컴포넌트 전용 크기 (시안 값 · 공통 토큰은 t.* 사용)
 $field-label-gap: t.$space-8; // 가로 배치 Label ↔ 필드
 $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
+$field-inline-gap: t.$space-12; // variant="inline": 라벨 ↔ 컨트롤 · 컨트롤끼리 (칸 안 라벨 + 입력 12, 컨트롤 간격 규칙)
 
 .field {
   display: flex;
@@ -110,6 +111,40 @@ $field-helper-gap: t.$space-8; // 필드 ↔ Helper Text
 // 빈 자리: 글자 한 줄 높이
 .helperEmpty {
   min-height: 1lh;
+}
+
+// ── variant="inline": 표 칸 안 [라벨 + 컨트롤] 묶음 ─────────
+.inline {
+  flex: none;
+  gap: $field-inline-gap;
+  align-items: center;
+  min-width: 0;
+}
+
+.inline .label {
+  @include m.typography(typo-12-bold);
+
+  min-height: 0;
+  color: t.$color-field-label-inline;
+  white-space: nowrap;
+}
+
+// 컨트롤이 여럿이면 가로로 나란히 (주소 · 상세 주소)
+.inline .body {
+  flex-direction: row;
+  gap: $field-inline-gap;
+  align-items: center;
+  min-height: 0;
+}
+
+// grow: 묶음이 남는 폭을 채우고, 안의 컨트롤이 폭을 나눠 갖는다
+.grow {
+  flex: 1 1 0;
+}
+
+.grow .body > * {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .positive {

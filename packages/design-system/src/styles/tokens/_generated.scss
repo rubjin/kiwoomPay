@@ -552,6 +552,7 @@ $color-field-text-disabled: var(--kp-color-field-text-disabled);
 $color-field-icon-muted: var(--kp-color-field-icon-muted); // Search · Clear
 $color-field-icon-disabled: var(--kp-color-field-icon-disabled);
 $color-field-label: var(--kp-color-field-label);
+$color-field-label-inline: var(--kp-color-field-label-inline); // variant="inline" 라벨 (표 칸 안 — Record Form 라벨과 같은 색)
 $color-field-required: var(--kp-color-field-required);
 $color-field-required-text: var(--kp-color-field-required-text); // 필수 글자 표시 (required="text")
 $color-field-helper: var(--kp-color-field-helper);
@@ -1326,6 +1327,7 @@ $css-variables: (
   "--kp-color-field-icon-muted": "var(--kp-color-neutral-400)",
   "--kp-color-field-icon-disabled": "var(--kp-color-neutral-400)",
   "--kp-color-field-label": "var(--kp-color-text-label)",
+  "--kp-color-field-label-inline": "var(--kp-color-text-heading)",
   "--kp-color-field-required": "var(--kp-color-text-accent)",
   "--kp-color-field-required-text": "var(--kp-color-status-error-border)",
   "--kp-color-field-helper": "var(--kp-color-text-secondary)",

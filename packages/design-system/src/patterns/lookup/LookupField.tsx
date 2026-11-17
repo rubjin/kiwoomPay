@@ -1,9 +1,7 @@
-import clsx from 'clsx';
 import { forwardRef, type ChangeEvent, type ReactNode } from 'react';
-import { Button } from '../../components/Button';
 import { TextField, type TextFieldProps } from '../../components/field';
+import { FieldButtonGroup } from '../../components/field/FieldButtonGroup';
 import { Icon } from '../../components/Icon';
-import styles from './LookupField.module.scss';
 
 export interface LookupFieldProps extends Omit<TextFieldProps, 'leadingIcon' | 'onChange'> {
   /** [찾기] → Lookup 팝업(P03)을 연다. 선택 결과를 value에 반영하는 것은 화면이 한다 */
@@ -27,7 +25,17 @@ export interface LookupFieldProps extends Omit<TextFieldProps, 'leadingIcon' | '
  */
 export const LookupField = forwardRef<HTMLInputElement, LookupFieldProps>(
   ({ onFind, findLabel = '찾기', onChange, size, disabled, className, style, ...rest }, ref) => (
-    <span className={clsx(styles.lookupField, className)} style={style}>
+    // [검색 입력][찾기] — SearchField searchLabel과 같은 묶음, 버튼만 테두리(Line)
+    <FieldButtonGroup
+      buttonLabel={findLabel}
+      buttonAppearance="line"
+      onButtonClick={onFind}
+      size={size}
+      fullWidth={rest.fullWidth}
+      disabled={disabled}
+      className={className}
+      style={style}
+    >
       <TextField
         {...rest}
         ref={ref}
@@ -36,16 +44,7 @@ export const LookupField = forwardRef<HTMLInputElement, LookupFieldProps>(
         leadingIcon={<Icon name="search" size={size === 'sm' ? 16 : 20} />}
         onChange={(event) => onChange?.(event.target.value, event)}
       />
-      <Button
-        variant="neutral"
-        appearance="line"
-        size={size === 'lg' ? 'lg' : size === 'sm' ? 'sm' : 'md'}
-        disabled={disabled}
-        onClick={onFind}
-      >
-        {findLabel}
-      </Button>
-    </span>
+    </FieldButtonGroup>
   ),
 );
 LookupField.displayName = 'LookupField';

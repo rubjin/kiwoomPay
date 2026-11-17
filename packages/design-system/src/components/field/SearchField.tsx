@@ -1,8 +1,7 @@
 import { forwardRef, useRef, type KeyboardEvent, type ReactNode } from 'react';
 import { mergeRefs } from '../../utils';
-import { Button } from '../Button';
 import { Icon } from '../Icon';
-import { ControlGroup } from '../layout/ControlGroup';
+import { FieldButtonGroup } from './FieldButtonGroup';
 import { TextField, type TextFieldProps } from './TextField';
 
 export interface SearchFieldProps extends Omit<
@@ -68,18 +67,18 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
     if (searchLabel === undefined) return field;
 
     return (
-      <ControlGroup grow={rest.fullWidth} className={className} style={style}>
+      <FieldButtonGroup
+        buttonLabel={searchLabel}
+        onButtonClick={() => search(inputRef.current?.value ?? '')}
+        size={rest.size}
+        fullWidth={rest.fullWidth}
+        disabled={rest.disabled}
+        loading={loading}
+        className={className}
+        style={style}
+      >
         {field}
-        <Button
-          variant="neutral"
-          size={rest.size ?? 'md'}
-          loading={loading}
-          disabled={rest.disabled}
-          onClick={() => search(inputRef.current?.value ?? '')}
-        >
-          {searchLabel}
-        </Button>
-      </ControlGroup>
+      </FieldButtonGroup>
     );
   },
 );
