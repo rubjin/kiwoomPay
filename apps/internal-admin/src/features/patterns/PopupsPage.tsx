@@ -94,21 +94,22 @@ interface PopupGroup {
   /** 화면ID · 화면명 */
   title: string;
   description?: string;
-  buttons: { key: PopupKey; label: string }[];
+  /** done: 화면 목록(apps/screen-list)에서 완료인 팝업 → Dark 버튼 */
+  buttons: { key: PopupKey; label: string; done?: boolean }[];
 }
 
 const GROUPS: PopupGroup[] = [
   {
     title: 'KWPC1301 LNB',
     description: 'LNB 즐겨찾기 탭 → [편집]',
-    buttons: [{ key: 'favorite', label: '즐겨찾기 편집' }],
+    buttons: [{ key: 'favorite', label: '즐겨찾기 편집', done: true }],
   },
   {
     title: 'KWPC3000 로그인',
     description: '아이디 · 비밀번호 확인 후 (인증번호 123456)',
     buttons: [
-      { key: 'sms', label: 'SMS 인증' },
-      { key: 'smsUnavailable', label: 'SMS 인증 불가 (휴대전화번호 없음)' },
+      { key: 'sms', label: 'SMS 인증', done: true },
+      { key: 'smsUnavailable', label: 'SMS 인증 불가 (휴대전화번호 없음)', done: true },
     ],
   },
   {
@@ -337,8 +338,8 @@ export function PopupsPage() {
             {group.buttons.map((b) => (
               <Button
                 key={b.key}
-                variant="neutral"
-                appearance="line"
+                variant={b.done ? 'primary' : 'neutral'}
+                appearance={b.done ? 'solid' : 'line'}
                 onClick={() => setOpen(b.key)}
               >
                 {b.label}
