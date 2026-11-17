@@ -39,6 +39,15 @@ function pretendardFonts(): Plugin {
   };
 }
 
+/**
+ * 개발 서버용 CSS Modules 클래스 이름: Badge.module.scss의 .badge → Badge_badge (해시 없음 — 검수용).
+ * 파일 이름으로 구분하므로 *.module.scss 파일 이름이 겹치면 안 된다. 빌드는 해시를 붙인다(vite.config.ts).
+ */
+export function devScopedName(local: string, filename: string): string {
+  const file = path.basename(filename.split('?')[0] ?? filename).replace(/\.module\.\w+$/, '');
+  return `${file}_${local}`;
+}
+
 export function designSystemSource(): UserConfig {
   return {
     plugins: [pretendardFonts()],
@@ -53,8 +62,9 @@ export function designSystemSource(): UserConfig {
       ],
     },
     css: {
-      // 디자인 시스템 vite.config.ts와 같게
-      modules: { generateScopedName: 'kp_[name]_[local]_[hash:base64:5]' },
+      // 디자인 시스템 vite.config.ts 개발 서버와 같게: 짧은 클래스 이름 + 개발자 도구에 SCSS 파일 · 줄 표시
+      modules: { generateScopedName: devScopedName },
+      devSourcemap: true,
       preprocessorOptions: { scss: { loadPaths: [r('./src/styles')] } },
     },
   };
