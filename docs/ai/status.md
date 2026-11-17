@@ -276,7 +276,6 @@
 - 한 가정: 버튼은 라벨 한 줄 높이 + 간격만큼 내려 필드 줄에 맞춤(오류 문구가 생겨도 위치 유지). 필드 폭은 화면에서 지정
 
 ### Search 가이드 시안 실측 반영 — 2026-11-10
-- `temp/가이드/Search_Guide.png`(1x)로 Body Search Area 픽셀 측정 → 임시값 확정: 필드 간격 12 → 16(필드 ↔ 버튼 묶음도 16), 버튼 간격 8 유지, 라벨(위) ↔ 필드 8 → 4
 - 추가: 상세 조건을 펼치면 기본 조건 아래 16에 구분선(`Line/Subtle` 1px, 내용 폭 전체), 구분선 아래 24에 상세 조건 줄. `search-area/row-gap` 삭제 → `detail-gap`·`detail-padding`·`color/search-area/divider`
 - 검증: typecheck · lint · build · Storybook 빌드 통과. DetailExpanded 렌더링을 같은 방식으로 측정해 간격·구분선 일치 확인(라벨 ↔ 필드, 구분선 ↔ 다음 줄은 1px 차이 — 라벨 줄 높이 19.5px 반올림)
 
@@ -433,7 +432,7 @@
 - 검증: tokens · typecheck · lint · build · Storybook 빌드 통과. 브라우저 확인 5개(Modal 반경 12 · 테두리 없음 · 그림자 하나, 우편번호 · 도로명 글자 · 최소 폭 · 간격 16, 두 줄 간격 4 · 줄 높이 79). 기존 Modal · Address 테스트의 반경 10 · 테두리 · 줄 78 기대값은 옛 값
 
 ### LNB Search Result Item · Pattern 시안 반영 — 2026-11-12
-- 기존 LNB 메뉴 검색 결과를 시안(`temp/컴포넌트/Search Result Item · Pattern.png`)에 맞춤: 좌우 여백 12 → 16, 행 높이 61 → 60(아래 여백 11), 구분선을 행 사이 → 행마다 아래(마지막 포함), Hover 배경 Neutral 50 → Primary 50(토큰 `lnb/result-hover` 추가, 키보드 Focus 포함), 결과 없음 위아래 여백 16 → 20 · 좌우 16. 글자(12 SemiBold · 10 Regular) · 색 · 강조는 이미 일치. LNB 가이드 검색 절에 규격 추가
+- 좌우 여백 12 → 16, 행 높이 61 → 60(아래 여백 11), 구분선을 행 사이 → 행마다 아래(마지막 포함), Hover 배경 Neutral 50 → Primary 50(토큰 `lnb/result-hover` 추가, 키보드 Focus 포함), 결과 없음 위아래 여백 16 → 20 · 좌우 16. 글자(12 SemiBold · 10 Regular) · 색 · 강조는 이미 일치. LNB 가이드 검색 절에 규격 추가
 - 검증: lint · Storybook 빌드 통과. 시안과 같은 방식(글자 픽셀)으로 측정한 테스트 7개 통과(행 60 + 선 1, 이름 · 경로 글자 위치 ±1 · 왼쪽 16, 글자 · 색 · 강조, Hover 배경, 결과 없음 위치 · 글자). 기존 LNB 23 · 테마 18 재통과
 - 한 가정: Q50
 
@@ -623,7 +622,6 @@
 - 검증: typecheck · lint 통과, 가이드 37개의 코드 블록 261개에 parameters · 배치용 div 없음, 콘솔 에러 없음
 
 ### Screen: KWPC0104 다운로드 센터 (P01) — 2026-11-12
-- 시안: `temp/페이지/메인/다운로드센터.png` · `다운로드요청상세.png` (PNG 측정)
 - 디자인 시스템
   - `SearchPanel actionsPlacement="inline"`: [초기화] · [조회]를 필드 줄 끝에, 제목 16(md) · 제목 줄 32 · 접기 없음 — 조건이 한 줄뿐인 화면용. 기본(header)은 그대로(통합 거래내역 검색 카드 변경 전후 같음 확인). 스토리 InlineActions · 가이드
   - `Infobox.Item` `title` 생략 가능 — 설명이 제목 자리부터 이어짐(한 줄 안내). Variations 스토리 · 가이드
@@ -707,9 +705,8 @@
 - 다음: IBSheet 테마 연결 시 같은 규칙(바깥 세로선 없음)으로
 
 ### Pattern: P05 Login → Auth + KWPC3000 로그인 — 2026-11-13
-- 시안: Figma KWPC3000_로그인_최초진입(28701:69251), SMS 인증은 `temp/페이지/로그인/로그인_sms인증.png`(PNG 측정)
 - 디자인 시스템 `patterns/auth`: `AuthLayout`(Header 66 · 로고 32 · 내용 폭 360 · 위 99 · Footer 74) · `AuthForm`(필드 사이 40 · 버튼 위 58 · 안내 위 20) · `AuthField`(밑줄 입력, 라벨 20 · 16 · 입력 · 16 · 밑줄, 비밀번호 보기 아이콘) · `AuthNotice` · `AuthVerifyBody` · `AuthInfoRow` · `VerifyCodeField`(남은 시간 MM:SS · 재발송 · 숫자만). 토큰 `tokens/custom/auth.json`(색 모두 alias). Storybook `Patterns/P05 Login Auth`(Guide · Login · SmsVerify · SmsExpired), 가이드 `docs/patterns/P05LoginAuth.mdx`. 스토리 자산 `src/stories/assets`(로고 · 그림 · Footer 로고)
-- 앱: `pages/auth/login/LoginPage`(1단계 → SMS 인증 → 토큰 저장 → 원래 화면/메인), `components/SmsVerifyModal` · `loginMessages`, `api/auth/login`(예시, TODO(API)), `types/auth/login`, 자산 `assets/login/login-security.png` · `assets/logo/logo-header.png`(Figma 다운로드). 화면 목록에 KWPC3000 추가
+- 앱: `pages/auth/login/LoginPage`(1단계 → SMS 인증 → 토큰 저장 → 원래 화면/메인), `components/SmsVerifyModal` · `loginMessages`, `api/auth/login`(예시, TODO(API)), `types/auth/login`, 자산 `assets/login/login-security.svg` · `assets/logo/logo-header.svg`(Figma 다운로드). 화면 목록에 KWPC3000 추가
 - 검증: tokens · typecheck · lint · build. 1920 × 1080에서 Figma와 1px 이내(Header 66, 로고 871/17 · 178.5 × 32, 그림 165 · 160, 제목 345 · 44.8 · 32/800, 아이디 430 · 74, 비밀번호 544 · 77, 버튼 679 · 48, 안내 747 · 130, Footer 1006 · 74), SMS Modal 400 × 352(PNG 351). 흐름(Storybook · 앱): 틀린 비밀번호 Alert(1/5) · 입력 유지, 비밀번호 보기, Enter 제출 → SMS, 카운트다운, 숫자만 6자리 · [완료] 활성, 틀린 인증번호 Alert, 성공 → 메인(대시보드) 이동, 에러 없음
 - 한 가정: Q57
 
@@ -799,20 +796,17 @@
 - 검증: 앱 tsc · 화면 목록 tsc, 버튼 20개 모두 해당 팝업(폭 400 · 620 · 880 · 1056 · 1280)이 열리고 닫힘, 케이스(저장조건 없음 · 결제 오류 · 접수정보 3줄 · 다운로드 상태별 Footer) 확인, 에러 없음
 
 ### 마이페이지 권한 신청 현황 팝업 — 2026-11-13
-- 시안: `temp/페이지/마이페이지/권한신청팝업.png` (PNG 측정)
 - 디자인 시스템: `SearchPanel variant="box"` — 팝업 안 조회 조건: 제목(md 16)은 상자 밖 위(사이 16), 회색 상자(Neutral 50 · 여백 16 · 반경 8) 안에 필드 한 줄 + 끝에 [초기화] · [조회](Primary), 접기 · 상세 검색 없음. 토큰 `SearchResult.SearchBoxBg`(Bg.Page). 스토리 Box · Search Panel 가이드
 - 앱: `pages/mypage/hub/components/PermissionRequestModal`(Modal xl 1280: 조회 조건(신청기간 · 구분 · 상태) → 권한 신청 이력(신청일시 · 구분 · 신청 권한 · 상태 Badge · 처리자 · 처리일시 · 비고) → Total · Pagination, Footer 없음, 열면 바로 조회), `api/mypage/permissionRequest`(예시 23건, 날짜는 오늘 기준으로 일 단위 이동) · `types/mypage/permissionRequest`, 공통코드 `PERMISSION_REQUEST_TYPE` · `PERMISSION_REQUEST_STATUS`. 마이페이지 권한관리 카드 [권한 신청 현황] → 이 팝업(전에는 권한관리 화면 이동). 팝업 모음 · 화면 목록에 추가
 - 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 tsc, 브라우저: 팝업 1280 · 조회 상자 74 · [조회] Primary · 10행 · Total 23 · 상태 Badge(승인대기 · 승인 · 반려), 에러 없음
 - 한 가정: Q65
 
 ### Screen: KWPC02010100 마이페이지 계정관리 — 2026-11-14
-- 시안: `temp/페이지/마이페이지/계정관리.png` (PNG 측정)
 - 앱 `pages/mypage/account/AccountPage`(`/mypage/account`, placeholder 대체): 화면명 → 제목 탭(계정관리 · 권한관리, 누르면 메뉴 화면 이동) → 카드 2개(`HubGrid` 980 : 636, `PageLayout.Section` 제목 · 버튼 · 구분선): 기본 계정정보(2열 489 : 457, `HubInfo` 라벨 144 + 12, 줄 간격 19 · 계정 상태 Badge, [계정 상태 이력]) · 비밀번호 및 로그인 보안(줄 간격 36, [비밀번호 변경] · [로그인 이력]) → 계정정보 변경 안내 Infobox(변경 요청 mailto). `api/mypage/account`(예시) · `types/mypage/account`, 탭 제목 · 화면 목록(KWPC02010100). 디자인 시스템 변경 없음
 - 검증: 앱 tsc, 1920 브라우저: 카드 x 264 · 1260 · 폭 980 · 636, 값 시작 x 437 · 926 · 1433(시안과 같음), 안내 y487(시안 490), 버튼 → 준비 중 안내, [권한관리] 탭 → /mypage/permission, Hub [상세보기] → 이 화면, 에러 없음
 - 한 가정: Q66
 
 ### Screen: KWPC02020000 마이페이지 권한관리 — 2026-11-14
-- 시안: `temp/페이지/마이페이지/권한관리.png` (PNG 측정)
 - 디자인 시스템: `HubStats`(feed) — 요약 수치 줄(이름 12 Regular 위 · 값 20 Bold 아래, 사이 16, 같은 폭 칸, 카드 남는 높이 세로 가운데). `onClick`이면 값이 Primary 버튼. 토큰 `Hub.StatValue` · `Hub.StatAccent`, 스토리 Stats · P06 가이드
 - 앱 `pages/mypage/permission/PermissionPage`(`/mypage/permission`): 나의 권한 현황(Badge 현재 설정 + HubStats 5칸, 권한 신청 현황 → 팝업) · 기본 권한 정보(InfoTip, HubInfo) → 권한 신청 현황 · 권한 변경 이력 탭(최근 3건 표 + 총 N건 · [상세보기] → 권한 신청 현황 팝업) → 메뉴 및 기능 권한([권한 신청], 보유 기능 권한 + [보유 기능 권한 보기]) · 특수권한([특수권한 신청], 이름 · 상태 · 기간 줄). `api/mypage/permission` · `types/mypage/permission`
 - 공통화: 마이페이지 탭 `pages/mypage/components/MypageTabs`(계정관리 · 권한관리 공용), 권한 도움말 `components/permissionHints`(Hub · 권한관리 공용), 권한 신청 현황 팝업을 `pages/mypage/components/`로 이동 · 표 열 `PERMISSION_REQUEST_COLUMNS` 공유
@@ -820,7 +814,6 @@
 - 한 가정: Q67
 
 ### 사업자 찾기 팝업 (KWPC06010203) — 2026-11-14
-- 시안: `temp/페이지/처리_사업자 찾기 팝업.png` · `처리_사업자 찾기_팝업_CPID 선택 멀티셀렉트.png` (PNG 측정)
 - 디자인 시스템 (공통화)
   - `TableMultiSelect`(field) — 표로 보며 여러 개 고르는 드롭다운: 제목 · Total(N건 · M행 표시) · 검색 · 전체(검색결과) · 표(머리 34 · 줄 37, `visibleRows` 넘으면 표 안 스크롤 · 머리 고정) · 스크롤 안내 · 선택 N개. 트리거 요약 전체 N개 / N개 선택. `panelWidth`(오른쪽 끝 맞춤). 동작은 MultiSelect와 같음. 스토리 States · Open, Field 가이드 4-2
   - `GridPlaceholder selectable="single"` — 라디오 열(머리 '선택') · 선택 줄 Primary 50(토큰 `SearchResult.GridRowSelected`). 기존 체크박스 선택은 그대로
@@ -830,7 +823,6 @@
 - 한 가정: Q68
 
 ### 정산원장 일괄 처리 팝업 (KWPC06010204~06) — 2026-11-14
-- 시안: `temp/페이지/처리_실행 팝업.png` (지급예정일 일괄 변경 · 지급보류 · 보류 해제). 같은 구조의 `처리_실행 팝업2.png`(지급확정 · 재산출 · 저장·재산출)는 같은 틀로 다음 작업
 - 디자인 시스템 (공통화, P04 action)
   - `ActionTargetBar` — 선택 대상 요약 줄(회색 · 숫자 Primary SemiBold, 가운뎃점), `ActionStats` — 처리 가능/불가 건수 · 금액 상자(이름 12 위 · 숫자 24 Bold + 단위). 토큰 `tokens/custom/action-summary.json`
   - `Infobox.Item bullets` — 점 목록 안내(12 Regular), 아이콘은 첫 줄에
@@ -840,8 +832,6 @@
 - 검증: 디자인 시스템 tokens · typecheck · lint · build, 앱 tsc, 브라우저: 3건 선택 → 각 팝업 880 · 요약 · 표 3행, 입력 없이 처리 → 안내, [제외] → 2건 · 합계 갱신, 보류 해제 불가 원장 안내, 지급보류 사유 선택 · 입력 → 처리 → 완료 안내 · 팝업 닫힘, 에러 없음
 - 한 가정: Q69
 
-### 정산원장 일괄 처리 팝업 2 (KWPC06010207 · 08 · 저장·재산출) — 2026-11-14
-- 시안: `temp/페이지/처리_실행 팝업2.png` (원장 지급확정 · 선택 원장 재산출 · 지급예정일 변경 저장·재산출)
 - 디자인 시스템: `ActionTargetBar variant="question"`(상자 없이 16 SemiBold 질문, 숫자 Primary), `ActionTotal`(표 아래 합계 줄: 이름 13 · 숫자 20 Bold Primary + 단위), `Infobox.Item` 제목 + bullets면 제목을 목록 위 줄에. 스토리 BatchParts · P04 가이드 5절
 - 앱: 공통 틀 `LedgerActionModal`에 `summaryVariant` · `total` · `notices`(배열이 아니면 그대로 — 안내 상자 2개) · `successMessage` 추가. `LedgerConfirmModals`: 원장 지급확정(검증 결과 열 · 합계) · 선택 원장 재산출(처리 대상 열 · 안내 상자 2개) · 지급예정일 변경 저장·재산출(기존/변경 지급일 · 합계)
 - 흐름: 화면 [선택 원장 재산출] · [지급확정]도 팝업으로(기존 Confirm 처리 함수 삭제). 지급예정일 일괄 변경 [변경 예정 적용] → "변경 예정이 적용되었습니다" 안내 → 저장·재산출 팝업(적용한 원장 · 변경 지급일, 재조회로 선택이 풀려도 유지) → [저장 후 재산출] → 재조회 · 완료 안내
@@ -849,7 +839,6 @@
 - 검증: 디자인 시스템 typecheck · lint · build, 앱 tsc, 브라우저: 재산출 880 × 465 · 지급확정 880 × 500(합계 줄), 일괄 변경 → 안내 → 저장·재산출(변경 지급일 2026-11-20 반영) → 완료 · 닫힘, 에러 없음
 
 ### 일반 원장 상세 팝업 (KWPC06010209 · 10) — 2026-11-14
-- 시안: `temp/페이지/처리_일반 원장 상세 팝업_원장 산출 근거.png` · `_정산대상 거래 건.png`
 - 앱 `execute/components/detail/LedgerDetailModal`(Modal xl 1280): 원장 기본정보(SectionHeading + [지급보류] · [보류해제] · [지급확정] 상태별 활성, FormTable 4쌍 읽기 전용, 지급예정일 연필, 지급상태 Badge, 예금주 검증 불일치 빨강 + Badge) → 원장 요약(`ActionStats` 5칸) → 원장 상세 내역(Button Tab 같은 폭: 원장 산출 근거 표(연계 ID 링크 · 비고 입력) + [취소] · [비고 저장] / 정산대상 거래 건 표 + Total · Pagination / 메모 · 이력 안내만). `api/settlement/ledgerDetail` · `types/settlement/ledgerDetail`(예시)
 - 연결: 정산 실행/처리 결과 표 정산원장 ID 링크(`createLedgerColumns`) → 상세. 상세의 처리 버튼 · 연필 → 화면의 일괄 처리 팝업을 이 원장 하나로(상세는 뒤에 열린 채, 닫으면 다시 선택 원장 기준). 디자인 시스템 변경 없음(기존 FormTable · ActionStats · Tab · GridPlaceholder 조합)
 - 팝업 모음 · 화면 목록(KWPC06010209 · 10)
