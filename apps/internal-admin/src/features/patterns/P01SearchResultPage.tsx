@@ -14,8 +14,6 @@ import {
   ResultSummary,
   // 결과 영역
   ResultPanel,
-  GridPlaceholder,
-  Stack,
   ResultFooter,
   Pagination,
   // 공통 UI
@@ -232,25 +230,14 @@ export function P01SearchResultPage() {
           </Button>
         }
       >
-        <Stack gap={24}>
-          <GridPlaceholder
-            columns={COLUMNS}
-            rows={ready ? result.items : []}
-            rowKey={(r) => r.id}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
-          <IbsheetGrid
-            columns={COLUMNS}
-            rows={ready ? result.items : []}
-            rowKey={(r) => r.id}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-        </Stack>
+        <IbsheetGrid
+          columns={COLUMNS}
+          rows={ready ? result.items : []}
+          rowKey={(r) => r.id}
+          selectable
+          selectedKeys={selected}
+          onSelectionChange={setSelected}
+        />
       </ResultPanel>
 
       <ResultFooter total={result.total}>

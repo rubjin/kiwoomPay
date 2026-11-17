@@ -17,6 +17,8 @@ export const IBSHEET_BASE_OPTIONS = {
     HeaderCheck: 1, // Bool 열 머리에 전체선택 체크박스
     Alternate: 0, // 줄무늬 없음
     HoverScope: 1, // 머리(th)에는 hover 표시 없음 — 줄 hover 판이 머리 줄에도 덮여 어두워졌음
+    // IBSheet 자체 '조회된 데이터가 없습니다.' 안내 끔 — 조회 중 행을 비울 때 떴다 사라졌음. 빈 상태 안내는 ResultPanel(StatusView)
+    NoDataMessage: 0,
   },
   Def: {
     Row: { Height: ROW_HEIGHT },

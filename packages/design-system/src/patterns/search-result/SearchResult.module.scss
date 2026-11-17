@@ -20,6 +20,7 @@ $sr-chip-radius: t.$control-radius-md; // 6
 $sr-summary-padding: t.$space-12; // 요약 항목 안쪽 (항목 높이 60)
 $sr-summary-value-gap: t.$space-4; // 숫자 ↔ 단위
 $sr-detail-gap: t.$space-4; // 상세 검색 아이콘 ↔ 글자 ↔ 화살표
+$sr-ib-empty-header-height: 43px; // IBSheet 머리 영역(머리 40 + 선) — IbsheetGrid EMPTY_HEADER_HEIGHT와 같음
 $sr-grid-check-width: 44px; // 선택 열
 $sr-grid-header-height: t.$control-height-md; // TODO(시안) IBSheet 테마 확정 전 임시 미리보기 (KWPC04010100 머리 40)
 $sr-grid-row-height: t.$control-height-md; // TODO(시안) 행 높이 40
@@ -317,6 +318,17 @@ $sr-grid-cell-padding-x: t.$space-12;
 
 .resultBody {
   min-width: 0;
+}
+
+// 행이 없는 IBSheet 표(IbsheetGrid data-kp-ib-empty)와 함께: 상태 안내를 표 머리 아래 본문 자리에 겹친다
+// → 머리 · 안내 · 가로 스크롤바 순서 (IbsheetGrid가 본문 높이를 안내만큼 잡음). 일반 표(GridPlaceholder)는 그대로 아래에 이어짐
+.resultBody:has(> [data-kp-ib-empty]) {
+  position: relative;
+}
+
+.resultBody:has(> [data-kp-ib-empty]) > .resultStatus {
+  position: absolute;
+  inset: $sr-ib-empty-header-height 0 auto;
 }
 
 // ── Total · Pagination ───────────────────────────────

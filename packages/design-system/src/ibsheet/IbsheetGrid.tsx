@@ -1,18 +1,29 @@
-import type { GridPlaceholderColumn } from '../patterns/search-result/GridPlaceholder';
-import { isValidElement, useEffect, useId, useRef, type ReactElement, type ReactNode } from 'react';
+import {
+  GridPlaceholder,
+  type GridPlaceholderColumn,
+} from '../patterns/search-result/GridPlaceholder';
+import {
+  isValidElement,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { checkedRowClass, headerCheckEvents, ibsheetOptions } from './ibsheetOptions';
 
 /**
  * 조회 결과 표를 IBSheet8로 — GridPlaceholder와 같은 props(columns · rows · rowKey · 선택)를 받는다.
- * 화면은 열 정의를 바꾸지 않고 GridPlaceholder 자리에 넣으면 된다 (지금은 비교용으로 기존 표 아래에 함께 둔다).
+ * 화면은 열 정의를 바꾸지 않고 GridPlaceholder 자리에 넣으면 된다.
  *
  * - render가 글자를 돌려주면 그 글자, React 요소(Badge · TextLink · Button …)를 돌려주면 실제 디자인 시스템 컴포넌트의
  *   HTML(renderToStaticMarkup)을 Html 칸에 넣는다 → 모양이 컴포넌트와 같다
  * - 칸을 누르면 render가 돌려준 요소의 onClick을 대신 부른다 (TextLink → 상세 팝업, Button → 처리)
  * - 선택(selectable)은 체크 열 + 머리 전체선택 · 일부 선택(–) · 체크한 줄 배경, selectedKeys와 양쪽 동기화
  * - 읽기 전용 표. 높이는 줄 수에 맞추고(머리 40 + 줄 40 × n), 폭은 표 영역 전체(열 폭은 디자인 값 — colWidth)
- * IBSheet가 로드되지 않았으면(vendor/ibsheet 없음) 아무것도 그리지 않는다.
+ * IBSheet가 로드되지 않았으면(vendor/ibsheet 없음) 같은 props로 GridPlaceholder(일반 표)를 그린다.
  */
 
 interface SheetRow {
@@ -50,6 +61,10 @@ const colWidth = (width: number | undefined, hasFlexCol: boolean) => {
 // 줄 · 머리 높이 (ibsheetOptions와 같은 값)
 const ROW_HEIGHT = 40;
 const HEADER_HEIGHT = 40;
+// 행이 없을 때: 머리 영역(머리 40 + 선, 측정) · 본문 = 상태 안내 높이(StatusView $status-view-height 220) · 가로 스크롤바(측정)
+const EMPTY_HEADER_HEIGHT = 43;
+const EMPTY_BODY_HEIGHT = 220;
+const HSCROLL_HEIGHT = 23;
 
 export interface IbsheetGridProps<T> {
   columns: GridPlaceholderColumn<T>[];
@@ -86,6 +101,8 @@ export function IbsheetGrid<T>({
   const ibsheet = getIBSheet();
   const elRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<SheetLike | null>(null);
+  // 열이 표 폭을 넘어 가로 스크롤바가 있는지 — 있으면 그 높이만큼 표를 늘린다(없으면 마지막 줄이 스크롤바에 가려짐)
+  const [hasHScroll, setHasHScroll] = useState(false);
   const sheetId = `ibGrid${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
   // 이벤트 안에서 최신 값을 쓰도록 ref로
@@ -147,6 +164,11 @@ export function IbsheetGrid<T>({
     ];
 
     const check = headerCheckEvents(CHECK);
+    // 다 그린 뒤(처음 · 조회 · 페이지 · 창 크기 변화) 가로 스크롤바 확인
+    const syncHScroll = () => {
+      const bar = el.querySelector('.IBHScrollMid');
+      setHasHScroll(!!bar && bar.getBoundingClientRect().height > 0);
+    };
     const sheet = ibsheet.create({
       id: sheetId,
       el,
@@ -155,6 +177,10 @@ export function IbsheetGrid<T>({
         Events: selectable
           ? {
               ...check,
+              onRenderFinish: (e: { sheet: SheetLike }) => {
+                check.onRenderFinish(e as never);
+                syncHScroll();
+              },
               onAfterChange: (e: { sheet: SheetLike; col: string }) => {
                 check.onAfterChange(e as never);
                 if (e.col === CHECK) emitSelection(e.sheet);
@@ -164,7 +190,7 @@ export function IbsheetGrid<T>({
                 emitSelection(e.sheet);
               },
             }
-          : undefined,
+          : { onRenderFinish: syncHScroll },
         Cols: cols,
       }),
       data: buildData(),
@@ -193,9 +219,29 @@ export function IbsheetGrid<T>({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- rows · 선택이 바뀔 때만
   }, [rows, selectionKey]);
 
-  if (!ibsheet) return null;
+  // IBSheet가 로드되지 않았으면(vendor/ibsheet 없음 · Storybook 등) 같은 props로 일반 표를 그린다
+  if (!ibsheet) {
+    return (
+      <GridPlaceholder
+        columns={columns}
+        rows={rows}
+        rowKey={rowKey}
+        selectable={selectable}
+        selectedKeys={selectedKeys}
+        onSelectionChange={onSelectionChange}
+      />
+    );
+  }
 
   // IBSheet는 el의 인라인 크기로 그린다 (매뉴얼 static/create)
-  const height = HEADER_HEIGHT + ROW_HEIGHT * Math.max(rows.length, 1) + 2;
-  return <div ref={elRef} style={{ width: '100%', height }} />;
+  // 행이 없으면: 머리 → (ResultPanel 상태 안내 자리) → 가로 스크롤바 순서. 본문 높이를 상태 안내(StatusView 220)만큼 잡고,
+  // ResultPanel이 data-kp-ib-empty 표 위 본문 자리에 상태 안내를 겹친다(SearchResult.module.scss) — 행이 있을 때처럼 스크롤바가 표 맨 아래.
+  // 머리 아래 빈 줄은 테마가 숨김. 스크롤바 높이는 열이 넘칠 때만 더한다 → 안내가 머리와 표 아래 끝 사이 가운데
+  const empty = rows.length === 0;
+  const height = empty
+    ? EMPTY_HEADER_HEIGHT + EMPTY_BODY_HEIGHT + (hasHScroll ? HSCROLL_HEIGHT : 0)
+    : HEADER_HEIGHT + ROW_HEIGHT * rows.length + 2 + (hasHScroll ? HSCROLL_HEIGHT : 0);
+  return (
+    <div ref={elRef} data-kp-ib-empty={empty || undefined} style={{ width: '100%', height }} />
+  );
 }

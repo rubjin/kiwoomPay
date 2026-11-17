@@ -216,6 +216,17 @@ $ib-badge-tones: (
   border-bottom-color: $ib-color-border;
 }
 
+// 가로 스크롤바 칸 — 기본 테마가 네 변에 진한 선(#cfd1d6)을 긋는다. 표 양 끝 세로선 없음 규칙 · 마지막 줄 선과 두 겹 방지로 모두 없앰
+.IBMain :is(.IBHScrollLeft, .IBHScrollMid, .IBHScrollRight) {
+  border: 0;
+}
+
+// 행이 없는 표(IbsheetGrid data-kp-ib-empty): 본문 빈 줄은 숨긴다(그 자리에 ResultPanel 상태 안내가 겹침).
+// 가로 스크롤바(열이 넘칠 때만 있음)는 표 맨 아래에 그대로 보여 오른쪽 머리까지 스크롤할 수 있다
+[data-kp-ib-empty] .IBMain .IBSpaceRow {
+  visibility: hidden;
+}
+
 // 표 양 끝 세로선 없음 — 마지막 칸 · 세로 스크롤 영역, 그리고 기본 테마가 머리 · 본문 영역(IBHead* · IBBody*) 양옆에 긋는 선
 .IBMain .IBSection tr > td:last-child,
 .IBMain .IBVScroll {

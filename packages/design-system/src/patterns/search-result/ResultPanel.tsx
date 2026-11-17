@@ -50,7 +50,9 @@ export const ResultPanel = forwardRef<HTMLElement, ResultPanelProps>(
       />
       <div className={styles.resultBody}>
         {children}
-        {status !== 'success' && <StatusView {...statusProps} status={status} />}
+        {status !== 'success' && (
+          <StatusView {...statusProps} status={status} className={styles.resultStatus} />
+        )}
       </div>
     </section>
   ),

@@ -1,8 +1,6 @@
 import {
   AppliedFilters,
   Button,
-  GridPlaceholder,
-  Stack,
   PageLayout,
   Pagination,
   ResultFooter,
@@ -130,26 +128,14 @@ export function IntegratedTransactionPage() {
           />
         }
       >
-        {/* TODO(IBSheet) IBSheet8 본체 · 라이선스를 받으면 GridPlaceholder를 IBSheet로 교체 */}
-        <Stack gap={24}>
-          <GridPlaceholder
-            columns={transactionColumns}
-            rows={ready ? result.items : []}
-            rowKey={(row) => row.txNo}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
-          <IbsheetGrid
-            columns={transactionColumns}
-            rows={ready ? result.items : []}
-            rowKey={(row) => row.txNo}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-        </Stack>
+        <IbsheetGrid
+          columns={transactionColumns}
+          rows={ready ? result.items : []}
+          rowKey={(row) => row.txNo}
+          selectable
+          selectedKeys={selected}
+          onSelectionChange={setSelected}
+        />
       </ResultPanel>
 
       <ResultFooter total={result.total}>

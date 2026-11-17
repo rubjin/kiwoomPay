@@ -1,8 +1,6 @@
 import {
   DateRangeField,
   Field,
-  GridPlaceholder,
-  Stack,
   Icon,
   Infobox,
   PageLayout,
@@ -145,20 +143,11 @@ export function DownloadCenterPage() {
       </SearchPanel>
 
       <ResultPanel status={result.status}>
-        {/* TODO(IBSheet) IBSheet8 본체 · 라이선스를 받으면 GridPlaceholder를 IBSheet로 교체 */}
-        <Stack gap={24}>
-          <GridPlaceholder
-            columns={columns}
-            rows={ready ? result.items : []}
-            rowKey={(row) => row.id}
-          />
-          {/* IBSheet 적용 (비교용으로 기존 표 아래에 — 같은 열 · 행 · 선택) */}
-          <IbsheetGrid
-            columns={columns}
-            rows={ready ? result.items : []}
-            rowKey={(row) => row.id}
-          />
-        </Stack>
+        <IbsheetGrid
+          columns={columns}
+          rows={ready ? result.items : []}
+          rowKey={(row) => row.id}
+        />
       </ResultPanel>
 
       <ResultFooter total={result.total}>

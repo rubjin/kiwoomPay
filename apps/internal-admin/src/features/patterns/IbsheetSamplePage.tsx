@@ -1,12 +1,10 @@
 import {
   Button,
   ControlGroup,
-  GridPlaceholder,
   PageLayout,
   Pagination,
   ResultFooter,
   Text,
-  type GridPlaceholderColumn,
 } from '@kiwoompay/design-system';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -138,20 +136,6 @@ const createCols = (onPick: (text: string) => void) => [
   },
 ];
 
-type SampleRow = (typeof SAMPLE_ROWS)[number];
-
-// 비교 기준: 디자인 시스템 표 미리보기 (Figma 기준 머리 · 행 · 글자 · 선)
-const PREVIEW_COLUMNS: GridPlaceholderColumn<SampleRow>[] = [
-  { key: 'txId', header: '거래번호', width: 150 },
-  { key: 'merchant', header: '가맹점명', width: 140, align: 'left' },
-  { key: 'payMethod', header: '결제수단', width: 110, render: (r) => PAY_METHODS[Number(r.payMethod)] },
-  { key: 'status', header: '거래상태', width: 100, render: (r) => STATUSES[Number(r.status)] },
-  { key: 'amount', header: '거래금액', width: 120, align: 'right', render: (r) => r.amount.toLocaleString() },
-  { key: 'payDate', header: '결제일', width: 130 },
-  { key: 'memo', header: '메모', align: 'left' },
-];
-const PREVIEW_ROWS = SAMPLE_ROWS.slice(0, 5);
-
 // 페이지 나눔 — 실제 화면은 서버가 페이지 단위로 주고(SearchResultPage), 여기서는 예시 데이터를 잘라 쓴다
 const PAGE_SIZE = 10;
 const TOTAL_PAGES = Math.ceil(SHEET_ROWS.length / PAGE_SIZE);
@@ -161,7 +145,6 @@ const GRID_HEIGHT = 40 + 40 * PAGE_SIZE + 2;
 
 export function IbsheetSamplePage() {
   const [picked, setPicked] = useState('');
-  const [previewChecked, setPreviewChecked] = useState<string[]>(['TX20261110000']);
   const [page, setPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<SheetLike | null>(null);
@@ -220,7 +203,7 @@ export function IbsheetSamplePage() {
 
   return (
     <>
-      <PageLayout.Title title="IBSheet 샘플 (임의 작업)" />
+      <PageLayout.Title title="IBSheet 샘플" />
 
       <PageLayout.Section
         title="달력"
@@ -263,20 +246,6 @@ export function IbsheetSamplePage() {
       <ResultFooter total={SHEET_ROWS.length}>
         <Pagination totalPages={TOTAL_PAGES} page={page} onChange={changePage} />
       </ResultFooter>
-
-      <PageLayout.Section
-        title="비교 기준: 디자인 시스템 표 미리보기"
-        titleAddon="GridPlaceholder — IBSheet 그리드가 이 모양과 같아야 한다"
-      >
-        <GridPlaceholder
-          columns={PREVIEW_COLUMNS}
-          rows={PREVIEW_ROWS}
-          rowKey={(r) => r.txId}
-          selectable
-          selectedKeys={previewChecked}
-          onSelectionChange={setPreviewChecked}
-        />
-      </PageLayout.Section>
     </>
   );
 }
