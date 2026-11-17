@@ -844,9 +844,8 @@ $color-work-tab-indicator: var(--kp-color-work-tab-indicator);
 $color-work-tab-text: var(--kp-color-work-tab-text);
 $color-work-tab-text-active: var(--kp-color-work-tab-text-active);
 $color-work-tab-icon: var(--kp-color-work-tab-icon); // Hover 닫기 아이콘
-$color-work-tab-icon-active: var(--kp-color-work-tab-icon-active); // Active 더보기 · 닫기 아이콘
+$color-work-tab-icon-active: var(--kp-color-work-tab-icon-active); // Active 닫기 아이콘
 $work-tab-menu-offset: var(--kp-work-tab-menu-offset); // TODO(시안) Trigger ↔ Menu. Work Tab 가이드의 16은 Bar 아래선 기준
-$work-tab-menu-tab-offset: var(--kp-work-tab-menu-tab-offset); // TODO(시안) Active Tab 더보기(•••)로 열 때 Tab ↔ Menu
 $color-work-tab-menu-bg: var(--kp-color-work-tab-menu-bg);
 $color-work-tab-menu-border: var(--kp-color-work-tab-menu-border);
 $color-work-tab-menu-item-text: var(--kp-color-work-tab-menu-item-text);
@@ -1623,7 +1622,6 @@ $css-variables: (
   "--kp-color-work-tab-icon": "var(--kp-color-neutral-700)",
   "--kp-color-work-tab-icon-active": "var(--kp-color-neutral-600)",
   "--kp-work-tab-menu-offset": "var(--kp-space-8)",
-  "--kp-work-tab-menu-tab-offset": "var(--kp-space-4)",
   "--kp-color-work-tab-menu-bg": "var(--kp-color-base-white)",
   "--kp-color-work-tab-menu-border": "var(--kp-color-line-default)",
   "--kp-color-work-tab-menu-item-text": "var(--kp-color-neutral-600)",

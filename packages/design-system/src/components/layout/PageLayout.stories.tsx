@@ -106,7 +106,7 @@ const tabActions = [
 ];
 
 const workTab = (
-  <WorkTab defaultValue="trade" actions={tabActions}>
+  <WorkTab defaultValue="trade">
     <WorkTab.Item value="dashboard" closable={false}>
       대시보드
     </WorkTab.Item>

@@ -47,18 +47,13 @@
     "IconActive": {
       "$type": "color",
       "$value": "{Neutral.600}",
-      "$description": "Active 더보기 · 닫기 아이콘"
+      "$description": "Active 닫기 아이콘"
     },
     "Menu": {
       "Offset": {
         "$type": "dimension",
         "$value": "{space.8}",
         "$description": "TODO(시안) Trigger ↔ Menu. Work Tab 가이드의 16은 Bar 아래선 기준"
-      },
-      "TabOffset": {
-        "$type": "dimension",
-        "$value": "{space.4}",
-        "$description": "TODO(시안) Active Tab 더보기(•••)로 열 때 Tab ↔ Menu"
       },
       "Bg": {
         "$type": "color",

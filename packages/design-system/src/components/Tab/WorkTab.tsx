@@ -24,15 +24,37 @@ import styles from './WorkTab.module.scss';
 /** 한 Workspace에서 열 수 있는 Work Tab 최대 개수. 초과 시 새 Tab 대신 얼럿을 띄운다 (화면에서 처리) */
 export const WORK_TAB_LIMIT = 10;
 
-/** 메뉴명 최대 글자 수 (Figma Work Tab "최대 글자 12자까지"). 넘으면 12자 + 말줄임(…) */
+/** 메뉴명 최대 글자 수 — 공백 제외 (Figma Work Tab "최대 글자 12자까지"). 넘으면 12자 + 말줄임 아이콘 */
 export const WORK_TAB_LABEL_MAX = 12;
 
-const truncateLabel = (text: string) => {
-  const chars = Array.from(text);
-  return chars.length > WORK_TAB_LABEL_MAX
-    ? `${chars.slice(0, WORK_TAB_LABEL_MAX).join('')}…`
-    : text;
+/** 공백을 빼고 12자까지 자른다. 넘으면 truncated (글자 말줄임 "…" 대신 아이콘을 붙인다) */
+const splitLabel = (text: string) => {
+  let count = 0;
+  const kept: string[] = [];
+  for (const char of Array.from(text)) {
+    if (char.trim() !== '') {
+      if (count === WORK_TAB_LABEL_MAX) return { text: kept.join('').trimEnd(), truncated: true };
+      count += 1;
+    }
+    kept.push(char);
+  }
+  return { text, truncated: false };
 };
+
+/** 메뉴명: 12자까지는 그대로, 넘으면 12자 + 말줄임 아이콘 (전체 이름은 버튼 title) */
+function WorkTabLabel({ label }: { label: string }) {
+  const { text, truncated } = splitLabel(label);
+  return (
+    <span className={styles.label}>
+      {text}
+      {truncated && (
+        <span className={styles.labelMore} aria-hidden="true">
+          <Icon name="dots-horizontal" size={16} />
+        </span>
+      )}
+    </span>
+  );
+}
 
 export interface WorkTabAction {
   /** 항목 식별자 (React key) */
@@ -42,7 +64,7 @@ export interface WorkTabAction {
   disabled?: boolean;
 }
 
-// ── Action Menu 레이어 (더보기 · 열린 화면 Trigger 공용) ──────────
+// ── Action Menu 레이어 (열린 화면 Trigger) ──────────
 interface ActionMenuLayerProps {
   id: string;
   open: boolean;
@@ -120,9 +142,7 @@ interface WorkTabContextValue {
   value?: string;
   onSelect: (value: string) => void;
   onClose?: (value: string) => void;
-  actions?: WorkTabAction[];
   closeLabel: string;
-  moreLabel: string;
 }
 
 const WorkTabContext = createContext<WorkTabContextValue | null>(null);
@@ -139,29 +159,14 @@ export interface WorkTabProps extends Omit<
   onChange?: (value: string) => void;
   /** 닫기(X) → 해당 Work Tab 종료. 목록에서 빼는 것은 화면이 한다 */
   onClose?: (value: string) => void;
-  /** Active Tab의 더보기(•••) 메뉴. 넘기지 않으면 더보기가 없다 */
-  actions?: WorkTabAction[];
   /** 닫기 버튼 접근성 이름 앞부분 (기본 '닫기' → "메뉴명 닫기") */
   closeLabel?: string;
-  /** 더보기 버튼 접근성 이름 (기본 '탭 메뉴') */
-  moreLabel?: string;
   children: ReactNode;
 }
 
 const WorkTabRoot = forwardRef<HTMLDivElement, WorkTabProps>(
   (
-    {
-      value,
-      defaultValue,
-      onChange,
-      onClose,
-      actions,
-      closeLabel = '닫기',
-      moreLabel = '탭 메뉴',
-      className,
-      children,
-      ...rest
-    },
+    { value, defaultValue, onChange, onClose, closeLabel = '닫기', className, children, ...rest },
     ref,
   ) => {
     const [current, setCurrent] = useControllableState<string | undefined>(
@@ -171,8 +176,8 @@ const WorkTabRoot = forwardRef<HTMLDivElement, WorkTabProps>(
     );
 
     const context = useMemo(
-      () => ({ value: current, onSelect: setCurrent, onClose, actions, closeLabel, moreLabel }),
-      [current, setCurrent, onClose, actions, closeLabel, moreLabel],
+      () => ({ value: current, onSelect: setCurrent, onClose, closeLabel }),
+      [current, setCurrent, onClose, closeLabel],
     );
 
     return (
@@ -202,16 +207,6 @@ const WorkTabItem = forwardRef<HTMLDivElement, WorkTabItemProps>(
     if (!group) throw new Error('WorkTab.Item은 WorkTab 안에서만 사용할 수 있습니다.');
     const active = group.value === value;
     const label = typeof children === 'string' ? children : undefined;
-    const menu = useMenu();
-    const itemRef = useRef<HTMLDivElement>(null);
-    const hasMore = active && !!group.actions?.length;
-    const menuOpen = menu.open && hasMore;
-    const { setOpen } = menu;
-
-    // Active가 다른 Tab으로 넘어가면 더보기 메뉴를 닫아 둔다
-    useEffect(() => {
-      if (!hasMore) setOpen(false);
-    }, [hasMore, setOpen]);
 
     const handleClose = (event: MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
@@ -219,11 +214,7 @@ const WorkTabItem = forwardRef<HTMLDivElement, WorkTabItemProps>(
     };
 
     return (
-      <div
-        {...rest}
-        ref={mergeRefs(ref, itemRef)}
-        className={clsx(styles.item, active && styles.active, className)}
-      >
+      <div {...rest} ref={ref} className={clsx(styles.item, active && styles.active, className)}>
         <button
           type="button"
           role="tab"
@@ -232,22 +223,12 @@ const WorkTabItem = forwardRef<HTMLDivElement, WorkTabItemProps>(
           title={title ?? label}
           onClick={() => group.onSelect(value)}
         >
-          <span className={styles.label}>{label ? truncateLabel(label) : children}</span>
+          {label ? (
+            <WorkTabLabel label={label} />
+          ) : (
+            <span className={styles.label}>{children}</span>
+          )}
         </button>
-        {hasMore && (
-          <button
-            ref={menu.triggerRef}
-            type="button"
-            className={styles.iconButton}
-            aria-label={group.moreLabel}
-            aria-haspopup="menu"
-            aria-expanded={menuOpen}
-            aria-controls={menuOpen ? menu.menuId : undefined}
-            onClick={() => menu.setOpen(!menu.open)}
-          >
-            <Icon name="dots-horizontal" size={24} />
-          </button>
-        )}
         {closable && (
           <button
             type="button"
@@ -257,17 +238,6 @@ const WorkTabItem = forwardRef<HTMLDivElement, WorkTabItemProps>(
           >
             <Icon name="x-close" size={24} />
           </button>
-        )}
-        {hasMore && (
-          <ActionMenuLayer
-            id={menu.menuId}
-            open={menuOpen}
-            anchorRef={itemRef}
-            actions={group.actions ?? []}
-            offsetVar="--kp-work-tab-menu-tab-offset"
-            align="start"
-            onClose={menu.close}
-          />
         )}
       </div>
     );

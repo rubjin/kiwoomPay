@@ -28,7 +28,7 @@ const row: CSSProperties = { display: 'flex', gap: 24, alignItems: 'flex-end' };
 
 export const Playground: Story = {
   render: (args) => (
-    <WorkTab {...args} actions={sampleActions} onClose={log('닫기')}>
+    <WorkTab {...args} onClose={log('닫기')}>
       <WorkTab.Item value="a">가맹점 조회</WorkTab.Item>
       <WorkTab.Item value="b">정산내역</WorkTab.Item>
       <WorkTab.Item value="c">인증청구정산관리</WorkTab.Item>
@@ -36,7 +36,7 @@ export const Playground: Story = {
   ),
 };
 
-/** Default · Hover(마우스를 올려 확인: 회색 배경 + 닫기) · Active(Workspace에 1개, 더보기 + 닫기 + 아래 선) */
+/** Default · Hover(마우스를 올려 확인: 회색 배경 + 닫기) · Active(Workspace에 1개, 닫기 + 아래 선) */
 export const States: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
@@ -47,7 +47,7 @@ export const States: Story = {
       <WorkTab>
         <WorkTab.Item value="hover">메뉴명 (Hover)</WorkTab.Item>
       </WorkTab>
-      <WorkTab defaultValue="active" actions={sampleActions}>
+      <WorkTab defaultValue="active">
         <WorkTab.Item value="active">메뉴명</WorkTab.Item>
       </WorkTab>
     </div>
@@ -58,7 +58,7 @@ export const States: Story = {
 export const WorkspaceBar: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <WorkTab defaultValue="10" actions={sampleActions} onClose={log('닫기')}>
+    <WorkTab defaultValue="10" onClose={log('닫기')}>
       {Array.from({ length: 9 }, (_, i) => (
         <WorkTab.Item key={i} value={String(i + 1)}>
           {`(${i + 1}) Default`}
@@ -73,7 +73,7 @@ export const WorkspaceBar: Story = {
 export const LongLabelAndFixed: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <WorkTab defaultValue="b" actions={sampleActions}>
+    <WorkTab defaultValue="b">
       <WorkTab.Item value="a" closable={false}>
         대시보드
       </WorkTab.Item>
@@ -205,13 +205,7 @@ function WorkspaceDemo() {
         ))}
       </div>
       <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end' }}>
-        <WorkTab
-          style={{ flex: 1 }}
-          value={active}
-          onChange={setActive}
-          onClose={close}
-          actions={actions}
-        >
+        <WorkTab style={{ flex: 1 }} value={active} onChange={setActive} onClose={close}>
           {tabs.map((tab) => (
             <WorkTab.Item key={tab.id} value={tab.id} closable={!tab.fixed}>
               {tab.title}

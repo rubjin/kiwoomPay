@@ -5,12 +5,11 @@
 $work-tab-height: t.$control-height-md; // Work Tab Item 높이 40 (측정)
 $work-tab-padding-left: 14px; // Figma Work Tab: 왼쪽 14
 $work-tab-padding-x: t.$space-12; // Item 오른쪽 여백 (Figma 12)
-$work-tab-icon-gap: t.$space-4; // Active: Label ↔ 더보기 ↔ 닫기 (Figma 4)
+$work-tab-icon-gap: t.$space-4; // Active: Label ↔ 닫기 (Figma 4)
 $work-tab-hover-gap: t.$space-8; // Hover: Label ↔ 닫기 (Figma 8)
-$work-tab-icon-size: t.$control-icon-size-lg; // 더보기 · 닫기 아이콘 24 (측정)
+$work-tab-icon-size: t.$control-icon-size-lg; // 닫기 아이콘 24 (측정)
 $work-tab-radius: t.$control-radius-lg; // Item 위쪽 모서리 (측정)
 $work-tab-indicator-width: 2px; // Active 아래 선 두께 (측정)
-$work-tab-label-min-width: 99px; // Figma 메뉴명 영역 99 (짧은 메뉴명도 이 폭 유지). 긴 메뉴명은 12자 + … (WorkTab.tsx)
 $work-tab-menu-width: 200px; // Action Menu 폭 (측정)
 $work-tab-menu-padding: t.$space-8;
 $work-tab-menu-item-padding-x: t.$space-8;
@@ -86,10 +85,18 @@ $work-tab-trigger-gap: t.$space-4; // 글자 ↔ 화살표 (측정)
   }
 }
 
+// 글자 말줄임(…) 없이 12자까지 그대로 — 넘는 이름은 WorkTab.tsx가 12자로 자르고 아이콘을 붙인다.
+// 최소 폭 없음: Tab 폭 = 왼쪽 14 + 메뉴명 + 오른쪽 12 (닫기 X는 Hover · Active일 때만 붙어 넓어짐) (사용자 결정, Figma 99에서 변경)
 .label {
-  @include m.ellipsis;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
 
-  min-width: $work-tab-label-min-width;
+// 말줄임 아이콘 (dots-horizontal 16, 글자색)
+.labelMore {
+  display: inline-flex;
+  flex: none;
 }
 
 // Active 메뉴명 13 SemiBold (Figma)

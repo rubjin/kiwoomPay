@@ -73,12 +73,7 @@ export function useWorkTabBar() {
   ];
 
   const workTab = (
-    <WorkTab
-      value={current?.path ?? ''}
-      onChange={(path) => navigate(path)}
-      onClose={closeTab}
-      actions={actions}
-    >
+    <WorkTab value={current?.path ?? ''} onChange={(path) => navigate(path)} onClose={closeTab}>
       {tabs.map((t) => (
         <WorkTab.Item key={t.path} value={t.path} closable={!t.fixed}>
           {t.title}
