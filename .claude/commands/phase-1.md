@@ -15,4 +15,4 @@ brief의 "7. 진행 방식 > Phase 1"을 수행한다. 추가 지시: $ARGUMENTS
 - JSP 연동: 빌드 산출물 위치, JSP에서 CSS/JS 로드·React 마운트 예시
 - 토큰 변경 절차 문서(Figma 수정 → JSON 재내보내기 → build-tokens → _generated 갱신)
 
-끝나면 "만든 것 / 한 가정 / 다음 할 일"을 요약하고 `docs/ai/status.md`를 갱신하고 커밋 메시지를 작성(brief 8번, 커밋은 실행하지 않음)한 뒤 사용자 확인을 기다린다.
+끝나면 "만든 것 / 한 가정 / 다음 할 일"을 요약하고 `docs/ai/status.md` "기록 규칙"대로 갱신하고(작업 기록 · 열린 질문은 `docs/ai/log/<영역>.md`) 커밋 메시지를 작성(brief 8번, 커밋은 실행하지 않음)한 뒤 사용자 확인을 기다린다.

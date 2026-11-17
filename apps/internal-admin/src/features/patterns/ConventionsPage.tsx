@@ -233,6 +233,11 @@ const CONVENTIONS: RuleGroup[] = [
         example: 'useSearchResult — autoSearch 기본 false',
       },
       {
+        item: '조회 결과 Action',
+        rule: '제목 옆 왼쪽은 Grid 기능(표시항목설정 · 엑셀, sm Neutral Line), 오른쪽은 업무 Action — 처리 Line → 상태 변경 Dark → 등록 Primary + plus 아이콘(맨 끝, Primary는 등록 하나). 기획서만 있을 때도 이 기준',
+        example: 'ResultPanel titleActions · actions — docs/ai/references/result-panel-actions.md',
+      },
+      {
         item: '조회 전용 값',
         rule: '읽기만 하는 값은 입력 요소가 아니라 텍스트로 보여 준다',
       },
@@ -264,7 +269,7 @@ const CONVENTIONS: RuleGroup[] = [
       },
       {
         item: '결정 기록',
-        rule: '확정 결정 · 단계 요약은 docs/ai/status.md. status의 확정 결정이 brief보다 우선',
+        rule: '확정 결정 · 현재 단계는 docs/ai/status.md(status의 확정 결정이 brief보다 우선), 작업 기록 · 열린 질문은 영역별 docs/ai/log/<영역>.md',
       },
       {
         item: '개발 전용 페이지',
