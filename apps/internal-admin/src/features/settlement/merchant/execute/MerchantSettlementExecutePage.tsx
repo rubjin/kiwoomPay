@@ -159,17 +159,17 @@ export function MerchantSettlementExecutePage() {
         <Button variant="neutral" appearance="line" onClick={() => void findBiz()}>
           사업자 찾기
         </Button>
-        <Field label="CPID" style={{ width: 189 }}>
+        <Field label="CPID">
           <TextField
-            fullWidth
+            fieldWidth="sm"
             placeholder="CPID 입력"
             value={params.cpid}
             onChange={(e) => setParam('cpid', e.target.value)}
           />
         </Field>
-        <Field label="사업자번호" style={{ width: 189 }}>
+        <Field label="사업자번호">
           <TextField
-            fullWidth
+            fieldWidth="sm"
             placeholder="사업자번호 입력"
             value={params.bizNo}
             onChange={(e) => setParam('bizNo', e.target.value)}

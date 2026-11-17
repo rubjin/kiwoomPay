@@ -48,7 +48,7 @@ export const Playground: Story = {
       }
     >
       <Field label="CPID">
-        <TextField placeholder="CPID 입력" />
+        <TextField fieldWidth="sm" placeholder="CPID 입력" />
       </Field>
       <Field label="지급예정일">
         <DateRangeField />
@@ -66,7 +66,7 @@ export const Flow: Story = {
   render: () => (
     <SearchPanel onSearch={() => {}} onReset={() => {}}>
       <Field label="사업자번호">
-        <LookupField placeholder="사업자번호를 입력해주세요" />
+        <LookupField fieldWidth="sm" placeholder="사업자번호를 입력해주세요" />
       </Field>
       {/* 기간 + 퀵 기간은 한 묶음(ControlGroup, 사이 8) — 줄이 바뀌어도 떨어지지 않는다 */}
       <Field label="조회기간">
@@ -126,7 +126,7 @@ export const AllControls: Story = {
         <SearchField placeholder="가맹점명 검색" />
       </Field>
       <Field label="사업자번호">
-        <LookupField placeholder="사업자번호를 입력해주세요" />
+        <LookupField fieldWidth="sm" placeholder="사업자번호를 입력해주세요" />
       </Field>
       <Field label="거래구분">
         <SelectBox options={status} defaultValue="all" />
@@ -237,7 +237,7 @@ export const Collapsed: Story = {
   render: () => (
     <SearchPanel defaultCollapsed onSearch={() => {}} onReset={() => {}} detail={<span />}>
       <Field label="CPID">
-        <TextField />
+        <TextField fieldWidth="sm" />
       </Field>
     </SearchPanel>
   ),

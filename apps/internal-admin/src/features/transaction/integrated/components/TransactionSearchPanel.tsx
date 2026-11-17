@@ -98,6 +98,7 @@ export function TransactionSearchPanel({
       {/* TODO(P03) 사업자 · CPID 찾기 Lookup 팝업 연결 */}
       <Field label="사업자번호">
         <LookupField
+          fieldWidth="sm"
           placeholder="사업자번호를 입력해주세요"
           value={params.bizNo}
           onChange={(bizNo) => setParam('bizNo', bizNo)}
@@ -106,6 +107,7 @@ export function TransactionSearchPanel({
       </Field>
       <Field label="CPID">
         <LookupField
+          fieldWidth="sm"
           placeholder="CPID를 입력해주세요"
           value={params.cpid}
           onChange={(cpid) => setParam('cpid', cpid)}

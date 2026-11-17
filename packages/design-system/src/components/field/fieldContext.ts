@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 /** sm 32 · md 40 · lg 48 (lg는 md와 글자 · 여백이 같고 높이만 크다) */
-/** 입력 · 셀렉트 폭 옵션: auto 내용 폭(값에 맞게) · xs 72(우편번호) · md 200 · lg 270 (fullWidth가 우선) */
-export type FieldWidth = 'auto' | 'xs' | 'md' | 'lg';
+/** 입력 · 셀렉트 폭 옵션: auto 내용 폭(값에 맞게) · xs 72(우편번호) · sm 150(CPID · 사업자번호) · md 200 · lg 270 (fullWidth가 우선) */
+export type FieldWidth = 'auto' | 'xs' | 'sm' | 'md' | 'lg';
 
 export type FieldSize = 'sm' | 'md' | 'lg';
 export type FieldFeedback = 'positive' | 'negative';

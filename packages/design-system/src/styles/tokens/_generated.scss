@@ -560,6 +560,7 @@ $color-field-helper-negative: var(--kp-color-field-helper-negative); // 시안: 
 $color-field-counter: var(--kp-color-field-counter);
 $field-icon-size-trailing: var(--kp-field-icon-size-trailing); // Chevron · Calendar · Clear (전 size 공통)
 $field-width-xs: var(--kp-field-width-xs); // fieldWidth="xs" — 우편번호(5자리) 등 짧은 값 (사용자 확정 72)
+$field-width-sm: var(--kp-field-width-sm); // fieldWidth="sm" — 검색 조건 CPID · 사업자번호 입력 (사용자 확정 150)
 $field-width-md: var(--kp-field-width-md); // fieldWidth="md" — 입력 · 셀렉트 폭 (검색 조건 기본 폭과 같음, 사용자 확정)
 $field-width-lg: var(--kp-field-width-lg); // fieldWidth="lg" — 입력 · 셀렉트 폭 (팝업 조회 조건, 사용자 확정)
 $shadow-focus: var(--kp-shadow-focus); // 포커스 번짐 (Figma 확정값)
@@ -1333,6 +1334,7 @@ $css-variables: (
   "--kp-color-field-counter": "var(--kp-color-text-secondary)",
   "--kp-field-icon-size-trailing": "20px",
   "--kp-field-width-xs": "72px",
+  "--kp-field-width-sm": "150px",
   "--kp-field-width-md": "200px",
   "--kp-field-width-lg": "270px",
   "--kp-shadow-focus": "0 0 4px 0 rgba(36, 132, 198, 0.30)",
