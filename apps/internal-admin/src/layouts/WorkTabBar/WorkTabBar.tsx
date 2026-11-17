@@ -2,6 +2,7 @@ import { WORK_TAB_LIMIT, WorkTab, useDialog, type WorkTabAction } from '@kiwoomp
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { config } from '@/app/config';
+import { MENU } from '@/constants/menu';
 import { screenNameOf } from '@/constants/screens';
 import { useWorkTabs } from '@/store/workTabs';
 
@@ -35,7 +36,9 @@ export function useWorkTabBar() {
     if (path === pathname) {
       const next = tabs.filter((t) => t.path !== path);
       const neighbor = next[index] ?? next[index - 1];
+      // 마지막 Tab을 닫으면 대시보드로 (대시보드에서 닫으면 Tab 없이 그대로)
       if (neighbor) navigate(neighbor.path);
+      else if (path !== MENU.KWPC0101) navigate(MENU.KWPC0101);
     }
   };
 

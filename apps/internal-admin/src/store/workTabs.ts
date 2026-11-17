@@ -1,6 +1,5 @@
 import { WORK_TAB_LIMIT } from '@kiwoompay/design-system';
 import { create } from 'zustand';
-import { MENU } from '@/constants/menu';
 
 /** 열린 업무 화면 하나 (Work Tab) */
 export interface WorkTabEntry {
@@ -22,11 +21,9 @@ interface WorkTabsState {
   keep: (predicate: (tab: WorkTabEntry, index: number) => boolean) => void;
 }
 
-// TODO(정책) 처음 여는 Tab · 고정 Tab 기준. 시안(Figma Work Tab Bar)은 대시보드가 맨 앞
-const INITIAL: WorkTabEntry[] = [{ path: MENU.KWPC0101, title: '대시보드', fixed: true }];
-
 export const useWorkTabs = create<WorkTabsState>((set, get) => ({
-  tabs: INITIAL,
+  // 처음에는 비어 있음 — 대시보드도 다른 화면처럼 들어가면 생기고 닫을 수 있다
+  tabs: [],
   open: (tab) => {
     const { tabs } = get();
     if (tabs.some((t) => t.path === tab.path)) return true;

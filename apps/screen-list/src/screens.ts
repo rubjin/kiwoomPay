@@ -83,8 +83,8 @@ export const SCREENS: ScreenInfo[] = [
     type: '기타',
     status: '작업중',
     planVersion: PLAN,
-    updatedAt: '2026-11-13',
-    tempWork: 'Work Tab 화면 상태 유지(keep-alive) 미구현 · 대시보드 고정 Tab',
+    updatedAt: '2026-11-17',
+    tempWork: '',
   },
   // 레이아웃 패턴 템플릿 — 목록 맨 위. 새 화면은 여기서 구성을 복사해 시작한다
   {
@@ -586,8 +586,7 @@ export const SCREENS: ScreenInfo[] = [
     status: '작업중',
     planVersion: PLAN,
     updatedAt: '2026-11-16',
-    tempWork:
-      '예시 메뉴 트리 · 처음 접힌 묶음(정산자료관리) · 완료 문구 · 폭 Figma 1380 → xl 1280',
+    tempWork: '예시 메뉴 트리 · 처음 접힌 묶음(정산자료관리) · 완료 문구 · 폭 Figma 1380 → xl 1280',
   },
   {
     system: 'internal',
