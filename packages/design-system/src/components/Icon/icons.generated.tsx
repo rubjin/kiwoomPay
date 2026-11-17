@@ -117,6 +117,13 @@ export const iconSet = {
       </>
     ),
   },
+  'chevron-collapsed': {
+    16: () => (
+      <>
+        <path d="M5 14L11 8L5 2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+      </>
+    ),
+  },
   'chevron-down': {
     12: () => (
       <>
@@ -133,6 +140,18 @@ export const iconSet = {
     24: () => (
       <>
         <path d="M7 13L12 18L17 13M7 6L12 11L17 6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+      </>
+    ),
+  },
+  'chevron-expanded': {
+    16: () => (
+      <>
+        <path d="M2 5L8 11L14 5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+      </>
+    ),
+    20: () => (
+      <>
+        <path d="M4 7L10 13L16 7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
       </>
     ),
   },

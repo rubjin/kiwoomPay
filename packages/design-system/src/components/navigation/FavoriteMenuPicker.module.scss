@@ -203,6 +203,8 @@ $favorite-empty-padding: t.$space-40; // TODO(시안) 검색 결과 없음
 .chevronGroup {
   display: inline-flex;
   flex: none;
+  align-items: center;
+  justify-content: center;
   color: t.$color-favorite-menu-chevron;
 }
 

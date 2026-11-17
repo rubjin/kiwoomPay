@@ -29,8 +29,8 @@
     "RowText": { "$type": "color", "$value": "{Text.Body}" },
     "Chevron": {
       "$type": "color",
-      "$value": "{Text.Label}",
-      "$description": "TODO(시안) 화살표 색 (Figma 아이콘 이미지)"
+      "$value": "{Primary.900}",
+      "$description": "1 · 2Depth 화살표 (Figma #123B59)"
     },
     "ItemDisabled": {
       "$type": "color",

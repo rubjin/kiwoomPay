@@ -139,7 +139,12 @@ export const FavoriteMenuPicker = forwardRef<HTMLDivElement, FavoriteMenuPickerP
             onClick={() => toggleOpen(item.id)}
           >
             <span className={isRoot ? styles.chevronRoot : styles.chevronGroup}>
-              <Icon name={expanded ? 'chevron-down' : 'chevron-right'} size={isRoot ? 20 : 16} />
+              {/* Figma 즐겨찾기 편집 팝업 전용 화살표: 펼침 20 · 접힘 16 (1Depth도 접힘은 16을 20 칸 가운데) */}
+              {expanded ? (
+                <Icon name="chevron-expanded" size={isRoot ? 20 : 16} />
+              ) : (
+                <Icon name="chevron-collapsed" size={16} />
+              )}
             </span>
             {item.label}
           </button>

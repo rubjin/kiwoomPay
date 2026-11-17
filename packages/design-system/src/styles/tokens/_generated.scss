@@ -487,7 +487,7 @@ $color-favorite-menu-root-bg: var(--kp-color-favorite-menu-root-bg); // 1Depth �
 $color-favorite-menu-group-bg: var(--kp-color-favorite-menu-group-bg); // 2Depth 줄
 $color-favorite-menu-leaf-bg: var(--kp-color-favorite-menu-leaf-bg); // 3Depth(체크박스) 줄
 $color-favorite-menu-row-text: var(--kp-color-favorite-menu-row-text);
-$color-favorite-menu-chevron: var(--kp-color-favorite-menu-chevron); // TODO(시안) 화살표 색 (Figma 아이콘 이미지)
+$color-favorite-menu-chevron: var(--kp-color-favorite-menu-chevron); // 1 · 2Depth 화살표 (Figma #123B59)
 $color-favorite-menu-item-disabled: var(--kp-color-favorite-menu-item-disabled); // 최대 개수가 차서 고를 수 없는 메뉴
 $color-favorite-menu-match: var(--kp-color-favorite-menu-match); // 검색어 강조 (LNB 검색과 같음)
 $color-favorite-menu-path: var(--kp-color-favorite-menu-path); // 검색 결과 경로
@@ -1262,7 +1262,7 @@ $css-variables: (
   "--kp-color-favorite-menu-group-bg": "var(--kp-color-neutral-100)",
   "--kp-color-favorite-menu-leaf-bg": "var(--kp-color-bg-surface)",
   "--kp-color-favorite-menu-row-text": "var(--kp-color-text-body)",
-  "--kp-color-favorite-menu-chevron": "var(--kp-color-text-label)",
+  "--kp-color-favorite-menu-chevron": "var(--kp-color-primary-900)",
   "--kp-color-favorite-menu-item-disabled": "var(--kp-color-text-disabled)",
   "--kp-color-favorite-menu-match": "var(--kp-color-primary-500)",
   "--kp-color-favorite-menu-path": "var(--kp-color-text-secondary)",
