@@ -19,6 +19,7 @@ import * as PanelStories from '../src/patterns/search-result/SearchPanel.stories
 <Canvas of={PanelStories.Collapsed} />
 <Canvas of={PanelStories.InlineActions} />
 <Canvas of={PanelStories.Plain} />
+<Canvas of={PanelStories.PlainHeaderActions} />
 
 - 필드는 `Field`(라벨 왼쪽 · 간격 8) + md 40, 필드 사이 16
 - **필드 흐름**(사용자 확정): 필드를 순서대로 나열한다 — 폭이 남으면 다음 줄 필드가 위 줄로 올라오고, 길어지면 다음 줄로 내려간다. 줄을 강제로 나누는 `SearchPanel.Row`는 삭제(2026-11-16), 필드를 `flex`로 늘려 줄을 채우지 않는다
@@ -28,6 +29,7 @@ import * as PanelStories from '../src/patterns/search-result/SearchPanel.stories
 - 상세 검색을 펼치면 영역 배경 Primary 50, 접어도 값은 유지
 - `defaultCollapsed`: 제목 줄만 (상세 검색 줄도 숨김)
 - `fieldWidth`: 안의 입력 · 셀렉트 기본 폭. `md`(기본) 200 · `lg` 270(사용자 확정). 앞 검색 아이콘 입력은 +28(228 · 298), 날짜 · 기간(264)은 그대로
+- `variant="plain" actionsPlacement="header"`: 팝업 조회 조건의 필드가 여러 줄일 때 — 제목 줄 오른쪽 끝에 [초기화] · [조회], 필드는 아래 `SearchPanel.Grid`(같은 폭 칸, 칸을 채우도록 `fullWidth`). plain의 기본 버튼 위치는 필드 줄 끝(inline) (Figma 정산원장 찾기 팝업)
 - `variant="plain"`: **팝업 안 조회 조건 전용(사용자 결정)** — 화면 본문은 카드(기본), 팝업은 항상 plain + `fieldWidth="lg"`. — 카드 · 상자 없이 제목(md 16) 아래(사이 16) 필드 한 줄 + 끝에 [초기화] · [조회](다른 검색 조건과 같은 Neutral). 접기 · 상세 검색 없음. 팝업 조회 조건은 `fieldWidth="lg"`(입력 · 셀렉트 270) — 인라인 폭을 주지 않는다
 - `actionsPlacement="inline"`: 조건이 한 줄뿐인 화면(다운로드 센터) — [초기화] · [조회]를 필드 줄 끝에 두고, 제목 16 · 제목 줄 32 · 접기 없음. 남는 폭은 마지막 필드(`flex`)가 채운다
 

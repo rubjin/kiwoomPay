@@ -11,6 +11,7 @@ import {
   TextField,
 } from '../../components/field';
 import { ControlGroup } from '../../components/layout';
+import { Modal } from '../../components/Modal';
 import { LookupField } from '../lookup';
 import { SearchPanel } from './SearchPanel';
 
@@ -249,26 +250,86 @@ export const InlineActions: Story = {
   ),
 };
 
-/** variant="plain": 팝업 안 조회 조건 — 카드 · 상자 없이 제목(md 16) 아래 필드 한 줄 + [초기화] · [조회], 셀렉트 270(fieldWidth="lg") */
+/**
+ * **팝업 전용** 조회 조건 — 박스 없는 스타일 `variant="plain" fieldWidth="lg"` (사용자 결정, 확정 결정 "팝업 안 조회 조건").
+ * 화면 본문 검색은 카드(기본), 팝업은 항상 plain. 카드 · 회색 상자 없이 제목(16) 아래 필드 한 줄 + 끝에 [초기화] · [조회](Neutral).
+ * 입력 · 셀렉트 270, 기간 264, 필드에 style 폭을 주지 않는다. 예: 권한 신청 현황 · 로그인 이력 · 권한 변경 이력 팝업
+ */
 export const Plain: Story = {
+  name: 'Plain (팝업 · 버튼 필드 줄 끝)',
   parameters: { controls: { disable: true } },
   render: () => (
-    <SearchPanel
-      variant="plain"
-      fieldWidth="lg"
-      title="조회 조건"
-      onSearch={() => {}}
-      onReset={() => {}}
-    >
-      <Field label="신청기간">
-        <DateRangeField defaultValue={{ start: '2026-08-15', end: '2026-09-15' }} />
-      </Field>
-      <Field label="구분">
-        <SelectBox options={status} defaultValue="all" />
-      </Field>
-      <Field label="상태">
-        <SelectBox options={status} defaultValue="all" />
-      </Field>
-    </SearchPanel>
+    <Modal open inline size="xl">
+      <Modal.Header title="권한 신청 현황" closeButton />
+      <Modal.Body>
+        <SearchPanel
+          variant="plain"
+          fieldWidth="lg"
+          title="조회 조건"
+          onSearch={() => {}}
+          onReset={() => {}}
+        >
+          <Field label="신청기간">
+            <DateRangeField defaultValue={{ start: '2026-08-15', end: '2026-09-15' }} />
+          </Field>
+          <Field label="구분">
+            <SelectBox options={status} defaultValue="all" />
+          </Field>
+          <Field label="상태">
+            <SelectBox options={status} defaultValue="all" />
+          </Field>
+        </SearchPanel>
+      </Modal.Body>
+    </Modal>
+  ),
+};
+
+/**
+ * **팝업 전용** · 필드가 여러 줄일 때 — `variant="plain" actionsPlacement="header"`: 제목 줄 오른쪽 끝에 [초기화] · [조회],
+ * 필드는 아래 같은 폭 4칸 격자(SearchPanel.Grid columns={4}, 칸을 채우도록 fullWidth). Figma 정산원장 찾기 팝업(29850:110785)
+ */
+export const PlainHeaderActions: Story = {
+  name: 'Plain (팝업 · 버튼 제목 옆)',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Modal open inline size="xl">
+      <Modal.Header title="정산원장 찾기" closeButton />
+      <Modal.Body>
+        <SearchPanel
+          variant="plain"
+          actionsPlacement="header"
+          title="검색 조건"
+          onSearch={() => {}}
+          onReset={() => {}}
+        >
+          <SearchPanel.Grid columns={4}>
+            <Field label="정산원장 ID">
+              <TextField fullWidth placeholder="정산원장 ID를 입력해주세요" />
+            </Field>
+            <Field label="CPID">
+              <TextField fullWidth placeholder="CPID를 입력해주세요" />
+            </Field>
+            <Field label="사업자번호">
+              <TextField fullWidth placeholder="사업자번호를 입력해주세요" />
+            </Field>
+            <Field label="지급예정일">
+              <DateRangeField fullWidth />
+            </Field>
+            <Field label="가맹점명">
+              <TextField fullWidth placeholder="가맹점명을 입력해주세요" />
+            </Field>
+            <Field label="결제수단">
+              <SelectBox fullWidth options={status} defaultValue="all" />
+            </Field>
+            <Field label="정산주기">
+              <SelectBox fullWidth options={status} defaultValue="all" />
+            </Field>
+            <Field label="정산상태">
+              <SelectBox fullWidth options={status} defaultValue="all" />
+            </Field>
+          </SearchPanel.Grid>
+        </SearchPanel>
+      </Modal.Body>
+    </Modal>
   ),
 };

@@ -26,8 +26,9 @@ export interface SearchPanelProps extends Omit<
   /** 조회 중: [조회] 로딩 · 중복 실행 차단 */
   loading?: boolean;
   /**
-   * [초기화] · [조회] 위치. header(기본): 제목 줄 오른쪽 + 접기 화살표 /
-   * inline: 필드 줄 끝, 제목 16 · 접기 없음 (조건이 한 줄뿐인 화면 — 다운로드 센터)
+   * [초기화] · [조회] 위치. header: 제목 줄 오른쪽 (카드는 + 접기 화살표) /
+   * inline: 필드 줄 끝 (조건이 한 줄뿐인 화면 — 다운로드 센터).
+   * 기본값: 카드 header, plain inline. plain + header는 필드가 여러 줄인 팝업(정산원장 찾기)
    */
   actionsPlacement?: 'header' | 'inline';
   /**
@@ -70,7 +71,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       onSearch,
       onReset,
       loading = false,
-      actionsPlacement = 'header',
+      actionsPlacement,
       variant = 'card',
       fieldWidth = 'md',
       detail,
@@ -113,7 +114,9 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       if (!loading) onSearch?.();
     };
 
-    const inline = actionsPlacement === 'inline';
+    // 버튼 위치 기본값: 카드는 제목 줄(header), 팝업 plain은 필드 줄 끝(inline)
+    const placement = actionsPlacement ?? (variant === 'plain' ? 'inline' : 'header');
+    const inline = placement === 'inline';
     const hasDetail = detail !== undefined && !isCollapsed;
 
     const actions = (
@@ -150,13 +153,30 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
           )}
           onSubmit={handleSubmit}
         >
-          {title !== null && (
-            <SectionHeading size="md" as="h3" title={title} description={description} />
+          {inline ? (
+            <>
+              {title !== null && (
+                <SectionHeading size="md" as="h3" title={title} description={description} />
+              )}
+              <div className={styles.fieldRow}>
+                {children}
+                <div className={styles.inlineActions}>{actions}</div>
+              </div>
+            </>
+          ) : (
+            // actionsPlacement="header": 제목 줄 오른쪽 끝에 [초기화] · [조회], 아래 필드 (정산원장 찾기 팝업)
+            <>
+              <SectionHeading
+                className={styles.plainHeader}
+                size="md"
+                as="h3"
+                title={title}
+                description={description}
+                actions={actions}
+              />
+              <div className={styles.fieldRow}>{children}</div>
+            </>
           )}
-          <div className={styles.fieldRow}>
-            {children}
-            <div className={styles.inlineActions}>{actions}</div>
-          </div>
         </form>
       );
     }
