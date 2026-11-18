@@ -1,0 +1,4 @@
+/* 완료된 화면 줄: 연한 블루 배경 (Status info 배경 토큰) */
+.screenRowDone > td {
+  background-color: var(--kp-color-status-info-background);
+}

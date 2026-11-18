@@ -13,6 +13,7 @@ import {
   type GridPlaceholderColumn,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
+import './App.css';
 import { rowsOf, type ScreenRow } from './rows';
 import { STATUSES, SYSTEMS, type ScreenStatus, type SystemId } from './screens';
 
@@ -181,6 +182,7 @@ export function App() {
           columns={columnsOf(current.url)}
           rows={rows}
           rowKey={rowKey}
+          rowClassName={(s) => (s.status === '완료' ? 'screenRowDone' : undefined)}
           maxHeight="max(320px, calc(100vh - 420px))"
         />
       </ResultPanel>
