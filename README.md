@@ -4,9 +4,11 @@
 
 ## 시작하기
 
+처음 받았다면 **[docs/onboarding.md](docs/onboarding.md)** (설정 · 구조 · 화면 개발 규칙)부터 읽는다.
+
 ```bash
 pnpm install          # pnpm 10 (corepack enable 또는 npm i -g pnpm@10)
-pnpm dev              # 내부관리자 앱(5173) + 화면 목록(5180) 함께 실행, 화면 목록이 브라우저에 자동으로 열림
+pnpm dev              # 내부관리자 앱(5173) + 화면 목록(5180) + 디자인 시스템 타입 자동 빌드, 화면 목록이 브라우저에 자동으로 열림
 pnpm storybook        # 토큰 생성 + Storybook (http://localhost:6006)
 pnpm build            # 토큰 생성 + 라이브러리 빌드 (packages/design-system/dist)
 pnpm lint             # ESLint + Stylelint
