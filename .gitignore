@@ -43,6 +43,6 @@ desktop.ini
 # Claude Code 개인 설정 (팀 공용 .claude/commands는 올린다)
 .claude/settings.local.json
 
-# 상용 라이브러리 (IBSheet8 — 라이선스 포함, vendor/README.md)
-# vendor/ibsheet/
-# vendor/ibsheet-docs/
+# 상용 라이브러리 (IBSheet8 — 라이선스 · 상용 제품이라 공개 저장소에 올리지 않는다, vendor/README.md)
+vendor/ibsheet/
+vendor/ibsheet-docs/
