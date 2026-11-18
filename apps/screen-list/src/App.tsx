@@ -117,7 +117,7 @@ export function App() {
 
   return (
     <PageLayout>
-      <PageLayout.Title title="화면 목록 (임의 작업)" />
+      <PageLayout.Title title="화면 목록" />
 
       <Tab
         value={system}
