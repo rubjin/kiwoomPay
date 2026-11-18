@@ -27,7 +27,8 @@ import { SmsVerifyModal } from './components/SmsVerifyModal';
 /**
  * KWPC3000 로그인 (Figma 28701:69251) — 페이지 패턴 P05 Login → Auth.
  * 아이디 · 비밀번호 → [로그인 인증] → SMS 인증(2차) → 원래 가려던 화면(없으면 메인).
- * TODO(이관): 기존 pages/Common/Login/Login.tsx의 토큰 · 사용자 · 메뉴 저장
+ * TODO(이관): SMS 인증이 끝나면 지금은 토큰만 store/auth.ts에 저장한다 — 사용자 정보 · 메뉴(권한)도 store/auth.ts에 함께 저장
+ *   (로직은 기존 내부관리자 프로젝트의 로그인 처리를 옮긴다)
  */
 export function LoginPage() {
   const navigate = useNavigate();
