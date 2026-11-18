@@ -9,12 +9,12 @@ export const SYSTEMS: { id: SystemId; label: string; url: string }[] = [
   {
     id: 'internal',
     label: '내부관리자',
-    url: import.meta.env.VITE_URL_INTERNAL ?? 'http://localhost:5173',
+    url: import.meta.env.VITE_URL_CENTER ?? 'http://localhost:5173',
   },
   {
     id: 'merchant',
     label: '가맹점관리자',
-    url: import.meta.env.VITE_URL_MERCHANT ?? 'http://localhost:5174',
+    url: import.meta.env.VITE_URL_MANAGE ?? 'http://localhost:5174',
   },
   {
     id: 'agency',

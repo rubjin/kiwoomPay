@@ -19,7 +19,7 @@ export default defineConfig(({ command }) =>
       },
       // 폰트: 개발 서버는 designSystemSource()가 pretendard 패키지에서 바로 준다. 운영은 JSP가 로드(빌드 후 copy-fonts)
       server: {
-        // 화면 목록 앱(apps/screen-list)의 링크가 이 주소를 가리킨다 (VITE_URL_INTERNAL 기본값)
+        // 화면 목록 앱(apps/screen-list)의 링크가 이 주소를 가리킨다 (VITE_URL_CENTER 기본값)
         port: 5173,
         strictPort: true,
         proxy: { '/api': 'http://localhost:8580' },
