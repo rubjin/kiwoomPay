@@ -1,0 +1,17 @@
+{
+  // 저장할 때 Prettier로 정리 (.prettierrc.json: 들여쓰기 2칸 · 작은따옴표 · 한 줄 100자)
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "prettier.requireConfig": true,
+
+  // SCSS는 Stylelint 규칙(토큰 외 하드코딩 값 경고 등)으로도 확인
+  "stylelint.validate": ["scss"],
+  "css.validate": false,
+  "scss.validate": false
+}

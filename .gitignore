@@ -5,6 +5,7 @@ storybook-static
 .DS_Store
 .vscode/*
 !.vscode/settings.json
+!.vscode/extensions.json
 
 # 상용 라이브러리 (IBSheet8 — 라이선스 포함, vendor/README.md)
 vendor/ibsheet/

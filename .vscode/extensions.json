@@ -1,0 +1,9 @@
+{
+  // 저장 시 자동 정리 · 검사에 필요한 확장 — VS Code가 처음 열 때 설치를 권한다
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "editorconfig.editorconfig"
+  ]
+}
