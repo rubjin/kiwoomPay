@@ -23,6 +23,7 @@
 - `@ibsheet/react` · `@ibsheet/interface`(npm). 본체 · 라이선스는 업체에서 받아 `apps/<앱>/public/ibsheet/`(개발) · JSP `static/ibsheet/`(운영), index.html · 셸 JSP 주석 해제
 - 캘린더 어댑터 `app/providers/ibsheetCalendar.ts`(`IBSheet.showCalendar`, `window.IBSheet`가 없으면 null → 자체 DatePicker)
 - Grid는 IBSheet 전까지 `GridPlaceholder`(TODO(IBSheet) 주석)
+- KWP 테마(`src/styles/ibsheet/ibsheet-theme.scss`): 줄 색 판(IBHoverRowBackground · IBFocusRowBackground)은 표 뒤(z-index -1, SheetMain `isolation: isolate` · 흰 바탕은 SheetMain)에 둔다 — 위에 덮으면 칸 안 필드 · 버튼까지 물듦. 커서 칸 테두리는 IBSheet 기본 위치 그대로(사용자 결정) — 표 바깥으로 잘리는 첫 열 왼쪽 · 마지막 열 오른쪽 조각만 투명(`ibsheetOptions` onFocus가 MainTag에 `data-kp-ib-focus-edge` first · last). 표 묶음(IBSection)의 `contain: paint` · 칸 위치(position) 변경은 IBSheet 위치 계산이 틀어지므로 건드리지 않는다
 
 ### 앱 구조 (내부관리자)
 

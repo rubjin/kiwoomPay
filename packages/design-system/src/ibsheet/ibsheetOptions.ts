@@ -34,18 +34,47 @@ interface SheetDef {
   [key: string]: unknown;
 }
 
+interface FocusEvent {
+  sheet: {
+    MainTag: HTMLElement;
+    getFirstCol: () => string;
+    getLastCol: () => string;
+  };
+  col: string;
+}
+
+/**
+ * 커서 칸이 첫 열 · 마지막 열인지 표 영역(MainTag)에 data-kp-ib-focus-edge="first | last"로 붙인다.
+ * 커서 칸 테두리는 IBSheet 기본 위치 그대로 두고, 표 바깥으로 나가 잘리는 첫 열 왼쪽 · 마지막 열 오른쪽 조각만 테마가 투명으로
+ */
+const markFocusEdge = ({ sheet, col }: FocusEvent) => {
+  const edges = [
+    col === sheet.getFirstCol() && 'first',
+    col === sheet.getLastCol() && 'last',
+  ].filter(Boolean);
+  sheet.MainTag.dataset.kpIbFocusEdge = edges.join(' ');
+};
+
 /** 공통 옵션 + 화면 옵션 (Cfg는 한 단계, Def는 Row · Header · Col까지 합친다 — 화면이 Row를 줘도 행 높이 유지) */
 export function ibsheetOptions(options: {
   Cfg?: object;
   Def?: SheetDef;
   Cols: object[];
-  /** IBSheet 이벤트 (예: headerCheckEvents) */
-  Events?: object;
+  /** IBSheet 이벤트 (예: headerCheckEvents). onFocus는 공통 처리(첫 · 마지막 열 표시) 뒤에 부른다 */
+  Events?: { onFocus?: (e: FocusEvent) => void; [name: string]: unknown };
 }) {
   const base = IBSHEET_BASE_OPTIONS.Def;
   const def = options.Def ?? {};
+  const events = options.Events ?? {};
   return {
     ...options,
+    Events: {
+      ...events,
+      onFocus: (e: FocusEvent) => {
+        markFocusEdge(e);
+        events.onFocus?.(e);
+      },
+    },
     Cfg: { ...IBSHEET_BASE_OPTIONS.Cfg, ...options.Cfg },
     Def: {
       ...base,
