@@ -29,7 +29,7 @@
   "scripts": {
     "tokens": "node scripts/build-tokens.mjs",
     "tokens:check": "node scripts/build-tokens.mjs --check",
-    "dev": "pnpm storybook",
+    "dev": "pnpm tokens && pnpm icons && tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "storybook": "pnpm tokens && pnpm icons && storybook dev -p 6006",
     "build-storybook": "pnpm tokens && pnpm icons && storybook build",
     "build": "pnpm tokens && pnpm icons && vite build && tsc -p tsconfig.build.json && node scripts/copy-fonts.mjs && node scripts/build-ibsheet-css.mjs",

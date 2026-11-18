@@ -10,8 +10,8 @@
 - pnpm 워크스페이스: `packages/design-system`(`@kiwoompay/design-system`) · `apps/internal-admin` · `apps/screen-list`. React 19(디자인 시스템 peer `^18.3.1 || ^19.0.0`), TypeScript 5.9, Vite 7, ESLint 9, Stylelint 16, Storybook 10
 - 라이브러리 산출물: ES 모듈 + CSS 1개(`kiwoompay-ui.css`), React는 peer. 폰트는 `pretendard` dynamic-subset woff2를 `dist/fonts`로 복사해 `<link>`로 로드
 - SCSS: 컴포넌트는 `@use 'tokens' as t;` · `@use 'mixins' as m;`(Vite `loadPaths`). 반응형 mixin은 데스크톱 기준 `max-width`
-- 앱 개발 서버는 디자인 시스템 src를 바로 읽음(`vite.source.ts` `designSystemSource()`, HMR) — 운영 빌드는 `dist`. 앱 tsc는 `dist/types`를 보므로 새 export를 추가하면 디자인 시스템 `pnpm build` 후 앱 typecheck. 개발 서버 폰트는 미들웨어가 `pretendard` 패키지에서 직접 줌
-- `pnpm dev`: 내부관리자(5173) + 화면 목록(5180, 브라우저 자동 열기). Storybook 6006(deps 캐시가 깨지면 `node_modules/.cache/storybook` 삭제 후 재시작, Windows는 드라이브 문자 대문자 경로 `C:\…`에서 실행)
+- 앱 개발 서버는 디자인 시스템 src를 바로 읽음(`vite.source.ts` `designSystemSource()`, HMR) — 운영 빌드는 `dist`. 앱 tsc · 에디터는 `dist/types`를 보므로 루트 `pnpm dev`가 디자인 시스템 타입을 watch로 다시 만든다(`dev` = tsconfig.build --watch). dev를 안 켰을 때는 디자인 시스템 `pnpm build`. 개발 서버 폰트는 미들웨어가 `pretendard` 패키지에서 직접 줌
+- `pnpm dev`: 디자인 시스템 타입 watch + 내부관리자(5173) + 화면 목록(5180, 브라우저 자동 열기). Storybook은 `pnpm storybook`. Storybook 6006(deps 캐시가 깨지면 `node_modules/.cache/storybook` 삭제 후 재시작, Windows는 드라이브 문자 대문자 경로 `C:\…`에서 실행)
 
 ### JSP 연동 (SPA, `docs/jsp-integration.md`)
 
