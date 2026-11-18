@@ -32,6 +32,8 @@ export interface GridPlaceholderProps<T> {
   onSelectionChange?: (keys: string[]) => void;
   /** 고를 수 없는 줄은 false — 선택 칸이 비활성 (예: 이미 사용 중인 특수권한) */
   isRowSelectable?: (row: T) => boolean;
+  /** 줄마다 붙일 class (예: 완료된 줄 배경). 칸(td) 배경은 `.이름 > td`로 지정 */
+  rowClassName?: (row: T) => string | undefined;
   /** 행이 없을 때. 글자면 행 높이 한 줄 가운데 안내, 요소면 그대로 (예: LookupSearchEmpty) */
   empty?: ReactNode;
   /**
@@ -56,6 +58,7 @@ export function GridPlaceholder<T>({
   selectedKeys = [],
   onSelectionChange,
   isRowSelectable,
+  rowClassName,
   empty,
   maxHeight,
   className,
@@ -144,7 +147,10 @@ export function GridPlaceholder<T>({
             return (
               <tr
                 key={key}
-                className={clsx(single && selectedKeys.includes(key) && styles.gridRowSelected)}
+                className={clsx(
+                  rowClassName?.(row),
+                  single && selectedKeys.includes(key) && styles.gridRowSelected,
+                )}
               >
                 {single && (
                   <td className={clsx(styles.gridCell, styles.gridCheck)}>
