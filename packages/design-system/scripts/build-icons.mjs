@@ -48,7 +48,7 @@ const TOKEN_BY_HEX = {
 };
 const ON_COLOR = 'var(--kp-color-icon-on-color)';
 // 선 아이콘의 기본색으로 쓰인 값 (글자색을 따른다)
-const LINE_COLORS = new Set(['#111827', '#1E293B', '#667281', '#8C98A6']);
+const LINE_COLORS = new Set(['#111827', '#1E293B', '#435064', '#667281', '#8C98A6']);
 const DARK_FILLS = new Set(['#111827', '#1E293B']);
 
 const ALLOWED_TAGS = new Set([

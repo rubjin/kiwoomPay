@@ -64,8 +64,20 @@ $rf-chip-gap: t.$space-4;
   gap: $rf-label-gap;
 }
 
+// 필수 * — Primary (Field와 같은 색)
 .required {
   color: t.$color-record-form-required;
+}
+
+// "필수" 글자 — 강조가 필요한 곳만 (Field required="text"와 같은 10 Regular 빨강 · 라벨과 8)
+.requiredText {
+  @include m.typography(typo-10-regular);
+
+  color: t.$color-record-form-required-text;
+}
+
+.label:has(> .requiredText) {
+  gap: t.$space-8;
 }
 
 .cell {

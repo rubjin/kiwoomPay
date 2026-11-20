@@ -26,11 +26,13 @@
     },
     "Title": {
       "$type": "color",
-      "$value": "{Text.Heading}"
+      "$value": "{Text.Heading}",
+      "$description": "제목 13 SemiBold #111827 (Neutral 900, 사용자 확정)"
     },
     "Text": {
       "$type": "color",
-      "$value": "{Text.Secondary}"
+      "$value": "{Text.Label}",
+      "$description": "설명 13 Regular #435064 (Neutral 700) — Info · Neutral 공통 (사용자 확정)"
     },
     "Label": {
       "$type": "color",

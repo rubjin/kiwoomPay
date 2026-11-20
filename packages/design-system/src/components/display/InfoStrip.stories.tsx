@@ -63,3 +63,19 @@ export const Stacked: Story = {
     />
   ),
 };
+
+/** 왼쪽 정렬 한 줄 + 쌍 사이 구분선 (다운로드 요청 상세 "요청 조건") — 이름 13 회색 · 값 14 SemiBold */
+export const Divided: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <InfoStrip
+      layout="divided"
+      items={[
+        { label: '거래일', value: '2026-08-01 ~ 2026-08-31' },
+        { label: '거래상태', value: '승인' },
+        { label: '결제수단', value: '전체' },
+        { label: '가맹점', value: '전체' },
+      ]}
+    />
+  ),
+};

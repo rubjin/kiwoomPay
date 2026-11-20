@@ -137,12 +137,13 @@ $field-inline-gap: t.$space-12; // variant="inline": 라벨 ↔ 컨트롤 · 컨
   min-height: 0;
 }
 
-// grow: 묶음이 남는 폭을 채우고, 안의 컨트롤이 폭을 나눠 갖는다
+// grow: 묶음이 남는 폭을 채운다. inline은 안의 컨트롤이 폭을 나눠 갖고,
+// default(검색 조건 · 폼)는 fullWidth 컨트롤이 그 폭을 채운다 (인라인 style flex 대신)
 .grow {
   flex: 1 1 0;
 }
 
-.grow .body > * {
+.grow.inline .body > * {
   flex: 1 1 0;
   min-width: 0;
 }

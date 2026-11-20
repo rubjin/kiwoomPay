@@ -9,6 +9,16 @@
       "$type": "color",
       "$value": "{Line.Subtle}"
     },
+    "BoxBg": {
+      "$type": "color",
+      "$value": "{Primary.50}",
+      "$description": "팝업 조회 조건 box 배경 #F0F7FC (사용자 확정 — 특수권한 코드 관리 팝업)"
+    },
+    "BoxBorder": {
+      "$type": "color",
+      "$value": "{Primary.200}",
+      "$description": "팝업 조회 조건 box 테두리 #BDDDF1 (사용자 확정)"
+    },
     "Icon": {
       "$type": "color",
       "$value": "{Text.Label}",
@@ -89,6 +99,36 @@
       "$type": "color",
       "$value": "{Bg.Selected}",
       "$description": "단일 선택(라디오)한 줄 배경 (Primary 50, Figma 사업자 찾기 팝업)"
+    },
+    "GridRowSelectedText": {
+      "$type": "color",
+      "$value": "{Text.Accent}",
+      "$description": "트리 표(TreeTable) 선택한 줄 글자 (Primary 500, 화면설계서 KWPC10010201 메뉴 목록)"
+    },
+    "GridRowHover": {
+      "$type": "color",
+      "$value": "{Bg.Hover}",
+      "$description": "TODO(시안) 트리 표(TreeTable) 줄 hover"
+    },
+    "GridTreeToggle": {
+      "$type": "color",
+      "$value": "{Text.Label}",
+      "$description": "트리 표(TreeTable) 펼침 · 접기 화살표"
+    },
+    "GridHeaderFilterIcon": {
+      "$type": "color",
+      "$value": "{Neutral.400}",
+      "$description": "표 머리 필터 깔때기 (Figma 정산 실행/처리 조회결과 #B8C2CE)"
+    },
+    "GridHeaderFilterIconActive": {
+      "$type": "color",
+      "$value": "{Primary.500}",
+      "$description": "표 머리 필터 깔때기 — 거르는 중. TODO(시안) 켜짐 색 시안 없음"
+    },
+    "GridHeaderEditIcon": {
+      "$type": "color",
+      "$value": "{Primary.400}",
+      "$description": "표 머리 편집 가능 연필 (Figma #56A8D7)"
     }
   },
   "StatusView": {

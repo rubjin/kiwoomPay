@@ -5,13 +5,12 @@ import { Button } from '../../components/Button';
 import { DateRangeField, Field, MultiSelect, SelectBox, TextField } from '../../components/field';
 import type { DateRange } from '../../components/DatePicker';
 import { Icon } from '../../components/Icon';
-import { PageLayout, Stack } from '../../components/layout';
-import { IbsheetGrid } from '../../ibsheet';
+import { PageLayout } from '../../components/layout';
+import { IbsheetGrid, type IbsheetColumn } from '../../ibsheet';
 import { Pagination } from '../../components/Pagination';
 import { Segmented } from '../../components/selection';
 import { DialogProvider, StatusView, useDialog } from '../common';
 import { AppliedFilters } from './AppliedFilters';
-import { GridPlaceholder, type GridPlaceholderColumn } from './GridPlaceholder';
 import { ResultFooter } from './ResultFooter';
 import { ResultPanel } from './ResultPanel';
 import { ResultSummary } from './ResultSummary';
@@ -236,7 +235,7 @@ const ROWS: Ledger[] = [
     }) as Ledger,
 );
 
-const COLUMNS: GridPlaceholderColumn<Ledger>[] = [
+const COLUMNS: IbsheetColumn<Ledger>[] = [
   {
     key: 'status',
     header: '정산상태',
@@ -251,7 +250,13 @@ const COLUMNS: GridPlaceholderColumn<Ledger>[] = [
   { key: 'id', header: '정산원장 ID', width: 140 },
   { key: 'sourceId', header: '원천원장 ID', width: 140 },
   { key: 'closedAt', header: '마감일시', width: 155 },
-  { key: 'payDate', header: '지급예정일', width: 120 },
+  {
+    key: 'payDate',
+    header: '지급예정일',
+    width: 120,
+    // 칸 편집 (머리 연필) — 조정 원장은 못 고침
+    edit: { type: 'date', value: (r) => r.payDate, canEdit: (r) => r.type !== '조정' },
+  },
   { key: 'cpid', header: 'CPID', width: 120 },
   { key: 'merchant', header: '가맹점명', width: 120 },
   { key: 'bizNo', header: '사업자번호', width: 120 },
@@ -260,8 +265,9 @@ const COLUMNS: GridPlaceholderColumn<Ledger>[] = [
   { key: 'period', header: '정산기간', width: 180 },
   {
     key: 'count',
-    header: '정산대상 거래건수',
-    width: 118,
+    header: '정산대상\n거래건수',
+    width: 90,
+    align: 'right',
     render: (r) => (r.count === null ? '-' : r.count.toLocaleString('ko-KR')),
   },
 ];
@@ -520,25 +526,24 @@ function SettlementScreen({
           </>
         }
       >
-        <Stack gap={24}>
-          <GridPlaceholder
-            columns={COLUMNS}
-            rows={sr.status === 'success' ? sr.items : []}
-            rowKey={(r) => r.id}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-          {/* IBSheet 적용 (기존 표 아래 — 같은 열 · 행 · 선택, vendor/ibsheet가 없으면 그리지 않음) */}
-          <IbsheetGrid
-            columns={COLUMNS}
-            rows={sr.status === 'success' ? sr.items : []}
-            rowKey={(r) => r.id}
-            selectable
-            selectedKeys={selected}
-            onSelectionChange={setSelected}
-          />
-        </Stack>
+        {/* 정산 원장 표 옵션 (앱 KWPC06010201과 같음): 머리 필터 · 정렬, 지급예정일 칸 편집, 조정 원장 비활성 선택,
+            두 줄 머리 56, 글자 13(textSize sm). IBSheet가 없으면 같은 props로 일반 표(GridPlaceholder) */}
+        <IbsheetGrid
+          columns={COLUMNS}
+          rows={sr.status === 'success' ? sr.items : []}
+          rowKey={(r) => r.id}
+          selectable
+          isRowSelectable={(r) => r.type !== '조정'}
+          selectedKeys={selected}
+          onSelectionChange={setSelected}
+          filterable
+          sortable
+          headerHeight={56}
+          textSize="sm"
+          onCellEdit={(row, _key, value) =>
+            void dialog.alert(`${row.id} 지급예정일을 ${value}(으)로 바꿨습니다. (예시)`)
+          }
+        />
       </ResultPanel>
       <ResultFooter total={sr.total}>
         <Pagination

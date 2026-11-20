@@ -14,8 +14,10 @@
   gap: t.$space-16;
 }
 
-// 남는 폭을 채움 (fullWidth 입력 + 버튼)
+// 남는 폭을 채움 (fullWidth 입력 + 버튼). Field 본문처럼 세로 flex(align-items: flex-start) 안에서도
+// 폭을 채우도록 width 100% — 가로 flex에서는 flex-basis 0이 우선이라 그대로
 .grow {
   display: flex;
   flex: 1 1 0;
+  width: 100%;
 }

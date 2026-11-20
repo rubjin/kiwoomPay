@@ -332,3 +332,27 @@ export const TitleAddon: Story = {
     </PageLayout>
   ),
 };
+
+/** 좌우 분할 (PageLayout.Split): 검색 조건은 위에 전체 폭, 아래 왼쪽 목록(고정 폭) · 오른쪽 상세. 두 열 아래 끝이 맞는다 (KWPC10010201 메뉴 관리) */
+export const Split: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <PageLayout>
+      <PageLayout.Title title="메뉴·기능 관리" />
+      <PageLayout.Section title="검색 조건">
+        <Slot style={{ height: 80 }}>검색 조건 (전체 폭)</Slot>
+      </PageLayout.Section>
+      <PageLayout.Split
+        side={
+          <PageLayout.Section title="메뉴 목록">
+            <Slot style={{ height: 200 }}>목록 (TreeTable)</Slot>
+          </PageLayout.Section>
+        }
+      >
+        <PageLayout.Section title="메뉴 정보">
+          <Slot style={{ height: 420 }}>선택한 항목 상세 · 편집</Slot>
+        </PageLayout.Section>
+      </PageLayout.Split>
+    </PageLayout>
+  ),
+};

@@ -34,9 +34,10 @@ export interface SearchPanelProps extends Omit<
   /**
    * card(기본): 흰 카드 안에 제목 줄 · 구분선 · 필드 (화면 검색 영역) /
    * plain: 카드 · 상자 없이 제목(md 16) 아래 필드 한 줄 + 끝에 [초기화] · [조회].
-   * 팝업 안 조회 조건용 (권한 신청 현황 · 로그인 이력 · 권한 변경 이력 팝업). 접기 · 상세 검색 없음
+   * 팝업 안 조회 조건용 (권한 신청 현황 · 로그인 이력 · 권한 변경 이력 팝업). 접기 · 상세 검색 없음 /
+   * box: plain과 같고(버튼은 필드 줄 끝) 필드 줄에 배경 Primary 50 · 테두리 Primary 200만 입힌다 (특수권한 코드 관리 팝업)
    */
-  variant?: 'card' | 'plain';
+  variant?: 'card' | 'plain' | 'box';
   /**
    * 안의 입력 · 셀렉트 기본 폭 (폭 · fullWidth를 주지 않았을 때). md(기본) 200 · lg 270.
    * 앞 검색 아이콘 입력은 +28(228 · 298). 날짜 · 기간(264)은 그대로
@@ -115,7 +116,9 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
     };
 
     // 버튼 위치 기본값: 카드는 제목 줄(header), 팝업 plain은 필드 줄 끝(inline)
-    const placement = actionsPlacement ?? (variant === 'plain' ? 'inline' : 'header');
+    const box = variant === 'box';
+    const placement = actionsPlacement ?? (variant === 'plain' || box ? 'inline' : 'header');
+    const fieldRowClass = clsx(styles.fieldRow, box && styles.boxRow);
     const inline = placement === 'inline';
     const hasDetail = detail !== undefined && !isCollapsed;
 
@@ -138,7 +141,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
       </>
     );
 
-    if (variant === 'plain') {
+    if (variant === 'plain' || box) {
       return (
         <form
           {...rest}
@@ -158,7 +161,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
               {title !== null && (
                 <SectionHeading size="md" as="h3" title={title} description={description} />
               )}
-              <div className={styles.fieldRow}>
+              <div className={fieldRowClass}>
                 {children}
                 <div className={styles.inlineActions}>{actions}</div>
               </div>
@@ -174,7 +177,7 @@ const SearchPanelRoot = forwardRef<HTMLFormElement, SearchPanelProps>(
                 description={description}
                 actions={actions}
               />
-              <div className={styles.fieldRow}>{children}</div>
+              <div className={fieldRowClass}>{children}</div>
             </>
           )}
         </form>

@@ -151,7 +151,18 @@ $sr-gap: t.$space-16; // 검색 조건 필드 사이
 | 형태가 다른 묶음 사이 (예: 이력조회 ↔ [추가][삭제])                             | 16   | 제목 줄 오른쪽 기본 간격(FormSection) · 묶음 안은 `ControlGroup` 8 |
 | 버튼 세트 + 버튼 세트 (예: [정보일괄변경][키움저축계좌통지] ↔ [새로고침][저장]) | 16   | `<ControlGroup spacing="lg">` 안에 세트마다 `<ControlGroup>`       |
 
-간격을 인라인 스타일(`style={{ display: 'flex', gap }}`)로 만들지 않는다 — 가로 세트는 항상 `ControlGroup`, 위아래로 쌓는 묶음(팝업 본문 영역 · 소제목 + 표)은 `Stack`(`gap` 0 · 4 · 8 · 12 · 16(기본) · 24, `as` div · section · span).
+간격을 인라인 스타일(`style={{ display: 'flex', gap }}`)로 만들지 않는다 — 가로 세트는 항상 `ControlGroup`, 위아래로 쌓는 묶음(팝업 본문 영역 · 소제목 + 표)은 `Stack`(`gap` 0 · 4 · 8 · 12 · 16(기본) · 24, `as` div · section · span · dl).
+
+배치도 `Stack` 옵션으로 — 인라인 `style` 대신:
+
+| 필요한 배치                                        | 옵션                                               |
+| -------------------------------------------------- | -------------------------------------------------- |
+| 가로로 나란히 · 양끝 정렬 (탭 ↔ 버튼, 설명 ↔ 버튼) | `direction="row" justify="between" align="center"` |
+| 같은 폭 2단 (안내 상자 두 개 · 정보 두 열)         | `columns={2}` + `gap`                              |
+| 표 칸 안 위아래 여백 (칸 안 입력 8 · 두 줄 글자 4) | `paddingBlock={8}` · `paddingBlock={4}`            |
+| 넘치면 줄바꿈                                      | `wrap`                                             |
+
+필드 폭은 `fieldWidth`(xs 72 · sm 150 · md 200 · lg 270 — 시안 값과 가장 가까운 것), 남는 폭 채우기는 `Field grow` + `fullWidth` · `ControlGroup grow` · `ActionBar grow`. 숫자 폭을 새로 만들지 않는다. 앱 ESLint가 `style` prop을 경고한다(외부 라이브러리 크기 등 꼭 필요한 곳만 사유를 달아 끈다).
 
 ```tsx
 <SectionHeading

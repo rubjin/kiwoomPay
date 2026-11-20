@@ -3,6 +3,7 @@ export type {
   PageLayoutProps,
   PageSectionLayout,
   PageSectionProps,
+  PageSplitProps,
   PageTitleProps,
 } from './PageLayout';
 export { ControlGroup } from './ControlGroup';

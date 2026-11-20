@@ -6,6 +6,7 @@
 // 클래스 이름은 IBSheet가 정한 것이라 camelCase 규칙에서 빼고,
 // 순서는 IBSheet 영역(그리드 → 셀 → 달력)별로 묶어 선택자 우선순위 순서 규칙도 뺀다
 /* stylelint-disable selector-class-pattern, no-descending-specificity */
+@use 'sass:math';
 @use '../tokens' as t;
 @use '../mixins' as m;
 
@@ -17,11 +18,16 @@
 // 더 앞 레이어(kp-ib-fix)의 !important로 셀 안 디자인 시스템 컴포넌트(IbsheetGrid가 .kpIbHtml로 감쌈)만 되돌린다
 // 기본 테마의 태그 규칙(.IBMain span · b · i · em { color · font-weight · font-style })은 레이어로 낮춰도,
 // 컴포넌트가 색을 직접 정하지 않고 물려받는 요소(Badge 안 글자 span 등)에는 그대로 칠해진다 → 셀 안 컴포넌트 영역에서만 물려받게.
-// :where로 우선순위를 낮춰 컴포넌트가 직접 정한 값은 그대로 이긴다
-:where(.IBMain .kpIbHtml) :is(span, b, i, em) {
+// :where로 우선순위를 낮춰 컴포넌트가 직접 정한 값은 그대로 이긴다.
+// 글자 크기도 같다 — 아래 표 글자 규칙(:where(.SheetMain.IBMain) * 14)이 컴포넌트 안쪽 글자(Badge_label 등)에 직접 걸리면
+// 컴포넌트 크기(Badge 13 · 버튼 12)를 못 물려받아 14로 커진다 → 물려받게 (요소 선택자 우선순위 1이 그 규칙(0)을 이긴다)
+:where(.IBMain .kpIbHtml) :is(span, b, i, em, strong, p, div, label) {
+  font-size: inherit;
   font-style: inherit;
   font-weight: inherit;
+  line-height: inherit;
   color: inherit;
+  letter-spacing: inherit;
 }
 
 @layer kp-ib-fix {
@@ -37,6 +43,9 @@ $ib-color-text: t.$color-search-result-grid-text; // 칸 글자
 $ib-color-border: t.$color-search-result-grid-border; // 칸 사이 · 아래 선
 $ib-color-header-bg: t.$color-search-result-grid-header-bg; // 머리 배경 (Neutral 100)
 $ib-color-header-text: t.$color-search-result-grid-header-text; // 머리 글자
+$ib-color-header-filter: t.$color-search-result-grid-header-filter-icon; // 머리 필터 깔때기
+$ib-color-header-filter-on: t.$color-search-result-grid-header-filter-icon-active; // 거르는 중
+$ib-color-header-edit: t.$color-search-result-grid-header-edit-icon; // 편집 가능 연필
 $ib-color-row-bg: t.$color-bg-surface; // 줄 배경 (줄무늬 없음)
 // 마우스 · 커서 줄은 Neutral 50 — Neutral 100(bg-hover)이면 같은 색인 Neutral Badge 배경이 줄에 묻혀 안 보인다
 $ib-color-row-hover: t.$color-bg-page; // 마우스를 올린 줄
@@ -104,13 +113,21 @@ $ib-color-pick-button-bg-pressed: t.$color-button-primary-solid-bg-pressed;
 // ══ 크기 ══════════════════════════════════════════════════════════
 $ib-focus-border-width: 2px; // 커서 칸 테두리 두께 (IBSheet 기본)
 $ib-cell-padding-x: t.$space-12; // 글자 칸 좌우 (GridPlaceholder와 같음)
+$ib-head-icon-gap: t.$space-4; // 머리 이름 ↔ 아이콘 · 정렬 ↔ 필터 간격 (4)
 $ib-check-size: t.$selection-size-sm; // 체크박스 16 (Checkbox sm)
 $ib-check-radius: 4px; // Checkbox 반경
 $ib-check-mark-width: 4px; // ✓ 짧은 획
 $ib-check-mark-height: 8px; // ✓ 긴 획
 $ib-check-mark-stroke: 2px;
 $ib-check-dash-width: 8px; // 일부 선택(–)
-$ib-input-inset: t.$space-4; // 편집 칸 필드 테두리 ↔ 칸 끝 (행 40 → 필드 32)
+// 표 안 폼 요소(입력 · 셀렉트 · 달력 · 버튼) 높이 30 — 표 안에만 적용 (디자인 시스템 Field · Button 토큰은 그대로)
+$ib-row-height: 48px; // ibsheetOptions ROW_HEIGHT와 같게 (페이지 표 줄 48)
+$ib-control-height: 30px;
+$ib-input-inset: t.$space-4; // 편집 칸 필드 테두리 ↔ 칸 좌우 끝
+$ib-input-inset-y: math.div(
+  $ib-row-height - $ib-control-height,
+  2
+); // 칸 위아래 끝 (행 48 → 필드 30)
 $ib-input-radius: t.$field-radius-sm; // 편집 칸 반경 (Field sm)
 $ib-input-icon-size: t.$field-icon-size-trailing; // 화살표 · 달력 아이콘 20 (SelectBox · DateField)
 $ib-input-icon-gap: t.$space-8; // 아이콘 ↔ 필드 테두리
@@ -125,7 +142,9 @@ $ib-select-item-padding: t.$space-8; // 항목 위아래 · 좌우 (SelectBox 8)
 $ib-select-item-gap: t.$space-8; // 항목 사이 (SelectBox 8)
 $ib-select-header-shift-start: 2px; // IBSheet 목록 머리 상자는 칸보다 위 · 왼쪽 2, 아래 · 오른쪽 1 크다 (측정)
 $ib-select-header-shift-end: 1px;
-$ib-select-panel-offset: 2px; // 목록 위치 — IBSheet 기준(칸 아래 2) + 2 = 필드 테두리(칸 안쪽 4) ↔ 목록 8 (SelectBox) (측정)
+
+// 목록 위치 — IBSheet 기준(칸 아래 2) + 1 = 필드 테두리(칸 안쪽 5) ↔ 목록 8 (SelectBox) (측정)
+$ib-select-panel-offset: 8px - 2px - $ib-input-inset-y;
 $ib-badge-height: 20px; // Badge sm 20
 $ib-badge-padding-x: t.$space-8; // Badge sm 좌우
 $ib-pick-cell-size: t.$control-height-md; // 달력 날짜 칸 40 (Date Picker Cell 40)
@@ -147,11 +166,17 @@ $ib-badge-tones: (
 );
 
 // ── 공통 글꼴 ────────────────────────────────────────
-// IBSheet 기본은 .IBMain, .IBMain * 에 Noto Sans 13px — 디자인 시스템 글꼴 · 12px로.
+// IBSheet 기본은 .IBMain, .IBMain * 에 Noto Sans 13px — 디자인 시스템 글꼴 · 14px로 (데이터 표 글자 14).
 // :where로 우선순위 0 — 기본 테마(레이어)는 이기고, 셀 안 디자인 시스템 컴포넌트의 글자(Badge Medium 등)는 덮지 않는다
 :where(.SheetMain.IBMain),
 :where(.SheetMain.IBMain) * {
-  @include m.typography(typo-12-regular);
+  @include m.typography(typo-14-regular);
+}
+
+// 열이 많고 내용이 긴 표(IbsheetGrid textSize="sm" — 정산 원장)는 13 (사용자 결정 2026-11-19)
+:where([data-kp-ib-size='sm'] .SheetMain.IBMain),
+:where([data-kp-ib-size='sm'] .SheetMain.IBMain) * {
+  @include m.typography(typo-13-regular);
 }
 
 // ── 표: 칸 · 선 ──────────────────────────────────────
@@ -198,10 +223,10 @@ $ib-badge-tones: (
   border-bottom-color: $ib-color-border;
 }
 
-// 머리 (Neutral 100 · 12 SemiBold)
+// 머리 (Neutral 100 · 14 SemiBold, textSize sm이면 13)
 .IBMain .IBCellHeader,
 .IBMain .IBCellHeader * {
-  @include m.typography(typo-12-semi-bold);
+  @include m.typography(typo-14-semi-bold);
 
   color: $ib-color-header-text;
 }
@@ -210,6 +235,100 @@ $ib-badge-tones: (
   background: $ib-color-header-bg;
   border-right: t.$control-border-width solid $ib-color-border;
   border-bottom: t.$control-border-width solid $ib-color-border;
+}
+
+[data-kp-ib-size='sm'] .IBMain .IBCellHeader,
+[data-kp-ib-size='sm'] .IBMain .IBCellHeader * {
+  @include m.typography(typo-13-semi-bold);
+}
+
+// 머리 필터 · 편집 표시 (IbsheetGrid filterable · 열 edit): 이름(+ 연필) 왼쪽 · 깔때기 오른쪽 (Figma 정산 실행/처리 조회결과)
+.IBMain .kpIbHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $ib-head-icon-gap;
+  width: 100%;
+  text-align: left;
+}
+
+.IBMain .kpIbHeadLabel {
+  display: inline-flex;
+  align-items: center;
+}
+
+.IBMain .kpIbHeadEdit,
+.IBMain .kpIbHeadFilter {
+  display: inline-flex;
+  flex: none;
+}
+
+.IBMain .kpIbHeadEdit svg,
+.IBMain .kpIbHeadEdit svg * {
+  color: $ib-color-header-edit;
+}
+
+.IBMain .kpIbHeadFilter {
+  cursor: pointer;
+}
+
+.IBMain .kpIbHeadFilter svg,
+.IBMain .kpIbHeadFilter svg * {
+  color: $ib-color-header-filter;
+}
+
+.IBMain .kpIbHeadFilter.kpIbHeadFilterOn svg,
+.IBMain .kpIbHeadFilter.kpIbHeadFilterOn svg * {
+  color: $ib-color-header-filter-on;
+}
+
+// 머리 아이콘 묶음 (필터 · 정렬 — 정렬이 맨 오른쪽): 칸 오른쪽 끝에서 20 (칸 여백 12 + 8), 필터 ↔ 정렬 4 (사용자 지정).
+// 기본 테마가 .IBMain * 를 content-box로 강제해 .kpIbHead 안쪽 여백은 폭(100%) 밖으로 밀려 안 보인다 → 묶음의 바깥 여백으로
+.IBMain .kpIbHeadIcons {
+  display: inline-flex;
+  flex: none;
+  gap: $ib-head-icon-gap;
+  align-items: center;
+}
+
+// 머리에 마우스를 올리면 IBSheet가 칸을 복제한 말풍선(IBHintHeaderMain)을 body 바로 아래에 띄운다.
+// 표 범위(data-kp-ib-size) 밖이라 글자 크기가 표와 달라져(13 → 14) 커져 보였음 — 머리 이름은 두 줄까지 다 보이게 폭을 잡으므로 띄우지 않는다
+.IBMain .IBHintHeaderMain {
+  display: none !important;
+}
+
+// 정렬 (IbsheetGrid sortable): 방향에 맞는 아이콘 하나만. 정렬 중인 방향 화살표 = 강조색(icon-accent), 반대 = 머리 글자색
+.IBMain .kpIbHeadSort {
+  display: inline-flex;
+  flex: none;
+  cursor: pointer;
+}
+
+.IBMain .kpIbHeadSort .kpIbSortAsc,
+.IBMain .kpIbHeadSort .kpIbSortDesc {
+  display: none;
+}
+
+.IBMain .kpIbHeadSort:not(.kpIbHeadSortDesc) .kpIbSortAsc,
+.IBMain .kpIbHeadSort.kpIbHeadSortDesc .kpIbSortDesc {
+  display: inline-flex;
+}
+
+// 정렬 안 함: 위아래 화살표 모두 필터 깔때기와 같은 회색 — TODO(시안) 정렬 안 함 아이콘 없음(sort-asc를 회색으로)
+.IBMain .kpIbHeadSort:not(.kpIbHeadSortAsc, .kpIbHeadSortDesc) {
+  --kp-color-icon-accent: currentcolor;
+
+  color: $ib-color-header-filter;
+}
+
+.IBMain .kpIbHeadSort:not(.kpIbHeadSortAsc, .kpIbHeadSortDesc) svg,
+.IBMain .kpIbHeadSort:not(.kpIbHeadSortAsc, .kpIbHeadSortDesc) svg * {
+  color: $ib-color-header-filter;
+}
+
+// 고를 수 없는 줄 (IbsheetGrid isRowSelectable) — 체크박스는 보이되 비활성(IBBoolRO 모양, 시안은 모든 줄에 체크박스)
+.IBMain .kpIbNoCheck {
+  cursor: not-allowed;
 }
 
 // 표 아래 끝 — 기본 테마가 표 전체(IBMainTable) 아래 · 아래 빈 줄(IBSpaceRow) 위에 진한 선(#cfd1d6)을 더 그어,
@@ -473,9 +592,9 @@ $ib-badge-tones: (
   }
 }
 
-// Badge sm soft (Html 칸)
+// Badge sm soft (Html 칸) — 표 안 Badge 글자는 13 (데이터 표 글자 결정)
 .IBMain .kpIbBadge {
-  @include m.typography(typo-12-medium);
+  @include m.typography(typo-13-medium);
 
   display: inline-flex;
   align-items: center;
@@ -497,6 +616,8 @@ $ib-badge-tones: (
 // 필드 안은 Field 배경(흰색)으로 채운다 — 체크한 줄 · 커서 칸 배경은 필드 밖 4에만 보인다.
 // z-index 0: 칸 안 쌓임을 만들어 필드 상자(::before z-index -1)가 칸 배경 위 · 글자 아래에 그려지게
 .IBMain .kpIbInput {
+  @include m.typography(typo-12-regular); // 입력 모양 칸 = 폼 요소 — 표 글자를 따르지 않고 12 그대로
+
   position: relative;
   z-index: 0;
   text-align: left; // 편집 칸 글자는 왼쪽 (SelectBox · DateField · TextField와 같음)
@@ -505,7 +626,7 @@ $ib-badge-tones: (
 // 필드 상자: 칸 안 쌓임에서 글자 아래(z-index -1) · 칸 배경 위
 .IBMain .kpIbInput::before {
   position: absolute;
-  inset: $ib-input-inset;
+  inset: $ib-input-inset-y $ib-input-inset;
   z-index: -1;
   pointer-events: none;
   content: '';
@@ -530,7 +651,9 @@ $ib-badge-tones: (
 
 // 셀렉트(Enum) — IBSheet 기본은 왼쪽 회색 화살표 이미지 → 오른쪽 chevron-down 20 (SelectBox와 같은 자리)
 .IBMain .kpIbInput.IBEnumLeft {
-  padding-right: calc(#{$ib-input-inset} + #{$ib-input-icon-gap} + #{$ib-input-icon-size} + #{t.$space-4});
+  padding-right: calc(
+    #{$ib-input-inset} + #{$ib-input-icon-gap} + #{$ib-input-icon-size} + #{t.$space-4}
+  );
   padding-left: $ib-cell-padding-x;
   background-image: none;
 }
@@ -566,7 +689,31 @@ $ib-badge-tones: (
   transform: translateY(-50%);
 }
 
-// 편집 중 입력 상자
+// 고칠 수 있는 칸 (IbsheetGrid 열 edit) — 평소에는 글자만 (Figma 정산 실행/처리: 머리 연필만 표시),
+// 달력 칸은 마우스를 올린 줄에서만 calendar 아이콘. 누르면 IBSheet 편집 상자 · 달력
+.IBMain .kpIbEditable {
+  position: relative;
+  cursor: pointer;
+}
+
+.IBMain .kpIbEditable.IBDateRight {
+  background-image: none;
+}
+
+.IBMain tr:hover .kpIbEditable.IBDateRight::after {
+  position: absolute;
+  top: 50%;
+  right: $ib-input-icon-gap;
+  width: $ib-input-icon-size;
+  height: $ib-input-icon-size;
+  pointer-events: none;
+  content: '';
+  background-color: $ib-color-input-icon;
+  mask: $ib-icon-calendar center / contain no-repeat;
+  transform: translateY(-50%);
+}
+
+// 편집 중 입력 상자 — 폼 요소라 표 글자(14 · 13)를 따르지 않고 12 그대로 (사용자 결정)
 .IBMain .IBEditCellInput {
   @include m.typography(typo-12-regular);
 
@@ -574,7 +721,14 @@ $ib-badge-tones: (
   caret-color: $ib-color-input-caret;
 }
 
-// 버튼 — Button sm Neutral Line. 칸 위아래 여백(IBSheet 기본 6 · 5)을 빼야 32 버튼이 줄 40 안에 들어간다
+// IbsheetGrid가 칸에 그린 디자인 시스템 컴포넌트(.kpIbHtml) 안 폼 요소(Button · 입력)도 표 안 높이 30 —
+// Button sm은 32라 그대로 두면 표 안 다른 폼 요소(30)와 어긋난다
+.IBMain .kpIbHtml button,
+.IBMain .kpIbHtml input {
+  height: $ib-control-height;
+}
+
+// 버튼 — Button sm Neutral Line 모양, 높이는 표 안 폼 요소와 같은 30. 칸 위아래 여백(IBSheet 기본 6 · 5)을 빼야 줄 가운데에 들어간다
 .IBMain .IBButton {
   padding-block: 0;
 }
@@ -586,7 +740,7 @@ $ib-badge-tones: (
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(#{t.$control-height-sm} - #{t.$control-border-width} * 2);
+  height: calc(#{$ib-control-height} - #{t.$control-border-width} * 2);
   padding-inline: t.$control-padding-x-sm;
   color: $ib-color-button-text;
   vertical-align: middle;
@@ -626,9 +780,9 @@ $ib-badge-tones: (
 
 .IBMain .IBEnumMenuHeader::before {
   position: absolute;
-  inset: calc(#{$ib-input-inset} + #{$ib-select-header-shift-start})
+  inset: calc(#{$ib-input-inset-y} + #{$ib-select-header-shift-start})
     calc(#{$ib-input-inset} + #{$ib-select-header-shift-end})
-    calc(#{$ib-input-inset} + #{$ib-select-header-shift-end})
+    calc(#{$ib-input-inset-y} + #{$ib-select-header-shift-end})
     calc(#{$ib-input-inset} + #{$ib-select-header-shift-start});
   content: '';
   background: $ib-color-select-bg;

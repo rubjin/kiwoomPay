@@ -4,8 +4,9 @@ import { IB_CELL } from './ibsheetCells';
 // 색 · 글자 · 선은 KWP 테마(@kiwoompay/design-system/ibsheet.css — 앱 main.tsx에서 로드),
 // 높이는 CSS로 바꿀 수 없어 여기서 정한다 (매뉴얼 props/cfg/size: Def.Row · Def.Header Height)
 
-// TODO(시안) 행 · 머리 높이 40 — GridPlaceholder 미리보기와 같은 임시값 (Lookup 결과 48 등 시안별 확인)
-const ROW_HEIGHT = 40;
+// 페이지 표: 머리 40 · 줄 48 (사용자 결정 2026-11-19 — IBSheet는 페이지 결과 표에만, 팝업 안 표는 GridPlaceholder 38 · 40)
+// 줄 높이를 바꾸면 테마의 $ib-row-height · IbsheetGrid ROW_HEIGHT도 같이 (표 안 폼 요소 30을 세로 가운데에 두는 데 씀)
+const ROW_HEIGHT = 48;
 const HEADER_HEIGHT = 40;
 
 export const IBSHEET_BASE_OPTIONS = {

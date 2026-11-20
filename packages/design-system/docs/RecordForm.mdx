@@ -21,7 +21,7 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 
 ## 1. FormTable
 
-- 줄 52(입력 40 + 위 6 · 아래 5 + 테두리), 라벨 138 · 12 Bold · Neutral 100 배경, 필수는 `required`(빨간 \*)
+- 줄 52(입력 40 + 위 6 · 아래 5 + 테두리), 라벨 138 · 12 Bold · Neutral 100 배경, 필수는 `required` — 기본 \*(Primary 파랑, Field와 같은 색). 강조가 필요한 곳만 `required="text"` → "필수"(10 Regular 빨강 · 라벨과 8, 화면에서 직접 지정)
 - `colSpan`: 값 1칸 = 1, 값 2칸 넓이 = 3 (라벨 하나 포함), 라벨 뒤 줄 끝까지 = 7
 - 칸 안에 여러 입력이면 `FormTable.InlineField label="…"`(= `Field variant="inline"`, 라벨이 입력과 연결 · `required` 가능)로 [라벨 + 입력]을 묶는다 (주소: 국가 · 우편번호 · 주소). 묶음 안 라벨(12 Bold) ↔ 입력 12, 묶음끼리 16. 남는 폭을 채울 묶음은 `grow`(주소 · 상세 주소가 폭을 나눔)
 - 목록형 표는 `template`(예: `36px repeat(5, minmax(0, 1fr))`) + `FormTable.Head`(머리 44 · 가운데)
@@ -30,6 +30,7 @@ import * as ChipStories from '../src/patterns/record-form/ContextChip.stories';
 <Canvas of={TableStories.Pairs} />
 <Canvas of={TableStories.ColSpan} />
 <Canvas of={TableStories.Matrix} />
+<Canvas of={TableStories.Required} />
 
 ## 2. FormSection
 

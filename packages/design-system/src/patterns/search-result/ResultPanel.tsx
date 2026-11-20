@@ -19,6 +19,8 @@ export interface ResultPanelProps extends Omit<HTMLAttributes<HTMLElement>, 'tit
   statusProps?: Omit<StatusViewProps, 'status'>;
   /** Grid (IBSheet8) */
   children?: ReactNode;
+  /** 카드 맨 아래 영역 (여백 16) — 이 표 · 섹션에 대한 안내(Infobox neutral) */
+  footer?: ReactNode;
 }
 
 /**
@@ -33,6 +35,7 @@ export const ResultPanel = forwardRef<HTMLElement, ResultPanelProps>(
       actions,
       status = 'success',
       statusProps,
+      footer,
       className,
       children,
       ...rest
@@ -54,6 +57,7 @@ export const ResultPanel = forwardRef<HTMLElement, ResultPanelProps>(
           <StatusView {...statusProps} status={status} className={styles.resultStatus} />
         )}
       </div>
+      {footer !== undefined && <div className={styles.resultPanelFooter}>{footer}</div>}
     </section>
   ),
 );

@@ -1,0 +1,8 @@
+@use 'tokens' as t;
+
+// 머리 필터 패널 폭 — TODO(시안) 머리 필터 패널 시안 없음, MultiSelect 패널 모양에 폭만 정함
+$filter-panel-width: 240px;
+
+.panel {
+  width: $filter-panel-width;
+}

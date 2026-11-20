@@ -612,6 +612,22 @@ export const iconSet = {
       </>
     ),
   },
+  'sort-asc': {
+    16: () => (
+      <>
+        <path d="M11 9.875L8 13L5 9.875" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+        <path d="M11 6.125L8 3L5 6.125" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="var(--kp-color-icon-accent)" />
+      </>
+    ),
+  },
+  'sort-desc': {
+    16: () => (
+      <>
+        <path d="M5 6.125L8 3L11 6.125" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+        <path d="M5 9.875L8 13L11 9.875" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" stroke="var(--kp-color-icon-accent)" />
+      </>
+    ),
+  },
   'trash': {
     24: () => (
       <>

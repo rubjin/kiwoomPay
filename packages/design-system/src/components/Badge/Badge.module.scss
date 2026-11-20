@@ -58,6 +58,12 @@ $tones: neutral, primary, info, success, warning, error;
   border-radius: calc(#{$badge-height-sm} / 2);
 }
 
+// 데이터 표(일반 표 · 트리 표 data-kp-table, IBSheet 칸 .kpIbHtml) 안 sm Badge는 글자 13 — 높이 20 그대로 (사용자 결정 "데이터 표 글자")
+:global([data-kp-table]) .sm,
+:global(.kpIbHtml) .sm {
+  @include m.typography(typo-13-medium);
+}
+
 @each $tone in $tones {
   .#{$tone} {
     color: var(--kp-color-badge-#{$tone}-text);

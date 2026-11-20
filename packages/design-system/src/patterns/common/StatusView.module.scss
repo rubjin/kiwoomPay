@@ -5,8 +5,10 @@
 $status-view-height: 220px; // 결과 영역 높이
 $status-view-gap: t.$space-8; // 아이콘 · 제목 · 설명 사이
 
+// 부모(카드 · 결과 본문)가 세로 flex로 늘어나 있으면 남는 높이를 채워 문구가 세로 가운데에 온다
 .statusView {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: $status-view-gap;
   align-items: center;

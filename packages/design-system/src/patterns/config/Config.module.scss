@@ -335,8 +335,10 @@ $split-description-gap: t.$space-24; // TODO(시안) 안내 ↔ 본문 (Figma �
   color: t.$color-config-summary-label;
 }
 
+// 남는 폭을 차지한다 — fullWidth 컨트롤(엑셀 템플릿 셀렉트)이 버튼 옆 폭을 채운다
 .fieldContent {
   display: flex;
+  flex: 1 1 auto;
   gap: t.$space-8;
   align-items: center;
   min-width: 0;

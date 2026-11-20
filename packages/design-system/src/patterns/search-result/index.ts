@@ -15,6 +15,8 @@ export { ResultFooter } from './ResultFooter';
 export type { ResultFooterProps } from './ResultFooter';
 export { GridPlaceholder } from './GridPlaceholder';
 export type { GridPlaceholderColumn, GridPlaceholderProps } from './GridPlaceholder';
+export { TreeTable, filterTreeTable, treeTableGroupIds } from './TreeTable';
+export type { TreeTableNode, TreeTableProps } from './TreeTable';
 export { useSearchResult } from './useSearchResult';
 export type { SearchRequest, SearchResultPage, UseSearchResultOptions } from './useSearchResult';
 export { optionLabel, summarizeSearch, textValue, toAppliedFilters } from './searchFields';

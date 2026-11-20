@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+// ↑ .scss import 타입 (VS Code가 이 파일을 src/vite-env.d.ts 없이 검사할 때도 오류가 나지 않게)
 import type { Decorator, Preview } from '@storybook/react-vite';
 import { Fragment } from 'react';
 import '../src/styles/index.scss';

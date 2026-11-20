@@ -8,6 +8,11 @@ $strip-label-gap: t.$space-12; // inline: 이름 ↔ 값
 $strip-row-height: 24px; // inline: 줄 높이 (Badge 24 기준)
 $strip-stacked-padding-y: 14px; // stacked: 위아래 (Figma 높이 78)
 $strip-stacked-gap: t.$space-8; // stacked: 이름 ↔ 값
+// divided — 다운로드 요청 상세 "요청 조건" (높이 48 · 왼쪽 16 · 쌍 사이 구분선 1 × 20, 간격 20)
+$strip-divided-min-height: 48px;
+$strip-divided-padding: t.$space-8 t.$space-16;
+$strip-divided-gap: t.$space-8 t.$space-20;
+$strip-divider-height: 20px;
 
 .strip {
   display: flex;
@@ -66,6 +71,40 @@ $strip-stacked-gap: t.$space-8; // stacked: 이름 ↔ 값
   .value {
     @include m.typography(typo-18-bold);
   }
+}
+
+// ── divided: 왼쪽 정렬 한 줄 + 쌍 사이 구분선 ──
+.divided {
+  gap: $strip-divided-gap;
+  justify-content: flex-start;
+  min-height: $strip-divided-min-height;
+  padding: $strip-divided-padding;
+  border: 0;
+  border-radius: t.$control-radius-sm;
+
+  .item {
+    gap: $strip-stacked-gap;
+    align-items: baseline;
+  }
+
+  .label {
+    @include m.typography(typo-13-regular);
+
+    color: t.$color-text-secondary;
+  }
+
+  .value {
+    @include m.typography(typo-14-semi-bold);
+
+    display: block;
+    color: t.$color-text-heading;
+  }
+}
+
+.divider {
+  width: t.$control-border-width;
+  height: $strip-divider-height;
+  background-color: t.$color-line-subtle;
 }
 
 // 누를 수 있는 값 (Badge는 밑줄 · 색이 그대로)

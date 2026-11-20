@@ -101,7 +101,7 @@ export function GridPlaceholder<T>({
       className={clsx(styles.grid, maxHeight !== undefined && styles.gridScroll, className)}
       style={maxHeight !== undefined ? { maxHeight, ...style } : style}
     >
-      <table className={styles.gridTable}>
+      <table className={styles.gridTable} data-kp-table="">
         <thead>
           <tr>
             {single && (

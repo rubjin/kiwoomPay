@@ -14,12 +14,31 @@ import * as PartStories from '../src/patterns/search-result/ResultParts.stories'
 | `ResultSummary`   | 조회 요약 수치 (값 1개 · 여러 개, 조회 전 `-`, 항목 `tone`으로 숫자 상태 색) |
 | `ResultPanel`     | 조회 결과 카드 (제목 · Grid 공통 Action · 업무 Action · 상태 표시)           |
 | `ResultFooter`    | Total + Pagination                                                           |
-| `GridPlaceholder` | (임의 작업) IBSheet 연결 전 미리보기 표                                      |
+| `IbsheetGrid`     | 페이지 조회 결과 표 (IBSheet8, `@kiwoompay/design-system/ibsheet`)           |
+| `GridPlaceholder` | 팝업 안 표 · IBSheet가 없을 때(Storybook · vendor 없음) 같은 props로 일반 표 |
 
 <Canvas of={PartStories.AppliedFilter} />
 <Canvas of={PartStories.Summary} />
 <Canvas of={PartStories.Panel} />
 <Canvas of={PartStories.PanelStates} />
+
+## 표 (IbsheetGrid)
+
+<Canvas of={PartStories.GridOptions} />
+
+| 옵션              | 동작                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| `selectable`      | 체크 열 + 머리 전체선택 · 일부 선택(–) · 체크한 줄 배경, `selectedKeys`와 양쪽 동기화                  |
+| `isRowSelectable` | false인 줄은 **비활성 체크박스**(숨기지 않음) · 머리 전체선택도 건너뜀 — 예: 조정 원장                 |
+| `filterable`      | 머리 깔때기 → 열 값 고르기(옵션 검색 · 전체 · 체크). 받은 줄 안에서 거름, 거르는 중이면 깔때기 Primary |
+| `sortable`        | 머리 정렬 아이콘 → 오름차순 · 내림차순 · 정렬 안 함. 받은 줄 안에서 정렬(IBSheet 머리 클릭 정렬은 끔)  |
+| 열 `edit`         | 칸 편집(`text` · `date`, `canEdit(row)`) — 머리 이름 옆 연필, 칸은 평소 글자. 고치면 `onCellEdit`      |
+| `headerHeight`    | 머리 높이(기본 40). 열 이름에 `\n`(두 줄)이 있으면 56                                                  |
+| `textSize`        | 머리 · 칸 글자 `md` 14(기본) · `sm` 13(열이 많고 내용이 긴 표 — 정산 원장)                             |
+
+- 머리 아이콘 순서: 이름(+ 연필) … 깔때기 → 4 → 정렬(맨 오른쪽, 칸 끝에서 20)
+- 머리(이름 + 아이콘)가 다 보이도록 열 폭은 시안 폭보다 좁으면 자동으로 넓어진다
+- 데이터 표 글자는 페이지 · 팝업 모두 14(`GridPlaceholder` · `TreeTable`도 14), 12px 표는 두지 않는다. 높이: 페이지 표 머리 40 · 줄 48, 팝업 안 표 머리 38 · 줄 40(`GridPlaceholder` · `TreeTable`은 Modal 안이면 자동). 표 안 Badge(sm)는 13, 버튼은 12, 편집 입력 상자 등 폼 요소는 원래 크기(12) 그대로
 
 - 행이 없을 때 상태 표시는 **Composites › Result › Status View** (`ResultPanel status`)
 - 업무 Action은 **Action Bar**, 표시항목설정 · 엑셀 다운로드 설정은 **Column Picker**
@@ -35,8 +54,16 @@ import * as PartStories from '../src/patterns/search-result/ResultParts.stories'
   </thead>
   <tbody>
     <tr>
-      <td>결과 Grid는 IBSheet8</td>
-      <td>`GridPlaceholder`를 실제 화면에 남긴다</td>
+      <td>페이지 결과 표는 `IbsheetGrid`, 팝업 안 표는 `GridPlaceholder`</td>
+      <td>페이지 결과 표에 `GridPlaceholder`를 남긴다</td>
+    </tr>
+    <tr>
+      <td>일괄 처리에서 빠지는 줄은 `isRowSelectable`로 비활성 체크박스</td>
+      <td>체크박스를 숨겨 줄마다 칸이 비어 보이게 한다</td>
+    </tr>
+    <tr>
+      <td>표 글자는 14, 열이 많고 내용이 긴 표만 `textSize="sm"`(13)</td>
+      <td>12px 표를 만든다</td>
     </tr>
   </tbody>
 </table>

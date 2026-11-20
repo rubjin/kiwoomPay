@@ -296,6 +296,30 @@ export const Plain: Story = {
 };
 
 /**
+ * **팝업 전용** · 파란 상자 — `variant="box"`: plain과 같은 구성(제목 아래 필드 줄 + 끝에 [초기화] · [조회])에 배경 Primary 50 · 테두리 Primary 200만.
+ * 예: 특수권한 코드 관리 팝업 (사용자 결정)
+ */
+export const Box: Story = {
+  name: 'Box (팝업 · 파란 상자)',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Modal open inline size="xl">
+      <Modal.Header title="특수권한 코드 관리" closeButton />
+      <Modal.Body>
+        <SearchPanel variant="box" fieldWidth="lg" onSearch={() => {}} onReset={() => {}}>
+          <Field label="특수권한 코드">
+            <SelectBox options={status} defaultValue="all" />
+          </Field>
+          <Field label="상태">
+            <SelectBox options={status} defaultValue="all" />
+          </Field>
+        </SearchPanel>
+      </Modal.Body>
+    </Modal>
+  ),
+};
+
+/**
  * **팝업 전용** · 필드가 여러 줄일 때 — `variant="plain" actionsPlacement="header"`: 제목 줄 오른쪽 끝에 [초기화] · [조회],
  * 필드는 아래 같은 폭 4칸 격자(SearchPanel.Grid columns={4}, 칸을 채우도록 fullWidth). Figma 정산원장 찾기 팝업(29850:110785)
  */

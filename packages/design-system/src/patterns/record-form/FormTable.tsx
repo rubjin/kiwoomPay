@@ -46,8 +46,10 @@ const FormTableRow = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 FormTableRow.displayName = 'FormTable.Row';
 
 export interface FormTableLabelProps extends HTMLAttributes<HTMLDivElement> {
-  /** 필수 표시 * */
-  required?: boolean;
+  /**
+   * 필수 표시: true = * (Primary, 기본) / 'text' = "필수" 글자(빨강 — 강조가 필요한 곳만 화면에서 직접 지정)
+   */
+  required?: boolean | 'text';
   /** 입력 요소 id (label for) */
   htmlFor?: string;
 }
@@ -57,10 +59,14 @@ const FormTableLabel = forwardRef<HTMLDivElement, FormTableLabelProps>(
   ({ required, htmlFor, className, children, ...rest }, ref) => (
     <div {...rest} ref={ref} className={clsx(styles.label, className)}>
       {htmlFor ? <label htmlFor={htmlFor}>{children}</label> : children}
-      {required && (
-        <span className={styles.required} aria-hidden>
-          *
-        </span>
+      {required === 'text' ? (
+        <span className={styles.requiredText}>필수</span>
+      ) : (
+        required && (
+          <span className={styles.required} aria-hidden>
+            *
+          </span>
+        )
       )}
     </div>
   ),

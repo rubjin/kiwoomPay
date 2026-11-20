@@ -123,6 +123,21 @@ const dialog = useDialog(); // 앱 최상위에 <DialogProvider>
 - 결과 Action: Grid 공통(표시항목설정 · 엑셀)은 제목 옆 Neutral Line sm, 업무 Action은 오른쪽 — 보조 Neutral Line · 주의 Dark · 등록 Primary(+ 아이콘)
 - 숫자: 천 단위 쉼표, 빈 값 `-`
 
+## 6. 결과 표 (IbsheetGrid)
+
+위 예시 표는 정산 원장(KWPC06010201)과 같은 옵션입니다. 옵션 표 · 예시는 **Composites › Result › Result Parts › 표 (IbsheetGrid)**.
+
+| 옵션                      | 정산 원장 예                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| `filterable` · `sortable` | 모든 열 머리 깔때기 → 정렬(맨 오른쪽, 칸 끝 20 · 사이 4). 받은 줄 안에서 거르고 정렬 |
+| 열 `edit` · `onCellEdit`  | 지급예정일(date) — 머리 연필, 조정 원장은 못 고침                                    |
+| `isRowSelectable`         | 조정 원장은 비활성 체크박스, 일괄 처리 대상 아님                                     |
+| `headerHeight={56}`       | 두 줄 열 이름 — 열 이름에 `\n` (정산대상 / 거래건수)                                 |
+| `textSize="sm"`           | 열이 많고 내용이 긴 표라 13 (다른 표는 기본 14)                                      |
+
+- 머리(이름 + 아이콘)가 다 보이도록 열 폭은 시안 폭보다 좁으면 자동으로 넓어진다
+- 새 조회 화면은 `filterable` · `sortable`을 켜고 시작하고, 편집 · 선택 제외 · 두 줄 머리 · 13은 필요할 때만
+
 ## Do / Don't
 
 <table>
@@ -142,7 +157,10 @@ const dialog = useDialog(); // 앱 최상위에 <DialogProvider>
       <td>조회 전과 0건을 같은 문구로 보여준다</td>
     </tr>
     <tr>
-      <td>Grid는 IBSheet8 (`GridPlaceholder`는 연결 전 미리보기 전용)</td>
+      <td>
+        결과 표는 `IbsheetGrid` (IBSheet가 없으면 같은 props로 `GridPlaceholder`), 팝업 안 표만
+        `GridPlaceholder`
+      </td>
       <td>화면마다 표를 직접 만든다</td>
     </tr>
   </tbody>

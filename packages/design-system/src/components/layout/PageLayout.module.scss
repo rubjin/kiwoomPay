@@ -17,6 +17,10 @@ $page-layout-section-padding: t.$space-16; // Section 카드 안쪽 여백 (검�
 $page-layout-section-padding-compact: t.$space-12; // 한 줄 Section 안쪽 여백 (적용된 검색 조건 · 조회 요약)
 $page-layout-section-header-gap: t.$space-8; // Section 제목 ↔ 제목 옆 요소 · 오른쪽 Action 간격
 $page-layout-section-radius: t.$control-radius-lg;
+$page-layout-split-side-width-sm: 320px; // TODO(시안) 트리 · 짧은 목록 (기능 코드 관리 메뉴 트리)
+$page-layout-split-side-width-md: 480px; // TODO(시안) 목록 (기능 코드 관리 기능 목록)
+$page-layout-split-side-width: 640px; // TODO(시안) 좌우 분할 왼쪽 열 (화면설계서 KWPC10010201 비율 639 : 778)
+$page-layout-split-min-height: 840px; // TODO(시안) 좌우 분할 기본 높이 — 내용이 없을 때(선택 전 · 0건) 높이가 들썩이지 않게. 메뉴관리 메뉴 정보 폼 높이 834 기준
 
 // ── App Shell ────────────────────────────────────────
 // 화면 높이에 고정하고 LNB 오른쪽(.main)만 스크롤한다 — LNB는 스크롤 영역 밖이라 끝까지 내려도 움직이지 않는다
@@ -206,4 +210,42 @@ $page-layout-section-radius: t.$control-radius-lg;
   gap: $page-layout-section-header-gap;
   align-items: center;
   margin-left: auto;
+}
+
+// ── 좌우 분할 (PageLayout.Split) ──────────────────────
+.split {
+  display: flex;
+  gap: $page-layout-section-gap;
+  align-items: stretch;
+  min-height: $page-layout-split-min-height;
+}
+
+.splitSide,
+.splitMain {
+  display: flex;
+  flex-direction: column;
+  gap: $page-layout-section-gap;
+  min-width: 0;
+
+  // 마지막 Section이 남는 높이를 채워 두 열의 아래 끝이 맞는다
+  > :last-child {
+    flex: 1 1 auto;
+  }
+}
+
+.splitSide {
+  flex: none;
+  width: $page-layout-split-side-width;
+}
+
+.splitSide.sm {
+  width: $page-layout-split-side-width-sm;
+}
+
+.splitSide.md {
+  width: $page-layout-split-side-width-md;
+}
+
+.splitMain {
+  flex: 1 1 0;
 }

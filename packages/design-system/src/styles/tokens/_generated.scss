@@ -451,6 +451,23 @@ $color-cpid-item-selected-border: var(--kp-color-cpid-item-selected-border);
 $color-cpid-item-title: var(--kp-color-cpid-item-title);
 $color-cpid-item-name: var(--kp-color-cpid-item-name); // TODO(시안) 가맹점명. 가장 진한 픽셀(#5A6678)이 Text/Secondary보다 진해 Text/Label로 판단
 
+// ── custom · dashboard ──────────────────────────────────────────
+$color-chart-category-07: var(--kp-color-chart-category-07); // 7번째 계열 (Figma 결제수단 도넛 문화상품권)
+$color-chart-category-08: var(--kp-color-chart-category-08); // 8번째 계열 (간편결제)
+$color-chart-category-09: var(--kp-color-chart-category-09); // 9번째 계열 (기타)
+$color-dashboard-card-bg: var(--kp-color-dashboard-card-bg); // 대시보드 카드 (Figma KWPC01010000)
+$color-dashboard-card-border: var(--kp-color-dashboard-card-border);
+$color-dashboard-title: var(--kp-color-dashboard-title); // 카드 제목 · KPI 이름
+$color-dashboard-link: var(--kp-color-dashboard-link); // 전체보기 · 상세 보기 · 기간 · 지표 이름(건수)
+$color-dashboard-meta: var(--kp-color-dashboard-meta); // 기준일
+$color-dashboard-value: var(--kp-color-dashboard-value); // 지표 값
+$color-dashboard-hero-bg: var(--kp-color-dashboard-hero-bg); // 강조 KPI (정산 대상)
+$color-dashboard-hero-border: var(--kp-color-dashboard-hero-border);
+$color-dashboard-hero-text: var(--kp-color-dashboard-hero-text);
+$color-dashboard-tile-bg: var(--kp-color-dashboard-tile-bg); // 카드 안 칸 (영업 실적 · 순위 줄 · 가맹점 칩)
+$color-dashboard-muted: var(--kp-color-dashboard-muted); // 흐린 글자 (지난 공지)
+$color-dashboard-unread: var(--kp-color-dashboard-unread); // 읽지 않음 N
+
 // ── custom · datepicker ─────────────────────────────────────────
 $date-picker-popover-offset: var(--kp-date-picker-popover-offset); // TODO(시안) 필드 ↔ 패널 간격 (시안은 패널을 떨어뜨려 표시)
 $color-date-picker-panel-bg: var(--kp-color-date-picker-panel-bg);
@@ -624,8 +641,8 @@ $color-infobox-info-border: var(--kp-color-infobox-info-border);
 $color-infobox-neutral-bg: var(--kp-color-infobox-neutral-bg);
 $color-infobox-neutral-border: var(--kp-color-infobox-neutral-border);
 $color-infobox-icon: var(--kp-color-infobox-icon);
-$color-infobox-title: var(--kp-color-infobox-title);
-$color-infobox-text: var(--kp-color-infobox-text);
+$color-infobox-title: var(--kp-color-infobox-title); // 제목 13 SemiBold #111827 (Neutral 900, 사용자 확정)
+$color-infobox-text: var(--kp-color-infobox-text); // 설명 13 Regular #435064 (Neutral 700) — Info · Neutral 공통 (사용자 확정)
 $color-infobox-label: var(--kp-color-infobox-label);
 $color-infobox-link: var(--kp-color-infobox-link);
 
@@ -700,7 +717,8 @@ $color-record-detail-value-error: var(--kp-color-record-detail-value-error); // 
 // ── custom · record-form ────────────────────────────────────────
 $color-record-form-label-bg: var(--kp-color-record-form-label-bg); // 폼 표 라벨 칸 · 머리 행 (Figma KWPC07010101 label)
 $color-record-form-label-text: var(--kp-color-record-form-label-text);
-$color-record-form-required: var(--kp-color-record-form-required); // 필수 *
+$color-record-form-required: var(--kp-color-record-form-required); // 필수 * (기본 — Primary, Field와 같은 색)
+$color-record-form-required-text: var(--kp-color-record-form-required-text); // "필수" 글자 (required="text" — 강조가 필요할 때만)
 $color-record-form-cell-bg: var(--kp-color-record-form-cell-bg);
 $color-record-form-border: var(--kp-color-record-form-border);
 $color-record-form-toggle: var(--kp-color-record-form-toggle); // 접기 · 열기
@@ -714,6 +732,8 @@ $color-record-form-chip-divider: var(--kp-color-record-form-chip-divider);
 // ── custom · search-result ──────────────────────────────────────
 $color-search-result-panel-bg: var(--kp-color-search-result-panel-bg); // 검색 조건 · 적용 조건 · 조회 요약 · 조회 결과 카드 배경
 $color-search-result-panel-border: var(--kp-color-search-result-panel-border);
+$color-search-result-box-bg: var(--kp-color-search-result-box-bg); // 팝업 조회 조건 box 배경 #F0F7FC (사용자 확정 — 특수권한 코드 관리 팝업)
+$color-search-result-box-border: var(--kp-color-search-result-box-border); // 팝업 조회 조건 box 테두리 #BDDDF1 (사용자 확정)
 $color-search-result-icon: var(--kp-color-search-result-icon); // 검색 조건 접기 화살표
 $color-search-result-detail-toggle: var(--kp-color-search-result-detail-toggle); // 상세 검색 토글 (Primary 500)
 $color-search-result-detail-bg: var(--kp-color-search-result-detail-bg); // 상세 검색 펼침 영역 (Primary 50, Figma KWPC04010100 상세검색)
@@ -732,6 +752,12 @@ $color-search-result-grid-border: var(--kp-color-search-result-grid-border); // 
 $color-search-result-grid-text: var(--kp-color-search-result-grid-text);
 $color-search-result-grid-header-text: var(--kp-color-search-result-grid-header-text);
 $color-search-result-grid-row-selected: var(--kp-color-search-result-grid-row-selected); // 단일 선택(라디오)한 줄 배경 (Primary 50, Figma 사업자 찾기 팝업)
+$color-search-result-grid-row-selected-text: var(--kp-color-search-result-grid-row-selected-text); // 트리 표(TreeTable) 선택한 줄 글자 (Primary 500, 화면설계서 KWPC10010201 메뉴 목록)
+$color-search-result-grid-row-hover: var(--kp-color-search-result-grid-row-hover); // TODO(시안) 트리 표(TreeTable) 줄 hover
+$color-search-result-grid-tree-toggle: var(--kp-color-search-result-grid-tree-toggle); // 트리 표(TreeTable) 펼침 · 접기 화살표
+$color-search-result-grid-header-filter-icon: var(--kp-color-search-result-grid-header-filter-icon); // 표 머리 필터 깔때기 (Figma 정산 실행/처리 조회결과 #B8C2CE)
+$color-search-result-grid-header-filter-icon-active: var(--kp-color-search-result-grid-header-filter-icon-active); // 표 머리 필터 깔때기 — 거르는 중. TODO(시안) 켜짐 색 시안 없음
+$color-search-result-grid-header-edit-icon: var(--kp-color-search-result-grid-header-edit-icon); // 표 머리 편집 가능 연필 (Figma #56A8D7)
 $color-status-view-icon: var(--kp-color-status-view-icon);
 $color-status-view-title: var(--kp-color-status-view-title); // Figma Grid State / Empty: 18 SemiBold Neutral 800
 $color-status-view-description: var(--kp-color-status-view-description); // 14 Regular Neutral 700
@@ -1236,6 +1262,21 @@ $css-variables: (
   "--kp-color-cpid-item-selected-border": "var(--kp-color-primary-500)",
   "--kp-color-cpid-item-title": "var(--kp-color-text-heading)",
   "--kp-color-cpid-item-name": "var(--kp-color-text-label)",
+  "--kp-color-chart-category-07": "var(--kp-color-neutral-400)",
+  "--kp-color-chart-category-08": "var(--kp-color-neutral-500)",
+  "--kp-color-chart-category-09": "var(--kp-color-neutral-300)",
+  "--kp-color-dashboard-card-bg": "var(--kp-color-bg-surface)",
+  "--kp-color-dashboard-card-border": "var(--kp-color-line-subtle)",
+  "--kp-color-dashboard-title": "var(--kp-color-text-heading)",
+  "--kp-color-dashboard-link": "var(--kp-color-text-secondary)",
+  "--kp-color-dashboard-meta": "var(--kp-color-text-placeholder)",
+  "--kp-color-dashboard-value": "var(--kp-color-text-body)",
+  "--kp-color-dashboard-hero-bg": "var(--kp-color-primary-50)",
+  "--kp-color-dashboard-hero-border": "var(--kp-color-primary-100)",
+  "--kp-color-dashboard-hero-text": "var(--kp-color-primary-900)",
+  "--kp-color-dashboard-tile-bg": "var(--kp-color-bg-page)",
+  "--kp-color-dashboard-muted": "var(--kp-color-text-disabled)",
+  "--kp-color-dashboard-unread": "var(--kp-color-text-accent)",
   "--kp-date-picker-popover-offset": "var(--kp-space-8)",
   "--kp-color-date-picker-panel-bg": "var(--kp-color-bg-surface)",
   "--kp-color-date-picker-panel-border": "var(--kp-color-line-default)",
@@ -1389,7 +1430,7 @@ $css-variables: (
   "--kp-color-infobox-neutral-border": "var(--kp-color-line-default)",
   "--kp-color-infobox-icon": "var(--kp-color-text-body)",
   "--kp-color-infobox-title": "var(--kp-color-text-heading)",
-  "--kp-color-infobox-text": "var(--kp-color-text-secondary)",
+  "--kp-color-infobox-text": "var(--kp-color-text-label)",
   "--kp-color-infobox-label": "var(--kp-color-text-label)",
   "--kp-color-infobox-link": "var(--kp-color-text-accent)",
   "--kp-color-lnb-bg": "var(--kp-color-bg-surface)",
@@ -1450,7 +1491,8 @@ $css-variables: (
   "--kp-color-record-detail-value-error": "var(--kp-color-chart-negative)",
   "--kp-color-record-form-label-bg": "var(--kp-color-neutral-100)",
   "--kp-color-record-form-label-text": "var(--kp-color-text-heading)",
-  "--kp-color-record-form-required": "var(--kp-color-status-error-border)",
+  "--kp-color-record-form-required": "var(--kp-color-text-accent)",
+  "--kp-color-record-form-required-text": "var(--kp-color-status-error-border)",
   "--kp-color-record-form-cell-bg": "var(--kp-color-bg-surface)",
   "--kp-color-record-form-border": "var(--kp-color-line-subtle)",
   "--kp-color-record-form-toggle": "var(--kp-color-text-secondary)",
@@ -1462,6 +1504,8 @@ $css-variables: (
   "--kp-color-record-form-chip-divider": "var(--kp-color-line-subtle)",
   "--kp-color-search-result-panel-bg": "var(--kp-color-bg-surface)",
   "--kp-color-search-result-panel-border": "var(--kp-color-line-subtle)",
+  "--kp-color-search-result-box-bg": "var(--kp-color-primary-50)",
+  "--kp-color-search-result-box-border": "var(--kp-color-primary-200)",
   "--kp-color-search-result-icon": "var(--kp-color-text-label)",
   "--kp-color-search-result-detail-toggle": "var(--kp-color-text-accent)",
   "--kp-color-search-result-detail-bg": "var(--kp-color-bg-selected)",
@@ -1480,6 +1524,12 @@ $css-variables: (
   "--kp-color-search-result-grid-text": "var(--kp-color-text-body)",
   "--kp-color-search-result-grid-header-text": "var(--kp-color-text-label)",
   "--kp-color-search-result-grid-row-selected": "var(--kp-color-bg-selected)",
+  "--kp-color-search-result-grid-row-selected-text": "var(--kp-color-text-accent)",
+  "--kp-color-search-result-grid-row-hover": "var(--kp-color-bg-hover)",
+  "--kp-color-search-result-grid-tree-toggle": "var(--kp-color-text-label)",
+  "--kp-color-search-result-grid-header-filter-icon": "var(--kp-color-neutral-400)",
+  "--kp-color-search-result-grid-header-filter-icon-active": "var(--kp-color-primary-500)",
+  "--kp-color-search-result-grid-header-edit-icon": "var(--kp-color-primary-400)",
   "--kp-color-status-view-icon": "var(--kp-color-text-label)",
   "--kp-color-status-view-title": "var(--kp-color-text-body)",
   "--kp-color-status-view-description": "var(--kp-color-text-label)",

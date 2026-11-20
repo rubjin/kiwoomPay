@@ -210,7 +210,34 @@ PageSection.displayName = 'PageLayout.Section';
  * </PageLayout>
  * ```
  */
+// ── PageLayout.Split ────────────────────────────────────────
+export interface PageSplitProps extends HTMLAttributes<HTMLDivElement> {
+  /** 왼쪽 열 (예: 목록). 여러 Section이면 차례로 넣는다 — 검색 조건은 Split 위에 전체 폭으로 둔다 */
+  side: ReactNode;
+  /** 오른쪽 열 (예: 선택한 항목 상세 · 편집). 3열이면 여기에 Split을 하나 더 넣는다 */
+  children: ReactNode;
+  /** 왼쪽 열 폭: sm 320(트리 · 짧은 목록) · md 480(목록) · lg 640(기본) — TODO(시안) */
+  sideWidth?: 'sm' | 'md' | 'lg';
+}
+
+/**
+ * 목록 + 상세 좌우 분할: 왼쪽 고정 폭 · 오른쪽 남는 폭, 열 안 Section 사이 · 열 사이는 Section 간격(12).
+ * 기본 최소 높이 840 — 선택 전 · 0건처럼 내용이 없어도 높이가 들썩이지 않는다.
+ * 두 열의 마지막 Section은 아래 끝까지 늘어나 높이가 맞는다. 화면설계서 KWPC10010201 메뉴 관리.
+ * 3열(트리 | 목록 | 상세)은 Split 안에 Split — KWPC10010202 기능 코드 관리
+ */
+const PageSplit = forwardRef<HTMLDivElement, PageSplitProps>(
+  ({ side, children, sideWidth = 'lg', className, ...rest }, ref) => (
+    <div {...rest} ref={ref} className={clsx(styles.split, className)}>
+      <div className={clsx(styles.splitSide, sideWidth !== 'lg' && styles[sideWidth])}>{side}</div>
+      <div className={styles.splitMain}>{children}</div>
+    </div>
+  ),
+);
+PageSplit.displayName = 'PageLayout.Split';
+
 export const PageLayout = Object.assign(PageLayoutRoot, {
   Title: PageTitle,
   Section: PageSection,
+  Split: PageSplit,
 });

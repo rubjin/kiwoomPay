@@ -150,3 +150,22 @@ export const ReadOnly: Story = {
     </FormTable>
   ),
 };
+
+/** 필수 표시 2가지: 기본 * (Primary) · 강조가 필요한 곳만 required="text" → "필수"(빨강, 화면에서 직접 지정) */
+export const Required: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <FormTable pairs={2}>
+      <Row>
+        <Label required>사업자번호</Label>
+        <Cell>
+          <TextField fullWidth aria-label="사업자번호" />
+        </Cell>
+        <Label required="text">해지 사유</Label>
+        <Cell>
+          <TextField fullWidth aria-label="해지 사유" />
+        </Cell>
+      </Row>
+    </FormTable>
+  ),
+};

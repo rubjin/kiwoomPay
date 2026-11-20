@@ -13,6 +13,8 @@ export const IB_CELL = {
   link: 'kpIbLink',
   /** 편집 칸 (입력 · 셀렉트 · 달력): 칸 안에 필드 테두리 */
   input: 'kpIbInput',
+  /** 고칠 수 있는 칸 — 평소 글자만, 달력 칸은 마우스를 올린 줄에서 아이콘 (IbsheetGrid 열 edit) */
+  editable: 'kpIbEditable',
   /** 체크한 줄 (ibsheetOptions checkedRowClass가 붙인다) */
   rowChecked: 'kpIbRowChecked',
 } as const;

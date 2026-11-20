@@ -48,6 +48,19 @@ export const Tones: Story = {
       <Text tone="heading" variant="label-strong">
         heading — 진한 강조
       </Text>
+      <Text tone="error">error — 오류 · 확인 필요 (예금주 검증 불일치)</Text>
+    </div>
+  ),
+};
+
+/** nowrap: 줄바꿈 없이 한 줄 (계좌번호 등) — 인라인 white-space 대신 */
+export const Nowrap: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ width: 120, border: '1px dashed var(--kp-color-line-default)' }}>
+      <Text variant="body-md" tone="body" nowrap>
+        110-123-456789 (키움은행)
+      </Text>
     </div>
   ),
 };

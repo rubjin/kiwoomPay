@@ -78,11 +78,11 @@ $infobox-bullet-indent: t.$space-12; // 점 목록 들여쓰기 (Figma 처리_�
 
 .titleBlock {
   display: block;
-  margin-bottom: t.$space-4;
+  margin-bottom: $infobox-gap; // 제목 ↔ 설명(점 목록) 8 (사용자 확정)
 }
 
 .bullets {
-  @include m.typography(typo-12-regular);
+  @include m.typography(typo-13-regular); // 설명과 같은 13 Regular (사용자 확정, 기존 Figma 처리_실행 팝업 12 대체)
 
   display: flex;
   flex-direction: column;

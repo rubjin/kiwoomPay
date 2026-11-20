@@ -18,6 +18,23 @@ $action-bar-radius: 4px;
   border-radius: $action-bar-radius;
 }
 
+// grow: 바가 남는 폭을 채우고 한 줄 유지, 첫 컨트롤(라벨이 있으면 라벨 다음)이 남는 폭을 나눠 가짐
+.grow {
+  flex: 1 1 0;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.grow > :first-child,
+.grow.labeled > :first-child + * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.grow.labeled > :first-child {
+  flex: none;
+}
+
 .label {
   @include m.typography(typo-11-bold);
 

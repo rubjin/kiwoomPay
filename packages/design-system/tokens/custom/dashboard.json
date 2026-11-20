@@ -1,0 +1,23 @@
+{
+  "Chart": {
+    "Category": {
+      "07": { "$type": "color", "$value": "{Neutral.400}", "$description": "7번째 계열 (Figma 결제수단 도넛 문화상품권)" },
+      "08": { "$type": "color", "$value": "{Neutral.500}", "$description": "8번째 계열 (간편결제)" },
+      "09": { "$type": "color", "$value": "{Neutral.300}", "$description": "9번째 계열 (기타)" }
+    }
+  },
+  "Dashboard": {
+    "CardBg": { "$type": "color", "$value": "{Bg.Surface}", "$description": "대시보드 카드 (Figma KWPC01010000)" },
+    "CardBorder": { "$type": "color", "$value": "{Line.Subtle}" },
+    "Title": { "$type": "color", "$value": "{Text.Heading}", "$description": "카드 제목 · KPI 이름" },
+    "Link": { "$type": "color", "$value": "{Text.Secondary}", "$description": "전체보기 · 상세 보기 · 기간 · 지표 이름(건수)" },
+    "Meta": { "$type": "color", "$value": "{Text.Placeholder}", "$description": "기준일" },
+    "Value": { "$type": "color", "$value": "{Text.Body}", "$description": "지표 값" },
+    "HeroBg": { "$type": "color", "$value": "{Primary.50}", "$description": "강조 KPI (정산 대상)" },
+    "HeroBorder": { "$type": "color", "$value": "{Primary.100}" },
+    "HeroText": { "$type": "color", "$value": "{Primary.900}" },
+    "TileBg": { "$type": "color", "$value": "{Bg.Page}", "$description": "카드 안 칸 (영업 실적 · 순위 줄 · 가맹점 칩)" },
+    "Muted": { "$type": "color", "$value": "{Text.Disabled}", "$description": "흐린 글자 (지난 공지)" },
+    "Unread": { "$type": "color", "$value": "{Text.Accent}", "$description": "읽지 않음 N" }
+  }
+}

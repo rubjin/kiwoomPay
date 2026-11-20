@@ -80,3 +80,49 @@ export const Variations: Story = {
     </div>
   ),
 };
+
+/**
+ * 쓰임별 톤 (사용자 확정):
+ * 화면 전체에 대한 안내 = info(배경 #F0F7FC · 테두리 #BDDDF1),
+ * 표 · 섹션에 대한 안내 = neutral(배경 #F8FAFC · 테두리 #D5DCE5).
+ * 설명 13 Regular #435064 · 제목 13 SemiBold #111827 · 제목 ↔ 설명 8.
+ * 같은 내용의 안내 여러 개는 아이콘 하나 + 점 목록(bullets)
+ */
+export const Usage: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ ...stack, width: 880 }}>
+      {/* 화면 전체 — 설명만 */}
+      <Infobox>
+        <Infobox.Item>
+          대용량 파일은 비동기로 생성되며, 완료 후 목록에서 다운로드할 수 있습니다. 처리 결과는
+          알림센터에서 안내합니다.
+        </Infobox.Item>
+      </Infobox>
+      {/* 표 · 섹션 — 설명만, 여러 개는 점 목록 */}
+      <Infobox tone="neutral">
+        <Infobox.Item
+          bullets={[
+            '미사용 메뉴는 권한 보유와 관계없이 미노출 및 직접 접근 차단',
+            '상위메뉴가 미사용이면 하위메뉴에도 적용하되 기존 메뉴 · 권한 설정 유지',
+            '3Depth 메뉴에 사용 이력이 있으면 삭제 불가, 미사용 처리',
+          ]}
+        />
+      </Infobox>
+      {/* 제목 있음 — 한 줄 */}
+      <Infobox>
+        <Infobox.Item title="조회 안내">최근 3개월 거래만 조회할 수 있습니다.</Infobox.Item>
+      </Infobox>
+      {/* 제목 있음 — 제목 아래 점 목록 (간격 8) */}
+      <Infobox tone="neutral">
+        <Infobox.Item
+          title="처리 안내"
+          bullets={[
+            '지급보류된 원장은 보류해제 전까지 지급되지 않습니다.',
+            '보류 사유는 처리 이력에 남습니다.',
+          ]}
+        />
+      </Infobox>
+    </div>
+  ),
+};

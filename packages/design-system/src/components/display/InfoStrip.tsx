@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { Fragment, forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import styles from './InfoStrip.module.scss';
 
 export interface InfoStripItem {
@@ -16,9 +16,11 @@ export interface InfoStripProps extends HTMLAttributes<HTMLDListElement> {
   /**
    * inline(기본): [이름 값] 쌍을 가운데 정렬로 나란히 — 이름 13 Bold ↔ 값 14 Regular 12, 쌍 사이 60
    * (Figma 계정 상태 이력 "현재 계정 상태") /
-   * stacked: 이름(12 Regular) 위 · 값(18 Bold) 아래 8, 칸 사이 16 · 왼쪽 정렬 (Figma 개별 예외 권한 "권한 적용 기준")
+   * stacked: 이름(12 Regular) 위 · 값(18 Bold) 아래 8, 칸 사이 16 · 왼쪽 정렬 (Figma 개별 예외 권한 "권한 적용 기준") /
+   * divided: 왼쪽 정렬 한 줄 — 이름(13 Regular 회색) ↔ 값(14 SemiBold) 8, 쌍 사이 세로 구분선 · 20, 테두리 없음
+   * (다운로드 요청 상세 "요청 조건")
    */
-  layout?: 'inline' | 'stacked';
+  layout?: 'inline' | 'stacked' | 'divided';
   /** stacked 칸 폭 (grid-template-columns). 기본 같은 폭 */
   columns?: string;
 }
@@ -30,11 +32,17 @@ export interface InfoStripProps extends HTMLAttributes<HTMLDListElement> {
 export const InfoStrip = forwardRef<HTMLDListElement, InfoStripProps>(
   ({ items, layout = 'inline', columns, className, style, ...rest }, ref) => {
     const stacked = layout === 'stacked';
+    const divided = layout === 'divided';
     return (
       <dl
         {...rest}
         ref={ref}
-        className={clsx(styles.strip, stacked && styles.stacked, className)}
+        className={clsx(
+          styles.strip,
+          stacked && styles.stacked,
+          divided && styles.divided,
+          className,
+        )}
         style={
           stacked
             ? {
@@ -45,18 +53,21 @@ export const InfoStrip = forwardRef<HTMLDListElement, InfoStripProps>(
         }
       >
         {items.map((item, index) => (
-          <div key={index} className={styles.item}>
-            <dt className={styles.label}>{item.label}</dt>
-            <dd className={styles.value}>
-              {item.onClick ? (
-                <button type="button" className={styles.link} onClick={item.onClick}>
-                  {item.value}
-                </button>
-              ) : (
-                item.value
-              )}
-            </dd>
-          </div>
+          <Fragment key={index}>
+            {divided && index > 0 && <div aria-hidden className={styles.divider} />}
+            <div className={styles.item}>
+              <dt className={styles.label}>{item.label}</dt>
+              <dd className={styles.value}>
+                {item.onClick ? (
+                  <button type="button" className={styles.link} onClick={item.onClick}>
+                    {item.value}
+                  </button>
+                ) : (
+                  item.value
+                )}
+              </dd>
+            </div>
+          </Fragment>
         ))}
       </dl>
     );

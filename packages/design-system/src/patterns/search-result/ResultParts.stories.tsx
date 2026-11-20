@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../../components/Button';
 import { Stack } from '../../components/layout';
 import { Pagination } from '../../components/Pagination';
-import { IbsheetGrid } from '../../ibsheet';
+import { IbsheetGrid, type IbsheetColumn } from '../../ibsheet';
 import { AppliedFilters } from './AppliedFilters';
 import { GridPlaceholder, type GridPlaceholderColumn } from './GridPlaceholder';
 import { ResultFooter } from './ResultFooter';
@@ -106,6 +106,112 @@ export const Panel: Story = {
       <ResultFooter total={2}>
         <Pagination totalPages={1} page={1} />
       </ResultFooter>
+    </div>
+  ),
+};
+
+interface LedgerRow {
+  id: string;
+  type: string;
+  status: string;
+  payDate: string;
+  amount: number;
+  memo: string;
+}
+const LEDGER_ROWS: LedgerRow[] = [
+  {
+    id: 'STL-0831-01',
+    type: '일반',
+    status: '조치 필요',
+    payDate: '2026-09-02',
+    amount: 11800000,
+    memo: '계좌 확인 필요',
+  },
+  {
+    id: 'STL-0831-02',
+    type: '일반',
+    status: '검증대기',
+    payDate: '2026-09-01',
+    amount: 6800000,
+    memo: '한도초과액 이월',
+  },
+  {
+    id: 'ADJ-02-01',
+    type: '조정',
+    status: '검증대기',
+    payDate: '2026-09-01',
+    amount: -169750,
+    memo: '원장 반영 완료',
+  },
+  {
+    id: 'STL-0830-04',
+    type: '당사환불',
+    status: '지급완료',
+    payDate: '2026-08-31',
+    amount: 4900000,
+    memo: '정정 확인 완료',
+  },
+];
+const LEDGER_COLUMNS: IbsheetColumn<LedgerRow>[] = [
+  { key: 'status', header: '정산상태', width: 93 },
+  { key: 'type', header: '정산구분', width: 89 },
+  { key: 'id', header: '정산원장 ID', width: 140 },
+  {
+    key: 'payDate',
+    header: '지급예정일',
+    width: 120,
+    // 지급완료가 아니면 고칠 수 있음 (머리 이름 옆 연필, 칸은 평소 글자 · 마우스 올린 줄에 달력)
+    edit: { type: 'date', value: (r) => r.payDate, canEdit: (r) => r.status !== '지급완료' },
+  },
+  {
+    key: 'amount',
+    header: '최종지급\n예정금액',
+    width: 118,
+    align: 'right',
+    render: (r) => r.amount.toLocaleString('ko-KR'),
+  },
+  {
+    key: 'memo',
+    header: '처리메모',
+    width: 220,
+    align: 'left',
+    edit: { type: 'text', value: (r) => r.memo },
+  },
+];
+
+/**
+ * IbsheetGrid 옵션 (vendor/ibsheet가 없으면 같은 props로 GridPlaceholder).
+ * 머리: 연필(edit 열) · 깔때기(filterable) · 정렬(sortable, 맨 오른쪽 · 칸 끝 20 · 필터와 4) — 머리가 다 보이게 열 폭 자동 확대.
+ * 선택: isRowSelectable false(조정 원장)는 비활성 체크박스. 두 줄 열 이름(\n)은 headerHeight 56.
+ * 글자: 기본 14, 열이 많고 내용이 긴 표만 textSize="sm"(13 — 정산 원장)
+ */
+export const GridOptions: Story = {
+  name: 'IbsheetGrid 옵션',
+  parameters: {
+    controls: { disable: true },
+    tempWork: '머리 필터 패널 · 정렬 안 함 아이콘(sort-asc 회색) 시안 없음',
+  },
+  render: () => (
+    <div style={bg}>
+      {(['md', 'sm'] as const).map((size) => (
+        <ResultPanel
+          key={size}
+          title={size === 'md' ? '조회 결과 (textSize md · 14)' : '정산 원장 (textSize sm · 13)'}
+        >
+          <IbsheetGrid
+            columns={LEDGER_COLUMNS}
+            rows={LEDGER_ROWS}
+            rowKey={(r) => r.id}
+            selectable
+            isRowSelectable={(r) => r.type !== '조정'}
+            filterable
+            sortable
+            headerHeight={56}
+            textSize={size}
+            onCellEdit={(row, key, value) => console.info('onCellEdit', row.id, key, value)}
+          />
+        </ResultPanel>
+      ))}
     </div>
   ),
 };

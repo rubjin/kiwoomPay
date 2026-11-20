@@ -19,7 +19,7 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
    * inline: 표 칸 안 묶음 — 라벨 12 Bold · 라벨 ↔ 컨트롤 12, 컨트롤 여럿은 가로로 12 (FormTable.InlineField)
    */
   variant?: 'default' | 'inline';
-  /** 남는 폭을 채움 — 안의 컨트롤들이 폭을 나눠 갖는다 (inline 주소 · 상세 주소) */
+  /** 남는 폭을 채움 — inline은 안의 컨트롤들이 폭을 나눠 갖고(주소 · 상세 주소), default는 fullWidth 컨트롤이 채운다 (검색 조건 긴 입력) */
   grow?: boolean;
   /** left(기본): 필드 왼쪽에 가로 배치 / top: 필드 위 (검색 영역) */
   labelPosition?: 'left' | 'top';

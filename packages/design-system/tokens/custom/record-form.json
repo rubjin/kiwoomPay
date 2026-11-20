@@ -6,7 +6,8 @@
       "$description": "폼 표 라벨 칸 · 머리 행 (Figma KWPC07010101 label)"
     },
     "LabelText": { "$type": "color", "$value": "{Text.Heading}" },
-    "Required": { "$type": "color", "$value": "{Status.Error.Border}", "$description": "필수 *" },
+    "Required": { "$type": "color", "$value": "{Text.Accent}", "$description": "필수 * (기본 — Primary, Field와 같은 색)" },
+    "RequiredText": { "$type": "color", "$value": "{Status.Error.Border}", "$description": "\"필수\" 글자 (required=\"text\" — 강조가 필요할 때만)" },
     "CellBg": { "$type": "color", "$value": "{Bg.Surface}" },
     "Border": { "$type": "color", "$value": "{Line.Subtle}" },
     "Toggle": { "$type": "color", "$value": "{Text.Secondary}", "$description": "접기 · 열기" },

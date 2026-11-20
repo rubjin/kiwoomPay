@@ -7,6 +7,8 @@ export interface ActionBarProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
   /** 입력 · 선택 · 버튼 (sm 크기 권장) */
   children: ReactNode;
+  /** 남는 폭을 채움 — 라벨 다음 첫 컨트롤(입력)이 남는 폭을 나눠 갖고 한 줄 유지 (결과 제목 줄 취소사유) */
+  grow?: boolean;
 }
 
 /**
@@ -16,8 +18,18 @@ export interface ActionBarProps extends HTMLAttributes<HTMLDivElement> {
  *   </ActionBar>
  */
 export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
-  ({ label, className, children, ...rest }, ref) => (
-    <div {...rest} ref={ref} role="group" className={clsx(styles.bar, className)}>
+  ({ label, grow = false, className, children, ...rest }, ref) => (
+    <div
+      {...rest}
+      ref={ref}
+      role="group"
+      className={clsx(
+        styles.bar,
+        grow && styles.grow,
+        label !== undefined && styles.labeled,
+        className,
+      )}
+    >
       {label !== undefined && <span className={styles.label}>{label}</span>}
       {children}
     </div>
