@@ -1,3 +1,8 @@
+/**
+ * 화면ID: [KWPC06010209] 일반 원장 상세 - 원장 산출 근거 탭
+ *         [KWPC06010210] 일반 원장 상세 - 정산대상 거래 건 탭
+ * 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute (팝업)
+ */
 import {
   ActionStats,
   Badge,
@@ -11,6 +16,7 @@ import {
   ResultFooter,
   StatusView,
   Tab,
+  Text,
   TextButton,
   TextField,
   TextLink,
@@ -54,8 +60,6 @@ const canDo = (status: LedgerStatus) => ({
 });
 
 // 탭 안 칸 (드롭다운 · 입력이 있는 줄은 위아래 8 — 시안 줄 56)
-const padded = { paddingBlock: 'var(--kp-space-8)' } as const;
-
 function BasisTab({
   detail,
   notes,
@@ -104,14 +108,14 @@ function BasisTab({
       key: 'note',
       header: '비고',
       render: (r) => (
-        <div style={padded}>
+        <Stack paddingBlock={8}>
           <TextField
             fullWidth
             aria-label={`${r.label} 비고`}
             value={notes[r.key] ?? ''}
             onChange={(e) => onNote(r.key, e.target.value)}
           />
-        </div>
+        </Stack>
       ),
     },
   ];
@@ -173,15 +177,17 @@ function TxTab({ ledger }: { ledger: SettlementLedger }) {
 
 function Body({
   ledger,
+  initialTab,
   onClose,
   onAction,
 }: {
   ledger: SettlementLedger;
+  initialTab: LedgerDetailTab;
   onClose: () => void;
   onAction: (action: LedgerDetailAction) => void;
 }) {
   const [detail, setDetail] = useState<LedgerDetail | null>(null);
-  const [tab, setTab] = useState('basis');
+  const [tab, setTab] = useState<string>(initialTab);
   const [notes, setNotes] = useState<Record<string, string>>({});
   useEffect(() => {
     void fetchLedgerDetail(ledger).then((d) => {
@@ -205,8 +211,6 @@ function Body({
   }
   const { summary } = detail;
   const can = canDo(ledger.status);
-  const error = { color: 'var(--kp-color-status-error-text)' } as const;
-
   return (
     <>
       <Modal.Body>
@@ -289,11 +293,15 @@ function Body({
                 <Label>지급계좌</Label>
                 <Cell>
                   {/* 계좌번호는 한 줄로 (시안) */}
-                  <span style={{ whiteSpace: 'nowrap' }}>{detail.payAccount}</span>
+                  <Text variant="body-md" tone="body" nowrap>
+                    {detail.payAccount}
+                  </Text>
                 </Cell>
                 <Label>예금주</Label>
                 <Cell>
-                  <span style={detail.holderVerified ? undefined : error}>{detail.holder}</span>
+                  <Text variant="body-md" tone={detail.holderVerified ? 'body' : 'error'}>
+                    {detail.holder}
+                  </Text>
                   {!detail.holderVerified && (
                     <Badge size="sm" tone="error">
                       검증 불일치
@@ -368,9 +376,14 @@ function Body({
   );
 }
 
+/** 상세 내역 탭 — basis 원장 산출 근거 · tx 정산대상 거래 건 */
+export type LedgerDetailTab = 'basis' | 'tx';
+
 export interface LedgerDetailModalProps {
   /** 열 원장. null이면 닫힘 */
   ledger: SettlementLedger | null;
+  /** 처음 보일 탭 (목록의 거래건수 · 취소건수 링크 → tx) */
+  initialTab?: LedgerDetailTab;
   onClose: () => void;
   /** 오른쪽 위 처리 버튼 · 지급예정일 연필 → 화면의 일괄 처리 팝업을 이 원장으로 */
   onAction: (action: LedgerDetailAction, ledger: SettlementLedger) => void;
@@ -381,11 +394,23 @@ export interface LedgerDetailModalProps {
  * 원장 기본정보(처리 버튼) → 원장 요약 → 원장 상세 내역(산출 근거 · 정산대상 거래 건 · 메모 · 이력).
  * 폭: 시안 1360 → Modal xl 1280
  */
-export function LedgerDetailModal({ ledger, onClose, onAction }: LedgerDetailModalProps) {
+export function LedgerDetailModal({
+  ledger,
+  initialTab = 'basis',
+  onClose,
+  onAction,
+}: LedgerDetailModalProps) {
   return (
     <Modal open={ledger !== null} onClose={onClose} size="xl">
       <Modal.Header title="일반 원장 상세" />
-      {ledger && <Body ledger={ledger} onClose={onClose} onAction={(a) => onAction(a, ledger)} />}
+      {ledger && (
+        <Body
+          ledger={ledger}
+          initialTab={initialTab}
+          onClose={onClose}
+          onAction={(a) => onAction(a, ledger)}
+        />
+      )}
     </Modal>
   );
 }

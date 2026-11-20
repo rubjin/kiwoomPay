@@ -7,7 +7,7 @@ import { screenNameOf } from '@/constants/screens';
 import { useWorkTabs } from '@/store/workTabs';
 
 /**
- * KWPC0102 Work Tab (열린 업무 화면). 화면을 열면 Tab이 생기고, Tab을 누르면 그 화면으로 이동한다.
+ * Work Tab (열린 업무 화면). 화면을 열면 Tab이 생기고, Tab을 누르면 그 화면으로 이동한다.
  * TODO(이관): Tab을 바꿔도 화면 상태(검색 조건 · 입력) 유지 — 지금은 이동할 때 다시 그린다
  */
 export function useWorkTabBar() {

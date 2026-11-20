@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC04010100] 통합 거래내역
+ * 위치: 거래내역 > 통합 거래 및 예외 관리 > 통합 거래내역 · /transaction/integrated/list
+ */
 import {
   AppliedFilters,
   Button,
@@ -8,18 +12,25 @@ import {
   ResultSummary,
   SelectBox,
   toAppliedFilters,
-  useDialog,
+  useLookup,
   useSearchResult,
 } from '@kiwoompay/design-system';
 import { IbsheetGrid } from '@kiwoompay/design-system/ibsheet';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import type { BizLookupResult } from '@/api/bizLookup.types';
+import { BizFinderModal } from '@/components/popups/BizFinderModal';
+import { ColumnSettingsModal } from '@/components/popups/ColumnSettingsModal';
+import { ExcelDownloadModal } from '@/components/popups/ExcelDownloadModal';
+import { SavedSearchModal } from '@/components/popups/SavedSearchModal';
 import { fetchIntegratedTransactions } from '@/features/transaction/integratedTransaction.api';
 import type { IntegratedTransactionSummary } from '@/features/transaction/integratedTransaction.types';
-import { ExcelDownloadModal } from './components/ExcelDownloadModal';
+import { useColumnSettings } from '@/hooks/useColumnSettings';
+import { useSavedSearches } from '@/hooks/useSavedSearches';
+import { TRANSACTION_SAVED_SEARCHES } from '@/mocks/transaction/savedSearches.mock';
+import { EXCEL_DEFAULT_KEYS, EXCEL_ITEMS, EXCEL_TYPES } from './components/excelItems';
 import { createInitialParams } from './components/initialParams';
-import { EXAMPLE_SAVED_SEARCHES } from './components/savedSearches';
-import { SavedSearchModal } from './components/SavedSearchModal';
+import { cardSummary, summaryRows } from './components/savedSearches';
 import { SEARCH_FIELDS } from './components/searchFields';
 import { TransactionCancelBar } from './components/TransactionCancelBar';
 import { TransactionSearchPanel } from './components/TransactionSearchPanel';
@@ -43,7 +54,6 @@ function toSummaryItems(s?: IntegratedTransactionSummary) {
  * 초기값은 components/initialParams, 선택지는 @/constants/options
  */
 export function IntegratedTransactionPage() {
-  const dialog = useDialog();
   const [selected, setSelected] = useState<string[]>([]);
   const result = useSearchResult({
     initialParams: createInitialParams(),
@@ -54,22 +64,22 @@ export function IntegratedTransactionPage() {
   });
   const ready = result.status === 'success';
   const [modal, setModal] = useState<'excel' | 'saved' | null>(null);
-  // TODO(API) 내 검색조건 목록 · 적용 중인 조건
   // (임의 작업) ?example=empty → 저장된 조건 없음 예시
   const [searchParams] = useSearchParams();
-  const [savedSearches, setSavedSearches] = useState(() =>
-    searchParams.get('example') === 'empty' ? [] : EXAMPLE_SAVED_SEARCHES,
+  const saved = useSavedSearches(
+    searchParams.get('example') === 'empty' ? [] : TRANSACTION_SAVED_SEARCHES,
+    result.setParams,
   );
-  const [appliedSearchId, setAppliedSearchId] = useState<string | null>(null);
+  const view = useColumnSettings(transactionColumns);
+  const bizLookup = useLookup<BizLookupResult>();
 
-  /** 저장된 조건을 검색 조건 입력에 넣는다 (조회는 사용자가 [조회]) */
-  const applySavedSearch = (id: string | null) => {
-    setAppliedSearchId(id);
-    const found = savedSearches.find((s) => s.id === id);
-    if (found) result.setParams(found.params);
+  // 사업자 · CPID 찾기 (P03) — 정산 실행/처리와 같음. 전체 CPID면 CPID 조건은 비운다
+  // TODO(정책) 여러 CPID를 조회 조건으로 넘기는 방식(지금은 쉼표로 이어 붙임)
+  const findBiz = async () => {
+    const found = await bizLookup.open();
+    if (!found) return;
+    result.setParams({ bizNo: found.bizNo, cpid: found.allCpids ? '' : found.cpids.join(',') });
   };
-
-  const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
 
   const line = { size: 'sm', variant: 'neutral', appearance: 'line', disabled: !ready } as const;
 
@@ -80,9 +90,9 @@ export function IntegratedTransactionPage() {
         actions={
           <>
             <SelectBox
-              options={savedSearches.map((s) => ({ value: s.id, label: s.name }))}
-              value={appliedSearchId ?? ''}
-              onChange={applySavedSearch}
+              options={saved.options}
+              value={saved.appliedId ?? ''}
+              onChange={saved.apply}
               placeholder="내 검색조건 선택"
               emptyText="저장된 검색조건이 없습니다."
             />
@@ -100,7 +110,7 @@ export function IntegratedTransactionPage() {
         onSearch={result.search}
         onReset={result.reset}
         loading={result.loading}
-        onNotReady={notReady}
+        onFindBiz={() => void findBiz()}
       />
 
       <AppliedFilters items={toAppliedFilters(SEARCH_FIELDS, result.appliedParams)} />
@@ -111,8 +121,7 @@ export function IntegratedTransactionPage() {
         statusProps={result.status === 'idle' ? { title: '거래내역을 조회해주세요' } : undefined}
         titleActions={
           <>
-            {/* TODO 표시항목설정 (ColumnPicker) */}
-            <Button {...line} onClick={() => notReady('표시항목설정')}>
+            <Button {...line} onClick={view.open}>
               표시항목설정
             </Button>
             <Button {...line} onClick={() => setModal('excel')}>
@@ -129,7 +138,7 @@ export function IntegratedTransactionPage() {
         }
       >
         <IbsheetGrid
-          columns={transactionColumns}
+          columns={view.columns}
           rows={ready ? result.items : []}
           rowKey={(row) => row.txNo}
           selectable
@@ -147,21 +156,28 @@ export function IntegratedTransactionPage() {
         />
       </ResultFooter>
 
-      <ExcelDownloadModal open={modal === 'excel'} onClose={() => setModal(null)} />
+      <ExcelDownloadModal
+        open={modal === 'excel'}
+        items={EXCEL_ITEMS}
+        defaultKeys={EXCEL_DEFAULT_KEYS}
+        typeOptions={EXCEL_TYPES}
+        onClose={() => setModal(null)}
+      />
       <SavedSearchModal
         open={modal === 'saved'}
-        saved={savedSearches}
-        appliedId={appliedSearchId}
+        saved={saved.list}
+        appliedId={saved.appliedId}
         currentParams={result.params}
-        onSave={(list, applied) => {
-          setSavedSearches(list);
-          if (applied !== appliedSearchId) {
-            setAppliedSearchId(applied);
-            const found = list.find((s) => s.id === applied);
-            if (found) result.setParams(found.params);
-          }
-        }}
+        summaryRows={summaryRows}
+        cardSummary={cardSummary}
+        onSave={saved.save}
         onClose={() => setModal(null)}
+      />
+      <ColumnSettingsModal {...view.modalProps} />
+      <BizFinderModal
+        open={bizLookup.isOpen}
+        onSelect={bizLookup.select}
+        onCancel={bizLookup.cancel}
       />
     </>
   );

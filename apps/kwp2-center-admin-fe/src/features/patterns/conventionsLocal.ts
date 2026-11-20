@@ -116,7 +116,7 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
         where: '<1depth>/*.api.ts · (공통) api/*.api.ts — 11개 파일',
         role: '예시 데이터 응답 지연',
         verdict: '완료',
-        plan: '(공통) api/mock.ts wait (API 연결 시 함께 삭제)',
+        plan: '(공통) mocks/utils.ts wait (API 연결 시 함께 삭제)',
       },
       {
         name: '페이지 자르기',
@@ -124,7 +124,15 @@ export const LOCAL_PARTS: LocalPartGroup[] = [
           'main/downloadCenter.api.ts · mypage/permissionRequest.api.ts · settlement/merchantSettlement.api.ts',
         role: 'rows.slice(from, from + pageSize) → { items, total }',
         verdict: '완료',
-        plan: '(공통) api/mock.ts paginate(rows, { page, pageSize }) → { items, total }',
+        plan: '(공통) mocks/utils.ts paginate(rows, { page, pageSize }) → { items, total }',
+      },
+      {
+        name: '예시 날짜 · 마스킹 도구',
+        where:
+          'mocks 5곳(pad · parse · DAY · toYmdHm · toYmdHms) · system 결재 api · mock 4곳(maskId · maskName · maskAccount)',
+        role: '예시 날짜를 오늘 기준으로 옮기기 · 서버 마스킹 흉내',
+        verdict: '완료',
+        plan: '(공통) mocks/utils.ts pad · parseDateTime · toYmdHm · toYmdHms · DAY · HOUR · mask* (API 연결 시 함께 삭제)',
       },
       {
         name: 'won · dash · count',

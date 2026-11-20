@@ -71,7 +71,7 @@ export function createIbsheetCalendarAdapter(): CalendarAdapter | null {
         const range: DateRange = { start: toDate(ibsheet, startMs), end: toDate(ibsheet, endMs) };
         if (options.maxRangeDays) {
           const days = Math.round((Number(endMs) - Number(startMs)) / DAY) + 1;
-          // TODO(IBSheet): 최대 기간 초과 안내 방식(얼럿 · 필드 피드백)은 화면 정책으로 정함
+          // TODO(정책) 최대 기간 초과 안내 방식(얼럿 · 필드 피드백)
           if (days > options.maxRangeDays) return;
         }
         options.onSelect(range);

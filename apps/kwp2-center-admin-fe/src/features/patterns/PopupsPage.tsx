@@ -42,9 +42,19 @@ import { createInitialParams as createSettlementParams } from '@/features/settle
 import { DownloadDetailModal } from '@/features/main/download-center/components/DownloadDetailModal';
 import { fetchDownloadRequests } from '@/features/main/downloadCenter.api';
 import type { DownloadStatus } from '@/features/main/downloadCenter.types';
-import { ExcelDownloadModal } from '@/features/transaction/integrated/components/ExcelDownloadModal';
-import { SavedSearchModal } from '@/features/transaction/integrated/components/SavedSearchModal';
-import { EXAMPLE_SAVED_SEARCHES } from '@/features/transaction/integrated/components/savedSearches';
+import { ExcelDownloadModal } from '@/components/popups/ExcelDownloadModal';
+import {
+  EXCEL_DEFAULT_KEYS,
+  EXCEL_ITEMS,
+  EXCEL_TYPES,
+} from '@/features/transaction/integrated/components/excelItems';
+import {
+  cardSummary,
+  summaryRows,
+} from '@/features/transaction/integrated/components/savedSearches';
+import { SavedSearchModal } from '@/components/popups/SavedSearchModal';
+import { ColumnSettingsModal } from '@/components/popups/ColumnSettingsModal';
+import { TRANSACTION_SAVED_SEARCHES } from '@/mocks/transaction/savedSearches.mock';
 import { createInitialParams } from '@/features/transaction/integrated/components/initialParams';
 // 패턴 템플릿 팝업
 import { P02DetailModal } from './P02DetailModal';
@@ -52,6 +62,9 @@ import { COMPLAINT_HISTORY, P02ComplaintModal } from './P02ComplaintModal';
 import { AddressLookupModal, BizLookupModal, IndustryLookupModal } from './P03LookupApplyPage';
 import { BizNoChangeModal, CardLimitModal, DownloadReasonModal } from './P04ActionFeedbackPage';
 import { P04PartialCancelModal } from './P04PartialCancelModal';
+import { SpecialCodeModal } from '@/features/system/user-security/function-code/components/SpecialCodeModal';
+import { GeneralRequestModal } from '@/features/system/user-security/permission-approval/components/GeneralRequestModal';
+import { SpecialGrantModal } from '@/features/system/user-security/permission-approval/components/SpecialGrantModal';
 
 /** 팝업 하나 = 모음 페이지의 버튼 하나 */
 type PopupKey =
@@ -78,6 +91,7 @@ type PopupKey =
   | 'excel'
   | 'savedSearch'
   | 'savedSearchEmpty'
+  | 'columnSettings'
   | 'detail'
   | 'detailError'
   | 'complaint'
@@ -88,7 +102,11 @@ type PopupKey =
   | 'downloadReason'
   | 'bizNoChange'
   | 'cardLimit'
-  | 'partialCancel';
+  | 'partialCancel'
+  | 'specialCode'
+  | 'generalRequest'
+  | 'generalRequestDone'
+  | 'specialGrant';
 
 interface PopupGroup {
   /** 화면ID · 화면명 */
@@ -164,7 +182,26 @@ const GROUPS: PopupGroup[] = [
       { key: 'excel', label: '엑셀 다운로드 설정 (KWPC04010107)' },
       { key: 'savedSearch', label: '내 검색조건 관리 (KWPC04010105)' },
       { key: 'savedSearchEmpty', label: '내 검색조건 관리 · 저장조건 없음' },
+      { key: 'columnSettings', label: '표시항목설정 (IA 없음, 임의 작업)' },
     ],
+  },
+  {
+    title: 'KWPC10010202 기능 코드 관리',
+    description: '기능 정보 특수권한 코드 [코드 관리]',
+    buttons: [{ key: 'specialCode', label: '특수권한 코드 관리 (KWPC10010203)' }],
+  },
+  {
+    title: 'KWPC10010501 일반 메뉴·기능 권한',
+    description: '신청번호 · [상세보기]',
+    buttons: [
+      { key: 'generalRequest', label: '일반권한 신청 처리 · 승인대기 (KWPC10010502)' },
+      { key: 'generalRequestDone', label: '일반권한 신청 처리 · 처리 완료' },
+    ],
+  },
+  {
+    title: 'KWPC10010403 특수권한 결재 현황',
+    description: '[권한 부여] (결재 승인완료 + 부여 대기)',
+    buttons: [{ key: 'specialGrant', label: '특수권한 부여 처리 (KWPC10010404)' }],
   },
   {
     title: '패턴 P02 Record → Form',
@@ -296,6 +333,9 @@ function useDownloadIds() {
  * 아래 "안내 · 확인 창" 묶음은 팝업 없이 안내(Alert) · 확인(Confirm) 창만 띄운다 — 문구를 바꾸면 DIALOG_GROUPS도 맞춘다.
  * `?open=<버튼 키>`로 들어오면 그 팝업을 바로 연다 (화면 목록의 팝업 링크, 예: /patterns/popups?open=bizLookup)
  */
+/** 표시항목설정 예시 — 통합 거래내역 열 */
+const COLUMN_ITEMS = EXCEL_ITEMS.map((i) => ({ value: i.key, label: String(i.label) }));
+
 export function PopupsPage() {
   const dialog = useDialog();
   const [searchParams] = useSearchParams();
@@ -311,7 +351,7 @@ export function PopupsPage() {
     );
   }, []);
   const [favoriteIds, setFavoriteIds] = useState(['KWPC0401', 'KWPC0601', 'KWPC0104']);
-  const [saved, setSaved] = useState(EXAMPLE_SAVED_SEARCHES);
+  const [saved, setSaved] = useState(TRANSACTION_SAVED_SEARCHES);
   const [bizNo, setBizNo] = useState('123-45-67890');
   const downloadIds = useDownloadIds();
   const close = () => setOpen(null);
@@ -465,12 +505,20 @@ export function PopupsPage() {
         onClose={close}
         onAction={(detail, action) => report('다운로드 요청 상세', `${detail.id} · ${action}`)}
       />
-      <ExcelDownloadModal open={is('excel')} onClose={close} />
+      <ExcelDownloadModal
+        open={is('excel')}
+        items={EXCEL_ITEMS}
+        defaultKeys={EXCEL_DEFAULT_KEYS}
+        typeOptions={EXCEL_TYPES}
+        onClose={close}
+      />
       <SavedSearchModal
         open={is('savedSearch') || is('savedSearchEmpty')}
         saved={is('savedSearchEmpty') ? [] : saved}
         appliedId={null}
         currentParams={createInitialParams()}
+        summaryRows={summaryRows}
+        cardSummary={cardSummary}
         onSave={(list) => !is('savedSearchEmpty') && setSaved(list)}
         onClose={close}
       />
@@ -511,6 +559,25 @@ export function PopupsPage() {
       />
       <CardLimitModal open={is('cardLimit')} onClose={close} />
       <P04PartialCancelModal open={is('partialCancel')} onClose={close} />
+      <ColumnSettingsModal
+        open={is('columnSettings')}
+        items={COLUMN_ITEMS}
+        value={COLUMN_ITEMS.slice(0, 12).map((i) => i.value)}
+        defaultItems={COLUMN_ITEMS}
+        onApply={() => undefined}
+        onClose={close}
+      />
+      <SpecialCodeModal open={is('specialCode')} onClose={close} />
+      <SpecialGrantModal
+        requestNo={is('specialGrant') ? '1037' : null}
+        onClose={close}
+        onGranted={() => undefined}
+      />
+      <GeneralRequestModal
+        requestNo={is('generalRequest') ? '1031' : is('generalRequestDone') ? '1027' : null}
+        onClose={close}
+        onProcessed={() => undefined}
+      />
     </>
   );
 }

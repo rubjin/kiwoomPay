@@ -9,5 +9,8 @@ export function createInitialParams(): MerchantSettlementParams {
     payDate: { start: '', end: '' },
     quickPeriod: '',
     cycles: [],
+    payMethods: [],
+    types: [],
+    reasons: [],
   };
 }

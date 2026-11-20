@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC04010101] 거래 상세정보 팝업
+ * 위치: 거래내역 > 통합 거래 및 예외 관리 > 통합 거래내역 · /transaction/integrated/list (팝업)
+ */
 import {
   // 팝업 틀 · 탭
   Modal,

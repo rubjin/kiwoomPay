@@ -141,7 +141,7 @@ const PAGE_SIZE = 10;
 const TOTAL_PAGES = Math.ceil(SHEET_ROWS.length / PAGE_SIZE);
 const rowsOfPage = (page: number) => SHEET_ROWS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 // 표 높이 = 머리 40 + 줄 40 × 10 + 아래 선 (줄 · 머리 높이는 ibsheetOptions)
-const GRID_HEIGHT = 40 + 40 * PAGE_SIZE + 2;
+const GRID_HEIGHT = 40 + 48 * PAGE_SIZE + 2; // 머리 40 + 줄 48 × 10 (페이지 표)
 
 export function IbsheetSamplePage() {
   const [picked, setPicked] = useState('');
@@ -239,6 +239,7 @@ export function IbsheetSamplePage() {
         titleAddon={`칸 종류별 예시 — 링크 · Badge · 셀렉트 · 달력 · 입력 · 버튼${picked ? ` · ${picked}` : ''}`}
       >
         {/* IBSheet는 el의 인라인 크기로 그린다 (매뉴얼 static/create) */}
+        {/* eslint-disable-next-line react/forbid-dom-props -- IBSheet 크기는 인라인으로 받는다 */}
         <div ref={gridRef} style={{ width: '100%', height: GRID_HEIGHT }} />
       </PageLayout.Section>
 

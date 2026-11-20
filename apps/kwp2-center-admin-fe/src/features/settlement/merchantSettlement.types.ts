@@ -11,6 +11,10 @@ export interface MerchantSettlementParams {
   quickPeriod: string;
   /** 정산주기 (비어 있으면 전체) */
   cycles: string[];
+  /** 상세 검색 — 결제수단 · 정산구분 · 처리사유 (비어 있으면 전체) */
+  payMethods: string[];
+  types: string[];
+  reasons: string[];
 }
 
 export type LedgerStatus =
@@ -31,8 +35,41 @@ export interface SettlementLedger {
   cycle: string;
   /** 정산기간 (없으면 null) */
   period: string | null;
-  /** 정산대상 거래건수 (없으면 null) */
+  /** 정산대상 거래건수 (없으면 null — 조정 원장) */
   txCount: number | null;
+  /** 취소건수 (없으면 null — 조정 원장) */
+  cancelCount: number | null;
+  /** 금액 (원). 조정 원장은 원천 거래 금액이 없어 null */
+  approveAmount: number | null;
+  cancelAmount: number | null;
+  receiveAmount: number | null;
+  reserveAmount: number | null;
+  targetAmount: number | null;
+  diffAmount: number | null;
+  /** 수수료율 (%) */
+  feeRate: number | null;
+  fee: number | null;
+  vat: number | null;
+  /** 조정원장 금액 — 조정 원장에만 */
+  adjustAmount: number | null;
+  /** 상계그룹 ID (없으면 null) */
+  offsetGroupId: string | null;
+  linkedOffsetAmount: number | null;
+  holdAmount: number | null;
+  finalPayAmount: number | null;
+  costFee: number | null;
+  costVat: number | null;
+  profit: number | null;
+  payBank: string | null;
+  /** 예금주 (마스킹) */
+  accountHolder: string | null;
+  /** 처리사유 */
+  reason: string;
+  /** 정산담당자 (칸 편집) */
+  manager: string;
+  /** 처리메모 (칸 편집) */
+  memo: string;
+  lastProcessedAt: string;
 }
 
 /** 조회 요약 (건수) */

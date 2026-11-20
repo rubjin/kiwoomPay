@@ -183,15 +183,14 @@ export function P01SearchResultPage() {
             ))}
           </Segmented>
         </ControlGroup>
-        <Field label="상태" style={{ width: 200 }}>
+        <Field label="상태">
           <SelectBox
-            fullWidth
             options={STATUS_OPTIONS}
             value={params.status}
             onChange={(status) => setParam('status', status)}
           />
         </Field>
-        <Field label="검색어" style={{ flex: '1 1 0' }}>
+        <Field label="검색어" grow>
           <TextField
             fullWidth
             placeholder="ID 또는 이름"
@@ -230,6 +229,9 @@ export function P01SearchResultPage() {
           </Button>
         }
       >
+        {/* 결과 표 기본: 머리 필터 · 정렬 (정산 원장 KWPC06010201과 같음).
+            필요할 때만: 열 edit + onCellEdit(칸 편집) · isRowSelectable(선택 제외 줄 비활성) ·
+            headerHeight={56}(두 줄 열 이름) · textSize="sm"(열이 많고 긴 표 13) — Storybook Patterns/P01 6절 */}
         <IbsheetGrid
           columns={COLUMNS}
           rows={ready ? result.items : []}
@@ -237,6 +239,8 @@ export function P01SearchResultPage() {
           selectable
           selectedKeys={selected}
           onSelectionChange={setSelected}
+          filterable
+          sortable
         />
       </ResultPanel>
 

@@ -1,4 +1,5 @@
 import {
+  Stack,
   // 화면 틀 · 호출 화면
   PageLayout,
   FormSection,
@@ -29,7 +30,6 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // 입력 팝업(sm 400)의 라벨 폭 — 가장 긴 라벨에 맞춘다 (TODO(시안) 측정값 확인)
 const LABEL_WIDTH = 120;
-const FIELD_ROW_GAP = 12;
 
 // ── 엑셀 다운로드 사유 입력 ──────────────────────────────
 const DOWNLOAD_REASONS = [
@@ -64,7 +64,7 @@ export function DownloadReasonModal({ open, onClose }: { open: boolean; onClose:
     <Modal open={open} onClose={request.loading ? undefined : onClose}>
       <Modal.Header title="엑셀 다운로드 사유 입력" closeButton />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: FIELD_ROW_GAP }}>
+        <Stack gap={12}>
           <Field label="다운로드 사유 선택" labelWidth={LABEL_WIDTH} required>
             <SelectBox
               fullWidth
@@ -84,7 +84,7 @@ export function DownloadReasonModal({ open, onClose }: { open: boolean; onClose:
               />
             </Field>
           )}
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -151,7 +151,7 @@ export function BizNoChangeModal({
     <Modal open={open} onClose={change.loading ? undefined : onClose}>
       <Modal.Header title="사업자번호 변경" closeButton />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: FIELD_ROW_GAP }}>
+        <Stack gap={12}>
           <Field label="현재 사업자번호" labelWidth={LABEL_WIDTH}>
             <TextField fullWidth readOnly value={current} />
           </Field>
@@ -171,7 +171,7 @@ export function BizNoChangeModal({
               onChange={(e) => setReason(e.target.value)}
             />
           </Field>
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -251,7 +251,7 @@ export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () =
     <Modal open={open} onClose={register.loading ? undefined : onClose} size="xl">
       <Modal.Header title="카드번호별 매입사 결제한도 설정" closeButton />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: FIELD_ROW_GAP }}>
+        <Stack gap={12}>
           <Tab variant="button" value={group} onChange={setGroup}>
             {BIZ_GROUPS.map((g) => (
               <Tab.Item key={g.value} value={g.value}>
@@ -273,7 +273,6 @@ export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () =
                   <FormTable.Cell key={c.key}>
                     <TextField
                       fullWidth
-                      style={{ flex: 1 }}
                       inputMode="numeric"
                       aria-label={`${card} ${c.label}`}
                       value={withComma(limits[group]?.[card]?.[c.key] ?? '')}
@@ -285,7 +284,7 @@ export function CardLimitModal({ open, onClose }: { open: boolean; onClose: () =
               </FormTable.Row>
             ))}
           </FormTable>
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -337,7 +336,7 @@ export function P04ActionFeedbackPage() {
             <FormTable.Row>
               <FormTable.Label required>사업자번호</FormTable.Label>
               <FormTable.Cell colSpan={3}>
-                <TextField fullWidth readOnly value={bizNo} style={{ flex: 1 }} />
+                <TextField fullWidth readOnly value={bizNo} />
                 <Button variant="neutral" appearance="line" onClick={() => setBizOpen(true)}>
                   수정
                 </Button>

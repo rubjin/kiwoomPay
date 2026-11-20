@@ -1,4 +1,9 @@
+/**
+ * 화면ID: [KWPC04010111] 부분취소 요청 팝업
+ * 위치: 거래내역 > 통합 거래 및 예외 관리 > 통합 거래내역 · /transaction/integrated/list (팝업)
+ */
 import {
+  Stack,
   // 팝업 틀 · 버튼
   Modal,
   Button,
@@ -100,7 +105,7 @@ export function P04PartialCancelModal({
     <Modal open={open} onClose={request.loading ? undefined : onClose} size="md">
       <Modal.Header title="부분취소 요청" closeButton />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <Stack gap={12}>
           <DetailCard
             title="거래정보"
             labelGap={20}
@@ -164,7 +169,6 @@ export function P04PartialCancelModal({
                 { label: '잔여 취소가능금액', value: formatWon(remaining) },
               ]}
             />
-            {/* TODO(IBSheet) 취소 내역 그리드 */}
             <GridPlaceholder<CancelRow>
               columns={[
                 {
@@ -188,7 +192,7 @@ export function P04PartialCancelModal({
               empty="취소 건이 없습니다."
             />
           </DetailCard>
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer>
         <Button size="lg" disabled={remaining <= 0} onClick={() => request.execute()}>

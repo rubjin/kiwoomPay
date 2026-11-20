@@ -15,12 +15,13 @@ import {
   TextButton,
   TextField,
   SelectAllCheckbox,
+  type FieldWidth,
   toggleKey,
 } from '@kiwoompay/design-system';
 import { useState, type ReactNode } from 'react';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
 
-const { Row, Label, Cell, Head, InlineLabel } = FormTable;
+const { Row, Label, Cell, Head, InlineField } = FormTable;
 
 // (임의 작업) 선택지 · 예시 값 — TODO(API) CPID 상세 조회 · 공통코드
 const opt = (...labels: string[]) => labels.map((label) => ({ value: label, label }));
@@ -158,9 +159,6 @@ const RECEIVERS: NoticeReceiver[] = [
 
 // 담당자 · 공지메일 표: 체크 36 + 항목 (Figma 머리 36 "항목")
 const LIST_COLUMNS = '36px minmax(0, 1fr)';
-/** 한 칸에 여러 입력이 이어지는 줄 (담당자 · 공지메일): 줄바꿈 없이 입력 칸이 나눠 줄어든다 */
-const LINE_CELL = { flexWrap: 'nowrap' } as const;
-const SHRINK = { flex: '1 1 0', minWidth: 0 } as const;
 
 // 지급보류: 구분 Select 246 + 칸 여백 16 (Figma)
 const HOLD_COLUMNS = '138px 262px 138px minmax(0, 1fr)';
@@ -255,13 +253,13 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
     key: keyof typeof v,
     label: string,
     options: { value: string; label: string }[],
-    width?: number,
+    fieldWidth?: FieldWidth,
   ): ReactNode => (
     <SelectBox
       aria-label={label}
-      fullWidth
+      fullWidth={!fieldWidth}
+      fieldWidth={fieldWidth}
       placeholder="선택"
-      style={width ? { width, flex: 'none' } : undefined}
       options={options}
       value={v[key]}
       onChange={(value) => set({ [key]: value })}
@@ -325,7 +323,7 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
             <Cell colSpan={3}>{text('serviceUrl', '서비스 URL')}</Cell>
             <Label>상품등록</Label>
             <Cell colSpan={3}>
-              {select('productRegister', '상품등록', PRODUCT_REGISTER, 200)}
+              {select('productRegister', '상품등록', PRODUCT_REGISTER, 'md')}
               <ControlGroup grow>
                 {text('productUrl', '상품 URL')}
                 <Button
@@ -389,7 +387,7 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
                 <TextField
                   aria-label="영업 담당자"
                   readOnly
-                  style={{ width: 100 }}
+                  fieldWidth="xs"
                   value={v.salesManager}
                 />
                 <Button
@@ -496,57 +494,52 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
                   onChange={() => setContactSel((s) => toggleKey(s, row.key))}
                 />
               </Cell>
-              <Cell style={LINE_CELL}>
-                <InlineLabel>구분</InlineLabel>
-                <SelectBox
-                  aria-label="구분"
-                  placeholder="선택"
-                  style={{ width: 200, flex: 'none' }}
-                  fullWidth
-                  options={opt('계약', '정산', '개발', '상담')}
-                  value={row.role}
-                  onChange={(role) => setContact(row.key, { role })}
-                />
-                <TextField
-                  aria-label="이름"
-                  style={{ width: 84, flex: 'none' }}
-                  value={row.name}
-                  onChange={(e) => setContact(row.key, { name: e.target.value })}
-                />
-                <InlineLabel>휴대폰번호</InlineLabel>
-                <TextField
-                  aria-label="휴대폰번호"
-                  fullWidth
-                  style={SHRINK}
-                  value={row.mobile}
-                  onChange={(e) => setContact(row.key, { mobile: e.target.value })}
-                />
-                <InlineLabel>내선번호</InlineLabel>
-                <TextField
-                  aria-label="내선번호"
-                  fullWidth
-                  style={SHRINK}
-                  value={row.extension}
-                  onChange={(e) => setContact(row.key, { extension: e.target.value })}
-                />
-                <InlineLabel>이메일</InlineLabel>
-                <ControlGroup grow>
-                  <TextField
-                    aria-label="이메일"
-                    fullWidth
-                    style={SHRINK}
-                    value={row.email}
-                    onChange={(e) => setContact(row.key, { email: e.target.value })}
+              <Cell>
+                <InlineField label="구분">
+                  <SelectBox
+                    placeholder="선택"
+                    fieldWidth="md"
+                    options={opt('계약', '정산', '개발', '상담')}
+                    value={row.role}
+                    onChange={(role) => setContact(row.key, { role })}
                   />
-                  <Button
-                    variant="neutral"
-                    appearance="line"
-                    style={{ flex: 'none' }}
-                    onClick={() => onAction('공지대상 등록')}
-                  >
-                    공지대상 등록
-                  </Button>
-                </ControlGroup>
+                  <TextField
+                    aria-label="이름"
+                    fieldWidth="xs"
+                    value={row.name}
+                    onChange={(e) => setContact(row.key, { name: e.target.value })}
+                  />
+                </InlineField>
+                <InlineField label="휴대폰번호" grow>
+                  <TextField
+                    fullWidth
+                    value={row.mobile}
+                    onChange={(e) => setContact(row.key, { mobile: e.target.value })}
+                  />
+                </InlineField>
+                <InlineField label="내선번호" grow>
+                  <TextField
+                    fullWidth
+                    value={row.extension}
+                    onChange={(e) => setContact(row.key, { extension: e.target.value })}
+                  />
+                </InlineField>
+                <InlineField label="이메일" grow>
+                  <ControlGroup grow>
+                    <TextField
+                      fullWidth
+                      value={row.email}
+                      onChange={(e) => setContact(row.key, { email: e.target.value })}
+                    />
+                    <Button
+                      variant="neutral"
+                      appearance="line"
+                      onClick={() => onAction('공지대상 등록')}
+                    >
+                      공지대상 등록
+                    </Button>
+                  </ControlGroup>
+                </InlineField>
                 <Checkbox
                   label="결제내역통보"
                   checked={row.payNotice}
@@ -599,41 +592,39 @@ export function CpidBasicPanel({ onAction }: CpidBasicPanelProps) {
                   onChange={() => setReceiverSel((s) => toggleKey(s, row.key))}
                 />
               </Cell>
-              <Cell style={LINE_CELL}>
-                <InlineLabel>공지메일 사용 여부</InlineLabel>
-                <RadioGroup
-                  direction="horizontal"
-                  aria-label="공지메일 사용 여부"
-                  value={row.use}
-                  onChange={(use) => setReceiver(row.key, { use })}
-                >
-                  <Radio value="Y" label="사용" />
-                  <Radio value="N" label="미사용" />
-                </RadioGroup>
-                <InlineLabel>이름</InlineLabel>
-                <TextField
-                  aria-label="이름"
-                  fullWidth
-                  style={SHRINK}
-                  value={row.name}
-                  onChange={(e) => setReceiver(row.key, { name: e.target.value })}
-                />
-                <InlineLabel>이메일</InlineLabel>
-                <TextField
-                  aria-label="이메일"
-                  fullWidth
-                  style={SHRINK}
-                  value={row.email}
-                  onChange={(e) => setReceiver(row.key, { email: e.target.value })}
-                />
-                <InlineLabel>휴대폰번호</InlineLabel>
-                <TextField
-                  aria-label="휴대폰번호"
-                  fullWidth
-                  style={SHRINK}
-                  value={row.mobile}
-                  onChange={(e) => setReceiver(row.key, { mobile: e.target.value })}
-                />
+              <Cell>
+                <InlineField label="공지메일 사용 여부">
+                  <RadioGroup
+                    direction="horizontal"
+                    aria-label="공지메일 사용 여부"
+                    value={row.use}
+                    onChange={(use) => setReceiver(row.key, { use })}
+                  >
+                    <Radio value="Y" label="사용" />
+                    <Radio value="N" label="미사용" />
+                  </RadioGroup>
+                </InlineField>
+                <InlineField label="이름" grow>
+                  <TextField
+                    fullWidth
+                    value={row.name}
+                    onChange={(e) => setReceiver(row.key, { name: e.target.value })}
+                  />
+                </InlineField>
+                <InlineField label="이메일" grow>
+                  <TextField
+                    fullWidth
+                    value={row.email}
+                    onChange={(e) => setReceiver(row.key, { email: e.target.value })}
+                  />
+                </InlineField>
+                <InlineField label="휴대폰번호" grow>
+                  <TextField
+                    fullWidth
+                    value={row.mobile}
+                    onChange={(e) => setReceiver(row.key, { mobile: e.target.value })}
+                  />
+                </InlineField>
               </Cell>
             </Row>
           ))}

@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC01030001] LNB 즐겨찾기 편집 팝업
+ * 위치: 메인 > LNB > 즐겨찾기 · 모든 화면 공통 (팝업)
+ */
 import {
   Button,
   FavoriteMenuPicker,
@@ -20,7 +24,7 @@ interface FavoriteEditModalProps {
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * KWPC1301 LNB 즐겨찾기 편집 팝업 (Figma 29348:37, 페이지 패턴 P07, Modal lg 880).
+ * LNB 즐겨찾기 편집 팝업 (Figma 29348:37, 페이지 패턴 P07, Modal lg 880).
  * 저장값을 초안으로 편집 → [저장] 저장 · 닫기 · 완료 안내 / [취소] · X: 바뀐 것이 있으면 확인
  */
 export function FavoriteEditModal({

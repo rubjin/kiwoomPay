@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02010102] 로그인 이력 팝업
+ * 위치: 마이페이지 > 계정관리 > 계정정보 · /mypage/account (팝업)
+ */
 import {
   // 팝업 틀 · 배치
   Modal,
@@ -39,7 +43,7 @@ const STATE_TONE: Record<LoginState, BadgeTone> = {
   LOCKED: 'error',
 };
 
-/** 로그인 이력 열 (Figma 폭 154 · 107 × 4 · 사유 나머지). TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
+/** 로그인 이력 열 (Figma 폭 154 · 107 × 4 · 사유 나머지) */
 const COLUMNS: GridPlaceholderColumn<LoginHistory>[] = [
   { key: 'loggedAt', header: '로그인 일시', width: 154 },
   {

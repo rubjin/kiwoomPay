@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02020000] 권한관리
+ * 위치: 마이페이지 > 권한관리 · /mypage/permission
+ */
 import {
   Badge,
   Button,
@@ -141,9 +145,7 @@ export function PermissionPage() {
             </HubGrid>
 
             <PageLayout.Section>
-              <div
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-              >
+              <Stack direction="row" justify="between" align="center">
                 <Tab size="sm" value={historyTab} onChange={setHistoryTab} aria-label="권한 이력">
                   <Tab.Item value="request">권한 신청 현황</Tab.Item>
                   <Tab.Item value="change">권한 변경 이력</Tab.Item>
@@ -164,7 +166,7 @@ export function PermissionPage() {
                     </TextButton>
                   </ControlGroup>
                 )}
-              </div>
+              </Stack>
               {historyTab === 'request' ? (
                 <GridPlaceholder
                   columns={PERMISSION_REQUEST_COLUMNS}
@@ -194,9 +196,7 @@ export function PermissionPage() {
                   </Button>
                 }
               >
-                <div
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                >
+                <Stack direction="row" justify="between" align="center">
                   <Stack gap={8}>
                     <HubSubtitle>보유 기능 권한</HubSubtitle>
                     <Text as="p">
@@ -206,7 +206,7 @@ export function PermissionPage() {
                   <Button size="sm" variant="dark" onClick={() => setExceptionOpen(true)}>
                     보유 기능 권한 보기
                   </Button>
-                </div>
+                </Stack>
               </PageLayout.Section>
 
               <PageLayout.Section
@@ -226,6 +226,7 @@ export function PermissionPage() {
                       as="div"
                       variant="body-sm"
                       tone="body"
+                      // eslint-disable-next-line react/forbid-component-props -- 시안 칸 폭(이름 345 · 상태 195) 3단 줄
                       style={{
                         display: 'grid',
                         gridTemplateColumns: SPECIAL_COLUMNS,

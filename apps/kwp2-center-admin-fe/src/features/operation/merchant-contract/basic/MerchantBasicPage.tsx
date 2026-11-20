@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC07010101] 가맹점 기본/계약 정보 관리 (신규등록 · 조회수정)
+ * 위치: 운영관리 > 가맹점 정보·계약 통합 관리 > 가맹점 기본/계약 정보 관리 · /operation/merchant-contract/basic/new · /edit
+ */
 import {
   ControlGroup,
   Badge,
@@ -9,6 +13,7 @@ import {
   PageLayout,
   Tab,
   TextButton,
+  useAction,
   useDialog,
   SectionHeading,
 } from '@kiwoompay/design-system';
@@ -47,7 +52,6 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
     mode === 'create' ? emptyRecord() : null,
   );
   const [selected, setSelected] = useState<string[]>([]);
-  const [saving, setSaving] = useState(false);
   const [view, setView] = useState('business');
   const [cpidTab, setCpidTab] = useState(CPID_TABS[0]!);
 
@@ -55,28 +59,20 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
     if (mode === 'edit') void fetchMerchant().then(setRecord);
   }, [mode]);
 
+  const label = mode === 'create' ? '등록' : '저장';
+  // 처리 중 다시 누르면 무시 (버튼에 처리 중 표시는 하지 않음)
+  // TODO(정책) 필수 입력 검증 · 변경 항목 확인은 화면설계서 확인 후 (임의 작업: 사업자구분만 확인)
+  const save = useAction({
+    validate: () => (!record?.basic.bizType ? '사업자구분을 선택해주세요.' : null),
+    confirm: `가맹점 기본 정보를 ${label}할까요?`,
+    confirmOptions: { confirmText: label },
+    run: () => saveMerchant(record!),
+    success: `${label}되었습니다.`,
+  });
+
   if (!record) return null;
   const { basic } = record;
   const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
-
-  const save = async () => {
-    if (saving) return; // 처리 중 다시 누르면 무시 (버튼에 처리 중 표시는 하지 않음)
-    const label = mode === 'create' ? '등록' : '저장';
-    // TODO(정책) 필수 입력 검증 · 변경 항목 확인은 화면설계서 확인 후 (임의 작업: 사업자구분만 확인)
-    if (!basic.bizType) {
-      await dialog.alert('사업자구분을 선택해주세요.');
-      return;
-    }
-    if (!(await dialog.confirm(`가맹점 기본 정보를 ${label}할까요?`, { confirmText: label })))
-      return;
-    setSaving(true);
-    try {
-      await saveMerchant(record);
-      await dialog.alert(`${label}되었습니다.`);
-    } finally {
-      setSaving(false);
-    }
-  };
 
   const reload = async () => {
     if (mode === 'edit') setRecord(await fetchMerchant());
@@ -103,7 +99,7 @@ function MerchantBasicPage({ mode }: { mode: Mode }) {
         aria-label="새로고침"
         onClick={reload}
       />
-      <Button onClick={save}>{mode === 'create' ? '등록' : '저장'}</Button>
+      <Button onClick={() => void save.execute()}>{label}</Button>
     </ControlGroup>
   );
 

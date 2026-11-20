@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02020004] 특수권한 신청 팝업
+ * 위치: 마이페이지 > 권한관리 · /mypage/permission (팝업)
+ */
 import {
   // 팝업 틀 · 배치
   Modal,

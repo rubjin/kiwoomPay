@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02020201] 권한 변경 이력 상세 팝업
+ * 위치: 마이페이지 > 권한관리 · /mypage/permission (팝업)
+ */
 import {
   // 팝업 틀 · 배치
   Modal,
@@ -26,7 +30,6 @@ import { rangeOfQuickPeriod } from '@/utils/period';
 /**
  * 권한 변경 이력 열 (Figma 폭 164 · 128 · 310 · 178 · 157 · 157 · 104 · 134 = 1332).
  * 팝업 xl 1280 안(1240)에 맞추려고 권한 대상은 남는 폭 · 변경일시 150 · 변경 전 / 후 140 (임의 작업). 권한관리 화면의 최근 변경 이력 표도 같은 열.
- * TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로
  */
 export const PERMISSION_CHANGE_COLUMNS: GridPlaceholderColumn<PermissionChange>[] = [
   { key: 'changedAt', header: '변경일시', width: 150 },

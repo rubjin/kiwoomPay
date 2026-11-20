@@ -1,9 +1,13 @@
+/**
+ * 화면ID: [KWPC01020000] 헤더
+ * 위치: 메인 > 헤더 · 모든 화면 공통
+ */
 import { Header as HeaderBase } from '@kiwoompay/design-system';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MENU } from '@/constants/menu';
 
-// KWPC0102 헤더. TODO(이관): 사용자 정보 · 세션 타이머 · 마스킹 상태는 store/auth와 API로 연결
+// TODO(이관): 사용자 정보 · 세션 타이머 · 마스킹 상태는 store/auth와 API로 연결
 
 // TODO(API) 받지 않은 다운로드 파일 수 · 미확인 알림 여부 (지금은 시안 예시 값: 다운로드 1건, 미확인 알림 있음)
 const PENDING_DOWNLOADS = 1;

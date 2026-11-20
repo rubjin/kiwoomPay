@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-dom-props -- 개발 서버 전용 안내 페이지(폴더 트리 고정폭 글꼴 · 설명 한 줄), 시안 없음 */
 import {
   Badge,
   FormTable,
@@ -75,7 +76,7 @@ const CONVENTIONS: RuleGroup[] = [
       },
       {
         item: 'API · 타입',
-        rule: 'features/<1depth>/<이름>.api.ts · <이름>.types.ts — 같은 이름으로 짝지어 둔다 (여러 1depth 공용은 src/api/에 같은 이름 규칙). 스펙이 없으면 예시 데이터 + TODO(API) — 지연 · 페이지 자르기는 api/mock.ts(wait · paginate). 목록 API는 SearchRequest → SearchResultPage',
+        rule: 'features/<1depth>/<이름>.api.ts · <이름>.types.ts — 같은 이름으로 짝지어 둔다 (여러 1depth 공용은 src/api/에 같은 이름 규칙). 스펙이 없으면 TODO(API) + 예시 데이터는 src/mocks/<1depth>/<이름>.mock.ts(api 파일에 데이터를 두지 않음, 지연 · 페이지 자르기는 mocks/utils.ts wait · paginate). 목록 API는 SearchRequest → SearchResultPage',
         example: 'features/main/downloadCenter.api.ts · downloadCenter.types.ts',
       },
       {
@@ -101,6 +102,12 @@ const CONVENTIONS: RuleGroup[] = [
         item: '화면ID',
         rule: 'IA 화면ID(12자리)를 그대로 쓴다. 메뉴는 KWPC + 1depth + 2depth',
         example: 'KWPC06010201 · KWPC0601',
+      },
+      {
+        item: '파일 머리 주석',
+        rule: '화면 · 팝업 파일 첫 줄(import 위)에 화면ID([IA 12자리] + 화면명 — 대괄호로 구분) · 위치(IA 메뉴 단계 · 앱 경로, 팝업은 여는 화면 + (팝업)). 화면ID · 경로로 검색하면 파일이 바로 나오게. 화면ID가 여럿이면 한 줄에 하나',
+        example:
+          '/** 화면ID: [KWPC06010201] 가맹점 정산 실행/처리 · 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute */',
       },
       {
         item: '파일',
@@ -143,9 +150,19 @@ const CONVENTIONS: RuleGroup[] = [
         example: '<ControlGroup spacing="lg"><ControlGroup>…</ControlGroup>…</ControlGroup>',
       },
       {
+        item: '데이터 표 글자',
+        rule: '조회 결과 표(IBSheet) · 팝업 안 표 · 트리 표의 머리 · 칸은 14px (페이지 · 팝업 모두). 열이 많고 내용이 긴 정산 원장 표만 13px — IbsheetGrid textSize="sm"',
+        example: '<IbsheetGrid textSize="sm" … />',
+      },
+      {
         item: '세로 묶음',
         rule: "위아래로 쌓는 묶음(팝업 본문 영역 · 소제목 + 표 · 칸 안 두 줄)은 Stack. style={{ display: 'flex', flexDirection: 'column', gap }}로 만들지 않는다",
         example: '<Stack gap={8} as="section">…</Stack>',
+      },
+      {
+        item: '인라인 style',
+        rule: '폭 · 간격 · 배치 · 색을 style로 만들지 않는다(ESLint 경고). 가로 양끝 Stack direction="row" justify="between", 2단 Stack columns={2}, 칸 안 여백 Stack paddingBlock, 남는 폭 Field · ControlGroup · ActionBar grow, 폭 fieldWidth(가장 가까운 크기), 글자 Text tone="error" · nowrap. 꼭 필요한 곳만 eslint-disable + 사유',
+        example: '<Field label="파일명" grow><TextField fullWidth … /></Field>',
       },
       {
         item: '숫자 · 빈 값 표기',
@@ -266,6 +283,11 @@ const CONVENTIONS: RuleGroup[] = [
       {
         item: '화면 목록',
         rule: '화면을 만들거나 고치면 apps/screen-list/src/screens.ts에 IA 화면ID로 한 줄 추가 · 갱신 (상태 · 경로 · 최종업데이트일)',
+      },
+      {
+        item: 'Storybook',
+        rule: '디자인 시스템(packages/design-system) 컴포넌트 · 패턴 · 테마 · 아이콘을 추가하거나 바꾸면 Storybook 스토리 · 가이드(MDX)도 함께 반영하고, Storybook을 띄워 그 스토리가 그려지는지까지 확인',
+        example: 'IbsheetGrid 옵션 추가 → Composites/Result/Result Parts 스토리 · 가이드',
       },
       {
         item: '결정 기록',

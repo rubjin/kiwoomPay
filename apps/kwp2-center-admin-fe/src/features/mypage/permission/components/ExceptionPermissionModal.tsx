@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02020001] 개별 권한 팝업 (개별 예외 권한)
+ * 위치: 마이페이지 > 권한관리 · /mypage/permission (팝업)
+ */
 import {
   // 팝업 틀 · 배치
   Modal,
@@ -28,7 +32,6 @@ const joined = (actions: string[]) => (actions.length > 0 ? actions.join(', ') :
 /**
  * 개별 예외 권한 열 (Figma 폭 133 · 400 · 155 · 150 · 126 · 220 · 148 = 1332).
  * 팝업 xl 1280 안(1240)에 맞추려고 메뉴 경로는 남는 폭, 최종 적용일 160 · 처리자 120 (임의 작업).
- * TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로
  */
 const COLUMNS: GridPlaceholderColumn<ExceptionPermission>[] = [
   {

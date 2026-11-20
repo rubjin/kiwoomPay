@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02010103] 계정 상태 이력 팝업
+ * 위치: 마이페이지 > 계정관리 > 계정정보 · /mypage/account (팝업)
+ */
 import {
   // 팝업 틀 · 배치
   Modal,
@@ -34,7 +38,7 @@ const STATUS_TONE: Record<AccountStatus, BadgeTone> = {
 const StatusBadge = ({ status }: { status: AccountStatus | null }) =>
   status ? <Badge tone={STATUS_TONE[status]}>{codeLabel('ACCOUNT_STATUS', status)}</Badge> : <>-</>;
 
-/** 상태 변경 이력 열 (Figma 폭 154 · 107 · 107 · 사유 나머지 · 107). TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
+/** 상태 변경 이력 열 (Figma 폭 154 · 107 · 107 · 사유 나머지 · 107) */
 const COLUMNS: GridPlaceholderColumn<AccountStatusHistory>[] = [
   { key: 'changedAt', header: '변경일시', width: 154 },
   {

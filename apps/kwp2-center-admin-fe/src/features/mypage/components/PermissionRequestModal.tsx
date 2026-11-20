@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02020101] 권한 신청 현황 상세 팝업
+ * 위치: 마이페이지 > 권한관리 · /mypage/permission (팝업)
+ */
 import {
   Badge,
   DateRangeField,
@@ -31,7 +35,7 @@ const STATUS_TONE: Record<PermissionRequestStatus, BadgeTone> = {
   REJECTED: 'error',
 };
 
-/** 권한 신청 이력 열. TODO(IBSheet) IBSheet8 연결 시 같은 순서 · 폭으로 */
+/** 권한 신청 이력 열 */
 export const PERMISSION_REQUEST_COLUMNS: GridPlaceholderColumn<PermissionRequest>[] = [
   { key: 'requestedAt', header: '신청일시', width: 170 },
   {

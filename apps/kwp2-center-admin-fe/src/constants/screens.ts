@@ -13,6 +13,7 @@ export interface ScreenInfo {
 }
 
 export const SCREENS: readonly ScreenInfo[] = [
+  { id: 'KWPC01010000', name: '대시보드', path: '/main/dashboard' },
   { id: 'KWPC0104', name: '다운로드 센터', path: '/main/download-center' },
   { id: 'KWPC2000', name: '마이페이지', path: '/mypage' },
   { id: 'KWPC02010100', name: '계정관리', path: '/mypage/account' },
@@ -29,6 +30,23 @@ export const SCREENS: readonly ScreenInfo[] = [
     id: 'KWPC07010101',
     name: '가맹점 기본/계약 정보 관리',
     path: '/operation/merchant-contract/basic/edit',
+  },
+  { id: 'KWPC10010201', name: '메뉴·기능 관리', path: '/system/user-security/menu' },
+  { id: 'KWPC10010202', name: '메뉴·기능 관리', path: '/system/user-security/function-code' },
+  {
+    id: 'KWPC10010301',
+    name: '권한 템플릿 관리',
+    path: '/system/user-security/permission-template',
+  },
+  {
+    id: 'KWPC10010401',
+    name: '일반 메뉴·기능 권한',
+    path: '/system/user-security/permission-approval',
+  },
+  {
+    id: 'KWPC10010403',
+    name: '특수권한 결재 현황',
+    path: '/system/user-security/permission-approval/special',
   },
   // 레이아웃 패턴 템플릿 (화면 목록에서 연다). 개발 서버에서만 — features/patterns/patterns.routes.tsx
   ...(import.meta.env.DEV

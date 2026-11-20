@@ -1,3 +1,8 @@
+/**
+ * 화면ID: [KWPC06010201] 가맹점 정산 실행/처리
+ *         [KWPC06010202] 가맹점 정산 실행/처리 · 조회결과 (화면설계서 v0.4)
+ * 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute
+ */
 import {
   ControlGroup,
   AppliedFilters,
@@ -15,23 +20,38 @@ import {
   Segmented,
   SelectBox,
   TextField,
+  useAction,
   useDialog,
   toAppliedFilters,
   useSearchResult,
   useLookup,
 } from '@kiwoompay/design-system';
 import { IbsheetGrid } from '@kiwoompay/design-system/ibsheet';
-import { useState } from 'react';
-import { fetchSettlementLedgers } from '@/features/settlement/merchantSettlement.api';
+import { useState, type ReactNode } from 'react';
+import {
+  fetchSettlementLedgers,
+  requestLedgerAction,
+} from '@/features/settlement/merchantSettlement.api';
 import { BizFinderModal } from '@/components/popups/BizFinderModal';
+import { ColumnSettingsModal } from '@/components/popups/ColumnSettingsModal';
+import { ExcelDownloadModal } from '@/components/popups/ExcelDownloadModal';
+import { SavedSearchModal } from '@/components/popups/SavedSearchModal';
 import type { BizLookupResult } from '@/api/bizLookup.types';
 import type { SettlementLedger } from '@/features/settlement/merchantSettlement.types';
 import { useCodeOptions } from '@/hooks/useCodeOptions';
+import { useColumnSettings } from '@/hooks/useColumnSettings';
+import { useSavedSearches } from '@/hooks/useSavedSearches';
 import type { MerchantSettlementSummary } from '@/features/settlement/merchantSettlement.types';
+import { SETTLEMENT_SAVED_SEARCHES } from '@/mocks/settlement/savedSearches.mock';
 import { QUICK_PERIODS, rangeOfQuickPeriod } from '@/utils/period';
 import { createInitialParams } from './components/initialParams';
-import { createLedgerColumns } from './components/ledgerColumns';
-import { LedgerDetailModal, type LedgerDetailAction } from './components/detail/LedgerDetailModal';
+import { createLedgerColumns, isAdjustLedger } from './components/ledgerColumns';
+import { cardSummary, summaryRows } from './components/savedSearches';
+import {
+  LedgerDetailModal,
+  type LedgerDetailAction,
+  type LedgerDetailTab,
+} from './components/detail/LedgerDetailModal';
 import { SEARCH_FIELDS } from './components/searchFields';
 import {
   HoldReleaseModal,
@@ -44,6 +64,12 @@ import {
   PayDateSaveModal,
   RecalcModal,
 } from './components/actions/LedgerConfirmModals';
+
+/** 멀티셀렉트 표시 — 모두 고르면 "전체" (Figma 정산주기 "전체") */
+const allOrNames =
+  (total: number) =>
+  (picked: { label: ReactNode }[]): ReactNode =>
+    picked.length === total ? '전체' : picked.map((o) => o.label).join(', ');
 
 function toSummaryItems(summary?: MerchantSettlementSummary) {
   return [
@@ -70,26 +96,77 @@ const LEDGER_ACTIONS: { label: string; popup: LedgerPopup }[] = [
 export function MerchantSettlementExecutePage() {
   const dialog = useDialog();
   const settlementCycles = useCodeOptions('SETTLEMENT_CYCLE');
+  const payMethods = useCodeOptions('SETTLEMENT_PAY_METHOD');
+  const settlementTypes = useCodeOptions('SETTLEMENT_TYPE');
+  const reasons = useCodeOptions('SETTLEMENT_REASON');
   const [selected, setSelected] = useState<string[]>([]);
   const bizLookup = useLookup<BizLookupResult>();
   const [popup, setPopup] = useState<LedgerPopup | null>(null);
   // 원장 상세 팝업 · 상세에서 연 처리 팝업의 대상(이 원장 하나). 없으면 선택한 원장
   const [detailLedger, setDetailLedger] = useState<SettlementLedger | null>(null);
+  const [detailTab, setDetailTab] = useState<LedgerDetailTab>('basis');
+  // 표에서 고친 칸 (원장 ID → 바뀐 값). 저장 전 임시 표시, 다시 조회하면 비운다 (화면설계서 ③)
+  const [edits, setEdits] = useState<Record<string, Partial<SettlementLedger>>>({});
   const [popupTarget, setPopupTarget] = useState<SettlementLedger[] | null>(null);
   // 지급예정일 일괄 변경 → 저장·재산출: 재조회로 선택이 풀리므로 적용한 원장 · 날짜를 따로 둔다
-  const [payDateSave, setPayDateSave] = useState<{ rows: LedgerActionRow[]; date: string } | null>(
-    null,
-  );
+  // 칸 편집에서 열었으면 fromCell = 그 원장 ID (취소하면 임시 값을 되돌린다)
+  const [payDateSave, setPayDateSave] = useState<{
+    rows: LedgerActionRow[];
+    date: string;
+    fromCell?: string;
+  } | null>(null);
   const result = useSearchResult({
     initialParams: createInitialParams(),
     fetch: async (request) => {
       setSelected([]);
+      setEdits({});
       return fetchSettlementLedgers(request);
     },
   });
   const { params, setParam, setParams } = result;
   const ready = result.status === 'success';
   const disabled = !ready;
+  const [modal, setModal] = useState<'excel' | 'saved' | null>(null);
+  const saved = useSavedSearches(SETTLEMENT_SAVED_SEARCHES, setParams);
+  const openDetail = (ledger: SettlementLedger, tab: LedgerDetailTab = 'basis') => {
+    setDetailTab(tab);
+    setDetailLedger(ledger);
+  };
+  const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
+  const ledgerColumns = createLedgerColumns({
+    onOpenDetail: openDetail,
+    // 원천원장 ID → 그 원장 상세 (지금 페이지에 있을 때). TODO(API) 원장 ID로 상세 조회
+    onOpenSource: (id) => {
+      const source = result.items.find((l) => l.ledgerId === id);
+      if (source) openDetail(source);
+      else void dialog.alert(`${id} 원장은 현재 목록에 없습니다.`);
+    },
+    onNotReady: (name) => void notReady(name),
+  });
+  const view = useColumnSettings(ledgerColumns);
+  // 엑셀 출력 항목 = 표 열 전체 (TODO(API) 엑셀 전용 항목이 따로 있으면 교체)
+  const excelItems = ledgerColumns.map((col) => ({
+    key: col.key,
+    label: String(col.header).replace(/\n/g, ' '),
+  }));
+  const rows = result.items.map((l) => (edits[l.ledgerId] ? { ...l, ...edits[l.ledgerId] } : l));
+
+  // 칸 편집 — 지급예정일은 저장·재산출 팝업(사유 · 검증)으로, 정산담당자 · 처리메모는 바로 저장 (TODO(API))
+  const saveNote = useAction({
+    run: (ledgerId: string) => requestLedgerAction('note', [ledgerId]),
+    failure: '저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+  });
+  const editCell = (ledger: SettlementLedger, key: string, value: string) => {
+    setEdits((prev) => ({
+      ...prev,
+      [ledger.ledgerId]: { ...prev[ledger.ledgerId], [key]: value },
+    }));
+    if (key === 'payDate') {
+      setPayDateSave({ rows: toActionRows([ledger]), date: value, fromCell: ledger.ledgerId });
+      return;
+    }
+    void saveNote.execute(ledger.ledgerId);
+  };
 
   // 전체 CPID면 CPID 조건은 비운다. TODO(정책) 여러 CPID를 조회 조건으로 넘기는 방식(지금은 쉼표로 이어 붙임)
   const findBiz = async () => {
@@ -123,7 +200,6 @@ export function MerchantSettlementExecutePage() {
     onDone: () => result.refresh(),
   };
 
-  const notReady = (name: string) => dialog.alert(`${name}은(는) 준비 중입니다.`);
   const line = { size: 'sm', variant: 'neutral', appearance: 'line', disabled } as const;
 
   return (
@@ -132,17 +208,14 @@ export function MerchantSettlementExecutePage() {
         title="가맹점 정산 실행/처리"
         actions={
           <>
-            {/* TODO(P07 V03) 내 검색조건 저장 · 불러오기 */}
             <SelectBox
-              options={[]}
+              options={saved.options}
+              value={saved.appliedId ?? ''}
+              onChange={saved.apply}
               placeholder="내 검색조건 선택"
               emptyText="저장된 검색조건이 없습니다."
             />
-            <Button
-              variant="neutral"
-              appearance="line"
-              onClick={() => notReady('내 검색조건 관리')}
-            >
+            <Button variant="neutral" appearance="line" onClick={() => setModal('saved')}>
               내 검색조건 관리
             </Button>
           </>
@@ -153,7 +226,42 @@ export function MerchantSettlementExecutePage() {
         onSearch={result.search}
         onReset={result.reset}
         loading={result.loading}
-        detail={<span>TODO(시안) 상세 검색 조건</span>}
+        detail={
+          // 상세 검색: 결제수단 · 정산구분 · 처리사유 (선택지 Figma Multi-select 29620:102092).
+          // (임의 작업) TODO(시안) 상세 검색 배치 시안 없음 — 통합 거래내역처럼 격자
+          <SearchPanel.Grid columns={5}>
+            <Field label="결제수단">
+              <MultiSelect
+                fullWidth
+                options={payMethods}
+                value={params.payMethods}
+                onChange={(payMethods) => setParam('payMethods', payMethods)}
+                renderValue={allOrNames(payMethods.length)}
+                placeholder="전체"
+              />
+            </Field>
+            <Field label="정산구분">
+              <MultiSelect
+                fullWidth
+                options={settlementTypes}
+                value={params.types}
+                onChange={(types) => setParam('types', types)}
+                renderValue={allOrNames(settlementTypes.length)}
+                placeholder="전체"
+              />
+            </Field>
+            <Field label="처리사유">
+              <MultiSelect
+                fullWidth
+                options={reasons}
+                value={params.reasons}
+                onChange={(picked) => setParam('reasons', picked)}
+                renderValue={allOrNames(reasons.length)}
+                placeholder="전체"
+              />
+            </Field>
+          </SearchPanel.Grid>
+        }
       >
         {/* 사업자 찾기 (P03) → 사업자번호 · CPID 조회 범위 반영 */}
         <Button variant="neutral" appearance="line" onClick={() => void findBiz()}>
@@ -175,7 +283,7 @@ export function MerchantSettlementExecutePage() {
             onChange={(e) => setParam('bizNo', e.target.value)}
           />
         </Field>
-        <Field label="가맹점명" style={{ flex: '1 1 120px' }}>
+        <Field label="가맹점명" grow>
           <TextField
             fullWidth
             placeholder="가맹점명을 입력해주세요"
@@ -205,13 +313,14 @@ export function MerchantSettlementExecutePage() {
             ))}
           </Segmented>
         </ControlGroup>
-        <Field label="정산주기" style={{ width: 273 }}>
+        <Field label="정산주기">
           <MultiSelect
-            fullWidth
+            fieldWidth="md"
             options={settlementCycles}
             value={params.cycles}
             onChange={(cycles) => setParam('cycles', cycles)}
-            placeholder="선택해주세요"
+            renderValue={allOrNames(settlementCycles.length)}
+            placeholder="전체"
           />
         </Field>
       </SearchPanel>
@@ -223,11 +332,10 @@ export function MerchantSettlementExecutePage() {
         status={result.status}
         titleActions={
           <>
-            {/* TODO(P07 V02) 표시항목설정 · 엑셀 다운로드 설정 (ColumnPicker) */}
-            <Button {...line} onClick={() => notReady('표시항목설정')}>
+            <Button {...line} onClick={view.open}>
               표시항목설정
             </Button>
-            <Button {...line} onClick={() => notReady('엑셀 다운로드')}>
+            <Button {...line} onClick={() => setModal('excel')}>
               엑셀 다운로드
             </Button>
           </>
@@ -268,12 +376,21 @@ export function MerchantSettlementExecutePage() {
         }
       >
         <IbsheetGrid
-          columns={createLedgerColumns(setDetailLedger)}
-          rows={ready ? result.items : []}
+          columns={view.columns}
+          rows={ready ? rows : []}
           rowKey={(row) => row.ledgerId}
           selectable
+          // 일반 원장만 체크박스 — 조정 원장은 일괄 처리 대상에서 제외 (화면설계서 ②)
+          isRowSelectable={(row) => !isAdjustLedger(row)}
           selectedKeys={selected}
           onSelectionChange={setSelected}
+          filterable
+          sortable
+          // 두 줄 열 이름 (정산대상 거래건수 · 차액정산 대상금액 · 최종지급 예정금액) — Figma 머리 56
+          headerHeight={56}
+          // 열이 많고 내용이 긴 표라 글자 13 (다른 데이터 표는 14 — 확정 결정 "데이터 표 글자")
+          textSize="sm"
+          onCellEdit={editCell}
         />
       </ResultPanel>
 
@@ -297,11 +414,26 @@ export function MerchantSettlementExecutePage() {
         open={payDateSave !== null}
         rows={payDateSave?.rows ?? []}
         newPayDate={payDateSave?.date ?? ''}
-        onClose={() => setPayDateSave(null)}
+        onClose={() => {
+          // 칸 편집에서 열었는데 저장하지 않고 닫으면 임시 값을 되돌린다 (저장하면 재조회가 비운다)
+          const id = payDateSave?.fromCell;
+          if (id) {
+            setEdits((prev) => {
+              const next = { ...prev };
+              if (next[id]) {
+                const { payDate: _payDate, ...rest } = next[id];
+                next[id] = rest;
+              }
+              return next;
+            });
+          }
+          setPayDateSave(null);
+        }}
         onDone={() => result.refresh()}
       />
       <LedgerDetailModal
         ledger={detailLedger}
+        initialTab={detailTab}
         onClose={() => setDetailLedger(null)}
         onAction={fromDetail}
       />
@@ -313,6 +445,23 @@ export function MerchantSettlementExecutePage() {
         open={bizLookup.isOpen}
         onSelect={bizLookup.select}
         onCancel={bizLookup.cancel}
+      />
+      <ColumnSettingsModal {...view.modalProps} />
+      <ExcelDownloadModal
+        open={modal === 'excel'}
+        items={excelItems}
+        defaultKeys={excelItems.map((item) => item.key)}
+        onClose={() => setModal(null)}
+      />
+      <SavedSearchModal
+        open={modal === 'saved'}
+        saved={saved.list}
+        appliedId={saved.appliedId}
+        currentParams={params}
+        summaryRows={summaryRows}
+        cardSummary={cardSummary}
+        onSave={saved.save}
+        onClose={() => setModal(null)}
       />
     </>
   );

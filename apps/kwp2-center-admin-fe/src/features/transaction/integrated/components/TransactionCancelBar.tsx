@@ -5,7 +5,7 @@ import {
   RadioGroup,
   TextField,
   optionLabel,
-  useDialog,
+  useAction,
 } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { cancelTransactions } from '@/features/transaction/integratedTransaction.api';
@@ -26,46 +26,32 @@ export function TransactionCancelBar({
   disabled,
   onCancelled,
 }: TransactionCancelBarProps) {
-  const dialog = useDialog();
   const cancelTypes = useCodeOptions('CANCEL_TYPE');
   const [cancelType, setCancelType] = useState('normal');
   const [reason, setReason] = useState('');
-  const [processing, setProcessing] = useState(false);
-  const off = disabled || processing || selected.length === 0;
+  const typeLabel = optionLabel(cancelTypes, cancelType);
 
-  const cancelSelected = async () => {
-    if (!reason.trim()) {
-      await dialog.alert('취소사유를 입력해주세요.');
-      return;
-    }
-    const typeLabel = optionLabel(cancelTypes, cancelType);
-    // TODO(정책) 취소 가능 상태 · 부분취소 금액 · 금액 영향 미리보기(P04 V04 · V05)는 화면설계서 확인 후
-    const ok = await dialog.confirm(`선택한 거래 ${selected.length}건을 ${typeLabel}할까요?`, {
-      confirmText: typeLabel,
-      variant: 'danger',
-    });
-    if (!ok) return;
-    setProcessing(true);
-    try {
-      await cancelTransactions(selected, cancelType, reason);
-    } catch {
-      setProcessing(false);
-      await dialog.alert('취소 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      return;
-    }
-    setReason('');
+  // TODO(정책) 취소 가능 상태 · 부분취소 금액 · 금액 영향 미리보기(P04 V04 · V05)는 화면설계서 확인 후
+  const cancel = useAction({
+    validate: () => (!reason.trim() ? '취소사유를 입력해주세요.' : null),
+    confirm: `선택한 거래 ${selected.length}건을 ${typeLabel}할까요?`,
+    confirmOptions: { confirmText: typeLabel, variant: 'danger' },
+    run: () => cancelTransactions(selected, cancelType, reason),
     // 갱신된 목록 위에 완료 Alert를 띄운다
-    await onCancelled();
-    setProcessing(false);
-    await dialog.alert(`${typeLabel} 요청이 완료되었습니다.`);
-  };
+    onSuccess: async () => {
+      setReason('');
+      await onCancelled();
+    },
+    success: `${typeLabel} 요청이 완료되었습니다.`,
+    failure: '취소 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+  });
+  const off = disabled || cancel.loading || selected.length === 0;
 
   return (
-    <ActionBar label="취소사유" style={{ flex: '1 1 0' }}>
+    <ActionBar label="취소사유" grow>
       <TextField
         size="sm"
         fullWidth
-        style={{ flex: '1 1 0' }}
         placeholder="취소사유 입력"
         disabled={off}
         value={reason}
@@ -83,7 +69,7 @@ export function TransactionCancelBar({
           <Radio key={t.value} value={t.value} label={t.label} />
         ))}
       </RadioGroup>
-      <Button size="sm" variant="dark" disabled={off} onClick={cancelSelected}>
+      <Button size="sm" variant="dark" disabled={off} onClick={() => void cancel.execute()}>
         선택 취소
       </Button>
     </ActionBar>

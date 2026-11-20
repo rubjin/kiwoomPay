@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02000000] 마이페이지
+ * 위치: 마이페이지 · /mypage
+ */
 import {
   // 화면 틀
   PageLayout,
@@ -37,7 +41,7 @@ const RECENT_LIMIT = 5;
 const TYPE_ICONS: Record<string, string | undefined> = { RISK: 'info-circle' };
 
 /**
- * KWPC2000 마이페이지 (Figma 28762:69925) — 계정관리 · 권한관리 · 알림센터 요약 Hub.
+ * 마이페이지 (Figma KWPC2000 · 28762:69925) — 계정관리 · 권한관리 · 알림센터 요약 Hub.
  * 알림센터 카드는 페이지 패턴 P06 Notification Feed 축약형(최근 5건).
  */
 export function MypageHubPage() {

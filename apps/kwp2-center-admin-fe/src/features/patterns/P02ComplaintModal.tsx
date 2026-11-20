@@ -1,4 +1,9 @@
+/**
+ * 화면ID: [KWPC04010104] 고객문의·민원 처리 팝업
+ * 위치: 거래내역 > 통합 거래 및 예외 관리 > 통합 거래내역 · /transaction/integrated/list (팝업)
+ */
 import {
+  Stack,
   // 팝업 틀 · 버튼
   Modal,
   Button,
@@ -146,7 +151,7 @@ export function P02ComplaintModal({
       <Modal.Header title="고객문의·민원 처리" closeButton />
       <DetailTarget value="T202608310001" divider={false} />
       <Modal.Body>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <Stack gap={12}>
           <DetailCard
             title="업체 정보"
             labelGap={20}
@@ -174,7 +179,6 @@ export function P02ComplaintModal({
             ]}
           />
           <DetailCard title="문의 · 민원 접수정보">
-            {/* TODO(IBSheet) 접수 내역 그리드 */}
             <GridPlaceholder<ComplaintRow>
               columns={[
                 {
@@ -285,7 +289,7 @@ export function P02ComplaintModal({
               },
             ]}
           />
-        </div>
+        </Stack>
       </Modal.Body>
       <Modal.Footer
         start={

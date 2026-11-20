@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC03010000] SMS 인증 팝업 (인증 불가 안내)
+ * 위치: 로그인 > SMS 인증 · /auth/login (팝업)
+ */
 import { AuthInfoRow, AuthVerifyBody, Button, Modal } from '@kiwoompay/design-system';
 
 /** SMS 인증 불가 (P05, Modal sm 400): 등록된 휴대전화번호가 없음 → 안내 + [확인]만 (닫기 X 없음) */

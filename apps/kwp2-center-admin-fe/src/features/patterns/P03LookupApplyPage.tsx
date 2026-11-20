@@ -1,4 +1,5 @@
 import {
+  ControlGroup,
   // 화면 틀 · 호출 화면
   PageLayout,
   FormSection,
@@ -200,7 +201,7 @@ export function IndustryLookupModal({
           onSearch={() => setResults(search(mode, criteria))}
           extraFields={
             mode === 'category' ? (
-              <>
+              <ControlGroup grow>
                 {(
                   [
                     ['large', '대분류', unique(INDUSTRIES.map((r) => r.large))],
@@ -210,7 +211,6 @@ export function IndustryLookupModal({
                 ).map(([key, placeholder, options]) => (
                   <SelectBox
                     key={key}
-                    style={{ flex: 1, minWidth: 0 }}
                     fullWidth
                     aria-label={placeholder}
                     placeholder={placeholder}
@@ -228,9 +228,9 @@ export function IndustryLookupModal({
                     }
                   />
                 ))}
-              </>
+              </ControlGroup>
             ) : (
-              <Field label="표준산업분류코드" style={{ flex: 1 }}>
+              <Field label="표준산업분류코드" grow>
                 <TextField
                   fullWidth
                   placeholder="입력해주세요"
@@ -241,12 +241,14 @@ export function IndustryLookupModal({
             )
           }
         >
+          {/* eslint-disable-next-line react/forbid-dom-props -- 조회 전에도 팝업 높이 고정 (TODO(IBSheet) 그리드 높이로) */}
           <div style={{ minHeight: RESULT_HEIGHT }}>
             {results && (
               <GridPlaceholder
                 columns={columns}
                 rows={results}
                 rowKey={(r) => r.code}
+                // eslint-disable-next-line react/forbid-component-props -- 위 높이 고정에 맞춘 빈 상태 높이
                 empty={<LookupSearchEmpty style={{ height: EMPTY_HEIGHT }} />}
               />
             )}
@@ -313,12 +315,14 @@ export function BizLookupModal({
           placeholder="업체명 또는 사업자번호를 입력해주세요"
           onSearch={(q) => setResults(find(q))}
         >
+          {/* eslint-disable-next-line react/forbid-dom-props -- 조회 전에도 팝업 높이 고정 (TODO(IBSheet) 그리드 높이로) */}
           <div style={{ minHeight: RESULT_HEIGHT }}>
             {results && (
               <GridPlaceholder
                 columns={columns}
                 rows={results}
                 rowKey={(r) => r.bizNo}
+                // eslint-disable-next-line react/forbid-component-props -- 위 높이 고정에 맞춘 빈 상태 높이
                 empty={<LookupSearchEmpty style={{ height: EMPTY_HEIGHT }} />}
               />
             )}
@@ -415,7 +419,6 @@ export function P03LookupApplyPage() {
               <FormTable.Cell colSpan={3}>
                 <LookupField
                   fullWidth
-                  style={{ flex: 1 }}
                   readOnly
                   placeholder="표준산업분류를 찾아주세요"
                   value={industry ? `${industry.code} ${industry.detail}` : ''}
@@ -430,7 +433,6 @@ export function P03LookupApplyPage() {
               <FormTable.Cell colSpan={3}>
                 <LookupField
                   fullWidth
-                  style={{ flex: 1 }}
                   readOnly
                   placeholder="사업자번호를 찾아주세요"
                   value={biz?.bizNo ?? ''}
@@ -453,13 +455,11 @@ export function P03LookupApplyPage() {
                 />
                 <TextField
                   readOnly
-                  style={{ flex: '1 1 0' }}
                   fullWidth
                   placeholder="주소 검색으로 입력해주세요"
                   value={address?.roadAddress ?? ''}
                 />
                 <TextField
-                  style={{ flex: '1 1 0' }}
                   fullWidth
                   placeholder="상세주소를 입력해주세요"
                   value={detail}

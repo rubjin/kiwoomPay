@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02030000] 알림센터
+ * 위치: 마이페이지 > 알림센터 · /mypage/notification
+ */
 import {
   // 화면 틀
   PageLayout,
@@ -19,7 +23,7 @@ import {
   NotificationAccordion,
   NotificationDetail,
   HighlightText,
-  useDialog,
+  useAction,
 } from '@kiwoompay/design-system';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -56,15 +60,12 @@ const createInitialParams = (): NotificationParams => ({
 });
 
 // 검색어 칸 (Figma 500)
-const KEYWORD_FIELD = { width: 500 };
-
 /**
  * KWPC02030000 마이페이지 · 알림센터 (Figma 29008:79135) — P01 조회 + P06 알림.
  * 미확인 요약 · 조회 조건 한 카드 → 알림 목록(아코디언, 누르면 펼치고 읽음) → Total · Pagination.
  * 내 알림이라 진입 시 바로 조회 (다운로드 센터와 같은 예외, TODO(정책))
  */
 export function NotificationCenterPage() {
-  const dialog = useDialog();
   const navigate = useNavigate();
   const types = useCodeOptions('NOTIFICATION_TYPE');
   const typeOptions = [{ value: 'all', label: '전체' }, ...types];
@@ -93,13 +94,14 @@ export function NotificationCenterPage() {
     }
   };
 
-  const readAll = async () => {
-    const ok = await dialog.confirm('미확인 알림을 모두 읽음으로 처리할까요?');
-    if (!ok) return;
-    await readNotifications();
-    loadSummary();
-    void result.refresh();
-  };
+  const readAll = useAction({
+    confirm: '미확인 알림을 모두 읽음으로 처리할까요?',
+    run: () => readNotifications(),
+    onSuccess: () => {
+      loadSummary();
+      void result.refresh();
+    },
+  });
 
   const search = () => {
     setExpanded(null);
@@ -125,7 +127,7 @@ export function NotificationCenterPage() {
                 icon: icon ? <Icon name={icon} size={16} /> : undefined,
               };
             })}
-            onReadAll={readAll}
+            onReadAll={() => void readAll.execute()}
           />
         }
         onSearch={search}
@@ -149,7 +151,7 @@ export function NotificationCenterPage() {
             onChange={(readState) => setParam('readState', readState)}
           />
         </Field>
-        <Field label="검색어" style={KEYWORD_FIELD}>
+        <Field label="검색어" grow>
           <SearchField
             fullWidth
             placeholder="알림 제목 · 내용을 입력해 주세요"

@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC02010100] 계정관리
+ * 위치: 마이페이지 > 계정관리 > 계정정보 · /mypage/account
+ */
 import {
   Badge,
   Button,
@@ -23,8 +27,6 @@ const CARD_COLUMNS = [980, 636];
 const LABEL_WIDTH = 144;
 const LEFT_ROW_GAP = 19;
 const RIGHT_ROW_GAP = 36;
-// 기본 계정정보 두 열 (시안 489 : 457)
-const INFO_COLUMNS = 'minmax(0, 489fr) minmax(0, 457fr)';
 
 /**
  * KWPC02010100 마이페이지 · 계정관리.
@@ -51,7 +53,7 @@ export function AccountPage() {
         <MypageTabs current={MENU.KWPC0201} />
 
         {account && (
-          <>
+          <Stack>
             <HubGrid columns={CARD_COLUMNS}>
               <PageLayout.Section
                 title="기본 계정정보"
@@ -62,7 +64,7 @@ export function AccountPage() {
                   </Button>
                 }
               >
-                <div style={{ display: 'grid', gridTemplateColumns: INFO_COLUMNS }}>
+                <Stack columns={2} gap={0}>
                   <HubInfoList gap={LEFT_ROW_GAP}>
                     <HubInfo label="사용자명" labelWidth={LABEL_WIDTH}>
                       {account.userName}
@@ -90,7 +92,7 @@ export function AccountPage() {
                       {account.email}
                     </HubInfo>
                   </HubInfoList>
-                </div>
+                </Stack>
               </PageLayout.Section>
 
               <PageLayout.Section
@@ -121,7 +123,7 @@ export function AccountPage() {
               </PageLayout.Section>
             </HubGrid>
 
-            <Infobox style={{ marginTop: 'var(--kp-space-16)' }}>
+            <Infobox>
               <Infobox.Item
                 title="계정정보 변경 안내"
                 actionLabel="변경 요청"
@@ -135,7 +137,7 @@ export function AccountPage() {
                 시스템 관리자에게 요청해 주세요.
               </Infobox.Item>
             </Infobox>
-          </>
+          </Stack>
         )}
       </Stack>
       <PasswordChangeModal

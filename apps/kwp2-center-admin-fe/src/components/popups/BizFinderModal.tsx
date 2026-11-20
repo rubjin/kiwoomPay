@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC06010203] 사업자 찾기 팝업
+ * 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute (팝업, 여러 화면 공통)
+ */
 import {
   Button,
   Field,
@@ -6,6 +10,7 @@ import {
   Modal,
   Pagination,
   ResultFooter,
+  Stack,
   TableMultiSelect,
   TextField,
   useDialog,
@@ -98,7 +103,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
       key: 'scope',
       header: 'CPID 조회 범위',
       // 드롭다운 위아래 8 (시안 줄 56 = 8 + 40 + 8)
-      render: (r) => <div style={{ paddingBlock: 'var(--kp-space-8)' }}>{scopeOf(r)}</div>,
+      render: (r) => <Stack paddingBlock={8}>{scopeOf(r)}</Stack>,
     },
   ];
 
@@ -143,7 +148,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
           onSearch={() => void search()}
           extraFields={
             <>
-              <Field label="사업자명" style={{ flex: 1 }}>
+              <Field label="사업자명" grow>
                 <TextField
                   fullWidth
                   placeholder="사업자명을 입력해주세요"
@@ -151,7 +156,7 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
                   onChange={(e) => setName(e.target.value)}
                 />
               </Field>
-              <Field label="사업자번호" style={{ flex: 1 }}>
+              <Field label="사업자번호" grow>
                 <TextField
                   fullWidth
                   placeholder="사업자번호를 입력해주세요"
@@ -164,23 +169,24 @@ function BizLookupBody({ onSelect, onCancel }: Omit<BizFinderModalProps, 'open'>
         >
           {results && (
             <Modal.Section title="조회 결과" gap={8}>
-              {/* TODO(IBSheet) 결과 표는 IBSheet로 (드롭다운 셀 포함) */}
-              <GridPlaceholder
-                columns={columns}
-                rows={rows}
-                rowKey={(r) => r.bizNo}
-                selectable="single"
-                selectedKeys={picked ? [picked] : []}
-                onSelectionChange={([key]) => key && void pick(key)}
-                empty="조회 결과가 없습니다."
-              />
-              <ResultFooter total={total} style={{ marginTop: 'var(--kp-space-8)' }}>
-                <Pagination
-                  totalPages={Math.max(1, Math.ceil(total / PAGE_SIZE))}
-                  page={page}
-                  onChange={setPage}
+              <Stack>
+                <GridPlaceholder
+                  columns={columns}
+                  rows={rows}
+                  rowKey={(r) => r.bizNo}
+                  selectable="single"
+                  selectedKeys={picked ? [picked] : []}
+                  onSelectionChange={([key]) => key && void pick(key)}
+                  empty="조회 결과가 없습니다."
                 />
-              </ResultFooter>
+                <ResultFooter total={total}>
+                  <Pagination
+                    totalPages={Math.max(1, Math.ceil(total / PAGE_SIZE))}
+                    page={page}
+                    onChange={setPage}
+                  />
+                </ResultFooter>
+              </Stack>
             </Modal.Section>
           )}
         </LookupSearch>

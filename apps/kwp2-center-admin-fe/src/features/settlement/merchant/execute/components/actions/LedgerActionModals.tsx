@@ -1,3 +1,9 @@
+/**
+ * 화면ID: [KWPC06010204] 지급예정일 일괄 변경 팝업
+ *         [KWPC06010205] 지급보류 팝업
+ *         [KWPC06010206] 보류해제 팝업
+ * 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute (팝업)
+ */
 import { DateField, Field, SelectBox, TextArea } from '@kiwoompay/design-system';
 import { useRef, useState } from 'react';
 import { requestLedgerAction } from '@/features/settlement/merchantSettlement.api';

@@ -6,7 +6,7 @@ import type { LedgerActionRow } from './ledgerActionRows';
 /** 두 줄 칸 (가맹점 / CPID · 결제수단 / 주기 · 사유 / 금액) */
 export function TwoLines({ top, bottom }: { top: ReactNode; bottom: ReactNode }) {
   return (
-    <Stack as="span" gap={0} style={{ paddingBlock: 'var(--kp-space-4)' }}>
+    <Stack as="span" gap={0} paddingBlock={4}>
       <span>{top}</span>
       <span>{bottom}</span>
     </Stack>

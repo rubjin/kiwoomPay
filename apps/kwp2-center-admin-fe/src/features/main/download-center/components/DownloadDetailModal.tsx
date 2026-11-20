@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC01040101] 다운로드 요청 상세 팝업
+ * 위치: 메인 > 다운로드센터 · /main/download-center (팝업)
+ */
 import {
   Button,
   FormTable,

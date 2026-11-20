@@ -1,5 +1,5 @@
 import { LoginError, type LoginChallenge } from '@/features/auth/login.types';
-import { wait } from '@/api/mock';
+import { wait } from '@/mocks/utils';
 
 // TODO(API) 로그인 · SMS 인증 API가 정해지면 axios 호출로 바꾼다.
 // 지금은 화면 확인용 예시 (임의 작업) — 상태별 문구 확인용 아이디 · 인증번호:

@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC03010000] SMS 인증 팝업
+ * 위치: 로그인 > SMS 인증 · /auth/login (팝업)
+ */
 import {
   AuthInfoRow,
   AuthVerifyBody,

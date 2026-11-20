@@ -45,8 +45,8 @@ export interface TransactionSearchPanelProps {
   onSearch: () => void;
   onReset: () => void;
   loading: boolean;
-  /** 아직 연결하지 않은 팝업 (사업자 · CPID 찾기) */
-  onNotReady: (name: string) => void;
+  /** 사업자 · CPID 찾기 (P03 사업자 찾기 팝업 — 사업자 → CPID 조회 범위) */
+  onFindBiz: () => void;
 }
 
 /**
@@ -60,7 +60,7 @@ export function TransactionSearchPanel({
   onSearch,
   onReset,
   loading,
-  onNotReady,
+  onFindBiz,
 }: TransactionSearchPanelProps) {
   const txTypes = useCodeOptions('TX_TYPE', { withAll: true });
   const payMethods = useCodeOptions('PAY_METHOD', { withAll: true });
@@ -88,6 +88,7 @@ export function TransactionSearchPanel({
           <Checkbox
             size="sm"
             label="개인정보 포함 검색"
+            // eslint-disable-next-line react/forbid-component-props -- SearchPanel.Grid 칸 안 오른쪽 끝 (격자 한 칸만의 배치)
             style={{ justifySelf: 'end' }}
             checked={params.includePersonal}
             onChange={(e) => setParam('includePersonal', e.target.checked)}
@@ -95,14 +96,13 @@ export function TransactionSearchPanel({
         </SearchPanel.Grid>
       }
     >
-      {/* TODO(P03) 사업자 · CPID 찾기 Lookup 팝업 연결 */}
       <Field label="사업자번호">
         <LookupField
           fieldWidth="sm"
           placeholder="사업자번호를 입력해주세요"
           value={params.bizNo}
           onChange={(bizNo) => setParam('bizNo', bizNo)}
-          onFind={() => onNotReady('사업자 찾기')}
+          onFind={onFindBiz}
         />
       </Field>
       <Field label="CPID">
@@ -111,7 +111,7 @@ export function TransactionSearchPanel({
           placeholder="CPID를 입력해주세요"
           value={params.cpid}
           onChange={(cpid) => setParam('cpid', cpid)}
-          onFind={() => onNotReady('CPID 찾기')}
+          onFind={onFindBiz}
         />
       </Field>
       <Field label="조회기준일">

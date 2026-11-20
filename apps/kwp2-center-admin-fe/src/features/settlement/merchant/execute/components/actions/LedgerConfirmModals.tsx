@@ -1,4 +1,10 @@
-import { Infobox } from '@kiwoompay/design-system';
+/**
+ * 화면ID: [KWPC06010204] 지급예정일 변경 저장·재산출 팝업
+ *         [KWPC06010207] 원장 지급확정 팝업
+ *         [KWPC06010208] 선택 원장 재산출 팝업
+ * 위치: 정산내역 > 가맹점 정산 관리 > 정산 실행/처리 · /settlement/merchant/execute (팝업)
+ */
+import { Infobox, Stack } from '@kiwoompay/design-system';
 import { requestLedgerAction } from '@/features/settlement/merchantSettlement.api';
 import { LedgerActionModal } from './LedgerActionModal';
 import { amountColumn, LEDGER_ID_COLUMN, MERCHANT_COLUMN } from './ledgerActionColumns';
@@ -62,7 +68,7 @@ export function RecalcModal({ open, rows, onClose, onDone }: LedgerActionProps) 
         { key: 'target', header: '처리 대상', width: 80, render: () => '재산출 대상' },
       ]}
       notices={
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--kp-space-12)' }}>
+        <Stack columns={2} gap={12}>
           <Infobox>
             <Infobox.Item
               title="현재 설정값 기준 재계산"
@@ -80,7 +86,7 @@ export function RecalcModal({ open, rows, onClose, onDone }: LedgerActionProps) 
               ]}
             />
           </Infobox>
-        </div>
+        </Stack>
       }
       run={(list) => requestLedgerAction('선택 원장 재산출', ids(list))}
     />

@@ -169,6 +169,9 @@ const BUILT_PATHS: Record<string, string> = {
   KWPC040101: '/transaction/integrated/list',
   KWPC060102: '/settlement/merchant/execute',
   KWPC070101: '/operation/merchant-contract/basic/edit',
+  KWPC100102: '/system/user-security/menu',
+  KWPC100103: '/system/user-security/permission-template',
+  KWPC100104: '/system/user-security/permission-approval',
 };
 
 export const menu3Path = (menu: Menu3Info) =>

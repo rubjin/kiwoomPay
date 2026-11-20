@@ -46,8 +46,7 @@ function AddressCell({
         <SelectBox
           aria-label="국가"
           placeholder="선택"
-          fullWidth
-          style={{ width: 192, flex: 'none' }}
+          fieldWidth="md"
           options={countries}
           value={value.country}
           disabled={disabled}

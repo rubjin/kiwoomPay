@@ -1,3 +1,7 @@
+/**
+ * 화면ID: [KWPC01030000] LNB
+ * 위치: 메인 > LNB · 모든 화면 공통
+ */
 import { Lnb as LnbBase, type IconName, type LnbMenuItem } from '@kiwoompay/design-system';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,7 +11,7 @@ import { MENUS } from '@/constants/menu';
 import { menu3Of, menu3OfPath, menu3Path, MENU3 } from '@/constants/menu3';
 import { FavoriteEditModal } from './FavoriteEditModal';
 
-// KWPC0103 LNB. TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
+// TODO(이관): 메뉴는 서버(GET /menus/tree → buildTree → 권한 필터)에서 받는다.
 // 지금은 constants/menu.ts(1 · 2depth) + menu3.ts(3depth, IA)로 그린다. 메뉴즐겨찾기 팝업도 이 폴더에 둔다.
 // 구성은 가이드(Figma LNB)와 같게: 맨 위 대시보드(1Depth 단독) → 업무 1Depth.
 // 메인 · 마이페이지 · 로그인 · 시스템관리는 LNB에 두지 않는다 — 메인 = 대시보드,
