@@ -75,13 +75,14 @@ kiwoompay-ui/
 
 ## 6. 문서
 
-| 문서                                                                          | 내용                                  |
-| ----------------------------------------------------------------------------- | ------------------------------------- |
-| Storybook (6006)                                                              | 컴포넌트 · 패턴 사용법 · Do/Don't     |
-| [jsp-integration.md](jsp-integration.md)                                      | JSP 셸 · 빌드 산출물 · IBSheet 로드   |
-| [token-workflow.md](token-workflow.md) · [icon-workflow.md](icon-workflow.md) | 토큰 · 아이콘 추가 절차               |
-| [vendor/README.md](../vendor/README.md)                                       | IBSheet 파일 배치                     |
-| [docs/ai/status.md](ai/status.md)                                             | 확정 결정 (모든 작업에 적용되는 규칙) |
+| 문서                                                                          | 내용                                        |
+| ----------------------------------------------------------------------------- | ------------------------------------------- |
+| Storybook (6006)                                                              | 컴포넌트 · 패턴 사용법 · Do/Don't           |
+| [screen-from-spec.md](screen-from-spec.md)                                    | 화면기획서만으로 화면 만들기 (시안 없을 때) |
+| [jsp-integration.md](jsp-integration.md)                                      | JSP 셸 · 빌드 산출물 · IBSheet 로드         |
+| [token-workflow.md](token-workflow.md) · [icon-workflow.md](icon-workflow.md) | 토큰 · 아이콘 추가 절차                     |
+| [vendor/README.md](../vendor/README.md)                                       | IBSheet 파일 배치                           |
+| [docs/ai/status.md](ai/status.md)                                             | 확정 결정 (모든 작업에 적용되는 규칙)       |
 
 ## 7. 커밋
 

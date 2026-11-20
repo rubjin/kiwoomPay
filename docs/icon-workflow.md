@@ -41,13 +41,13 @@ Figma 이름만으로 만들 수 없는 경우는 `scripts/build-icons.mjs`의 �
 
 선 아이콘은 색을 고정하지 않고 글자색(`currentColor`)을 따른다. Figma에서 흰색·짙은 회색으로 내보낸 선은 모두 `currentColor`로 바뀐다.
 
-| SVG 값                                                               | 결과                                                                     |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| 선(stroke)의 `white` · `#111827` · `#1E293B` · `#667281` · `#8C98A6` | `currentColor`                                                           |
-| 채움 도형 앞의 `white`(점 등 채움 포함)                              | `currentColor`                                                           |
-| 색 채움 도형 **뒤의** `white`(체크, X 등 글리프)                     | `var(--kp-color-icon-on-color)`                                          |
-| 채움 `#3B82F6` `#22C55E` `#F59E0B` `#EF4444` `#8C98A6` `#2484C6`     | `--kp-color-icon-info` `-success` `-warning` `-error` `-muted` `-accent` |
-| 짙은 채움 `#111827` `#1E293B`                                        | `currentColor`                                                           |
+| SVG 값                                                                           | 결과                                                                     |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| 선(stroke)의 `white` · `#111827` · `#1E293B` · `#435064` · `#667281` · `#8C98A6` | `currentColor`                                                           |
+| 채움 도형 앞의 `white`(점 등 채움 포함)                                          | `currentColor`                                                           |
+| 색 채움 도형 **뒤의** `white`(체크, X 등 글리프)                                 | `var(--kp-color-icon-on-color)`                                          |
+| 채움 `#3B82F6` `#22C55E` `#F59E0B` `#EF4444` `#8C98A6` `#2484C6`                 | `--kp-color-icon-info` `-success` `-warning` `-error` `-muted` `-accent` |
+| 짙은 채움 `#111827` `#1E293B`                                                    | `currentColor`                                                           |
 
 표에 없는 색이 나오면 에러로 멈춘다. 색 규칙(`build-icons.mjs`)과 토큰(`tokens/custom/icon.json`)을 함께 추가한다.
 

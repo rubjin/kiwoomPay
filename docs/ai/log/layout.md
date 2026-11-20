@@ -10,8 +10,9 @@
 - 슬롯 `lnb` · `header`(66) · `workTab` + `workTabActions`(60, Tab 40은 아래 선에 붙음) · `footer`(74). 본문 좌우 24 · 상단 20 · Section 간격 12
 - 스크롤: 화면 높이 고정, `.main`(LNB 오른쪽)만 스크롤. Header · Work Tab · `PageLayout.Title` sticky, LNB는 스크롤 영역 밖. 최소 폭 `contentMinWidth`(내부관리자 1680), 좁으면 그 영역 안에서 가로 스크롤
 - `PageLayout.Title` = `SectionHeading size="xl" as="h1"`(높이 40, `titleAddon` · `actions`). 화면명 줄 버튼은 `actions`, `FormSection underTitle`에는 탭만
-- `PageLayout.Section`: 흰 카드 · 반경 8 · 여백 16, `layout="inline"` · `compact`(12) · `divider` · `plain`
+- `PageLayout.Section`: 흰 카드 · 반경 8 · 여백 16, `layout="inline"` · `compact`(12) · `divider` · `plain`. **`divider`(제목 아래 선)는 시안에 있는 화면만** — 기획서만으로 만드는 화면은 넣지 않음(사용자 지적, 메뉴관리). 지금 쓰는 곳: 마이페이지 계정관리 · 권한관리(시안)
 - 페이지 하단 여백(Total · Pagination ↔ Footer) 20
+- `PageLayout.Split side={…} sideWidth`: 목록 + 상세 좌우 분할(검색 조건은 Split 위에 전체 폭). 왼쪽 폭 `sideWidth` sm 320 · md 480 · lg 640(기본, TODO(시안)). **3열(트리 | 목록 | 상세)은 Split 안에 Split**(기능 코드 관리). lg 640은 화면설계서 KWPC10010201 비율 639 : 778 기준 · 오른쪽 남는 폭, 열 사이 · 열 안 Section 사이 12, 두 열 마지막 Section이 아래 끝까지 늘어남. **기본 최소 높이 840**(TODO(시안), 메뉴 정보 폼 834 기준) — 선택 전 · 0건처럼 내용이 없을 때 높이가 들썩이지 않게(사용자 결정)
 
 ### LNB (`navigation/Lnb`, 시안 28042:3258)
 
@@ -34,7 +35,7 @@
 
 - 메뉴명 공백 제외 12자까지 그대로, 넘으면 말줄임 이미지(•••, 버튼 아님, 텍스트 … 없음). 12자 이하는 내용 폭(패딩 기준)
 - Hover 시 닫기(X) 나타나며 넓어짐. Tab 안 더보기 버튼 없음 — Tab 관리 메뉴는 줄 오른쪽 끝 "열린 화면 N ⌄"(`WorkTab.ActionMenu`)만
-- 최대 10개(`WORK_TAB_LIMIT`, 초과 Alert는 화면). 앱 `store/workTabs` + `layouts/WorkTabBar`(이름은 `screenNameOf`, 대시보드 고정). TODO: Tab 전환 시 화면 상태 유지(keep-alive)
+- 최대 10개(`WORK_TAB_LIMIT`, 초과 Alert는 화면). 앱 `store/workTabs` + `layouts/WorkTabBar`(이름은 `screenNameOf`). **처음 고정 Tab 없음** — 대시보드도 들어가면 Tab이 생기고 닫을 수 있음(사용자 요청). 마지막 Tab을 닫으면 대시보드로 이동(그 Tab이 다시 생김), 대시보드 Tab이 마지막이면 Tab 없이 그 화면에 머묾. TODO: Tab 전환 시 화면 상태 유지(keep-alive)
 
 ### Header (`navigation/Header`)
 

@@ -9,14 +9,18 @@
 
 - 위치: 디자인 시스템 `src/patterns/<패턴>/`, Storybook `Patterns/P0N …`(가이드 `docs/patterns/P0N*.mdx`), 앱 패턴 페이지 `features/patterns/`(`/patterns/*`, **개발 서버에서만** — `import.meta.env.DEV`)
 - 성공 · 실패 안내는 `DialogProvider` · `useDialog`(alert · confirm Promise, Modal sm). 앱 App에 `DialogProvider`
-- 결과 상태 표시 `StatusView`(조회 전 · 조회 중 · 0건 · 오류 · 권한 없음). 조회 전 기본 문구 "내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요"(제목은 화면별)
-- 표 미리보기 `GridPlaceholder`(IBSheet 연결 전): 머리 12 SemiBold · Neutral 100(사용자 확정), `selectable`(체크박스) · `selectable="single"`(라디오) · `isRowSelectable` · `empty`(머리 남기고 아래 안내)
+- 결과 상태 표시 `StatusView`(조회 전 · 조회 중 · 0건 · 오류 · 권한 없음). **문구는 영역 세로 가운데** — StatusView가 부모(카드 · ResultPanel 본문)의 남는 높이를 채움(flex 1, 최소 220), ResultPanel 본문도 남는 높이를 채움(사용자 결정, 메뉴관리 "메뉴를 선택해주세요"). 조회 전 기본 문구 "내역을 조회해주세요 / 검색조건을 설정한 후 [조회] 버튼을 눌러주세요"(제목은 화면별)
+- P01 결과 표는 `IbsheetGrid` + `filterable` · `sortable`이 기본(앱 `/patterns/search-result`). Storybook `Patterns/P01` 예시는 정산 원장과 같은 옵션(지급예정일 편집 · 조정 원장 비활성 선택 · 머리 56 · textSize sm), 비교용 GridPlaceholder 없음. 옵션 설명은 P01 가이드 6절 · Result Parts "표 (IbsheetGrid)"
+- 표 미리보기 `GridPlaceholder`(IBSheet 연결 전): 글자 14(머리 14 SemiBold · 칸 14 Regular, 확정 결정 "데이터 표 글자") · 머리 Neutral 100, `selectable`(체크박스) · `selectable="single"`(라디오) · `isRowSelectable` · `empty`(머리 남기고 아래 안내) · `maxHeight`(주면 표 안에서 위아래 · 좌우 스크롤 + 머리 sticky, 이때만 테두리 separate — collapse 테두리는 sticky 칸에 안 붙음). 페이지 결과 표는 IbsheetGrid, GridPlaceholder는 팝업 안 표 · IBSheet 없을 때
 
 ### P01 Search → Result
 
-- 부품: `SearchPanel` → `AppliedFilters` → `ResultSummary` → `ResultPanel` → `ResultFooter`(Total + Pagination). 흐름 `useSearchResult`(입력 `params` ↔ 조회 `appliedParams` 분리, 늦은 응답 무시, `autoSearch` 기본 false, 처리 후 `await refresh()` → 완료 Alert)
+- 부품: `SearchPanel` → `AppliedFilters` → `ResultSummary` → `ResultPanel`(`footer` — 카드 맨 아래 섹션 안내 자리, 여백 16) → `ResultFooter`(Total + Pagination). 흐름 `useSearchResult`(입력 `params` ↔ 조회 `appliedParams` 분리, 늦은 응답 무시, `autoSearch` 기본 false, 처리 후 `await refresh()` → 완료 Alert)
 - 검색 조건 정의 `SearchFieldDef` + `toAppliedFilters` · `summarizeSearch`(칩과 내 검색조건 요약을 같은 정의로). 앱은 화면 `components/searchFields.ts` · `initialParams.ts`(`createInitialParams()`)
 - 결과 제목 줄 Action 배치: `docs/ai/references/result-panel-actions.md`
+- `IbsheetGrid` 칸 링크 · 버튼은 칸 클릭으로 render 요소의 onClick을 부른다. 행 키는 문자열로 비교 — IBSheet가 숫자로만 된 키(예: 신청번호 1031)를 숫자로 바꿔 두기 때문(2026-11-18 수정, 일반 메뉴·기능 권한에서 발견)
+- **표 안 폼 요소(버튼 · 입력) 높이 30**: IBSheet 자체 버튼 · 편집 칸뿐 아니라 `IbsheetGrid`가 칸에 그린 디자인 시스템 컴포넌트(`.kpIbHtml` 안 button · input)도 30 — Button sm 32를 표 테마(`ibsheet-theme.scss`)에서 30으로 덮음(2026-11-18, 특수권한 결재 현황 [권한 부여]에서 발견)
+- `ResultPanel footer`(표 아래 카드 안 영역)가 있으면 footer 위 선이 표 마지막 줄 아래 선 — 표 테마는 마지막 줄 아래 선을 따로 그리지 않고, footer가 없으면 카드 테두리가 그 선(2026-11-18 수정)
 
 ### P02 Record → Form
 

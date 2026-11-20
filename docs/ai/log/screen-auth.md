@@ -20,6 +20,8 @@
 
 ### 예시 API (임의 작업, `login.api.ts`)
 
+- mocks 분리 예외(확정 결정 "예시 데이터 위치"): 예시 값 · 흉내 동작을 `login.api.ts`에 그대로 둔다 — `mocks/`를 지워도 남으니 API 연결 때 이 파일은 따로 손본다
+
 - 아이디 locked · disabled · error · network · nophone · sendfail, 비밀번호 password(5회 틀리면 잠김), 인증번호 123456(5회 틀리면 잠김), 재발송 30초 대기 · 3회까지, 로그인 인증 세션 10분
 - (임의 작업) 재발송 성공 안내 Alert "인증번호를 다시 발송했습니다."(표에 없음)
 

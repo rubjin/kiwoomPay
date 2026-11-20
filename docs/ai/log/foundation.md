@@ -49,4 +49,4 @@
 - [Q24] 아이콘 이름 지정 확인 (Figma 이름만으로 만들 수 없어 `scripts/build-icons.mjs`에서 지정): `1dp(0~6)` → home·card-check·bar-chart·file-text·building·archive·shield-check, `Link-external` 12·`24-1`(↗) → `arrow-up-right`, `Setting` `20-1`(슬라이더) → `setting-sliders`. Figma 쪽 이름도 맞춰 두면 좋음
 - [Q26] 회색으로 내보낸 선 아이콘(eye·eye-off·pin-line·drag-handle·info-circle 16·arrow-up-right)은 `currentColor`로 바꿈. loading 아이콘 회전 애니메이션은 motion 토큰이 없어 미포함
 - [Q39] Spacing 가이드 Usage ↔ 시안 측정값 차이(현재 시안 값 유지): ① Container Padding 20·24 ↔ Section 카드 16(한 줄 12)·Date Picker 패널 16 ② Button group 12·16 ↔ 버튼 간격 8 ③ Icon–Text 8 ↔ Button 아이콘 간격 4
-- [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 나머지 단계는 OKLCH로 계산한 임시값(`themes/merchant.json`) → 디자인 10단계 확정 필요. 영업대행사 키컬러 미정(정해지면 `themes/agency.json`)
+- [Q40] 가맹점관리자 Primary는 500(#514FEC)만 확정. 나머지 단계는 OKLCH로 계산한 임시값(`themes/merchant.json`) → 디자인 10단계 확정 필요. 영업대행사 Primary 500 #9C59BE · 전자계약 Primary 500 #00ADA5 확정(500만) — 테마 파일(`themes/agency.json` · 전자계약)은 아직 없음. 만들 때 merchant처럼 나머지 단계 계산 임시값으로 할지, 디자인 10단계를 받을지 확인 필요. 전자계약은 시스템 구분값(`data-system`) · 앱 이름도 정해야 함

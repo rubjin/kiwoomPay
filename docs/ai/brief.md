@@ -156,7 +156,7 @@ LNB, Header, Footer, Work Tab, Card·Infobox 등 data display, chart&kpi
 
 ## 8. 커밋 메시지
 - 작업(Phase, `/component` 등)이 끝나면 요약 뒤에 커밋 메시지를 코드 블록으로 작성한다.
-- 커밋은 사용자가 직접 실행한다. AI는 `git add` / `git commit` / `git push`를 실행하지 않는다.
+- 커밋은 사용자가 요청할 때만 AI가 실행한다(`git add` / `git commit`). 요청이 없으면 메시지만 작성한다. `git push`는 실행하지 않는다.
 - 형식: Conventional Commits, 제목은 한글, 50자 내외, 마침표 없음
   ```
   <type>(<scope>): <제목>
