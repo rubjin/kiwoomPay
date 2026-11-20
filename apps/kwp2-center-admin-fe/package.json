@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build && node scripts/copy-fonts.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@ibsheet/interface": "1.0.4",
@@ -20,12 +21,19 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@types/node": "^20.19.43",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.2.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
     "sass": "^1.108.1",
     "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.2",
     "vite": "^7.3.8"
   }
 }

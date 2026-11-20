@@ -46,3 +46,19 @@ desktop.ini
 # 상용 라이브러리 (IBSheet8 — 라이선스 · 상용 제품이라 공개 저장소에 올리지 않는다, vendor/README.md)
 vendor/ibsheet/
 vendor/ibsheet-docs/
+
+# 개발 중 생기는 로컬 파일
+*.local
+.vite
+.turbo
+.pnpm-store
+.temp
+.tmp
+.history
+*.swo
+ehthumbs.db
+$RECYCLE.BIN/
+
+# 복사본 (예: "README copy.md", "README - 복사본.md")
+* copy.*
+* - 복사본*
