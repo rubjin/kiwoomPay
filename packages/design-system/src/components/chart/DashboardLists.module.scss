@@ -1,0 +1,199 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// Figma KWPC01010000 (29906:98316 · 29981:98385 · 29981:98420 · 29981:98460)
+$feed-time-width: 40px;
+$notice-category-width: 31px;
+$chip-radius: 6px;
+$chip-padding: t.$space-4 t.$space-8;
+$chip-right-gap: 6px;
+
+.empty {
+  @include m.typography(typo-12-regular);
+
+  grid-column: 1 / -1;
+  align-self: center;
+  color: t.$color-dashboard-link;
+  text-align: center;
+}
+
+// ── CarouselNav ──
+.carousel {
+  display: inline-flex;
+  gap: t.$space-4;
+  align-items: center;
+}
+
+.carouselButton {
+  display: inline-flex;
+  padding: 0;
+  color: t.$color-text-secondary;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:disabled {
+    color: t.$color-text-disabled;
+    cursor: default;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.carouselPage {
+  @include m.typography(typo-12-regular);
+
+  color: t.$color-text-secondary;
+  white-space: nowrap;
+}
+
+.carouselCurrent {
+  @include m.typography(typo-12-bold);
+}
+
+.carouselSlash {
+  color: t.$color-text-disabled;
+}
+
+// ── EventFeed: 열을 줄끼리 맞춘다 (시각 40 · 구분 · 내용) ──
+.feed {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: $feed-time-width max-content minmax(0, 1fr);
+  column-gap: t.$space-8;
+  align-content: space-between;
+  align-items: center;
+  padding: 0 t.$space-8;
+  margin: 0;
+  list-style: none;
+}
+
+.feedRow {
+  display: contents;
+
+  > * {
+    padding-block: t.$space-8;
+  }
+}
+
+.feedTime {
+  @include m.typography(typo-10-medium);
+
+  color: t.$color-text-secondary;
+}
+
+.feedMessage {
+  @include m.ellipsis;
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-text-body;
+}
+
+// ── NoticeList ──
+.notice {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: $notice-category-width minmax(0, 1fr) max-content;
+  gap: t.$space-4 t.$space-8;
+  align-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.noticeRow {
+  display: contents;
+}
+
+.noticeCategory {
+  @include m.typography(typo-10-medium);
+
+  color: t.$color-text-secondary;
+  white-space: nowrap;
+}
+
+.noticeTitle {
+  @include m.typography(typo-11-medium);
+
+  display: flex;
+  gap: t.$space-4;
+  align-items: center;
+  min-width: 0;
+  color: t.$color-text-body;
+}
+
+.noticeButton {
+  padding: 0;
+  text-align: start;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:hover .noticeText {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.noticeText {
+  @include m.ellipsis;
+}
+
+.muted {
+  color: t.$color-dashboard-muted;
+}
+
+.unread {
+  @include m.typography(typo-11-bold);
+
+  flex: none;
+  color: t.$color-dashboard-unread;
+}
+
+.noticeDate {
+  @include m.typography(typo-10-regular);
+
+  color: t.$color-text-secondary;
+  text-align: end;
+  white-space: nowrap;
+}
+
+// ── InfoChip ──
+.chip {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  padding: $chip-padding;
+  background-color: t.$color-dashboard-tile-bg;
+  border: t.$control-border-width solid t.$color-dashboard-card-border;
+  border-radius: $chip-radius;
+}
+
+.chipLabel {
+  @include m.ellipsis;
+  @include m.typography(typo-12-medium);
+
+  color: t.$color-text-body;
+}
+
+.chipRight {
+  display: inline-flex;
+  flex: none;
+  gap: $chip-right-gap;
+  align-items: center;
+}
+
+.chipValue {
+  @include m.typography(typo-12-semi-bold);
+
+  color: t.$color-text-body;
+  white-space: nowrap;
+}

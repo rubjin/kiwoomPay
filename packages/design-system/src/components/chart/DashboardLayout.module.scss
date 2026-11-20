@@ -1,0 +1,48 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// Figma KWPC01010000 (29850:112310) — 카드 사이 12, 영역 제목 줄 28
+$section-header-height: 28px;
+
+.grid {
+  display: grid;
+  grid-auto-rows: minmax(0, 1fr);
+  min-width: 0;
+}
+
+.gap8 {
+  gap: t.$space-8;
+}
+
+.gap12 {
+  gap: t.$space-12;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-12;
+  min-width: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+  min-height: $section-header-height;
+}
+
+.sectionTitle {
+  @include m.typography(typo-20-semi-bold);
+
+  margin: 0;
+  color: t.$color-dashboard-title;
+}
+
+.sectionAside {
+  @include m.typography(typo-13-medium);
+
+  color: t.$color-dashboard-meta;
+  white-space: nowrap;
+}

@@ -1,0 +1,149 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// Figma KWPC01010000 RM 리스크 관리 현황(30012:103113) · 영업대행사별 실적 비교(29999:103229)
+$compact-row-gap: 5px;
+$compact-track-width: 100px;
+$compact-track-height: 6px;
+$ranked-rank-width: 16px;
+$ranked-name-width: 110px;
+$ranked-value-width: 76px;
+$ranked-track-height: 9px;
+$ranked-value-gap: 10px; // 막대 ↔ 값
+$ranked-row-radius: 6px;
+$axis-height: 19px;
+
+.list {
+  display: grid;
+  min-width: 0;
+}
+
+.row {
+  display: contents;
+}
+
+.track {
+  position: relative;
+  overflow: hidden;
+  background-color: t.$color-chart-line;
+}
+
+.fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--bar-size);
+  background-color: var(--bar-color);
+  border-radius: inherit;
+}
+
+.value {
+  white-space: nowrap;
+}
+
+// ── compact ──
+.compact {
+  grid-template-columns: minmax(0, 1fr) $compact-track-width max-content;
+  gap: $compact-row-gap t.$space-4;
+  align-items: center;
+
+  .label {
+    @include m.typography(typo-10-medium);
+
+    margin-inline-end: t.$space-8; // 이름 ↔ 막대 12 (열 간격 4 + 8)
+    color: t.$color-text-body;
+  }
+
+  .track {
+    height: $compact-track-height;
+    border-radius: calc(#{$compact-track-height} / 2);
+  }
+
+  .value {
+    @include m.typography(typo-11-bold);
+
+    color: t.$color-text-heading;
+  }
+}
+
+// ── ranked ──
+.ranked {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-4;
+
+  .row {
+    display: grid;
+    flex: 1 1 0;
+    grid-template-columns: $ranked-rank-width $ranked-name-width minmax(0, 1fr) $ranked-value-width;
+    column-gap: t.$space-8;
+    align-items: center;
+    padding: t.$space-8;
+    background-color: t.$color-dashboard-tile-bg;
+    border-radius: $ranked-row-radius;
+  }
+
+  .label {
+    @include m.ellipsis;
+    @include m.typography(typo-12-semi-bold);
+
+    color: t.$color-text-body;
+  }
+
+  .track {
+    height: $ranked-track-height;
+    border-radius: calc(#{$ranked-track-height} / 2);
+  }
+
+  .value {
+    @include m.typography(typo-12-bold);
+
+    margin-inline-start: calc(#{$ranked-value-gap} - #{t.$space-8});
+    color: t.$color-text-heading;
+  }
+}
+
+.rank {
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-chart-text;
+}
+
+.rankFirst {
+  color: t.$color-chart-category-01;
+}
+
+// 축: 단위(순위 · 이름 칸 위) + 막대 칸 위 눈금
+.axis {
+  @include m.typography(typo-10-medium);
+
+  display: grid;
+  grid-template-columns:
+    calc(#{$ranked-rank-width} + #{$ranked-name-width} + #{t.$space-8}) minmax(0, 1fr)
+    $ranked-value-width;
+  column-gap: t.$space-8;
+  align-items: center;
+  height: $axis-height;
+  padding-inline: t.$space-8;
+  color: t.$color-chart-text;
+}
+
+.axisLabel {
+  white-space: nowrap;
+}
+
+.axisTrack {
+  position: relative;
+  height: 100%;
+}
+
+.tick {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--bar-pos);
+  translate: -50% -50%;
+}
+
+.tick:first-child {
+  translate: 0 -50%;
+}

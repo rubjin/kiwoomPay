@@ -1,0 +1,266 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// Figma KWPC01010000 KPI (29893:98334 · 29906:98270 · 29968:98295)
+$kpi-radius: 12px;
+$kpi-status-radius: 10px;
+$kpi-padding: t.$space-12 t.$space-16;
+$kpi-status-padding: t.$space-8 t.$space-16;
+$kpi-header-height: 24px;
+
+// TODO(시안) Figma 텍스트 스타일에 32 Bold가 없어 24 Bold에 크기만 32로 (정산 대상 강조 값)
+$kpi-hero-value-size: 32px;
+$kpi-status-box-padding: t.$space-4 t.$space-12;
+$kpi-status-box-radius: 6px;
+$tile-radius: 6px;
+$tile-link-icon: 14px; // > 아이콘 16을 14로
+$metric-gap-sm: 3px; // 칸 값 ↔ 단위 (시안)
+
+// ── Delta ──
+.delta {
+  @include m.typography(typo-12-semi-bold);
+
+  white-space: nowrap;
+}
+
+.up {
+  color: t.$color-chart-positive;
+}
+
+.down {
+  color: t.$color-chart-negative;
+}
+
+.flat {
+  color: t.$color-dashboard-link;
+}
+
+.caption {
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-dashboard-link;
+  white-space: nowrap;
+}
+
+// ── MetricValue ──
+.metric {
+  display: inline-flex;
+  gap: t.$space-4;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.metricValue {
+  @include m.typography(typo-20-bold);
+
+  color: t.$color-dashboard-value;
+}
+
+.metricUnit {
+  @include m.typography(typo-13-medium);
+
+  color: t.$color-dashboard-link;
+}
+
+.sm {
+  gap: $metric-gap-sm;
+
+  .metricUnit {
+    @include m.typography(typo-12-medium);
+  }
+}
+
+// ── MetricSummary ──
+.summary {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.summaryFoot {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summaryDelta {
+  display: inline-flex;
+  gap: t.$space-4;
+  align-items: center;
+}
+
+.reference {
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-dashboard-meta;
+  white-space: nowrap;
+}
+
+// ── KpiCard ──
+.kpi {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: $kpi-padding;
+  font: inherit;
+  text-align: start;
+  background-color: t.$color-dashboard-card-bg;
+  border: t.$control-border-width solid t.$color-dashboard-card-border;
+  border-radius: $kpi-radius;
+}
+
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    border-color: t.$color-line-default;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.kpiHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $kpi-header-height;
+}
+
+.kpiLabel {
+  @include m.typography(typo-14-medium);
+
+  color: t.$color-dashboard-title;
+}
+
+.chevron {
+  flex: none;
+  color: t.$color-dashboard-link;
+}
+
+.kpiMetric {
+  display: flex;
+  flex: 1 1 auto;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.kpiValue {
+  @include m.typography(typo-24-bold);
+
+  color: t.$color-dashboard-value;
+  white-space: nowrap;
+}
+
+// hero · default: 이름 줄(위) ↔ 값 줄(아래) — 값 줄은 내용 높이
+.hero .kpiMetric,
+.default .kpiMetric {
+  flex: none;
+}
+
+.hero {
+  background-color: t.$color-dashboard-hero-bg;
+  border-color: t.$color-dashboard-hero-border;
+
+  .kpiLabel,
+  .kpiValue {
+    color: t.$color-dashboard-hero-text;
+  }
+
+  .kpiValue {
+    font-size: $kpi-hero-value-size;
+  }
+}
+
+.status {
+  flex-direction: row;
+  gap: t.$space-12;
+  align-items: center;
+  padding: $kpi-status-padding;
+  border-radius: $kpi-status-radius;
+
+  .kpiValue {
+    @include m.typography(typo-20-bold);
+  }
+}
+
+.kpiStatus {
+  @include m.typography(typo-13-semi-bold);
+
+  flex: none;
+  padding: $kpi-status-box-padding;
+  white-space: nowrap;
+  border-radius: $kpi-status-box-radius;
+}
+
+.warning {
+  .kpiStatus {
+    color: t.$color-status-warning-text;
+    background-color: t.$color-status-warning-background;
+  }
+
+  .kpiValue {
+    color: t.$color-status-warning-text;
+  }
+}
+
+.error {
+  .kpiStatus {
+    color: t.$color-status-error-text;
+    background-color: t.$color-status-error-background;
+  }
+
+  .kpiValue {
+    color: t.$color-status-error-text;
+  }
+}
+
+// ── KpiTile ──
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: t.$space-8;
+  font: inherit;
+  text-align: start;
+  background-color: t.$color-dashboard-tile-bg;
+  border: 0;
+  border-radius: $tile-radius;
+}
+
+.tile.clickable:hover {
+  background-color: t.$color-bg-hover;
+}
+
+.tileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tileLabel {
+  @include m.typography(typo-12-medium);
+
+  color: t.$color-dashboard-value;
+}
+
+.tileChevron {
+  width: $tile-link-icon;
+  height: $tile-link-icon;
+  color: t.$color-dashboard-link;
+}
+
+.tileFoot {
+  display: flex;
+  gap: t.$space-8;
+  align-items: flex-end;
+  justify-content: space-between;
+}

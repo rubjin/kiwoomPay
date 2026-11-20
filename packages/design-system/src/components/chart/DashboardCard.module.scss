@@ -1,0 +1,138 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+// Figma KWPC01010000 대시보드 카드 (29850:112276)
+$card-radius: 12px;
+$card-padding: t.$space-12 t.$space-16;
+$card-header-height: 22px;
+$card-link-icon: 14px; // 상세보기 Chevron (아이콘 16을 14로 줄여 그림)
+$card-link-gap: t.$space-4;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: $card-padding;
+  margin: 0;
+  background-color: t.$color-dashboard-card-bg;
+  border: t.$control-border-width solid t.$color-dashboard-card-border;
+  border-radius: $card-radius;
+}
+
+.gap4 {
+  gap: t.$space-4;
+}
+
+.gap8 {
+  gap: t.$space-8;
+}
+
+.gap12 {
+  gap: t.$space-12;
+}
+
+.header {
+  display: flex;
+  gap: t.$space-8;
+  align-items: center;
+  justify-content: space-between;
+  min-height: $card-header-height;
+}
+
+.heading {
+  display: flex;
+  gap: t.$space-4;
+  align-items: center;
+  min-width: 0;
+}
+
+.title {
+  @include m.typography(typo-13-semi-bold);
+
+  margin: 0;
+  color: t.$color-dashboard-title;
+  white-space: nowrap;
+}
+
+.titleMD {
+  @include m.typography(typo-14-semi-bold);
+}
+
+.titleXS {
+  @include m.typography(typo-12-semi-bold);
+}
+
+.period {
+  @include m.typography(typo-11-medium);
+
+  color: t.$color-dashboard-link;
+  white-space: nowrap;
+}
+
+// 제목 옆 기간은 제목과 8 (Figma 영업대행사별 실적 비교)
+.title ~ .period {
+  margin-inline-start: t.$space-4;
+}
+
+.link {
+  @include m.typography(typo-11-medium);
+
+  display: inline-flex;
+  flex: none;
+  gap: $card-link-gap;
+  align-items: center;
+  padding: 0;
+  color: t.$color-dashboard-link;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:hover {
+    color: t.$color-dashboard-title;
+  }
+
+  &:focus-visible {
+    @include m.focus-ring;
+  }
+}
+
+.linkIcon {
+  width: $card-link-icon;
+  height: $card-link-icon;
+}
+
+// split 칸 안 카드
+.bare {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+// 가로 칸 + 칸 사이 세로선 (선 양쪽 16)
+.split {
+  flex-direction: row;
+  gap: t.$space-16;
+
+  > * + * {
+    padding-inline-start: t.$space-16;
+    border-inline-start: t.$control-border-width solid t.$color-dashboard-card-border;
+  }
+
+  > :first-child {
+    flex: none;
+  }
+
+  > :not(:first-child) {
+    flex: 1 1 0;
+  }
+}
